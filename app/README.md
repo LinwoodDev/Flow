@@ -1,6 +1,6 @@
-# flow_app
+# Flow
 
-A new Flutter project.
+> Linwood Flow is a feature rich event and time managment system
 
 ## Getting Started
 
