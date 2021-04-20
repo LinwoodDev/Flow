@@ -1,2 +1,0 @@
-@immutable
-class UserGroup {}
