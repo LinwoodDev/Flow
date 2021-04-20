@@ -27,10 +27,10 @@ class FlowDrawer extends StatelessWidget {
                   ),
                   Image.asset(
                     "images/icon.png",
-                    height: 70,
+                    height: 128,
                   ),
                   SizedBox(
-                    height: 50,
+                    height: 20,
                   ),
                   Text("GuildTitle", style: Theme.of(context).textTheme.headline5),
                   RichText(

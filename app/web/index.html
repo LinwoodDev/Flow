@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -23,10 +24,12 @@
   <meta name="apple-mobile-web-app-title" content="Flow App">
   <link rel="apple-touch-icon" href="/android/android-launchericon-192-192.png">
   <link rel="shortcut icon" type="image/x-icon" href="/android/android-launchericon-192-192.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/chrome/chrome-favicon-16-16.png">
 
   <title>flow_app</title>
   <link rel="manifest" href="manifest.json">
 </head>
+
 <body>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
@@ -34,6 +37,7 @@
   <script>
     var serviceWorkerVersion = null;
     var scriptLoaded = false;
+
     function loadMainDartJs() {
       if (scriptLoaded) {
         return;
@@ -96,4 +100,5 @@
     }
   </script>
 </body>
+
 </html>
