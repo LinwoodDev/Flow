@@ -11,7 +11,7 @@ class User {
   final String displayName;
   final String email;
   final String password;
-  final teachers = IsarLink<UserGroup>();
+  final group = IsarLink<UserGroup>();
 
   User(this.id, {this.name, this.displayName, this.email, this.password});
 
