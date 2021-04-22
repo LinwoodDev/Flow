@@ -19,7 +19,7 @@ class FlowDrawer extends StatelessWidget {
             Container(
                 padding: EdgeInsets.zero,
                 margin: EdgeInsets.zero,
-                height: 250,
+                height: 300,
                 child: DrawerHeader(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                   SizedBox(

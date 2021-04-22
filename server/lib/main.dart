@@ -2,7 +2,7 @@ import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 
-part 'server.g.dart';
+part 'main.g.dart';
 
 class Service {
   // A handler is annotated with @Route.<verb>('<route>'), the '<route>' may
