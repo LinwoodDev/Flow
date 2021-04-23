@@ -5,9 +5,9 @@ import 'series.dart';
 class Event {
   @Id()
   final int id;
-  final String description;
+  final String? description;
   final series = IsarLink<Series>();
-  final EventState state;
+  final EventState? state;
 
   Event(this.id, {this.description, this.state});
 }

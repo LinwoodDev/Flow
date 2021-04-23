@@ -12,6 +12,7 @@ Router _$ServiceRouter(Service service) {
   router.add('GET', r'/user/<userId|[0-9]+>', service._user);
   router.add('GET', r'/wave', service._wave);
   router.mount(r'/api/', service._api);
+  router.mount(r'/session/', service._session);
   router.all(r'/<ignored|.*>', service._notFound);
   return router;
 }
