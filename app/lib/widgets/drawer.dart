@@ -14,29 +14,35 @@ class FlowDrawer extends StatelessWidget {
         right: false,
         child: Drawer(
             child: ListView(padding: EdgeInsets.zero, children: [
+          ExpansionTile(
+              title: Row(children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: CircleAvatar(child: Text("test")),
+                ),
+                Text('Color')
+              ]),
+              children: [
+                Wrap(direction: Axis.horizontal, children: [
+                  IconButton(onPressed: () {}, icon: Icon(Icons.person_outline_outlined)),
+                  IconButton(onPressed: () {}, icon: Icon(Icons.info_outlined)),
+                  IconButton(onPressed: () {}, icon: Icon(Icons.supervisor_account_outlined)),
+                  IconButton(onPressed: () {}, icon: Icon(Icons.settings_outlined)),
+                  IconButton(onPressed: () {}, icon: Icon(Icons.logout_outlined))
+                ])
+              ]),
           Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
               child: Column(children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Image.asset(
-                  "images/icon.png",
-                  height: 128,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text("GuildTitle", style: Theme.of(context).textTheme.headline5),
-                RichText(
-                  text: TextSpan(
-                    style: Theme.of(context).textTheme.bodyText2,
-                    children: <TextSpan>[
-                      TextSpan(text: 'Plan: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                      TextSpan(text: 'Community'),
-                    ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset(
+                    "images/icon.png",
+                    height: 128,
                   ),
                 ),
+                Text("GuildTitle", style: Theme.of(context).textTheme.headline5),
+                Text("URL", style: Theme.of(context).textTheme.bodyText2),
               ])),
           ExpansionTile(
             initiallyExpanded: true,

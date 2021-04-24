@@ -110,7 +110,7 @@ jobs:
           cd server
           mkdir build
           pub get
-          dart compile exe lib/main.dart -v -o build/${{ matrix.output-name }}
+          dart compile exe bin/server.dart -v -o build/${{ matrix.output-name }}
       - uses: actions/upload-artifact@v2
         with:
           name: server-executables

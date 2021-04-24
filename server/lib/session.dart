@@ -9,9 +9,13 @@ part 'session.g.dart';
 class SessionService {
   @Route.post('/register')
   Future<Response> _register(Request request) async {
-    var user = User.fromJson(json.decode(await request.readAsString()));
-    if (user.password == 'test') return Response.ok(user.toJson());
-    return Response.forbidden({'error': 'Password or email is wrong!'});
+    try {
+      var user = User.fromJson(json.decode(await request.readAsString()));
+      if (user.password == 'test') return Response.ok(json.encode(user.toJson()));
+      return Response.forbidden(json.encode({'error': 'Password or email is wrong!'}));
+    } catch (e) {
+      return Response.internalServerError(body: json.encode({'error': e.toString()}));
+    }
   }
 
   @Route.post('/login')
