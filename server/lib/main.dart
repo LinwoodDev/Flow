@@ -1,3 +1,4 @@
+import 'package:flow_server/session.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
@@ -28,6 +29,8 @@ class Service {
   // Other routers can be mounted...
   @Route.mount('/api/')
   Router get _api => Api().router;
+  @Route.mount('/session/')
+  Router get _session => SessionService().router;
 
   // You can catch all verbs and use a URL-parameter with a regular expression
   // that matches everything to catch app.

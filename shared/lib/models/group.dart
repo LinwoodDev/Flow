@@ -7,9 +7,9 @@ import 'package:shared/models/user.dart';
 class UserGroup {
   @Id()
   final int id;
-  final String name;
-  final String description;
-  final int color;
+  final String? name;
+  final String? description;
+  final int? color;
   final users = IsarLinks<User>();
 
   UserGroup(this.id, {this.name, this.description, this.color});
