@@ -14,7 +14,7 @@ class SessionService {
     return Response.forbidden({'error': 'Password or email is wrong!'});
   }
 
-  @Route.post("/login")
+  @Route.post('/login')
   Future<Response> _login(Request request) async {
     var user = User.fromJson(json.decode(await request.readAsString()));
     return Response.ok(user);
