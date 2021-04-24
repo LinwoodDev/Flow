@@ -9,4 +9,4 @@ build/
 doc/api/
 
 # Compiled
-bin/server.exe
+bin/main.exe
