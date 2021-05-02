@@ -9,4 +9,4 @@ build/
 doc/api/
 
 # Compiled
-bin/main.exe
+bin/flow_server.exe
