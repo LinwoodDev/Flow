@@ -1,4 +1,4 @@
-package com.example.app
+package com.github.linwoodcloud.flow
 
 import io.flutter.embedding.android.FlutterActivity
 
