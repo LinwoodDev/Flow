@@ -44,12 +44,12 @@ class UserStateConverter extends TypeConverter<UserState, int> {
   const UserStateConverter(); // Converters need to have an empty const constructor
 
   @override
-  UserState fromIsar(int relationshipIndex) {
-    return UserState.values[relationshipIndex];
+  UserState fromIsar(int index) {
+    return UserState.values[index];
   }
 
   @override
-  int toIsar(UserState relationship) {
-    return relationship.index;
+  int toIsar(UserState state) {
+    return state.index;
   }
 }

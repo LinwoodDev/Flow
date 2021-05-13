@@ -30,17 +30,17 @@ class FlowDrawer extends StatelessWidget {
       ListTile(
           leading: const Icon(Icons.home_outlined),
           title: const Text("Home"),
-          onTap: () async {},
+          onTap: () => Modular.to.navigate("/"),
           selected: page == RoutePages.home),
       ListTile(
           leading: const Icon(Icons.people_outline_outlined),
           title: const Text("Teams"),
-          onTap: () async {},
+          onTap: () => Modular.to.navigate("/teams"),
           selected: page == RoutePages.teams),
       ListTile(
           leading: const Icon(Icons.event_outlined),
           title: const Text("Events"),
-          onTap: () async {},
+          onTap: () => Modular.to.navigate("/events"),
           selected: page == RoutePages.events),
       ExpansionTile(title: Text('Settings'), initiallyExpanded: true, children: <Widget>[
         Padding(
@@ -51,18 +51,18 @@ class FlowDrawer extends StatelessWidget {
                   ListTile(
                       leading: const Icon(Icons.build_outlined),
                       title: const Text("General"),
-                      onTap: () => Modular.to.pushNamed("/settings"),
+                      onTap: () => Modular.to.navigate("/settings"),
                       selected: page == RoutePages.general),
                   ListTile(
                     leading: const Icon(Icons.format_list_bulleted_outlined),
                     title: const Text("Servers"),
-                    onTap: () async {},
+                    onTap: () => Modular.to.navigate("/settings/servers"),
                     selected: page == RoutePages.servers,
                   ),
                   ListTile(
                       leading: const Icon(Icons.tune_outlined),
                       title: const Text("Personalization"),
-                      onTap: () async {},
+                      onTap: () => Modular.to.navigate("/settings/personalization"),
                       selected: page == RoutePages.personalization)
                 ])))
       ])

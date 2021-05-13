@@ -1,5 +1,4 @@
 // app_module.dart
-import 'package:flow_app/session/module.dart';
 import 'package:flow_app/settings/general.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 

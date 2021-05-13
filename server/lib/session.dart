@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:shared/models/user.dart';
+import 'package:shared/user.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf/shelf.dart';
 
