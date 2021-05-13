@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-enum RoutePages { home, teams, events, general, servers, personalization }
+enum RoutePages { home, teams, events, general, servers, appearance }
 
 class FlowDrawer extends StatelessWidget {
   final RoutePages? page;
@@ -61,9 +61,9 @@ class FlowDrawer extends StatelessWidget {
                   ),
                   ListTile(
                       leading: const Icon(Icons.tune_outlined),
-                      title: const Text("Personalization"),
-                      onTap: () => Modular.to.navigate("/settings/personalization"),
-                      selected: page == RoutePages.personalization)
+                      title: const Text("Appearance"),
+                      onTap: () => Modular.to.navigate("/settings/appearance"),
+                      selected: page == RoutePages.appearance)
                 ])))
       ])
     ])));

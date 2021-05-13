@@ -1,6 +1,9 @@
 // app_module.dart
-import 'package:flow_app/settings/general.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import 'appearance.dart';
+import 'general.dart';
+import 'servers.dart';
 
 class SettingsModule extends Module {
   // Provide a list of dependencies to inject into your project
@@ -11,5 +14,7 @@ class SettingsModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ChildRoute('/', child: (_, __) => GeneralSettingsPage()),
+    ChildRoute('/appearance', child: (_, __) => AppearanceSettingsPage()),
+    ChildRoute('/servers', child: (_, __) => ServersSettingsPage())
   ];
 }

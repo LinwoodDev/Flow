@@ -2,28 +2,41 @@ import 'package:flow_app/session/connect.dart';
 import 'package:flow_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class AppWidget extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     Color color = Color.fromRGBO(124, 77, 255, 1);
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: createMaterialColor(color),
-      ),
-      home: ConnectPage(),
-    ).modular();
+    return ValueListenableBuilder(
+        valueListenable: Hive.box('appearance').listenable(),
+        builder: (context, dynamic box, widget) {
+          return MaterialApp(
+            title: 'Flutter Demo',
+            themeMode: ThemeMode.values[box.get('theme', defaultValue: 0)],
+            theme: ThemeData(
+                // This is the theme of your application.
+                //
+                // Try running your application with "flutter run". You'll see the
+                // application has a blue toolbar. Then, without quitting the app, try
+                // changing the primarySwatch below to Colors.green and then invoke
+                // "hot reload" (press "r" in the console where you ran "flutter run",
+                // or simply save your changes to "hot reload" in a Flutter IDE).
+                // Notice that the counter didn't reset back to zero; the application
+                // is not restarted.
+                primarySwatch: createMaterialColor(color),
+                accentColor: Color(0xFFd54dff),
+                visualDensity: VisualDensity.adaptivePlatformDensity),
+            darkTheme: ThemeData(
+                brightness: Brightness.dark,
+                primarySwatch: createMaterialColor(color),
+                accentColor: Color(0xFFd54dff),
+                visualDensity: VisualDensity.adaptivePlatformDensity),
+            home: ConnectPage(),
+          ).modular();
+        });
   }
 
   MaterialColor createMaterialColor(Color color) {

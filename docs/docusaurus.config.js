@@ -11,9 +11,9 @@ module.exports = {
   projectName: 'Flow', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'My Site',
+      title: 'Linwood Flow',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'Linwood Flow Logo',
         src: 'img/logo.svg',
       },
       items: [
