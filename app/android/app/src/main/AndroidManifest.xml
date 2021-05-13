@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flow_app">
+    package="com.github.linwoodcloud.flow">
    <application
         android:label="flow_app"
         android:icon="@mipmap/ic_launcher">
