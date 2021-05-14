@@ -9,7 +9,7 @@ environment:
 dependencies:
   shared:
     path: ../shared
-  shelf: ^1.1.2
+  shelf: ^1.1.4
 #  path: ^1.7.0
 dev_dependencies:
   shelf_router_generator: ^1.0.0

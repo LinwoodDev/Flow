@@ -11,7 +11,10 @@ class Service {
   // Handlers can be asynchronous (returning `FutureOr` is also allowed).
   @Route.get('/')
   Future<Response> _info(Request request) async {
-    return Response.ok(json.encode({'name': 'linwood-flow'}));
+    return Response.ok(json.encode({
+      'name': 'linwood-flow',
+      'applications': ['events', 'groups', 'dev-doctor']
+    }));
   }
 
   @Route.mount('/session/')

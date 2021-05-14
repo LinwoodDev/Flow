@@ -9,9 +9,9 @@ class ServersSettingsPage extends StatefulWidget {
 class _ServersSettingsPageState extends State<ServersSettingsPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        drawer: FlowDrawer(page: RoutePages.servers),
-        appBar: AppBar(title: Text("Servers")),
+    return FlowScaffold(
+        page: RoutePages.servers,
+        pageTitle: "Servers",
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () {}, label: Text("Add server"), icon: Icon(Icons.add_outlined)),
         body: ListView.builder(
