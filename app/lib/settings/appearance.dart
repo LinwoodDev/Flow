@@ -8,9 +8,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 class AppearanceSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text("Appearance")),
-        drawer: FlowDrawer(page: RoutePages.appearance),
+    return FlowScaffold(
+        pageTitle: "Appearance",
+        page: RoutePages.appearance,
         body: ValueListenableBuilder(
             valueListenable: Hive.box('appearance').listenable(),
             builder: (context, Box<dynamic> box, _) {

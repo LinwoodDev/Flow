@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.github.linwoodcloud.flow">
    <application
-        android:label="flow_app"
+        android:label="Linwood Flow"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

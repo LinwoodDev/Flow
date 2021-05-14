@@ -14,9 +14,10 @@ class AppWidget extends StatelessWidget {
         valueListenable: Hive.box('appearance').listenable(),
         builder: (context, dynamic box, widget) {
           return MaterialApp(
-            title: 'Flutter Demo',
+            title: 'Linwood Flow',
             themeMode: ThemeMode.values[box.get('theme', defaultValue: 0)],
             theme: ThemeData(
+                fontFamily: "Comfortaa",
                 // This is the theme of your application.
                 //
                 // Try running your application with "flutter run". You'll see the
@@ -30,6 +31,7 @@ class AppWidget extends StatelessWidget {
                 accentColor: Color(0xFFd54dff),
                 visualDensity: VisualDensity.adaptivePlatformDensity),
             darkTheme: ThemeData(
+                fontFamily: "Comfortaa",
                 brightness: Brightness.dark,
                 primarySwatch: createMaterialColor(color),
                 accentColor: Color(0xFFd54dff),
@@ -98,13 +100,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text("Home"),
-      ),
-      drawer: FlowDrawer(page: RoutePages.home),
+    return FlowScaffold(
+      pageTitle: "Home",
+      page: RoutePages.home,
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.

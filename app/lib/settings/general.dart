@@ -10,9 +10,9 @@ class GeneralSettingsPage extends StatefulWidget {
 class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        drawer: FlowDrawer(page: RoutePages.general),
-        appBar: AppBar(title: Text("General settings")),
+    return FlowScaffold(
+        page: RoutePages.general,
+        pageTitle: "General settings",
         body: SingleChildScrollView(
             child: Column(children: [
           ListTile(
