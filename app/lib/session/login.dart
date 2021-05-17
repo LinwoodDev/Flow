@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -6,8 +7,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool serverExists = false;
-  TextEditingController _urlController = TextEditingController();
+  late String url;
+  late TextEditingController _urlController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    url = Modular.args?.queryParams['url'] ?? "";
+    _urlController = TextEditingController(text: url);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,43 +31,27 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 TextField(
                     controller: _urlController,
-                    readOnly: serverExists,
+                    readOnly: true,
                     keyboardType: TextInputType.url,
                     decoration: InputDecoration(
                         labelText: "URL",
                         hintText: "https://example.com",
-                        suffixIcon: serverExists
-                            ? IconButton(
-                                icon: Icon(Icons.close_outlined),
-                                onPressed: () {
-                                  setState(() {
-                                    serverExists = false;
-                                    _urlController.text = "";
-                                  });
-                                })
-                            : null,
                         prefixIcon: Icon(Icons.link_outlined))),
-                if (serverExists) ...[
-                  SizedBox(height: 50),
-                  TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
+                SizedBox(height: 50),
+                TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
                         labelText: "Email",
                         hintText: "email@example.com",
-                        prefixIcon: Icon(Icons.email_outlined),
-                      )),
-                  TextFormField(
-                      decoration: InputDecoration(
-                          labelText: "Password", prefixIcon: Icon(Icons.lock_outlined)))
-                ]
+                        prefixIcon: Icon(Icons.email_outlined))),
+                TextFormField(
+                    decoration: InputDecoration(
+                        labelText: "Password", prefixIcon: Icon(Icons.lock_outlined)))
               ],
             ),
           ))),
         )),
-        floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.check_outlined),
-            onPressed: () {
-              setState(() => serverExists = !serverExists);
-            }));
+        floatingActionButton:
+            FloatingActionButton(child: Icon(Icons.check_outlined), onPressed: () {}));
   }
 }

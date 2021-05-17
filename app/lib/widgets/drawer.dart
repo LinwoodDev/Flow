@@ -37,17 +37,17 @@ class FlowDrawer extends StatelessWidget {
             ListTile(
                 leading: const Icon(Icons.home_outlined),
                 title: const Text("Home"),
-                onTap: () => Modular.to.navigate("/"),
+                onTap: () => Modular.to.pushReplacementNamed("/"),
                 selected: page == RoutePages.home),
             ListTile(
                 leading: const Icon(Icons.people_outline_outlined),
                 title: const Text("Teams"),
-                onTap: () => Modular.to.navigate("/teams"),
+                onTap: () => Modular.to.pushReplacementNamed("/teams"),
                 selected: page == RoutePages.teams),
             ListTile(
                 leading: const Icon(Icons.event_outlined),
                 title: const Text("Events"),
-                onTap: () => Modular.to.navigate("/events"),
+                onTap: () => Modular.to.pushReplacementNamed("/events"),
                 selected: page == RoutePages.events),
             ExpansionTile(title: Text('Settings'), initiallyExpanded: true, children: <Widget>[
               Padding(
@@ -58,18 +58,17 @@ class FlowDrawer extends StatelessWidget {
                         ListTile(
                             leading: const Icon(Icons.build_outlined),
                             title: const Text("General"),
-                            onTap: () => Modular.to.navigate("/settings"),
+                            onTap: () => Modular.to.pushReplacementNamed("/settings"),
                             selected: page == RoutePages.general),
                         ListTile(
-                          leading: const Icon(Icons.format_list_bulleted_outlined),
-                          title: const Text("Servers"),
-                          onTap: () => Modular.to.navigate("/settings/servers"),
-                          selected: page == RoutePages.servers,
-                        ),
+                            leading: const Icon(Icons.format_list_bulleted_outlined),
+                            title: const Text("Servers"),
+                            onTap: () => Modular.to.pushReplacementNamed("/settings/servers"),
+                            selected: page == RoutePages.servers),
                         ListTile(
                             leading: const Icon(Icons.tune_outlined),
                             title: const Text("Appearance"),
-                            onTap: () => Modular.to.navigate("/settings/appearance"),
+                            onTap: () => Modular.to.pushReplacementNamed("/settings/appearance"),
                             selected: page == RoutePages.appearance)
                       ])))
             ])

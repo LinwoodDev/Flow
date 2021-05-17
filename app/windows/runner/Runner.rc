@@ -90,7 +90,7 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.github.linwoodcloud" "\0"
-            VALUE "FileDescription", "Linwood Flow is a feature rich event and time managment system" "\0"
+            VALUE "FileDescription", "Linwood Flow" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "Linwood Flow" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2021 com.github.linwoodcloud.flow. All rights reserved." "\0"
