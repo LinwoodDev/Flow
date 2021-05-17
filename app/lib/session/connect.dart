@@ -28,17 +28,20 @@ class _ConnectPageState extends State<ConnectPage> {
                   ])))),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.check_outlined),
-          onPressed: () {
-            Modular.to.pushNamed(Uri(
-                pathSegments: ["", "session", "login"],
-                queryParameters: {"url": _urlController.text}).toString());
+          onPressed: () async {
+            try {
+              var url = Uri.parse(_urlController.text);
+
+              var response = await http.get(url);
+              var data = json.decode(response.body);
+              if (data['application'] == "Linwood-Flow")
+                Modular.to.pushNamed(Uri(
+                    pathSegments: ["", "session", "login"],
+                    queryParameters: {"url": _urlController.text}).toString());
+            } catch (e) {
+              print("Error: $e");
+            }
           }),
     );
   }
-}
-
-Future<bool> connect(String host) async {
-  var response = await http.get(Uri.https(host, ""));
-  var data = json.decode(response.body);
-  return data['application'] == "Linwood-Flow";
 }
