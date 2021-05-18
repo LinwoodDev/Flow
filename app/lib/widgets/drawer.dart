@@ -27,7 +27,7 @@ class FlowDrawer extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Image.asset(
-                      "images/icon.png",
+                      "images/logo.png",
                       height: 128,
                     ),
                   ),

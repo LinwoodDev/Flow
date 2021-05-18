@@ -47,7 +47,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
               leading: Icon(Icons.info_outline),
               title: Text("About"),
               onTap: () => showAboutDialog(
-                  context: context, applicationIcon: Image.asset("images/icon.png", height: 50))),
+                  context: context, applicationIcon: Image.asset("images/logo.png", height: 50))),
         ])));
   }
 }
