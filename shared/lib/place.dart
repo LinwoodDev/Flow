@@ -1,14 +1,13 @@
-import 'package:isar/isar.dart';
+import 'package:meta/meta.dart';
 
+@immutable
 class Place {
-  @Id()
-  late int id = 0;
-  late String name;
+  final int? id;
+  final String name;
 
-  Place();
-  Place.fromValue({required this.name});
+  Place(this.name, {this.id});
   Place.fromJson(Map<String, dynamic> json)
-      : id = json['id'] ?? 0,
+      : id = json['id'],
         name = json['name'];
 
   Map<String, dynamic> toJson() => {'id': id, 'name': name};

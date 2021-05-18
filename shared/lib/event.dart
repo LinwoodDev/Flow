@@ -1,37 +1,25 @@
-import 'package:isar/isar.dart';
 import 'series.dart';
 
-@Collection()
+import 'package:meta/meta.dart';
+
+@immutable
 class Event {
-  @Id()
-  int? id = 0;
-  late String description = '';
-  final series = IsarLink<Series>();
-  @EventStateConverter()
-  late EventState state;
+  final int? id;
+  final String name;
+  final String description;
+  final Series? series;
+  final EventState state;
+  Event(this.name, {this.description = '', this.id, this.series, this.state = EventState.planned});
 
-  Event();
-  Event.fromValue({this.description = '', this.state = EventState.draft});
   Event.fromJson(Map<String, dynamic> json)
-      : id = json['id'] ?? 0,
+      : name = json['name'],
+        id = json['id'],
         description = json['description'] ?? '',
-        state = EventState.values[json['state'] ?? 0];
+        state = EventState.values[json['state'] ?? 0],
+        series = Series.fromJson(json['series']);
 
-  Map<String, dynamic> toJson() => {'id': id, 'description': description, 'state': state.index};
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'description': description, 'state': state.index, 'series': series?.toJson()};
 }
 
 enum EventState { draft, planned, canceled }
-
-class EventStateConverter extends TypeConverter<EventState, int> {
-  const EventStateConverter(); // Converters need to have an empty const constructor
-
-  @override
-  EventState fromIsar(int index) {
-    return EventState.values[index];
-  }
-
-  @override
-  int toIsar(EventState state) {
-    return state.index;
-  }
-}

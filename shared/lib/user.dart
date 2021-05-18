@@ -1,55 +1,37 @@
-import 'package:isar/isar.dart';
+import 'package:meta/meta.dart';
 
-import 'group.dart';
-
-@Collection()
+@immutable
 class User {
-  int? id;
-  late String name;
-  late String? displayName;
-  late String email = '';
-  late String password = '';
-  @UserStateConverter()
-  late UserState state;
-  final group = IsarLink<UserGroup>();
+  final int? id;
+  final String name;
+  final String displayName;
+  final String email;
+  final String password;
+  final UserState state;
 
-  User();
-  User.fromValue(
-      {this.name = '',
-      this.displayName,
+  User(this.name,
+      {String? displayName,
+      this.id,
       required this.email,
       this.password = '',
-      this.state = UserState.active});
+      this.state = UserState.active})
+      : displayName = displayName ?? name;
 
-  User copyWith({String? name, String? displayName, String? email, String? password}) => User()
-    ..name = name ?? this.name
-    ..displayName = displayName ?? this.displayName
-    ..email = email ?? this.email
-    ..password = password ?? this.password;
+  User copyWith({String? name, String? displayName, String? email, String? password}) =>
+      User(name ?? this.name,
+          displayName: displayName ?? this.displayName,
+          email: email ?? this.email,
+          password: password ?? this.password);
 
   User.fromJson(Map<String, dynamic> json)
-      : name = json['name'] ?? '',
+      : id = json['id'],
+        name = json['name'] ?? '',
         displayName = json['display-name'],
         email = json['email'] ?? '',
         password = json['password'] ?? '',
         state = UserState.active;
 
-  Map<String, dynamic> toJson() =>
-      {'name': name, 'display-name': displayName ?? name, 'email': email};
+  Map<String, dynamic> toJson() => {'name': name, 'display-name': displayName, 'email': email};
 }
 
 enum UserState { confirm, active, punished }
-
-class UserStateConverter extends TypeConverter<UserState, int> {
-  const UserStateConverter(); // Converters need to have an empty const constructor
-
-  @override
-  UserState fromIsar(int index) {
-    return UserState.values[index];
-  }
-
-  @override
-  int toIsar(UserState state) {
-    return state.index;
-  }
-}

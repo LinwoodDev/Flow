@@ -1,19 +1,15 @@
-import 'package:isar/isar.dart';
-import 'user.dart';
+import 'package:meta/meta.dart';
 
-@Collection()
+@immutable
 class UserGroup {
-  @Id()
-  late int id = 0;
-  late String name;
-  late String description = '';
-  late int? color;
-  final users = IsarLinks<User>();
+  final int? id;
+  final String name;
+  final String description;
+  final int? color;
 
-  UserGroup();
-  UserGroup.fromValue(this.id, {required this.name, this.description = '', this.color});
+  UserGroup(this.name, {this.id, this.description = '', this.color});
   UserGroup.fromJson(Map<String, dynamic> json)
-      : id = json['id'] ?? 0,
+      : id = json['id'],
         name = json['name'],
         description = json['description'] ?? '',
         color = json['color'];

@@ -1,21 +1,19 @@
-import 'package:isar/isar.dart';
+import 'package:meta/meta.dart';
 
+@immutable
 class Server {
-  @Id()
-  late int id = 0;
-  late String? address;
-  late String? accessToken;
-  late String? username;
-  late String? refreshToken;
+  final int id;
+  final String? address;
+  final String? accessToken;
+  final String? username;
+  final String? refreshToken;
 
-  Server();
-  Server.fromValue(this.id, {this.address, this.accessToken, this.username, this.refreshToken});
+  Server(this.id, {this.address, this.accessToken, this.username, this.refreshToken});
 
   Server copyWith({String? address, String? accessToken, String? username, String? refreshToken}) =>
-      Server()
-        ..id = id
-        ..accessToken = accessToken ?? this.accessToken
-        ..address = address ?? this.address
-        ..refreshToken = refreshToken ?? this.refreshToken
-        ..username = username ?? this.username;
+      Server(id,
+          accessToken: accessToken ?? this.accessToken,
+          address: address ?? this.address,
+          refreshToken: refreshToken ?? this.refreshToken,
+          username: username ?? this.username);
 }

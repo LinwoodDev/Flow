@@ -1,16 +1,13 @@
-import 'package:isar/isar.dart';
+import 'package:meta/meta.dart';
 
-@Collection()
+@immutable
 class Series {
-  @Id()
-  late int id = 0;
-  late String name;
-  late int? color;
-  late String description = '';
+  final int? id;
+  final String name;
+  final int? color;
+  final String description;
 
-  Series();
-
-  Series.fromValue({this.description = '', this.color, required this.name});
+  Series(this.name, {this.description = '', this.color, this.id});
 
   Series.fromJson(Map<String, dynamic> json)
       : id = json['id'],

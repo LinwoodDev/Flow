@@ -8,7 +8,9 @@ include: package:pedantic/analysis_options.yaml
 # linter:
 #   rules:
 #     - camel_case_types
-
-analyzer:
 #   exclude:
 #     - path/to/excluded/files/**
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
