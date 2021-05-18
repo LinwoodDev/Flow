@@ -2,7 +2,7 @@ import 'package:flow_app/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-enum RoutePages { home, teams, events, general, servers, appearance }
+enum RoutePages { home, teams, events, general, servers, appearance, roles, properties }
 
 class FlowDrawer extends StatelessWidget {
   final RoutePages? page;
@@ -69,7 +69,17 @@ class FlowDrawer extends StatelessWidget {
                             leading: const Icon(Icons.tune_outlined),
                             title: const Text("Appearance"),
                             onTap: () => Modular.to.pushReplacementNamed("/settings/appearance"),
-                            selected: page == RoutePages.appearance)
+                            selected: page == RoutePages.appearance),
+                        ListTile(
+                            leading: const Icon(Icons.group_outlined),
+                            title: const Text("Roles"),
+                            onTap: () => Modular.to.pushReplacementNamed("/settings/roles"),
+                            selected: page == RoutePages.roles),
+                        ListTile(
+                            leading: const Icon(Icons.settings_outlined),
+                            title: const Text("Properties"),
+                            onTap: () => Modular.to.pushReplacementNamed("/settings/properties"),
+                            selected: page == RoutePages.properties)
                       ])))
             ])
           ]))),

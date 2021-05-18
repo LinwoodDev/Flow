@@ -25,7 +25,7 @@ class ResponsiveScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool displayMobileLayout = MediaQuery.of(context).size.width < 600;
+    final bool displayMobileLayout = MediaQuery.of(context).size.width < 768;
     return Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       if (!displayMobileLayout) desktopDrawer,
       Expanded(
