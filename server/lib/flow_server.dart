@@ -12,8 +12,8 @@ class Service {
   @Route.get('/')
   Future<Response> _info(Request request) async {
     return Response.ok(json.encode({
-      'name': 'linwood-flow',
-      'applications': ['events', 'groups', 'dev-doctor']
+      'name': 'Linwood-Flow',
+      'applications': ['events', 'teams', 'dev-doctor']
     }));
   }
 

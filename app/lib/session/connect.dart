@@ -34,7 +34,7 @@ class _ConnectPageState extends State<ConnectPage> {
 
               var response = await http.get(url);
               var data = json.decode(response.body);
-              if (data['application'] == "Linwood-Flow")
+              if (data['name'] == "Linwood-Flow")
                 Modular.to.pushNamed(Uri(
                     pathSegments: ["", "session", "login"],
                     queryParameters: {"url": _urlController.text}).toString());
