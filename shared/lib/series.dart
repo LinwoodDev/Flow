@@ -16,4 +16,10 @@ class Series {
         description = json['description'] ?? '';
   Map<String, dynamic> toJson() =>
       {'id': id, 'name': name, 'color': color, 'description': description};
+
+  Series copyWith({String? name, String? description, int? color, bool removeColor = false}) =>
+      Series(name ?? this.name,
+          description: description ?? this.description,
+          id: id,
+          color: removeColor ? null : color ?? this.color);
 }

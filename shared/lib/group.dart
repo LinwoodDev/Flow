@@ -15,4 +15,9 @@ class UserGroup {
         color = json['color'];
   Map<String, dynamic> toJson() =>
       {'id': id, 'name': name, 'description': description, 'color': color};
+  UserGroup copyWith({String? name, String? description, int? color, bool removeColor = false}) =>
+      UserGroup(name ?? this.name,
+          description: description ?? this.description,
+          id: id,
+          color: removeColor ? null : color ?? this.color);
 }

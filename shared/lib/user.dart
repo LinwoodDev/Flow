@@ -17,8 +17,11 @@ class User {
       this.state = UserState.active})
       : displayName = displayName ?? name;
 
-  User copyWith({String? name, String? displayName, String? email, String? password}) =>
+  User copyWith(
+          {String? name, String? displayName, String? email, String? password, UserState? state}) =>
       User(name ?? this.name,
+          id: id,
+          state: state ?? this.state,
           displayName: displayName ?? this.displayName,
           email: email ?? this.email,
           password: password ?? this.password);
