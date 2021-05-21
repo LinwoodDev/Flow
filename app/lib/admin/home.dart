@@ -2,17 +2,17 @@ import 'package:flow_app/widgets/drawer.dart';
 import 'package:flow_app/widgets/server.dart';
 import 'package:flutter/material.dart';
 
-class PropertiesSettingsPage extends StatefulWidget {
+class AdminPage extends StatefulWidget {
   @override
-  _PropertiesSettingsPageState createState() => _PropertiesSettingsPageState();
+  _AdminPageState createState() => _AdminPageState();
 }
 
-class _PropertiesSettingsPageState extends State<PropertiesSettingsPage> {
+class _AdminPageState extends State<AdminPage> {
   @override
   Widget build(BuildContext context) {
     return FlowScaffold(
-        pageTitle: "Properties",
-        page: RoutePages.properties,
+        pageTitle: "Admin Dashboard",
+        page: RoutePages.admin,
         body: ServerView(
             builder: (server) => Align(
                 alignment: Alignment.centerLeft,
