@@ -24,7 +24,7 @@ class _ServerViewState extends State<ServerView> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [
+    return Column(children: [
       Card(
           child: Align(
               alignment: Alignment.centerRight,
@@ -42,9 +42,8 @@ class _ServerViewState extends State<ServerView> {
       if (server != null)
         Card(
             child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
-          child: widget.builder(server!),
-        ))
+                padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
+                child: widget.builder(server!)))
     ]);
   }
 }

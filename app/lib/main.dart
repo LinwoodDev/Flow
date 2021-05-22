@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'database.dart'
     if (dart.library.html) 'database_web.dart'
     if (dart.library.io) 'database_native.dart';
+import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 
 import 'app_module.dart';
 import 'app_widget.dart';
@@ -13,8 +14,11 @@ import 'app_widget.dart';
 final getIt = GetIt.instance;
 
 Future<void> main() async {
-  await Hive.initFlutter();
+  await Hive.initFlutter("linwood-flow");
   await Hive.openBox('appearance');
+  await Hive.openBox<String>('servers');
+
+  setup();
 
   getIt.registerSingleton(constructDb());
 

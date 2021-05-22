@@ -1,7 +1,7 @@
 import 'package:flow_app/widgets/date.dart';
-import 'package:flow_app/widgets/drawer.dart';
 import 'package:flow_app/widgets/time.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class CreateEventPage extends StatefulWidget {
   @override
@@ -9,6 +9,8 @@ class CreateEventPage extends StatefulWidget {
 }
 
 class _CreateEventPageState extends State<CreateEventPage> {
+  String? server = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,8 +18,18 @@ class _CreateEventPageState extends State<CreateEventPage> {
             child: Align(
           alignment: Alignment.topLeft,
           child: Container(
-              constraints: BoxConstraints(maxHeight: 500),
+              constraints: BoxConstraints(maxWidth: 500),
               child: Column(children: [
+                DropdownButtonFormField<String>(
+                    value: server,
+                    decoration: InputDecoration(labelText: "Server"),
+                    onChanged: (value) => setState(() => server = value),
+                    items: [
+                      ...Hive.box<String>('servers')
+                          .values
+                          .map((e) => DropdownMenuItem(child: Text(e), value: e)),
+                      DropdownMenuItem(child: Text("Local"), value: "")
+                    ]),
                 TextField(decoration: InputDecoration(labelText: "Name")),
                 TextField(
                     decoration: InputDecoration(labelText: "Description"),

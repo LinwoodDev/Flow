@@ -15,15 +15,14 @@ class TimeInputField extends StatefulWidget {
 }
 
 class _TimeInputFieldState extends State<TimeInputField> {
-  late TextEditingController _textController;
+  final TextEditingController _textController = TextEditingController();
   final textFieldFocusNode = FocusNode();
   TimeOfDay? currentTime;
 
   @override
   void initState() {
     super.initState();
-
-    _textController = TextEditingController(text: widget.initialTime.toString());
+    Future.delayed(Duration.zero, () => _textController.text = widget.initialTime.format(context));
     currentTime = widget.initialTime;
   }
 

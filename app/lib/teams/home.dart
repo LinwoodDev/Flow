@@ -13,10 +13,14 @@ class _TeamsPageState extends State<TeamsPage> {
     return FlowScaffold(
         page: RoutePages.teams,
         floatingActionButton: FloatingActionButton.extended(
-            label: Text("Create role"), icon: Icon(Icons.add_outlined), onPressed: () {}),
+            label: Text("Create team"), icon: Icon(Icons.add_outlined), onPressed: () {}),
         body: ServerView(
-            builder: (server) => Column(
-                children: List.generate(
-                    10, (index) => ListTile(title: Text((index + 1).toString()), onTap: () {})))));
+            builder: (server) => Scrollbar(
+                child: SingleChildScrollView(
+                    child: Column(
+                        children: List.generate(
+                            10,
+                            (index) =>
+                                ListTile(title: Text((index + 1).toString()), onTap: () {})))))));
   }
 }

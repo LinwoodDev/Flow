@@ -30,7 +30,7 @@ module.exports = {
         },
         {href: 'https://linwood.tk/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/LinwoodCloud/Flow',
           label: 'GitHub',
           position: 'right',
         },
@@ -40,41 +40,54 @@ module.exports = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Tutorial',
-              to: '/docs/intro',
-            },
-          ],
-        },
-        {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
               label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
+              href: 'https://discord.linwood.tk',
             },
             {
               label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              href: 'https://twitter.com/LinwoodCloud',
             },
           ],
         },
         {
-          title: 'More',
+          title: 'Source code',
           items: [
             {
-              label: 'GitHub',
-              href: 'https://github.com/LinwoodCloud/Flow',
+              label: 'App',
+              href: 'https://github.com/LinwoodCloud/Flow/tree/develop/app',
             },
+            {
+              label: 'Server',
+              href: 'https://github.com/LinwoodCloud/Flow/tree/develop/server',
+            },
+            {
+              label: 'Docs',
+              href: 'https://github.com/LinwoodCloud/Flow/tree/develop/docs',
+            },
+            {
+              label: 'Shared',
+              href: 'https://github.com/LinwoodCloud/Flow/tree/develop/shared',
+            }
           ],
         },
+        {
+          title: 'Legal',
+          items: [
+            {
+              label: 'Imprint',
+              to: 'https://codedoctor.tk/impress',
+            },
+            {
+              label: 'Privacy Policy',
+              href: 'https://codedoctor.tk/privacy',
+            },
+          ],
+        }
       ],
+      // Please do not remove the credits, help to publicize Docusaurus :)
       copyright: `Copyright © ${new Date().getFullYear()} LinwoodCloud.`,
     },
   },
