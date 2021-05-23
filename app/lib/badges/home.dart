@@ -3,22 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class TeamsPage extends StatefulWidget {
+class BadgesPage extends StatefulWidget {
   @override
-  _TeamsPageState createState() => _TeamsPageState();
+  _BadgesPageState createState() => _BadgesPageState();
 }
 
-class _TeamsPageState extends State<TeamsPage> {
+class _BadgesPageState extends State<BadgesPage> {
   @override
   Widget build(BuildContext context) {
     return FlowScaffold(
-        page: RoutePages.teams,
-        pageTitle: "Teams",
+        page: RoutePages.badges,
+        pageTitle: "Badges",
         actions: [IconButton(onPressed: () {}, icon: Icon(PhosphorIcons.funnelLight))],
         floatingActionButton: FloatingActionButton.extended(
-            label: Text("Create team"),
+            label: Text("Create badge"),
             icon: Icon(PhosphorIcons.plusLight),
-            onPressed: () => Modular.to.pushNamed("/teams/create")),
+            onPressed: () => Modular.to.pushNamed("/badges/create")),
         body: Scrollbar(
             child: SingleChildScrollView(
                 child: Column(

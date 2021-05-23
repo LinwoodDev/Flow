@@ -12,12 +12,17 @@ class _EventsPageState extends State<EventsPage> {
   @override
   Widget build(BuildContext context) {
     return FlowScaffold(
-        pageTitle: "Events",
         page: RoutePages.events,
-        body: Container(),
+        pageTitle: "Events",
+        actions: [IconButton(onPressed: () {}, icon: Icon(PhosphorIcons.funnelLight))],
         floatingActionButton: FloatingActionButton.extended(
-            onPressed: () => Modular.to.pushNamed("/events/create"),
             label: Text("Create event"),
-            icon: Icon(PhosphorIcons.plusLight)));
+            icon: Icon(PhosphorIcons.plusLight),
+            onPressed: () => Modular.to.pushNamed("/events/create")),
+        body: Scrollbar(
+            child: SingleChildScrollView(
+                child: Column(
+                    children: List.generate(10,
+                        (index) => ListTile(title: Text((index + 1).toString()), onTap: () {}))))));
   }
 }

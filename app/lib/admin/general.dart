@@ -11,6 +11,7 @@ class GeneralAdminSettingsPage extends StatelessWidget {
         alignment: Alignment.topCenter,
         child: Container(
             constraints: BoxConstraints(maxWidth: 1000),
+            padding: EdgeInsets.all(16.0),
             child: Column(children: [
               TextField(decoration: InputDecoration(labelText: "Name")),
               TextField(

@@ -14,6 +14,8 @@ class AdminPage extends StatefulWidget {
 
 class _AdminPageState extends State<AdminPage> {
   final ScrollController _scrollController = ScrollController();
+  bool events = false, places = true, devDoctor = false;
+
   @override
   Widget build(BuildContext context) {
     var server = Hive.box<String>('servers')
@@ -22,35 +24,43 @@ class _AdminPageState extends State<AdminPage> {
     return DefaultTabController(
         length: 4,
         child: Scaffold(
-            appBar: AppBar(
-                title: Text("Admin Dashboard"),
-                bottom: TabBar(isScrollable: true, tabs: [
-                  Tab(text: "General", icon: Icon(PhosphorIcons.wrenchLight)),
-                  Tab(text: "Events", icon: Icon(PhosphorIcons.calendarBlankLight)),
-                  Tab(text: "Places", icon: Icon(PhosphorIcons.mapPinLight)),
-                  Tab(text: "Dev-Doctor", icon: Icon(PhosphorIcons.graduationCapLight))
-                ])),
-            body: TabBarView(children: [
-              Scrollbar(
-                  controller: _scrollController,
-                  child: SingleChildScrollView(
-                      controller: _scrollController,
-                      child: GeneralAdminSettingsPage(server: server))),
-              Scrollbar(
-                  controller: _scrollController,
-                  child: SingleChildScrollView(
-                      controller: _scrollController,
-                      child: EventsAdminSettingsPage(server: server))),
-              Scrollbar(
-                  controller: _scrollController,
-                  child: SingleChildScrollView(
-                      controller: _scrollController,
-                      child: PlacesAdminSettingsPage(server: server))),
-              Scrollbar(
-                  controller: _scrollController,
-                  child: SingleChildScrollView(
-                      controller: _scrollController,
-                      child: DevDoctorAdminSettingsPage(server: server)))
-            ])));
+            appBar: AppBar(title: Text("Admin Dashboard")),
+            body: Scrollbar(
+              controller: _scrollController,
+              child: SingleChildScrollView(
+                controller: _scrollController,
+                child: Column(children: [
+                  ExpansionTile(
+                      initiallyExpanded: true,
+                      title: Text("General"),
+                      leading: Icon(PhosphorIcons.wrenchLight),
+                      children: [GeneralAdminSettingsPage(server: server)]),
+                  ExpansionTile(
+                      initiallyExpanded: true,
+                      title: Text("Events"),
+                      children: [EventsAdminSettingsPage(server: server)],
+                      leading: Icon(PhosphorIcons.calendarBlankLight),
+                      trailing: Switch(
+                          onChanged: (bool value) => setState(() => events = value),
+                          value: events)),
+                  ExpansionTile(
+                      initiallyExpanded: true,
+                      title: Text("Places"),
+                      children: [PlacesAdminSettingsPage(server: server)],
+                      leading: Icon(PhosphorIcons.mapPinLight),
+                      trailing: Switch(
+                          onChanged: (bool value) => setState(() => places = value),
+                          value: places)),
+                  ExpansionTile(
+                      initiallyExpanded: true,
+                      title: Text("Dev-Doctor"),
+                      children: [DevDoctorAdminSettingsPage(server: server)],
+                      leading: Icon(PhosphorIcons.graduationCapLight),
+                      trailing: Switch(
+                          onChanged: (bool value) => setState(() => devDoctor = value),
+                          value: devDoctor))
+                ]),
+              ),
+            )));
   }
 }

@@ -3,17 +3,23 @@ import 'package:flow_app/widgets/time.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:shared/event.dart';
 
-class CreateEventPage extends StatefulWidget {
+class EventPage extends StatefulWidget {
+  final Event? event;
+
+  const EventPage({Key? key, this.event}) : super(key: key);
+
   @override
-  _CreateEventPageState createState() => _CreateEventPageState();
+  _EventPageState createState() => _EventPageState();
 }
 
-class _CreateEventPageState extends State<CreateEventPage> {
+class _EventPageState extends State<EventPage> {
   String? server = "";
 
   @override
   Widget build(BuildContext context) {
+    var create = widget.event == null;
     return Scaffold(
         body: SingleChildScrollView(
             child: Align(
@@ -32,6 +38,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           .map((e) => DropdownMenuItem(child: Text(e), value: e)),
                       DropdownMenuItem(child: Text("Local"), value: "")
                     ]),
+                SizedBox(height: 50),
                 TextField(decoration: InputDecoration(labelText: "Name")),
                 TextField(
                     decoration: InputDecoration(labelText: "Description"),
@@ -53,6 +60,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
         )),
         floatingActionButton:
             FloatingActionButton(child: Icon(PhosphorIcons.checkLight), onPressed: () {}),
-        appBar: AppBar(title: Text("Create event")));
+        appBar: AppBar(title: Text(create ? "Create event" : widget.event!.name)));
   }
 }

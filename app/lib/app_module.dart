@@ -1,9 +1,10 @@
 // app_module.dart
 import 'package:flow_app/admin/home.dart';
+import 'package:flow_app/badges/module.dart';
 import 'package:flow_app/events/module.dart';
 import 'package:flow_app/session/module.dart';
 import 'package:flow_app/settings/module.dart';
-import 'package:flow_app/teams/home.dart';
+import 'package:flow_app/teams/module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'app_widget.dart';
@@ -18,7 +19,8 @@ class AppModule extends Module {
   final List<ModularRoute> routes = [
     ChildRoute('/', child: (_, __) => MyHomePage()),
     ModuleRoute('/events', module: EventsModule()),
-    ChildRoute('/teams', child: (_, __) => TeamsPage()),
+    ModuleRoute('/teams', module: TeamsModule()),
+    ModuleRoute('/badges', module: BadgesModule()),
     ChildRoute('/admin', child: (_, __) => AdminPage()),
     ModuleRoute('/session', module: SessionModule()),
     ModuleRoute("/settings", module: SettingsModule())
