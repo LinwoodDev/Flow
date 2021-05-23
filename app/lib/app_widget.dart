@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class AppWidget extends StatelessWidget {
   // This widget is the root of your application.
@@ -136,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: Icon(PhosphorIcons.plusLight),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

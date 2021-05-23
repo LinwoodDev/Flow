@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 typedef void DateChangedCallback(DateTime? dateTime);
 
@@ -41,7 +42,7 @@ class _DateInputFieldState extends State<DateInputField> {
             labelText: "Date",
             suffixIcon: currentDate == null
                 ? null
-                : IconButton(icon: Icon(Icons.close), onPressed: () => changeDate(null))),
+                : IconButton(icon: Icon(PhosphorIcons.xLight), onPressed: () => changeDate(null))),
         readOnly: true,
         onTap: () => textFieldFocusNode.canRequestFocus
             ? showDatePicker(

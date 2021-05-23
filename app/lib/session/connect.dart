@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart' as http;
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ConnectPage extends StatefulWidget {
   @override
@@ -27,7 +28,7 @@ class _ConnectPageState extends State<ConnectPage> {
                         decoration: InputDecoration(labelText: "URL", hintText: "example.com"))
                   ])))),
       floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.check_outlined),
+          child: Icon(PhosphorIcons.checkLight),
           onPressed: () async {
             try {
               var url = Uri.parse(_urlController.text);

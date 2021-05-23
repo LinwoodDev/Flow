@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -36,22 +37,22 @@ class _LoginPageState extends State<LoginPage> {
                     decoration: InputDecoration(
                         labelText: "URL",
                         hintText: "https://example.com",
-                        prefixIcon: Icon(Icons.link_outlined))),
+                        prefixIcon: Icon(PhosphorIcons.linkLight))),
                 SizedBox(height: 50),
                 TextFormField(
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                         labelText: "Email",
                         hintText: "email@example.com",
-                        prefixIcon: Icon(Icons.email_outlined))),
+                        prefixIcon: Icon(PhosphorIcons.envelopeLight))),
                 TextFormField(
                     decoration: InputDecoration(
-                        labelText: "Password", prefixIcon: Icon(Icons.lock_outlined)))
+                        labelText: "Password", prefixIcon: Icon(PhosphorIcons.lockLight)))
               ],
             ),
           ))),
         )),
         floatingActionButton:
-            FloatingActionButton(child: Icon(Icons.check_outlined), onPressed: () {}));
+            FloatingActionButton(child: Icon(PhosphorIcons.checkLight), onPressed: () {}));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flow_app/widgets/drawer.dart';
 import 'package:flow_app/widgets/server.dart';
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class TeamsPage extends StatefulWidget {
   @override
@@ -13,7 +14,7 @@ class _TeamsPageState extends State<TeamsPage> {
     return FlowScaffold(
         page: RoutePages.teams,
         floatingActionButton: FloatingActionButton.extended(
-            label: Text("Create team"), icon: Icon(Icons.add_outlined), onPressed: () {}),
+            label: Text("Create team"), icon: Icon(PhosphorIcons.plusLight), onPressed: () {}),
         body: ServerView(
             builder: (server) => Scrollbar(
                 child: SingleChildScrollView(

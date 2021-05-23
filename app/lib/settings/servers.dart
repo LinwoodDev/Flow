@@ -1,6 +1,7 @@
 import 'package:flow_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ServersSettingsPage extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class _ServersSettingsPageState extends State<ServersSettingsPage> {
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () => Modular.to.pushNamed("/session/connect"),
             label: Text("Add server"),
-            icon: Icon(Icons.add_outlined)),
+            icon: Icon(PhosphorIcons.plusLight)),
         body: ListView.builder(
           itemCount: 0,
           itemBuilder: (BuildContext context, int index) => ListTile(),

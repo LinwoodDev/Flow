@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class SessionPage extends StatefulWidget {
   @override
@@ -25,8 +26,8 @@ class _SessionPageState extends State<SessionPage> {
                       setState(() {});
                     },
                     tabs: [
-                      Tab(icon: Icon(Icons.login_outlined)),
-                      Tab(icon: Icon(Icons.person_add_outlined))
+                      Tab(icon: Icon(PhosphorIcons.signInLight)),
+                      Tab(icon: Icon(PhosphorIcons.userPlusLight))
                     ])),
             body: RouterOutlet()));
   }

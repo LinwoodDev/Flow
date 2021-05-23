@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 typedef void TimeChangedCallback(TimeOfDay? timeTime);
 
@@ -35,7 +36,7 @@ class _TimeInputFieldState extends State<TimeInputField> {
             labelText: "Time",
             suffixIcon: currentTime == null
                 ? null
-                : IconButton(icon: Icon(Icons.close), onPressed: () => changeTime(null))),
+                : IconButton(icon: Icon(PhosphorIcons.xLight), onPressed: () => changeTime(null))),
         readOnly: true,
         onTap: () => textFieldFocusNode.canRequestFocus
             ? showTimePicker(context: context, initialTime: currentTime ?? TimeOfDay.now())

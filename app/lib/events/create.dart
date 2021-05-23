@@ -16,9 +16,9 @@ class _CreateEventPageState extends State<CreateEventPage> {
     return Scaffold(
         body: SingleChildScrollView(
             child: Align(
-          alignment: Alignment.topLeft,
+          alignment: Alignment.topCenter,
           child: Container(
-              constraints: BoxConstraints(maxWidth: 500),
+              constraints: BoxConstraints(maxWidth: 800),
               child: Column(children: [
                 DropdownButtonFormField<String>(
                     value: server,

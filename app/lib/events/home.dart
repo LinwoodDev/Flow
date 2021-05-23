@@ -1,6 +1,7 @@
 import 'package:flow_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class EventsPage extends StatefulWidget {
   @override
@@ -17,6 +18,6 @@ class _EventsPageState extends State<EventsPage> {
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () => Modular.to.pushNamed("/events/create"),
             label: Text("Create event"),
-            icon: Icon(Icons.add_outlined)));
+            icon: Icon(PhosphorIcons.plusLight)));
   }
 }
