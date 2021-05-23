@@ -29,7 +29,7 @@ class _ServerViewState extends State<ServerView> {
           child: Align(
               alignment: Alignment.centerRight,
               child: Container(
-                  constraints: BoxConstraints(maxWidth: 500),
+                  constraints: BoxConstraints(maxWidth: 1000),
                   padding: const EdgeInsets.all(16.0),
                   child: DropdownButtonFormField<String>(
                       value: server,

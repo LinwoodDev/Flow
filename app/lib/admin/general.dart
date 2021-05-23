@@ -8,9 +8,9 @@ class GeneralAdminSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-        alignment: Alignment.centerLeft,
+        alignment: Alignment.topCenter,
         child: Container(
-            constraints: BoxConstraints(maxWidth: 500),
+            constraints: BoxConstraints(maxWidth: 1000),
             child: Column(children: [
               TextField(decoration: InputDecoration(labelText: "Name")),
               TextField(

@@ -20,9 +20,9 @@ class _DevDoctorAdminSettingsPageState extends State<DevDoctorAdminSettingsPage>
   @override
   Widget build(BuildContext context) {
     return Align(
-        alignment: Alignment.centerLeft,
+        alignment: Alignment.topCenter,
         child: Container(
-            constraints: BoxConstraints(maxWidth: 500),
+            constraints: BoxConstraints(maxWidth: 1000),
             child: Column(children: [
               CheckboxListTile(
                   value: enabled,

@@ -16,7 +16,8 @@ final getIt = GetIt.instance;
 Future<void> main() async {
   await Hive.initFlutter("linwood-flow");
   await Hive.openBox('appearance');
-  await Hive.openBox<String>('servers');
+  var serversBox = await Hive.openBox<String>('servers');
+  if (serversBox.isEmpty) await serversBox.add("https://example.com");
 
   setup();
 

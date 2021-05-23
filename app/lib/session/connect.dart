@@ -25,15 +25,16 @@ class _ConnectPageState extends State<ConnectPage> {
                     TextField(
                         controller: _urlController,
                         keyboardType: TextInputType.url,
-                        decoration: InputDecoration(labelText: "URL", hintText: "example.com"))
+                        decoration:
+                            InputDecoration(labelText: "URL", hintText: "https://example.com"))
                   ])))),
       floatingActionButton: FloatingActionButton(
           child: Icon(PhosphorIcons.checkLight),
           onPressed: () async {
             try {
-              var url = Uri.parse(_urlController.text);
+              var uri = Uri.parse(_urlController.text);
 
-              var response = await http.get(url);
+              var response = await http.get(uri);
               var data = json.decode(response.body);
               if (data['name'] == "Linwood-Flow")
                 Modular.to.pushNamed(Uri(
