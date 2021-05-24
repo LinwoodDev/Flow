@@ -7,14 +7,6 @@ MyDatabase constructDb() {
   throw new UnimplementedError("This platform is not supported!");
 }
 
-@UseRowClass(Event)
-class Events extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  TextColumn get name => text()();
-  TextColumn get description => text().withDefault(const Constant(''))();
-  IntColumn get series => integer()();
-}
-
 @UseMoor(tables: [Events, Servers])
 class MyDatabase extends _$MyDatabase {
   // we tell the database where to store the data with this constructor

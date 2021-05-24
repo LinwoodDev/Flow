@@ -11,31 +11,36 @@ class EventsCompanion extends UpdateCompanion<Event> {
   final Value<int> id;
   final Value<String> name;
   final Value<String> description;
-  final Value<int> series;
+  final Value<int?> series;
+  final Value<EventState> state;
   const EventsCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.description = const Value.absent(),
     this.series = const Value.absent(),
+    this.state = const Value.absent(),
   });
   EventsCompanion.insert({
     this.id = const Value.absent(),
     required String name,
     this.description = const Value.absent(),
-    required int series,
+    this.series = const Value.absent(),
+    required EventState state,
   })  : name = Value(name),
-        series = Value(series);
+        state = Value(state);
   static Insertable<Event> custom({
     Expression<int>? id,
     Expression<String>? name,
     Expression<String>? description,
-    Expression<int>? series,
+    Expression<int?>? series,
+    Expression<EventState>? state,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (name != null) 'name': name,
       if (description != null) 'description': description,
       if (series != null) 'series': series,
+      if (state != null) 'state': state,
     });
   }
 
@@ -43,12 +48,14 @@ class EventsCompanion extends UpdateCompanion<Event> {
       {Value<int>? id,
       Value<String>? name,
       Value<String>? description,
-      Value<int>? series}) {
+      Value<int?>? series,
+      Value<EventState>? state}) {
     return EventsCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       description: description ?? this.description,
       series: series ?? this.series,
+      state: state ?? this.state,
     );
   }
 
@@ -65,7 +72,11 @@ class EventsCompanion extends UpdateCompanion<Event> {
       map['description'] = Variable<String>(description.value);
     }
     if (series.present) {
-      map['series'] = Variable<int>(series.value);
+      map['series'] = Variable<int?>(series.value);
+    }
+    if (state.present) {
+      final converter = $EventsTable.$converter0;
+      map['state'] = Variable<int>(converter.mapToSql(state.value)!);
     }
     return map;
   }
@@ -76,7 +87,8 @@ class EventsCompanion extends UpdateCompanion<Event> {
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('description: $description, ')
-          ..write('series: $series')
+          ..write('series: $series, ')
+          ..write('state: $state')
           ..write(')'))
         .toString();
   }
@@ -121,12 +133,23 @@ class $EventsTable extends Events with TableInfo<$EventsTable, Event> {
     return GeneratedIntColumn(
       'series',
       $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _stateMeta = const VerificationMeta('state');
+  @override
+  late final GeneratedIntColumn state = _constructState();
+  GeneratedIntColumn _constructState() {
+    return GeneratedIntColumn(
+      'state',
+      $tableName,
       false,
     );
   }
 
   @override
-  List<GeneratedColumn> get $columns => [id, name, description, series];
+  List<GeneratedColumn> get $columns => [id, name, description, series, state];
   @override
   $EventsTable get asDslTable => this;
   @override
@@ -156,9 +179,8 @@ class $EventsTable extends Events with TableInfo<$EventsTable, Event> {
     if (data.containsKey('series')) {
       context.handle(_seriesMeta,
           series.isAcceptableOrUnknown(data['series']!, _seriesMeta));
-    } else if (isInserting) {
-      context.missing(_seriesMeta);
     }
+    context.handle(_stateMeta, const VerificationResult.success());
     return context;
   }
 
@@ -175,7 +197,9 @@ class $EventsTable extends Events with TableInfo<$EventsTable, Event> {
       id: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       series: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}series'])!,
+          .mapFromDatabaseResponse(data['${effectivePrefix}series']),
+      state: $EventsTable.$converter0.mapToDart(const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}state']))!,
     );
   }
 
@@ -183,6 +207,8 @@ class $EventsTable extends Events with TableInfo<$EventsTable, Event> {
   $EventsTable createAlias(String alias) {
     return $EventsTable(_db, alias);
   }
+
+  static TypeConverter<EventState, int> $converter0 = EventStateConverter();
 }
 
 class ServersCompanion extends UpdateCompanion<Server> {

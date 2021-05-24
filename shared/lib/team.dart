@@ -1,4 +1,13 @@
 import 'package:meta/meta.dart';
+import 'package:moor/moor.dart';
+
+@UseRowClass(Team)
+class Teams extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get name => text()();
+  TextColumn get description => text().withDefault(const Constant(''))();
+  IntColumn get color => integer().nullable()();
+}
 
 @immutable
 class Team {
