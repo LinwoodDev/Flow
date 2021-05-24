@@ -30,3 +30,7 @@ class Team {
           id: id,
           color: removeColor ? null : color ?? this.color);
 }
+
+class TeamUsers extends Table {
+  IntColumn get user => integer()();
+}

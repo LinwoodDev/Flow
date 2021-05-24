@@ -1,5 +1,7 @@
 import 'package:moor/moor.dart';
 import 'package:shared/event.dart';
+import 'package:shared/place.dart';
+import 'package:shared/series.dart';
 
 part 'database.g.dart';
 
@@ -7,7 +9,7 @@ MyDatabase constructDb() {
   throw new UnimplementedError("This platform is not supported!");
 }
 
-@UseMoor(tables: [Events, Servers])
+@UseMoor(tables: [Events, Places, Servers, SeriesCollection])
 class MyDatabase extends _$MyDatabase {
   // we tell the database where to store the data with this constructor
   MyDatabase(QueryExecutor e) : super(e);
