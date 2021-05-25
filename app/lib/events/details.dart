@@ -1,14 +1,17 @@
 import 'package:flow_app/widgets/date.dart';
 import 'package:flow_app/widgets/time.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/event.dart';
 
 class EventPage extends StatefulWidget {
   final Event? event;
+  final int? id;
+  final bool isDesktop;
 
-  const EventPage({Key? key, this.event}) : super(key: key);
+  const EventPage({Key? key, this.event, this.isDesktop = false, this.id}) : super(key: key);
 
   @override
   _EventPageState createState() => _EventPageState();
@@ -27,6 +30,13 @@ class _EventPageState extends State<EventPage> {
           child: Container(
               constraints: BoxConstraints(maxWidth: 800),
               child: Column(children: [
+                if (widget.isDesktop && widget.id != null)
+                  ElevatedButton.icon(
+                      onPressed: () => Modular.to.pushNamed(Uri(
+                          pathSegments: ["", "events", "details"],
+                          queryParameters: {"id": widget.id.toString()}).toString()),
+                      icon: Icon(PhosphorIcons.arrowSquareOutLight),
+                      label: Text("OPEN IN NEW WINDOW")),
                 SizedBox(height: 50),
                 DropdownButtonFormField<String>(
                     value: server,
@@ -60,6 +70,8 @@ class _EventPageState extends State<EventPage> {
         )),
         floatingActionButton:
             FloatingActionButton(child: Icon(PhosphorIcons.checkLight), onPressed: () {}),
-        appBar: AppBar(title: Text(create ? "Create event" : widget.event!.name)));
+        appBar: widget.isDesktop
+            ? null
+            : AppBar(title: Text(create ? "Create event" : widget.event!.name)));
   }
 }

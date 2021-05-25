@@ -14,7 +14,7 @@ class Users extends Table {
 }
 
 @immutable
-class User {
+class User implements Insertable<User> {
   final int? id;
   final String name;
   final String displayName;
@@ -58,6 +58,12 @@ class User {
 
   Map<String, dynamic> toJson() =>
       {'name': name, 'display-name': displayName, 'email': email, 'bio': bio, 'state': state.index};
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    // TODO: implement toColumns
+    throw UnimplementedError();
+  }
 }
 
 enum UserState { confirm, active, punished }

@@ -1,7 +1,9 @@
+import 'package:flow_app/events/details.dart';
 import 'package:flow_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:shared/event.dart';
 
 class EventsPage extends StatefulWidget {
   @override
@@ -9,6 +11,9 @@ class EventsPage extends StatefulWidget {
 }
 
 class _EventsPageState extends State<EventsPage> {
+  int? selected = null;
+  final List<Event> events = [Event("Event 1"), Event("Event 2"), Event("Event 3")];
+
   @override
   Widget build(BuildContext context) {
     return FlowScaffold(
@@ -19,10 +24,34 @@ class _EventsPageState extends State<EventsPage> {
             label: Text("Create event"),
             icon: Icon(PhosphorIcons.plusLight),
             onPressed: () => Modular.to.pushNamed("/events/create")),
-        body: Scrollbar(
-            child: SingleChildScrollView(
-                child: Column(
-                    children: List.generate(10,
-                        (index) => ListTile(title: Text((index + 1).toString()), onTap: () {}))))));
+        body: LayoutBuilder(builder: (context, constraints) {
+          var isDesktop = MediaQuery.of(context).size.width > 1000;
+          return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Expanded(
+              flex: 2,
+              child: Scrollbar(
+                  child: SingleChildScrollView(
+                      child: Column(
+                          children: List.generate(
+                              events.length,
+                              (index) => ListTile(
+                                  title: Text(events[index].name),
+                                  selected: selected == index,
+                                  onTap: () => isDesktop
+                                      ? setState(() => selected = index)
+                                      : Modular.to.pushNamed(Uri(
+                                              pathSegments: ["", "events", "details"],
+                                              queryParameters: {"id": index.toString()})
+                                          .toString())))))),
+            ),
+            if (isDesktop) ...[
+              VerticalDivider(),
+              Expanded(
+                  child: selected == null
+                      ? Center(child: Text("Nothing selected"))
+                      : EventPage(event: events[selected!], isDesktop: isDesktop, id: selected!))
+            ]
+          ]);
+        }));
   }
 }
