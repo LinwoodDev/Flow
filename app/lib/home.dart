@@ -1,4 +1,8 @@
+import 'package:flow_app/widgets/color_picker.dart';
+import 'package:flow_app/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
+
+import 'widgets/drawer.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,6 +12,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("Home")), body: Container());
+    return FlowScaffold(
+        page: RoutePages.home,
+        pageTitle: "Home",
+        body: Container(child: ColorPicker(onClick: (color) {})));
   }
 }

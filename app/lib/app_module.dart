@@ -2,6 +2,7 @@
 import 'package:flow_app/admin/home.dart';
 import 'package:flow_app/badges/module.dart';
 import 'package:flow_app/events/module.dart';
+import 'package:flow_app/home.dart';
 import 'package:flow_app/session/module.dart';
 import 'package:flow_app/settings/module.dart';
 import 'package:flow_app/teams/module.dart';
@@ -17,7 +18,7 @@ class AppModule extends Module {
   // Provide all the routes for your module
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/', child: (_, __) => MyHomePage()),
+    ChildRoute('/', child: (_, __) => HomePage()),
     ModuleRoute('/events', module: EventsModule()),
     ModuleRoute('/teams', module: TeamsModule()),
     ModuleRoute('/badges', module: BadgesModule()),
