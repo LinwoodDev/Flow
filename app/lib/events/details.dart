@@ -68,8 +68,8 @@ class _EventPageState extends State<EventPage> {
                 ])
               ])),
         )),
-        floatingActionButton:
-            FloatingActionButton(child: Icon(PhosphorIcons.checkLight), onPressed: () {}),
+        floatingActionButton: FloatingActionButton(
+            heroTag: "event-check", child: Icon(PhosphorIcons.checkLight), onPressed: () {}),
         appBar: widget.isDesktop
             ? null
             : AppBar(title: Text(create ? "Create event" : widget.event!.name)));

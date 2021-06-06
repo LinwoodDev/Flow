@@ -8,8 +8,6 @@ import 'package:flow_app/settings/module.dart';
 import 'package:flow_app/teams/module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'app_widget.dart';
-
 class AppModule extends Module {
   // Provide a list of dependencies to inject into your project
   @override

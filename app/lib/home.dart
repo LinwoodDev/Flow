@@ -1,5 +1,4 @@
 import 'package:flow_app/widgets/color_picker.dart';
-import 'package:flow_app/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/drawer.dart';

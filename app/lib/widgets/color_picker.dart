@@ -33,9 +33,11 @@ class _ColorPickerState extends State<ColorPicker> {
     Colors.lightBlue,
     Colors.blue,
     Colors.indigo,
-    Colors.brown,
+    Colors.blueGrey,
     Colors.purple,
-    Colors.black,
+    Colors.brown,
+    Colors.grey,
+    Colors.black
   ];
 
   @override
@@ -76,7 +78,7 @@ class _ColorPickerState extends State<ColorPicker> {
                       child: TextField(
                           textAlign: TextAlign.center,
                           controller: _redController,
-                          onChanged: (value) => changeColor(red: int.tryParse(value)))),
+                          onSubmitted: (value) => changeColor(red: int.tryParse(value)))),
                   Expanded(
                     child: SliderTheme(
                         data: SliderThemeData(thumbColor: Colors.red),
@@ -97,7 +99,7 @@ class _ColorPickerState extends State<ColorPicker> {
                       child: TextField(
                           textAlign: TextAlign.center,
                           controller: _greenController,
-                          onChanged: (value) => changeColor(green: int.tryParse(value)))),
+                          onSubmitted: (value) => changeColor(green: int.tryParse(value)))),
                   Expanded(
                     child: SliderTheme(
                         data: SliderThemeData(thumbColor: Colors.green),
@@ -118,7 +120,7 @@ class _ColorPickerState extends State<ColorPicker> {
                       child: TextField(
                           textAlign: TextAlign.center,
                           controller: _blueController,
-                          onChanged: (value) => changeColor(blue: int.tryParse(value)))),
+                          onSubmitted: (value) => changeColor(blue: int.tryParse(value)))),
                   Expanded(
                     child: SliderTheme(
                         data: SliderThemeData(thumbColor: Colors.blue),
@@ -143,21 +145,22 @@ class _ColorPickerState extends State<ColorPicker> {
                 child: SingleChildScrollView(
                   controller: _scrollController,
                   child: Wrap(
-                      children: List.generate(
-                          colors.length,
-                          (index) => Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: GestureDetector(
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle, color: colors[index]),
-                                        height: 50,
-                                        width: 50),
-                                    onTap: () {
-                                      setState(() => color = colors[index]);
-                                      widget.onClick(color);
-                                    }),
-                              ))),
+                      alignment: WrapAlignment.center,
+                      children: List.generate(colors.length, (index) {
+                        var color = colors[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                              child: Container(
+                                  decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+                                  height: 50,
+                                  width: 50),
+                              onTap: () {
+                                changeColor(red: color.red, green: color.green, blue: color.blue);
+                                widget.onClick(color);
+                              }),
+                        );
+                      })),
                 ),
               ),
             ),
