@@ -1,6 +1,8 @@
+import 'package:flow_app/services/local_service.dart';
 import 'package:flow_app/widgets/color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/team.dart';
@@ -17,6 +19,17 @@ class TeamPage extends StatefulWidget {
 }
 
 class _TeamPageState extends State<TeamPage> {
+  late TextEditingController _nameController;
+  late TextEditingController _descriptionController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _nameController = TextEditingController();
+    _descriptionController = TextEditingController();
+  }
+
   String? server = "";
   @override
   Widget build(BuildContext context) {
@@ -44,7 +57,14 @@ class _TeamPageState extends State<TeamPage> {
                       title: Text(create ? "Create team" : widget.team!.name),
                       bottom: _buildTabBar()),
               floatingActionButton: FloatingActionButton(
-                  heroTag: "team-check", child: Icon(PhosphorIcons.checkLight), onPressed: () {}),
+                  heroTag: "team-check",
+                  child: Icon(PhosphorIcons.checkLight),
+                  onPressed: () {
+                    if (create) {
+                      GetIt.I.get<LocalService>().createTeam(
+                          Team(_nameController.text, description: _descriptionController.text));
+                    }
+                  }),
               body: Column(
                 children: [
                   Expanded(
@@ -67,10 +87,13 @@ class _TeamPageState extends State<TeamPage> {
                                           DropdownMenuItem(child: Text("Local"), value: "")
                                         ]),
                                     SizedBox(height: 50),
-                                    TextField(decoration: InputDecoration(labelText: "Name")),
+                                    TextField(
+                                        decoration: InputDecoration(labelText: "Name"),
+                                        controller: _nameController),
                                     TextField(
                                         decoration: InputDecoration(labelText: "Description"),
                                         maxLines: null,
+                                        controller: _descriptionController,
                                         minLines: 3)
                                   ])))),
                       Align(

@@ -1,6 +1,8 @@
+import 'package:flow_app/services/local_service.dart';
 import 'package:flow_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/team.dart';
 
@@ -13,7 +15,20 @@ class TeamsPage extends StatefulWidget {
 
 class _TeamsPageState extends State<TeamsPage> {
   int? selected = null;
-  final List<Team> teams = [Team("Team 1"), Team("Team 2"), Team("Team 3")];
+  final List<Team> teams = [];
+  @override
+  void initState() {
+    super.initState();
+
+    initData();
+  }
+
+  Future<void> initData() {
+    return GetIt.I.get<LocalService>().fetchTeams().then((value) {
+      teams.addAll(value);
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
