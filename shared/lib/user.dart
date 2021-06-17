@@ -6,18 +6,17 @@ class User {
   final String name;
   final String displayName;
   final String bio;
-  final String email;
+  final String? email;
   final String password;
   final UserState state;
 
   User(this.name,
-      {String? displayName,
+      {this.displayName = '',
       this.id,
       this.bio = '',
-      required this.email,
+      this.email,
       this.password = '',
-      this.state = UserState.active})
-      : displayName = displayName ?? name;
+      this.state = UserState.active});
 
   User copyWith(
           {String? name,
@@ -25,9 +24,10 @@ class User {
           String? bio,
           String? email,
           String? password,
-          UserState? state}) =>
+          UserState? state,
+          int? id}) =>
       User(name ?? this.name,
-          id: id,
+          id: id ?? this.id,
           state: state ?? this.state,
           displayName: displayName ?? this.displayName,
           bio: bio ?? this.bio,
@@ -41,10 +41,10 @@ class User {
         bio = json['bio'] ?? '',
         email = json['email'] ?? '',
         password = json['password'] ?? '',
-        state = UserState.active;
+        state = UserState.values[json['state']];
 
   Map<String, dynamic> toJson() =>
       {'name': name, 'display-name': displayName, 'email': email, 'bio': bio, 'state': state.index};
 }
 
-enum UserState { confirm, active, punished }
+enum UserState { confirm, active, fake, punished }

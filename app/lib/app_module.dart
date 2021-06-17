@@ -6,6 +6,7 @@ import 'package:flow_app/home.dart';
 import 'package:flow_app/session/module.dart';
 import 'package:flow_app/settings/module.dart';
 import 'package:flow_app/teams/module.dart';
+import 'package:flow_app/users/module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AppModule extends Module {
@@ -19,6 +20,7 @@ class AppModule extends Module {
     ChildRoute('/', child: (_, __) => HomePage()),
     ModuleRoute('/events', module: EventsModule()),
     ModuleRoute('/teams', module: TeamsModule()),
+    ModuleRoute('/users', module: UsersModule()),
     ModuleRoute('/badges', module: BadgesModule()),
     ChildRoute('/admin', child: (_, __) => AdminPage()),
     ModuleRoute('/session', module: SessionModule()),

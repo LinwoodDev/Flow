@@ -119,10 +119,13 @@ class _TeamPageState extends State<TeamPage> {
                                   ]),
                               SizedBox(height: 50),
                               TextField(
-                                  decoration: InputDecoration(labelText: "Name"),
+                                  decoration: InputDecoration(
+                                      labelText: "Name", icon: Icon(PhosphorIcons.userLight)),
                                   controller: _nameController),
                               TextField(
-                                  decoration: InputDecoration(labelText: "Description"),
+                                  decoration: InputDecoration(
+                                      labelText: "Description",
+                                      icon: Icon(PhosphorIcons.chatTextLight)),
                                   maxLines: null,
                                   controller: _descriptionController,
                                   minLines: 3)

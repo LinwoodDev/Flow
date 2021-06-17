@@ -8,11 +8,10 @@ import 'package:shared/team.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast_io.dart';
+import 'package:shared/user.dart';
 
 class LocalService extends ApiService {
   final Database db;
-  static const String teamsStoreName = 'teams';
-  final teamsStore = intMapStoreFactory.store(teamsStoreName);
   LocalService(this.db);
 
   static Future<LocalService> create() async {
@@ -34,6 +33,10 @@ class LocalService extends ApiService {
       return LocalService(db);
     }
   }
+
+  // Team operations
+  static const String teamsStoreName = 'teams';
+  final teamsStore = intMapStoreFactory.store(teamsStoreName);
 
   @override
   Future<Team> createTeam(Team team) =>
@@ -68,4 +71,42 @@ class LocalService extends ApiService {
       .query(finder: Finder(filter: Filter.byKey(id)))
       .onSnapshot(db)
       .map((e) => e == null ? null : Team.fromJson(Map.from(e.value)..["id"] = e.key));
+
+  // User operations
+  static const String usersStoreName = 'users';
+  final usersStore = intMapStoreFactory.store(usersStoreName);
+
+  @override
+  Future<User> createUser(User user) =>
+      usersStore.add(db, user.toJson()).then((value) => user.copyWith(id: value));
+
+  @override
+  Future<List<User>> fetchUsers() => usersStore
+      .find(db)
+      .then((value) => value.map((e) => User.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+
+  @override
+  Future<User?> fetchUser(int id) =>
+      usersStore.findFirst(db, finder: Finder(filter: Filter.byKey(id))).then((value) =>
+          value == null ? null : User.fromJson(Map.from(value.value)..["id"] = value.key));
+
+  @override
+  Future<void> updateUser(User user) =>
+      usersStore.update(db, user.toJson(), finder: Finder(filter: Filter.byKey(user.id)));
+
+  @override
+  Future<void> deleteUser(int id) =>
+      usersStore.delete(db, finder: Finder(filter: Filter.byKey(id)));
+
+  @override
+  Stream<List<User>> onUsers() => usersStore
+      .query()
+      .onSnapshots(db)
+      .map((event) => event.map((e) => User.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+
+  @override
+  Stream<User?> onUser(int id) => usersStore
+      .query(finder: Finder(filter: Filter.byKey(id)))
+      .onSnapshot(db)
+      .map((e) => e == null ? null : User.fromJson(Map.from(e.value)..["id"] = e.key));
 }
