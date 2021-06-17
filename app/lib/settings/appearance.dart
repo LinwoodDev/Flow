@@ -2,6 +2,7 @@ import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flow_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -29,12 +30,12 @@ class AppearanceSettingsPage extends StatelessWidget {
                               actions: [
                                 TextButton(
                                     child: Text('cancel'.tr().toUpperCase()),
-                                    onPressed: () => Navigator.of(context).pop()),
+                                    onPressed: () => Modular.to.pop()),
                                 TextButton(
                                     child: Text('save'.tr().toUpperCase()),
                                     onPressed: () async {
                                       box.put('theme', selectedRadio!.index);
-                                      Navigator.pop(context);
+                                      Modular.to.pop();
                                     })
                               ],
                               content: StatefulBuilder(

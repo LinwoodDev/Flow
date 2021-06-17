@@ -17,6 +17,8 @@ class BadgePage extends StatefulWidget {
 
 class _BadgePageState extends State<BadgePage> {
   String? server = "";
+  late TextEditingController _nameController;
+  late TextEditingController _descriptionController;
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +49,14 @@ class _BadgePageState extends State<BadgePage> {
                       DropdownMenuItem(child: Text("Local"), value: "")
                     ]),
                 SizedBox(height: 50),
-                TextField(decoration: InputDecoration(labelText: "Name")),
                 TextField(
-                    decoration: InputDecoration(labelText: "Description"),
-                    maxLines: null,
-                    minLines: 3)
+                    decoration: InputDecoration(labelText: "Name"), controller: _nameController),
+                TextField(
+                  decoration: InputDecoration(labelText: "Description"),
+                  maxLines: null,
+                  minLines: 3,
+                  controller: _descriptionController,
+                )
               ])),
         )),
         floatingActionButton: FloatingActionButton(

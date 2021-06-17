@@ -1,3 +1,4 @@
+import 'package:flow_app/services/api_service.dart';
 import 'package:flow_app/services/local_service.dart';
 import 'package:flow_app/widgets/color_picker.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,9 @@ class TeamPage extends StatefulWidget {
 class _TeamPageState extends State<TeamPage> {
   late TextEditingController _nameController;
   late TextEditingController _descriptionController;
+  late ApiService service;
+  Color color = Colors.white;
+  Team? team;
 
   @override
   void initState() {
@@ -28,12 +32,27 @@ class _TeamPageState extends State<TeamPage> {
 
     _nameController = TextEditingController();
     _descriptionController = TextEditingController();
+    initTeam();
+    service = GetIt.I.get<LocalService>();
+  }
+
+  Future<void> initTeam() async {
+    if (widget.id == null) return;
+    var value = widget.team ?? await service.fetchTeam(widget.id!);
+    setState(() {
+      team = value;
+      if (value != null) {
+        _nameController.text = value.name;
+        _descriptionController.text = value.description;
+        color = value.color != null ? Color(value.color!) : Colors.white;
+      }
+    });
   }
 
   String? server = "";
   @override
   Widget build(BuildContext context) {
-    var create = widget.team == null;
+    var create = team == null;
     return DefaultTabController(
       length: 2,
       child: Column(
@@ -54,16 +73,20 @@ class _TeamPageState extends State<TeamPage> {
                       preferredSize: Size.fromHeight(70),
                       child: AppBar(flexibleSpace: _buildTabBar()))
                   : AppBar(
-                      title: Text(create ? "Create team" : widget.team!.name),
-                      bottom: _buildTabBar()),
+                      title: Text(create ? "Create team" : team!.name), bottom: _buildTabBar()),
               floatingActionButton: FloatingActionButton(
                   heroTag: "team-check",
                   child: Icon(PhosphorIcons.checkLight),
                   onPressed: () {
-                    if (create) {
-                      GetIt.I.get<LocalService>().createTeam(
-                          Team(_nameController.text, description: _descriptionController.text));
-                    }
+                    if (create)
+                      service.createTeam(Team(_nameController.text,
+                          description: _descriptionController.text, color: color.value));
+                    else
+                      service.updateTeam(team!.copyWith(
+                          name: _nameController.text,
+                          color: color.value,
+                          description: _descriptionController.text));
+                    if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
                   }),
               body: Column(
                 children: [
@@ -98,7 +121,8 @@ class _TeamPageState extends State<TeamPage> {
                                   ])))),
                       Align(
                           alignment: Alignment.topCenter,
-                          child: ColorPicker(onClick: (color) => print(color)))
+                          child:
+                              ColorPicker(initialColor: color, onClick: (value) => color = value))
                     ]),
                   ),
                 ],

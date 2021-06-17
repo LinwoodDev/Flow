@@ -1,3 +1,4 @@
+import 'package:flow_app/services/api_service.dart';
 import 'package:flow_app/services/local_service.dart';
 import 'package:flow_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
@@ -16,15 +17,18 @@ class TeamsPage extends StatefulWidget {
 class _TeamsPageState extends State<TeamsPage> {
   int? selected = null;
   final List<Team> teams = [];
+  late ApiService service;
   @override
   void initState() {
     super.initState();
+
+    service = GetIt.I.get<LocalService>();
 
     initData();
   }
 
   Future<void> initData() {
-    return GetIt.I.get<LocalService>().fetchTeams().then((value) {
+    return service.fetchTeams().then((value) {
       teams.addAll(value);
       setState(() {});
     });
@@ -51,15 +55,22 @@ class _TeamsPageState extends State<TeamsPage> {
                         child: Column(
                             children: List.generate(
                                 teams.length,
-                                (index) => ListTile(
-                                    title: Text(teams[index].name),
-                                    selected: selected == index,
-                                    onTap: () => isDesktop
-                                        ? setState(() => selected = index)
-                                        : Modular.to.pushNamed(Uri(
-                                                pathSegments: ["", "events", "details"],
-                                                queryParameters: {"id": index.toString()})
-                                            .toString())))))),
+                                (index) => Dismissible(
+                                      key: Key(teams[index].id!.toString()),
+                                      onDismissed: (direction) {
+                                        service.deleteTeam(teams[index].id!);
+                                      },
+                                      background: Container(color: Colors.red),
+                                      child: ListTile(
+                                          title: Text(teams[index].name),
+                                          selected: selected == index,
+                                          onTap: () => isDesktop
+                                              ? setState(() => selected = index)
+                                              : Modular.to.pushNamed(Uri(
+                                                      pathSegments: ["", "events", "details"],
+                                                      queryParameters: {"id": index.toString()})
+                                                  .toString())),
+                                    ))))),
               ),
             ),
             if (isDesktop) ...[
@@ -68,7 +79,8 @@ class _TeamsPageState extends State<TeamsPage> {
                   flex: 2,
                   child: selected == null
                       ? Center(child: Text("Nothing selected"))
-                      : TeamPage(team: teams[selected!], isDesktop: isDesktop, id: selected!))
+                      : TeamPage(
+                          team: teams[selected!], isDesktop: isDesktop, id: teams[selected!].id))
             ]
           ]);
         }));

@@ -57,6 +57,7 @@ class _ColorPickerState extends State<ColorPicker> {
       _greenController.text = color.green.toString();
       _blueController.text = color.blue.toString();
     });
+    widget.onClick(color);
   }
 
   @override
@@ -155,10 +156,8 @@ class _ColorPickerState extends State<ColorPicker> {
                                   decoration: BoxDecoration(shape: BoxShape.circle, color: color),
                                   height: 50,
                                   width: 50),
-                              onTap: () {
-                                changeColor(red: color.red, green: color.green, blue: color.blue);
-                                widget.onClick(color);
-                              }),
+                              onTap: () => changeColor(
+                                  red: color.red, green: color.green, blue: color.blue)),
                         );
                       })),
                 ),
