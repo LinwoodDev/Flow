@@ -6,4 +6,6 @@ abstract class ApiService {
   Future<Team?> fetchTeam(int id);
   Future<void> updateTeam(Team team);
   Future<void> deleteTeam(int id);
+  Stream<List<Team>> onTeams();
+  Stream<Team?> onTeam(int id);
 }

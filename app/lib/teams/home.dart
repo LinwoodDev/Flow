@@ -15,23 +15,16 @@ class TeamsPage extends StatefulWidget {
 }
 
 class _TeamsPageState extends State<TeamsPage> {
-  int? selected = null;
-  final List<Team> teams = [];
+  Team? selected = null;
   late ApiService service;
+  late Stream<List<Team>> teamStream;
+
   @override
   void initState() {
     super.initState();
 
     service = GetIt.I.get<LocalService>();
-
-    initData();
-  }
-
-  Future<void> initData() {
-    return service.fetchTeams().then((value) {
-      teams.addAll(value);
-      setState(() {});
-    });
+    teamStream = service.onTeams();
   }
 
   @override
@@ -49,38 +42,46 @@ class _TeamsPageState extends State<TeamsPage> {
                 floatingActionButton: FloatingActionButton.extended(
                     label: Text("Create team"),
                     icon: Icon(PhosphorIcons.plusLight),
-                    onPressed: () => Modular.to.pushNamed("/teams/create")),
+                    onPressed: () => isDesktop
+                        ? setState(() => selected = null)
+                        : Modular.to.pushNamed("/teams/create")),
                 body: Scrollbar(
                     child: SingleChildScrollView(
-                        child: Column(
-                            children: List.generate(
-                                teams.length,
-                                (index) => Dismissible(
-                                      key: Key(teams[index].id!.toString()),
-                                      onDismissed: (direction) {
-                                        service.deleteTeam(teams[index].id!);
-                                      },
-                                      background: Container(color: Colors.red),
-                                      child: ListTile(
-                                          title: Text(teams[index].name),
-                                          selected: selected == index,
-                                          onTap: () => isDesktop
-                                              ? setState(() => selected = index)
-                                              : Modular.to.pushNamed(Uri(
-                                                      pathSegments: ["", "events", "details"],
-                                                      queryParameters: {"id": index.toString()})
-                                                  .toString())),
-                                    ))))),
+                        child: StreamBuilder<List<Team>>(
+                            stream: teamStream,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasError) return Text("Error ${snapshot.error}");
+                              if (snapshot.connectionState == ConnectionState.waiting ||
+                                  !snapshot.hasData)
+                                return Center(child: CircularProgressIndicator());
+                              var teams = snapshot.data!;
+                              return Column(
+                                  children: List.generate(teams.length, (index) {
+                                var team = teams[index];
+                                return Dismissible(
+                                  key: Key(team.id!.toString()),
+                                  onDismissed: (direction) {
+                                    service.deleteTeam(team.id!);
+                                  },
+                                  background: Container(color: Colors.red),
+                                  child: ListTile(
+                                      title: Text(team.name),
+                                      selected: selected?.id == team.id,
+                                      onTap: () => isDesktop
+                                          ? setState(() => selected = team)
+                                          : Modular.to.pushNamed(Uri(
+                                                  pathSegments: ["", "events", "details"],
+                                                  queryParameters: {"id": index.toString()})
+                                              .toString())),
+                                );
+                              }));
+                            }))),
               ),
             ),
             if (isDesktop) ...[
               VerticalDivider(),
               Expanded(
-                  flex: 2,
-                  child: selected == null
-                      ? Center(child: Text("Nothing selected"))
-                      : TeamPage(
-                          team: teams[selected!], isDesktop: isDesktop, id: teams[selected!].id))
+                  flex: 2, child: TeamPage(team: selected, isDesktop: isDesktop, id: selected?.id))
             ]
           ]);
         }));

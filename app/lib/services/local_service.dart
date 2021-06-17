@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flow_app/services/api_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sembast/sembast.dart';
@@ -34,9 +36,8 @@ class LocalService extends ApiService {
   }
 
   @override
-  Future<Team> createTeam(Team team) {
-    return teamsStore.add(db, team.toJson()).then((value) => team.copyWith(id: value));
-  }
+  Future<Team> createTeam(Team team) =>
+      teamsStore.add(db, team.toJson()).then((value) => team.copyWith(id: value));
 
   @override
   Future<List<Team>> fetchTeams() => teamsStore
@@ -44,17 +45,27 @@ class LocalService extends ApiService {
       .then((value) => value.map((e) => Team.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
 
   @override
-  Future<Team?> fetchTeam(int id) {
-    return teamsStore.findFirst(db, finder: Finder(filter: Filter.byKey(id))).then(
-        (value) => value == null ? null : Team.fromJson(Map.from(value.value)..["id"] = value.key));
-  }
+  Future<Team?> fetchTeam(int id) =>
+      teamsStore.findFirst(db, finder: Finder(filter: Filter.byKey(id))).then((value) =>
+          value == null ? null : Team.fromJson(Map.from(value.value)..["id"] = value.key));
 
   @override
   Future<void> updateTeam(Team team) =>
       teamsStore.update(db, team.toJson(), finder: Finder(filter: Filter.byKey(team.id)));
 
   @override
-  Future<void> deleteTeam(int id) {
-    return teamsStore.delete(db, finder: Finder(filter: Filter.byKey(id)));
-  }
+  Future<void> deleteTeam(int id) =>
+      teamsStore.delete(db, finder: Finder(filter: Filter.byKey(id)));
+
+  @override
+  Stream<List<Team>> onTeams() => teamsStore
+      .query()
+      .onSnapshots(db)
+      .map((event) => event.map((e) => Team.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+
+  @override
+  Stream<Team?> onTeam(int id) => teamsStore
+      .query(finder: Finder(filter: Filter.byKey(id)))
+      .onSnapshot(db)
+      .map((e) => e == null ? null : Team.fromJson(Map.from(e.value)..["id"] = e.key));
 }
