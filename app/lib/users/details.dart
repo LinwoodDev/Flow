@@ -150,11 +150,10 @@ class _UserPageState extends State<UserPage> {
                                       title: Text("User state"),
                                       subtitle: Text(userState.toString()))),
                               SizedBox(height: 50),
-                              if (user != null)
-                                ElevatedButton.icon(
-                                    icon: Icon(PhosphorIcons.lockLight),
-                                    label: Text("CHANGE PASSWORD"),
-                                    onPressed: () {})
+                              ElevatedButton.icon(
+                                  icon: Icon(PhosphorIcons.lockLight),
+                                  label: Text("CHANGE PASSWORD"),
+                                  onPressed: () {})
                             ]
                           ])))))
         ]));

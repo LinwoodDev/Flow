@@ -1,9 +1,13 @@
-import 'package:flow_app/events/details.dart';
+import 'package:flow_app/services/api_service.dart';
+import 'package:flow_app/services/local_service.dart';
 import 'package:flow_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/event.dart';
+
+import 'details.dart';
 
 class EventsPage extends StatefulWidget {
   @override
@@ -11,8 +15,17 @@ class EventsPage extends StatefulWidget {
 }
 
 class _EventsPageState extends State<EventsPage> {
-  int? selected = null;
-  final List<Event> events = [Event("Event 1"), Event("Event 2"), Event("Event 3")];
+  Event? selected = null;
+  late ApiService service;
+  late Stream<List<Event>> eventStream;
+
+  @override
+  void initState() {
+    super.initState();
+
+    service = GetIt.I.get<LocalService>();
+    eventStream = service.onEvents();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,30 +42,47 @@ class _EventsPageState extends State<EventsPage> {
                 floatingActionButton: FloatingActionButton.extended(
                     label: Text("Create event"),
                     icon: Icon(PhosphorIcons.plusLight),
-                    onPressed: () => Modular.to.pushNamed("/events/create")),
+                    onPressed: () => isDesktop
+                        ? setState(() => selected = null)
+                        : Modular.to.pushNamed("/events/create")),
                 body: Scrollbar(
                     child: SingleChildScrollView(
-                        child: Column(
-                            children: List.generate(
-                                events.length,
-                                (index) => ListTile(
-                                    title: Text(events[index].name),
-                                    selected: selected == index,
-                                    onTap: () => isDesktop
-                                        ? setState(() => selected = index)
-                                        : Modular.to.pushNamed(Uri(
-                                                pathSegments: ["", "events", "details"],
-                                                queryParameters: {"id": index.toString()})
-                                            .toString())))))),
+                        child: StreamBuilder<List<Event>>(
+                            stream: eventStream,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasError) return Text("Error ${snapshot.error}");
+                              if (snapshot.connectionState == ConnectionState.waiting ||
+                                  !snapshot.hasData)
+                                return Center(child: CircularProgressIndicator());
+                              var events = snapshot.data!;
+                              return Column(
+                                  children: List.generate(events.length, (index) {
+                                var event = events[index];
+                                return Dismissible(
+                                  key: Key(event.id!.toString()),
+                                  onDismissed: (direction) {
+                                    service.deleteEvent(event.id!);
+                                  },
+                                  background: Container(color: Colors.red),
+                                  child: ListTile(
+                                      title: Text(event.name),
+                                      selected: selected?.id == event.id,
+                                      onTap: () => isDesktop
+                                          ? setState(() => selected = event)
+                                          : Modular.to.pushNamed(Uri(
+                                                  pathSegments: ["", "events", "details"],
+                                                  queryParameters: {"id": index.toString()})
+                                              .toString())),
+                                );
+                              }));
+                            }))),
               ),
             ),
             if (isDesktop) ...[
               VerticalDivider(),
               Expanded(
                   flex: 2,
-                  child: selected == null
-                      ? Center(child: Text("Nothing selected"))
-                      : EventPage(event: events[selected!], isDesktop: isDesktop, id: selected!))
+                  child: EventPage(event: selected, isDesktop: isDesktop, id: selected?.id))
             ]
           ]);
         }));

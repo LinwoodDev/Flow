@@ -1,9 +1,13 @@
-import 'package:flow_app/badges/details.dart';
+import 'package:flow_app/services/api_service.dart';
+import 'package:flow_app/services/local_service.dart';
 import 'package:flow_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/badge.dart';
+
+import 'details.dart';
 
 class BadgesPage extends StatefulWidget {
   @override
@@ -11,8 +15,17 @@ class BadgesPage extends StatefulWidget {
 }
 
 class _BadgesPageState extends State<BadgesPage> {
-  int? selected = null;
-  final List<Badge> badges = [Badge("Badge 1"), Badge("Badge 2"), Badge("Badge 3")];
+  Badge? selected = null;
+  late ApiService service;
+  late Stream<List<Badge>> badgeStream;
+
+  @override
+  void initState() {
+    super.initState();
+
+    service = GetIt.I.get<LocalService>();
+    badgeStream = service.onBadges();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,30 +42,47 @@ class _BadgesPageState extends State<BadgesPage> {
                 floatingActionButton: FloatingActionButton.extended(
                     label: Text("Create badge"),
                     icon: Icon(PhosphorIcons.plusLight),
-                    onPressed: () => Modular.to.pushNamed("/badges/create")),
+                    onPressed: () => isDesktop
+                        ? setState(() => selected = null)
+                        : Modular.to.pushNamed("/badges/create")),
                 body: Scrollbar(
                     child: SingleChildScrollView(
-                        child: Column(
-                            children: List.generate(
-                                badges.length,
-                                (index) => ListTile(
-                                    title: Text(badges[index].name),
-                                    selected: selected == index,
-                                    onTap: () => isDesktop
-                                        ? setState(() => selected = index)
-                                        : Modular.to.pushNamed(Uri(
-                                                pathSegments: ["", "badges", "details"],
-                                                queryParameters: {"id": index.toString()})
-                                            .toString())))))),
+                        child: StreamBuilder<List<Badge>>(
+                            stream: badgeStream,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasError) return Text("Error ${snapshot.error}");
+                              if (snapshot.connectionState == ConnectionState.waiting ||
+                                  !snapshot.hasData)
+                                return Center(child: CircularProgressIndicator());
+                              var badges = snapshot.data!;
+                              return Column(
+                                  children: List.generate(badges.length, (index) {
+                                var badge = badges[index];
+                                return Dismissible(
+                                  key: Key(badge.id!.toString()),
+                                  onDismissed: (direction) {
+                                    service.deleteBadge(badge.id!);
+                                  },
+                                  background: Container(color: Colors.red),
+                                  child: ListTile(
+                                      title: Text(badge.name),
+                                      selected: selected?.id == badge.id,
+                                      onTap: () => isDesktop
+                                          ? setState(() => selected = badge)
+                                          : Modular.to.pushNamed(Uri(
+                                                  pathSegments: ["", "badges", "details"],
+                                                  queryParameters: {"id": index.toString()})
+                                              .toString())),
+                                );
+                              }));
+                            }))),
               ),
             ),
             if (isDesktop) ...[
               VerticalDivider(),
               Expanded(
                   flex: 2,
-                  child: selected == null
-                      ? Center(child: Text("Nothing selected"))
-                      : BadgePage(badge: badges[selected!], isDesktop: isDesktop, id: selected!))
+                  child: BadgePage(badge: selected, isDesktop: isDesktop, id: selected?.id))
             ]
           ]);
         }));

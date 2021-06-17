@@ -10,24 +10,25 @@ class Event {
   Event(this.name, {this.description = '', this.id, this.series, this.state = EventState.planned});
 
   Event.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
+      : name = json['name'] ?? '',
         id = json['id'],
         description = json['description'] ?? '',
         state = EventState.values[json['state'] ?? 0],
         series = json['series'];
 
   Map<String, dynamic> toJson() =>
-      {'id': id, 'description': description, 'state': state.index, 'series': series};
+      {'id': id, 'description': description, 'state': state.index, 'series': series, 'name': name};
 
   Event copyWith(
           {String? name,
           String? description,
           int? series,
           EventState? state,
-          bool removeSeries = false}) =>
+          bool removeSeries = false,
+          int? id}) =>
       Event(name ?? this.name,
           description: description ?? this.description,
-          id: id,
+          id: id ?? this.id,
           series: removeSeries ? null : series ?? this.series,
           state: state ?? this.state);
 }

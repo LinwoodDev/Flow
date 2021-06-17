@@ -15,9 +15,10 @@ class Badge {
         color = json['color'];
   Map<String, dynamic> toJson() =>
       {'id': id, 'name': name, 'description': description, 'color': color};
-  Badge copyWith({String? name, String? description, int? color, bool removeColor = false}) =>
+  Badge copyWith(
+          {String? name, String? description, int? color, bool removeColor = false, int? id}) =>
       Badge(name ?? this.name,
           description: description ?? this.description,
-          id: id,
+          id: id ?? this.id,
           color: removeColor ? null : color ?? this.color);
 }
