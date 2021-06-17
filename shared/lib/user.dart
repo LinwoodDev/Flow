@@ -1,20 +1,7 @@
 import 'package:meta/meta.dart';
-import 'package:moor/moor.dart';
-
-@UseRowClass(User)
-class Users extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  TextColumn get name => text()();
-  TextColumn get displayName => text().nullable()();
-  TextColumn get bio => text().withDefault(const Constant(''))();
-  TextColumn get email => text()();
-  TextColumn get password => text()();
-  IntColumn get series => integer().nullable()();
-  IntColumn get state => integer().map(UserStateConverter())();
-}
 
 @immutable
-class User implements Insertable<User> {
+class User {
   final int? id;
   final String name;
   final String displayName;
@@ -58,26 +45,6 @@ class User implements Insertable<User> {
 
   Map<String, dynamic> toJson() =>
       {'name': name, 'display-name': displayName, 'email': email, 'bio': bio, 'state': state.index};
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    // TODO: implement toColumns
-    throw UnimplementedError();
-  }
 }
 
 enum UserState { confirm, active, punished }
-
-class UserStateConverter extends TypeConverter<UserState, int> {
-  const UserStateConverter();
-  @override
-  UserState? mapToDart(int? fromDb) {
-    if (fromDb == null) {
-      return null;
-    }
-    return UserState.values[fromDb];
-  }
-
-  @override
-  int? mapToSql(UserState? value) => value?.index;
-}

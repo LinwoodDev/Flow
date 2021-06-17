@@ -1,14 +1,4 @@
 import 'package:meta/meta.dart';
-import 'package:moor/moor.dart';
-
-@UseRowClass(Event)
-class Events extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  TextColumn get name => text()();
-  TextColumn get description => text().withDefault(const Constant(''))();
-  IntColumn get series => integer().nullable()();
-  IntColumn get state => integer().map(EventStateConverter())();
-}
 
 @immutable
 class Event {
@@ -43,17 +33,3 @@ class Event {
 }
 
 enum EventState { draft, planned, canceled }
-
-class EventStateConverter extends TypeConverter<EventState, int> {
-  const EventStateConverter();
-  @override
-  EventState? mapToDart(int? fromDb) {
-    if (fromDb == null) {
-      return null;
-    }
-    return EventState.values[fromDb];
-  }
-
-  @override
-  int? mapToSql(EventState? value) => value?.index;
-}
