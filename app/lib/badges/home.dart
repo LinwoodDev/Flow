@@ -71,7 +71,7 @@ class _BadgesPageState extends State<BadgesPage> {
                                           ? setState(() => selected = badge)
                                           : Modular.to.pushNamed(Uri(
                                                   pathSegments: ["", "badges", "details"],
-                                                  queryParameters: {"id": index.toString()})
+                                                  queryParameters: {"id": badge.id.toString()})
                                               .toString())),
                                 );
                               }));

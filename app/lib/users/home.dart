@@ -70,8 +70,8 @@ class _UsersPageState extends State<UsersPage> {
                                       onTap: () => isDesktop
                                           ? setState(() => selected = user)
                                           : Modular.to.pushNamed(Uri(
-                                                  pathSegments: ["", "events", "details"],
-                                                  queryParameters: {"id": index.toString()})
+                                                  pathSegments: ["", "users", "details"],
+                                                  queryParameters: {"id": user.id.toString()})
                                               .toString())),
                                 );
                               }));

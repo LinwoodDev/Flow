@@ -70,8 +70,8 @@ class _TeamsPageState extends State<TeamsPage> {
                                       onTap: () => isDesktop
                                           ? setState(() => selected = team)
                                           : Modular.to.pushNamed(Uri(
-                                                  pathSegments: ["", "events", "details"],
-                                                  queryParameters: {"id": index.toString()})
+                                                  pathSegments: ["", "teams", "details"],
+                                                  queryParameters: {"id": team.id.toString()})
                                               .toString())),
                                 );
                               }));

@@ -71,7 +71,7 @@ class _EventsPageState extends State<EventsPage> {
                                           ? setState(() => selected = event)
                                           : Modular.to.pushNamed(Uri(
                                                   pathSegments: ["", "events", "details"],
-                                                  queryParameters: {"id": index.toString()})
+                                                  queryParameters: {"id": event.idf.toString()})
                                               .toString())),
                                 );
                               }));
