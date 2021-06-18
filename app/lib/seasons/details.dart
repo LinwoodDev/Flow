@@ -8,11 +8,10 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/season.dart';
 
 class SeasonPage extends StatefulWidget {
-  final Season? season;
   final int? id;
   final bool isDesktop;
 
-  const SeasonPage({Key? key, this.season, this.id, this.isDesktop = false}) : super(key: key);
+  const SeasonPage({Key? key, this.id, this.isDesktop = false}) : super(key: key);
 
   @override
   _SeasonPageState createState() => _SeasonPageState();

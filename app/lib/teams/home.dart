@@ -80,8 +80,7 @@ class _TeamsPageState extends State<TeamsPage> {
             ),
             if (isDesktop) ...[
               VerticalDivider(),
-              Expanded(
-                  flex: 2, child: TeamPage(team: selected, isDesktop: isDesktop, id: selected?.id))
+              Expanded(flex: 2, child: TeamPage(isDesktop: isDesktop, id: selected?.id))
             ]
           ]);
         }));

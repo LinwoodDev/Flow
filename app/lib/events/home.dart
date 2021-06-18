@@ -80,9 +80,7 @@ class _EventsPageState extends State<EventsPage> {
             ),
             if (isDesktop) ...[
               VerticalDivider(),
-              Expanded(
-                  flex: 2,
-                  child: EventPage(event: selected, isDesktop: isDesktop, id: selected?.id))
+              Expanded(flex: 2, child: EventPage(isDesktop: isDesktop, id: selected?.id))
             ]
           ]);
         }));

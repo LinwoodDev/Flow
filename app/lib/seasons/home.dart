@@ -80,9 +80,7 @@ class _SeasonsPageState extends State<SeasonsPage> {
             ),
             if (isDesktop) ...[
               VerticalDivider(),
-              Expanded(
-                  flex: 2,
-                  child: SeasonPage(season: selected, isDesktop: isDesktop, id: selected?.id))
+              Expanded(flex: 2, child: SeasonPage(isDesktop: isDesktop, id: selected?.id))
             ]
           ]);
         }));

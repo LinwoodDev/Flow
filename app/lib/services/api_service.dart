@@ -3,6 +3,7 @@ import 'package:shared/event.dart';
 import 'package:shared/season.dart';
 import 'package:shared/team.dart';
 import 'package:shared/user.dart';
+import 'package:shared/task.dart';
 
 abstract class ApiService {
   // Team operations
@@ -49,4 +50,13 @@ abstract class ApiService {
   Future<void> deleteSeason(int id);
   Stream<List<Season>> onSeasons();
   Stream<Season?> onSeason(int id);
+
+  // Task operations
+  Future<List<Task>> fetchTasks();
+  Future<Task> createTask(Task task);
+  Future<Task?> fetchTask(int id);
+  Future<void> updateTask(Task task);
+  Future<void> deleteTask(int id);
+  Stream<List<Task>> onTasks();
+  Stream<Task?> onTask(int id);
 }

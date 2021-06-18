@@ -8,11 +8,10 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/badge.dart';
 
 class BadgePage extends StatefulWidget {
-  final Badge? badge;
   final int? id;
   final bool isDesktop;
 
-  const BadgePage({Key? key, this.badge, this.id, this.isDesktop = false}) : super(key: key);
+  const BadgePage({Key? key, this.id, this.isDesktop = false}) : super(key: key);
 
   @override
   _BadgePageState createState() => _BadgePageState();

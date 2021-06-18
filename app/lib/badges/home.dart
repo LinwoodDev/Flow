@@ -80,9 +80,7 @@ class _BadgesPageState extends State<BadgesPage> {
             ),
             if (isDesktop) ...[
               VerticalDivider(),
-              Expanded(
-                  flex: 2,
-                  child: BadgePage(badge: selected, isDesktop: isDesktop, id: selected?.id))
+              Expanded(flex: 2, child: BadgePage(isDesktop: isDesktop, id: selected?.id))
             ]
           ]);
         }));

@@ -6,7 +6,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 enum RoutePages {
   home,
   calendar,
-  list,
+  overview,
 // Admin
   teams,
   users,
@@ -57,18 +57,19 @@ class FlowDrawer extends StatelessWidget {
                 onTap: () => Modular.to.pushReplacementNamed("/"),
                 selected: page == RoutePages.home),
             ListTile(
+                leading: Icon(page == RoutePages.overview
+                    ? PhosphorIcons.squaresFourFill
+                    : PhosphorIcons.squaresFourLight),
+                title: const Text("Overview"),
+                onTap: () => Modular.to.pushReplacementNamed("/overview"),
+                selected: page == RoutePages.overview),
+            ListTile(
                 leading: Icon(page == RoutePages.calendar
                     ? PhosphorIcons.calendarFill
                     : PhosphorIcons.calendarLight),
                 title: const Text("Calendar"),
                 onTap: () => Modular.to.pushReplacementNamed("/calendar"),
                 selected: page == RoutePages.calendar),
-            ListTile(
-                leading: Icon(
-                    page == RoutePages.list ? PhosphorIcons.listFill : PhosphorIcons.listLight),
-                title: const Text("List"),
-                onTap: () => Modular.to.pushReplacementNamed("/list"),
-                selected: page == RoutePages.list),
             ExpansionTile(title: Text("Admin"), initiallyExpanded: true, children: [
               ListTile(
                   leading: Icon(page == RoutePages.teams

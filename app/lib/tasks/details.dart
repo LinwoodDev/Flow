@@ -5,19 +5,19 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/event.dart';
+import 'package:shared/task.dart';
 
-class EventPage extends StatefulWidget {
+class TaskPage extends StatefulWidget {
   final int? id;
   final bool isDesktop;
 
-  const EventPage({Key? key, this.id, this.isDesktop = false}) : super(key: key);
+  const TaskPage({Key? key, this.id, this.isDesktop = false}) : super(key: key);
 
   @override
-  _EventPageState createState() => _EventPageState();
+  _TaskPageState createState() => _TaskPageState();
 }
 
-class _EventPageState extends State<EventPage> {
+class _TaskPageState extends State<TaskPage> {
   late TextEditingController _nameController = TextEditingController();
   late TextEditingController _descriptionController = TextEditingController();
   late ApiService service;
@@ -29,7 +29,7 @@ class _EventPageState extends State<EventPage> {
   }
 
   @override
-  void didUpdateWidget(EventPage oldWidget) {
+  void didUpdateWidget(TaskPage oldWidget) {
     super.didUpdateWidget(oldWidget);
     service = GetIt.I.get<LocalService>();
   }
@@ -39,8 +39,8 @@ class _EventPageState extends State<EventPage> {
   Widget build(BuildContext context) {
     return widget.id == null
         ? _buildView(null)
-        : StreamBuilder<Event?>(
-            stream: service.onEvent(widget.id!),
+        : StreamBuilder<Task?>(
+            stream: service.onTask(widget.id!),
             builder: (context, snapshot) {
               if (snapshot.hasError) return Text("Error ${snapshot.error}");
               if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
@@ -49,26 +49,25 @@ class _EventPageState extends State<EventPage> {
             });
   }
 
-  Widget _buildView(Event? event) {
-    var create = event == null;
-    _nameController.text = event?.name ?? "";
-    _descriptionController.text = event?.description ?? "";
-    var eventState = event?.state ?? EventState.draft;
+  Widget _buildView(Task? task) {
+    var create = task == null;
+    _nameController.text = task?.name ?? "";
+    _descriptionController.text = task?.description ?? "";
     return Scaffold(
-        appBar: AppBar(title: Text(create ? "Create event" : event!.name)),
+        appBar: AppBar(title: Text(create ? "Create task" : task!.name)),
         floatingActionButton: FloatingActionButton(
-            heroTag: "event-check",
+            heroTag: "task-check",
             child: Icon(PhosphorIcons.checkLight),
             onPressed: () {
               if (create) {
-                service.createEvent(
-                    Event(_nameController.text, description: _descriptionController.text));
+                service.createTask(
+                    Task(_nameController.text, description: _descriptionController.text));
                 if (widget.isDesktop) {
                   _nameController.text = "";
                   _descriptionController.text = "";
                 }
               } else
-                service.updateEvent(event!.copyWith(
+                service.updateTask(task!.copyWith(
                     name: _nameController.text, description: _descriptionController.text));
               if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
             }),
@@ -78,9 +77,9 @@ class _EventPageState extends State<EventPage> {
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton.icon(
                   onPressed: () => Modular.to.pushNamed(widget.id == null
-                      ? "/events/create"
+                      ? "/tasks/create"
                       : Uri(
-                          pathSegments: ["", "events", "details"],
+                          pathSegments: ["", "tasks", "details"],
                           queryParameters: {"id": widget.id.toString()}).toString()),
                   icon: Icon(PhosphorIcons.arrowSquareOutLight),
                   label: Text("OPEN IN NEW WINDOW")),
@@ -115,21 +114,7 @@ class _EventPageState extends State<EventPage> {
                                     icon: Icon(PhosphorIcons.articleLight)),
                                 maxLines: null,
                                 controller: _descriptionController,
-                                minLines: 3),
-                            if (event != null) ...[
-                              SizedBox(height: 10),
-                              PopupMenuButton<EventState>(
-                                  initialValue: eventState,
-                                  onSelected: (value) =>
-                                      service.updateEvent(event.copyWith(state: value)),
-                                  itemBuilder: (context) => EventState.values
-                                      .map(
-                                          (e) => PopupMenuItem(child: Text(e.toString()), value: e))
-                                      .toList(),
-                                  child: ListTile(
-                                      title: Text("Event state"),
-                                      subtitle: Text(eventState.toString())))
-                            ]
+                                minLines: 3)
                           ])))))
         ]));
   }

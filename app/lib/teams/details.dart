@@ -9,11 +9,10 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/team.dart';
 
 class TeamPage extends StatefulWidget {
-  final Team? team;
   final int? id;
   final bool isDesktop;
 
-  const TeamPage({Key? key, this.team, this.id, this.isDesktop = false}) : super(key: key);
+  const TeamPage({Key? key, this.id, this.isDesktop = false}) : super(key: key);
 
   @override
   _TeamPageState createState() => _TeamPageState();

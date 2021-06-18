@@ -8,11 +8,10 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/user.dart';
 
 class UserPage extends StatefulWidget {
-  final User? user;
   final int? id;
   final bool isDesktop;
 
-  const UserPage({Key? key, this.user, this.id, this.isDesktop = false}) : super(key: key);
+  const UserPage({Key? key, this.id, this.isDesktop = false}) : super(key: key);
 
   @override
   _UserPageState createState() => _UserPageState();
