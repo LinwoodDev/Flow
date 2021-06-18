@@ -63,8 +63,8 @@ class _BadgePageState extends State<BadgePage> {
                 service.createBadge(
                     Badge(_nameController.text, description: _descriptionController.text));
                 if (widget.isDesktop) {
-                  _nameController.text = "";
-                  _descriptionController.text = "";
+                  _nameController.clear();
+                  _descriptionController.clear();
                 }
               } else
                 service.updateBadge(badge!.copyWith(

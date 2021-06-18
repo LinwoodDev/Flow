@@ -63,8 +63,8 @@ class _SeasonPageState extends State<SeasonPage> {
                 service.createSeason(
                     Season(_nameController.text, description: _descriptionController.text));
                 if (widget.isDesktop) {
-                  _nameController.text = "";
-                  _descriptionController.text = "";
+                  _nameController.clear();
+                  _descriptionController.clear();
                 }
               } else
                 service.updateSeason(season!.copyWith(

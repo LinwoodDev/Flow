@@ -12,7 +12,7 @@ class Place {
         name = json['name'],
         description = json['description'] ?? '';
 
-  Map<String, dynamic> toJson() => {'id': id, 'name': name, 'description': description};
+  Map<String, dynamic> toJson() => {'name': name, 'description': description};
 
   Place copyWith({String? name, String? description}) =>
       Place(name ?? this.name, description: description ?? this.description, id: id);

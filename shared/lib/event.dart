@@ -17,7 +17,7 @@ class Event {
         season = json['season'];
 
   Map<String, dynamic> toJson() =>
-      {'id': id, 'description': description, 'state': state.index, 'season': season, 'name': name};
+      {'description': description, 'state': state.index, 'season': season, 'name': name};
 
   Event copyWith(
           {String? name,

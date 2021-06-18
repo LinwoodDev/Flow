@@ -70,10 +70,10 @@ class _UserPageState extends State<UserPage> {
                     displayName: _displayNameController.text,
                     email: _emailController.text));
                 if (widget.isDesktop) {
-                  _nameController.text = "";
-                  _bioController.text = "";
-                  _displayNameController.text = "";
-                  _emailController.text = "";
+                  _nameController.clear();
+                  _bioController.clear();
+                  _displayNameController.clear();
+                  _emailController.clear();
                 }
               } else
                 service.updateUser(user!.copyWith(

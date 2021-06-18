@@ -1,5 +1,6 @@
 import 'package:flow_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class OverviewPage extends StatefulWidget {
   const OverviewPage({Key? key}) : super(key: key);
@@ -11,6 +12,15 @@ class OverviewPage extends StatefulWidget {
 class _OverviewPageState extends State<OverviewPage> {
   @override
   Widget build(BuildContext context) {
-    return FlowScaffold(pageTitle: "Overview", page: RoutePages.overview, body: Container());
+    return DefaultTabController(
+        length: 2,
+        child: FlowScaffold(
+            bottom: TabBar(tabs: [
+              Tab(icon: Icon(PhosphorIcons.squareLight), text: "Opened"),
+              Tab(icon: Icon(PhosphorIcons.checkSquareLight), text: "Done")
+            ]),
+            pageTitle: "Overview",
+            page: RoutePages.overview,
+            body: TabBarView(children: [Container(), Container()])));
   }
 }

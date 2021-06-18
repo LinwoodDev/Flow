@@ -11,7 +11,7 @@ class Task {
       : id = json['id'],
         name = json['name'],
         description = json['description'] ?? '';
-  Map<String, dynamic> toJson() => {'id': id, 'name': name, 'description': description};
+  Map<String, dynamic> toJson() => {'name': name, 'description': description};
   Task copyWith({String? name, String? description, int? id}) =>
       Task(name ?? this.name, description: description ?? this.description, id: id ?? this.id);
 }

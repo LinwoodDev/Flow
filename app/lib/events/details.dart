@@ -64,8 +64,8 @@ class _EventPageState extends State<EventPage> {
                 service.createEvent(
                     Event(_nameController.text, description: _descriptionController.text));
                 if (widget.isDesktop) {
-                  _nameController.text = "";
-                  _descriptionController.text = "";
+                  _nameController.clear();
+                  _descriptionController.clear();
                 }
               } else
                 service.updateEvent(event!.copyWith(

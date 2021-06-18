@@ -72,8 +72,8 @@ class _TeamPageState extends State<TeamPage> {
                     service.createTeam(Team(_nameController.text,
                         description: _descriptionController.text, color: color.value));
                     if (widget.isDesktop) {
-                      _nameController.text = "";
-                      _descriptionController.text = "";
+                      _nameController.clear();
+                      _descriptionController.clear();
                       setState(() => color = Colors.white);
                     }
                   } else

@@ -14,8 +14,7 @@ class Season {
         name = json['name'],
         color = json['color'],
         description = json['description'] ?? '';
-  Map<String, dynamic> toJson() =>
-      {'id': id, 'name': name, 'color': color, 'description': description};
+  Map<String, dynamic> toJson() => {'name': name, 'color': color, 'description': description};
 
   Season copyWith(
           {String? name, String? description, int? color, int? id, bool removeColor = false}) =>
