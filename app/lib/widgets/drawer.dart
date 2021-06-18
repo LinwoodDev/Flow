@@ -3,7 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-enum RoutePages { home, teams, users, events, seasons, badges, general, servers, appearance }
+enum RoutePages {
+  home,
+  calendar,
+  list,
+// Admin
+  teams,
+  users,
+  events,
+  seasons,
+  badges,
+  tasks,
+// Settings
+  general,
+  servers,
+  appearance
+}
 
 class FlowDrawer extends StatelessWidget {
   final RoutePages? page;
@@ -42,39 +57,61 @@ class FlowDrawer extends StatelessWidget {
                 onTap: () => Modular.to.pushReplacementNamed("/"),
                 selected: page == RoutePages.home),
             ListTile(
-                leading: Icon(page == RoutePages.teams
-                    ? PhosphorIcons.flagBannerFill
-                    : PhosphorIcons.flagBannerLight),
-                title: const Text("Teams"),
-                onTap: () => Modular.to.pushReplacementNamed("/teams"),
-                selected: page == RoutePages.teams),
+                leading: Icon(page == RoutePages.calendar
+                    ? PhosphorIcons.calendarFill
+                    : PhosphorIcons.calendarLight),
+                title: const Text("Calendar"),
+                onTap: () => Modular.to.pushReplacementNamed("/calendar"),
+                selected: page == RoutePages.calendar),
             ListTile(
                 leading: Icon(
-                    page == RoutePages.users ? PhosphorIcons.usersFill : PhosphorIcons.usersLight),
-                title: const Text("Users"),
-                onTap: () => Modular.to.pushReplacementNamed("/users"),
-                selected: page == RoutePages.users),
-            ListTile(
-                leading: Icon(page == RoutePages.seasons
-                    ? PhosphorIcons.bookBookmarkFill
-                    : PhosphorIcons.bookBookmarkLight),
-                title: const Text("Seasons"),
-                onTap: () => Modular.to.pushReplacementNamed("/seasons"),
-                selected: page == RoutePages.seasons),
-            ListTile(
-                leading: Icon(page == RoutePages.events
-                    ? PhosphorIcons.calendarBlankFill
-                    : PhosphorIcons.calendarBlankLight),
-                title: const Text("Events"),
-                onTap: () => Modular.to.pushReplacementNamed("/events"),
-                selected: page == RoutePages.events),
-            ListTile(
-                leading: Icon(page == RoutePages.badges
-                    ? PhosphorIcons.circleWavyFill
-                    : PhosphorIcons.circleWavyLight),
-                title: const Text("Badges"),
-                onTap: () => Modular.to.pushReplacementNamed("/badges"),
-                selected: page == RoutePages.badges),
+                    page == RoutePages.list ? PhosphorIcons.listFill : PhosphorIcons.listLight),
+                title: const Text("List"),
+                onTap: () => Modular.to.pushReplacementNamed("/list"),
+                selected: page == RoutePages.list),
+            ExpansionTile(title: Text("Admin"), initiallyExpanded: true, children: [
+              ListTile(
+                  leading: Icon(page == RoutePages.teams
+                      ? PhosphorIcons.flagBannerFill
+                      : PhosphorIcons.flagBannerLight),
+                  title: const Text("Teams"),
+                  onTap: () => Modular.to.pushReplacementNamed("/teams"),
+                  selected: page == RoutePages.teams),
+              ListTile(
+                  leading: Icon(page == RoutePages.tasks
+                      ? PhosphorIcons.checkSquareFill
+                      : PhosphorIcons.checkSquareLight),
+                  title: const Text("Tasks"),
+                  onTap: () => Modular.to.pushReplacementNamed("/tasks"),
+                  selected: page == RoutePages.tasks),
+              ListTile(
+                  leading: Icon(page == RoutePages.users
+                      ? PhosphorIcons.usersFill
+                      : PhosphorIcons.usersLight),
+                  title: const Text("Users"),
+                  onTap: () => Modular.to.pushReplacementNamed("/users"),
+                  selected: page == RoutePages.users),
+              ListTile(
+                  leading: Icon(page == RoutePages.seasons
+                      ? PhosphorIcons.bookBookmarkFill
+                      : PhosphorIcons.bookBookmarkLight),
+                  title: const Text("Seasons"),
+                  onTap: () => Modular.to.pushReplacementNamed("/seasons"),
+                  selected: page == RoutePages.seasons),
+              ListTile(
+                  leading: Icon(
+                      page == RoutePages.events ? PhosphorIcons.bookFill : PhosphorIcons.bookLight),
+                  title: const Text("Events"),
+                  onTap: () => Modular.to.pushReplacementNamed("/events"),
+                  selected: page == RoutePages.events),
+              ListTile(
+                  leading: Icon(page == RoutePages.badges
+                      ? PhosphorIcons.circleWavyFill
+                      : PhosphorIcons.circleWavyLight),
+                  title: const Text("Badges"),
+                  onTap: () => Modular.to.pushReplacementNamed("/badges"),
+                  selected: page == RoutePages.badges)
+            ]),
             ExpansionTile(title: Text('Settings'), initiallyExpanded: true, children: <Widget>[
               Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
