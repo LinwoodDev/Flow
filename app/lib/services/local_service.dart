@@ -11,6 +11,7 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast_io.dart';
 import 'package:shared/user.dart';
+import 'package:shared/season.dart';
 
 class LocalService extends ApiService {
   final Database db;
@@ -185,4 +186,39 @@ class LocalService extends ApiService {
       .query(finder: Finder(filter: Filter.byKey(id)))
       .onSnapshot(db)
       .map((e) => e == null ? null : Badge.fromJson(Map.from(e.value)..["id"] = e.key));
+
+  // Season operations
+  static const String seasonsStoreName = 'seasons';
+  final seasonsStore = intMapStoreFactory.store(seasonsStoreName);
+
+  @override
+  Future<Season> createSeason(Season season) =>
+      seasonsStore.add(db, season.toJson()).then((value) => season.copyWith(id: value));
+
+  @override
+  Future<List<Season>> fetchSeasons() => seasonsStore.find(db).then(
+      (value) => value.map((e) => Season.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+
+  @override
+  Future<Season?> fetchSeason(int id) =>
+      seasonsStore.findFirst(db, finder: Finder(filter: Filter.byKey(id))).then((value) =>
+          value == null ? null : Season.fromJson(Map.from(value.value)..["id"] = value.key));
+
+  @override
+  Future<void> updateSeason(Season season) =>
+      seasonsStore.update(db, season.toJson(), finder: Finder(filter: Filter.byKey(season.id)));
+
+  @override
+  Future<void> deleteSeason(int id) =>
+      seasonsStore.delete(db, finder: Finder(filter: Filter.byKey(id)));
+
+  @override
+  Stream<List<Season>> onSeasons() => seasonsStore.query().onSnapshots(db).map(
+      (season) => season.map((e) => Season.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+
+  @override
+  Stream<Season?> onSeason(int id) => seasonsStore
+      .query(finder: Finder(filter: Filter.byKey(id)))
+      .onSnapshot(db)
+      .map((e) => e == null ? null : Season.fromJson(Map.from(e.value)..["id"] = e.key));
 }

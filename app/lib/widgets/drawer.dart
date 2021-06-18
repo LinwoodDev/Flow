@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-enum RoutePages { home, teams, users, events, badges, general, servers, appearance }
+enum RoutePages { home, teams, users, events, seasons, badges, general, servers, appearance }
 
 class FlowDrawer extends StatelessWidget {
   final RoutePages? page;
@@ -54,6 +54,13 @@ class FlowDrawer extends StatelessWidget {
                 title: const Text("Users"),
                 onTap: () => Modular.to.pushReplacementNamed("/users"),
                 selected: page == RoutePages.users),
+            ListTile(
+                leading: Icon(page == RoutePages.seasons
+                    ? PhosphorIcons.bookBookmarkFill
+                    : PhosphorIcons.bookBookmarkLight),
+                title: const Text("Seasons"),
+                onTap: () => Modular.to.pushReplacementNamed("/seasons"),
+                selected: page == RoutePages.seasons),
             ListTile(
                 leading: Icon(page == RoutePages.events
                     ? PhosphorIcons.calendarBlankFill

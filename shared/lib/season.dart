@@ -1,15 +1,15 @@
 import 'package:meta/meta.dart';
 
 @immutable
-class Series {
+class Season {
   final int? id;
   final String name;
   final int? color;
   final String description;
 
-  Series(this.name, {this.description = '', this.color, this.id});
+  Season(this.name, {this.description = '', this.color, this.id});
 
-  Series.fromJson(Map<String, dynamic> json)
+  Season.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],
         color = json['color'],
@@ -17,9 +17,10 @@ class Series {
   Map<String, dynamic> toJson() =>
       {'id': id, 'name': name, 'color': color, 'description': description};
 
-  Series copyWith({String? name, String? description, int? color, bool removeColor = false}) =>
-      Series(name ?? this.name,
+  Season copyWith(
+          {String? name, String? description, int? color, int? id, bool removeColor = false}) =>
+      Season(name ?? this.name,
           description: description ?? this.description,
-          id: id,
+          id: id ?? this.id,
           color: removeColor ? null : color ?? this.color);
 }
