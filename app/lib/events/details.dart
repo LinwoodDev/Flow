@@ -1,10 +1,12 @@
 import 'package:flow_app/services/api_service.dart';
 import 'package:flow_app/services/local_service.dart';
+import 'package:flow_app/widgets/assign_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:shared/assign.dart';
 import 'package:shared/event.dart';
 
 class EventPage extends StatefulWidget {
@@ -128,7 +130,20 @@ class _EventPageState extends State<EventPage> {
                                       .toList(),
                                   child: ListTile(
                                       title: Text("Event state"),
-                                      subtitle: Text(eventState.toString())))
+                                      subtitle: Text(eventState.toString()))),
+                              ElevatedButton.icon(
+                                  icon: Icon(PhosphorIcons.flagLight),
+                                  label: Text("ASSIGN"),
+                                  onPressed: () => service.fetchUsers().then((users) => service
+                                      .fetchTeams()
+                                      .then((teams) => service.fetchEvents().then((events) => showDialog(
+                                          context: context,
+                                          builder: (context) => AssignDialog(
+                                              assigned: event.assigned.copyWith(
+                                                  users: users
+                                                      .map((e) =>
+                                                          AssignedObject(flag: AssignFlag.allow, id: e.id))
+                                                      .toList())))))))
                             ]
                           ])))))
         ]));

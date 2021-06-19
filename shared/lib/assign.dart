@@ -1,43 +1,57 @@
+import 'package:meta/meta.dart';
+
 enum AssignFlag { allow, neutral, disallow }
 
+@immutable
 class Assigned {
-  final AssignedObject everyone;
-  final List<AssignedObject> groups;
+  final AssignFlag everyone;
+  final List<AssignedObject> teams;
   final List<AssignedObject> users;
   final List<AssignedObject> events;
 
   const Assigned(
-      {this.groups = const [],
+      {this.teams = const [],
       this.users = const [],
       this.events = const [],
-      this.everyone = const AssignedObject(flag: AssignFlag.allow)});
+      this.everyone = AssignFlag.allow});
   Assigned.fromJson(Map<String, dynamic> json)
-      : groups = (json['groups'] as List<Map<String, dynamic>>)
+      : teams = (json['teams'] as List<Map<String, dynamic>>? ?? [])
             .map((e) => AssignedObject.fromJson(e))
             .toList(),
-        users = (json['users'] as List<Map<String, dynamic>>)
+        users = (json['users'] as List<Map<String, dynamic>>? ?? [])
             .map((e) => AssignedObject.fromJson(e))
             .toList(),
-        events = (json['events'] as List<Map<String, dynamic>>)
+        events = (json['events'] as List<Map<String, dynamic>>? ?? [])
             .map((e) => AssignedObject.fromJson(e))
             .toList(),
-        everyone = AssignedObject.fromJson(json['everyone']);
+        everyone = AssignFlag.values[json['everyone'] ?? 0];
 
   Map<String, dynamic> toJson() => {
-        'groups': groups.map((e) => e.toJson()).toList(),
+        'teams': teams.map((e) => e.toJson()).toList(),
         'users': users.map((e) => e.toJson()).toList(),
         'events': events.map((e) => e.toJson()).toList(),
-        'everyone': everyone.toJson()
+        'everyone': everyone.index
       };
+  Assigned copyWith(
+          {AssignFlag? everyone,
+          List<AssignedObject>? teams,
+          List<AssignedObject>? users,
+          List<AssignedObject>? events}) =>
+      Assigned(
+          teams: teams ?? this.teams,
+          events: events ?? this.events,
+          everyone: everyone ?? this.everyone,
+          users: users ?? this.users);
 }
 
+@immutable
 class AssignedObject {
   final int? id;
   final AssignFlag flag;
   const AssignedObject({this.id, required this.flag});
   AssignedObject.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        flag = AssignFlag.values[json['flag']];
+        flag = AssignFlag.values[json['flag'] ?? 0];
 
   AssignedObject copyWith({int? id, AssignFlag? flag}) =>
       AssignedObject(flag: flag ?? this.flag, id: id ?? this.id);
