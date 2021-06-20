@@ -37,7 +37,7 @@ class User {
   User.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'] ?? '',
-        displayName = json['display-name'],
+        displayName = json['display-name'] ?? '',
         bio = json['bio'] ?? '',
         email = json['email'] ?? '',
         password = json['password'] ?? '',

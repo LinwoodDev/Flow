@@ -26,20 +26,23 @@ class ResponsiveScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool displayMobileLayout = MediaQuery.of(context).size.width < 768;
-    return Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      if (!displayMobileLayout) Drawer(child: desktopDrawer),
-      Expanded(
-          child: Scaffold(
-              appBar: AppBar(
-                // when the app isn't displaying the mobile version of app, hide the menu button that is used to open the navigation drawer
-                automaticallyImplyLeading: displayMobileLayout,
-                title: Text(pageTitle),
-                actions: actions,
-                bottom: bottom,
-              ),
-              drawer: displayMobileLayout ? Drawer(child: drawer) : null,
-              body: body,
-              floatingActionButton: floatingActionButton))
-    ]);
+    return Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        textDirection: TextDirection.rtl,
+        children: [
+          Expanded(
+              child: Scaffold(
+                  appBar: AppBar(
+                    // when the app isn't displaying the mobile version of app, hide the menu button that is used to open the navigation drawer
+                    automaticallyImplyLeading: displayMobileLayout,
+                    title: Text(pageTitle),
+                    actions: actions,
+                    bottom: bottom,
+                  ),
+                  drawer: displayMobileLayout ? Drawer(child: drawer) : null,
+                  body: body,
+                  floatingActionButton: floatingActionButton)),
+          if (!displayMobileLayout) Drawer(child: desktopDrawer)
+        ]);
   }
 }

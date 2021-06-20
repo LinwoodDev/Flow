@@ -1,4 +1,4 @@
-import 'package:flow_server/flow_server.dart';
+import 'package:flow_server/home.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 
 void main(List<String> arguments) async {

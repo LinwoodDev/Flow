@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'flow_server.dart';
+part of 'home.dart';
 
 // **************************************************************************
 // ShelfRouterGenerator

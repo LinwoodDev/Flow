@@ -35,54 +35,58 @@ class _TasksPageState extends State<TasksPage> {
         actions: [IconButton(onPressed: () {}, icon: Icon(PhosphorIcons.funnelLight))],
         body: LayoutBuilder(builder: (context, constraints) {
           var isDesktop = MediaQuery.of(context).size.width > 1000;
-          return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Expanded(
-              flex: 3,
-              child: Scaffold(
-                floatingActionButton: FloatingActionButton.extended(
-                    label: Text("Create task"),
-                    icon: Icon(PhosphorIcons.plusLight),
-                    onPressed: () => isDesktop
-                        ? setState(() => selected = null)
-                        : Modular.to.pushNamed("/tasks/create")),
-                body: Scrollbar(
-                    child: SingleChildScrollView(
-                        child: StreamBuilder<List<Task>>(
-                            stream: taskStream,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasError) return Text("Error ${snapshot.error}");
-                              if (snapshot.connectionState == ConnectionState.waiting ||
-                                  !snapshot.hasData)
-                                return Center(child: CircularProgressIndicator());
-                              var tasks = snapshot.data!;
-                              return Column(
-                                  children: List.generate(tasks.length, (index) {
-                                var task = tasks[index];
-                                return Dismissible(
-                                  key: Key(task.id!.toString()),
-                                  onDismissed: (direction) {
-                                    service.deleteTask(task.id!);
-                                  },
-                                  background: Container(color: Colors.red),
-                                  child: ListTile(
-                                      title: Text(task.name),
-                                      selected: selected?.id == task.id,
-                                      onTap: () => isDesktop
-                                          ? setState(() => selected = task)
-                                          : Modular.to.pushNamed(Uri(
-                                                  pathSegments: ["", "tasks", "details"],
-                                                  queryParameters: {"id": task.id.toString()})
-                                              .toString())),
-                                );
-                              }));
-                            }))),
-              ),
-            ),
-            if (isDesktop) ...[
-              VerticalDivider(),
-              Expanded(flex: 2, child: TaskPage(isDesktop: isDesktop, id: selected?.id))
-            ]
-          ]);
+          return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              textDirection: TextDirection.rtl,
+              children: [
+                if (isDesktop) ...[
+                  Expanded(flex: 2, child: TaskPage(isDesktop: isDesktop, id: selected?.id)),
+                  VerticalDivider()
+                ],
+                Expanded(
+                    flex: 3,
+                    child: Scaffold(
+                        floatingActionButton: FloatingActionButton.extended(
+                            label: Text("Create task"),
+                            icon: Icon(PhosphorIcons.plusLight),
+                            onPressed: () => isDesktop
+                                ? setState(() => selected = null)
+                                : Modular.to.pushNamed("/tasks/create")),
+                        body: Scrollbar(
+                            child: SingleChildScrollView(
+                                child: StreamBuilder<List<Task>>(
+                                    stream: taskStream,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasError) return Text("Error ${snapshot.error}");
+                                      if (snapshot.connectionState == ConnectionState.waiting ||
+                                          !snapshot.hasData)
+                                        return Center(child: CircularProgressIndicator());
+                                      var tasks = snapshot.data!;
+                                      return Column(
+                                          children: List.generate(tasks.length, (index) {
+                                        var task = tasks[index];
+                                        return Dismissible(
+                                          key: Key(task.id!.toString()),
+                                          onDismissed: (direction) {
+                                            service.deleteTask(task.id!);
+                                          },
+                                          background: Container(color: Colors.red),
+                                          child: ListTile(
+                                              title: Text(task.name),
+                                              selected: selected?.id == task.id,
+                                              onTap: () => isDesktop
+                                                  ? setState(() => selected = task)
+                                                  : Modular.to.pushNamed(Uri(pathSegments: [
+                                                      "",
+                                                      "tasks",
+                                                      "details"
+                                                    ], queryParameters: {
+                                                      "id": task.id.toString()
+                                                    }).toString())),
+                                        );
+                                      }));
+                                    })))))
+              ]);
         }));
   }
 }

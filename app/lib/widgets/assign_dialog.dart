@@ -35,15 +35,30 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
     return Dialog(
         child: Container(
             constraints: BoxConstraints(maxWidth: 600, maxHeight: 800),
-            child: Column(children: [
-              TabBar(
-                controller: _tabController,
-                tabs: [
-                  Tab(icon: Icon(PhosphorIcons.usersLight), text: "Users"),
-                  Tab(icon: Icon(PhosphorIcons.flagLight), text: "Teams"),
-                  Tab(icon: Icon(PhosphorIcons.bookLight), text: "Events")
-                ],
-              ),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+              Card(
+                  child: Column(children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(PhosphorIcons.compassLight, size: 36),
+                      ),
+                      Text("Assign", style: Theme.of(context).textTheme.headline5),
+                    ],
+                  ),
+                ),
+                TabBar(
+                  controller: _tabController,
+                  tabs: [
+                    Tab(icon: Icon(PhosphorIcons.usersLight), text: "Users"),
+                    Tab(icon: Icon(PhosphorIcons.flagLight), text: "Teams"),
+                    Tab(icon: Icon(PhosphorIcons.bookLight), text: "Events")
+                  ],
+                )
+              ])),
               _AssignedObjectField(
                   title: "Everyone",
                   initialFlag: assigned.everyone,
@@ -68,7 +83,15 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                                       title: Text("Add user"),
                                       children: users
                                           .where((a) => !assigned.users.any((b) => b.id == a.id))
-                                          .map((e) => SimpleDialogOption(child: Text(e.name)))
+                                          .map((e) => SimpleDialogOption(
+                                              child: Text(e.name),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                                setState(() => assigned = assigned.copyWith(
+                                                    users: List.from(assigned.users)
+                                                      ..add(AssignedObject(
+                                                          flag: AssignFlag.allow, id: e.id))));
+                                              }))
                                           .toList())),
                               icon: Icon(PhosphorIcons.plusLight),
                               label: Text("ADD USER")),
@@ -79,7 +102,9 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                                     initialFlag: e.value.flag,
                                     onDelete: () => setState(() => assigned = assigned.copyWith(
                                         users: List.from(assigned.users)..removeAt(e.key))),
-                                    title: e.value.id.toString(),
+                                    title: users
+                                        .firstWhere((element) => element.id == e.value.id)
+                                        .name,
                                     onChanged: (value) => assigned = assigned.copyWith(
                                         users: List.from(assigned.users)
                                           ..[e.key] = AssignedObject(flag: value, id: e.value.id)),
@@ -104,7 +129,15 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                                       title: Text("Add team"),
                                       children: teams
                                           .where((a) => !assigned.teams.any((b) => b.id == a.id))
-                                          .map((e) => SimpleDialogOption(child: Text(e.name)))
+                                          .map((e) => SimpleDialogOption(
+                                              child: Text(e.name),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                                setState(() => assigned = assigned.copyWith(
+                                                    teams: List.from(assigned.teams)
+                                                      ..add(AssignedObject(
+                                                          flag: AssignFlag.allow, id: e.id))));
+                                              }))
                                           .toList())),
                               icon: Icon(PhosphorIcons.plusLight),
                               label: Text("ADD TEAM")),
@@ -115,7 +148,9 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                                     initialFlag: e.value.flag,
                                     onDelete: () => setState(() => assigned = assigned.copyWith(
                                         teams: List.from(assigned.teams)..removeAt(e.key))),
-                                    title: e.value.id.toString(),
+                                    title: teams
+                                        .firstWhere((element) => element.id == e.value.id)
+                                        .name,
                                     onChanged: (value) => assigned = assigned.copyWith(
                                         teams: List.from(assigned.teams)
                                           ..[e.key] = AssignedObject(flag: value, id: e.value.id)),
@@ -140,7 +175,15 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                                       title: Text("Add event"),
                                       children: events
                                           .where((a) => !assigned.events.any((b) => b.id == a.id))
-                                          .map((e) => SimpleDialogOption(child: Text(e.name)))
+                                          .map((e) => SimpleDialogOption(
+                                              child: Text(e.name),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                                setState(() => assigned = assigned.copyWith(
+                                                    events: List.from(assigned.events)
+                                                      ..add(AssignedObject(
+                                                          flag: AssignFlag.allow, id: e.id))));
+                                              }))
                                           .toList())),
                               icon: Icon(PhosphorIcons.plusLight),
                               label: Text("ADD EVENT")),
@@ -151,7 +194,9 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                                     initialFlag: e.value.flag,
                                     onDelete: () => setState(() => assigned = assigned.copyWith(
                                         events: List.from(assigned.events)..removeAt(e.key))),
-                                    title: e.value.id.toString(),
+                                    title: events
+                                        .firstWhere((element) => element.id == e.value.id)
+                                        .name,
                                     onChanged: (value) => assigned = assigned.copyWith(
                                         events: List.from(assigned.events)
                                           ..[e.key] = AssignedObject(flag: value, id: e.value.id)),

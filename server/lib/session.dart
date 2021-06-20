@@ -21,7 +21,7 @@ class SessionService {
   @Route.post('/login')
   Future<Response> _login(Request request) async {
     var user = User.fromJson(json.decode(await request.readAsString()));
-    return Response.ok(user);
+    return Response.ok(json.encode(user.toJson()));
   }
 
   Router get router => _$SessionServiceRouter(this);

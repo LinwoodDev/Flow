@@ -35,54 +35,58 @@ class _UsersPageState extends State<UsersPage> {
         actions: [IconButton(onPressed: () {}, icon: Icon(PhosphorIcons.funnelLight))],
         body: LayoutBuilder(builder: (context, constraints) {
           var isDesktop = MediaQuery.of(context).size.width > 1000;
-          return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Expanded(
-              flex: 3,
-              child: Scaffold(
-                floatingActionButton: FloatingActionButton.extended(
-                    label: Text("Create user"),
-                    icon: Icon(PhosphorIcons.plusLight),
-                    onPressed: () => isDesktop
-                        ? setState(() => selected = null)
-                        : Modular.to.pushNamed("/users/create")),
-                body: Scrollbar(
-                    child: SingleChildScrollView(
-                        child: StreamBuilder<List<User>>(
-                            stream: userStream,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasError) return Text("Error ${snapshot.error}");
-                              if (snapshot.connectionState == ConnectionState.waiting ||
-                                  !snapshot.hasData)
-                                return Center(child: CircularProgressIndicator());
-                              var users = snapshot.data!;
-                              return Column(
-                                  children: List.generate(users.length, (index) {
-                                var user = users[index];
-                                return Dismissible(
-                                  key: Key(user.id!.toString()),
-                                  onDismissed: (direction) {
-                                    service.deleteUser(user.id!);
-                                  },
-                                  background: Container(color: Colors.red),
-                                  child: ListTile(
-                                      title: Text(user.name),
-                                      selected: selected?.id == user.id,
-                                      onTap: () => isDesktop
-                                          ? setState(() => selected = user)
-                                          : Modular.to.pushNamed(Uri(
-                                                  pathSegments: ["", "users", "details"],
-                                                  queryParameters: {"id": user.id.toString()})
-                                              .toString())),
-                                );
-                              }));
-                            }))),
-              ),
-            ),
-            if (isDesktop) ...[
-              VerticalDivider(),
-              Expanded(flex: 2, child: UserPage(isDesktop: isDesktop, id: selected?.id))
-            ]
-          ]);
+          return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              textDirection: TextDirection.rtl,
+              children: [
+                if (isDesktop) ...[
+                  Expanded(flex: 2, child: UserPage(isDesktop: isDesktop, id: selected?.id)),
+                  VerticalDivider()
+                ],
+                Expanded(
+                    flex: 3,
+                    child: Scaffold(
+                        floatingActionButton: FloatingActionButton.extended(
+                            label: Text("Create user"),
+                            icon: Icon(PhosphorIcons.plusLight),
+                            onPressed: () => isDesktop
+                                ? setState(() => selected = null)
+                                : Modular.to.pushNamed("/users/create")),
+                        body: Scrollbar(
+                            child: SingleChildScrollView(
+                                child: StreamBuilder<List<User>>(
+                                    stream: userStream,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasError) return Text("Error ${snapshot.error}");
+                                      if (snapshot.connectionState == ConnectionState.waiting ||
+                                          !snapshot.hasData)
+                                        return Center(child: CircularProgressIndicator());
+                                      var users = snapshot.data!;
+                                      return Column(
+                                          children: List.generate(users.length, (index) {
+                                        var user = users[index];
+                                        return Dismissible(
+                                          key: Key(user.id!.toString()),
+                                          onDismissed: (direction) {
+                                            service.deleteUser(user.id!);
+                                          },
+                                          background: Container(color: Colors.red),
+                                          child: ListTile(
+                                              title: Text(user.name),
+                                              selected: selected?.id == user.id,
+                                              onTap: () => isDesktop
+                                                  ? setState(() => selected = user)
+                                                  : Modular.to.pushNamed(Uri(pathSegments: [
+                                                      "",
+                                                      "users",
+                                                      "details"
+                                                    ], queryParameters: {
+                                                      "id": user.id.toString()
+                                                    }).toString())),
+                                        );
+                                      }));
+                                    })))))
+              ]);
         }));
   }
 }

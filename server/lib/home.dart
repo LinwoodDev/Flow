@@ -5,7 +5,7 @@ import 'package:shelf_router/shelf_router.dart';
 
 import 'session.dart';
 
-part 'flow_server.g.dart';
+part 'home.g.dart';
 
 class Service {
   // Handlers can be asynchronous (returning `FutureOr` is also allowed).

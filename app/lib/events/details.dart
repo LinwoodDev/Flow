@@ -132,7 +132,7 @@ class _EventPageState extends State<EventPage> {
                                       title: Text("Event state"),
                                       subtitle: Text(eventState.toString()))),
                               ElevatedButton.icon(
-                                  icon: Icon(PhosphorIcons.flagLight),
+                                  icon: Icon(PhosphorIcons.compassLight),
                                   label: Text("ASSIGN"),
                                   onPressed: () => service.fetchUsers().then((users) => service
                                       .fetchTeams()
