@@ -46,12 +46,14 @@ class _SeasonsPageState extends State<SeasonsPage> {
                 Expanded(
                     flex: 3,
                     child: Scaffold(
-                        floatingActionButton: FloatingActionButton.extended(
-                            label: Text("Create season"),
-                            icon: Icon(PhosphorIcons.plusLight),
-                            onPressed: () => isDesktop
-                                ? setState(() => selected = null)
-                                : Modular.to.pushNamed("/seasons/create")),
+                        floatingActionButton: selected == null
+                            ? null
+                            : FloatingActionButton.extended(
+                                label: Text("Create season"),
+                                icon: Icon(PhosphorIcons.plusLight),
+                                onPressed: () => isDesktop
+                                    ? setState(() => selected = null)
+                                    : Modular.to.pushNamed("/seasons/create")),
                         body: Scrollbar(
                             child: SingleChildScrollView(
                                 child: StreamBuilder<List<Season>>(

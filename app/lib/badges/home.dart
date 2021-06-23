@@ -46,12 +46,14 @@ class _BadgesPageState extends State<BadgesPage> {
                 Expanded(
                     flex: 3,
                     child: Scaffold(
-                        floatingActionButton: FloatingActionButton.extended(
-                            label: Text("Create badge"),
-                            icon: Icon(PhosphorIcons.plusLight),
-                            onPressed: () => isDesktop
-                                ? setState(() => selected = null)
-                                : Modular.to.pushNamed("/badges/create")),
+                        floatingActionButton: selected == null
+                            ? null
+                            : FloatingActionButton.extended(
+                                label: Text("Create badge"),
+                                icon: Icon(PhosphorIcons.plusLight),
+                                onPressed: () => isDesktop
+                                    ? setState(() => selected = null)
+                                    : Modular.to.pushNamed("/badges/create")),
                         body: Scrollbar(
                             child: SingleChildScrollView(
                                 child: StreamBuilder<List<Badge>>(

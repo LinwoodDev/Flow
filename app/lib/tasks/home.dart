@@ -46,12 +46,14 @@ class _TasksPageState extends State<TasksPage> {
                 Expanded(
                     flex: 3,
                     child: Scaffold(
-                        floatingActionButton: FloatingActionButton.extended(
-                            label: Text("Create task"),
-                            icon: Icon(PhosphorIcons.plusLight),
-                            onPressed: () => isDesktop
-                                ? setState(() => selected = null)
-                                : Modular.to.pushNamed("/tasks/create")),
+                        floatingActionButton: selected == null
+                            ? null
+                            : FloatingActionButton.extended(
+                                label: Text("Create task"),
+                                icon: Icon(PhosphorIcons.plusLight),
+                                onPressed: () => isDesktop
+                                    ? setState(() => selected = null)
+                                    : Modular.to.pushNamed("/tasks/create")),
                         body: Scrollbar(
                             child: SingleChildScrollView(
                                 child: StreamBuilder<List<Task>>(

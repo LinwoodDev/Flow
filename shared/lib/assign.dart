@@ -15,15 +15,9 @@ class Assigned {
       this.events = const [],
       this.everyone = AssignFlag.allow});
   Assigned.fromJson(Map<String, dynamic> json)
-      : teams = (json['teams'] as List<Map<String, dynamic>>? ?? [])
-            .map((e) => AssignedObject.fromJson(e))
-            .toList(),
-        users = (json['users'] as List<Map<String, dynamic>>? ?? [])
-            .map((e) => AssignedObject.fromJson(e))
-            .toList(),
-        events = (json['events'] as List<Map<String, dynamic>>? ?? [])
-            .map((e) => AssignedObject.fromJson(e))
-            .toList(),
+      : teams = List.from(json['teams'] ?? []).map((e) => AssignedObject.fromJson(e)).toList(),
+        users = List.from(json['users'] ?? []).map((e) => AssignedObject.fromJson(e)).toList(),
+        events = List.from(json['events'] ?? []).map((e) => AssignedObject.fromJson(e)).toList(),
         everyone = AssignFlag.values[json['everyone'] ?? 0];
 
   Map<String, dynamic> toJson() => {

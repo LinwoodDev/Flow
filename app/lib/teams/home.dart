@@ -46,12 +46,14 @@ class _TeamsPageState extends State<TeamsPage> {
                 Expanded(
                     flex: 3,
                     child: Scaffold(
-                        floatingActionButton: FloatingActionButton.extended(
-                            label: Text("Create team"),
-                            icon: Icon(PhosphorIcons.plusLight),
-                            onPressed: () => isDesktop
-                                ? setState(() => selected = null)
-                                : Modular.to.pushNamed("/teams/create")),
+                        floatingActionButton: selected == null
+                            ? null
+                            : FloatingActionButton.extended(
+                                label: Text("Create team"),
+                                icon: Icon(PhosphorIcons.plusLight),
+                                onPressed: () => isDesktop
+                                    ? setState(() => selected = null)
+                                    : Modular.to.pushNamed("/teams/create")),
                         body: Scrollbar(
                             child: SingleChildScrollView(
                                 child: StreamBuilder<List<Team>>(

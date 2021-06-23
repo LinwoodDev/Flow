@@ -46,12 +46,14 @@ class _UsersPageState extends State<UsersPage> {
                 Expanded(
                     flex: 3,
                     child: Scaffold(
-                        floatingActionButton: FloatingActionButton.extended(
-                            label: Text("Create user"),
-                            icon: Icon(PhosphorIcons.plusLight),
-                            onPressed: () => isDesktop
-                                ? setState(() => selected = null)
-                                : Modular.to.pushNamed("/users/create")),
+                        floatingActionButton: selected == null
+                            ? null
+                            : FloatingActionButton.extended(
+                                label: Text("Create user"),
+                                icon: Icon(PhosphorIcons.plusLight),
+                                onPressed: () => isDesktop
+                                    ? setState(() => selected = null)
+                                    : Modular.to.pushNamed("/users/create")),
                         body: Scrollbar(
                             child: SingleChildScrollView(
                                 child: StreamBuilder<List<User>>(
