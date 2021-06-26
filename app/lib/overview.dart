@@ -39,84 +39,81 @@ class _OverviewPageState extends State<OverviewPage> {
             ],
             pageTitle: "Overview",
             page: RoutePages.overview,
-            body: StreamBuilder(
-              stream: service.onEvent,
-              child: TabBarView(children: [
-                Container(),
-                Container(
-                    child: ListView(children: [
-                  Card(
-                      child: Padding(
-                          padding: const EdgeInsets.all(32.0),
-                          child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                            Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Text("Now", style: Theme.of(context).textTheme.headline5)),
-                            ListTile(
-                                title: Text("School"),
-                                subtitle: Text("Ends at 18:00"),
-                                leading: Icon(PhosphorIcons.calendar),
-                                onTap: () {})
-                          ]))),
-                  Card(
-                      child: Padding(
-                          padding: const EdgeInsets.all(32.0),
-                          child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                            Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Text("Today", style: Theme.of(context).textTheme.headline5)),
-                            ListTile(
-                                title: Text("Eating"),
-                                leading: Icon(PhosphorIcons.calendarLight),
-                                subtitle: Text("13:00-14:00"),
-                                onTap: () {}),
-                            ListTile(
-                                title: Text("Home work"),
-                                subtitle: Text("18:00-19:00"),
-                                leading: Icon(PhosphorIcons.checkSquareLight),
-                                onTap: () {})
-                          ]))),
-                  Card(
-                      child: Padding(
-                          padding: const EdgeInsets.all(32.0),
-                          child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                            Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child:
-                                    Text("Tomorrow", style: Theme.of(context).textTheme.headline5)),
-                            ListTile(
-                                title: Text("Eating"),
-                                leading: Icon(PhosphorIcons.calendarLight),
-                                subtitle: Text("13:00-14:00"),
-                                onTap: () {}),
-                            ListTile(
-                                title: Text("Home work"),
-                                subtitle: Text("18:00-19:00"),
-                                leading: Icon(PhosphorIcons.checkSquareLight),
-                                onTap: () {})
-                          ]))),
-                  Card(
-                      child: Padding(
-                          padding: const EdgeInsets.all(32.0),
-                          child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                            Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Text("This week",
-                                    style: Theme.of(context).textTheme.headline5)),
-                            ListTile(
-                                title: Text("Eating"),
-                                leading: Icon(PhosphorIcons.calendarLight),
-                                subtitle: Text("13:00-14:00"),
-                                onTap: () {}),
-                            ListTile(
-                                title: Text("Home work"),
-                                subtitle: Text("18:00-19:00"),
-                                leading: Icon(PhosphorIcons.checkSquareLight),
-                                onTap: () {})
-                          ])))
-                ])),
-                Container()
-              ]),
-            )));
+            body: TabBarView(children: [
+              Container(),
+              Container(
+                  child: ListView(children: [
+                Card(
+                    child: Padding(
+                        padding: const EdgeInsets.all(32.0),
+                        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                          Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Text("Now", style: Theme.of(context).textTheme.headline5)),
+                          ListTile(
+                              title: Text("School"),
+                              subtitle: Text("Ends at 18:00"),
+                              leading: Icon(PhosphorIcons.calendar),
+                              onTap: () {})
+                        ]))),
+                Card(
+                    child: Padding(
+                        padding: const EdgeInsets.all(32.0),
+                        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                          Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Text("Today", style: Theme.of(context).textTheme.headline5)),
+                          ListTile(
+                              title: Text("Eating"),
+                              leading: Icon(PhosphorIcons.calendarLight),
+                              subtitle: Text("13:00-14:00"),
+                              onTap: () {}),
+                          ListTile(
+                              title: Text("Home work"),
+                              subtitle: Text("18:00-19:00"),
+                              leading: Icon(PhosphorIcons.checkSquareLight),
+                              onTap: () {})
+                        ]))),
+                Card(
+                    child: Padding(
+                        padding: const EdgeInsets.all(32.0),
+                        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                          Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child:
+                                  Text("Tomorrow", style: Theme.of(context).textTheme.headline5)),
+                          ListTile(
+                              title: Text("Eating"),
+                              leading: Icon(PhosphorIcons.calendarLight),
+                              subtitle: Text("13:00-14:00"),
+                              onTap: () {}),
+                          ListTile(
+                              title: Text("Home work"),
+                              subtitle: Text("18:00-19:00"),
+                              leading: Icon(PhosphorIcons.checkSquareLight),
+                              onTap: () {})
+                        ]))),
+                Card(
+                    child: Padding(
+                        padding: const EdgeInsets.all(32.0),
+                        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                          Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child:
+                                  Text("This week", style: Theme.of(context).textTheme.headline5)),
+                          ListTile(
+                              title: Text("Eating"),
+                              leading: Icon(PhosphorIcons.calendarLight),
+                              subtitle: Text("13:00-14:00"),
+                              onTap: () {}),
+                          ListTile(
+                              title: Text("Home work"),
+                              subtitle: Text("18:00-19:00"),
+                              leading: Icon(PhosphorIcons.checkSquareLight),
+                              onTap: () {})
+                        ])))
+              ])),
+              Container()
+            ])));
   }
 }

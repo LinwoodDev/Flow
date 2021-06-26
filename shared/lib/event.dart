@@ -1,17 +1,14 @@
 import 'package:meta/meta.dart';
 import 'package:shared/assign.dart';
-import 'package:shared/calendar_entry.dart';
 
 @immutable
-class Event extends CalendarEntry {
+class Event {
   final int? id;
   final String name;
   final String description;
   final int? season;
   final bool isCanceled;
-  @override
   final DateTime? startDateTime;
-  @override
   final DateTime? endDateTime;
   final Assigned assigned;
   Event(this.name,
