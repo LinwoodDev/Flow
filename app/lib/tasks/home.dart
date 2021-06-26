@@ -9,6 +9,23 @@ import 'package:shared/task.dart';
 
 import 'details.dart';
 
+enum TaskView { list, overview }
+
+extension TaskViewExtension on TaskView {
+  IconData get icon {
+    switch (this) {
+      case TaskView.list:
+        return PhosphorIcons.listLight;
+      case TaskView.overview:
+        return PhosphorIcons.squaresFourLight;
+    }
+  }
+
+  String get name {
+    return this.toString();
+  }
+}
+
 class TasksPage extends StatefulWidget {
   @override
   _TasksPageState createState() => _TasksPageState();
@@ -18,6 +35,7 @@ class _TasksPageState extends State<TasksPage> {
   Task? selected = null;
   late ApiService service;
   late Stream<List<Task>> taskStream;
+  TaskView view = TaskView.list;
 
   @override
   void initState() {
@@ -32,7 +50,18 @@ class _TasksPageState extends State<TasksPage> {
     return FlowScaffold(
         page: RoutePages.tasks,
         pageTitle: "Tasks",
-        actions: [IconButton(onPressed: () {}, icon: Icon(PhosphorIcons.funnelLight))],
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(PhosphorIcons.funnelLight)),
+          PopupMenuButton<TaskView>(
+              initialValue: view,
+              onSelected: (value) => setState(() => view = value),
+              itemBuilder: (context) => TaskView.values
+                  .map((e) => PopupMenuItem(
+                      value: e,
+                      child: ListTile(
+                          title: Text(e.name), leading: Icon(e.icon), selected: e == view)))
+                  .toList())
+        ],
         body: LayoutBuilder(builder: (context, constraints) {
           var isDesktop = MediaQuery.of(context).size.width > 1000;
           return Row(
