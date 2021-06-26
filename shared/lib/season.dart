@@ -31,6 +31,6 @@ class Season {
       Season(name ?? this.name,
           description: description ?? this.description,
           id: id ?? this.id,
-          color: removeColor ? null : color ?? this.color,
+          color: removeColor ? null : (color ?? this.color),
           assigned: assigned ?? this.assigned);
 }

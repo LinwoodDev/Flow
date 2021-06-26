@@ -23,7 +23,7 @@ environment:
 dependencies:
   hive: ^2.0.4
   hive_flutter: ^1.1.0
-  flutter_modular: ^3.2.2+1
+  flutter_modular: ^3.3.0
   http: ^0.13.3
   msix: ^2.1.3
   url_launcher: ^6.0.7

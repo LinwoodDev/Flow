@@ -26,6 +26,9 @@ abstract class ApiService {
 
   // Event operations
   Future<List<Event>> fetchEvents();
+  Future<List<Event>> fetchOpenedEvents();
+  Future<List<Event>> fetchDoneEvents();
+  Future<List<Event>> fetchPlannedEvents();
   Future<Event> createEvent(Event event);
   Future<Event?> fetchEvent(int id);
   Future<void> updateEvent(Event event);

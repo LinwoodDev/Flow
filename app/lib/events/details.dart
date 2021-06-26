@@ -55,7 +55,6 @@ class _EventPageState extends State<EventPage> {
     var create = event == null;
     _nameController.text = event?.name ?? "";
     _descriptionController.text = event?.description ?? "";
-    var eventState = event?.state ?? EventState.draft;
     return Scaffold(
         appBar: AppBar(title: Text(create ? "Create event" : event!.name)),
         floatingActionButton: FloatingActionButton(
@@ -120,17 +119,6 @@ class _EventPageState extends State<EventPage> {
                                 minLines: 3),
                             if (event != null) ...[
                               SizedBox(height: 10),
-                              PopupMenuButton<EventState>(
-                                  initialValue: eventState,
-                                  onSelected: (value) =>
-                                      service.updateEvent(event.copyWith(state: value)),
-                                  itemBuilder: (context) => EventState.values
-                                      .map(
-                                          (e) => PopupMenuItem(child: Text(e.toString()), value: e))
-                                      .toList(),
-                                  child: ListTile(
-                                      title: Text("Event state"),
-                                      subtitle: Text(eventState.toString()))),
                               ElevatedButton.icon(
                                   icon: Icon(PhosphorIcons.compassLight),
                                   label: Text("ASSIGN"),

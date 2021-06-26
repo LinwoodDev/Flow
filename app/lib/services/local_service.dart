@@ -127,6 +127,40 @@ class LocalService extends ApiService {
       (value) => value.map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
 
   @override
+  Future<List<Event>> fetchOpenedEvents() => eventsStore
+      .find(db,
+          finder: Finder(
+              filter: Filter.and([Filter.isNull("date-time"), Filter.equals("canceled", false)])))
+      .then(
+          (value) => value.map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+
+  @override
+  Future<List<Event>> fetchDoneEvents() => eventsStore
+      .find(db,
+          finder: Finder(
+              filter: Filter.and([
+            Filter.isNull("date-time"),
+            Filter.custom((record) =>
+                DateTime.tryParse(record['date-time'] as String? ?? "")?.isAfter(DateTime.now()) ??
+                false)
+          ])))
+      .then(
+          (value) => value.map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+
+  @override
+  Future<List<Event>> fetchPlannedEvents() => eventsStore
+      .find(db,
+          finder: Finder(
+              filter: Filter.and([
+            Filter.isNull("date-time"),
+            Filter.custom((record) => !(DateTime.tryParse(record['date-time'] as String? ?? "")
+                    ?.isAfter(DateTime.now()) ??
+                false))
+          ])))
+      .then(
+          (value) => value.map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+
+  @override
   Future<Event?> fetchEvent(int id) =>
       eventsStore.findFirst(db, finder: Finder(filter: Filter.byKey(id))).then((value) =>
           value == null ? null : Event.fromJson(Map.from(value.value)..["id"] = value.key));
