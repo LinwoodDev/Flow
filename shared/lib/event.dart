@@ -26,7 +26,7 @@ class Event {
   Event.fromJson(Map<String, dynamic> json)
       : name = json['name'] ?? '',
         id = json['id'],
-        parent = json['parent'] ?? '',
+        parent = json['parent'],
         description = json['description'] ?? '',
         startDateTime = DateTime.tryParse(json['start-date-time'] ?? ''),
         endDateTime = DateTime.tryParse(json['end-date-time'] ?? ''),
