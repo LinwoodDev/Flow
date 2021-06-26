@@ -35,187 +35,206 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
     return Dialog(
         child: Container(
             constraints: BoxConstraints(maxWidth: 600, maxHeight: 800),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-              Card(
-                  child: Column(children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(PhosphorIcons.compassLight, size: 36),
-                      ),
-                      Text("Assign", style: Theme.of(context).textTheme.headline5),
-                    ],
-                  ),
-                ),
-                TabBar(
-                  controller: _tabController,
-                  tabs: [
-                    Tab(icon: Icon(PhosphorIcons.usersLight), text: "Users"),
-                    Tab(icon: Icon(PhosphorIcons.flagLight), text: "Teams"),
-                    Tab(icon: Icon(PhosphorIcons.bookLight), text: "Events")
-                  ],
-                )
-              ])),
-              _AssignedObjectField(
-                  title: "Everyone",
-                  initialFlag: assigned.everyone,
-                  onChanged: (value) => assigned = assigned.copyWith(everyone: value)),
-              Divider(),
-              Expanded(
-                  child: Container(
-                      child: TabBarView(controller: _tabController, children: [
-                Builder(
-                  builder: (context) => StreamBuilder<List<User>>(
-                      stream: service.onUsers(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-                        if (snapshot.connectionState == ConnectionState.waiting ||
-                            !snapshot.hasData) return Center(child: CircularProgressIndicator());
-                        var users = snapshot.data!;
-                        return ListView(children: [
-                          OutlinedButton.icon(
-                              onPressed: () => showDialog(
-                                  context: context,
-                                  builder: (context) => SimpleDialog(
-                                      title: Text("Add user"),
-                                      children: users
-                                          .where((a) => !assigned.users.any((b) => b.id == a.id))
-                                          .map((e) => SimpleDialogOption(
-                                              child: Text(e.name),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                                setState(() => assigned = assigned.copyWith(
-                                                    users: List.from(assigned.users)
-                                                      ..add(AssignedObject(
-                                                          flag: AssignFlag.allow, id: e.id))));
-                                              }))
-                                          .toList())),
-                              icon: Icon(PhosphorIcons.plusLight),
-                              label: Text("ADD USER")),
-                          ...assigned.users
-                              .asMap()
-                              .entries
-                              .map((e) => _AssignedObjectField(
-                                    initialFlag: e.value.flag,
-                                    onDelete: () => setState(() => assigned = assigned.copyWith(
-                                        users: List.from(assigned.users)..removeAt(e.key))),
-                                    title: users
-                                        .firstWhere((element) => element.id == e.value.id)
-                                        .name,
-                                    onChanged: (value) => assigned = assigned.copyWith(
-                                        users: List.from(assigned.users)
-                                          ..[e.key] = AssignedObject(flag: value, id: e.value.id)),
-                                  ))
-                              .toList()
-                        ]);
-                      }),
-                ),
-                Builder(
-                  builder: (context) => StreamBuilder<List<Team>>(
-                      stream: service.onTeams(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-                        if (snapshot.connectionState == ConnectionState.waiting ||
-                            !snapshot.hasData) return Center(child: CircularProgressIndicator());
-                        var teams = snapshot.data!;
-                        return ListView(children: [
-                          OutlinedButton.icon(
-                              onPressed: () => showDialog(
-                                  context: context,
-                                  builder: (context) => SimpleDialog(
-                                      title: Text("Add team"),
-                                      children: teams
-                                          .where((a) => !assigned.teams.any((b) => b.id == a.id))
-                                          .map((e) => SimpleDialogOption(
-                                              child: Text(e.name),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                                setState(() => assigned = assigned.copyWith(
-                                                    teams: List.from(assigned.teams)
-                                                      ..add(AssignedObject(
-                                                          flag: AssignFlag.allow, id: e.id))));
-                                              }))
-                                          .toList())),
-                              icon: Icon(PhosphorIcons.plusLight),
-                              label: Text("ADD TEAM")),
-                          ...assigned.teams
-                              .asMap()
-                              .entries
-                              .map((e) => _AssignedObjectField(
-                                    initialFlag: e.value.flag,
-                                    onDelete: () => setState(() => assigned = assigned.copyWith(
-                                        teams: List.from(assigned.teams)..removeAt(e.key))),
-                                    title: teams
-                                        .firstWhere((element) => element.id == e.value.id)
-                                        .name,
-                                    onChanged: (value) => assigned = assigned.copyWith(
-                                        teams: List.from(assigned.teams)
-                                          ..[e.key] = AssignedObject(flag: value, id: e.value.id)),
-                                  ))
-                              .toList()
-                        ]);
-                      }),
-                ),
-                Builder(
-                  builder: (context) => StreamBuilder<List<Event>>(
-                      stream: service.onEvents(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-                        if (snapshot.connectionState == ConnectionState.waiting ||
-                            !snapshot.hasData) return Center(child: CircularProgressIndicator());
-                        var events = snapshot.data!;
-                        return ListView(children: [
-                          OutlinedButton.icon(
-                              onPressed: () => showDialog(
-                                  context: context,
-                                  builder: (context) => SimpleDialog(
-                                      title: Text("Add event"),
-                                      children: events
-                                          .where((a) => !assigned.events.any((b) => b.id == a.id))
-                                          .map((e) => SimpleDialogOption(
-                                              child: Text(e.name),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                                setState(() => assigned = assigned.copyWith(
-                                                    events: List.from(assigned.events)
-                                                      ..add(AssignedObject(
-                                                          flag: AssignFlag.allow, id: e.id))));
-                                              }))
-                                          .toList())),
-                              icon: Icon(PhosphorIcons.plusLight),
-                              label: Text("ADD EVENT")),
-                          ...assigned.events
-                              .asMap()
-                              .entries
-                              .map((e) => _AssignedObjectField(
-                                    initialFlag: e.value.flag,
-                                    onDelete: () => setState(() => assigned = assigned.copyWith(
-                                        events: List.from(assigned.events)..removeAt(e.key))),
-                                    title: events
-                                        .firstWhere((element) => element.id == e.value.id)
-                                        .name,
-                                    onChanged: (value) => assigned = assigned.copyWith(
-                                        events: List.from(assigned.events)
-                                          ..[e.key] = AssignedObject(flag: value, id: e.value.id)),
-                                  ))
-                              .toList()
-                        ]);
-                      }),
-                )
-              ]))),
-              Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text("Ok", style: Theme.of(context).primaryTextTheme.button))
-                  ]))
-            ])));
+            child: Scaffold(
+                appBar: AppBar(
+                    title: Text("Assign"),
+                    leading: Icon(PhosphorIcons.compassLight),
+                    bottom: TabBar(
+                      controller: _tabController,
+                      tabs: [
+                        Tab(icon: Icon(PhosphorIcons.usersLight), text: "Users"),
+                        Tab(icon: Icon(PhosphorIcons.flagLight), text: "Teams"),
+                        Tab(icon: Icon(PhosphorIcons.bookLight), text: "Events")
+                      ],
+                    )),
+                body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                  _AssignedObjectField(
+                      title: "Everyone",
+                      initialFlag: assigned.everyone,
+                      onChanged: (value) => assigned = assigned.copyWith(everyone: value)),
+                  Divider(),
+                  Expanded(
+                      child: Container(
+                          child: TabBarView(controller: _tabController, children: [
+                    Builder(
+                      builder: (context) => StreamBuilder<List<User>>(
+                          stream: service.onUsers(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) return Text("Error: ${snapshot.error}");
+                            if (snapshot.connectionState == ConnectionState.waiting ||
+                                !snapshot.hasData)
+                              return Center(child: CircularProgressIndicator());
+                            var users = snapshot.data!;
+                            return SingleChildScrollView(
+                              child: Column(children: [
+                                OutlinedButton.icon(
+                                    onPressed: () => showDialog(
+                                        context: context,
+                                        builder: (context) => SimpleDialog(
+                                            title: Text("Add user"),
+                                            children: users
+                                                .where(
+                                                    (a) => !assigned.users.any((b) => b.id == a.id))
+                                                .map((e) => SimpleDialogOption(
+                                                    child: Text(e.name),
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop();
+                                                      setState(() => assigned = assigned.copyWith(
+                                                          users: List.from(assigned.users)
+                                                            ..add(AssignedObject(
+                                                                flag: AssignFlag.allow,
+                                                                id: e.id))));
+                                                    }))
+                                                .toList())),
+                                    icon: Icon(PhosphorIcons.plusLight),
+                                    label: Text("ADD USER")),
+                                ...assigned.users
+                                    .asMap()
+                                    .entries
+                                    .map((e) => _AssignedObjectField(
+                                          initialFlag: e.value.flag,
+                                          onDelete: () => setState(() => assigned =
+                                              assigned.copyWith(
+                                                  users: List.from(assigned.users)
+                                                    ..removeAt(e.key))),
+                                          title: users
+                                              .firstWhere((element) => element.id == e.value.id)
+                                              .name,
+                                          onChanged: (value) => assigned = assigned.copyWith(
+                                              users: List.from(assigned.users)
+                                                ..[e.key] =
+                                                    AssignedObject(flag: value, id: e.value.id)),
+                                        ))
+                                    .toList()
+                              ]),
+                            );
+                          }),
+                    ),
+                    Builder(
+                      builder: (context) => StreamBuilder<List<Team>>(
+                          stream: service.onTeams(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) return Text("Error: ${snapshot.error}");
+                            if (snapshot.connectionState == ConnectionState.waiting ||
+                                !snapshot.hasData)
+                              return Center(child: CircularProgressIndicator());
+                            var teams = snapshot.data!;
+                            return SingleChildScrollView(
+                              child: Column(children: [
+                                OutlinedButton.icon(
+                                    onPressed: () => showDialog(
+                                        context: context,
+                                        builder: (context) => SimpleDialog(
+                                            title: Text("Add team"),
+                                            children: teams
+                                                .where(
+                                                    (a) => !assigned.teams.any((b) => b.id == a.id))
+                                                .map((e) => SimpleDialogOption(
+                                                    child: Text(e.name),
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop();
+                                                      setState(() => assigned = assigned.copyWith(
+                                                          teams: List.from(assigned.teams)
+                                                            ..add(AssignedObject(
+                                                                flag: AssignFlag.allow,
+                                                                id: e.id))));
+                                                    }))
+                                                .toList())),
+                                    icon: Icon(PhosphorIcons.plusLight),
+                                    label: Text("ADD TEAM")),
+                                ...assigned.teams
+                                    .asMap()
+                                    .entries
+                                    .map((e) => _AssignedObjectField(
+                                          initialFlag: e.value.flag,
+                                          onDelete: () => setState(() => assigned =
+                                              assigned.copyWith(
+                                                  teams: List.from(assigned.teams)
+                                                    ..removeAt(e.key))),
+                                          title: teams
+                                              .firstWhere((element) => element.id == e.value.id)
+                                              .name,
+                                          onChanged: (value) => assigned = assigned.copyWith(
+                                              teams: List.from(assigned.teams)
+                                                ..[e.key] =
+                                                    AssignedObject(flag: value, id: e.value.id)),
+                                        ))
+                                    .toList()
+                              ]),
+                            );
+                          }),
+                    ),
+                    Builder(
+                      builder: (context) => StreamBuilder<List<Event>>(
+                          stream: service.onEvents(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) return Text("Error: ${snapshot.error}");
+                            if (snapshot.connectionState == ConnectionState.waiting ||
+                                !snapshot.hasData)
+                              return Center(child: CircularProgressIndicator());
+                            var events = snapshot.data!;
+                            return SingleChildScrollView(
+                              child: Column(children: [
+                                OutlinedButton.icon(
+                                    onPressed: () => showDialog(
+                                        context: context,
+                                        builder: (context) => SimpleDialog(
+                                            title: Text("Add event"),
+                                            children: events
+                                                .where((a) =>
+                                                    !assigned.events.any((b) => b.id == a.id))
+                                                .map((e) => SimpleDialogOption(
+                                                    child: Text(e.name),
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop();
+                                                      setState(() => assigned = assigned.copyWith(
+                                                          events: List.from(assigned.events)
+                                                            ..add(AssignedObject(
+                                                                flag: AssignFlag.allow,
+                                                                id: e.id))));
+                                                    }))
+                                                .toList())),
+                                    icon: Icon(PhosphorIcons.plusLight),
+                                    label: Text("ADD EVENT")),
+                                ...assigned.events
+                                    .asMap()
+                                    .entries
+                                    .map((e) => _AssignedObjectField(
+                                          initialFlag: e.value.flag,
+                                          onDelete: () => setState(() => assigned =
+                                              assigned.copyWith(
+                                                  events: List.from(assigned.events)
+                                                    ..removeAt(e.key))),
+                                          title: events
+                                              .firstWhere((element) => element.id == e.value.id)
+                                              .name,
+                                          onChanged: (value) => assigned = assigned.copyWith(
+                                              events: List.from(assigned.events)
+                                                ..[e.key] =
+                                                    AssignedObject(flag: value, id: e.value.id)),
+                                        ))
+                                    .toList()
+                              ]),
+                            );
+                          }),
+                    )
+                  ]))),
+                  Divider(),
+                  Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text("CANCEL")),
+                        ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text("OK"))
+                      ]))
+                ]))));
   }
 }
 
@@ -241,6 +260,7 @@ class _AssignedObjectField extends StatefulWidget {
 
 class __AssignedObjectFieldState extends State<_AssignedObjectField> {
   late AssignFlag flag;
+  final GlobalKey _dismissibleKey = GlobalKey();
 
   @override
   void initState() {
@@ -251,19 +271,22 @@ class __AssignedObjectFieldState extends State<_AssignedObjectField> {
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<AssignFlag>(
-        itemBuilder: (BuildContext context) => AssignFlag.values
-            .map((e) => PopupMenuItem(child: Text(e.toString()), value: e))
-            .toList(),
-        onSelected: (value) {
-          widget.onChanged(value);
-          setState(() => flag = value);
-        },
-        child: ListTile(
-            title: Text(widget.title),
-            subtitle: Text(flag.toString()),
-            trailing: widget.onDelete == null
-                ? null
-                : IconButton(icon: Icon(PhosphorIcons.trashLight), onPressed: widget.onDelete)));
+    return widget.onDelete != null
+        ? Dismissible(
+            key: _dismissibleKey,
+            child: _buildMenu(),
+            onDismissed: (direction) => widget.onDelete,
+            background: Container(color: Colors.red))
+        : _buildMenu();
   }
+
+  Widget _buildMenu() => PopupMenuButton<AssignFlag>(
+      tooltip: "Change flag",
+      itemBuilder: (BuildContext context) =>
+          AssignFlag.values.map((e) => PopupMenuItem(child: Text(e.toString()), value: e)).toList(),
+      onSelected: (value) {
+        widget.onChanged(value);
+        setState(() => flag = value);
+      },
+      child: ListTile(title: Text(widget.title), subtitle: Text(flag.toString())));
 }

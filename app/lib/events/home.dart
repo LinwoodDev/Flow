@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:flow_app/services/api_service.dart';
 import 'package:flow_app/services/local_service.dart';
 import 'package:flow_app/widgets/drawer.dart';
@@ -38,14 +37,12 @@ class _EventsPageState extends State<EventsPage> {
   Event? selected = null;
   EventView view = EventView.list;
   late ApiService service;
-  late Stream<List<Event>> eventStream;
 
   @override
   void initState() {
     super.initState();
 
     service = GetIt.I.get<LocalService>();
-    eventStream = service.onEvents();
   }
 
   @override
@@ -88,38 +85,37 @@ class _EventsPageState extends State<EventsPage> {
                                     : Modular.to.pushNamed("/events/create")),
                         body: Scrollbar(
                             child: SingleChildScrollView(
-                                child: StreamBuilder<List<Event>>(
-                                    stream: eventStream,
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasError) return Text("Error ${snapshot.error}");
-                                      if (snapshot.connectionState == ConnectionState.waiting ||
-                                          !snapshot.hasData)
-                                        return Center(child: CircularProgressIndicator());
-                                      var events = snapshot.data!;
-                                      return Column(
-                                          children: List.generate(events.length, (index) {
-                                        var event = events[index];
-                                        return Dismissible(
-                                          key: Key(event.id!.toString()),
-                                          onDismissed: (direction) {
-                                            service.deleteEvent(event.id!);
-                                          },
-                                          background: Container(color: Colors.red),
-                                          child: ListTile(
-                                              title: Text(event.name),
-                                              selected: selected?.id == event.id,
-                                              onTap: () => isDesktop
-                                                  ? setState(() => selected = event)
-                                                  : Modular.to.pushNamed(Uri(pathSegments: [
-                                                      "",
-                                                      "events",
-                                                      "details"
-                                                    ], queryParameters: {
-                                                      "id": event.id.toString()
-                                                    }).toString())),
-                                        );
-                                      }));
-                                    })))))
+                                child: Builder(
+                          builder: (context) => StreamBuilder<List<Event>>(
+                              stream: service.onEvents(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasError) return Text("Error ${snapshot.error}");
+                                if (snapshot.connectionState == ConnectionState.waiting ||
+                                    !snapshot.hasData)
+                                  return Center(child: CircularProgressIndicator());
+                                var events = snapshot.data!;
+                                return Column(
+                                    children: List.generate(events.length, (index) {
+                                  var event = events[index];
+                                  return Dismissible(
+                                    key: Key(event.id!.toString()),
+                                    onDismissed: (direction) {
+                                      service.deleteEvent(event.id!);
+                                    },
+                                    background: Container(color: Colors.red),
+                                    child: ListTile(
+                                        title: Text(event.name),
+                                        selected: selected?.id == event.id,
+                                        onTap: () => isDesktop
+                                            ? setState(() => selected = event)
+                                            : Modular.to.pushNamed(Uri(
+                                                    pathSegments: ["", "events", "details"],
+                                                    queryParameters: {"id": event.id.toString()})
+                                                .toString())),
+                                  );
+                                }));
+                              }),
+                        )))))
               ]);
         }));
   }
