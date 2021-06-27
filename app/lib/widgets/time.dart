@@ -5,9 +5,10 @@ typedef void TimeChangedCallback(TimeOfDay? timeTime);
 
 class TimeInputField extends StatefulWidget {
   final TimeOfDay initialTime;
+  final String? label;
   final TimeChangedCallback? onChanged;
 
-  TimeInputField({Key? key, TimeOfDay? initialTime, this.onChanged})
+  TimeInputField({Key? key, TimeOfDay? initialTime, this.onChanged, this.label})
       : this.initialTime = initialTime ?? TimeOfDay.now(),
         super(key: key);
 
@@ -33,7 +34,7 @@ class _TimeInputFieldState extends State<TimeInputField> {
         controller: _textController,
         focusNode: textFieldFocusNode,
         decoration: InputDecoration(
-            labelText: "Time",
+            labelText: widget.label ?? "Time",
             suffixIcon: currentTime == null
                 ? null
                 : IconButton(icon: Icon(PhosphorIcons.xLight), onPressed: () => changeTime(null))),

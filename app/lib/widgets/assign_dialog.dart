@@ -67,24 +67,25 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                             var users = snapshot.data!;
                             return SingleChildScrollView(
                               child: Column(children: [
-                                OutlinedButton.icon(
-                                    onPressed: () => showDialog(
-                                        context: context,
-                                        builder: (context) => SimpleDialog(
-                                            title: Text("Add user"),
-                                            children: users
-                                                .where((a) => !assigned.users.any((b) => b.id == a.id))
-                                                .map((e) => SimpleDialogOption(
-                                                    child: Text(e.name),
-                                                    onPressed: () {
-                                                      Navigator.of(context).pop();
-                                                      setState(() => assigned = assigned.copyWith(
-                                                          users: List.from(assigned.users)
-                                                            ..add(AssignedObject(flag: AssignFlag.allow, id: e.id))));
-                                                    }))
-                                                .toList())),
-                                    icon: Icon(PhosphorIcons.plusLight),
-                                    label: Text("ADD USER")),
+                                if (users.any((a) => !assigned.users.any((b) => b.id == a.id)))
+                                  OutlinedButton.icon(
+                                      onPressed: () => showDialog(
+                                          context: context,
+                                          builder: (context) => SimpleDialog(
+                                              title: Text("Add user"),
+                                              children: users
+                                                  .where((a) => !assigned.users.any((b) => b.id == a.id))
+                                                  .map((e) => SimpleDialogOption(
+                                                      child: Text(e.name),
+                                                      onPressed: () {
+                                                        Navigator.of(context).pop();
+                                                        setState(() => assigned = assigned.copyWith(
+                                                            users: List.from(assigned.users)
+                                                              ..add(AssignedObject(flag: AssignFlag.allow, id: e.id))));
+                                                      }))
+                                                  .toList())),
+                                      icon: Icon(PhosphorIcons.plusLight),
+                                      label: Text("ADD USER")),
                                 ...assigned.users
                                     .asMap()
                                     .entries
@@ -112,24 +113,25 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                             var teams = snapshot.data!;
                             return SingleChildScrollView(
                               child: Column(children: [
-                                OutlinedButton.icon(
-                                    onPressed: () => showDialog(
-                                        context: context,
-                                        builder: (context) => SimpleDialog(
-                                            title: Text("Add team"),
-                                            children: teams
-                                                .where((a) => !assigned.teams.any((b) => b.id == a.id))
-                                                .map((e) => SimpleDialogOption(
-                                                    child: Text(e.name),
-                                                    onPressed: () {
-                                                      Navigator.of(context).pop();
-                                                      setState(() => assigned = assigned.copyWith(
-                                                          teams: List.from(assigned.teams)
-                                                            ..add(AssignedObject(flag: AssignFlag.allow, id: e.id))));
-                                                    }))
-                                                .toList())),
-                                    icon: Icon(PhosphorIcons.plusLight),
-                                    label: Text("ADD TEAM")),
+                                if (teams.any((a) => !assigned.users.any((b) => b.id == a.id)))
+                                  OutlinedButton.icon(
+                                      onPressed: () => showDialog(
+                                          context: context,
+                                          builder: (context) => SimpleDialog(
+                                              title: Text("Add team"),
+                                              children: teams
+                                                  .where((a) => !assigned.teams.any((b) => b.id == a.id))
+                                                  .map((e) => SimpleDialogOption(
+                                                      child: Text(e.name),
+                                                      onPressed: () {
+                                                        Navigator.of(context).pop();
+                                                        setState(() => assigned = assigned.copyWith(
+                                                            teams: List.from(assigned.teams)
+                                                              ..add(AssignedObject(flag: AssignFlag.allow, id: e.id))));
+                                                      }))
+                                                  .toList())),
+                                      icon: Icon(PhosphorIcons.plusLight),
+                                      label: Text("ADD TEAM")),
                                 ...assigned.teams
                                     .asMap()
                                     .entries
@@ -157,24 +159,25 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                               var events = snapshot.data!;
                               return SingleChildScrollView(
                                   child: Column(children: [
-                                OutlinedButton.icon(
-                                    onPressed: () => showDialog(
-                                        context: context,
-                                        builder: (context) => SimpleDialog(
-                                            title: Text("Add event"),
-                                            children: events
-                                                .where((a) => !assigned.events.any((b) => b.id == a.id))
-                                                .map((e) => SimpleDialogOption(
-                                                    child: Text(e.name),
-                                                    onPressed: () {
-                                                      Navigator.of(context).pop();
-                                                      setState(() => assigned = assigned.copyWith(
-                                                          events: List.from(assigned.events)
-                                                            ..add(AssignedObject(flag: AssignFlag.allow, id: e.id))));
-                                                    }))
-                                                .toList())),
-                                    icon: Icon(PhosphorIcons.plusLight),
-                                    label: Text("ADD EVENT")),
+                                if (events.any((a) => !assigned.users.any((b) => b.id == a.id)))
+                                  OutlinedButton.icon(
+                                      onPressed: () => showDialog(
+                                          context: context,
+                                          builder: (context) => SimpleDialog(
+                                              title: Text("Add event"),
+                                              children: events
+                                                  .where((a) => !assigned.events.any((b) => b.id == a.id))
+                                                  .map((e) => SimpleDialogOption(
+                                                      child: Text(e.name),
+                                                      onPressed: () {
+                                                        Navigator.of(context).pop();
+                                                        setState(() => assigned = assigned.copyWith(
+                                                            events: List.from(assigned.events)
+                                                              ..add(AssignedObject(flag: AssignFlag.allow, id: e.id))));
+                                                      }))
+                                                  .toList())),
+                                      icon: Icon(PhosphorIcons.plusLight),
+                                      label: Text("ADD EVENT")),
                                 ...assigned.events
                                     .asMap()
                                     .entries

@@ -7,9 +7,10 @@ class DateInputField extends StatefulWidget {
   final DateTime initialDate;
   final DateTime firstDate;
   final DateTime lastDate;
+  final String? label;
   final DateChangedCallback? onChanged;
 
-  DateInputField({Key? key, DateTime? initialDate, DateTime? firstDate, DateTime? lastDate, this.onChanged})
+  DateInputField({Key? key, DateTime? initialDate, DateTime? firstDate, DateTime? lastDate, this.onChanged, this.label})
       : this.initialDate = initialDate ?? DateTime.now(),
         this.firstDate = firstDate ?? DateTime.utc(initialDate?.year ?? DateTime.now().year - 100),
         this.lastDate = firstDate ?? DateTime.utc(initialDate?.year ?? DateTime.now().year + 100),
@@ -38,7 +39,7 @@ class _DateInputFieldState extends State<DateInputField> {
         controller: _textController,
         focusNode: textFieldFocusNode,
         decoration: InputDecoration(
-            labelText: "Date",
+            labelText: widget.label ?? "Date",
             suffixIcon: currentDate == null
                 ? null
                 : IconButton(icon: Icon(PhosphorIcons.xLight), onPressed: () => changeDate(null))),

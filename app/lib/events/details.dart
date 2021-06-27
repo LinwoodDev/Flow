@@ -1,6 +1,8 @@
 import 'package:flow_app/services/api_service.dart';
 import 'package:flow_app/services/local_service.dart';
 import 'package:flow_app/widgets/assign_dialog.dart';
+import 'package:flow_app/widgets/date.dart';
+import 'package:flow_app/widgets/time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
@@ -132,13 +134,52 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                                     onPressed: () async {
                                       var assigned = await showDialog(
                                           context: context,
-                                          builder: (context) => AssignDialog(assigned: event.assigned));
-                                      if (assigned != null) service.updateEvent(event.copyWith(assigned: assigned));
+                                          builder: (context) => AssignDialog(assigned: event!.assigned));
+                                      if (assigned != null) service.updateEvent(event!.copyWith(assigned: assigned));
                                     })
                               ]
                             ])))))
           ]),
-          Container()
+          Column(children: [
+            SizedBox(height: 20),
+            Row(children: [
+              Expanded(
+                  child: DateInputField(
+                label: "Start date",
+                initialDate: event?.startDateTime,
+                onChanged: (dateTime) => setState(() => event = event?.copyWith(startDateTime: dateTime)),
+              )),
+              Expanded(
+                  child: TimeInputField(
+                      label: "Start time",
+                      initialTime: event?.startDateTime != null ? TimeOfDay.fromDateTime(event!.startDateTime!) : null,
+                      onChanged: (time) => setState(() {
+                            var oldDate = event?.startDateTime ?? DateTime.now();
+                            event = event?.copyWith(
+                                startDateTime: DateTime(
+                                    oldDate.year, oldDate.month, oldDate.day, time?.hour ?? 0, time?.minute ?? 0));
+                          })))
+            ]),
+            SizedBox(height: 20),
+            Row(children: [
+              Expanded(
+                  child: DateInputField(
+                label: "End date",
+                initialDate: event?.endDateTime,
+                onChanged: (dateTime) => setState(() => event = event?.copyWith(endDateTime: dateTime)),
+              )),
+              Expanded(
+                  child: TimeInputField(
+                      label: "End time",
+                      initialTime: event?.endDateTime != null ? TimeOfDay.fromDateTime(event!.endDateTime!) : null,
+                      onChanged: (time) => setState(() {
+                            var oldDate = event?.endDateTime ?? DateTime.now();
+                            event = event?.copyWith(
+                                endDateTime: DateTime(
+                                    oldDate.year, oldDate.month, oldDate.day, time?.hour ?? 0, time?.minute ?? 0));
+                          })))
+            ])
+          ])
         ]));
   }
 }
