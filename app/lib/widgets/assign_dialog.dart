@@ -136,7 +136,7 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                                     .map((e) => _AssignedObjectField(
                                           initialFlag: e.value.flag,
                                           onDelete: () => assigned = assigned.copyWith(
-                                              users: List.from(assigned.users)..removeWhere((v) => v.id == e.value.id)),
+                                              teams: List.from(assigned.teams)..removeWhere((v) => v.id == e.value.id)),
                                           title: teams.firstWhere((element) => element.id == e.value.id).name,
                                           onChanged: (value) => assigned = assigned.copyWith(
                                               teams: List.from(assigned.teams)
@@ -181,7 +181,8 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                                     .map((e) => _AssignedObjectField(
                                           initialFlag: e.value.flag,
                                           onDelete: () => assigned = assigned.copyWith(
-                                              users: List.from(assigned.users)..removeWhere((v) => v.id == e.value.id)),
+                                              events: List.from(assigned.events)
+                                                ..removeWhere((v) => v.id == e.value.id)),
                                           title: events.firstWhere((element) => element.id == e.value.id).name,
                                           onChanged: (value) => assigned = assigned.copyWith(
                                               events: List.from(assigned.events)

@@ -18,15 +18,17 @@ class EventPage extends StatefulWidget {
   _EventPageState createState() => _EventPageState();
 }
 
-class _EventPageState extends State<EventPage> {
+class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
   late TextEditingController _nameController = TextEditingController();
   late TextEditingController _descriptionController = TextEditingController();
+  late TabController _tabController;
   late ApiService service;
 
   @override
   void initState() {
     super.initState();
     service = GetIt.I.get<LocalService>();
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -56,7 +58,15 @@ class _EventPageState extends State<EventPage> {
     _nameController.text = event?.name ?? "";
     _descriptionController.text = event?.description ?? "";
     return Scaffold(
-        appBar: AppBar(title: Text(create ? "Create event" : event!.name)),
+        appBar: AppBar(
+            title: Text(create ? "Create event" : event!.name),
+            bottom: TabBar(
+              controller: _tabController,
+              tabs: [
+                Tab(icon: Icon(PhosphorIcons.wrenchLight), text: "General"),
+                Tab(icon: Icon(PhosphorIcons.calendarLight), text: "Date and time")
+              ],
+            )),
         floatingActionButton: FloatingActionButton(
             heroTag: "event-check",
             child: Icon(PhosphorIcons.checkLight),
@@ -72,58 +82,63 @@ class _EventPageState extends State<EventPage> {
                     .updateEvent(event!.copyWith(name: _nameController.text, description: _descriptionController.text));
               if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
             }),
-        body: Column(children: [
-          if (widget.isDesktop)
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton.icon(
-                  onPressed: () => Modular.to.pushNamed(widget.id == null
-                      ? "/events/create"
-                      : Uri(pathSegments: ["", "events", "details"], queryParameters: {"id": widget.id.toString()})
-                          .toString()),
-                  icon: Icon(PhosphorIcons.arrowSquareOutLight),
-                  label: Text("OPEN IN NEW WINDOW")),
-            ),
-          Expanded(
-              child: SingleChildScrollView(
-                  child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Container(
-                          constraints: BoxConstraints(maxWidth: 800),
-                          child: Column(children: [
-                            SizedBox(height: 50),
-                            DropdownButtonFormField<String>(
-                                value: server,
-                                decoration: InputDecoration(labelText: "Server", border: OutlineInputBorder()),
-                                onChanged: (value) => setState(() => server = value),
-                                items: [
-                                  ...Hive.box<String>('servers')
-                                      .values
-                                      .map((e) => DropdownMenuItem(child: Text(e), value: e)),
-                                  DropdownMenuItem(child: Text("Local"), value: "")
-                                ]),
-                            SizedBox(height: 50),
-                            TextField(
-                                decoration: InputDecoration(labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
-                                controller: _nameController),
-                            TextField(
-                                decoration:
-                                    InputDecoration(labelText: "Description", icon: Icon(PhosphorIcons.articleLight)),
-                                maxLines: null,
-                                controller: _descriptionController,
-                                minLines: 3),
-                            if (event != null) ...[
-                              SizedBox(height: 10),
-                              ElevatedButton.icon(
-                                  icon: Icon(PhosphorIcons.compassLight),
-                                  label: Text("ASSIGN"),
-                                  onPressed: () async {
-                                    var assigned = await showDialog(
-                                        context: context, builder: (context) => AssignDialog(assigned: event.assigned));
-                                    if (assigned != null) service.updateEvent(event.copyWith(assigned: assigned));
-                                  })
-                            ]
-                          ])))))
+        body: TabBarView(controller: _tabController, children: [
+          Column(children: [
+            if (widget.isDesktop)
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ElevatedButton.icon(
+                    onPressed: () => Modular.to.pushNamed(widget.id == null
+                        ? "/events/create"
+                        : Uri(pathSegments: ["", "events", "details"], queryParameters: {"id": widget.id.toString()})
+                            .toString()),
+                    icon: Icon(PhosphorIcons.arrowSquareOutLight),
+                    label: Text("OPEN IN NEW WINDOW")),
+              ),
+            Expanded(
+                child: SingleChildScrollView(
+                    child: Align(
+                        alignment: Alignment.topCenter,
+                        child: Container(
+                            constraints: BoxConstraints(maxWidth: 800),
+                            child: Column(children: [
+                              SizedBox(height: 50),
+                              DropdownButtonFormField<String>(
+                                  value: server,
+                                  decoration: InputDecoration(labelText: "Server", border: OutlineInputBorder()),
+                                  onChanged: (value) => setState(() => server = value),
+                                  items: [
+                                    ...Hive.box<String>('servers')
+                                        .values
+                                        .map((e) => DropdownMenuItem(child: Text(e), value: e)),
+                                    DropdownMenuItem(child: Text("Local"), value: "")
+                                  ]),
+                              SizedBox(height: 50),
+                              TextField(
+                                  decoration:
+                                      InputDecoration(labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
+                                  controller: _nameController),
+                              TextField(
+                                  decoration:
+                                      InputDecoration(labelText: "Description", icon: Icon(PhosphorIcons.articleLight)),
+                                  maxLines: null,
+                                  controller: _descriptionController,
+                                  minLines: 3),
+                              if (event != null) ...[
+                                SizedBox(height: 10),
+                                ElevatedButton.icon(
+                                    icon: Icon(PhosphorIcons.compassLight),
+                                    label: Text("ASSIGN"),
+                                    onPressed: () async {
+                                      var assigned = await showDialog(
+                                          context: context,
+                                          builder: (context) => AssignDialog(assigned: event.assigned));
+                                      if (assigned != null) service.updateEvent(event.copyWith(assigned: assigned));
+                                    })
+                              ]
+                            ])))))
+          ]),
+          Container()
         ]));
   }
 }
