@@ -35,9 +35,7 @@ class _LoginPageState extends State<LoginPage> {
                     readOnly: true,
                     keyboardType: TextInputType.url,
                     decoration: InputDecoration(
-                        labelText: "URL",
-                        hintText: "https://example.com",
-                        prefixIcon: Icon(PhosphorIcons.linkLight))),
+                        labelText: "URL", hintText: "https://example.com", prefixIcon: Icon(PhosphorIcons.linkLight))),
                 SizedBox(height: 50),
                 TextFormField(
                     keyboardType: TextInputType.emailAddress,
@@ -46,13 +44,11 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: "email@example.com",
                         prefixIcon: Icon(PhosphorIcons.envelopeLight))),
                 TextFormField(
-                    decoration: InputDecoration(
-                        labelText: "Password", prefixIcon: Icon(PhosphorIcons.lockLight)))
+                    decoration: InputDecoration(labelText: "Password", prefixIcon: Icon(PhosphorIcons.lockLight)))
               ],
             ),
           ))),
         )),
-        floatingActionButton:
-            FloatingActionButton(child: Icon(PhosphorIcons.checkLight), onPressed: () {}));
+        floatingActionButton: FloatingActionButton(child: Icon(PhosphorIcons.checkLight), onPressed: () {}));
   }
 }

@@ -37,6 +37,7 @@ class _UserPageState extends State<UserPage> {
   }
 
   String? server = "";
+
   @override
   Widget build(BuildContext context) {
     return widget.id == null
@@ -66,9 +67,7 @@ class _UserPageState extends State<UserPage> {
             onPressed: () {
               if (create) {
                 service.createUser(User(_nameController.text,
-                    bio: _bioController.text,
-                    displayName: _displayNameController.text,
-                    email: _emailController.text));
+                    bio: _bioController.text, displayName: _displayNameController.text, email: _emailController.text));
                 if (widget.isDesktop) {
                   _nameController.clear();
                   _bioController.clear();
@@ -90,9 +89,8 @@ class _UserPageState extends State<UserPage> {
               child: ElevatedButton.icon(
                   onPressed: () => Modular.to.pushNamed(widget.id == null
                       ? "/users/create"
-                      : Uri(
-                          pathSegments: ["", "users", "details"],
-                          queryParameters: {"id": widget.id.toString()}).toString()),
+                      : Uri(pathSegments: ["", "users", "details"], queryParameters: {"id": widget.id.toString()})
+                          .toString()),
                   icon: Icon(PhosphorIcons.arrowSquareOutLight),
                   label: Text("OPEN IN NEW WINDOW")),
             ),
@@ -106,8 +104,7 @@ class _UserPageState extends State<UserPage> {
                             SizedBox(height: 50),
                             DropdownButtonFormField<String>(
                                 value: server,
-                                decoration: InputDecoration(
-                                    labelText: "Server", border: OutlineInputBorder()),
+                                decoration: InputDecoration(labelText: "Server", border: OutlineInputBorder()),
                                 onChanged: (value) => setState(() => server = value),
                                 items: [
                                   ...Hive.box<String>('servers')
@@ -117,21 +114,19 @@ class _UserPageState extends State<UserPage> {
                                 ]),
                             SizedBox(height: 50),
                             TextField(
-                                decoration: InputDecoration(
-                                    labelText: "Name", icon: Icon(PhosphorIcons.userLight)),
+                                decoration: InputDecoration(labelText: "Name", icon: Icon(PhosphorIcons.userLight)),
                                 controller: _nameController),
                             TextField(
                                 decoration: InputDecoration(
-                                    labelText: "Display name",
-                                    icon: Icon(PhosphorIcons.identificationCardLight)),
+                                    labelText: "Display name", icon: Icon(PhosphorIcons.identificationCardLight)),
                                 controller: _displayNameController),
                             TextField(
-                                decoration: InputDecoration(
-                                    labelText: "Email", icon: Icon(PhosphorIcons.envelopeLight)),
+                                decoration:
+                                    InputDecoration(labelText: "Email", icon: Icon(PhosphorIcons.envelopeLight)),
                                 controller: _emailController),
                             TextField(
-                                decoration: InputDecoration(
-                                    labelText: "Biography", icon: Icon(PhosphorIcons.articleLight)),
+                                decoration:
+                                    InputDecoration(labelText: "Biography", icon: Icon(PhosphorIcons.articleLight)),
                                 maxLines: null,
                                 controller: _bioController,
                                 minLines: 3),
@@ -139,20 +134,14 @@ class _UserPageState extends State<UserPage> {
                               SizedBox(height: 10),
                               PopupMenuButton<UserState>(
                                   initialValue: userState,
-                                  onSelected: (value) =>
-                                      service.updateUser(user.copyWith(state: value)),
+                                  onSelected: (value) => service.updateUser(user.copyWith(state: value)),
                                   itemBuilder: (context) => UserState.values
-                                      .map(
-                                          (e) => PopupMenuItem(child: Text(e.toString()), value: e))
+                                      .map((e) => PopupMenuItem(child: Text(e.toString()), value: e))
                                       .toList(),
-                                  child: ListTile(
-                                      title: Text("User state"),
-                                      subtitle: Text(userState.toString()))),
+                                  child: ListTile(title: Text("User state"), subtitle: Text(userState.toString()))),
                               SizedBox(height: 50),
                               ElevatedButton.icon(
-                                  icon: Icon(PhosphorIcons.lockLight),
-                                  label: Text("CHANGE PASSWORD"),
-                                  onPressed: () {})
+                                  icon: Icon(PhosphorIcons.lockLight), label: Text("CHANGE PASSWORD"), onPressed: () {})
                             ]
                           ])))))
         ]));

@@ -20,9 +20,7 @@ class _EventsAdminSettingsPageState extends State<EventsAdminSettingsPage> {
             padding: EdgeInsets.all(16.0),
             child: Column(children: [
               ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: Icon(PhosphorIcons.flagLight),
-                  label: Text("OPEN PERMISSIONS"))
+                  onPressed: () {}, icon: Icon(PhosphorIcons.flagLight), label: Text("OPEN PERMISSIONS"))
             ])));
   }
 }

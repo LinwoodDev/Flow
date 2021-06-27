@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class User {
+class User extends Equatable {
   final int? id;
   final String name;
   final String displayName;
@@ -11,12 +12,7 @@ class User {
   final UserState state;
 
   User(this.name,
-      {this.displayName = '',
-      this.id,
-      this.bio = '',
-      this.email,
-      this.password = '',
-      this.state = UserState.active});
+      {this.displayName = '', this.id, this.bio = '', this.email, this.password = '', this.state = UserState.active});
 
   User copyWith(
           {String? name,
@@ -45,6 +41,9 @@ class User {
 
   Map<String, dynamic> toJson() =>
       {'name': name, 'display-name': displayName, 'email': email, 'bio': bio, 'state': state.index};
+
+  @override
+  List<Object?> get props => [id];
 }
 
 enum UserState { confirm, active, fake, punished }

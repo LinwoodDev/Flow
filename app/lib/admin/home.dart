@@ -18,8 +18,7 @@ class _AdminPageState extends State<AdminPage> {
 
   @override
   Widget build(BuildContext context) {
-    var server = Hive.box<String>('servers')
-        .getAt(int.tryParse(Modular.args?.queryParams['id'] ?? '0') ?? 0)!;
+    var server = Hive.box<String>('servers').getAt(int.tryParse(Modular.args?.queryParams['id'] ?? '0') ?? 0)!;
 
     return DefaultTabController(
         length: 4,
@@ -40,25 +39,19 @@ class _AdminPageState extends State<AdminPage> {
                       title: Text("Events"),
                       children: [EventsAdminSettingsPage(server: server)],
                       leading: Icon(PhosphorIcons.calendarBlankLight),
-                      trailing: Switch(
-                          onChanged: (bool value) => setState(() => events = value),
-                          value: events)),
+                      trailing: Switch(onChanged: (bool value) => setState(() => events = value), value: events)),
                   ExpansionTile(
                       initiallyExpanded: true,
                       title: Text("Places"),
                       children: [PlacesAdminSettingsPage(server: server)],
                       leading: Icon(PhosphorIcons.mapPinLight),
-                      trailing: Switch(
-                          onChanged: (bool value) => setState(() => places = value),
-                          value: places)),
+                      trailing: Switch(onChanged: (bool value) => setState(() => places = value), value: places)),
                   ExpansionTile(
                       initiallyExpanded: true,
                       title: Text("Dev-Doctor"),
                       children: [DevDoctorAdminSettingsPage(server: server)],
                       leading: Icon(PhosphorIcons.graduationCapLight),
-                      trailing: Switch(
-                          onChanged: (bool value) => setState(() => devDoctor = value),
-                          value: devDoctor))
+                      trailing: Switch(onChanged: (bool value) => setState(() => devDoctor = value), value: devDoctor))
                 ]),
               ),
             )));

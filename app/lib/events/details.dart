@@ -6,7 +6,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/assign.dart';
 import 'package:shared/event.dart';
 
 class EventPage extends StatefulWidget {
@@ -37,6 +36,7 @@ class _EventPageState extends State<EventPage> {
   }
 
   String? server = "";
+
   @override
   Widget build(BuildContext context) {
     return widget.id == null
@@ -62,15 +62,14 @@ class _EventPageState extends State<EventPage> {
             child: Icon(PhosphorIcons.checkLight),
             onPressed: () {
               if (create) {
-                service.createEvent(
-                    Event(_nameController.text, description: _descriptionController.text));
+                service.createEvent(Event(_nameController.text, description: _descriptionController.text));
                 if (widget.isDesktop) {
                   _nameController.clear();
                   _descriptionController.clear();
                 }
               } else
-                service.updateEvent(event!.copyWith(
-                    name: _nameController.text, description: _descriptionController.text));
+                service
+                    .updateEvent(event!.copyWith(name: _nameController.text, description: _descriptionController.text));
               if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
             }),
         body: Column(children: [
@@ -80,9 +79,8 @@ class _EventPageState extends State<EventPage> {
               child: ElevatedButton.icon(
                   onPressed: () => Modular.to.pushNamed(widget.id == null
                       ? "/events/create"
-                      : Uri(
-                          pathSegments: ["", "events", "details"],
-                          queryParameters: {"id": widget.id.toString()}).toString()),
+                      : Uri(pathSegments: ["", "events", "details"], queryParameters: {"id": widget.id.toString()})
+                          .toString()),
                   icon: Icon(PhosphorIcons.arrowSquareOutLight),
                   label: Text("OPEN IN NEW WINDOW")),
             ),
@@ -96,8 +94,7 @@ class _EventPageState extends State<EventPage> {
                             SizedBox(height: 50),
                             DropdownButtonFormField<String>(
                                 value: server,
-                                decoration: InputDecoration(
-                                    labelText: "Server", border: OutlineInputBorder()),
+                                decoration: InputDecoration(labelText: "Server", border: OutlineInputBorder()),
                                 onChanged: (value) => setState(() => server = value),
                                 items: [
                                   ...Hive.box<String>('servers')
@@ -107,13 +104,11 @@ class _EventPageState extends State<EventPage> {
                                 ]),
                             SizedBox(height: 50),
                             TextField(
-                                decoration: InputDecoration(
-                                    labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
+                                decoration: InputDecoration(labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
                                 controller: _nameController),
                             TextField(
-                                decoration: InputDecoration(
-                                    labelText: "Description",
-                                    icon: Icon(PhosphorIcons.articleLight)),
+                                decoration:
+                                    InputDecoration(labelText: "Description", icon: Icon(PhosphorIcons.articleLight)),
                                 maxLines: null,
                                 controller: _descriptionController,
                                 minLines: 3),
@@ -122,16 +117,11 @@ class _EventPageState extends State<EventPage> {
                               ElevatedButton.icon(
                                   icon: Icon(PhosphorIcons.compassLight),
                                   label: Text("ASSIGN"),
-                                  onPressed: () => service.fetchUsers().then((users) => service
-                                      .fetchTeams()
-                                      .then((teams) => service.fetchEvents().then((events) => showDialog(
-                                          context: context,
-                                          builder: (context) => AssignDialog(
-                                              assigned: event.assigned.copyWith(
-                                                  users: users
-                                                      .map((e) =>
-                                                          AssignedObject(flag: AssignFlag.allow, id: e.id))
-                                                      .toList())))))))
+                                  onPressed: () async {
+                                    var assigned = await showDialog(
+                                        context: context, builder: (context) => AssignDialog(assigned: event.assigned));
+                                    if (assigned != null) service.updateEvent(event.copyWith(assigned: assigned));
+                                  })
                             ]
                           ])))))
         ]));

@@ -25,8 +25,7 @@ class _ConnectPageState extends State<ConnectPage> {
                     TextField(
                         controller: _urlController,
                         keyboardType: TextInputType.url,
-                        decoration:
-                            InputDecoration(labelText: "URL", hintText: "https://example.com"))
+                        decoration: InputDecoration(labelText: "URL", hintText: "https://example.com"))
                   ])))),
       floatingActionButton: FloatingActionButton(
           child: Icon(PhosphorIcons.checkLight),
@@ -37,9 +36,9 @@ class _ConnectPageState extends State<ConnectPage> {
               var response = await http.get(uri);
               var data = json.decode(response.body);
               if (data['name'] == "Linwood-Flow")
-                Modular.to.pushNamed(Uri(
-                    pathSegments: ["", "session", "login"],
-                    queryParameters: {"url": _urlController.text}).toString());
+                Modular.to.pushNamed(
+                    Uri(pathSegments: ["", "session", "login"], queryParameters: {"url": _urlController.text})
+                        .toString());
             } catch (e) {
               print("Error: $e");
             }

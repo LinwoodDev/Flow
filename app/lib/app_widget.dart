@@ -27,13 +27,15 @@ class AppWidget extends StatelessWidget {
                 // Notice that the counter didn't reset back to zero; the application
                 // is not restarted.
                 primarySwatch: createMaterialColor(color),
-                colorScheme: ColorScheme.light(secondary: Color(0xFF35EF53)),
+                indicatorColor: color,
+                colorScheme: ColorScheme.light(primary: color, secondary: Color(0xFF35EF53)),
                 visualDensity: VisualDensity.adaptivePlatformDensity),
             darkTheme: ThemeData(
                 fontFamily: "Comfortaa",
                 brightness: Brightness.dark,
                 primarySwatch: createMaterialColor(color),
-                colorScheme: ColorScheme.dark(secondary: Color(0xFF35EF53)),
+                indicatorColor: color,
+                colorScheme: ColorScheme.dark(primary: color, onPrimary: Colors.white, secondary: Color(0xFF35EF53)),
                 visualDensity: VisualDensity.adaptivePlatformDensity),
             home: ConnectPage(),
           ).modular();

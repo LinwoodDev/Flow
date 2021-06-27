@@ -1,8 +1,9 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:shared/assign.dart';
 
 @immutable
-class Event {
+class Event extends Equatable {
   final int? id;
   final String name;
   final String description;
@@ -68,4 +69,7 @@ class Event {
           endDateTime: removeEndDateTime ? null : (endDateTime ?? this.endDateTime),
           isCanceled: isCanceled ?? this.isCanceled,
           assigned: assigned ?? this.assigned);
+
+  @override
+  List<Object?> get props => [id];
 }

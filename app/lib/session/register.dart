@@ -40,9 +40,8 @@ class _RegisterPageState extends State<RegisterPage> {
                               SizedBox(height: 50),
                               TextFormField(
                                   keyboardType: TextInputType.name,
-                                  decoration: InputDecoration(
-                                      labelText: "Name",
-                                      prefixIcon: Icon(PhosphorIcons.userLight))),
+                                  decoration:
+                                      InputDecoration(labelText: "Name", prefixIcon: Icon(PhosphorIcons.userLight))),
                               TextFormField(
                                   keyboardType: TextInputType.emailAddress,
                                   decoration: InputDecoration(
@@ -51,14 +50,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                       prefixIcon: Icon(PhosphorIcons.envelopeLight))),
                               TextFormField(
                                   decoration: InputDecoration(
-                                      labelText: "Password",
-                                      prefixIcon: Icon(PhosphorIcons.lockLight))),
+                                      labelText: "Password", prefixIcon: Icon(PhosphorIcons.lockLight))),
                               TextFormField(
                                   decoration: InputDecoration(
-                                      labelText: "Repeat password",
-                                      prefixIcon: Icon(PhosphorIcons.lockLight)))
+                                      labelText: "Repeat password", prefixIcon: Icon(PhosphorIcons.lockLight)))
                             ])))))),
-        floatingActionButton:
-            FloatingActionButton(child: Icon(PhosphorIcons.checkLight), onPressed: () {}));
+        floatingActionButton: FloatingActionButton(child: Icon(PhosphorIcons.checkLight), onPressed: () {}));
   }
 }

@@ -2,20 +2,21 @@ import 'dart:async';
 
 import 'package:flow_app/services/api_service.dart';
 import 'package:flutter/foundation.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast.dart';
+import 'package:sembast/sembast_io.dart';
 import 'package:sembast_web/sembast_web.dart';
 import 'package:shared/badge.dart';
 import 'package:shared/event.dart';
-import 'package:shared/team.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:sembast/sembast_io.dart';
-import 'package:shared/user.dart';
 import 'package:shared/season.dart';
 import 'package:shared/task.dart';
+import 'package:shared/team.dart';
+import 'package:shared/user.dart';
 
 class LocalService extends ApiService {
   final Database db;
+
   LocalService(this.db);
 
   static Future<LocalService> create() async {
@@ -43,26 +44,23 @@ class LocalService extends ApiService {
   final teamsStore = intMapStoreFactory.store(teamsStoreName);
 
   @override
-  Future<Team> createTeam(Team team) =>
-      teamsStore.add(db, team.toJson()).then((value) => team.copyWith(id: value));
+  Future<Team> createTeam(Team team) => teamsStore.add(db, team.toJson()).then((value) => team.copyWith(id: value));
 
   @override
-  Future<List<Team>> fetchTeams() => teamsStore
-      .find(db)
-      .then((value) => value.map((e) => Team.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+  Future<List<Team>> fetchTeams() =>
+      teamsStore.find(db).then((value) => value.map((e) => Team.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
 
   @override
-  Future<Team?> fetchTeam(int id) =>
-      teamsStore.findFirst(db, finder: Finder(filter: Filter.byKey(id))).then((value) =>
-          value == null ? null : Team.fromJson(Map.from(value.value)..["id"] = value.key));
+  Future<Team?> fetchTeam(int id) => teamsStore
+      .findFirst(db, finder: Finder(filter: Filter.byKey(id)))
+      .then((value) => value == null ? null : Team.fromJson(Map.from(value.value)..["id"] = value.key));
 
   @override
   Future<void> updateTeam(Team team) =>
       teamsStore.update(db, team.toJson(), finder: Finder(filter: Filter.byKey(team.id)));
 
   @override
-  Future<void> deleteTeam(int id) =>
-      teamsStore.delete(db, finder: Finder(filter: Filter.byKey(id)));
+  Future<void> deleteTeam(int id) => teamsStore.delete(db, finder: Finder(filter: Filter.byKey(id)));
 
   @override
   Stream<List<Team>> onTeams() => teamsStore
@@ -81,26 +79,23 @@ class LocalService extends ApiService {
   final usersStore = intMapStoreFactory.store(usersStoreName);
 
   @override
-  Future<User> createUser(User user) =>
-      usersStore.add(db, user.toJson()).then((value) => user.copyWith(id: value));
+  Future<User> createUser(User user) => usersStore.add(db, user.toJson()).then((value) => user.copyWith(id: value));
 
   @override
-  Future<List<User>> fetchUsers() => usersStore
-      .find(db)
-      .then((value) => value.map((e) => User.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+  Future<List<User>> fetchUsers() =>
+      usersStore.find(db).then((value) => value.map((e) => User.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
 
   @override
-  Future<User?> fetchUser(int id) =>
-      usersStore.findFirst(db, finder: Finder(filter: Filter.byKey(id))).then((value) =>
-          value == null ? null : User.fromJson(Map.from(value.value)..["id"] = value.key));
+  Future<User?> fetchUser(int id) => usersStore
+      .findFirst(db, finder: Finder(filter: Filter.byKey(id)))
+      .then((value) => value == null ? null : User.fromJson(Map.from(value.value)..["id"] = value.key));
 
   @override
   Future<void> updateUser(User user) =>
       usersStore.update(db, user.toJson(), finder: Finder(filter: Filter.byKey(user.id)));
 
   @override
-  Future<void> deleteUser(int id) =>
-      usersStore.delete(db, finder: Finder(filter: Filter.byKey(id)));
+  Future<void> deleteUser(int id) => usersStore.delete(db, finder: Finder(filter: Filter.byKey(id)));
 
   @override
   Stream<List<User>> onUsers() => usersStore
@@ -123,16 +118,14 @@ class LocalService extends ApiService {
       eventsStore.add(db, event.toJson()).then((value) => event.copyWith(id: value));
 
   @override
-  Future<List<Event>> fetchEvents() => eventsStore.find(db).then(
-      (value) => value.map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+  Future<List<Event>> fetchEvents() => eventsStore
+      .find(db)
+      .then((value) => value.map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
 
   @override
   Future<List<Event>> fetchOpenedEvents() => eventsStore
-      .find(db,
-          finder: Finder(
-              filter: Filter.and([Filter.isNull("date-time"), Filter.equals("canceled", false)])))
-      .then(
-          (value) => value.map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+      .find(db, finder: Finder(filter: Filter.and([Filter.isNull("date-time"), Filter.equals("canceled", false)])))
+      .then((value) => value.map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
 
   @override
   Future<List<Event>> fetchDoneEvents() => eventsStore
@@ -140,12 +133,10 @@ class LocalService extends ApiService {
           finder: Finder(
               filter: Filter.and([
             Filter.isNull("date-time"),
-            Filter.custom((record) =>
-                DateTime.tryParse(record['date-time'] as String? ?? "")?.isAfter(DateTime.now()) ??
-                false)
+            Filter.custom(
+                (record) => DateTime.tryParse(record['date-time'] as String? ?? "")?.isAfter(DateTime.now()) ?? false)
           ])))
-      .then(
-          (value) => value.map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+      .then((value) => value.map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
 
   @override
   Future<List<Event>> fetchPlannedEvents() => eventsStore
@@ -153,25 +144,22 @@ class LocalService extends ApiService {
           finder: Finder(
               filter: Filter.and([
             Filter.isNull("date-time"),
-            Filter.custom((record) => !(DateTime.tryParse(record['date-time'] as String? ?? "")
-                    ?.isAfter(DateTime.now()) ??
-                false))
+            Filter.custom((record) =>
+                !(DateTime.tryParse(record['date-time'] as String? ?? "")?.isAfter(DateTime.now()) ?? false))
           ])))
-      .then(
-          (value) => value.map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+      .then((value) => value.map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
 
   @override
-  Future<Event?> fetchEvent(int id) =>
-      eventsStore.findFirst(db, finder: Finder(filter: Filter.byKey(id))).then((value) =>
-          value == null ? null : Event.fromJson(Map.from(value.value)..["id"] = value.key));
+  Future<Event?> fetchEvent(int id) => eventsStore
+      .findFirst(db, finder: Finder(filter: Filter.byKey(id)))
+      .then((value) => value == null ? null : Event.fromJson(Map.from(value.value)..["id"] = value.key));
 
   @override
   Future<void> updateEvent(Event event) =>
       eventsStore.update(db, event.toJson(), finder: Finder(filter: Filter.byKey(event.id)));
 
   @override
-  Future<void> deleteEvent(int id) =>
-      eventsStore.delete(db, finder: Finder(filter: Filter.byKey(id)));
+  Future<void> deleteEvent(int id) => eventsStore.delete(db, finder: Finder(filter: Filter.byKey(id)));
 
   @override
   Stream<List<Event>> onEvents() => eventsStore
@@ -194,21 +182,21 @@ class LocalService extends ApiService {
       badgesStore.add(db, badge.toJson()).then((value) => badge.copyWith(id: value));
 
   @override
-  Future<List<Badge>> fetchBadges() => badgesStore.find(db).then(
-      (value) => value.map((e) => Badge.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+  Future<List<Badge>> fetchBadges() => badgesStore
+      .find(db)
+      .then((value) => value.map((e) => Badge.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
 
   @override
-  Future<Badge?> fetchBadge(int id) =>
-      badgesStore.findFirst(db, finder: Finder(filter: Filter.byKey(id))).then((value) =>
-          value == null ? null : Badge.fromJson(Map.from(value.value)..["id"] = value.key));
+  Future<Badge?> fetchBadge(int id) => badgesStore
+      .findFirst(db, finder: Finder(filter: Filter.byKey(id)))
+      .then((value) => value == null ? null : Badge.fromJson(Map.from(value.value)..["id"] = value.key));
 
   @override
   Future<void> updateBadge(Badge badge) =>
       badgesStore.update(db, badge.toJson(), finder: Finder(filter: Filter.byKey(badge.id)));
 
   @override
-  Future<void> deleteBadge(int id) =>
-      badgesStore.delete(db, finder: Finder(filter: Filter.byKey(id)));
+  Future<void> deleteBadge(int id) => badgesStore.delete(db, finder: Finder(filter: Filter.byKey(id)));
 
   @override
   Stream<List<Badge>> onBadges() => badgesStore
@@ -231,25 +219,27 @@ class LocalService extends ApiService {
       seasonsStore.add(db, season.toJson()).then((value) => season.copyWith(id: value));
 
   @override
-  Future<List<Season>> fetchSeasons() => seasonsStore.find(db).then(
-      (value) => value.map((e) => Season.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+  Future<List<Season>> fetchSeasons() => seasonsStore
+      .find(db)
+      .then((value) => value.map((e) => Season.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
 
   @override
-  Future<Season?> fetchSeason(int id) =>
-      seasonsStore.findFirst(db, finder: Finder(filter: Filter.byKey(id))).then((value) =>
-          value == null ? null : Season.fromJson(Map.from(value.value)..["id"] = value.key));
+  Future<Season?> fetchSeason(int id) => seasonsStore
+      .findFirst(db, finder: Finder(filter: Filter.byKey(id)))
+      .then((value) => value == null ? null : Season.fromJson(Map.from(value.value)..["id"] = value.key));
 
   @override
   Future<void> updateSeason(Season season) =>
       seasonsStore.update(db, season.toJson(), finder: Finder(filter: Filter.byKey(season.id)));
 
   @override
-  Future<void> deleteSeason(int id) =>
-      seasonsStore.delete(db, finder: Finder(filter: Filter.byKey(id)));
+  Future<void> deleteSeason(int id) => seasonsStore.delete(db, finder: Finder(filter: Filter.byKey(id)));
 
   @override
-  Stream<List<Season>> onSeasons() => seasonsStore.query().onSnapshots(db).map(
-      (season) => season.map((e) => Season.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+  Stream<List<Season>> onSeasons() => seasonsStore
+      .query()
+      .onSnapshots(db)
+      .map((season) => season.map((e) => Season.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
 
   @override
   Stream<Season?> onSeason(int id) => seasonsStore
@@ -262,26 +252,23 @@ class LocalService extends ApiService {
   final tasksStore = intMapStoreFactory.store(tasksStoreName);
 
   @override
-  Future<Task> createTask(Task task) =>
-      tasksStore.add(db, task.toJson()).then((value) => task.copyWith(id: value));
+  Future<Task> createTask(Task task) => tasksStore.add(db, task.toJson()).then((value) => task.copyWith(id: value));
 
   @override
-  Future<List<Task>> fetchTasks() => tasksStore
-      .find(db)
-      .then((value) => value.map((e) => Task.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+  Future<List<Task>> fetchTasks() =>
+      tasksStore.find(db).then((value) => value.map((e) => Task.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
 
   @override
-  Future<Task?> fetchTask(int id) =>
-      tasksStore.findFirst(db, finder: Finder(filter: Filter.byKey(id))).then((value) =>
-          value == null ? null : Task.fromJson(Map.from(value.value)..["id"] = value.key));
+  Future<Task?> fetchTask(int id) => tasksStore
+      .findFirst(db, finder: Finder(filter: Filter.byKey(id)))
+      .then((value) => value == null ? null : Task.fromJson(Map.from(value.value)..["id"] = value.key));
 
   @override
   Future<void> updateTask(Task task) =>
       tasksStore.update(db, task.toJson(), finder: Finder(filter: Filter.byKey(task.id)));
 
   @override
-  Future<void> deleteTask(int id) =>
-      tasksStore.delete(db, finder: Finder(filter: Filter.byKey(id)));
+  Future<void> deleteTask(int id) => tasksStore.delete(db, finder: Finder(filter: Filter.byKey(id)));
 
   @override
   Stream<List<Task>> onTasks() => tasksStore

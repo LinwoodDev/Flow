@@ -39,8 +39,7 @@ class _TimeInputFieldState extends State<TimeInputField> {
                 : IconButton(icon: Icon(PhosphorIcons.xLight), onPressed: () => changeTime(null))),
         readOnly: true,
         onTap: () => textFieldFocusNode.canRequestFocus
-            ? showTimePicker(context: context, initialTime: currentTime ?? TimeOfDay.now())
-                .then(changeTime)
+            ? showTimePicker(context: context, initialTime: currentTime ?? TimeOfDay.now()).then(changeTime)
             : null);
   }
 

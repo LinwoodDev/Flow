@@ -156,8 +156,7 @@ class _ColorPickerState extends State<ColorPicker> {
                                   decoration: BoxDecoration(shape: BoxShape.circle, color: color),
                                   height: 50,
                                   width: 50),
-                              onTap: () => changeColor(
-                                  red: color.red, green: color.green, blue: color.blue)),
+                              onTap: () => changeColor(red: color.red, green: color.green, blue: color.blue)),
                         );
                       })),
                 ),

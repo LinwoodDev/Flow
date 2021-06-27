@@ -35,6 +35,7 @@ class _TaskPageState extends State<TaskPage> {
   }
 
   String? server = "";
+
   @override
   Widget build(BuildContext context) {
     return widget.id == null
@@ -60,15 +61,14 @@ class _TaskPageState extends State<TaskPage> {
             child: Icon(PhosphorIcons.checkLight),
             onPressed: () {
               if (create) {
-                service.createTask(
-                    Task(_nameController.text, description: _descriptionController.text));
+                service.createTask(Task(_nameController.text, description: _descriptionController.text));
                 if (widget.isDesktop) {
                   _nameController.clear();
                   _descriptionController.clear();
                 }
               } else
-                service.updateTask(task!.copyWith(
-                    name: _nameController.text, description: _descriptionController.text));
+                service
+                    .updateTask(task!.copyWith(name: _nameController.text, description: _descriptionController.text));
               if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
             }),
         body: Column(children: [
@@ -78,9 +78,8 @@ class _TaskPageState extends State<TaskPage> {
               child: ElevatedButton.icon(
                   onPressed: () => Modular.to.pushNamed(widget.id == null
                       ? "/tasks/create"
-                      : Uri(
-                          pathSegments: ["", "tasks", "details"],
-                          queryParameters: {"id": widget.id.toString()}).toString()),
+                      : Uri(pathSegments: ["", "tasks", "details"], queryParameters: {"id": widget.id.toString()})
+                          .toString()),
                   icon: Icon(PhosphorIcons.arrowSquareOutLight),
                   label: Text("OPEN IN NEW WINDOW")),
             ),
@@ -94,8 +93,7 @@ class _TaskPageState extends State<TaskPage> {
                             SizedBox(height: 50),
                             DropdownButtonFormField<String>(
                                 value: server,
-                                decoration: InputDecoration(
-                                    labelText: "Server", border: OutlineInputBorder()),
+                                decoration: InputDecoration(labelText: "Server", border: OutlineInputBorder()),
                                 onChanged: (value) => setState(() => server = value),
                                 items: [
                                   ...Hive.box<String>('servers')
@@ -105,13 +103,11 @@ class _TaskPageState extends State<TaskPage> {
                                 ]),
                             SizedBox(height: 50),
                             TextField(
-                                decoration: InputDecoration(
-                                    labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
+                                decoration: InputDecoration(labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
                                 controller: _nameController),
                             TextField(
-                                decoration: InputDecoration(
-                                    labelText: "Description",
-                                    icon: Icon(PhosphorIcons.articleLight)),
+                                decoration:
+                                    InputDecoration(labelText: "Description", icon: Icon(PhosphorIcons.articleLight)),
                                 maxLines: null,
                                 controller: _descriptionController,
                                 minLines: 3)

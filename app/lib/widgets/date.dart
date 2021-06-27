@@ -9,8 +9,7 @@ class DateInputField extends StatefulWidget {
   final DateTime lastDate;
   final DateChangedCallback? onChanged;
 
-  DateInputField(
-      {Key? key, DateTime? initialDate, DateTime? firstDate, DateTime? lastDate, this.onChanged})
+  DateInputField({Key? key, DateTime? initialDate, DateTime? firstDate, DateTime? lastDate, this.onChanged})
       : this.initialDate = initialDate ?? DateTime.now(),
         this.firstDate = firstDate ?? DateTime.utc(initialDate?.year ?? DateTime.now().year - 100),
         this.lastDate = firstDate ?? DateTime.utc(initialDate?.year ?? DateTime.now().year + 100),
@@ -30,8 +29,7 @@ class _DateInputFieldState extends State<DateInputField> {
     super.initState();
 
     currentDate = widget.initialDate;
-    _textController = TextEditingController(
-        text: "${currentDate?.month}/${currentDate?.day}/${currentDate?.year}");
+    _textController = TextEditingController(text: "${currentDate?.month}/${currentDate?.day}/${currentDate?.year}");
   }
 
   @override
@@ -58,8 +56,7 @@ class _DateInputFieldState extends State<DateInputField> {
   void changeDate(DateTime? nextDate) {
     textFieldFocusNode.unfocus();
     textFieldFocusNode.canRequestFocus = false;
-    _textController.text =
-        nextDate == null ? "" : "${nextDate.month}/${nextDate.day}/${nextDate.year}";
+    _textController.text = nextDate == null ? "" : "${nextDate.month}/${nextDate.day}/${nextDate.year}";
     Future.delayed(Duration(milliseconds: 100), () => textFieldFocusNode.canRequestFocus = true);
     setState(() {
       currentDate = nextDate;

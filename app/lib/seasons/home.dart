@@ -35,60 +35,51 @@ class _SeasonsPageState extends State<SeasonsPage> {
         actions: [IconButton(onPressed: () {}, icon: Icon(PhosphorIcons.funnelLight))],
         body: LayoutBuilder(builder: (context, constraints) {
           var isDesktop = MediaQuery.of(context).size.width > 1000;
-          return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              textDirection: TextDirection.rtl,
-              children: [
-                if (isDesktop) ...[
-                  Expanded(flex: 2, child: SeasonPage(isDesktop: isDesktop, id: selected?.id)),
-                  VerticalDivider()
-                ],
-                Expanded(
-                    flex: 3,
-                    child: Scaffold(
-                        floatingActionButton: selected == null && isDesktop
-                            ? null
-                            : FloatingActionButton.extended(
-                                label: Text("Create season"),
-                                icon: Icon(PhosphorIcons.plusLight),
-                                onPressed: () => isDesktop
-                                    ? setState(() => selected = null)
-                                    : Modular.to.pushNamed("/seasons/create")),
-                        body: Scrollbar(
-                            child: SingleChildScrollView(
-                                child: StreamBuilder<List<Season>>(
-                                    stream: seasonStream,
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasError) return Text("Error ${snapshot.error}");
-                                      if (snapshot.connectionState == ConnectionState.waiting ||
-                                          !snapshot.hasData)
-                                        return Center(child: CircularProgressIndicator());
-                                      var seasons = snapshot.data!;
-                                      return Column(
-                                          children: List.generate(seasons.length, (index) {
-                                        var season = seasons[index];
-                                        return Dismissible(
-                                          key: Key(season.id!.toString()),
-                                          onDismissed: (direction) {
-                                            service.deleteSeason(season.id!);
-                                          },
-                                          background: Container(color: Colors.red),
-                                          child: ListTile(
-                                              title: Text(season.name),
-                                              selected: selected?.id == season.id,
-                                              onTap: () => isDesktop
-                                                  ? setState(() => selected = season)
-                                                  : Modular.to.pushNamed(Uri(pathSegments: [
-                                                      "",
-                                                      "seasons",
-                                                      "details"
-                                                    ], queryParameters: {
-                                                      "id": season.id.toString()
-                                                    }).toString())),
-                                        );
-                                      }));
-                                    })))))
-              ]);
+          return Row(crossAxisAlignment: CrossAxisAlignment.start, textDirection: TextDirection.rtl, children: [
+            if (isDesktop) ...[
+              Expanded(flex: 2, child: SeasonPage(isDesktop: isDesktop, id: selected?.id)),
+              VerticalDivider()
+            ],
+            Expanded(
+                flex: 3,
+                child: Scaffold(
+                    floatingActionButton: selected == null && isDesktop
+                        ? null
+                        : FloatingActionButton.extended(
+                            label: Text("Create season"),
+                            icon: Icon(PhosphorIcons.plusLight),
+                            onPressed: () =>
+                                isDesktop ? setState(() => selected = null) : Modular.to.pushNamed("/seasons/create")),
+                    body: Scrollbar(
+                        child: SingleChildScrollView(
+                            child: StreamBuilder<List<Season>>(
+                                stream: seasonStream,
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasError) return Text("Error ${snapshot.error}");
+                                  if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
+                                    return Center(child: CircularProgressIndicator());
+                                  var seasons = snapshot.data!;
+                                  return Column(
+                                      children: List.generate(seasons.length, (index) {
+                                    var season = seasons[index];
+                                    return Dismissible(
+                                      key: Key(season.id!.toString()),
+                                      onDismissed: (direction) {
+                                        service.deleteSeason(season.id!);
+                                      },
+                                      background: Container(color: Colors.red),
+                                      child: ListTile(
+                                          title: Text(season.name),
+                                          selected: selected?.id == season.id,
+                                          onTap: () => isDesktop
+                                              ? setState(() => selected = season)
+                                              : Modular.to.pushNamed(Uri(
+                                                  pathSegments: ["", "seasons", "details"],
+                                                  queryParameters: {"id": season.id.toString()}).toString())),
+                                    );
+                                  }));
+                                })))))
+          ]);
         }));
   }
 }

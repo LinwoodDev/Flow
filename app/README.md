@@ -13,7 +13,8 @@
 
 ### Your data is decentralized
 
-Everyone can host their own backend. See [here](https://docs.flow.linwood.tk/server/getting-started) and everyone can add it to the server list in the settings.
+Everyone can host their own backend. See [here](https://docs.flow.linwood.tk/server/getting-started) and everyone can
+add it to the server list in the settings.
 
 ### Manage your time everywhere
 

@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 enum AssignFlag { allow, neutral, disallow }
@@ -10,10 +11,8 @@ class Assigned {
   final List<AssignedObject> events;
 
   const Assigned(
-      {this.teams = const [],
-      this.users = const [],
-      this.events = const [],
-      this.everyone = AssignFlag.allow});
+      {this.teams = const [], this.users = const [], this.events = const [], this.everyone = AssignFlag.allow});
+
   Assigned.fromJson(Map<String, dynamic> json)
       : teams = List.from(json['teams'] ?? []).map((e) => AssignedObject.fromJson(e)).toList(),
         users = List.from(json['users'] ?? []).map((e) => AssignedObject.fromJson(e)).toList(),
@@ -26,6 +25,7 @@ class Assigned {
         'events': events.map((e) => e.toJson()).toList(),
         'everyone': everyone.index
       };
+
   Assigned copyWith(
           {AssignFlag? everyone,
           List<AssignedObject>? teams,
@@ -39,16 +39,20 @@ class Assigned {
 }
 
 @immutable
-class AssignedObject {
+class AssignedObject extends Equatable {
   final int? id;
   final AssignFlag flag;
+
   const AssignedObject({this.id, required this.flag});
+
   AssignedObject.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         flag = AssignFlag.values[json['flag'] ?? 0];
 
-  AssignedObject copyWith({int? id, AssignFlag? flag}) =>
-      AssignedObject(flag: flag ?? this.flag, id: id ?? this.id);
+  AssignedObject copyWith({int? id, AssignFlag? flag}) => AssignedObject(flag: flag ?? this.flag, id: id ?? this.id);
 
   Map<String, dynamic> toJson() => {'id': id, 'flag': flag.index};
+
+  @override
+  List<Object?> get props => [id];
 }

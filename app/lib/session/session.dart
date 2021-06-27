@@ -25,10 +25,7 @@ class _SessionPageState extends State<SessionPage> {
                           .toString());
                       setState(() {});
                     },
-                    tabs: [
-                      Tab(icon: Icon(PhosphorIcons.signInLight)),
-                      Tab(icon: Icon(PhosphorIcons.userPlusLight))
-                    ])),
+                    tabs: [Tab(icon: Icon(PhosphorIcons.signInLight)), Tab(icon: Icon(PhosphorIcons.userPlusLight))])),
             body: RouterOutlet()));
   }
 }

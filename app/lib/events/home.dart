@@ -57,66 +57,58 @@ class _EventsPageState extends State<EventsPage> {
               onSelected: (value) => setState(() => view = value),
               itemBuilder: (context) => EventView.values
                   .map((e) => PopupMenuItem(
-                      value: e,
-                      child: ListTile(
-                          title: Text(e.name), leading: Icon(e.icon), selected: e == view)))
+                      value: e, child: ListTile(title: Text(e.name), leading: Icon(e.icon), selected: e == view)))
                   .toList())
         ],
         body: LayoutBuilder(builder: (context, constraints) {
           var isDesktop = MediaQuery.of(context).size.width > 1000;
-          return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              textDirection: TextDirection.rtl,
-              children: [
-                if (isDesktop) ...[
-                  Expanded(flex: 2, child: EventPage(isDesktop: isDesktop, id: selected?.id)),
-                  VerticalDivider()
-                ],
-                Expanded(
-                    flex: 3,
-                    child: Scaffold(
-                        floatingActionButton: selected == null && isDesktop
-                            ? null
-                            : FloatingActionButton.extended(
-                                label: Text("Create event"),
-                                icon: Icon(PhosphorIcons.plusLight),
-                                onPressed: () => isDesktop
-                                    ? setState(() => selected = null)
-                                    : Modular.to.pushNamed("/events/create")),
-                        body: Scrollbar(
-                            child: SingleChildScrollView(
-                                child: Builder(
-                          builder: (context) => StreamBuilder<List<Event>>(
-                              stream: service.onEvents(),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasError) return Text("Error ${snapshot.error}");
-                                if (snapshot.connectionState == ConnectionState.waiting ||
-                                    !snapshot.hasData)
-                                  return Center(child: CircularProgressIndicator());
-                                var events = snapshot.data!;
-                                return Column(
-                                    children: List.generate(events.length, (index) {
-                                  var event = events[index];
-                                  return Dismissible(
-                                    key: Key(event.id!.toString()),
-                                    onDismissed: (direction) {
-                                      service.deleteEvent(event.id!);
-                                    },
-                                    background: Container(color: Colors.red),
-                                    child: ListTile(
-                                        title: Text(event.name),
-                                        selected: selected?.id == event.id,
-                                        onTap: () => isDesktop
-                                            ? setState(() => selected = event)
-                                            : Modular.to.pushNamed(Uri(
-                                                    pathSegments: ["", "events", "details"],
-                                                    queryParameters: {"id": event.id.toString()})
-                                                .toString())),
-                                  );
-                                }));
-                              }),
-                        )))))
-              ]);
+          return Row(crossAxisAlignment: CrossAxisAlignment.start, textDirection: TextDirection.rtl, children: [
+            if (isDesktop) ...[
+              Expanded(flex: 2, child: EventPage(isDesktop: isDesktop, id: selected?.id)),
+              VerticalDivider()
+            ],
+            Expanded(
+                flex: 3,
+                child: Scaffold(
+                    floatingActionButton: selected == null && isDesktop
+                        ? null
+                        : FloatingActionButton.extended(
+                            label: Text("Create event"),
+                            icon: Icon(PhosphorIcons.plusLight),
+                            onPressed: () =>
+                                isDesktop ? setState(() => selected = null) : Modular.to.pushNamed("/events/create")),
+                    body: Scrollbar(
+                        child: SingleChildScrollView(
+                            child: Builder(
+                      builder: (context) => StreamBuilder<List<Event>>(
+                          stream: service.onEvents(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) return Text("Error ${snapshot.error}");
+                            if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
+                              return Center(child: CircularProgressIndicator());
+                            var events = snapshot.data!;
+                            return Column(
+                                children: List.generate(events.length, (index) {
+                              var event = events[index];
+                              return Dismissible(
+                                key: Key(event.id!.toString()),
+                                onDismissed: (direction) {
+                                  service.deleteEvent(event.id!);
+                                },
+                                background: Container(color: Colors.red),
+                                child: ListTile(
+                                    title: Text(event.name),
+                                    selected: selected?.id == event.id,
+                                    onTap: () => isDesktop
+                                        ? setState(() => selected = event)
+                                        : Modular.to.pushNamed(Uri(
+                                            pathSegments: ["", "events", "details"],
+                                            queryParameters: {"id": event.id.toString()}).toString())),
+                              );
+                            }));
+                          }),
+                    )))))
+          ]);
         }));
   }
 }

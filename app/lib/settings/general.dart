@@ -47,8 +47,8 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
           ListTile(
               leading: Icon(PhosphorIcons.infoLight),
               title: Text("About"),
-              onTap: () => showAboutDialog(
-                  context: context, applicationIcon: Image.asset("images/logo.png", height: 50))),
+              onTap: () =>
+                  showAboutDialog(context: context, applicationIcon: Image.asset("images/logo.png", height: 50))),
         ])));
   }
 }

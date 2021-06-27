@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 import 'assign.dart';
 
 @immutable
-class Task {
+class Task extends Equatable {
   final int? id;
   final String name;
   final String description;
@@ -11,8 +12,8 @@ class Task {
   final int? event;
   final int? parent;
 
-  Task(this.name,
-      {this.id, this.description = '', this.assigned = const Assigned(), this.parent, this.event});
+  Task(this.name, {this.id, this.description = '', this.assigned = const Assigned(), this.parent, this.event});
+
   Task.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],
@@ -20,8 +21,10 @@ class Task {
         assigned = Assigned.fromJson(json['assigned'] ?? {}),
         parent = json['parent'],
         event = json['event'];
+
   Map<String, dynamic> toJson() =>
       {'name': name, 'description': description, 'assigned': assigned.toJson(), 'event': event};
+
   Task copyWith(
           {String? name,
           String? description,
@@ -37,4 +40,7 @@ class Task {
           assigned: assigned ?? this.assigned,
           parent: removeParent ? null : (parent ?? this.parent),
           event: removeEvent ? null : (event ?? this.event));
+
+  @override
+  List<Object?> get props => [id];
 }

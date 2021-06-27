@@ -12,7 +12,6 @@ class UsersModule extends Module {
   final List<ModularRoute> routes = [
     ChildRoute('/', child: (_, __) => UsersPage()),
     ChildRoute('/create', child: (_, __) => UserPage()),
-    ChildRoute("/details",
-        child: (_, __) => UserPage(id: int.tryParse(Modular.args?.queryParams['id'] ?? "0")))
+    ChildRoute("/details", child: (_, __) => UserPage(id: int.tryParse(Modular.args?.queryParams['id'] ?? "0")))
   ];
 }
