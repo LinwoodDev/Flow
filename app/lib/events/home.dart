@@ -75,7 +75,7 @@ class _EventsPageState extends State<EventsPage> {
                 Expanded(
                     flex: 3,
                     child: Scaffold(
-                        floatingActionButton: selected == null
+                        floatingActionButton: selected == null && isDesktop
                             ? null
                             : FloatingActionButton.extended(
                                 label: Text("Create event"),

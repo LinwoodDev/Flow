@@ -46,7 +46,7 @@ class _TeamsPageState extends State<TeamsPage> {
                 Expanded(
                     flex: 3,
                     child: Scaffold(
-                        floatingActionButton: selected == null
+                        floatingActionButton: selected == null && isDesktop
                             ? null
                             : FloatingActionButton.extended(
                                 label: Text("Create team"),
