@@ -55,7 +55,7 @@ class _UsersPageState extends State<UsersPage> {
                             child: StreamBuilder<List<User>>(
                                 stream: userStream,
                                 builder: (context, snapshot) {
-                                  if (snapshot.hasError) return Text("Error ${snapshot.error}");
+                                  if (snapshot.hasError) return Text("Error: ${snapshot.error}");
                                   if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
                                     return Center(child: CircularProgressIndicator());
                                   var users = snapshot.data!;

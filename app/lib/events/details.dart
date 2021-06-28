@@ -48,7 +48,7 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
         : StreamBuilder<Event?>(
             stream: service.onEvent(widget.id!),
             builder: (context, snapshot) {
-              if (snapshot.hasError) return Text("Error ${snapshot.error}");
+              if (snapshot.hasError) return Text("Error: ${snapshot.error}");
               if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
                 return Center(child: CircularProgressIndicator());
               return _buildView(snapshot.data);
@@ -57,18 +57,17 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
 
   Widget _buildView(Event? event) {
     var create = event == null;
+    bool isCanceled = event?.isCanceled ?? false;
+    DateTime? startDateTime = event?.startDateTime, endDateTime = event?.endDateTime;
     _nameController.text = event?.name ?? "";
     _descriptionController.text = event?.description ?? "";
     return Scaffold(
         appBar: AppBar(
             title: Text(create ? "Create event" : event!.name),
-            bottom: TabBar(
-              controller: _tabController,
-              tabs: [
-                Tab(icon: Icon(PhosphorIcons.wrenchLight), text: "General"),
-                Tab(icon: Icon(PhosphorIcons.calendarLight), text: "Date and time")
-              ],
-            )),
+            bottom: TabBar(controller: _tabController, tabs: [
+              Tab(icon: Icon(PhosphorIcons.wrenchLight), text: "General"),
+              Tab(icon: Icon(PhosphorIcons.calendarLight), text: "Date and time")
+            ])),
         floatingActionButton: FloatingActionButton(
             heroTag: "event-check",
             child: Icon(PhosphorIcons.checkLight),
@@ -80,23 +79,26 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                   _descriptionController.clear();
                 }
               } else
-                service
-                    .updateEvent(event!.copyWith(name: _nameController.text, description: _descriptionController.text));
+                service.updateEvent(event!.copyWith(
+                    name: _nameController.text,
+                    description: _descriptionController.text,
+                    isCanceled: isCanceled,
+                    startDateTime: startDateTime,
+                    endDateTime: endDateTime));
               if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
             }),
         body: TabBarView(controller: _tabController, children: [
           Column(children: [
             if (widget.isDesktop)
               Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ElevatedButton.icon(
-                    onPressed: () => Modular.to.pushNamed(widget.id == null
-                        ? "/events/create"
-                        : Uri(pathSegments: ["", "events", "details"], queryParameters: {"id": widget.id.toString()})
-                            .toString()),
-                    icon: Icon(PhosphorIcons.arrowSquareOutLight),
-                    label: Text("OPEN IN NEW WINDOW")),
-              ),
+                  padding: const EdgeInsets.all(16.0),
+                  child: ElevatedButton.icon(
+                      onPressed: () => Modular.to.pushNamed(widget.id == null
+                          ? "/events/create"
+                          : Uri(pathSegments: ["", "events", "details"], queryParameters: {"id": widget.id.toString()})
+                              .toString()),
+                      icon: Icon(PhosphorIcons.arrowSquareOutLight),
+                      label: Text("OPEN IN NEW WINDOW"))),
             Expanded(
                 child: SingleChildScrollView(
                     child: Align(
@@ -127,7 +129,7 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                                   controller: _descriptionController,
                                   minLines: 3),
                               if (event != null) ...[
-                                SizedBox(height: 10),
+                                SizedBox(height: 20),
                                 ElevatedButton.icon(
                                     icon: Icon(PhosphorIcons.compassLight),
                                     label: Text("ASSIGN"),
@@ -145,40 +147,47 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
             Row(children: [
               Expanded(
                   child: DateInputField(
-                label: "Start date",
-                initialDate: event?.startDateTime,
-                onChanged: (dateTime) => setState(() => event = event?.copyWith(startDateTime: dateTime)),
-              )),
+                      label: "Start date",
+                      initialDate: event?.startDateTime,
+                      onChanged: (dateTime) => startDateTime = dateTime)),
               Expanded(
                   child: TimeInputField(
                       label: "Start time",
                       initialTime: event?.startDateTime != null ? TimeOfDay.fromDateTime(event!.startDateTime!) : null,
-                      onChanged: (time) => setState(() {
-                            var oldDate = event?.startDateTime ?? DateTime.now();
-                            event = event?.copyWith(
-                                startDateTime: DateTime(
-                                    oldDate.year, oldDate.month, oldDate.day, time?.hour ?? 0, time?.minute ?? 0));
-                          })))
+                      onChanged: (time) {
+                        var oldDate = event?.startDateTime ?? DateTime.now();
+                        startDateTime =
+                            DateTime(oldDate.year, oldDate.month, oldDate.day, time?.hour ?? 0, time?.minute ?? 0);
+                      }))
             ]),
             SizedBox(height: 20),
             Row(children: [
               Expanded(
                   child: DateInputField(
-                label: "End date",
-                initialDate: event?.endDateTime,
-                onChanged: (dateTime) => setState(() => event = event?.copyWith(endDateTime: dateTime)),
-              )),
+                      label: "End date",
+                      initialDate: event?.endDateTime,
+                      onChanged: (dateTime) => endDateTime = dateTime)),
               Expanded(
                   child: TimeInputField(
                       label: "End time",
                       initialTime: event?.endDateTime != null ? TimeOfDay.fromDateTime(event!.endDateTime!) : null,
-                      onChanged: (time) => setState(() {
-                            var oldDate = event?.endDateTime ?? DateTime.now();
-                            event = event?.copyWith(
-                                endDateTime: DateTime(
-                                    oldDate.year, oldDate.month, oldDate.day, time?.hour ?? 0, time?.minute ?? 0));
-                          })))
-            ])
+                      onChanged: (time) {
+                        var oldDate = event?.endDateTime ?? DateTime.now();
+                        endDateTime =
+                            DateTime(oldDate.year, oldDate.month, oldDate.day, time?.hour ?? 0, time?.minute ?? 0);
+                      }))
+            ]),
+            if (event != null) ...[
+              SizedBox(height: 20),
+              StatefulBuilder(builder: (context, setState) {
+                return CheckboxListTile(
+                    value: isCanceled,
+                    onChanged: (value) => setState(() => isCanceled = value ?? isCanceled),
+                    title: Text("Canceled"),
+                    subtitle: Text("Check if the event is canceled"),
+                    controlAffinity: ListTileControlAffinity.leading);
+              })
+            ]
           ])
         ]));
   }

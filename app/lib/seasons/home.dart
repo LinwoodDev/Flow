@@ -55,7 +55,7 @@ class _SeasonsPageState extends State<SeasonsPage> {
                             child: StreamBuilder<List<Season>>(
                                 stream: seasonStream,
                                 builder: (context, snapshot) {
-                                  if (snapshot.hasError) return Text("Error ${snapshot.error}");
+                                  if (snapshot.hasError) return Text("Error: ${snapshot.error}");
                                   if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
                                     return Center(child: CircularProgressIndicator());
                                   var seasons = snapshot.data!;

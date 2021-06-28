@@ -43,7 +43,7 @@ class _TaskPageState extends State<TaskPage> {
         : StreamBuilder<Task?>(
             stream: service.onTask(widget.id!),
             builder: (context, snapshot) {
-              if (snapshot.hasError) return Text("Error ${snapshot.error}");
+              if (snapshot.hasError) return Text("Error: ${snapshot.error}");
               if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
                 return Center(child: CircularProgressIndicator());
               return _buildView(snapshot.data);

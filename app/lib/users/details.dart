@@ -45,7 +45,7 @@ class _UserPageState extends State<UserPage> {
         : StreamBuilder<User?>(
             stream: service.onUser(widget.id!),
             builder: (context, snapshot) {
-              if (snapshot.hasError) return Text("Error ${snapshot.error}");
+              if (snapshot.hasError) return Text("Error: ${snapshot.error}");
               if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
                 return Center(child: CircularProgressIndicator());
               return _buildView(snapshot.data);

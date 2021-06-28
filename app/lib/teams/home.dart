@@ -55,7 +55,7 @@ class _TeamsPageState extends State<TeamsPage> {
                             child: StreamBuilder<List<Team>>(
                                 stream: teamStream,
                                 builder: (context, snapshot) {
-                                  if (snapshot.hasError) return Text("Error ${snapshot.error}");
+                                  if (snapshot.hasError) return Text("Error: ${snapshot.error}");
                                   if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
                                     return Center(child: CircularProgressIndicator());
                                   var teams = snapshot.data!;

@@ -82,7 +82,7 @@ class _TasksPageState extends State<TasksPage> {
                             child: StreamBuilder<List<Task>>(
                                 stream: taskStream,
                                 builder: (context, snapshot) {
-                                  if (snapshot.hasError) return Text("Error ${snapshot.error}");
+                                  if (snapshot.hasError) return Text("Error: ${snapshot.error}");
                                   if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
                                     return Center(child: CircularProgressIndicator());
                                   var tasks = snapshot.data!;

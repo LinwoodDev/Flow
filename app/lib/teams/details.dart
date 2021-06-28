@@ -48,7 +48,7 @@ class _TeamPageState extends State<TeamPage> {
         : StreamBuilder<Team?>(
             stream: service.onTeam(widget.id!),
             builder: (context, snapshot) {
-              if (snapshot.hasError) return Text("Error ${snapshot.error}");
+              if (snapshot.hasError) return Text("Error: ${snapshot.error}");
               if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
                 return Center(child: CircularProgressIndicator());
               return _buildView(snapshot.data);

@@ -57,6 +57,12 @@ abstract class ApiService {
 
   Stream<Event?> onEvent(int id);
 
+  Stream<List<Event>> onOpenedEvents();
+
+  Stream<List<Event>> onDoneEvents();
+
+  Stream<List<Event>> onPlannedEvents();
+
   // Badge operations
   Future<List<Badge>> fetchBadges();
 

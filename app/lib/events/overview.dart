@@ -1,5 +1,9 @@
+import 'package:flow_app/services/api_service.dart';
+import 'package:flow_app/services/local_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:shared/event.dart';
 
 class EventsOverviewView extends StatefulWidget {
   const EventsOverviewView({Key? key}) : super(key: key);
@@ -10,11 +14,14 @@ class EventsOverviewView extends StatefulWidget {
 
 class _EventsOverviewViewState extends State<EventsOverviewView> {
   int _selectedIndex = 1;
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Index 0: Opened'),
-    Text('Index 1: Planned'),
-    Text('Index 2: Done'),
-  ];
+  late ApiService service;
+
+  @override
+  void initState() {
+    super.initState();
+
+    service = GetIt.I.get<LocalService>();
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -24,12 +31,31 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+    List<Widget> _widgetOptions = <Widget>[
+      StreamBuilder<List<Event>>(
+          stream: service.onOpenedEvents(),
+        builder: (context, snapshot) {
+          if(!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting)
+              return Center(child: CircularProgressIndicator());
+          if(snapshot.hasError)
+            return Text("Error: ${snapshot.error}");
+          var events = snapshot.data!;
+          return ListView.builder(itemCount: events.length,itemBuilder: (context, index) {
+            var event = events[index];
+            return ListTile(
+              title: Text(event.name)
+            );
+          });
+        },
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+      Text('Index 1: Planned'),
+      Text('Index 2: Done'),
+    ];
+    return Scaffold(
+        body: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
+        bottomNavigationBar: BottomNavigationBar(items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               activeIcon: Icon(PhosphorIcons.squareFill), icon: Icon(PhosphorIcons.squareLight), label: 'Opened'),
           BottomNavigationBarItem(
@@ -38,10 +64,6 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
               activeIcon: Icon(PhosphorIcons.checkSquareFill),
               icon: Icon(PhosphorIcons.checkSquareLight),
               label: 'Done'),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
-    );
+        ], currentIndex: _selectedIndex, onTap: _onItemTapped));
   }
 }

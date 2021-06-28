@@ -113,7 +113,7 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                             var teams = snapshot.data!;
                             return SingleChildScrollView(
                               child: Column(children: [
-                                if (teams.any((a) => !assigned.users.any((b) => b.id == a.id)))
+                                if (teams.any((a) => !assigned.teams.any((b) => b.id == a.id)))
                                   OutlinedButton.icon(
                                       onPressed: () => showDialog(
                                           context: context,
@@ -159,7 +159,7 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                               var events = snapshot.data!;
                               return SingleChildScrollView(
                                   child: Column(children: [
-                                if (events.any((a) => !assigned.users.any((b) => b.id == a.id)))
+                                if (events.any((a) => !assigned.events.any((b) => b.id == a.id)))
                                   OutlinedButton.icon(
                                       onPressed: () => showDialog(
                                           context: context,

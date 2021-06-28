@@ -132,7 +132,7 @@ class LocalService extends ApiService {
       .find(db,
           finder: Finder(
               filter: Filter.and([
-            Filter.isNull("date-time"),
+            Filter.not(Filter.isNull("date-time")),
             Filter.custom(
                 (record) => DateTime.tryParse(record['date-time'] as String? ?? "")?.isAfter(DateTime.now()) ?? false)
           ])))
@@ -143,7 +143,7 @@ class LocalService extends ApiService {
       .find(db,
           finder: Finder(
               filter: Filter.and([
-            Filter.isNull("date-time"),
+            Filter.not(Filter.isNull("date-time")),
             Filter.custom((record) =>
                 !(DateTime.tryParse(record['date-time'] as String? ?? "")?.isAfter(DateTime.now()) ?? false))
           ])))
@@ -172,6 +172,30 @@ class LocalService extends ApiService {
       .query(finder: Finder(filter: Filter.byKey(id)))
       .onSnapshot(db)
       .map((e) => e == null ? null : Event.fromJson(Map.from(e.value)..["id"] = e.key));
+
+  @override
+  Stream<List<Event>> onOpenedEvents() => eventsStore
+      .query(finder: Finder(filter: Filter.and([Filter.isNull("date-time"), Filter.equals("canceled", false)])))
+      .onSnapshots(db)
+      .map((event) => event.map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+
+  @override
+  Stream<List<Event>> onPlannedEvents() => eventsStore
+      .query(
+          finder: Finder(
+              filter: Filter.and([
+        Filter.isNull("date-time"),
+        Filter.custom(
+            (record) => !(DateTime.tryParse(record['date-time'] as String? ?? "")?.isAfter(DateTime.now()) ?? false))
+      ])))
+      .onSnapshots(db)
+      .map((event) => event.map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+
+  @override
+  Stream<List<Event>> onDoneEvents() => eventsStore
+      .query()
+      .onSnapshots(db)
+      .map((event) => event.map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
 
   // Badge operations
   static const String badgesStoreName = 'badges';
