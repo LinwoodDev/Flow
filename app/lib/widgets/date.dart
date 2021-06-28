@@ -59,10 +59,10 @@ class _DateInputFieldState extends State<DateInputField> {
     textFieldFocusNode.unfocus();
     textFieldFocusNode.canRequestFocus = false;
     _textController.text = nextDate == null ? "" : "${nextDate.month}/${nextDate.day}/${nextDate.year}";
+    widget.onChanged(nextDate);
     Future.delayed(Duration(milliseconds: 100), () => textFieldFocusNode.canRequestFocus = true);
     setState(() {
       currentDate = nextDate;
     });
-    widget.onChanged(nextDate);
   }
 }
