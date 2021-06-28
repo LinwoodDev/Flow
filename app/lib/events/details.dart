@@ -30,15 +30,16 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    id = widget.id;
     service = GetIt.I.get<LocalService>();
     _tabController = TabController(length: 2, vsync: this);
-    id = widget.id;
   }
 
   @override
   void didUpdateWidget(EventPage oldWidget) {
     super.didUpdateWidget(oldWidget);
     service = GetIt.I.get<LocalService>();
+    if (oldWidget.id != widget.id) setState(() => id = widget.id);
   }
 
   String? server = "";
@@ -72,10 +73,13 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
             actions: [
               if (widget.isDesktop)
                 IconButton(
-                    onPressed: () => Modular.to.pushNamed(id == null
-                        ? "/events/create"
-                        : Uri(pathSegments: ["", "events", "details"], queryParameters: {"id": id.toString()})
-                            .toString()),
+                    onPressed: () {
+                      if (widget.isDialog) Modular.to.pop();
+                      Modular.to.pushNamed(id == null
+                          ? "/events/create"
+                          : Uri(pathSegments: ["", "events", "details"], queryParameters: {"id": id.toString()})
+                              .toString());
+                    },
                     icon: Icon(PhosphorIcons.arrowSquareOutLight))
             ],
             bottom: TabBar(controller: _tabController, tabs: [
