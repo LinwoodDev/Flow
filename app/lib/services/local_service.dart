@@ -184,7 +184,7 @@ class LocalService extends ApiService {
       .query(
           finder: Finder(
               filter: Filter.and([
-        Filter.isNull("date-time"),
+        Filter.not(Filter.isNull("date-time")),
         Filter.custom(
             (record) => !(DateTime.tryParse(record['date-time'] as String? ?? "")?.isAfter(DateTime.now()) ?? false))
       ])))

@@ -4,13 +4,11 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 typedef void TimeChangedCallback(TimeOfDay? timeTime);
 
 class TimeInputField extends StatefulWidget {
-  final TimeOfDay initialTime;
+  final TimeOfDay? initialTime;
   final String? label;
-  final TimeChangedCallback? onChanged;
+  final TimeChangedCallback onChanged;
 
-  TimeInputField({Key? key, TimeOfDay? initialTime, this.onChanged, this.label})
-      : this.initialTime = initialTime ?? TimeOfDay.now(),
-        super(key: key);
+  TimeInputField({Key? key, this.initialTime, required this.onChanged, this.label}) : super(key: key);
 
   @override
   _TimeInputFieldState createState() => _TimeInputFieldState();
@@ -24,7 +22,7 @@ class _TimeInputFieldState extends State<TimeInputField> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () => _textController.text = widget.initialTime.format(context));
+    Future.delayed(Duration.zero, () => _textController.text = widget.initialTime?.format(context) ?? "");
     currentTime = widget.initialTime;
   }
 
@@ -54,5 +52,6 @@ class _TimeInputFieldState extends State<TimeInputField> {
     setState(() {
       currentTime = nextTime;
     });
+    widget.onChanged(nextTime);
   }
 }

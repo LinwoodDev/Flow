@@ -4,15 +4,15 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 typedef void DateChangedCallback(DateTime? dateTime);
 
 class DateInputField extends StatefulWidget {
-  final DateTime initialDate;
+  final DateTime? initialDate;
   final DateTime firstDate;
   final DateTime lastDate;
   final String? label;
-  final DateChangedCallback? onChanged;
+  final DateChangedCallback onChanged;
 
-  DateInputField({Key? key, DateTime? initialDate, DateTime? firstDate, DateTime? lastDate, this.onChanged, this.label})
-      : this.initialDate = initialDate ?? DateTime.now(),
-        this.firstDate = firstDate ?? DateTime.utc(initialDate?.year ?? DateTime.now().year - 100),
+  DateInputField(
+      {Key? key, this.initialDate, DateTime? firstDate, DateTime? lastDate, required this.onChanged, this.label})
+      : this.firstDate = firstDate ?? DateTime.utc(initialDate?.year ?? DateTime.now().year - 100),
         this.lastDate = firstDate ?? DateTime.utc(initialDate?.year ?? DateTime.now().year + 100),
         super(key: key);
 
@@ -30,7 +30,8 @@ class _DateInputFieldState extends State<DateInputField> {
     super.initState();
 
     currentDate = widget.initialDate;
-    _textController = TextEditingController(text: "${currentDate?.month}/${currentDate?.day}/${currentDate?.year}");
+    _textController = TextEditingController(
+        text: currentDate == null ? "" : "${currentDate?.month}/${currentDate?.day}/${currentDate?.year}");
   }
 
   @override
@@ -62,5 +63,6 @@ class _DateInputFieldState extends State<DateInputField> {
     setState(() {
       currentDate = nextDate;
     });
+    widget.onChanged(nextDate);
   }
 }

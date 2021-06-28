@@ -1,3 +1,4 @@
+import 'package:flow_app/events/details.dart';
 import 'package:flow_app/services/api_service.dart';
 import 'package:flow_app/services/local_service.dart';
 import 'package:flutter/material.dart';
@@ -29,27 +30,70 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
     });
   }
 
+  void openDialog(Event event) => showDialog(
+      context: context,
+      builder: (context) => Dialog(
+          child: Container(
+              constraints: BoxConstraints(maxHeight: 750, maxWidth: 500),
+              child: EventPage(isDesktop: true, isDialog: true, id: event.id))));
+
   @override
   Widget build(BuildContext context) {
     List<Widget> _widgetOptions = <Widget>[
       StreamBuilder<List<Event>>(
-          stream: service.onOpenedEvents(),
+        stream: service.onOpenedEvents(),
         builder: (context, snapshot) {
-          if(!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting)
-              return Center(child: CircularProgressIndicator());
-          if(snapshot.hasError)
-            return Text("Error: ${snapshot.error}");
+          if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting)
+            return Center(child: CircularProgressIndicator());
+          if (snapshot.hasError) return Text("Error: ${snapshot.error}");
           var events = snapshot.data!;
-          return ListView.builder(itemCount: events.length,itemBuilder: (context, index) {
-            var event = events[index];
-            return ListTile(
-              title: Text(event.name)
-            );
-          });
+          return ListView.builder(
+              itemCount: events.length,
+              itemBuilder: (context, index) {
+                var event = events[index];
+                return ListTile(
+                  title: Text(event.name),
+                  onTap: () => openDialog(event),
+                );
+              });
         },
       ),
-      Text('Index 1: Planned'),
-      Text('Index 2: Done'),
+      StreamBuilder<List<Event>>(
+        stream: service.onPlannedEvents(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting)
+            return Center(child: CircularProgressIndicator());
+          if (snapshot.hasError) return Text("Error: ${snapshot.error}");
+          var events = snapshot.data!;
+          return ListView.builder(
+              itemCount: events.length,
+              itemBuilder: (context, index) {
+                var event = events[index];
+                return ListTile(
+                  title: Text(event.name),
+                  onTap: () => openDialog(event),
+                );
+              });
+        },
+      ),
+      StreamBuilder<List<Event>>(
+        stream: service.onDoneEvents(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting)
+            return Center(child: CircularProgressIndicator());
+          if (snapshot.hasError) return Text("Error: ${snapshot.error}");
+          var events = snapshot.data!;
+          return ListView.builder(
+              itemCount: events.length,
+              itemBuilder: (context, index) {
+                var event = events[index];
+                return ListTile(
+                  title: Text(event.name),
+                  onTap: () => openDialog(event),
+                );
+              });
+        },
+      )
     ];
     return Scaffold(
         body: Center(
