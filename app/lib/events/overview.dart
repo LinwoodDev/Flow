@@ -30,12 +30,12 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
     });
   }
 
-  void openDialog(Event event) => showDialog(
+  void openDialog(Event? event) => showDialog(
       context: context,
       builder: (context) => Dialog(
           child: Container(
               constraints: BoxConstraints(maxHeight: 750, maxWidth: 500),
-              child: EventPage(isDesktop: true, isDialog: true, id: event.id))));
+              child: EventPage(isDesktop: true, isDialog: true, id: event?.id))));
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +96,8 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
       )
     ];
     return Scaffold(
+        floatingActionButton: FloatingActionButton.extended(
+            onPressed: () => openDialog(null), label: Text("Create event"), icon: Icon(PhosphorIcons.plusLight)),
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),

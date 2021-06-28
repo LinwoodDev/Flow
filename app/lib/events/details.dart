@@ -25,12 +25,14 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
   late TextEditingController _descriptionController = TextEditingController();
   late TabController _tabController;
   late ApiService service;
+  int? id;
 
   @override
   void initState() {
     super.initState();
     service = GetIt.I.get<LocalService>();
     _tabController = TabController(length: 2, vsync: this);
+    id = widget.id;
   }
 
   @override
@@ -43,10 +45,10 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return widget.id == null
+    return id == null
         ? _buildView(null)
         : StreamBuilder<Event?>(
-            stream: service.onEvent(widget.id!),
+            stream: service.onEvent(id!),
             builder: (context, snapshot) {
               if (snapshot.hasError) return Text("Error: ${snapshot.error}");
               if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
@@ -70,9 +72,9 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
             actions: [
               if (widget.isDesktop)
                 IconButton(
-                    onPressed: () => Modular.to.pushNamed(widget.id == null
+                    onPressed: () => Modular.to.pushNamed(id == null
                         ? "/events/create"
-                        : Uri(pathSegments: ["", "events", "details"], queryParameters: {"id": widget.id.toString()})
+                        : Uri(pathSegments: ["", "events", "details"], queryParameters: {"id": id.toString()})
                             .toString()),
                     icon: Icon(PhosphorIcons.arrowSquareOutLight))
             ],
@@ -83,13 +85,15 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
         floatingActionButton: FloatingActionButton(
             heroTag: "event-check",
             child: Icon(PhosphorIcons.checkLight),
-            onPressed: () {
+            onPressed: () async {
               if (create) {
-                service.createEvent(Event(_nameController.text, description: _descriptionController.text));
+                var event =
+                    await service.createEvent(Event(_nameController.text, description: _descriptionController.text));
                 if (widget.isDesktop) {
                   _nameController.clear();
                   _descriptionController.clear();
                 }
+                setState(() => id = event.id);
               } else
                 service.updateEvent(event!.copyWith(
                     name: _nameController.text,
