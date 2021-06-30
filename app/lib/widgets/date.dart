@@ -12,8 +12,8 @@ class DateInputField extends StatefulWidget {
 
   DateInputField(
       {Key? key, this.initialDate, DateTime? firstDate, DateTime? lastDate, required this.onChanged, this.label})
-      : this.firstDate = firstDate ?? DateTime.utc(initialDate?.year ?? DateTime.now().year - 100),
-        this.lastDate = firstDate ?? DateTime.utc(initialDate?.year ?? DateTime.now().year + 100),
+      : this.firstDate = firstDate ?? DateTime.utc((initialDate?.year ?? DateTime.now().year) - 100, 1, 1, 0, 0),
+        this.lastDate = lastDate ?? DateTime.utc((initialDate?.year ?? DateTime.now().year) + 100, 12, 31, 23, 59),
         super(key: key);
 
   @override
@@ -45,14 +45,17 @@ class _DateInputFieldState extends State<DateInputField> {
                 ? null
                 : IconButton(icon: Icon(PhosphorIcons.xLight), onPressed: () => changeDate(null))),
         readOnly: true,
-        onTap: () => textFieldFocusNode.canRequestFocus
-            ? showDatePicker(
-                    context: context,
-                    initialDate: currentDate ?? DateTime.now(),
-                    firstDate: widget.firstDate,
-                    lastDate: widget.lastDate)
-                .then(changeDate)
-            : null);
+        onTap: () {
+          print(widget.lastDate);
+          textFieldFocusNode.canRequestFocus
+              ? showDatePicker(
+                      context: context,
+                      initialDate: currentDate ?? DateTime.now(),
+                      firstDate: widget.firstDate,
+                      lastDate: widget.lastDate)
+                  .then(changeDate)
+              : null;
+        });
   }
 
   void changeDate(DateTime? nextDate) {

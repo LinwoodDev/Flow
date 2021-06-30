@@ -89,6 +89,7 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
                 var event = events[index];
                 return ListTile(
                   title: Text(event.name),
+                  subtitle: Text(event.isCanceled ? "Canceled" : ""),
                   onTap: () => openDialog(event),
                 );
               });
