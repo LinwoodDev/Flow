@@ -15,6 +15,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter("linwood-flow");
   await Hive.openBox('appearance');
+  await Hive.openBox<int>('view');
   GetIt.I.registerSingleton<LocalService>(await LocalService.create());
   var serversBox = await Hive.openBox<String>('servers');
   if (serversBox.isEmpty) await serversBox.add("https://example.com");

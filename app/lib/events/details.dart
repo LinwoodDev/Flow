@@ -91,8 +91,11 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
             child: Icon(PhosphorIcons.checkLight),
             onPressed: () async {
               if (create) {
-                var event =
-                    await service.createEvent(Event(_nameController.text, description: _descriptionController.text));
+                var event = await service.createEvent(Event(_nameController.text,
+                    description: _descriptionController.text,
+                    isCanceled: isCanceled,
+                    startDateTime: startDateTime,
+                    endDateTime: endDateTime));
                 if (widget.isDesktop) {
                   _nameController.clear();
                   _descriptionController.clear();
