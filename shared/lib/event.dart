@@ -39,8 +39,8 @@ class Event extends Equatable {
         'parent': parent,
         'description': description,
         'canceled': isCanceled,
-        'start-date-time': startDateTime.toString(),
-        'end-date-time': endDateTime.toString(),
+        'start-date-time': startDateTime?.toString(),
+        'end-date-time': endDateTime?.toString(),
         'season': season,
         'name': name,
         'assigned': assigned.toJson()
