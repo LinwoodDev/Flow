@@ -146,11 +146,14 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                                     controller: _descriptionController,
                                     minLines: 3),
                                 if (event != null) ...[
-                                  SizedBox(height: 20),
-                                  ElevatedButton.icon(
-                                      icon: Icon(PhosphorIcons.compassLight),
-                                      label: Text("ASSIGN"),
-                                      onPressed: () async {
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Divider(),
+                                  ),
+                                  ListTile(
+                                      leading: Icon(PhosphorIcons.compassLight),
+                                      title: Text("Assign"),
+                                      onTap: () async {
                                         var assigned = await showDialog(
                                             context: context,
                                             builder: (context) => AssignDialog(assigned: event.assigned));
