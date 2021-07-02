@@ -1,57 +1,57 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-enum AssignFlag { allow, neutral, disallow }
-
 @immutable
 class Assigned {
-  final AssignFlag everyone;
+  final bool? everyone;
   final List<AssignedObject> teams;
   final List<AssignedObject> users;
   final List<AssignedObject> events;
 
   const Assigned(
-      {this.teams = const [], this.users = const [], this.events = const [], this.everyone = AssignFlag.allow});
+      {this.teams = const [], this.users = const [], this.events = const [], this.everyone});
 
   Assigned.fromJson(Map<String, dynamic> json)
       : teams = List.from(json['teams'] ?? []).map((e) => AssignedObject.fromJson(e)).toList(),
         users = List.from(json['users'] ?? []).map((e) => AssignedObject.fromJson(e)).toList(),
         events = List.from(json['events'] ?? []).map((e) => AssignedObject.fromJson(e)).toList(),
-        everyone = AssignFlag.values[json['everyone'] ?? 0];
+        everyone = json['everyone'];
 
   Map<String, dynamic> toJson() => {
         'teams': teams.map((e) => e.toJson()).toList(),
         'users': users.map((e) => e.toJson()).toList(),
         'events': events.map((e) => e.toJson()).toList(),
-        'everyone': everyone.index
+        'everyone': everyone
       };
 
   Assigned copyWith(
-          {AssignFlag? everyone,
+          {bool? everyone,
+          bool removeEveryone = false,
           List<AssignedObject>? teams,
           List<AssignedObject>? users,
           List<AssignedObject>? events}) =>
       Assigned(
           teams: teams ?? this.teams,
           events: events ?? this.events,
-          everyone: everyone ?? this.everyone,
+          everyone: removeEveryone ? true : (everyone ?? this.everyone),
           users: users ?? this.users);
 }
 
 @immutable
 class AssignedObject extends Equatable {
   final int? id;
-  final AssignFlag flag;
+  final bool? flag;
 
   const AssignedObject({this.id, required this.flag});
 
   AssignedObject.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        flag = AssignFlag.values[json['flag'] ?? 0];
+        flag = json['flag'];
 
-  AssignedObject copyWith({int? id, AssignFlag? flag}) => AssignedObject(flag: flag ?? this.flag, id: id ?? this.id);
+  AssignedObject copyWith({int? id, bool? flag, bool removeFlag = false}) =>
+      AssignedObject(flag: removeFlag ? null : (flag ?? this.flag), id: id ?? this.id);
 
-  Map<String, dynamic> toJson() => {'id': id, 'flag': flag.index};
+  Map<String, dynamic> toJson() => {'id': id, 'flag': flag};
 
   @override
   List<Object?> get props => [id];

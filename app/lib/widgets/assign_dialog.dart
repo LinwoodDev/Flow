@@ -52,7 +52,8 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                   _AssignedObjectField(
                       title: "Everyone",
                       initialFlag: assigned.everyone,
-                      onChanged: (value) => assigned = assigned.copyWith(everyone: value)),
+                      onChanged: (value) => assigned =
+                          assigned.copyWith(everyone: value, removeEveryone: value == null)),
                   Divider(),
                   Expanded(
                       child: Container(
@@ -62,7 +63,8 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                           stream: service.onUsers(),
                           builder: (context, snapshot) {
                             if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-                            if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
+                            if (snapshot.connectionState == ConnectionState.waiting ||
+                                !snapshot.hasData)
                               return Center(child: CircularProgressIndicator());
                             var users = snapshot.data!;
                             return SingleChildScrollView(
@@ -74,14 +76,16 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                                           builder: (context) => SimpleDialog(
                                               title: Text("Add user"),
                                               children: users
-                                                  .where((a) => !assigned.users.any((b) => b.id == a.id))
+                                                  .where((a) =>
+                                                      !assigned.users.any((b) => b.id == a.id))
                                                   .map((e) => SimpleDialogOption(
                                                       child: Text(e.name),
                                                       onPressed: () {
                                                         Navigator.of(context).pop();
                                                         setState(() => assigned = assigned.copyWith(
                                                             users: List.from(assigned.users)
-                                                              ..add(AssignedObject(flag: AssignFlag.allow, id: e.id))));
+                                                              ..add(AssignedObject(
+                                                                  flag: true, id: e.id))));
                                                       }))
                                                   .toList())),
                                       icon: Icon(PhosphorIcons.plusLight),
@@ -92,11 +96,15 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                                     .map((e) => _AssignedObjectField(
                                           initialFlag: e.value.flag,
                                           onDelete: () => assigned = assigned.copyWith(
-                                              users: List.from(assigned.users)..removeWhere((v) => v.id == e.value.id)),
-                                          title: users.firstWhere((element) => element.id == e.value.id).name,
+                                              users: List.from(assigned.users)
+                                                ..removeWhere((v) => v.id == e.value.id)),
+                                          title: users
+                                              .firstWhere((element) => element.id == e.value.id)
+                                              .name,
                                           onChanged: (value) => assigned = assigned.copyWith(
                                               users: List.from(assigned.users)
-                                                ..[e.key] = AssignedObject(flag: value, id: e.value.id)),
+                                                ..[e.key] =
+                                                    AssignedObject(flag: value, id: e.value.id)),
                                         ))
                                     .toList()
                               ]),
@@ -108,7 +116,8 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                           stream: service.onTeams(),
                           builder: (context, snapshot) {
                             if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-                            if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
+                            if (snapshot.connectionState == ConnectionState.waiting ||
+                                !snapshot.hasData)
                               return Center(child: CircularProgressIndicator());
                             var teams = snapshot.data!;
                             return SingleChildScrollView(
@@ -120,14 +129,16 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                                           builder: (context) => SimpleDialog(
                                               title: Text("Add team"),
                                               children: teams
-                                                  .where((a) => !assigned.teams.any((b) => b.id == a.id))
+                                                  .where((a) =>
+                                                      !assigned.teams.any((b) => b.id == a.id))
                                                   .map((e) => SimpleDialogOption(
                                                       child: Text(e.name),
                                                       onPressed: () {
                                                         Navigator.of(context).pop();
                                                         setState(() => assigned = assigned.copyWith(
                                                             teams: List.from(assigned.teams)
-                                                              ..add(AssignedObject(flag: AssignFlag.allow, id: e.id))));
+                                                              ..add(AssignedObject(
+                                                                  flag: true, id: e.id))));
                                                       }))
                                                   .toList())),
                                       icon: Icon(PhosphorIcons.plusLight),
@@ -138,11 +149,15 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                                     .map((e) => _AssignedObjectField(
                                           initialFlag: e.value.flag,
                                           onDelete: () => assigned = assigned.copyWith(
-                                              teams: List.from(assigned.teams)..removeWhere((v) => v.id == e.value.id)),
-                                          title: teams.firstWhere((element) => element.id == e.value.id).name,
+                                              teams: List.from(assigned.teams)
+                                                ..removeWhere((v) => v.id == e.value.id)),
+                                          title: teams
+                                              .firstWhere((element) => element.id == e.value.id)
+                                              .name,
                                           onChanged: (value) => assigned = assigned.copyWith(
                                               teams: List.from(assigned.teams)
-                                                ..[e.key] = AssignedObject(flag: value, id: e.value.id)),
+                                                ..[e.key] =
+                                                    AssignedObject(flag: value, id: e.value.id)),
                                         ))
                                     .toList()
                               ]),
@@ -154,7 +169,8 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                             stream: service.onEvents(),
                             builder: (context, snapshot) {
                               if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-                              if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
+                              if (snapshot.connectionState == ConnectionState.waiting ||
+                                  !snapshot.hasData)
                                 return Center(child: CircularProgressIndicator());
                               var events = snapshot.data!;
                               return SingleChildScrollView(
@@ -166,14 +182,16 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                                           builder: (context) => SimpleDialog(
                                               title: Text("Add event"),
                                               children: events
-                                                  .where((a) => !assigned.events.any((b) => b.id == a.id))
+                                                  .where((a) =>
+                                                      !assigned.events.any((b) => b.id == a.id))
                                                   .map((e) => SimpleDialogOption(
                                                       child: Text(e.name),
                                                       onPressed: () {
                                                         Navigator.of(context).pop();
                                                         setState(() => assigned = assigned.copyWith(
                                                             events: List.from(assigned.events)
-                                                              ..add(AssignedObject(flag: AssignFlag.allow, id: e.id))));
+                                                              ..add(AssignedObject(
+                                                                  flag: true, id: e.id))));
                                                       }))
                                                   .toList())),
                                       icon: Icon(PhosphorIcons.plusLight),
@@ -186,10 +204,13 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                                           onDelete: () => assigned = assigned.copyWith(
                                               events: List.from(assigned.events)
                                                 ..removeWhere((v) => v.id == e.value.id)),
-                                          title: events.firstWhere((element) => element.id == e.value.id).name,
+                                          title: events
+                                              .firstWhere((element) => element.id == e.value.id)
+                                              .name,
                                           onChanged: (value) => assigned = assigned.copyWith(
                                               events: List.from(assigned.events)
-                                                ..[e.key] = AssignedObject(flag: value, id: e.value.id)),
+                                                ..[e.key] =
+                                                    AssignedObject(flag: value, id: e.value.id)),
                                         ))
                                     .toList()
                               ]));
@@ -214,16 +235,20 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
   }
 }
 
-typedef _AssignObjectCallback = void Function(AssignFlag value);
+typedef _AssignObjectCallback = void Function(bool? value);
 
 class _AssignedObjectField extends StatefulWidget {
   final String title;
-  final AssignFlag initialFlag;
+  final bool? initialFlag;
   final VoidCallback? onDelete;
   final _AssignObjectCallback onChanged;
 
   const _AssignedObjectField(
-      {Key? key, required this.title, required this.initialFlag, required this.onChanged, this.onDelete})
+      {Key? key,
+      required this.title,
+      required this.initialFlag,
+      required this.onChanged,
+      this.onDelete})
       : super(key: key);
 
   @override
@@ -231,7 +256,7 @@ class _AssignedObjectField extends StatefulWidget {
 }
 
 class __AssignedObjectFieldState extends State<_AssignedObjectField> {
-  late AssignFlag flag;
+  late bool? flag;
   final GlobalKey _dismissibleKey = GlobalKey();
 
   @override
@@ -252,13 +277,14 @@ class __AssignedObjectFieldState extends State<_AssignedObjectField> {
         : _buildMenu();
   }
 
-  Widget _buildMenu() => PopupMenuButton<AssignFlag>(
-      tooltip: "Change flag",
-      itemBuilder: (BuildContext context) =>
-          AssignFlag.values.map((e) => PopupMenuItem(child: Text(e.toString()), value: e)).toList(),
-      onSelected: (value) {
+  Widget _buildMenu() => CheckboxListTile(
+      title: Text(widget.title),
+      subtitle: Text(flag.toString()),
+      onChanged: (bool? value) {
         widget.onChanged(value);
         setState(() => flag = value);
       },
-      child: ListTile(title: Text(widget.title), subtitle: Text(flag.toString())));
+      controlAffinity: ListTileControlAffinity.leading,
+      value: flag,
+      tristate: true);
 }
