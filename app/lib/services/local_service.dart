@@ -335,4 +335,33 @@ class LocalService extends ApiService {
       .query(finder: Finder(filter: Filter.byKey(id)))
       .onSnapshot(db)
       .map((e) => e == null ? null : Task.fromJson(Map.from(e.value)..["id"] = e.key));
+
+  static const String submissionsStoreName = 'submissions';
+  final submissionsStore = intMapStoreFactory.store(submissionsStoreName);
+
+  @override
+  Future<List<Submission>> fetchSubmissions(int task, {SubmissionState? state}) => submissionsStore
+      .find(db,
+          finder: Finder(
+              filter: Filter.and([if (state != null) Filter.equals("state", state), Filter.equals("task", task)])))
+      .then((value) => value.map((e) => Submission.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+
+  @override
+  Future<Submission?> fetchSubmission(int task, int user) => submissionsStore
+      .findFirst(db, finder: Finder(filter: Filter.and([Filter.equals("task", task), Filter.equals("user", user)])))
+      .then((value) => value == null ? null : Submission.fromJson(Map.from(value.value)..["id"] = value.key));
+
+  @override
+  Stream<List<Submission>> onSubmissions(int task, {SubmissionState? state}) => submissionsStore
+      .query(
+          finder: Finder(
+              filter: Filter.and([if (state != null) Filter.equals("state", state), Filter.equals("task", task)])))
+      .onSnapshots(db)
+      .map((submissions) => submissions.map((e) => Submission.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+
+  @override
+  Stream<Submission?> onSubmission(int task, int user) => submissionsStore
+      .query(finder: Finder(filter: Filter.and([Filter.equals("task", task), Filter.equals("user", user)])))
+      .onSnapshot(db)
+      .map((e) => e == null ? null : Submission.fromJson(Map.from(e.value)..["id"] = e.key));
 }

@@ -107,4 +107,12 @@ abstract class ApiService {
   Stream<List<Task>> onTasks();
 
   Stream<Task?> onTask(int id);
+
+  Future<List<Submission>> fetchSubmissions(int task, {SubmissionState? state});
+
+  Future<Submission?> fetchSubmission(int task, int user);
+
+  Stream<List<Submission>> onSubmissions(int task, {SubmissionState? state});
+
+  Stream<Submission?> onSubmission(int task, int user);
 }

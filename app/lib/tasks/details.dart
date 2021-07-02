@@ -1,5 +1,6 @@
 import 'package:flow_app/services/api_service.dart';
 import 'package:flow_app/services/local_service.dart';
+import 'package:flow_app/widgets/assign_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
@@ -54,37 +55,41 @@ class _TaskPageState extends State<TaskPage> {
     var create = task == null;
     _nameController.text = task?.name ?? "";
     _descriptionController.text = task?.description ?? "";
-    return Scaffold(
-        appBar: AppBar(title: Text(create ? "Create task" : task!.name)),
-        floatingActionButton: FloatingActionButton(
-            heroTag: "task-check",
-            child: Icon(PhosphorIcons.checkLight),
-            onPressed: () {
-              if (create) {
-                service.createTask(Task(_nameController.text, description: _descriptionController.text));
-                if (widget.isDesktop) {
-                  _nameController.clear();
-                  _descriptionController.clear();
-                }
-              } else
-                service
-                    .updateTask(task!.copyWith(name: _nameController.text, description: _descriptionController.text));
-              if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
-            }),
-        body: Column(children: [
-          if (widget.isDesktop)
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton.icon(
-                  onPressed: () => Modular.to.pushNamed(widget.id == null
-                      ? "/tasks/create"
-                      : Uri(pathSegments: ["", "tasks", "details"], queryParameters: {"id": widget.id.toString()})
-                          .toString()),
-                  icon: Icon(PhosphorIcons.arrowSquareOutLight),
-                  label: Text("OPEN IN NEW WINDOW")),
-            ),
-          Expanded(
-              child: SingleChildScrollView(
+    return DefaultTabController(
+        length: 2,
+        child: Scaffold(
+            appBar: AppBar(
+                title: Text(create ? "Create task" : task!.name),
+                actions: [
+                  if (widget.isDesktop)
+                    IconButton(
+                        onPressed: () => Modular.to.pushNamed(widget.id == null
+                            ? "/tasks/create"
+                            : Uri(pathSegments: ["", "tasks", "details"], queryParameters: {"id": widget.id.toString()})
+                                .toString()),
+                        icon: Icon(PhosphorIcons.arrowSquareOutLight))
+                ],
+                bottom: TabBar(tabs: [
+                  Tab(icon: Icon(PhosphorIcons.wrenchLight), text: "General"),
+                  Tab(icon: Icon(PhosphorIcons.foldersLight), text: "Submission")
+                ])),
+            floatingActionButton: FloatingActionButton(
+                heroTag: "task-check",
+                child: Icon(PhosphorIcons.checkLight),
+                onPressed: () {
+                  if (create) {
+                    service.createTask(Task(_nameController.text, description: _descriptionController.text));
+                    if (widget.isDesktop) {
+                      _nameController.clear();
+                      _descriptionController.clear();
+                    }
+                  } else
+                    service.updateTask(
+                        task!.copyWith(name: _nameController.text, description: _descriptionController.text));
+                  if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
+                }),
+            body: TabBarView(children: [
+              SingleChildScrollView(
                   child: Align(
                       alignment: Alignment.topCenter,
                       child: Container(
@@ -110,8 +115,30 @@ class _TaskPageState extends State<TaskPage> {
                                     InputDecoration(labelText: "Description", icon: Icon(PhosphorIcons.articleLight)),
                                 maxLines: null,
                                 controller: _descriptionController,
-                                minLines: 3)
-                          ])))))
-        ]));
+                                minLines: 3),
+                            if (task != null) ...[
+                              SizedBox(height: 20),
+                              ElevatedButton.icon(
+                                  icon: Icon(PhosphorIcons.compassLight),
+                                  label: Text("ASSIGN"),
+                                  onPressed: () async {
+                                    var assigned = await showDialog(
+                                        context: context, builder: (context) => AssignDialog(assigned: task.assigned));
+                                    if (assigned != null) service.updateTask(task.copyWith(assigned: assigned));
+                                  })
+                            ]
+                          ])))),
+              Container(
+                  child: ListView(children: [
+                ExpansionTile(title: Text("Admin"), leading: Icon(PhosphorIcons.gearLight), children: [
+                  ListTile(
+                      title: Text("Submission type"),
+                      subtitle: Text("None"),
+                      onTap: () {},
+                      leading: Icon(PhosphorIcons.fileLight)),
+                  ListTile(title: Text("Show submissions"), onTap: () {}, leading: Icon(PhosphorIcons.listLight))
+                ])
+              ]))
+            ])));
   }
 }

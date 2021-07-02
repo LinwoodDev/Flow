@@ -44,3 +44,25 @@ class Task extends Equatable {
   @override
   List<Object?> get props => [id];
 }
+
+@immutable
+class Submission extends Equatable {
+  final int? id;
+  final int? task;
+  final int? user;
+  final SubmissionState state;
+
+  Submission({this.id, this.task, this.user, this.state = SubmissionState.open});
+  Submission.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        task = json['task'],
+        user = json['user'],
+        state = SubmissionState.values[json['state']];
+
+  Map<String, dynamic> toJson() => {'task': task, 'user': user, 'state': state.index};
+
+  @override
+  List<Object?> get props => [id];
+}
+
+enum SubmissionState { open, progress, done, closed }
