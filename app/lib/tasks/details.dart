@@ -65,9 +65,8 @@ class _TaskPageState extends State<TaskPage> {
                     IconButton(
                         onPressed: () => Modular.to.pushNamed(widget.id == null
                             ? "/tasks/create"
-                            : Uri(
-                                pathSegments: ["", "tasks", "details"],
-                                queryParameters: {"id": widget.id.toString()}).toString()),
+                            : Uri(pathSegments: ["", "tasks", "details"], queryParameters: {"id": widget.id.toString()})
+                                .toString()),
                         icon: Icon(PhosphorIcons.arrowSquareOutLight))
                 ],
                 bottom: TabBar(tabs: [
@@ -79,15 +78,14 @@ class _TaskPageState extends State<TaskPage> {
                 child: Icon(PhosphorIcons.checkLight),
                 onPressed: () {
                   if (create) {
-                    service.createTask(
-                        Task(_nameController.text, description: _descriptionController.text));
+                    service.createTask(Task(_nameController.text, description: _descriptionController.text));
                     if (widget.isDesktop) {
                       _nameController.clear();
                       _descriptionController.clear();
                     }
                   } else
-                    service.updateTask(task!.copyWith(
-                        name: _nameController.text, description: _descriptionController.text));
+                    service.updateTask(
+                        task!.copyWith(name: _nameController.text, description: _descriptionController.text));
                   if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
                 }),
             body: TabBarView(children: [
@@ -95,14 +93,12 @@ class _TaskPageState extends State<TaskPage> {
                   child: Align(
                       alignment: Alignment.topCenter,
                       child: Container(
-                          padding: const EdgeInsets.all(8.0),
                           constraints: BoxConstraints(maxWidth: 800),
                           child: Column(children: [
                             SizedBox(height: 50),
                             DropdownButtonFormField<String>(
                                 value: server,
-                                decoration: InputDecoration(
-                                    labelText: "Server", border: OutlineInputBorder()),
+                                decoration: InputDecoration(labelText: "Server", border: OutlineInputBorder()),
                                 onChanged: (value) => setState(() => server = value),
                                 items: [
                                   ...Hive.box<String>('servers')
@@ -113,50 +109,52 @@ class _TaskPageState extends State<TaskPage> {
                             SizedBox(height: 50),
                             TextField(
                                 decoration: InputDecoration(
-                                    filled: true,
-                                    labelText: "Name",
-                                    icon: Icon(PhosphorIcons.calendarLight)),
+                                    filled: true, labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
                                 controller: _nameController),
                             SizedBox(height: 20),
                             TextField(
                                 decoration: InputDecoration(
-                                    border: const OutlineInputBorder(),
+                                    border: OutlineInputBorder(),
                                     labelText: "Description",
                                     icon: Icon(PhosphorIcons.articleLight)),
                                 maxLines: null,
                                 controller: _descriptionController,
                                 minLines: 3),
                             if (task != null) ...[
-                              SizedBox(height: 20),
-                              ListTile(
-                                  leading: Icon(PhosphorIcons.compassLight),
-                                  title: Text("Assign"),
-                                  onTap: () async {
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Divider(),
+                              ),
+                              ElevatedButton.icon(
+                                  icon: Icon(PhosphorIcons.compassLight),
+                                  label: Text("ASSIGN"),
+                                  onPressed: () async {
                                     var assigned = await showDialog(
-                                        context: context,
-                                        builder: (context) =>
-                                            AssignDialog(assigned: task.assigned));
-                                    if (assigned != null)
-                                      service.updateTask(task.copyWith(assigned: assigned));
+                                        context: context, builder: (context) => AssignDialog(assigned: task.assigned));
+                                    if (assigned != null) service.updateTask(task.copyWith(assigned: assigned));
                                   })
                             ]
                           ])))),
               Container(
                   child: ListView(children: [
-                ExpansionTile(
-                    title: Text("Admin"),
-                    leading: Icon(PhosphorIcons.gearLight),
-                    children: [
-                      ListTile(
-                          title: Text("Submission type"),
-                          subtitle: Text("None"),
-                          onTap: () {},
-                          leading: Icon(PhosphorIcons.fileLight)),
-                      ListTile(
-                          title: Text("Show submissions"),
-                          onTap: () {},
-                          leading: Icon(PhosphorIcons.listLight))
-                    ])
+                ExpansionTile(title: Text("Admin"), leading: Icon(PhosphorIcons.gearLight), children: [
+                  ListTile(
+                      title: Text("Submission type"),
+                      subtitle: Text("None"),
+                      onTap: () {},
+                      leading: Icon(PhosphorIcons.fileLight)),
+                  ListTile(title: Text("Show submissions"), onTap: () {}, leading: Icon(PhosphorIcons.listLight))
+                ]),
+                if (task != null)
+                  StreamBuilder<Submission?>(
+                      stream: service.onSubmission(task.id!, 0),
+                      builder: (context, snapshot) {
+                        return ExpansionTile(
+                            title: Text("Your submission"),
+                            leading: Icon(PhosphorIcons.folderLight),
+                            initiallyExpanded: true,
+                            children: []);
+                      })
               ]))
             ])));
   }

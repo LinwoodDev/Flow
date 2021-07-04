@@ -40,6 +40,7 @@ class _DateInputFieldState extends State<DateInputField> {
         controller: _textController,
         focusNode: textFieldFocusNode,
         decoration: InputDecoration(
+            filled: true,
             labelText: widget.label ?? "Date",
             suffixIcon: currentDate == null
                 ? null

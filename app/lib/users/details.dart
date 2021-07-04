@@ -60,16 +60,22 @@ class _UserPageState extends State<UserPage> {
     _emailController.text = user?.email ?? "";
     var userState = user?.state ?? UserState.fake;
     return Scaffold(
-        appBar: AppBar(title: Text(create ? "Create user" : user!.name)),
+        appBar: AppBar(title: Text(create ? "Create user" : user!.name), actions: [
+          if (widget.isDesktop)
+            IconButton(
+                onPressed: () => Modular.to.pushNamed(widget.id == null
+                    ? "/users/create"
+                    : Uri(pathSegments: ["", "users", "details"], queryParameters: {"id": widget.id.toString()})
+                        .toString()),
+                icon: Icon(PhosphorIcons.arrowSquareOutLight))
+        ]),
         floatingActionButton: FloatingActionButton(
             heroTag: "user-check",
             child: Icon(PhosphorIcons.checkLight),
             onPressed: () {
               if (create) {
                 service.createUser(User(_nameController.text,
-                    bio: _bioController.text,
-                    displayName: _displayNameController.text,
-                    email: _emailController.text));
+                    bio: _bioController.text, displayName: _displayNameController.text, email: _emailController.text));
                 if (widget.isDesktop) {
                   _nameController.clear();
                   _bioController.clear();
@@ -85,18 +91,6 @@ class _UserPageState extends State<UserPage> {
               if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
             }),
         body: Column(children: [
-          if (widget.isDesktop)
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton.icon(
-                  onPressed: () => Modular.to.pushNamed(widget.id == null
-                      ? "/users/create"
-                      : Uri(
-                          pathSegments: ["", "users", "details"],
-                          queryParameters: {"id": widget.id.toString()}).toString()),
-                  icon: Icon(PhosphorIcons.arrowSquareOutLight),
-                  label: Text("OPEN IN NEW WINDOW")),
-            ),
           Expanded(
               child: SingleChildScrollView(
                   child: Align(
@@ -107,8 +101,7 @@ class _UserPageState extends State<UserPage> {
                             SizedBox(height: 50),
                             DropdownButtonFormField<String>(
                                 value: server,
-                                decoration: InputDecoration(
-                                    labelText: "Server", border: OutlineInputBorder()),
+                                decoration: InputDecoration(labelText: "Server", border: OutlineInputBorder()),
                                 onChanged: (value) => setState(() => server = value),
                                 items: [
                                   ...Hive.box<String>('servers')
@@ -119,41 +112,46 @@ class _UserPageState extends State<UserPage> {
                             SizedBox(height: 50),
                             TextField(
                                 decoration: InputDecoration(
-                                    labelText: "Name", icon: Icon(PhosphorIcons.userLight)),
+                                    labelText: "Name", icon: Icon(PhosphorIcons.userLight), filled: true),
                                 controller: _nameController),
+                            SizedBox(height: 20),
                             TextField(
                                 decoration: InputDecoration(
                                     labelText: "Display name",
-                                    icon: Icon(PhosphorIcons.identificationCardLight)),
+                                    icon: Icon(PhosphorIcons.identificationCardLight),
+                                    filled: true),
                                 controller: _displayNameController),
+                            SizedBox(height: 20),
                             TextField(
                                 decoration: InputDecoration(
-                                    labelText: "Email", icon: Icon(PhosphorIcons.envelopeLight)),
+                                    labelText: "Email", icon: Icon(PhosphorIcons.envelopeLight), filled: true),
                                 controller: _emailController),
+                            SizedBox(height: 20),
                             TextField(
                                 decoration: InputDecoration(
-                                    labelText: "Biography", icon: Icon(PhosphorIcons.articleLight)),
+                                    labelText: "Biography",
+                                    icon: Icon(PhosphorIcons.articleLight),
+                                    border: OutlineInputBorder()),
                                 maxLines: null,
                                 controller: _bioController,
                                 minLines: 3),
                             if (user != null) ...[
-                              SizedBox(height: 10),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Divider(),
+                              ),
                               PopupMenuButton<UserState>(
                                   initialValue: userState,
-                                  onSelected: (value) =>
-                                      service.updateUser(user.copyWith(state: value)),
+                                  onSelected: (value) => service.updateUser(user.copyWith(state: value)),
                                   itemBuilder: (context) => UserState.values
-                                      .map(
-                                          (e) => PopupMenuItem(child: Text(e.toString()), value: e))
+                                      .map((e) => PopupMenuItem(child: Text(e.toString()), value: e))
                                       .toList(),
                                   child: ListTile(
                                       title: Text("User state"),
-                                      subtitle: Text(userState.toString()))),
-                              SizedBox(height: 50),
+                                      subtitle: Text(userState.toString()),
+                                      leading: Icon(PhosphorIcons.presentationLight))),
                               ListTile(
-                                  leading: Icon(PhosphorIcons.lockLight),
-                                  title: Text("CHANGE PASSWORD"),
-                                  onTap: () {})
+                                  leading: Icon(PhosphorIcons.lockLight), title: Text("Change password"), onTap: () {})
                             ]
                           ])))))
         ]));

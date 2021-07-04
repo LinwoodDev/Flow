@@ -53,6 +53,7 @@ class Submission extends Equatable {
   final SubmissionState state;
 
   Submission({this.id, this.task, this.user, this.state = SubmissionState.open});
+
   Submission.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         task = json['task'],

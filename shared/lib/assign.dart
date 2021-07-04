@@ -8,8 +8,7 @@ class Assigned {
   final List<AssignedObject> users;
   final List<AssignedObject> events;
 
-  const Assigned(
-      {this.teams = const [], this.users = const [], this.events = const [], this.everyone});
+  const Assigned({this.teams = const [], this.users = const [], this.events = const [], this.everyone});
 
   Assigned.fromJson(Map<String, dynamic> json)
       : teams = List.from(json['teams'] ?? []).map((e) => AssignedObject.fromJson(e)).toList(),

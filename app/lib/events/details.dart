@@ -14,8 +14,7 @@ class EventPage extends StatefulWidget {
   final int? id;
   final bool isDesktop, isDialog;
 
-  const EventPage({Key? key, this.id, this.isDesktop = false, this.isDialog = false})
-      : super(key: key);
+  const EventPage({Key? key, this.id, this.isDesktop = false, this.isDialog = false}) : super(key: key);
 
   @override
   _EventPageState createState() => _EventPageState();
@@ -68,8 +67,7 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
     return Scaffold(
         appBar: AppBar(
             leading: widget.isDialog
-                ? IconButton(
-                    icon: Icon(PhosphorIcons.xLight), onPressed: () => Navigator.of(context).pop())
+                ? IconButton(icon: Icon(PhosphorIcons.xLight), onPressed: () => Navigator.of(context).pop())
                 : null,
             title: Text(create ? "Create event" : event!.name),
             actions: [
@@ -79,9 +77,8 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                       if (widget.isDialog) Modular.to.pop();
                       Modular.to.pushNamed(id == null
                           ? "/events/create"
-                          : Uri(
-                              pathSegments: ["", "events", "details"],
-                              queryParameters: {"id": id.toString()}).toString());
+                          : Uri(pathSegments: ["", "events", "details"], queryParameters: {"id": id.toString()})
+                              .toString());
                     },
                     icon: Icon(PhosphorIcons.arrowSquareOutLight))
             ],
@@ -130,8 +127,7 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                                 SizedBox(height: 50),
                                 DropdownButtonFormField<String>(
                                     value: server,
-                                    decoration: InputDecoration(
-                                        labelText: "Server", border: OutlineInputBorder()),
+                                    decoration: InputDecoration(labelText: "Server", border: OutlineInputBorder()),
                                     onChanged: (value) => setState(() => server = value),
                                     items: [
                                       ...Hive.box<String>('servers')
@@ -142,9 +138,7 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                                 SizedBox(height: 50),
                                 TextField(
                                     decoration: InputDecoration(
-                                        filled: true,
-                                        labelText: "Name",
-                                        icon: Icon(PhosphorIcons.calendarLight)),
+                                        filled: true, labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
                                     controller: _nameController),
                                 SizedBox(height: 20),
                                 TextField(
@@ -166,10 +160,8 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                                       onTap: () async {
                                         var assigned = await showDialog(
                                             context: context,
-                                            builder: (context) =>
-                                                AssignDialog(assigned: event.assigned));
-                                        if (assigned != null)
-                                          service.updateEvent(event.copyWith(assigned: assigned));
+                                            builder: (context) => AssignDialog(assigned: event.assigned));
+                                        if (assigned != null) service.updateEvent(event.copyWith(assigned: assigned));
                                       })
                                 ]
                               ])))))
@@ -178,38 +170,46 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
               SizedBox(height: 20),
               Row(children: [
                 Expanded(
-                    child: DateInputField(
-                        label: "Start date",
-                        initialDate: startDateTime,
-                        onChanged: (dateTime) => startDateTime = dateTime)),
+                    child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DateInputField(
+                      label: "Start date",
+                      initialDate: startDateTime,
+                      onChanged: (dateTime) => startDateTime = dateTime),
+                )),
                 Expanded(
-                    child: TimeInputField(
-                        label: "Start time",
-                        initialTime:
-                            startDateTime != null ? TimeOfDay.fromDateTime(startDateTime!) : null,
-                        onChanged: (time) {
-                          var oldDate = startDateTime ?? DateTime.now();
-                          startDateTime = DateTime(oldDate.year, oldDate.month, oldDate.day,
-                              time?.hour ?? 0, time?.minute ?? 0);
-                        }))
+                    child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TimeInputField(
+                      label: "Start time",
+                      initialTime: startDateTime != null ? TimeOfDay.fromDateTime(startDateTime!) : null,
+                      onChanged: (time) {
+                        var oldDate = startDateTime ?? DateTime.now();
+                        startDateTime =
+                            DateTime(oldDate.year, oldDate.month, oldDate.day, time?.hour ?? 0, time?.minute ?? 0);
+                      }),
+                ))
               ]),
               SizedBox(height: 20),
               Row(children: [
                 Expanded(
-                    child: DateInputField(
-                        label: "End date",
-                        initialDate: endDateTime,
-                        onChanged: (dateTime) => endDateTime = dateTime)),
+                    child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DateInputField(
+                      label: "End date", initialDate: endDateTime, onChanged: (dateTime) => endDateTime = dateTime),
+                )),
                 Expanded(
-                    child: TimeInputField(
-                        label: "End time",
-                        initialTime:
-                            endDateTime != null ? TimeOfDay.fromDateTime(endDateTime!) : null,
-                        onChanged: (time) {
-                          var oldDate = endDateTime ?? DateTime.now();
-                          endDateTime = DateTime(oldDate.year, oldDate.month, oldDate.day,
-                              time?.hour ?? 0, time?.minute ?? 0);
-                        }))
+                    child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TimeInputField(
+                      label: "End time",
+                      initialTime: endDateTime != null ? TimeOfDay.fromDateTime(endDateTime!) : null,
+                      onChanged: (time) {
+                        var oldDate = endDateTime ?? DateTime.now();
+                        endDateTime =
+                            DateTime(oldDate.year, oldDate.month, oldDate.day, time?.hour ?? 0, time?.minute ?? 0);
+                      }),
+                ))
               ]),
               if (event != null) ...[
                 SizedBox(height: 20),

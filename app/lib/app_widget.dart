@@ -35,8 +35,7 @@ class AppWidget extends StatelessWidget {
                 brightness: Brightness.dark,
                 primarySwatch: createMaterialColor(color),
                 indicatorColor: color,
-                colorScheme: ColorScheme.dark(
-                    primary: color, onPrimary: Colors.white, secondary: Color(0xFF64dd17)),
+                colorScheme: ColorScheme.dark(primary: color, onPrimary: Colors.white, secondary: Color(0xFF64dd17)),
                 visualDensity: VisualDensity.adaptivePlatformDensity),
             home: ConnectPage(),
           ).modular();

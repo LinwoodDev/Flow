@@ -32,6 +32,7 @@ class _TimeInputFieldState extends State<TimeInputField> {
         controller: _textController,
         focusNode: textFieldFocusNode,
         decoration: InputDecoration(
+            filled: true,
             labelText: widget.label ?? "Time",
             suffixIcon: currentTime == null
                 ? null
