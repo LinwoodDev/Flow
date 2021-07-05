@@ -4,16 +4,16 @@ on: push
 jobs:
   test:
     name: Lint test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix: { dir: ['app', 'server', 'shared' ] }
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v1
+      - uses: subosito/flutter-action@v1
         with:
-          sdk: dev
+          channel: "beta" # or: 'stable' or 'dev'
       - name: Get dependencies
         working-directory: ${{ matrix.dir }}
         run: dart pub get

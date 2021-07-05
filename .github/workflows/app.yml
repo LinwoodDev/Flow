@@ -4,7 +4,7 @@ on: [ push ]
 
 jobs:
   build-apk:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v2
@@ -58,7 +58,7 @@ jobs:
           path: |
             app/build/windows/runner/Release/**
   build-linux:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v2
@@ -137,7 +137,7 @@ jobs:
   #        path: |
   #          build/windows/runner/Release/**
   deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     needs:
       - build-apk
       - build-windows
