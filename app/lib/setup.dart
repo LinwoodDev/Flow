@@ -1,1 +1,1 @@
-void setup() {}
+Future<void> setup() async {}
