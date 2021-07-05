@@ -7,12 +7,17 @@ class User extends Equatable {
   final String name;
   final String displayName;
   final String bio;
-  final String? email;
+  final String email;
   final String password;
   final UserState state;
 
   User(this.name,
-      {this.displayName = '', this.id, this.bio = '', this.email, this.password = '', this.state = UserState.active});
+      {this.displayName = '',
+      this.id,
+      this.bio = '',
+      this.email = '',
+      this.password = '',
+      this.state = UserState.active});
 
   User copyWith(
           {String? name,
@@ -39,8 +44,10 @@ class User extends Equatable {
         password = json['password'] ?? '',
         state = UserState.values[json['state']];
 
-  Map<String, dynamic> toJson() =>
-      {'name': name, 'display-name': displayName, 'email': email, 'bio': bio, 'state': state.index};
+  Map<String, dynamic> toJson({bool addSecrets = false, bool addId = false}) =>
+      {'name': name, 'display-name': displayName, 'email': email, 'bio': bio, 'state': state.index}
+        ..addAll(addSecrets ? {'password': password} : {})
+        ..addAll(addId ? {'id': id} : {});
 
   @override
   List<Object?> get props => [id];

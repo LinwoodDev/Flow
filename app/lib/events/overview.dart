@@ -1,10 +1,10 @@
 import 'package:flow_app/events/details.dart';
-import 'package:flow_app/services/api_service.dart';
-import 'package:flow_app/services/local_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/event.dart';
+import 'package:shared/services/api_service.dart';
+import 'package:shared/models/event.dart';
+import 'package:shared/services/local_service.dart';
 
 class EventsOverviewView extends StatefulWidget {
   const EventsOverviewView({Key? key}) : super(key: key);
@@ -109,13 +109,9 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
         ),
         bottomNavigationBar: BottomNavigationBar(items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              activeIcon: Icon(PhosphorIcons.squareFill),
-              icon: Icon(PhosphorIcons.squareLight),
-              label: 'Opened'),
+              activeIcon: Icon(PhosphorIcons.squareFill), icon: Icon(PhosphorIcons.squareLight), label: 'Opened'),
           BottomNavigationBarItem(
-              activeIcon: Icon(PhosphorIcons.calendarFill),
-              icon: Icon(PhosphorIcons.calendarLight),
-              label: 'Planned'),
+              activeIcon: Icon(PhosphorIcons.calendarFill), icon: Icon(PhosphorIcons.calendarLight), label: 'Planned'),
           BottomNavigationBarItem(
               activeIcon: Icon(PhosphorIcons.checkSquareFill),
               icon: Icon(PhosphorIcons.checkSquareLight),

@@ -1,9 +1,9 @@
-import 'package:shared/badge.dart';
-import 'package:shared/event.dart';
-import 'package:shared/season.dart';
-import 'package:shared/task.dart';
-import 'package:shared/team.dart';
-import 'package:shared/user.dart';
+import 'package:shared/models/badge.dart';
+import 'package:shared/models/event.dart';
+import 'package:shared/models/season.dart';
+import 'package:shared/models/task.dart';
+import 'package:shared/models/team.dart';
+import 'package:shared/models/user.dart';
 
 abstract class ApiService {
   // Team operations

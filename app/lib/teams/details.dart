@@ -1,12 +1,12 @@
-import 'package:flow_app/services/api_service.dart';
-import 'package:flow_app/services/local_service.dart';
 import 'package:flow_app/widgets/color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/team.dart';
+import 'package:shared/services/api_service.dart';
+import 'package:shared/models/team.dart';
+import 'package:shared/services/local_service.dart';
 
 class TeamPage extends StatefulWidget {
   final int? id;
@@ -64,15 +64,14 @@ class _TeamPageState extends State<TeamPage> {
     return DefaultTabController(
         length: 2,
         child: Scaffold(
-            appBar:
-                AppBar(title: Text(create ? "Create team" : team!.name), bottom: _buildTabBar()),
+            appBar: AppBar(title: Text(create ? "Create team" : team!.name), bottom: _buildTabBar()),
             floatingActionButton: FloatingActionButton(
                 heroTag: "team-check",
                 child: const Icon(PhosphorIcons.checkLight),
                 onPressed: () {
                   if (create) {
-                    service.createTeam(Team(_nameController.text,
-                        description: _descriptionController.text, color: color.value));
+                    service.createTeam(
+                        Team(_nameController.text, description: _descriptionController.text, color: color.value));
                     if (widget.isDesktop) {
                       _nameController.clear();
                       _descriptionController.clear();
@@ -80,9 +79,7 @@ class _TeamPageState extends State<TeamPage> {
                     }
                   } else {
                     service.updateTeam(team!.copyWith(
-                        name: _nameController.text,
-                        color: color.value,
-                        description: _descriptionController.text));
+                        name: _nameController.text, color: color.value, description: _descriptionController.text));
                   }
                   if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
                 }),
@@ -93,9 +90,8 @@ class _TeamPageState extends State<TeamPage> {
                   child: ElevatedButton.icon(
                       onPressed: () => Modular.to.pushNamed(widget.id == null
                           ? "/teams/create"
-                          : Uri(
-                              pathSegments: ["", "teams", "details"],
-                              queryParameters: {"id": widget.id.toString()}).toString()),
+                          : Uri(pathSegments: ["", "teams", "details"], queryParameters: {"id": widget.id.toString()})
+                              .toString()),
                       icon: const Icon(PhosphorIcons.arrowSquareOutLight),
                       label: const Text("OPEN IN NEW WINDOW")),
                 ),
@@ -110,8 +106,7 @@ class _TeamPageState extends State<TeamPage> {
                               const SizedBox(height: 50),
                               DropdownButtonFormField<String>(
                                   value: server,
-                                  decoration: const InputDecoration(
-                                      labelText: "Server", border: OutlineInputBorder()),
+                                  decoration: const InputDecoration(labelText: "Server", border: OutlineInputBorder()),
                                   onChanged: (value) => setState(() => server = value),
                                   items: [
                                     ...Hive.box<String>('servers')
@@ -121,13 +116,12 @@ class _TeamPageState extends State<TeamPage> {
                                   ]),
                               const SizedBox(height: 50),
                               TextField(
-                                  decoration: const InputDecoration(
-                                      labelText: "Name", icon: Icon(PhosphorIcons.userLight)),
+                                  decoration:
+                                      const InputDecoration(labelText: "Name", icon: Icon(PhosphorIcons.userLight)),
                                   controller: _nameController),
                               TextField(
                                   decoration: const InputDecoration(
-                                      labelText: "Description",
-                                      icon: Icon(PhosphorIcons.chatTextLight)),
+                                      labelText: "Description", icon: Icon(PhosphorIcons.chatTextLight)),
                                   maxLines: null,
                                   controller: _descriptionController,
                                   minLines: 3)

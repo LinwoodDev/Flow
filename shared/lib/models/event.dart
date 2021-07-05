@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:shared/assign.dart';
+import 'package:shared/models/assign.dart';
 
 @immutable
 class Event extends Equatable {

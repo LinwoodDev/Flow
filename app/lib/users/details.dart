@@ -1,11 +1,11 @@
-import 'package:flow_app/services/api_service.dart';
-import 'package:flow_app/services/local_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/user.dart';
+import 'package:shared/services/api_service.dart';
+import 'package:shared/models/user.dart';
+import 'package:shared/services/local_service.dart';
 
 typedef OnUserChanged = void Function(int? id);
 
@@ -68,9 +68,8 @@ class _UserPageState extends State<UserPage> {
             IconButton(
                 onPressed: () => Modular.to.pushNamed(widget.id == null
                     ? "/users/create"
-                    : Uri(
-                        pathSegments: ["", "users", "details"],
-                        queryParameters: {"id": widget.id.toString()}).toString()),
+                    : Uri(pathSegments: ["", "users", "details"], queryParameters: {"id": widget.id.toString()})
+                        .toString()),
                 icon: const Icon(PhosphorIcons.arrowSquareOutLight))
         ]),
         floatingActionButton: FloatingActionButton(
@@ -79,9 +78,7 @@ class _UserPageState extends State<UserPage> {
             onPressed: () {
               if (create) {
                 service.createUser(User(_nameController.text,
-                    bio: _bioController.text,
-                    displayName: _displayNameController.text,
-                    email: _emailController.text));
+                    bio: _bioController.text, displayName: _displayNameController.text, email: _emailController.text));
                 if (widget.isDesktop) {
                   _nameController.clear();
                   _bioController.clear();
@@ -109,8 +106,7 @@ class _UserPageState extends State<UserPage> {
                             const SizedBox(height: 50),
                             DropdownButtonFormField<String>(
                                 value: server,
-                                decoration: const InputDecoration(
-                                    labelText: "Server", border: OutlineInputBorder()),
+                                decoration: const InputDecoration(labelText: "Server", border: OutlineInputBorder()),
                                 onChanged: (value) => setState(() => server = value),
                                 items: [
                                   ...Hive.box<String>('servers')
@@ -121,9 +117,7 @@ class _UserPageState extends State<UserPage> {
                             const SizedBox(height: 50),
                             TextField(
                                 decoration: const InputDecoration(
-                                    labelText: "Name",
-                                    icon: Icon(PhosphorIcons.userLight),
-                                    filled: true),
+                                    labelText: "Name", icon: Icon(PhosphorIcons.userLight), filled: true),
                                 controller: _nameController),
                             const SizedBox(height: 20),
                             TextField(
@@ -135,9 +129,7 @@ class _UserPageState extends State<UserPage> {
                             const SizedBox(height: 20),
                             TextField(
                                 decoration: const InputDecoration(
-                                    labelText: "Email",
-                                    icon: Icon(PhosphorIcons.envelopeLight),
-                                    filled: true),
+                                    labelText: "Email", icon: Icon(PhosphorIcons.envelopeLight), filled: true),
                                 controller: _emailController),
                             const SizedBox(height: 20),
                             TextField(
@@ -155,11 +147,9 @@ class _UserPageState extends State<UserPage> {
                               ),
                               PopupMenuButton<UserState>(
                                   initialValue: userState,
-                                  onSelected: (value) =>
-                                      service.updateUser(user.copyWith(state: value)),
+                                  onSelected: (value) => service.updateUser(user.copyWith(state: value)),
                                   itemBuilder: (context) => UserState.values
-                                      .map(
-                                          (e) => PopupMenuItem(child: Text(e.toString()), value: e))
+                                      .map((e) => PopupMenuItem(child: Text(e.toString()), value: e))
                                       .toList(),
                                   child: ListTile(
                                       title: const Text("User state"),

@@ -1,11 +1,11 @@
-import 'package:flow_app/services/api_service.dart';
-import 'package:flow_app/services/local_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/badge.dart';
+import 'package:shared/services/api_service.dart';
+import 'package:shared/models/badge.dart';
+import 'package:shared/services/local_service.dart';
 
 class BadgePage extends StatefulWidget {
   final int? id;
@@ -62,15 +62,14 @@ class _BadgePageState extends State<BadgePage> {
             child: const Icon(PhosphorIcons.checkLight),
             onPressed: () {
               if (create) {
-                service.createBadge(
-                    Badge(_nameController.text, description: _descriptionController.text));
+                service.createBadge(Badge(_nameController.text, description: _descriptionController.text));
                 if (widget.isDesktop) {
                   _nameController.clear();
                   _descriptionController.clear();
                 }
               } else {
-                service.updateBadge(badge!.copyWith(
-                    name: _nameController.text, description: _descriptionController.text));
+                service
+                    .updateBadge(badge!.copyWith(name: _nameController.text, description: _descriptionController.text));
               }
               if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
             }),
@@ -81,9 +80,8 @@ class _BadgePageState extends State<BadgePage> {
               child: ElevatedButton.icon(
                   onPressed: () => Modular.to.pushNamed(widget.id == null
                       ? "/badges/create"
-                      : Uri(
-                          pathSegments: ["", "badges", "details"],
-                          queryParameters: {"id": widget.id.toString()}).toString()),
+                      : Uri(pathSegments: ["", "badges", "details"], queryParameters: {"id": widget.id.toString()})
+                          .toString()),
                   icon: const Icon(PhosphorIcons.arrowSquareOutLight),
                   label: const Text("OPEN IN NEW WINDOW")),
             ),
@@ -97,8 +95,7 @@ class _BadgePageState extends State<BadgePage> {
                             const SizedBox(height: 50),
                             DropdownButtonFormField<String>(
                                 value: server,
-                                decoration: const InputDecoration(
-                                    labelText: "Server", border: OutlineInputBorder()),
+                                decoration: const InputDecoration(labelText: "Server", border: OutlineInputBorder()),
                                 onChanged: (value) => setState(() => server = value),
                                 items: [
                                   ...Hive.box<String>('servers')
@@ -108,13 +105,12 @@ class _BadgePageState extends State<BadgePage> {
                                 ]),
                             const SizedBox(height: 50),
                             TextField(
-                                decoration: const InputDecoration(
-                                    labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
+                                decoration:
+                                    const InputDecoration(labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
                                 controller: _nameController),
                             TextField(
                                 decoration: const InputDecoration(
-                                    labelText: "Description",
-                                    icon: Icon(PhosphorIcons.articleLight)),
+                                    labelText: "Description", icon: Icon(PhosphorIcons.articleLight)),
                                 maxLines: null,
                                 controller: _descriptionController,
                                 minLines: 3)

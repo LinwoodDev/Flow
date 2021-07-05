@@ -32,8 +32,8 @@ dependencies:
   enum_to_string: ^2.0.1
   get_it: ^7.1.4
   phosphor_flutter: ^1.2.0
-  sembast: ^3.1.0+2
   sembast_web: ^2.0.0+2
+  path_provider: ^2.0.2
   shared:
     path: ../shared
   flutter:

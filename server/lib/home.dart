@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-import 'session.dart';
+import 'auth.dart';
 
 part 'home.g.dart';
 
@@ -17,8 +17,8 @@ class Service {
     }));
   }
 
-  @Route.mount('/session/')
-  Router get _session => SessionService().router;
+  @Route.mount('/auth/')
+  Router get _auth => AuthService().router;
 
   // You can catch all verbs and use a URL-parameter with a regular expression
   // that matches everything to catch app.

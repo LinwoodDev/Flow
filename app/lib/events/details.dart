@@ -1,5 +1,3 @@
-import 'package:flow_app/services/api_service.dart';
-import 'package:flow_app/services/local_service.dart';
 import 'package:flow_app/widgets/assign_dialog.dart';
 import 'package:flow_app/widgets/date.dart';
 import 'package:flow_app/widgets/time.dart';
@@ -8,14 +6,15 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/event.dart';
+import 'package:shared/services/api_service.dart';
+import 'package:shared/models/event.dart';
+import 'package:shared/services/local_service.dart';
 
 class EventPage extends StatefulWidget {
   final int? id;
   final bool isDesktop, isDialog;
 
-  const EventPage({Key? key, this.id, this.isDesktop = false, this.isDialog = false})
-      : super(key: key);
+  const EventPage({Key? key, this.id, this.isDesktop = false, this.isDialog = false}) : super(key: key);
 
   @override
   _EventPageState createState() => _EventPageState();
@@ -69,9 +68,7 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
     return Scaffold(
         appBar: AppBar(
             leading: widget.isDialog
-                ? IconButton(
-                    icon: const Icon(PhosphorIcons.xLight),
-                    onPressed: () => Navigator.of(context).pop())
+                ? IconButton(icon: const Icon(PhosphorIcons.xLight), onPressed: () => Navigator.of(context).pop())
                 : null,
             title: Text(create ? "Create event" : event!.name),
             actions: [
@@ -81,9 +78,8 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                       if (widget.isDialog) Modular.to.pop();
                       Modular.to.pushNamed(id == null
                           ? "/events/create"
-                          : Uri(
-                              pathSegments: ["", "events", "details"],
-                              queryParameters: {"id": id.toString()}).toString());
+                          : Uri(pathSegments: ["", "events", "details"], queryParameters: {"id": id.toString()})
+                              .toString());
                     },
                     icon: const Icon(PhosphorIcons.arrowSquareOutLight))
             ],
@@ -133,8 +129,8 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                                 const SizedBox(height: 50),
                                 DropdownButtonFormField<String>(
                                     value: server,
-                                    decoration: const InputDecoration(
-                                        labelText: "Server", border: OutlineInputBorder()),
+                                    decoration:
+                                        const InputDecoration(labelText: "Server", border: OutlineInputBorder()),
                                     onChanged: (value) => setState(() => server = value),
                                     items: [
                                       ...Hive.box<String>('servers')
@@ -145,9 +141,7 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                                 const SizedBox(height: 50),
                                 TextField(
                                     decoration: const InputDecoration(
-                                        filled: true,
-                                        labelText: "Name",
-                                        icon: Icon(PhosphorIcons.calendarLight)),
+                                        filled: true, labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
                                     controller: _nameController),
                                 const SizedBox(height: 20),
                                 TextField(
@@ -169,8 +163,7 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                                       onTap: () async {
                                         var assigned = await showDialog(
                                             context: context,
-                                            builder: (context) =>
-                                                AssignDialog(assigned: event.assigned));
+                                            builder: (context) => AssignDialog(assigned: event.assigned));
                                         if (assigned != null) {
                                           service.updateEvent(event.copyWith(assigned: assigned));
                                         }
@@ -194,12 +187,11 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                   padding: const EdgeInsets.all(8.0),
                   child: TimeInputField(
                       label: "Start time",
-                      initialTime:
-                          startDateTime != null ? TimeOfDay.fromDateTime(startDateTime!) : null,
+                      initialTime: startDateTime != null ? TimeOfDay.fromDateTime(startDateTime!) : null,
                       onChanged: (time) {
                         var oldDate = startDateTime ?? DateTime.now();
-                        startDateTime = DateTime(oldDate.year, oldDate.month, oldDate.day,
-                            time?.hour ?? 0, time?.minute ?? 0);
+                        startDateTime =
+                            DateTime(oldDate.year, oldDate.month, oldDate.day, time?.hour ?? 0, time?.minute ?? 0);
                       }),
                 ))
               ]),
@@ -209,21 +201,18 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DateInputField(
-                      label: "End date",
-                      initialDate: endDateTime,
-                      onChanged: (dateTime) => endDateTime = dateTime),
+                      label: "End date", initialDate: endDateTime, onChanged: (dateTime) => endDateTime = dateTime),
                 )),
                 Expanded(
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TimeInputField(
                       label: "End time",
-                      initialTime:
-                          endDateTime != null ? TimeOfDay.fromDateTime(endDateTime!) : null,
+                      initialTime: endDateTime != null ? TimeOfDay.fromDateTime(endDateTime!) : null,
                       onChanged: (time) {
                         var oldDate = endDateTime ?? DateTime.now();
-                        endDateTime = DateTime(oldDate.year, oldDate.month, oldDate.day,
-                            time?.hour ?? 0, time?.minute ?? 0);
+                        endDateTime =
+                            DateTime(oldDate.year, oldDate.month, oldDate.day, time?.hour ?? 0, time?.minute ?? 0);
                       }),
                 ))
               ]),

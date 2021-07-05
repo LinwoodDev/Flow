@@ -1,12 +1,12 @@
-import 'package:flow_app/services/api_service.dart';
-import 'package:flow_app/services/local_service.dart';
 import 'package:flow_app/widgets/assign_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/task.dart';
+import 'package:shared/services/api_service.dart';
+import 'package:shared/models/task.dart';
+import 'package:shared/services/local_service.dart';
 
 class TaskPage extends StatefulWidget {
   final int? id;
@@ -66,9 +66,8 @@ class _TaskPageState extends State<TaskPage> {
                     IconButton(
                         onPressed: () => Modular.to.pushNamed(widget.id == null
                             ? "/tasks/create"
-                            : Uri(
-                                pathSegments: ["", "tasks", "details"],
-                                queryParameters: {"id": widget.id.toString()}).toString()),
+                            : Uri(pathSegments: ["", "tasks", "details"], queryParameters: {"id": widget.id.toString()})
+                                .toString()),
                         icon: const Icon(PhosphorIcons.arrowSquareOutLight))
                 ],
                 bottom: const TabBar(tabs: [
@@ -80,15 +79,14 @@ class _TaskPageState extends State<TaskPage> {
                 child: const Icon(PhosphorIcons.checkLight),
                 onPressed: () {
                   if (create) {
-                    service.createTask(
-                        Task(_nameController.text, description: _descriptionController.text));
+                    service.createTask(Task(_nameController.text, description: _descriptionController.text));
                     if (widget.isDesktop) {
                       _nameController.clear();
                       _descriptionController.clear();
                     }
                   } else {
-                    service.updateTask(task!.copyWith(
-                        name: _nameController.text, description: _descriptionController.text));
+                    service.updateTask(
+                        task!.copyWith(name: _nameController.text, description: _descriptionController.text));
                   }
                   if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
                 }),
@@ -102,8 +100,7 @@ class _TaskPageState extends State<TaskPage> {
                             const SizedBox(height: 50),
                             DropdownButtonFormField<String>(
                                 value: server,
-                                decoration: const InputDecoration(
-                                    labelText: "Server", border: OutlineInputBorder()),
+                                decoration: const InputDecoration(labelText: "Server", border: OutlineInputBorder()),
                                 onChanged: (value) => setState(() => server = value),
                                 items: [
                                   ...Hive.box<String>('servers')
@@ -114,9 +111,7 @@ class _TaskPageState extends State<TaskPage> {
                             const SizedBox(height: 50),
                             TextField(
                                 decoration: const InputDecoration(
-                                    filled: true,
-                                    labelText: "Name",
-                                    icon: Icon(PhosphorIcons.calendarLight)),
+                                    filled: true, labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
                                 controller: _nameController),
                             const SizedBox(height: 20),
                             TextField(
@@ -134,9 +129,7 @@ class _TaskPageState extends State<TaskPage> {
                                   label: const Text("ASSIGN"),
                                   onPressed: () async {
                                     var assigned = await showDialog(
-                                        context: context,
-                                        builder: (context) =>
-                                            AssignDialog(assigned: task.assigned));
+                                        context: context, builder: (context) => AssignDialog(assigned: task.assigned));
                                     if (assigned != null) {
                                       service.updateTask(task.copyWith(assigned: assigned));
                                     }
@@ -144,20 +137,15 @@ class _TaskPageState extends State<TaskPage> {
                             ]
                           ])))),
               ListView(children: [
-                ExpansionTile(
-                    title: const Text("Admin"),
-                    leading: const Icon(PhosphorIcons.gearLight),
-                    children: [
-                      ListTile(
-                          title: const Text("Submission type"),
-                          subtitle: const Text("None"),
-                          onTap: () {},
-                          leading: const Icon(PhosphorIcons.fileLight)),
-                      ListTile(
-                          title: const Text("Show submissions"),
-                          onTap: () {},
-                          leading: const Icon(PhosphorIcons.listLight))
-                    ]),
+                ExpansionTile(title: const Text("Admin"), leading: const Icon(PhosphorIcons.gearLight), children: [
+                  ListTile(
+                      title: const Text("Submission type"),
+                      subtitle: const Text("None"),
+                      onTap: () {},
+                      leading: const Icon(PhosphorIcons.fileLight)),
+                  ListTile(
+                      title: const Text("Show submissions"), onTap: () {}, leading: const Icon(PhosphorIcons.listLight))
+                ]),
                 if (task != null)
                   StreamBuilder<Submission?>(
                       stream: service.onSubmission(task.id!, 0),

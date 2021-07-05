@@ -1,11 +1,11 @@
-import 'package:flow_app/services/api_service.dart';
-import 'package:flow_app/services/local_service.dart';
 import 'package:flow_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/badge.dart';
+import 'package:shared/services/api_service.dart';
+import 'package:shared/models/badge.dart';
+import 'package:shared/services/local_service.dart';
 
 import 'details.dart';
 
