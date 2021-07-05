@@ -133,7 +133,7 @@ packages:
       name: cli_util
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.1"
+    version: "0.3.2"
   clock:
     dependency: transitive
     description:
@@ -377,7 +377,7 @@ packages:
       name: io
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.2"
   js:
     dependency: transitive
     description:
@@ -718,7 +718,7 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.8"
+    version: "6.0.9"
   url_launcher_linux:
     dependency: transitive
     description:
@@ -739,7 +739,7 @@ packages:
       name: url_launcher_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.3"
+    version: "2.0.4"
   url_launcher_web:
     dependency: transitive
     description:
