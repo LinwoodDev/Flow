@@ -1,0 +1,22 @@
+name: Test
+on: push
+
+jobs:
+  test:
+    name: Lint test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: { dir: ['app', 'server', 'shared' ] }
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: dev
+      - name: Get dependencies
+        working-directory: ${{ matrix.dir }}
+        run: dart pub get
+      - name: Lint check
+        working-directory: ${{ matrix.dir }}
+        run: dart analyze

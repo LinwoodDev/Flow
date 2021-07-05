@@ -18,13 +18,12 @@ jobs:
       - name: ✅ Enable platforms
         run: flutter config --enable-web
       - name: 📦 Get dependencies
-        run: |
-          cd app
-          flutter pub get
+        working-directory: app
+        run: flutter pub get
       #- run: flutter test
       - name: 🏭 Build
+        working-directory: app
         run: |
-          cd app
           flutter doctor -v
           flutter build apk -v --release
       - name: Archive
@@ -43,12 +42,11 @@ jobs:
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
       - name: 📦 Get dependencies
-        run: |
-          cd app
-          flutter pub get
+        working-directory: app
+        run: flutter pub get
       - name: 🏭 Build
+        working-directory: app
         run: |
-          cd app
           flutter clean
           flutter doctor -v
           flutter build windows -v --release
@@ -74,12 +72,11 @@ jobs:
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
-        run: |
-          cd app
-          flutter pub get
+        working-directory: app
+        run: flutter pub get
       - name: 🏭 Build
+        working-directory: app
         run: |
-          cd app
           flutter clean
           flutter doctor -v
           flutter build linux -v --release
@@ -106,8 +103,8 @@ jobs:
       - uses: actions/checkout@v2
       - uses: DanTup/gh-actions/setup-dart@master
       - name: Build server
+        working-directory: server
         run: |
-          cd server
           mkdir build
           pub get
           dart compile exe bin/flow_server.dart -v -o build/${{ matrix.output-name }}
