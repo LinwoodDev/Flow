@@ -12,8 +12,8 @@ class SettingsModule extends Module {
   // Provide all the routes for your module
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/', child: (_, __) => GeneralSettingsPage()),
-    ChildRoute('/appearance', child: (_, __) => AppearanceSettingsPage()),
-    ChildRoute('/servers', child: (_, __) => ServersSettingsPage())
+    ChildRoute('/', child: (_, __) => const GeneralSettingsPage()),
+    ChildRoute('/appearance', child: (_, __) => const AppearanceSettingsPage()),
+    ChildRoute('/servers', child: (_, __) => const ServersSettingsPage())
   ];
 }

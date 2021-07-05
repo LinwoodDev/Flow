@@ -8,13 +8,13 @@ import 'register.dart';
 class SessionModule extends Module {
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/connect', child: (_, __) => ConnectPage()),
+    ChildRoute('/connect', child: (_, __) => const ConnectPage()),
     ChildRoute(
       Modular.initialRoute,
-      child: (_, __) => SessionPage(),
+      child: (_, __) => const SessionPage(),
       children: [
-        ChildRoute("/login", child: (_, __) => LoginPage()),
-        ChildRoute('/register', child: (_, __) => RegisterPage())
+        ChildRoute("/login", child: (_, __) => const LoginPage()),
+        ChildRoute('/register', child: (_, __) => const RegisterPage())
       ],
     ),
   ];

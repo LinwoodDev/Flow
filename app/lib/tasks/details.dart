@@ -19,8 +19,8 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
-  late TextEditingController _nameController = TextEditingController();
-  late TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   late ApiService service;
 
   @override
@@ -45,8 +45,9 @@ class _TaskPageState extends State<TaskPage> {
             stream: service.onTask(widget.id!),
             builder: (context, snapshot) {
               if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-              if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
-                return Center(child: CircularProgressIndicator());
+              if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData) {
+                return const Center(child: CircularProgressIndicator());
+              }
               return _buildView(snapshot.data);
             });
   }
@@ -65,27 +66,30 @@ class _TaskPageState extends State<TaskPage> {
                     IconButton(
                         onPressed: () => Modular.to.pushNamed(widget.id == null
                             ? "/tasks/create"
-                            : Uri(pathSegments: ["", "tasks", "details"], queryParameters: {"id": widget.id.toString()})
-                                .toString()),
-                        icon: Icon(PhosphorIcons.arrowSquareOutLight))
+                            : Uri(
+                                pathSegments: ["", "tasks", "details"],
+                                queryParameters: {"id": widget.id.toString()}).toString()),
+                        icon: const Icon(PhosphorIcons.arrowSquareOutLight))
                 ],
-                bottom: TabBar(tabs: [
+                bottom: const TabBar(tabs: [
                   Tab(icon: Icon(PhosphorIcons.wrenchLight), text: "General"),
                   Tab(icon: Icon(PhosphorIcons.foldersLight), text: "Submission")
                 ])),
             floatingActionButton: FloatingActionButton(
                 heroTag: "task-check",
-                child: Icon(PhosphorIcons.checkLight),
+                child: const Icon(PhosphorIcons.checkLight),
                 onPressed: () {
                   if (create) {
-                    service.createTask(Task(_nameController.text, description: _descriptionController.text));
+                    service.createTask(
+                        Task(_nameController.text, description: _descriptionController.text));
                     if (widget.isDesktop) {
                       _nameController.clear();
                       _descriptionController.clear();
                     }
-                  } else
-                    service.updateTask(
-                        task!.copyWith(name: _nameController.text, description: _descriptionController.text));
+                  } else {
+                    service.updateTask(task!.copyWith(
+                        name: _nameController.text, description: _descriptionController.text));
+                  }
                   if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
                 }),
             body: TabBarView(children: [
@@ -93,27 +97,30 @@ class _TaskPageState extends State<TaskPage> {
                   child: Align(
                       alignment: Alignment.topCenter,
                       child: Container(
-                          constraints: BoxConstraints(maxWidth: 800),
+                          constraints: const BoxConstraints(maxWidth: 800),
                           child: Column(children: [
-                            SizedBox(height: 50),
+                            const SizedBox(height: 50),
                             DropdownButtonFormField<String>(
                                 value: server,
-                                decoration: InputDecoration(labelText: "Server", border: OutlineInputBorder()),
+                                decoration: const InputDecoration(
+                                    labelText: "Server", border: OutlineInputBorder()),
                                 onChanged: (value) => setState(() => server = value),
                                 items: [
                                   ...Hive.box<String>('servers')
                                       .values
                                       .map((e) => DropdownMenuItem(child: Text(e), value: e)),
-                                  DropdownMenuItem(child: Text("Local"), value: "")
+                                  const DropdownMenuItem(child: Text("Local"), value: "")
                                 ]),
-                            SizedBox(height: 50),
+                            const SizedBox(height: 50),
                             TextField(
-                                decoration: InputDecoration(
-                                    filled: true, labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
+                                decoration: const InputDecoration(
+                                    filled: true,
+                                    labelText: "Name",
+                                    icon: Icon(PhosphorIcons.calendarLight)),
                                 controller: _nameController),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             TextField(
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: "Description",
                                     icon: Icon(PhosphorIcons.articleLight)),
@@ -121,41 +128,47 @@ class _TaskPageState extends State<TaskPage> {
                                 controller: _descriptionController,
                                 minLines: 3),
                             if (task != null) ...[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Divider(),
-                              ),
+                              const Padding(padding: EdgeInsets.all(8.0), child: Divider()),
                               ElevatedButton.icon(
-                                  icon: Icon(PhosphorIcons.compassLight),
-                                  label: Text("ASSIGN"),
+                                  icon: const Icon(PhosphorIcons.compassLight),
+                                  label: const Text("ASSIGN"),
                                   onPressed: () async {
                                     var assigned = await showDialog(
-                                        context: context, builder: (context) => AssignDialog(assigned: task.assigned));
-                                    if (assigned != null) service.updateTask(task.copyWith(assigned: assigned));
+                                        context: context,
+                                        builder: (context) =>
+                                            AssignDialog(assigned: task.assigned));
+                                    if (assigned != null) {
+                                      service.updateTask(task.copyWith(assigned: assigned));
+                                    }
                                   })
                             ]
                           ])))),
-              Container(
-                  child: ListView(children: [
-                ExpansionTile(title: Text("Admin"), leading: Icon(PhosphorIcons.gearLight), children: [
-                  ListTile(
-                      title: Text("Submission type"),
-                      subtitle: Text("None"),
-                      onTap: () {},
-                      leading: Icon(PhosphorIcons.fileLight)),
-                  ListTile(title: Text("Show submissions"), onTap: () {}, leading: Icon(PhosphorIcons.listLight))
-                ]),
+              ListView(children: [
+                ExpansionTile(
+                    title: const Text("Admin"),
+                    leading: const Icon(PhosphorIcons.gearLight),
+                    children: [
+                      ListTile(
+                          title: const Text("Submission type"),
+                          subtitle: const Text("None"),
+                          onTap: () {},
+                          leading: const Icon(PhosphorIcons.fileLight)),
+                      ListTile(
+                          title: const Text("Show submissions"),
+                          onTap: () {},
+                          leading: const Icon(PhosphorIcons.listLight))
+                    ]),
                 if (task != null)
                   StreamBuilder<Submission?>(
                       stream: service.onSubmission(task.id!, 0),
                       builder: (context, snapshot) {
-                        return ExpansionTile(
+                        return const ExpansionTile(
                             title: Text("Your submission"),
                             leading: Icon(PhosphorIcons.folderLight),
                             initiallyExpanded: true,
                             children: []);
                       })
-              ]))
+              ])
             ])));
   }
 }

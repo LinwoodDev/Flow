@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 class GeneralAdminSettingsPage extends StatelessWidget {
   final String server;
 
-  GeneralAdminSettingsPage({Key? key, required this.server}) : super(key: key);
+  const GeneralAdminSettingsPage({Key? key, required this.server}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Align(
         alignment: Alignment.topCenter,
         child: Container(
-            constraints: BoxConstraints(maxWidth: 1000),
-            padding: EdgeInsets.all(16.0),
-            child: Column(children: [
+            constraints: const BoxConstraints(maxWidth: 1000),
+            padding: const EdgeInsets.all(16.0),
+            child: Column(children: const [
               TextField(decoration: InputDecoration(labelText: "Name")),
               TextField(
                 decoration: InputDecoration(labelText: "Description"),

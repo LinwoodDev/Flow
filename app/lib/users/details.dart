@@ -7,6 +7,8 @@ import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/user.dart';
 
+typedef OnUserChanged = void Function(int? id);
+
 class UserPage extends StatefulWidget {
   final int? id;
   final bool isDesktop;
@@ -18,10 +20,10 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-  late TextEditingController _nameController = TextEditingController();
-  late TextEditingController _displayNameController = TextEditingController();
-  late TextEditingController _bioController = TextEditingController();
-  late TextEditingController _emailController = TextEditingController();
+  late final TextEditingController _nameController = TextEditingController();
+  late final TextEditingController _displayNameController = TextEditingController();
+  late final TextEditingController _bioController = TextEditingController();
+  late final TextEditingController _emailController = TextEditingController();
   late ApiService service;
 
   @override
@@ -46,8 +48,9 @@ class _UserPageState extends State<UserPage> {
             stream: service.onUser(widget.id!),
             builder: (context, snapshot) {
               if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-              if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
-                return Center(child: CircularProgressIndicator());
+              if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData) {
+                return const Center(child: CircularProgressIndicator());
+              }
               return _buildView(snapshot.data);
             });
   }
@@ -65,29 +68,33 @@ class _UserPageState extends State<UserPage> {
             IconButton(
                 onPressed: () => Modular.to.pushNamed(widget.id == null
                     ? "/users/create"
-                    : Uri(pathSegments: ["", "users", "details"], queryParameters: {"id": widget.id.toString()})
-                        .toString()),
-                icon: Icon(PhosphorIcons.arrowSquareOutLight))
+                    : Uri(
+                        pathSegments: ["", "users", "details"],
+                        queryParameters: {"id": widget.id.toString()}).toString()),
+                icon: const Icon(PhosphorIcons.arrowSquareOutLight))
         ]),
         floatingActionButton: FloatingActionButton(
             heroTag: "user-check",
-            child: Icon(PhosphorIcons.checkLight),
+            child: const Icon(PhosphorIcons.checkLight),
             onPressed: () {
               if (create) {
                 service.createUser(User(_nameController.text,
-                    bio: _bioController.text, displayName: _displayNameController.text, email: _emailController.text));
+                    bio: _bioController.text,
+                    displayName: _displayNameController.text,
+                    email: _emailController.text));
                 if (widget.isDesktop) {
                   _nameController.clear();
                   _bioController.clear();
                   _displayNameController.clear();
                   _emailController.clear();
                 }
-              } else
+              } else {
                 service.updateUser(user!.copyWith(
                     name: _nameController.text,
                     bio: _bioController.text,
                     displayName: _displayNameController.text,
                     email: _emailController.text));
+              }
               if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
             }),
         body: Column(children: [
@@ -96,39 +103,45 @@ class _UserPageState extends State<UserPage> {
                   child: Align(
                       alignment: Alignment.topCenter,
                       child: Container(
-                          constraints: BoxConstraints(maxWidth: 800),
+                          padding: const EdgeInsets.all(8.0),
+                          constraints: const BoxConstraints(maxWidth: 800),
                           child: Column(children: [
-                            SizedBox(height: 50),
+                            const SizedBox(height: 50),
                             DropdownButtonFormField<String>(
                                 value: server,
-                                decoration: InputDecoration(labelText: "Server", border: OutlineInputBorder()),
+                                decoration: const InputDecoration(
+                                    labelText: "Server", border: OutlineInputBorder()),
                                 onChanged: (value) => setState(() => server = value),
                                 items: [
                                   ...Hive.box<String>('servers')
                                       .values
                                       .map((e) => DropdownMenuItem(child: Text(e), value: e)),
-                                  DropdownMenuItem(child: Text("Local"), value: "")
+                                  const DropdownMenuItem(child: Text("Local"), value: "")
                                 ]),
-                            SizedBox(height: 50),
+                            const SizedBox(height: 50),
                             TextField(
-                                decoration: InputDecoration(
-                                    labelText: "Name", icon: Icon(PhosphorIcons.userLight), filled: true),
+                                decoration: const InputDecoration(
+                                    labelText: "Name",
+                                    icon: Icon(PhosphorIcons.userLight),
+                                    filled: true),
                                 controller: _nameController),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             TextField(
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                     labelText: "Display name",
                                     icon: Icon(PhosphorIcons.identificationCardLight),
                                     filled: true),
                                 controller: _displayNameController),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             TextField(
-                                decoration: InputDecoration(
-                                    labelText: "Email", icon: Icon(PhosphorIcons.envelopeLight), filled: true),
+                                decoration: const InputDecoration(
+                                    labelText: "Email",
+                                    icon: Icon(PhosphorIcons.envelopeLight),
+                                    filled: true),
                                 controller: _emailController),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             TextField(
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                     labelText: "Biography",
                                     icon: Icon(PhosphorIcons.articleLight),
                                     border: OutlineInputBorder()),
@@ -136,22 +149,26 @@ class _UserPageState extends State<UserPage> {
                                 controller: _bioController,
                                 minLines: 3),
                             if (user != null) ...[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
                                 child: Divider(),
                               ),
                               PopupMenuButton<UserState>(
                                   initialValue: userState,
-                                  onSelected: (value) => service.updateUser(user.copyWith(state: value)),
+                                  onSelected: (value) =>
+                                      service.updateUser(user.copyWith(state: value)),
                                   itemBuilder: (context) => UserState.values
-                                      .map((e) => PopupMenuItem(child: Text(e.toString()), value: e))
+                                      .map(
+                                          (e) => PopupMenuItem(child: Text(e.toString()), value: e))
                                       .toList(),
                                   child: ListTile(
-                                      title: Text("User state"),
+                                      title: const Text("User state"),
                                       subtitle: Text(userState.toString()),
-                                      leading: Icon(PhosphorIcons.presentationLight))),
+                                      leading: const Icon(PhosphorIcons.presentationLight))),
                               ListTile(
-                                  leading: Icon(PhosphorIcons.lockLight), title: Text("Change password"), onTap: () {})
+                                  leading: const Icon(PhosphorIcons.lockLight),
+                                  title: const Text("Change password"),
+                                  onTap: () {})
                             ]
                           ])))))
         ]));

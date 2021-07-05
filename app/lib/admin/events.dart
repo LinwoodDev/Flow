@@ -16,11 +16,13 @@ class _EventsAdminSettingsPageState extends State<EventsAdminSettingsPage> {
     return Align(
         alignment: Alignment.topCenter,
         child: Container(
-            constraints: BoxConstraints(maxWidth: 1000),
-            padding: EdgeInsets.all(16.0),
+            constraints: const BoxConstraints(maxWidth: 1000),
+            padding: const EdgeInsets.all(16.0),
             child: Column(children: [
               ElevatedButton.icon(
-                  onPressed: () {}, icon: Icon(PhosphorIcons.flagLight), label: Text("OPEN PERMISSIONS"))
+                  onPressed: () {},
+                  icon: const Icon(PhosphorIcons.flagLight),
+                  label: const Text("OPEN PERMISSIONS"))
             ])));
   }
 }

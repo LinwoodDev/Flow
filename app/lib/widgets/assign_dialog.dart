@@ -35,14 +35,14 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
   Widget build(BuildContext context) {
     return Dialog(
         child: Container(
-            constraints: BoxConstraints(maxWidth: 600, maxHeight: 800),
+            constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
             child: Scaffold(
                 appBar: AppBar(
-                    title: Text("Assign"),
-                    leading: Icon(PhosphorIcons.compassLight),
+                    title: const Text("Assign"),
+                    leading: const Icon(PhosphorIcons.compassLight),
                     bottom: TabBar(
                       controller: _tabController,
-                      tabs: [
+                      tabs: const [
                         Tab(icon: Icon(PhosphorIcons.usersLight), text: "Users"),
                         Tab(icon: Icon(PhosphorIcons.flagLight), text: "Teams"),
                         Tab(icon: Icon(PhosphorIcons.bookLight), text: "Events")
@@ -52,19 +52,20 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                   _AssignedObjectField(
                       title: "Everyone",
                       initialFlag: assigned.everyone,
-                      onChanged: (value) =>
-                          assigned = assigned.copyWith(everyone: value, removeEveryone: value == null)),
-                  Divider(),
+                      onChanged: (value) => assigned =
+                          assigned.copyWith(everyone: value, removeEveryone: value == null)),
+                  const Divider(),
                   Expanded(
-                      child: Container(
-                          child: TabBarView(controller: _tabController, children: [
+                      child: TabBarView(controller: _tabController, children: [
                     Builder(
                       builder: (context) => StreamBuilder<List<User>>(
                           stream: service.onUsers(),
                           builder: (context, snapshot) {
                             if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-                            if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
-                              return Center(child: CircularProgressIndicator());
+                            if (snapshot.connectionState == ConnectionState.waiting ||
+                                !snapshot.hasData) {
+                              return const Center(child: CircularProgressIndicator());
+                            }
                             var users = snapshot.data!;
                             return SingleChildScrollView(
                               child: Column(children: [
@@ -73,31 +74,37 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                                       onPressed: () => showDialog(
                                           context: context,
                                           builder: (context) => SimpleDialog(
-                                              title: Text("Add user"),
+                                              title: const Text("Add user"),
                                               children: users
-                                                  .where((a) => !assigned.users.any((b) => b.id == a.id))
+                                                  .where((a) =>
+                                                      !assigned.users.any((b) => b.id == a.id))
                                                   .map((e) => SimpleDialogOption(
                                                       child: Text(e.name),
                                                       onPressed: () {
                                                         Navigator.of(context).pop();
                                                         setState(() => assigned = assigned.copyWith(
                                                             users: List.from(assigned.users)
-                                                              ..add(AssignedObject(flag: true, id: e.id))));
+                                                              ..add(AssignedObject(
+                                                                  flag: true, id: e.id))));
                                                       }))
                                                   .toList())),
-                                      icon: Icon(PhosphorIcons.plusLight),
-                                      label: Text("ADD USER")),
+                                      icon: const Icon(PhosphorIcons.plusLight),
+                                      label: const Text("ADD USER")),
                                 ...assigned.users
                                     .asMap()
                                     .entries
                                     .map((e) => _AssignedObjectField(
                                           initialFlag: e.value.flag,
                                           onDelete: () => assigned = assigned.copyWith(
-                                              users: List.from(assigned.users)..removeWhere((v) => v.id == e.value.id)),
-                                          title: users.firstWhere((element) => element.id == e.value.id).name,
+                                              users: List.from(assigned.users)
+                                                ..removeWhere((v) => v.id == e.value.id)),
+                                          title: users
+                                              .firstWhere((element) => element.id == e.value.id)
+                                              .name,
                                           onChanged: (value) => assigned = assigned.copyWith(
                                               users: List.from(assigned.users)
-                                                ..[e.key] = AssignedObject(flag: value, id: e.value.id)),
+                                                ..[e.key] =
+                                                    AssignedObject(flag: value, id: e.value.id)),
                                         ))
                                     .toList()
                               ]),
@@ -109,8 +116,10 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                           stream: service.onTeams(),
                           builder: (context, snapshot) {
                             if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-                            if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
-                              return Center(child: CircularProgressIndicator());
+                            if (snapshot.connectionState == ConnectionState.waiting ||
+                                !snapshot.hasData) {
+                              return const Center(child: CircularProgressIndicator());
+                            }
                             var teams = snapshot.data!;
                             return SingleChildScrollView(
                               child: Column(children: [
@@ -119,31 +128,37 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                                       onPressed: () => showDialog(
                                           context: context,
                                           builder: (context) => SimpleDialog(
-                                              title: Text("Add team"),
+                                              title: const Text("Add team"),
                                               children: teams
-                                                  .where((a) => !assigned.teams.any((b) => b.id == a.id))
+                                                  .where((a) =>
+                                                      !assigned.teams.any((b) => b.id == a.id))
                                                   .map((e) => SimpleDialogOption(
                                                       child: Text(e.name),
                                                       onPressed: () {
                                                         Navigator.of(context).pop();
                                                         setState(() => assigned = assigned.copyWith(
                                                             teams: List.from(assigned.teams)
-                                                              ..add(AssignedObject(flag: true, id: e.id))));
+                                                              ..add(AssignedObject(
+                                                                  flag: true, id: e.id))));
                                                       }))
                                                   .toList())),
-                                      icon: Icon(PhosphorIcons.plusLight),
-                                      label: Text("ADD TEAM")),
+                                      icon: const Icon(PhosphorIcons.plusLight),
+                                      label: const Text("ADD TEAM")),
                                 ...assigned.teams
                                     .asMap()
                                     .entries
                                     .map((e) => _AssignedObjectField(
                                           initialFlag: e.value.flag,
                                           onDelete: () => assigned = assigned.copyWith(
-                                              teams: List.from(assigned.teams)..removeWhere((v) => v.id == e.value.id)),
-                                          title: teams.firstWhere((element) => element.id == e.value.id).name,
+                                              teams: List.from(assigned.teams)
+                                                ..removeWhere((v) => v.id == e.value.id)),
+                                          title: teams
+                                              .firstWhere((element) => element.id == e.value.id)
+                                              .name,
                                           onChanged: (value) => assigned = assigned.copyWith(
                                               teams: List.from(assigned.teams)
-                                                ..[e.key] = AssignedObject(flag: value, id: e.value.id)),
+                                                ..[e.key] =
+                                                    AssignedObject(flag: value, id: e.value.id)),
                                         ))
                                     .toList()
                               ]),
@@ -155,8 +170,10 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                             stream: service.onEvents(),
                             builder: (context, snapshot) {
                               if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-                              if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
-                                return Center(child: CircularProgressIndicator());
+                              if (snapshot.connectionState == ConnectionState.waiting ||
+                                  !snapshot.hasData) {
+                                return const Center(child: CircularProgressIndicator());
+                              }
                               var events = snapshot.data!;
                               return SingleChildScrollView(
                                   child: Column(children: [
@@ -165,20 +182,22 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                                       onPressed: () => showDialog(
                                           context: context,
                                           builder: (context) => SimpleDialog(
-                                              title: Text("Add event"),
+                                              title: const Text("Add event"),
                                               children: events
-                                                  .where((a) => !assigned.events.any((b) => b.id == a.id))
+                                                  .where((a) =>
+                                                      !assigned.events.any((b) => b.id == a.id))
                                                   .map((e) => SimpleDialogOption(
                                                       child: Text(e.name),
                                                       onPressed: () {
                                                         Navigator.of(context).pop();
                                                         setState(() => assigned = assigned.copyWith(
                                                             events: List.from(assigned.events)
-                                                              ..add(AssignedObject(flag: true, id: e.id))));
+                                                              ..add(AssignedObject(
+                                                                  flag: true, id: e.id))));
                                                       }))
                                                   .toList())),
-                                      icon: Icon(PhosphorIcons.plusLight),
-                                      label: Text("ADD EVENT")),
+                                      icon: const Icon(PhosphorIcons.plusLight),
+                                      label: const Text("ADD EVENT")),
                                 ...assigned.events
                                     .asMap()
                                     .entries
@@ -187,29 +206,32 @@ class _AssignDialogState extends State<AssignDialog> with TickerProviderStateMix
                                           onDelete: () => assigned = assigned.copyWith(
                                               events: List.from(assigned.events)
                                                 ..removeWhere((v) => v.id == e.value.id)),
-                                          title: events.firstWhere((element) => element.id == e.value.id).name,
+                                          title: events
+                                              .firstWhere((element) => element.id == e.value.id)
+                                              .name,
                                           onChanged: (value) => assigned = assigned.copyWith(
                                               events: List.from(assigned.events)
-                                                ..[e.key] = AssignedObject(flag: value, id: e.value.id)),
+                                                ..[e.key] =
+                                                    AssignedObject(flag: value, id: e.value.id)),
                                         ))
                                     .toList()
                               ]));
                             }))
-                  ]))),
-                  Divider(),
+                  ])),
+                  const Divider(),
                   Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                       child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                         TextButton(
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            child: Text("CANCEL")),
+                            child: const Text("CANCEL")),
                         ElevatedButton(
                             onPressed: () {
                               Navigator.of(context).pop(assigned);
                             },
-                            child: Text("OK"))
+                            child: const Text("OK"))
                       ]))
                 ]))));
   }
@@ -224,7 +246,11 @@ class _AssignedObjectField extends StatefulWidget {
   final _AssignObjectCallback onChanged;
 
   const _AssignedObjectField(
-      {Key? key, required this.title, required this.initialFlag, required this.onChanged, this.onDelete})
+      {Key? key,
+      required this.title,
+      required this.initialFlag,
+      required this.onChanged,
+      this.onDelete})
       : super(key: key);
 
   @override

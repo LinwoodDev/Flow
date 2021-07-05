@@ -14,15 +14,16 @@ class EventPage extends StatefulWidget {
   final int? id;
   final bool isDesktop, isDialog;
 
-  const EventPage({Key? key, this.id, this.isDesktop = false, this.isDialog = false}) : super(key: key);
+  const EventPage({Key? key, this.id, this.isDesktop = false, this.isDialog = false})
+      : super(key: key);
 
   @override
   _EventPageState createState() => _EventPageState();
 }
 
 class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
-  late TextEditingController _nameController = TextEditingController();
-  late TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   late TabController _tabController;
   late ApiService service;
   int? id;
@@ -52,8 +53,9 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
             stream: service.onEvent(id!),
             builder: (context, snapshot) {
               if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-              if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
-                return Center(child: CircularProgressIndicator());
+              if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData) {
+                return const Center(child: CircularProgressIndicator());
+              }
               return _buildView(snapshot.data);
             });
   }
@@ -67,7 +69,9 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
     return Scaffold(
         appBar: AppBar(
             leading: widget.isDialog
-                ? IconButton(icon: Icon(PhosphorIcons.xLight), onPressed: () => Navigator.of(context).pop())
+                ? IconButton(
+                    icon: const Icon(PhosphorIcons.xLight),
+                    onPressed: () => Navigator.of(context).pop())
                 : null,
             title: Text(create ? "Create event" : event!.name),
             actions: [
@@ -77,18 +81,19 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                       if (widget.isDialog) Modular.to.pop();
                       Modular.to.pushNamed(id == null
                           ? "/events/create"
-                          : Uri(pathSegments: ["", "events", "details"], queryParameters: {"id": id.toString()})
-                              .toString());
+                          : Uri(
+                              pathSegments: ["", "events", "details"],
+                              queryParameters: {"id": id.toString()}).toString());
                     },
-                    icon: Icon(PhosphorIcons.arrowSquareOutLight))
+                    icon: const Icon(PhosphorIcons.arrowSquareOutLight))
             ],
-            bottom: TabBar(controller: _tabController, tabs: [
+            bottom: TabBar(controller: _tabController, tabs: const [
               Tab(icon: Icon(PhosphorIcons.wrenchLight), text: "General"),
               Tab(icon: Icon(PhosphorIcons.calendarLight), text: "Date and time")
             ])),
         floatingActionButton: FloatingActionButton(
             heroTag: "event-check",
-            child: Icon(PhosphorIcons.checkLight),
+            child: const Icon(PhosphorIcons.checkLight),
             onPressed: () async {
               if (create) {
                 var event = await service.createEvent(Event(_nameController.text,
@@ -101,7 +106,7 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                   _descriptionController.clear();
                 }
                 setState(() => id = event.id);
-              } else
+              } else {
                 service.updateEvent(event!.copyWith(
                     name: _nameController.text,
                     description: _descriptionController.text,
@@ -110,6 +115,7 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                     endDateTime: endDateTime,
                     removeStartDateTime: startDateTime == null,
                     removeEndDateTime: endDateTime == null));
+              }
               if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
             }),
         body: Padding(
@@ -122,27 +128,30 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                           alignment: Alignment.topCenter,
                           child: Container(
                               padding: const EdgeInsets.all(8.0),
-                              constraints: BoxConstraints(maxWidth: 800),
+                              constraints: const BoxConstraints(maxWidth: 800),
                               child: Column(children: [
-                                SizedBox(height: 50),
+                                const SizedBox(height: 50),
                                 DropdownButtonFormField<String>(
                                     value: server,
-                                    decoration: InputDecoration(labelText: "Server", border: OutlineInputBorder()),
+                                    decoration: const InputDecoration(
+                                        labelText: "Server", border: OutlineInputBorder()),
                                     onChanged: (value) => setState(() => server = value),
                                     items: [
                                       ...Hive.box<String>('servers')
                                           .values
                                           .map((e) => DropdownMenuItem(child: Text(e), value: e)),
-                                      DropdownMenuItem(child: Text("Local"), value: "")
+                                      const DropdownMenuItem(child: Text("Local"), value: "")
                                     ]),
-                                SizedBox(height: 50),
+                                const SizedBox(height: 50),
                                 TextField(
-                                    decoration: InputDecoration(
-                                        filled: true, labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
+                                    decoration: const InputDecoration(
+                                        filled: true,
+                                        labelText: "Name",
+                                        icon: Icon(PhosphorIcons.calendarLight)),
                                     controller: _nameController),
-                                SizedBox(height: 20),
+                                const SizedBox(height: 20),
                                 TextField(
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                         border: OutlineInputBorder(),
                                         labelText: "Description",
                                         icon: Icon(PhosphorIcons.articleLight)),
@@ -150,24 +159,27 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                                     controller: _descriptionController,
                                     minLines: 3),
                                 if (event != null) ...[
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                  const Padding(
+                                    padding: EdgeInsets.all(8.0),
                                     child: Divider(),
                                   ),
                                   ListTile(
-                                      leading: Icon(PhosphorIcons.compassLight),
-                                      title: Text("Assign"),
+                                      leading: const Icon(PhosphorIcons.compassLight),
+                                      title: const Text("Assign"),
                                       onTap: () async {
                                         var assigned = await showDialog(
                                             context: context,
-                                            builder: (context) => AssignDialog(assigned: event.assigned));
-                                        if (assigned != null) service.updateEvent(event.copyWith(assigned: assigned));
+                                            builder: (context) =>
+                                                AssignDialog(assigned: event.assigned));
+                                        if (assigned != null) {
+                                          service.updateEvent(event.copyWith(assigned: assigned));
+                                        }
                                       })
                                 ]
                               ])))))
             ]),
             Column(children: [
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(children: [
                 Expanded(
                     child: Padding(
@@ -182,43 +194,47 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                   padding: const EdgeInsets.all(8.0),
                   child: TimeInputField(
                       label: "Start time",
-                      initialTime: startDateTime != null ? TimeOfDay.fromDateTime(startDateTime!) : null,
+                      initialTime:
+                          startDateTime != null ? TimeOfDay.fromDateTime(startDateTime!) : null,
                       onChanged: (time) {
                         var oldDate = startDateTime ?? DateTime.now();
-                        startDateTime =
-                            DateTime(oldDate.year, oldDate.month, oldDate.day, time?.hour ?? 0, time?.minute ?? 0);
+                        startDateTime = DateTime(oldDate.year, oldDate.month, oldDate.day,
+                            time?.hour ?? 0, time?.minute ?? 0);
                       }),
                 ))
               ]),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(children: [
                 Expanded(
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DateInputField(
-                      label: "End date", initialDate: endDateTime, onChanged: (dateTime) => endDateTime = dateTime),
+                      label: "End date",
+                      initialDate: endDateTime,
+                      onChanged: (dateTime) => endDateTime = dateTime),
                 )),
                 Expanded(
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TimeInputField(
                       label: "End time",
-                      initialTime: endDateTime != null ? TimeOfDay.fromDateTime(endDateTime!) : null,
+                      initialTime:
+                          endDateTime != null ? TimeOfDay.fromDateTime(endDateTime!) : null,
                       onChanged: (time) {
                         var oldDate = endDateTime ?? DateTime.now();
-                        endDateTime =
-                            DateTime(oldDate.year, oldDate.month, oldDate.day, time?.hour ?? 0, time?.minute ?? 0);
+                        endDateTime = DateTime(oldDate.year, oldDate.month, oldDate.day,
+                            time?.hour ?? 0, time?.minute ?? 0);
                       }),
                 ))
               ]),
               if (event != null) ...[
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 StatefulBuilder(builder: (context, setState) {
                   return CheckboxListTile(
                       value: isCanceled,
                       onChanged: (value) => setState(() => isCanceled = value ?? isCanceled),
-                      title: Text("Canceled"),
-                      subtitle: Text("Check if the event is canceled"),
+                      title: const Text("Canceled"),
+                      subtitle: const Text("Check if the event is canceled"),
                       controlAffinity: ListTileControlAffinity.leading);
                 })
               ]

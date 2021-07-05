@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-typedef Widget ServerBuilder(String server);
+typedef ServerBuilder = Widget Function(String server);
 
 class ServerView extends StatefulWidget {
   final ServerBuilder builder;
@@ -29,18 +29,21 @@ class _ServerViewState extends State<ServerView> {
           child: Align(
               alignment: Alignment.centerRight,
               child: Container(
-                  constraints: BoxConstraints(maxWidth: 1000),
+                  constraints: const BoxConstraints(maxWidth: 1000),
                   padding: const EdgeInsets.all(16.0),
                   child: DropdownButtonFormField<String>(
                       value: server,
-                      decoration: InputDecoration(labelText: "Server"),
+                      decoration: const InputDecoration(labelText: "Server"),
                       onChanged: (value) => setState(() => server = value),
-                      items: List.generate(servers.length,
-                          (index) => DropdownMenuItem<String>(value: servers[index], child: Text(servers[index]))))))),
+                      items: List.generate(
+                          servers.length,
+                          (index) => DropdownMenuItem<String>(
+                              value: servers[index], child: Text(servers[index]))))))),
       if (server != null)
         Card(
             child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0), child: widget.builder(server!)))
+                padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
+                child: widget.builder(server!)))
     ]);
   }
 }

@@ -10,8 +10,9 @@ class TeamsModule extends Module {
   // Provide all the routes for your module
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/', child: (_, __) => TeamsPage()),
-    ChildRoute('/create', child: (_, __) => TeamPage()),
-    ChildRoute("/details", child: (_, __) => TeamPage(id: int.tryParse(Modular.args?.queryParams['id'] ?? "0")))
+    ChildRoute('/', child: (_, __) => const TeamsPage()),
+    ChildRoute('/create', child: (_, __) => const TeamPage()),
+    ChildRoute("/details",
+        child: (_, __) => TeamPage(id: int.tryParse(Modular.args?.queryParams['id'] ?? "0")))
   ];
 }

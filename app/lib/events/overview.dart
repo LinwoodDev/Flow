@@ -34,7 +34,7 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
       context: context,
       builder: (context) => Dialog(
           child: Container(
-              constraints: BoxConstraints(maxHeight: 750, maxWidth: 500),
+              constraints: const BoxConstraints(maxHeight: 750, maxWidth: 500),
               child: EventPage(isDesktop: true, isDialog: true, id: event?.id))));
 
   @override
@@ -43,8 +43,9 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
       StreamBuilder<List<Event>>(
         stream: service.onOpenedEvents(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting)
-            return Center(child: CircularProgressIndicator());
+          if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
           if (snapshot.hasError) return Text("Error: ${snapshot.error}");
           var events = snapshot.data!;
           return ListView.builder(
@@ -61,8 +62,9 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
       StreamBuilder<List<Event>>(
         stream: service.onPlannedEvents(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting)
-            return Center(child: CircularProgressIndicator());
+          if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
           if (snapshot.hasError) return Text("Error: ${snapshot.error}");
           var events = snapshot.data!;
           return ListView.builder(
@@ -79,8 +81,9 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
       StreamBuilder<List<Event>>(
         stream: service.onDoneEvents(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting)
-            return Center(child: CircularProgressIndicator());
+          if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
           if (snapshot.hasError) return Text("Error: ${snapshot.error}");
           var events = snapshot.data!;
           return ListView.builder(
@@ -98,15 +101,21 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
     ];
     return Scaffold(
         floatingActionButton: FloatingActionButton.extended(
-            onPressed: () => openDialog(null), label: Text("Create event"), icon: Icon(PhosphorIcons.plusLight)),
+            onPressed: () => openDialog(null),
+            label: const Text("Create event"),
+            icon: const Icon(PhosphorIcons.plusLight)),
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
         bottomNavigationBar: BottomNavigationBar(items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              activeIcon: Icon(PhosphorIcons.squareFill), icon: Icon(PhosphorIcons.squareLight), label: 'Opened'),
+              activeIcon: Icon(PhosphorIcons.squareFill),
+              icon: Icon(PhosphorIcons.squareLight),
+              label: 'Opened'),
           BottomNavigationBarItem(
-              activeIcon: Icon(PhosphorIcons.calendarFill), icon: Icon(PhosphorIcons.calendarLight), label: 'Planned'),
+              activeIcon: Icon(PhosphorIcons.calendarFill),
+              icon: Icon(PhosphorIcons.calendarLight),
+              label: 'Planned'),
           BottomNavigationBarItem(
               activeIcon: Icon(PhosphorIcons.checkSquareFill),
               icon: Icon(PhosphorIcons.checkSquareLight),

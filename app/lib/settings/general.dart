@@ -4,6 +4,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class GeneralSettingsPage extends StatefulWidget {
+  const GeneralSettingsPage({Key? key}) : super(key: key);
+
   @override
   _GeneralSettingsPageState createState() => _GeneralSettingsPageState();
 }
@@ -17,38 +19,38 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
         body: SingleChildScrollView(
             child: Column(children: [
           ListTile(
-              leading: Icon(PhosphorIcons.stackLight),
-              title: Text("License"),
+              leading: const Icon(PhosphorIcons.stackLight),
+              title: const Text("License"),
               onTap: () => launch("https://github.com/LinwoodCloud/Flow/blob/main/LICENSE")),
           ListTile(
-              leading: Icon(PhosphorIcons.codeLight),
-              title: Text("Code"),
+              leading: const Icon(PhosphorIcons.codeLight),
+              title: const Text("Code"),
               onTap: () => launch("https://github.com/LinwoodCloud/Flow")),
           ListTile(
-              leading: Icon(PhosphorIcons.usersLight),
-              title: Text("Discord"),
+              leading: const Icon(PhosphorIcons.usersLight),
+              title: const Text("Discord"),
               onTap: () => launch("https://discord.linwood.tk")),
           ListTile(
-              leading: Icon(PhosphorIcons.articleLight),
-              title: Text("Docs"),
+              leading: const Icon(PhosphorIcons.articleLight),
+              title: const Text("Docs"),
               onTap: () => launch("https://docs.flow.linwood.tk")),
           ListTile(
-              leading: Icon(PhosphorIcons.arrowCounterClockwiseLight),
-              title: Text("Changelog"),
+              leading: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
+              title: const Text("Changelog"),
               onTap: () => launch("https://docs.flow.linwood.tk/changelog")),
           ListTile(
-              leading: Icon(PhosphorIcons.identificationCardLight),
-              title: Text("Imprint"),
+              leading: const Icon(PhosphorIcons.identificationCardLight),
+              title: const Text("Imprint"),
               onTap: () => launch("https://codedoctor.tk/impress")),
           ListTile(
-              leading: Icon(PhosphorIcons.shieldLight),
-              title: Text("Privacy policy"),
+              leading: const Icon(PhosphorIcons.shieldLight),
+              title: const Text("Privacy policy"),
               onTap: () => launch("https://docs.flow.linwood.tk/privacypolicy")),
           ListTile(
-              leading: Icon(PhosphorIcons.infoLight),
-              title: Text("About"),
-              onTap: () =>
-                  showAboutDialog(context: context, applicationIcon: Image.asset("images/logo.png", height: 50))),
+              leading: const Icon(PhosphorIcons.infoLight),
+              title: const Text("About"),
+              onTap: () => showAboutDialog(
+                  context: context, applicationIcon: Image.asset("images/logo.png", height: 50))),
         ])));
   }
 }

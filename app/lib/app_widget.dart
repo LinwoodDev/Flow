@@ -5,10 +5,11 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class AppWidget extends StatelessWidget {
+  const AppWidget({Key? key}) : super(key: key);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Color color = Color.fromRGBO(124, 77, 255, 1);
+    Color color = const Color.fromRGBO(124, 77, 255, 1);
     return ValueListenableBuilder(
         valueListenable: Hive.box('appearance').listenable(),
         builder: (context, dynamic box, widget) {
@@ -28,16 +29,17 @@ class AppWidget extends StatelessWidget {
                 // is not restarted.
                 primarySwatch: createMaterialColor(color),
                 indicatorColor: color,
-                colorScheme: ColorScheme.light(primary: color, secondary: Color(0xFF64dd17)),
+                colorScheme: ColorScheme.light(primary: color, secondary: const Color(0xFF64dd17)),
                 visualDensity: VisualDensity.adaptivePlatformDensity),
             darkTheme: ThemeData(
                 fontFamily: "Comfortaa",
                 brightness: Brightness.dark,
                 primarySwatch: createMaterialColor(color),
                 indicatorColor: color,
-                colorScheme: ColorScheme.dark(primary: color, onPrimary: Colors.white, secondary: Color(0xFF64dd17)),
+                colorScheme: ColorScheme.dark(
+                    primary: color, onPrimary: Colors.white, secondary: const Color(0xFF64dd17)),
                 visualDensity: VisualDensity.adaptivePlatformDensity),
-            home: ConnectPage(),
+            home: const ConnectPage(),
           ).modular();
         });
   }
@@ -50,7 +52,7 @@ class AppWidget extends StatelessWidget {
     for (int i = 1; i < 10; i++) {
       strengths.add(0.1 * i);
     }
-    strengths.forEach((strength) {
+    for (var strength in strengths) {
       final double ds = 0.5 - strength;
       swatch[(strength * 1000).round()] = Color.fromRGBO(
         r + ((ds < 0 ? r : (255 - r)) * ds).round(),
@@ -58,7 +60,7 @@ class AppWidget extends StatelessWidget {
         b + ((ds < 0 ? b : (255 - b)) * ds).round(),
         1,
       );
-    });
+    }
     return MaterialColor(color.value, swatch);
   }
 }

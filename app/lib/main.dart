@@ -22,5 +22,5 @@ Future<void> main() async {
 
   setup();
 
-  runApp(ModularApp(module: AppModule(), child: AppWidget()));
+  runApp(ModularApp(module: AppModule(), child: const AppWidget()));
 }

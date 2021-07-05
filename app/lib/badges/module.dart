@@ -10,8 +10,9 @@ class BadgesModule extends Module {
   // Provide all the routes for your module
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/', child: (_, __) => BadgesPage()),
-    ChildRoute('/create', child: (_, __) => BadgePage()),
-    ChildRoute("/details", child: (_, __) => BadgePage(id: int.tryParse(Modular.args?.queryParams['id'] ?? "0")))
+    ChildRoute('/', child: (_, __) => const BadgesPage()),
+    ChildRoute('/create', child: (_, __) => const BadgePage()),
+    ChildRoute("/details",
+        child: (_, __) => BadgePage(id: int.tryParse(Modular.args?.queryParams['id'] ?? "0")))
   ];
 }

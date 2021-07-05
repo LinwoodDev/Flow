@@ -10,8 +10,9 @@ class EventsModule extends Module {
   // Provide all the routes for your module
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/', child: (_, __) => EventsPage()),
-    ChildRoute('/create', child: (_, __) => EventPage()),
-    ChildRoute("/details", child: (_, __) => EventPage(id: int.tryParse(Modular.args?.queryParams['id'] ?? "0")))
+    ChildRoute('/', child: (_, __) => const EventsPage()),
+    ChildRoute('/create', child: (_, __) => const EventPage()),
+    ChildRoute("/details",
+        child: (_, __) => EventPage(id: int.tryParse(Modular.args?.queryParams['id'] ?? "0")))
   ];
 }

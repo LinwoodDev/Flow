@@ -21,22 +21,24 @@ extension EventViewExtension on EventView {
   }
 
   String get name {
-    return this.toString();
+    return toString();
   }
 
   Widget buildWidget() {
     switch (this) {
       case EventView.list:
-        return EventsListView();
+        return const EventsListView();
       case EventView.calendar:
-        return EventsCalendarView();
+        return const EventsCalendarView();
       case EventView.overview:
-        return EventsOverviewView();
+        return const EventsOverviewView();
     }
   }
 }
 
 class EventsPage extends StatefulWidget {
+  const EventsPage({Key? key}) : super(key: key);
+
   @override
   _EventsPageState createState() => _EventsPageState();
 }
@@ -50,15 +52,17 @@ class _EventsPageState extends State<EventsPage> {
             page: RoutePages.events,
             pageTitle: "Events",
             actions: [
-              IconButton(onPressed: () {}, icon: Icon(PhosphorIcons.funnelLight)),
+              IconButton(onPressed: () {}, icon: const Icon(PhosphorIcons.funnelLight)),
               PopupMenuButton<EventView>(
                   initialValue: EventView.values[box.get("events", defaultValue: 0)!],
                   onSelected: (value) => box.put("events", value.index),
                   itemBuilder: (context) => EventView.values
                       .map((e) => PopupMenuItem(
                           value: e,
-                          child:
-                              ListTile(title: Text(e.name), leading: Icon(e.icon), selected: e == box.get("events"))))
+                          child: ListTile(
+                              title: Text(e.name),
+                              leading: Icon(e.icon),
+                              selected: e.index == box.get("events"))))
                       .toList())
             ],
             body: EventView.values[box.get("events", defaultValue: 0)!].buildWidget()));

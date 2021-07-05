@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ServersSettingsPage extends StatefulWidget {
+  const ServersSettingsPage({Key? key}) : super(key: key);
   @override
   _ServersSettingsPageState createState() => _ServersSettingsPageState();
 }
@@ -21,25 +22,27 @@ class _ServersSettingsPageState extends State<ServersSettingsPage> {
         pageTitle: "Servers",
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () => Modular.to.pushNamed("/session/connect"),
-            label: Text("Add server"),
-            icon: Icon(PhosphorIcons.plusLight)),
+            label: const Text("Add server"),
+            icon: const Icon(PhosphorIcons.plusLight)),
         body: ValueListenableBuilder<Box<String>>(
             valueListenable: Hive.box<String>('servers').listenable(),
             builder: (context, box, _) => FutureBuilder<List<Map<String, dynamic>?>>(
-                future: Future.wait(box.values.map((e) => http.get(Uri.parse(e)).then<Map<String, dynamic>?>((value) {
-                      try {
-                        return json.decode(value.body);
-                      } catch (e) {
-                        print("Decode Error: $e");
-                        return null;
-                      }
-                    }).onError((e, stackTrace) {
-                      print("Error $e");
-                      return null;
-                    }))),
+                future: Future.wait(box.values
+                    .map((e) => http.get(Uri.parse(e)).then<Map<String, dynamic>?>((value) {
+                          try {
+                            return json.decode(value.body);
+                          } catch (e) {
+                            print("Decode Error: $e");
+                            return null;
+                          }
+                        }).onError((e, stackTrace) {
+                          print("Error $e");
+                          return null;
+                        }))),
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting)
-                    return Center(child: CircularProgressIndicator());
+                  if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
                   if (snapshot.hasError) return Text("Error: ${snapshot.error}");
                   var data = snapshot.data!;
                   return ListView.builder(
@@ -54,11 +57,11 @@ class _ServersSettingsPageState extends State<ServersSettingsPage> {
                             title: Text(current?['name'] ?? ""),
                             subtitle: Text(box.getAt(index) ?? ""),
                             trailing: IconButton(
-                                icon: Icon(PhosphorIcons.gearLight),
+                                icon: const Icon(PhosphorIcons.gearLight),
                                 onPressed: () {
-                                  Modular.to.pushNamed(
-                                      Uri(pathSegments: ["", "admin"], queryParameters: {"id": index.toString()})
-                                          .toString());
+                                  Modular.to.pushNamed(Uri(
+                                      pathSegments: ["", "admin"],
+                                      queryParameters: {"id": index.toString()}).toString());
                                 })),
                       );
                     },

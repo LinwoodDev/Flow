@@ -8,6 +8,8 @@ import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class AdminPage extends StatefulWidget {
+  const AdminPage({Key? key}) : super(key: key);
+
   @override
   _AdminPageState createState() => _AdminPageState();
 }
@@ -18,12 +20,13 @@ class _AdminPageState extends State<AdminPage> {
 
   @override
   Widget build(BuildContext context) {
-    var server = Hive.box<String>('servers').getAt(int.tryParse(Modular.args?.queryParams['id'] ?? '0') ?? 0)!;
+    var server = Hive.box<String>('servers')
+        .getAt(int.tryParse(Modular.args?.queryParams['id'] ?? '0') ?? 0)!;
 
     return DefaultTabController(
         length: 4,
         child: Scaffold(
-            appBar: AppBar(title: Text("Admin Dashboard")),
+            appBar: AppBar(title: const Text("Admin Dashboard")),
             body: Scrollbar(
               controller: _scrollController,
               child: SingleChildScrollView(
@@ -31,27 +34,33 @@ class _AdminPageState extends State<AdminPage> {
                 child: Column(children: [
                   ExpansionTile(
                       initiallyExpanded: true,
-                      title: Text("General"),
-                      leading: Icon(PhosphorIcons.wrenchLight),
+                      title: const Text("General"),
+                      leading: const Icon(PhosphorIcons.wrenchLight),
                       children: [GeneralAdminSettingsPage(server: server)]),
                   ExpansionTile(
                       initiallyExpanded: true,
-                      title: Text("Events"),
+                      title: const Text("Events"),
                       children: [EventsAdminSettingsPage(server: server)],
-                      leading: Icon(PhosphorIcons.calendarBlankLight),
-                      trailing: Switch(onChanged: (bool value) => setState(() => events = value), value: events)),
+                      leading: const Icon(PhosphorIcons.calendarBlankLight),
+                      trailing: Switch(
+                          onChanged: (bool value) => setState(() => events = value),
+                          value: events)),
                   ExpansionTile(
                       initiallyExpanded: true,
-                      title: Text("Places"),
+                      title: const Text("Places"),
                       children: [PlacesAdminSettingsPage(server: server)],
-                      leading: Icon(PhosphorIcons.mapPinLight),
-                      trailing: Switch(onChanged: (bool value) => setState(() => places = value), value: places)),
+                      leading: const Icon(PhosphorIcons.mapPinLight),
+                      trailing: Switch(
+                          onChanged: (bool value) => setState(() => places = value),
+                          value: places)),
                   ExpansionTile(
                       initiallyExpanded: true,
-                      title: Text("Dev-Doctor"),
+                      title: const Text("Dev-Doctor"),
                       children: [DevDoctorAdminSettingsPage(server: server)],
-                      leading: Icon(PhosphorIcons.graduationCapLight),
-                      trailing: Switch(onChanged: (bool value) => setState(() => devDoctor = value), value: devDoctor))
+                      leading: const Icon(PhosphorIcons.graduationCapLight),
+                      trailing: Switch(
+                          onChanged: (bool value) => setState(() => devDoctor = value),
+                          value: devDoctor))
                 ]),
               ),
             )));

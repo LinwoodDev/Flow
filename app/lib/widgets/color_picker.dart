@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-typedef void ColorCallback(Color color);
+typedef ColorCallback = void Function(Color color);
 
 class ColorPicker extends StatefulWidget {
   final ColorCallback onClick;
@@ -19,7 +19,7 @@ class _ColorPickerState extends State<ColorPicker> {
   late TextEditingController _blueController;
 
   final ScrollController _scrollController = ScrollController();
-  static const colors = const [
+  static const colors = [
     Colors.white,
     Colors.pink,
     Colors.red,
@@ -64,7 +64,7 @@ class _ColorPickerState extends State<ColorPicker> {
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(8.0),
-        constraints: BoxConstraints(maxWidth: 1000),
+        constraints: const BoxConstraints(maxWidth: 1000),
         height: 350,
         child: Row(children: [
           Expanded(
@@ -82,7 +82,7 @@ class _ColorPickerState extends State<ColorPicker> {
                           onSubmitted: (value) => changeColor(red: int.tryParse(value)))),
                   Expanded(
                     child: SliderTheme(
-                        data: SliderThemeData(thumbColor: Colors.red),
+                        data: const SliderThemeData(thumbColor: Colors.red),
                         child: Slider(
                             value: color.red.toDouble(),
                             min: 0,
@@ -103,7 +103,7 @@ class _ColorPickerState extends State<ColorPicker> {
                           onSubmitted: (value) => changeColor(green: int.tryParse(value)))),
                   Expanded(
                     child: SliderTheme(
-                        data: SliderThemeData(thumbColor: Colors.green),
+                        data: const SliderThemeData(thumbColor: Colors.green),
                         child: Slider(
                             value: color.green.toDouble(),
                             min: 0,
@@ -124,7 +124,7 @@ class _ColorPickerState extends State<ColorPicker> {
                           onSubmitted: (value) => changeColor(blue: int.tryParse(value)))),
                   Expanded(
                     child: SliderTheme(
-                        data: SliderThemeData(thumbColor: Colors.blue),
+                        data: const SliderThemeData(thumbColor: Colors.blue),
                         child: Slider(
                             value: color.blue.toDouble(),
                             min: 0,
@@ -156,7 +156,8 @@ class _ColorPickerState extends State<ColorPicker> {
                                   decoration: BoxDecoration(shape: BoxShape.circle, color: color),
                                   height: 50,
                                   width: 50),
-                              onTap: () => changeColor(red: color.red, green: color.green, blue: color.blue)),
+                              onTap: () => changeColor(
+                                  red: color.red, green: color.green, blue: color.blue)),
                         );
                       })),
                 ),

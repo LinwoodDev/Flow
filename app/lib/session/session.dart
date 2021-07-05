@@ -3,6 +3,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class SessionPage extends StatefulWidget {
+  const SessionPage({Key? key}) : super(key: key);
+
   @override
   _SessionPageState createState() => _SessionPageState();
 }
@@ -16,7 +18,7 @@ class _SessionPageState extends State<SessionPage> {
         initialIndex: registerRoute ? 1 : 0,
         child: Scaffold(
             appBar: AppBar(
-                title: Text("Session"),
+                title: const Text("Session"),
                 bottom: TabBar(
                     onTap: (index) async {
                       Modular.to.pushReplacementNamed(Uri(
@@ -25,7 +27,10 @@ class _SessionPageState extends State<SessionPage> {
                           .toString());
                       setState(() {});
                     },
-                    tabs: [Tab(icon: Icon(PhosphorIcons.signInLight)), Tab(icon: Icon(PhosphorIcons.userPlusLight))])),
+                    tabs: const [
+                      Tab(icon: Icon(PhosphorIcons.signInLight)),
+                      Tab(icon: Icon(PhosphorIcons.userPlusLight))
+                    ])),
             body: RouterOutlet()));
   }
 }

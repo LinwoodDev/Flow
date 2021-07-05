@@ -49,8 +49,9 @@ class _TeamPageState extends State<TeamPage> {
             stream: service.onTeam(widget.id!),
             builder: (context, snapshot) {
               if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-              if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
-                return Center(child: CircularProgressIndicator());
+              if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData) {
+                return const Center(child: CircularProgressIndicator());
+              }
               return _buildView(snapshot.data);
             });
   }
@@ -63,22 +64,26 @@ class _TeamPageState extends State<TeamPage> {
     return DefaultTabController(
         length: 2,
         child: Scaffold(
-            appBar: AppBar(title: Text(create ? "Create team" : team!.name), bottom: _buildTabBar()),
+            appBar:
+                AppBar(title: Text(create ? "Create team" : team!.name), bottom: _buildTabBar()),
             floatingActionButton: FloatingActionButton(
                 heroTag: "team-check",
-                child: Icon(PhosphorIcons.checkLight),
+                child: const Icon(PhosphorIcons.checkLight),
                 onPressed: () {
                   if (create) {
-                    service.createTeam(
-                        Team(_nameController.text, description: _descriptionController.text, color: color.value));
+                    service.createTeam(Team(_nameController.text,
+                        description: _descriptionController.text, color: color.value));
                     if (widget.isDesktop) {
                       _nameController.clear();
                       _descriptionController.clear();
                       setState(() => color = Colors.white);
                     }
-                  } else
+                  } else {
                     service.updateTeam(team!.copyWith(
-                        name: _nameController.text, color: color.value, description: _descriptionController.text));
+                        name: _nameController.text,
+                        color: color.value,
+                        description: _descriptionController.text));
+                  }
                   if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
                 }),
             body: Column(children: [
@@ -88,10 +93,11 @@ class _TeamPageState extends State<TeamPage> {
                   child: ElevatedButton.icon(
                       onPressed: () => Modular.to.pushNamed(widget.id == null
                           ? "/teams/create"
-                          : Uri(pathSegments: ["", "teams", "details"], queryParameters: {"id": widget.id.toString()})
-                              .toString()),
-                      icon: Icon(PhosphorIcons.arrowSquareOutLight),
-                      label: Text("OPEN IN NEW WINDOW")),
+                          : Uri(
+                              pathSegments: ["", "teams", "details"],
+                              queryParameters: {"id": widget.id.toString()}).toString()),
+                      icon: const Icon(PhosphorIcons.arrowSquareOutLight),
+                      label: const Text("OPEN IN NEW WINDOW")),
                 ),
               Expanded(
                   child: TabBarView(children: [
@@ -99,26 +105,29 @@ class _TeamPageState extends State<TeamPage> {
                     child: Align(
                         alignment: Alignment.topCenter,
                         child: Container(
-                            constraints: BoxConstraints(maxWidth: 800),
+                            constraints: const BoxConstraints(maxWidth: 800),
                             child: Column(children: [
-                              SizedBox(height: 50),
+                              const SizedBox(height: 50),
                               DropdownButtonFormField<String>(
                                   value: server,
-                                  decoration: InputDecoration(labelText: "Server", border: OutlineInputBorder()),
+                                  decoration: const InputDecoration(
+                                      labelText: "Server", border: OutlineInputBorder()),
                                   onChanged: (value) => setState(() => server = value),
                                   items: [
                                     ...Hive.box<String>('servers')
                                         .values
                                         .map((e) => DropdownMenuItem(child: Text(e), value: e)),
-                                    DropdownMenuItem(child: Text("Local"), value: "")
+                                    const DropdownMenuItem(child: Text("Local"), value: "")
                                   ]),
-                              SizedBox(height: 50),
+                              const SizedBox(height: 50),
                               TextField(
-                                  decoration: InputDecoration(labelText: "Name", icon: Icon(PhosphorIcons.userLight)),
+                                  decoration: const InputDecoration(
+                                      labelText: "Name", icon: Icon(PhosphorIcons.userLight)),
                                   controller: _nameController),
                               TextField(
-                                  decoration: InputDecoration(
-                                      labelText: "Description", icon: Icon(PhosphorIcons.chatTextLight)),
+                                  decoration: const InputDecoration(
+                                      labelText: "Description",
+                                      icon: Icon(PhosphorIcons.chatTextLight)),
                                   maxLines: null,
                                   controller: _descriptionController,
                                   minLines: 3)
@@ -130,7 +139,7 @@ class _TeamPageState extends State<TeamPage> {
             ])));
   }
 
-  PreferredSizeWidget _buildTabBar() => TabBar(tabs: [
+  PreferredSizeWidget _buildTabBar() => const TabBar(tabs: [
         Tab(text: "General", icon: Icon(PhosphorIcons.wrenchLight)),
         Tab(text: "Color", icon: Icon(PhosphorIcons.eyedropperLight))
       ]);

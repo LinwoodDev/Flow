@@ -19,14 +19,14 @@ class AppModule extends Module {
   // Provide all the routes for your module
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/', child: (_, __) => HomePage()),
+    ChildRoute('/', child: (_, __) => const HomePage()),
     ModuleRoute('/events', module: EventsModule()),
     ModuleRoute('/tasks', module: TasksModule()),
     ModuleRoute('/teams', module: TeamsModule()),
     ModuleRoute('/users', module: UsersModule()),
     ModuleRoute('/seasons', module: SeasonsModule()),
     ModuleRoute('/badges', module: BadgesModule()),
-    ChildRoute('/admin', child: (_, __) => AdminPage()),
+    ChildRoute('/admin', child: (_, __) => const AdminPage()),
     ModuleRoute('/session', module: SessionModule()),
     ModuleRoute("/settings", module: SettingsModule())
   ];
