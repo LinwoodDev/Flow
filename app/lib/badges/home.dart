@@ -61,7 +61,7 @@ class _BadgesPageState extends State<BadgesPage> {
                                     return Text("Error: ${snapshot.error}");
                                   }
                                   if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData) {
-                                    return Center(child: CircularProgressIndicator());
+                                    return const Center(child: CircularProgressIndicator());
                                   }
                                   var badges = snapshot.data!;
                                   return Column(
