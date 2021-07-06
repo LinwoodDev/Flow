@@ -67,6 +67,16 @@ class LocalService extends ApiService {
       .then((value) => value == null ? null : User.fromJson(Map.from(value.value)..["id"] = value.key));
 
   @override
+  Future<User?> fetchUserByEmail(String email) => usersStore
+      .findFirst(db, finder: Finder(filter: Filter.equals("email", email)))
+      .then((value) => value == null ? null : User.fromJson(Map.from(value.value)..["id"] = value.key));
+
+  @override
+  Future<User?> fetchUserByName(String name) => usersStore
+      .findFirst(db, finder: Finder(filter: Filter.equals("name", name)))
+      .then((value) => value == null ? null : User.fromJson(Map.from(value.value)..["id"] = value.key));
+
+  @override
   Future<void> updateUser(User user) =>
       usersStore.update(db, user.toJson(), finder: Finder(filter: Filter.byKey(user.id)));
 
@@ -97,6 +107,10 @@ class LocalService extends ApiService {
   Future<List<Event>> fetchEvents() => eventsStore
       .find(db)
       .then((value) => value.map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key)).toList());
+
+  @override
+  Future<bool> hasUser(User user) => fetchUserByEmail(user.email).then(
+      (emailVerify) => fetchUserByName(user.name).then((nameVerify) => (emailVerify != null || nameVerify != null)));
 
   @override
   Future<List<Event>> fetchOpenedEvents() => eventsStore

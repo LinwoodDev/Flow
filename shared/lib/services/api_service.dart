@@ -28,6 +28,12 @@ abstract class ApiService {
 
   Future<User?> fetchUser(int id);
 
+  Future<User?> fetchUserByName(String name);
+
+  Future<User?> fetchUserByEmail(String email);
+
+  Future<bool> hasUser(User user);
+
   Future<void> updateUser(User user);
 
   Future<void> deleteUser(int id);

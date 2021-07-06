@@ -10,3 +10,6 @@ doc/api/
 
 # Compiled
 bin/flow_server.exe
+
+# Database
+linwood_flow.db

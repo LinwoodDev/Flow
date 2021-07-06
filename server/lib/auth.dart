@@ -16,6 +16,7 @@ class AuthService {
     if (user.email.isEmpty || user.password.isEmpty) {
       return Response(HttpStatus.badRequest, body: "Please provide your email and password");
     }
+
     return Response.ok("Register endpoint");
   }
 

@@ -183,6 +183,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  get_it:
+    dependency: "direct main"
+    description:
+      name: get_it
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.1.4"
   glob:
     dependency: transitive
     description:
@@ -324,7 +331,7 @@ packages:
     source: hosted
     version: "1.0.0"
   sembast:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: sembast
       url: "https://pub.dartlang.org"
