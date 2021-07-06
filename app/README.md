@@ -29,5 +29,3 @@ You don't need a server. Everything can be saved on the local device or in the c
 * **To download the app**, visit the [download page](https://docs.flow.linwood.tk/download)
 * **To setup your own server**, [download the binaries](https://docs.flow.linwood.tk/download) and [follow the guide](https://docs.flow.linwood.tk/server)
 * **To contribute**, visit the [contribution guide](CONTRIBUTING.md)
-
-Read the contributing guide [here](CONTRIBUTING.md).
