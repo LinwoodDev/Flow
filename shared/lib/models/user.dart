@@ -42,7 +42,7 @@ class User extends Equatable {
         bio = json['bio'] ?? '',
         email = json['email'] ?? '',
         password = json['password'] ?? '',
-        state = UserState.values[json['state']];
+        state = UserState.values[json['state'] ?? 0];
 
   Map<String, dynamic> toJson({bool addSecrets = false, bool addId = false}) =>
       {'name': name, 'display-name': displayName, 'email': email, 'bio': bio, 'state': state.index}
