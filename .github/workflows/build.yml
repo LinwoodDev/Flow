@@ -1,4 +1,4 @@
-name: Flutter build
+name: Build
 
 on: [ push ]
 
