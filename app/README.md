@@ -8,6 +8,10 @@
 
 [![GitHub License badge](https://img.shields.io/github/license/LinwoodCloud/Flow?style=for-the-badge)](https://github.com/LinwoodCloud/Flow/blob/main/LICENSE)
 [![Discord badge](https://img.shields.io/discord/735424757142519848?style=for-the-badge)](https://discord.linwood.tk)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/LinwoodCloud/Flow/Build?label=build&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/LinwoodCloud/Flow/Documentation?label=docs&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/LinwoodCloud/Flow/Tests?label=tests&style=for-the-badge)
+
 
 ## Introduction
 
@@ -19,49 +23,11 @@ add it to the server list in the settings.
 ### Manage your time everywhere
 
 You don't need a server. Everything can be saved on the local device or in the cloud.
+## Getting started
 
-### Try it
-
-Click [here](https://flow.linwood.tk) and try it. You have nothing to lose!
-
-## Installation
-
-### Mobile
-
-#### Android
-
-- [Stable](https://github.com/LinwoodCloud/Flow/releases/download/release/app-release.apk)
-- [Preview](https://github.com/LinwoodCloud/Flow/releases/download/preview/app-release.apk)
-
-##### Stores
-
-(coming soon)
-
-#### iOS
-
-> Currently not available.
-
-### Web
-
-- [Stable](https://flow.linwood.tk)
-- [Preview](https://preview.flow.linwood.tk)
-
-### Desktop
-
-#### Windows
-
-- [Stable](https://github.com/LinwoodCloud/Flow/releases/download/release/windows.zip)
-- [Preview](https://github.com/LinwoodCloud/Flow/releases/download/preview/windows.zip)
-
-#### Linux
-
-- [Stable](https://github.com/LinwoodCloud/Flow/releases/download/release/linux.zip)
-- [Preview](https://github.com/LinwoodCloud/Flow/releases/download/preview/linux.zip)
-
-#### MacOS
-
-> Currently not available.
-
-## Contributung
+* **Try the app** [in the web](https://flow.linwood.tk). You have nothing to lose!
+* **To download the app**, visit the [download page](https://docs.flow.linwood.tk/download)
+* **To setup your own server**, [download the binaries](https://docs.flow.linwood.tk/download) and [follow the guide](https://docs.flow.linwood.tk/server)
+* **To contribute**, visit the [contribution guide](CONTRIBUTING.md)
 
 Read the contributing guide [here](CONTRIBUTING.md).
