@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:flow_server/home.dart';
+import 'package:flow_server/routes/home.dart';
+import 'package:flow_server/services/jwt.dart';
 import 'package:get_it/get_it.dart';
 import 'package:path/path.dart';
 import 'package:sembast/sembast_io.dart';
@@ -12,11 +13,11 @@ Future<void> main(List<String> arguments) async {
   final server =
       await shelf_io.serve(service.handler, 'localhost', int.fromEnvironment('flow.port', defaultValue: 3000));
   server.autoCompress = true;
-  await initDb();
+  await initServices();
   print('Server running on localhost:${server.port}');
 }
 
-Future<void> initDb() async {
+Future<void> initServices() async {
   // get the application documents directory
   var dir = Directory.current;
 // make sure it exists
@@ -26,4 +27,7 @@ Future<void> initDb() async {
 // open the database
   var db = await databaseFactoryIo.openDatabase(dbPath);
   GetIt.I.registerSingleton(LocalService(db));
+
+  // JWT Service
+  GetIt.I.registerSingleton(JWTService(Platform.environment['flow.secret'] ?? ''));
 }

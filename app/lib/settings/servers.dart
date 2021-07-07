@@ -21,24 +21,23 @@ class _ServersSettingsPageState extends State<ServersSettingsPage> {
         page: RoutePages.servers,
         pageTitle: "Servers",
         floatingActionButton: FloatingActionButton.extended(
-            onPressed: () => Modular.to.pushNamed("/session/connect"),
+            onPressed: () => Modular.to.pushNamed("/connect"),
             label: const Text("Add server"),
             icon: const Icon(PhosphorIcons.plusLight)),
         body: ValueListenableBuilder<Box<String>>(
             valueListenable: Hive.box<String>('servers').listenable(),
             builder: (context, box, _) => FutureBuilder<List<Map<String, dynamic>?>>(
-                future: Future.wait(box.values
-                    .map((e) => http.get(Uri.parse(e)).then<Map<String, dynamic>?>((value) {
-                          try {
-                            return json.decode(value.body);
-                          } catch (e) {
-                            print("Decode Error: $e");
-                            return null;
-                          }
-                        }).onError((e, stackTrace) {
-                          print("Error $e");
-                          return null;
-                        }))),
+                future: Future.wait(box.values.map((e) => http.get(Uri.parse(e)).then<Map<String, dynamic>?>((value) {
+                      try {
+                        return json.decode(value.body);
+                      } catch (e) {
+                        print("Decode Error: $e");
+                        return null;
+                      }
+                    }).onError((e, stackTrace) {
+                      print("Error $e");
+                      return null;
+                    }))),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
@@ -59,9 +58,9 @@ class _ServersSettingsPageState extends State<ServersSettingsPage> {
                             trailing: IconButton(
                                 icon: const Icon(PhosphorIcons.gearLight),
                                 onPressed: () {
-                                  Modular.to.pushNamed(Uri(
-                                      pathSegments: ["", "admin"],
-                                      queryParameters: {"id": index.toString()}).toString());
+                                  Modular.to.pushNamed(
+                                      Uri(pathSegments: ["", "admin"], queryParameters: {"id": index.toString()})
+                                          .toString());
                                 })),
                       );
                     },

@@ -10,7 +10,7 @@ class GeneralAdminSettingsPage extends StatelessWidget {
     return Align(
         alignment: Alignment.topCenter,
         child: Container(
-            constraints: const BoxConstraints(maxWidth: 1000),
+            constraints: const BoxConstraints(maxWidth: 800),
             padding: const EdgeInsets.all(16.0),
             child: Column(children: const [
               TextField(decoration: InputDecoration(labelText: "Name")),

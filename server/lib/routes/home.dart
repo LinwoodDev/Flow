@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -11,10 +12,12 @@ class Service {
   // Handlers can be asynchronous (returning `FutureOr` is also allowed).
   @Route.get('/')
   Future<Response> _info(Request request) async {
-    return Response.ok(json.encode({
-      'name': 'Linwood-Flow',
-      'applications': ['events', 'teams', 'dev-doctor']
-    }));
+    return Response.ok(
+        json.encode({
+          'name': 'Linwood-Flow',
+          'applications': ['events', 'teams', 'dev-doctor']
+        }),
+        headers: {HttpHeaders.contentTypeHeader: ContentType.json.mimeType});
   }
 
   @Route.mount('/auth/')

@@ -9,6 +9,7 @@ class User extends Equatable {
   final String bio;
   final String email;
   final String password;
+  final String salt;
   final UserState state;
 
   User(this.name,
@@ -17,6 +18,7 @@ class User extends Equatable {
       this.bio = '',
       this.email = '',
       this.password = '',
+      this.salt = '',
       this.state = UserState.active});
 
   User copyWith(
@@ -25,6 +27,7 @@ class User extends Equatable {
           String? bio,
           String? email,
           String? password,
+          String? salt,
           UserState? state,
           int? id}) =>
       User(name ?? this.name,
@@ -33,7 +36,8 @@ class User extends Equatable {
           displayName: displayName ?? this.displayName,
           bio: bio ?? this.bio,
           email: email ?? this.email,
-          password: password ?? this.password);
+          password: password ?? this.password,
+          salt: salt ?? this.salt);
 
   User.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -42,11 +46,12 @@ class User extends Equatable {
         bio = json['bio'] ?? '',
         email = json['email'] ?? '',
         password = json['password'] ?? '',
-        state = UserState.values[json['state'] ?? 0];
+        state = UserState.values[json['state'] ?? 0],
+        salt = json['salt'] ?? '';
 
   Map<String, dynamic> toJson({bool addSecrets = false, bool addId = false}) =>
       {'name': name, 'display-name': displayName, 'email': email, 'bio': bio, 'state': state.index}
-        ..addAll(addSecrets ? {'password': password} : {})
+        ..addAll(addSecrets ? {'password': password, 'salt': salt} : {})
         ..addAll(addId ? {'id': id} : {});
 
   @override

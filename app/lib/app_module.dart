@@ -4,7 +4,7 @@ import 'package:flow_app/badges/module.dart';
 import 'package:flow_app/events/module.dart';
 import 'package:flow_app/home.dart';
 import 'package:flow_app/seasons/module.dart';
-import 'package:flow_app/session/module.dart';
+import 'package:flow_app/session/connect.dart';
 import 'package:flow_app/settings/module.dart';
 import 'package:flow_app/tasks/module.dart';
 import 'package:flow_app/teams/module.dart';
@@ -27,7 +27,7 @@ class AppModule extends Module {
     ModuleRoute('/seasons', module: SeasonsModule()),
     ModuleRoute('/badges', module: BadgesModule()),
     ChildRoute('/admin', child: (_, __) => const AdminPage()),
-    ModuleRoute('/session', module: SessionModule()),
+    ChildRoute('/connect', child: (_, __) => const ConnectPage()),
     ModuleRoute("/settings", module: SettingsModule())
   ];
 }

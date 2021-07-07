@@ -8,6 +8,7 @@ import 'package:shared/models/task.dart';
 import 'package:shared/models/team.dart';
 import 'package:shared/models/user.dart';
 
+import '../utils.dart';
 import 'api_service.dart';
 
 class LocalService extends ApiService {
@@ -55,7 +56,9 @@ class LocalService extends ApiService {
   final usersStore = intMapStoreFactory.store(usersStoreName);
 
   @override
-  Future<User> createUser(User user) => usersStore.add(db, user.toJson()).then((value) => user.copyWith(id: value));
+  Future<User> createUser(User user) => usersStore
+      .add(db, user.toJson())
+      .then((value) => user.copyWith(id: value, password: hashPassword(user.password, generateSalt())));
 
   @override
   Future<List<User>> fetchUsers() =>

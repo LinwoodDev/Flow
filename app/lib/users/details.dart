@@ -3,8 +3,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/services/api_service.dart';
 import 'package:shared/models/user.dart';
+import 'package:shared/services/api_service.dart';
 import 'package:shared/services/local_service.dart';
 
 typedef OnUserChanged = void Function(int? id);
@@ -104,17 +104,19 @@ class _UserPageState extends State<UserPage> {
                           constraints: const BoxConstraints(maxWidth: 800),
                           child: Column(children: [
                             const SizedBox(height: 50),
-                            DropdownButtonFormField<String>(
-                                value: server,
-                                decoration: const InputDecoration(labelText: "Server", border: OutlineInputBorder()),
-                                onChanged: (value) => setState(() => server = value),
-                                items: [
-                                  ...Hive.box<String>('servers')
-                                      .values
-                                      .map((e) => DropdownMenuItem(child: Text(e), value: e)),
-                                  const DropdownMenuItem(child: Text("Local"), value: "")
-                                ]),
-                            const SizedBox(height: 50),
+                            if (user == null) ...[
+                              DropdownButtonFormField<String>(
+                                  value: server,
+                                  decoration: const InputDecoration(labelText: "Server", border: OutlineInputBorder()),
+                                  onChanged: (value) => server = value,
+                                  items: [
+                                    ...Hive.box<String>('servers')
+                                        .values
+                                        .map((e) => DropdownMenuItem(child: Text(e), value: e)),
+                                    const DropdownMenuItem(child: Text("Local"), value: "")
+                                  ]),
+                              const SizedBox(height: 50)
+                            ],
                             TextField(
                                 decoration: const InputDecoration(
                                     labelText: "Name", icon: Icon(PhosphorIcons.userLight), filled: true),

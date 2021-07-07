@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  final String address;
+
+  const LoginPage({Key? key, required this.address}) : super(key: key);
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late String url;
   late TextEditingController _urlController;
 
   @override
   void initState() {
     super.initState();
 
-    url = Modular.args?.queryParams['url'] ?? "";
-    _urlController = TextEditingController(text: url);
+    _urlController = TextEditingController(text: widget.address);
   }
 
   @override
@@ -28,14 +27,16 @@ class _LoginPageState extends State<LoginPage> {
           child: Form(
               child: Center(
                   child: Container(
-            constraints: const BoxConstraints(maxWidth: 1000),
+            constraints: const BoxConstraints(maxWidth: 800),
             child: Column(
               children: [
+                const SizedBox(height: 20),
                 TextField(
                     controller: _urlController,
                     readOnly: true,
                     keyboardType: TextInputType.url,
                     decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
                         labelText: "URL",
                         hintText: "https://example.com",
                         prefixIcon: Icon(PhosphorIcons.linkLight))),
@@ -43,17 +44,18 @@ class _LoginPageState extends State<LoginPage> {
                 TextFormField(
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
+                        filled: true,
                         labelText: "Email",
                         hintText: "email@example.com",
                         prefixIcon: Icon(PhosphorIcons.envelopeLight))),
+                const SizedBox(height: 20),
                 TextFormField(
                     decoration: const InputDecoration(
-                        labelText: "Password", prefixIcon: Icon(PhosphorIcons.lockLight)))
+                        filled: true, labelText: "Password", prefixIcon: Icon(PhosphorIcons.lockLight)))
               ],
             ),
           ))),
         )),
-        floatingActionButton:
-            FloatingActionButton(child: const Icon(PhosphorIcons.checkLight), onPressed: () {}));
+        floatingActionButton: FloatingActionButton(child: const Icon(PhosphorIcons.checkLight), onPressed: () {}));
   }
 }

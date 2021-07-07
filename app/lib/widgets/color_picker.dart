@@ -64,7 +64,7 @@ class _ColorPickerState extends State<ColorPicker> {
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(8.0),
-        constraints: const BoxConstraints(maxWidth: 1000),
+        constraints: const BoxConstraints(maxWidth: 800),
         height: 350,
         child: Row(children: [
           Expanded(
@@ -156,8 +156,7 @@ class _ColorPickerState extends State<ColorPicker> {
                                   decoration: BoxDecoration(shape: BoxShape.circle, color: color),
                                   height: 50,
                                   width: 50),
-                              onTap: () => changeColor(
-                                  red: color.red, green: color.green, blue: color.blue)),
+                              onTap: () => changeColor(red: color.red, green: color.green, blue: color.blue)),
                         );
                       })),
                 ),
