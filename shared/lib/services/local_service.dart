@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:sembast/sembast.dart';
+import 'package:shared/exceptions/input.dart';
 import 'package:shared/models/badge.dart';
 import 'package:shared/models/event.dart';
 import 'package:shared/models/season.dart';
@@ -56,9 +57,19 @@ class LocalService extends ApiService {
   final usersStore = intMapStoreFactory.store(usersStoreName);
 
   @override
-  Future<User> createUser(User user) => usersStore
-      .add(db, user.toJson())
-      .then((value) => user.copyWith(id: value, password: hashPassword(user.password, generateSalt())));
+  Future<User> createUser(User user) async {
+    var errors = <InputError>[];
+    if (user.name.isEmpty) errors.add(InputError("name.empty"));
+    if (user.email.isEmpty) errors.add(InputError("email.empty"));
+    if (errors.isNotEmpty) throw InputException(errors);
+    if (await fetchUserByName(user.name) != null) errors.add(InputError("name.exist"));
+    if (await fetchUserByEmail(user.email) != null) errors.add(InputError("email.exist"));
+    if (errors.isNotEmpty) throw InputException(errors);
+    var salt = generateSalt();
+    return usersStore
+        .add(db, user.copyWith(password: hashPassword(user.password, salt), salt: salt).toJson(addSecrets: true))
+        .then((value) => user.copyWith(id: value));
+  }
 
   @override
   Future<List<User>> fetchUsers() =>
@@ -80,11 +91,19 @@ class LocalService extends ApiService {
       .then((value) => value == null ? null : User.fromJson(Map.from(value.value)..["id"] = value.key));
 
   @override
-  Future<void> updateUser(User user) =>
-      usersStore.update(db, user.toJson(), finder: Finder(filter: Filter.byKey(user.id)));
+  Future<void> updateUser(User user) async {
+    if (user.id == null) throw InputException([InputError("empty")]);
+
+    if (await usersStore.update(db, user.toJson(), finder: Finder(filter: Filter.byKey(user.id))) ==
+        await usersStore.count(db)) throw InputException([InputError("invalid")]);
+  }
 
   @override
-  Future<void> deleteUser(int id) => usersStore.delete(db, finder: Finder(filter: Filter.byKey(id)));
+  Future<void> deleteUser(int id) async {
+    if (await usersStore.delete(db, finder: Finder(filter: Filter.byKey(id))) == await usersStore.count(db)) {
+      throw InputException([InputError("invalid")]);
+    }
+  }
 
   @override
   Stream<List<User>> onUsers() => usersStore

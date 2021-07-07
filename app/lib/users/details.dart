@@ -3,6 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:shared/exceptions/input.dart';
 import 'package:shared/models/user.dart';
 import 'package:shared/services/api_service.dart';
 import 'package:shared/services/local_service.dart';
@@ -77,8 +78,20 @@ class _UserPageState extends State<UserPage> {
             child: const Icon(PhosphorIcons.checkLight),
             onPressed: () {
               if (create) {
-                service.createUser(User(_nameController.text,
-                    bio: _bioController.text, displayName: _displayNameController.text, email: _emailController.text));
+                try {
+                  service.createUser(User(_nameController.text,
+                      bio: _bioController.text,
+                      displayName: _displayNameController.text,
+                      email: _emailController.text));
+                } on InputException catch (e) {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: const Text("Error while creating an user"),
+                            content: Text(e.toString()),
+                            actions: [TextButton(child: const Text("CLOSE"), onPressed: () => Modular.to.pop())],
+                          ));
+                }
                 if (widget.isDesktop) {
                   _nameController.clear();
                   _bioController.clear();
@@ -86,11 +99,21 @@ class _UserPageState extends State<UserPage> {
                   _emailController.clear();
                 }
               } else {
-                service.updateUser(user!.copyWith(
-                    name: _nameController.text,
-                    bio: _bioController.text,
-                    displayName: _displayNameController.text,
-                    email: _emailController.text));
+                try {
+                  service.updateUser(user!.copyWith(
+                      name: _nameController.text,
+                      bio: _bioController.text,
+                      displayName: _displayNameController.text,
+                      email: _emailController.text));
+                } on InputException catch (e) {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: const Text("Error while updating the user"),
+                            content: Text(e.toString()),
+                            actions: [TextButton(child: const Text("CLOSE"), onPressed: () => Modular.to.pop())],
+                          ));
+                }
               }
               if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
             }),

@@ -55,13 +55,7 @@ class _ServersSettingsPageState extends State<ServersSettingsPage> {
                         child: ListTile(
                             title: Text(current?['name'] ?? ""),
                             subtitle: Text(box.getAt(index) ?? ""),
-                            trailing: IconButton(
-                                icon: const Icon(PhosphorIcons.gearLight),
-                                onPressed: () {
-                                  Modular.to.pushNamed(
-                                      Uri(pathSegments: ["", "admin"], queryParameters: {"id": index.toString()})
-                                          .toString());
-                                })),
+                            trailing: IconButton(icon: const Icon(PhosphorIcons.signOutLight), onPressed: () {})),
                       );
                     },
                   );

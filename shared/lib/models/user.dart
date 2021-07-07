@@ -54,6 +54,8 @@ class User extends Equatable {
         ..addAll(addSecrets ? {'password': password, 'salt': salt} : {})
         ..addAll(addId ? {'id': id} : {});
 
+  bool valid() => name.isNotEmpty && email.isNotEmpty;
+
   @override
   List<Object?> get props => [id];
 }

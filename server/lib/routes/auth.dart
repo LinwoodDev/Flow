@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flow_server/services/jwt.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared/exceptions/input.dart';
 import 'package:shared/models/user.dart';
 import 'package:shared/services/local_service.dart';
 import 'package:shared/utils.dart';
@@ -20,23 +21,13 @@ class AuthService {
     final userInfo = json.decode(payload);
     final user = User.fromJson(userInfo);
     final service = GetIt.I.get<LocalService>();
-    var errors = <String>[];
-    if (user.email.isEmpty) {
-      errors.add("email.empty");
-    } else if (await service.fetchUserByEmail(user.email) != null) {
-      errors.add("email.exist");
+
+    try {
+      var createdUser = await service.createUser(user.copyWith(state: UserState.confirm));
+      return Response.ok(json.encode(createdUser.toJson(addId: true)), headers: jsonHeaders);
+    } on InputException catch (e) {
+      return Response(HttpStatus.badRequest, body: json.encode(e.toJson()), headers: jsonHeaders);
     }
-    if (user.name.isEmpty) {
-      errors.add("name.empty");
-    } else if (await service.fetchUserByName(user.name) != null) {
-      errors.add("name.exist");
-    }
-    if (user.password.isEmpty) {
-      errors.add("password.empty");
-    }
-    if (errors.isNotEmpty) return Response(HttpStatus.badRequest, body: json.encode(errors), headers: jsonHeaders);
-    var createdUser = await service.createUser(user.copyWith(state: UserState.confirm));
-    return Response.ok(json.encode(createdUser.toJson(addId: true)), headers: jsonHeaders);
   }
 
   @Route.post('/login')
@@ -56,14 +47,14 @@ class AuthService {
     User? foundUser;
     if (user.email.isNotEmpty) foundUser = await service.fetchUserByEmail(user.email);
     if (user.name.isNotEmpty) foundUser = await service.fetchUserByName(user.name);
-    if (foundUser == null || foundUser.password != hashPassword(user.password, foundUser.password)) {
+    if (foundUser == null || foundUser.password != hashPassword(user.password, foundUser.salt)) {
       return Response(HttpStatus.badRequest, body: json.encode(["credentials.failed"]), headers: jsonHeaders);
     }
     final jwtService = GetIt.I.get<JWTService>();
 
     final token = jwtService.generate(foundUser.id!.toRadixString(16));
 
-    return Response.ok(json.encode({"token": token, "user": user.toJson(addId: true)}), headers: jsonHeaders);
+    return Response.ok(json.encode({"token": token, "user": foundUser.toJson(addId: true)}), headers: jsonHeaders);
   }
 
   Router get router => _$AuthServiceRouter(this);
