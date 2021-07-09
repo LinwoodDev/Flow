@@ -1,7 +1,9 @@
+import 'dart:convert';
+
+import 'package:biometric_storage/biometric_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'app_module.dart';
@@ -15,8 +17,17 @@ Future<void> main() async {
   await Hive.initFlutter("linwood-flow");
   await Hive.openBox('appearance');
   await Hive.openBox<int>('view');
-  var serversBox = await Hive.openBox<String>('servers');
-  if (serversBox.isEmpty) await serversBox.add("https://example.com");
+
+  var biometricStorage = await BiometricStorage().getStorage('key');
+  var containsEncryptionKey = await biometricStorage.read() != null;
+  if (!containsEncryptionKey) {
+    var key = Hive.generateSecureKey();
+    await biometricStorage.write(base64UrlEncode(key));
+  }
+
+  var encryptionKey = base64Url.decode((await biometricStorage.read())!);
+
+  await Hive.openBox('accounts', encryptionCipher: HiveAesCipher(encryptionKey));
 
   await setup();
 

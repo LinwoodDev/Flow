@@ -61,6 +61,7 @@ class LocalService extends ApiService {
     var errors = <InputError>[];
     if (user.name.isEmpty) errors.add(InputError("name.empty"));
     if (user.email.isEmpty) errors.add(InputError("email.empty"));
+    if (user.password.isEmpty) errors.add(InputError("password.empty"));
     if (errors.isNotEmpty) throw InputException(errors);
     if (await fetchUserByName(user.name) != null) errors.add(InputError("name.exist"));
     if (await fetchUserByEmail(user.email) != null) errors.add(InputError("email.exist"));

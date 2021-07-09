@@ -25,6 +25,7 @@ class _UserPageState extends State<UserPage> {
   late final TextEditingController _displayNameController = TextEditingController();
   late final TextEditingController _bioController = TextEditingController();
   late final TextEditingController _emailController = TextEditingController();
+  late final TextEditingController _passwordController = TextEditingController();
   late ApiService service;
 
   @override
@@ -39,7 +40,7 @@ class _UserPageState extends State<UserPage> {
     service = GetIt.I.get<LocalService>();
   }
 
-  String? server = "";
+  String currentUser = "";
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +83,8 @@ class _UserPageState extends State<UserPage> {
                   service.createUser(User(_nameController.text,
                       bio: _bioController.text,
                       displayName: _displayNameController.text,
-                      email: _emailController.text));
+                      email: _emailController.text,
+                      password: _passwordController.text));
                 } on InputException catch (e) {
                   showDialog(
                       context: context,
@@ -127,19 +129,18 @@ class _UserPageState extends State<UserPage> {
                           constraints: const BoxConstraints(maxWidth: 800),
                           child: Column(children: [
                             const SizedBox(height: 50),
-                            if (user == null) ...[
-                              DropdownButtonFormField<String>(
-                                  value: server,
-                                  decoration: const InputDecoration(labelText: "Server", border: OutlineInputBorder()),
-                                  onChanged: (value) => server = value,
-                                  items: [
-                                    ...Hive.box<String>('servers')
-                                        .values
-                                        .map((e) => DropdownMenuItem(child: Text(e), value: e)),
-                                    const DropdownMenuItem(child: Text("Local"), value: "")
-                                  ]),
-                              const SizedBox(height: 50)
-                            ],
+                            DropdownButtonFormField<String>(
+                                value: currentUser,
+                                decoration:
+                                    const InputDecoration(labelText: "Current user", border: OutlineInputBorder()),
+                                onChanged: (value) => currentUser = value!,
+                                items: [
+                                  ...Hive.box<String>('servers')
+                                      .values
+                                      .map((e) => DropdownMenuItem(child: Text(e), value: e)),
+                                  const DropdownMenuItem(child: Text("Local"), value: "")
+                                ]),
+                            const SizedBox(height: 50),
                             TextField(
                                 decoration: const InputDecoration(
                                     labelText: "Name", icon: Icon(PhosphorIcons.userLight), filled: true),
@@ -157,6 +158,13 @@ class _UserPageState extends State<UserPage> {
                                     labelText: "Email", icon: Icon(PhosphorIcons.envelopeLight), filled: true),
                                 controller: _emailController),
                             const SizedBox(height: 20),
+                            if (user == null) ...[
+                              TextField(
+                                  decoration: const InputDecoration(
+                                      labelText: "Password", icon: Icon(PhosphorIcons.lockLight), filled: true),
+                                  controller: _passwordController),
+                              const SizedBox(height: 20),
+                            ],
                             TextField(
                                 decoration: const InputDecoration(
                                     labelText: "Biography",

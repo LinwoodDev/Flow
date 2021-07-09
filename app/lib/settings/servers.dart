@@ -8,13 +8,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class ServersSettingsPage extends StatefulWidget {
-  const ServersSettingsPage({Key? key}) : super(key: key);
+class AccountsSettingsPage extends StatefulWidget {
+  const AccountsSettingsPage({Key? key}) : super(key: key);
   @override
-  _ServersSettingsPageState createState() => _ServersSettingsPageState();
+  _AccountsSettingsPageState createState() => _AccountsSettingsPageState();
 }
 
-class _ServersSettingsPageState extends State<ServersSettingsPage> {
+class _AccountsSettingsPageState extends State<AccountsSettingsPage> {
   @override
   Widget build(BuildContext context) {
     return FlowScaffold(

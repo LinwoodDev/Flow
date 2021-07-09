@@ -25,8 +25,7 @@ class FlowDrawer extends StatelessWidget {
   final bool admin;
   final bool permanentlyDisplay;
 
-  const FlowDrawer({Key? key, this.page, this.admin = false, this.permanentlyDisplay = false})
-      : super(key: key);
+  const FlowDrawer({Key? key, this.page, this.admin = false, this.permanentlyDisplay = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,48 +50,38 @@ class FlowDrawer extends StatelessWidget {
         const SizedBox(height: 10),
         Column(children: [
           ListTile(
-              leading: Icon(
-                  page == RoutePages.home ? PhosphorIcons.houseFill : PhosphorIcons.houseLight),
+              leading: Icon(page == RoutePages.home ? PhosphorIcons.houseFill : PhosphorIcons.houseLight),
               title: const Text("Home"),
               onTap: () => Modular.to.pushReplacementNamed("/"),
               selected: page == RoutePages.home),
           ListTile(
-              leading: Icon(page == RoutePages.teams
-                  ? PhosphorIcons.flagBannerFill
-                  : PhosphorIcons.flagBannerLight),
+              leading: Icon(page == RoutePages.teams ? PhosphorIcons.flagBannerFill : PhosphorIcons.flagBannerLight),
               title: const Text("Teams"),
               onTap: () => Modular.to.pushReplacementNamed("/teams"),
               selected: page == RoutePages.teams),
           ListTile(
-              leading: Icon(page == RoutePages.tasks
-                  ? PhosphorIcons.checkSquareFill
-                  : PhosphorIcons.checkSquareLight),
+              leading: Icon(page == RoutePages.tasks ? PhosphorIcons.checkSquareFill : PhosphorIcons.checkSquareLight),
               title: const Text("Tasks"),
               onTap: () => Modular.to.pushReplacementNamed("/tasks"),
               selected: page == RoutePages.tasks),
           ListTile(
-              leading: Icon(
-                  page == RoutePages.users ? PhosphorIcons.usersFill : PhosphorIcons.usersLight),
+              leading: Icon(page == RoutePages.users ? PhosphorIcons.usersFill : PhosphorIcons.usersLight),
               title: const Text("Users"),
               onTap: () => Modular.to.pushReplacementNamed("/users"),
               selected: page == RoutePages.users),
           ListTile(
-              leading: Icon(page == RoutePages.seasons
-                  ? PhosphorIcons.bookBookmarkFill
-                  : PhosphorIcons.bookBookmarkLight),
+              leading:
+                  Icon(page == RoutePages.seasons ? PhosphorIcons.bookBookmarkFill : PhosphorIcons.bookBookmarkLight),
               title: const Text("Seasons"),
               onTap: () => Modular.to.pushReplacementNamed("/seasons"),
               selected: page == RoutePages.seasons),
           ListTile(
-              leading: Icon(
-                  page == RoutePages.events ? PhosphorIcons.bookFill : PhosphorIcons.bookLight),
+              leading: Icon(page == RoutePages.events ? PhosphorIcons.bookFill : PhosphorIcons.bookLight),
               title: const Text("Events"),
               onTap: () => Modular.to.pushReplacementNamed("/events"),
               selected: page == RoutePages.events),
           ListTile(
-              leading: Icon(page == RoutePages.badges
-                  ? PhosphorIcons.circleWavyFill
-                  : PhosphorIcons.circleWavyLight),
+              leading: Icon(page == RoutePages.badges ? PhosphorIcons.circleWavyFill : PhosphorIcons.circleWavyLight),
               title: const Text("Badges"),
               onTap: () => Modular.to.pushReplacementNamed("/badges"),
               selected: page == RoutePages.badges)
@@ -104,23 +93,19 @@ class FlowDrawer extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                     ListTile(
-                        leading: Icon(page == RoutePages.general
-                            ? PhosphorIcons.wrenchFill
-                            : PhosphorIcons.wrenchLight),
+                        leading:
+                            Icon(page == RoutePages.general ? PhosphorIcons.wrenchFill : PhosphorIcons.wrenchLight),
                         title: const Text("General"),
                         onTap: () => Modular.to.pushReplacementNamed("/settings"),
                         selected: page == RoutePages.general),
                     ListTile(
-                        leading: Icon(page == RoutePages.servers
-                            ? PhosphorIcons.listFill
-                            : PhosphorIcons.listLight),
-                        title: const Text("Servers"),
-                        onTap: () => Modular.to.pushReplacementNamed("/settings/servers"),
+                        leading: Icon(page == RoutePages.servers ? PhosphorIcons.listFill : PhosphorIcons.listLight),
+                        title: const Text("Accounts"),
+                        onTap: () => Modular.to.pushReplacementNamed("/settings/accounts"),
                         selected: page == RoutePages.servers),
                     ListTile(
-                        leading: Icon(page == RoutePages.appearance
-                            ? PhosphorIcons.fadersFill
-                            : PhosphorIcons.fadersLight),
+                        leading:
+                            Icon(page == RoutePages.appearance ? PhosphorIcons.fadersFill : PhosphorIcons.fadersLight),
                         title: const Text("Appearance"),
                         onTap: () => Modular.to.pushReplacementNamed("/settings/appearance"),
                         selected: page == RoutePages.appearance)
@@ -147,8 +132,7 @@ class FlowScaffold extends ResponsiveScaffold {
             bottom: bottom,
             body: body,
             drawer: FlowDrawer(page: page, permanentlyDisplay: false),
-            desktopDrawer:
-                Hero(tag: "drawer", child: FlowDrawer(page: page, permanentlyDisplay: true)),
+            desktopDrawer: Hero(tag: "drawer", child: FlowDrawer(page: page, permanentlyDisplay: true)),
             floatingActionButton: floatingActionButton,
             key: key);
 }

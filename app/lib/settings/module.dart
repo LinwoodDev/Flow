@@ -14,6 +14,6 @@ class SettingsModule extends Module {
   final List<ModularRoute> routes = [
     ChildRoute('/', child: (_, __) => const GeneralSettingsPage()),
     ChildRoute('/appearance', child: (_, __) => const AppearanceSettingsPage()),
-    ChildRoute('/servers', child: (_, __) => const ServersSettingsPage())
+    ChildRoute('/accounts', child: (_, __) => const AccountsSettingsPage())
   ];
 }
