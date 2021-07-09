@@ -10,15 +10,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late TextEditingController _urlController;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _urlController = TextEditingController(text: widget.address);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

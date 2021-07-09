@@ -80,7 +80,7 @@ jobs:
           flutter clean
           flutter doctor -v
           flutter build linux -v --release
-          chmod +x app/build/linux/x64/release/bundle/app
+          chmod +x build/linux/x64/release/bundle/app
       - name: Archive
         uses: actions/upload-artifact@v2
         with:
