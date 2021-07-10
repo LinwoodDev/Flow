@@ -1,9 +1,11 @@
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 import 'package:shared/models/user.dart';
 
+@immutable
 class Account extends Equatable {
-  String username;
-  String address;
+  final String username;
+  final String address;
 
   Account(this.username, this.address);
 
