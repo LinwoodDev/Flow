@@ -1,4 +1,7 @@
-class Account {
+import 'package:equatable/equatable.dart';
+import 'package:shared/models/user.dart';
+
+class Account extends Equatable {
   String username;
   String address;
 
@@ -6,7 +9,11 @@ class Account {
 
   Account.fromJson(Map<String, dynamic> json)
       : username = json['username'],
-        address = json['address'];
+        address = json['address'] ?? "localhost";
+
+  Account.fromLocalUser(User user)
+      : username = user.name,
+        address = "localhost";
 
   Map<String, dynamic> toJson() => {"username": username, "address": address};
 
@@ -14,4 +21,7 @@ class Account {
   String toString() {
     return "$username@$address";
   }
+
+  @override
+  List<Object?> get props => [toString()];
 }

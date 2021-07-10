@@ -18,14 +18,14 @@ class _AccountsSettingsPageState extends State<AccountsSettingsPage> {
   @override
   Widget build(BuildContext context) {
     return FlowScaffold(
-        page: RoutePages.servers,
-        pageTitle: "Servers",
+        page: RoutePages.accounts,
+        pageTitle: "Accounts",
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () => Modular.to.pushNamed("/connect"),
-            label: const Text("Add server"),
+            label: const Text("Add account"),
             icon: const Icon(PhosphorIcons.plusLight)),
         body: ValueListenableBuilder<Box<String>>(
-            valueListenable: Hive.box<String>('servers').listenable(),
+            valueListenable: Hive.box<String>('accounts').listenable(),
             builder: (context, box, _) => FutureBuilder<List<Map<String, dynamic>?>>(
                 future: Future.wait(box.values.map((e) => http.get(Uri.parse(e)).then<Map<String, dynamic>?>((value) {
                       try {

@@ -1,8 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
+import 'accounts.dart';
 import 'appearance.dart';
 import 'general.dart';
-import 'servers.dart';
 
 class SettingsModule extends Module {
   // Provide a list of dependencies to inject into your project

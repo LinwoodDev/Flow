@@ -16,7 +16,7 @@ enum RoutePages {
   tasks,
 // Settings
   general,
-  servers,
+  accounts,
   appearance
 }
 
@@ -99,10 +99,10 @@ class FlowDrawer extends StatelessWidget {
                         onTap: () => Modular.to.pushReplacementNamed("/settings"),
                         selected: page == RoutePages.general),
                     ListTile(
-                        leading: Icon(page == RoutePages.servers ? PhosphorIcons.listFill : PhosphorIcons.listLight),
+                        leading: Icon(page == RoutePages.accounts ? PhosphorIcons.listFill : PhosphorIcons.listLight),
                         title: const Text("Accounts"),
                         onTap: () => Modular.to.pushReplacementNamed("/settings/accounts"),
-                        selected: page == RoutePages.servers),
+                        selected: page == RoutePages.accounts),
                     ListTile(
                         leading:
                             Icon(page == RoutePages.appearance ? PhosphorIcons.fadersFill : PhosphorIcons.fadersLight),
