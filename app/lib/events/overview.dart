@@ -34,7 +34,7 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
       context: context,
       barrierDismissible: true,
       barrierLabel: "Close",
-      transitionDuration: Duration(milliseconds: 100),
+      transitionDuration: const Duration(milliseconds: 100),
       transitionBuilder: (context, anim1, anim2, child) {
         return SlideTransition(
           position: Tween(begin: const Offset(0, -1), end: const Offset(0, 0)).animate(anim1),

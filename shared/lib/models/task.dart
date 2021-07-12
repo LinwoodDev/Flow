@@ -62,11 +62,13 @@ class Submission extends JsonObject {
         user = json['user'],
         state = SubmissionState.values[json['state']];
 
+  @override
   Map<String, dynamic> toJson() => {'task': task, 'user': user, 'state': state.index};
 
   @override
   List<Object?> get props => [id];
 
+  @override
   Submission copyWith({int? id, SubmissionState? state}) => Submission(id: id ?? this.id, state: state ?? this.state);
 }
 

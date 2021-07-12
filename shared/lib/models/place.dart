@@ -18,8 +18,10 @@ class Place extends JsonObject {
         description = json['description'] ?? '',
         assigned = Assigned.fromJson(json['assigned'] ?? {});
 
+  @override
   Map<String, dynamic> toJson() => {'name': name, 'description': description, 'assigned': assigned.toJson()};
 
+  @override
   Place copyWith({String? name, String? description, int? id, Assigned? assigned}) => Place(name ?? this.name,
       description: description ?? this.description, id: id ?? this.id, assigned: assigned ?? this.assigned);
 

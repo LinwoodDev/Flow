@@ -36,6 +36,7 @@ class Event extends JsonObject {
         isCanceled = json['canceled'],
         assigned = Assigned.fromJson(json['assigned'] ?? {});
 
+  @override
   Map<String, dynamic> toJson() => {
         'parent': parent,
         'description': description,
@@ -47,6 +48,7 @@ class Event extends JsonObject {
         'assigned': assigned.toJson()
       };
 
+  @override
   Event copyWith(
           {String? name,
           String? description,
