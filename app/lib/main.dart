@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:biometric_storage/biometric_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
@@ -20,18 +18,16 @@ Future<void> main() async {
   await Hive.openBox('appearance');
   await Hive.openBox<int>('view');
 
-  HiveCipher? cipher;
-  if (kIsWeb || !Platform.isLinux) {
-    var biometricStorage = await BiometricStorage().getStorage('key');
-    var containsEncryptionKey = await biometricStorage.read() != null;
-    if (!containsEncryptionKey) {
-      var key = Hive.generateSecureKey();
-      await biometricStorage.write(base64UrlEncode(key));
-    }
-
-    var encryptionKey = base64Url.decode((await biometricStorage.read())!);
-    cipher = HiveAesCipher(encryptionKey);
+  var biometricStorage =
+      await BiometricStorage().getStorage('key', options: StorageFileInitOptions(authenticationRequired: false));
+  var containsEncryptionKey = await biometricStorage.read() != null;
+  if (!containsEncryptionKey) {
+    var key = Hive.generateSecureKey();
+    await biometricStorage.write(base64UrlEncode(key));
   }
+
+  var encryptionKey = base64Url.decode((await biometricStorage.read())!);
+  var cipher = HiveAesCipher(encryptionKey);
   await Hive.openBox('accounts', encryptionCipher: cipher);
 
   await setup();

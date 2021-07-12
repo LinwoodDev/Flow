@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flow_server/routes/profile.dart';
 import 'package:flow_server/services/jwt.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shelf/shelf.dart';
@@ -26,11 +27,8 @@ class Service {
   @Route.mount('/auth/')
   Router get _auth => AuthService().router;
 
-  /*@Route.mount('/profile/')
-  Handler _profile(Request request) {
-    var jwtService = GetIt.I.get<JWTService>();
-    return Pipeline().addMiddleware(jwtService.checkAuthorization()).addHandler(ProfileService().router);
-  }*/
+  @Route.mount('/profile/')
+  Router get _profile => ProfileService().router;
 
   // You can catch all verbs and use a URL-parameter with a regular expression
   // that matches everything to catch app.
