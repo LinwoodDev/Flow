@@ -1,8 +1,8 @@
-import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:shared/models/jsonobject.dart';
 
 @immutable
-class Team extends Equatable {
+class Team extends JsonObject {
   final int? id;
   final int? parent;
   final String name;
@@ -18,8 +18,10 @@ class Team extends Equatable {
         description = json['description'] ?? '',
         color = json['color'];
 
+  @override
   Map<String, dynamic> toJson() => {'name': name, 'description': description, 'color': color, 'parent': parent};
 
+  @override
   Team copyWith(
           {String? name,
           String? description,

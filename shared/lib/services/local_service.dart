@@ -377,4 +377,15 @@ class LocalService extends ApiService {
       .query(finder: Finder(filter: Filter.and([Filter.equals("task", task), Filter.equals("user", user)])))
       .onSnapshot(db)
       .map((e) => e == null ? null : Submission.fromJson(Map.from(e.value)..["id"] = e.key));
+
+  @override
+  Future<void> createSubmission(Submission submission) =>
+      submissionsStore.add(db, submission.toJson()).then((value) => submission.copyWith(id: value));
+
+  @override
+  Future<void> deleteSubmission(int id) => submissionsStore.delete(db, finder: Finder(filter: Filter.byKey(id)));
+
+  @override
+  Future<void> updateSubmission(Submission submission) =>
+      submissionsStore.update(db, submission.toJson(), finder: Finder(filter: Filter.byKey(submission.id)));
 }

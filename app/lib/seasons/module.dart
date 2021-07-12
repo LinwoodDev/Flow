@@ -12,7 +12,6 @@ class SeasonsModule extends Module {
   final List<ModularRoute> routes = [
     ChildRoute('/', child: (_, __) => const SeasonsPage()),
     ChildRoute('/create', child: (_, __) => const SeasonPage()),
-    ChildRoute("/details",
-        child: (_, __) => SeasonPage(id: int.tryParse(Modular.args?.queryParams['id'] ?? "0")))
+    ChildRoute("/details", child: (_, __) => SeasonPage(id: int.tryParse(Modular.args?.queryParams['id'] ?? "0")))
   ];
 }

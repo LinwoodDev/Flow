@@ -1,8 +1,8 @@
-import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:shared/models/jsonobject.dart';
 
 @immutable
-class User extends Equatable {
+class User extends JsonObject {
   final int? id;
   final String name;
   final String displayName;
@@ -21,6 +21,7 @@ class User extends Equatable {
       this.salt = '',
       this.state = UserState.active});
 
+  @override
   User copyWith(
           {String? name,
           String? displayName,
@@ -49,6 +50,7 @@ class User extends Equatable {
         state = UserState.values[json['state'] ?? 0],
         salt = json['salt'] ?? '';
 
+  @override
   Map<String, dynamic> toJson({bool addSecrets = false, bool addId = false}) =>
       {'name': name, 'display-name': displayName, 'email': email, 'bio': bio, 'state': state.index}
         ..addAll(addSecrets ? {'password': password, 'salt': salt} : {})

@@ -1,9 +1,10 @@
-import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:shared/models/assign.dart';
 
+import 'jsonobject.dart';
+
 @immutable
-class Place extends Equatable {
+class Place extends JsonObject {
   final int? id;
   final String name;
   final String description;

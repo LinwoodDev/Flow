@@ -1,8 +1,8 @@
-import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:shared/models/jsonobject.dart';
 
 @immutable
-class Badge extends Equatable {
+class Badge extends JsonObject {
   final int? id;
   final String name;
   final String description;
@@ -16,8 +16,10 @@ class Badge extends Equatable {
         description = json['description'] ?? '',
         color = json['color'];
 
+  @override
   Map<String, dynamic> toJson() => {'name': name, 'description': description, 'color': color};
 
+  @override
   Badge copyWith({String? name, String? description, int? color, bool removeColor = false, int? id}) =>
       Badge(name ?? this.name,
           description: description ?? this.description,

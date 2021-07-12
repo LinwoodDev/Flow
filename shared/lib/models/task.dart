@@ -1,10 +1,10 @@
-import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:shared/models/jsonobject.dart';
 
 import 'assign.dart';
 
 @immutable
-class Task extends Equatable {
+class Task extends JsonObject {
   final int? id;
   final String name;
   final String description;
@@ -22,9 +22,11 @@ class Task extends Equatable {
         parent = json['parent'],
         event = json['event'];
 
+  @override
   Map<String, dynamic> toJson() =>
       {'name': name, 'description': description, 'assigned': assigned.toJson(), 'event': event};
 
+  @override
   Task copyWith(
           {String? name,
           String? description,
@@ -46,7 +48,7 @@ class Task extends Equatable {
 }
 
 @immutable
-class Submission extends Equatable {
+class Submission extends JsonObject {
   final int? id;
   final int? task;
   final int? user;
@@ -64,6 +66,14 @@ class Submission extends Equatable {
 
   @override
   List<Object?> get props => [id];
+
+  Submission copyWith({int? id, SubmissionState? state}) => Submission(id: id ?? this.id, state: state ?? this.state);
 }
 
 enum SubmissionState { open, progress, done, closed }
+
+enum SubmissionType { file }
+
+extension SubmissionTypeExtension on SubmissionType {}
+
+class FileSubmissionType {}

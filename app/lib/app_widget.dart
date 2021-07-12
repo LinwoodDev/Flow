@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -36,8 +37,8 @@ class AppWidget extends StatelessWidget {
                 brightness: Brightness.dark,
                 primarySwatch: createMaterialColor(color),
                 indicatorColor: color,
-                colorScheme: ColorScheme.dark(
-                    primary: color, onPrimary: Colors.white, secondary: const Color(0xFF64dd17)),
+                colorScheme:
+                    ColorScheme.dark(primary: color, onPrimary: Colors.white, secondary: const Color(0xFF64dd17)),
                 visualDensity: VisualDensity.adaptivePlatformDensity),
             home: const ConnectPage(),
           ).modular();

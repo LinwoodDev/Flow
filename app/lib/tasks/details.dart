@@ -92,41 +92,42 @@ class _TaskPageState extends State<TaskPage> {
                   }
                   if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
                 }),
-            body: TabBarView(children: [
-              SingleChildScrollView(
-                  child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Container(
-                          constraints: const BoxConstraints(maxWidth: 800),
-                          child: Column(children: [
-                            const SizedBox(height: 50),
-                            Builder(builder: (context) {
-                              return StreamBuilder<List<User>>(
-                                  stream: service.onUsers(),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasError) {
-                                      return Text("Error: ${snapshot.error}");
-                                    }
-                                    if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
-                                      return const Center(child: CircularProgressIndicator());
-                                    }
-                                    var users = snapshot.data!;
-                                    return DropdownButtonFormField<Account>(
-                                        value: account,
-                                        decoration:
-                                            const InputDecoration(labelText: "Account", border: OutlineInputBorder()),
-                                        onChanged: (value) => account = value,
-                                        items: [
-                                          ...Hive.box('accounts')
-                                              .values
-                                              .map((e) => DropdownMenuItem(child: Text(e), value: e)),
-                                          ...users
-                                              .map((e) => Account.fromLocalUser(e))
-                                              .map((e) => DropdownMenuItem(child: Text(e.toString()), value: e))
-                                        ]);
-                                  });
-                            }),
-                            const SizedBox(height: 50),
+            body: Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                    constraints: const BoxConstraints(maxWidth: 800),
+                    child: Column(children: [
+                      const SizedBox(height: 50),
+                      Builder(builder: (context) {
+                        return StreamBuilder<List<User>>(
+                            stream: service.onUsers(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasError) {
+                                return Text("Error: ${snapshot.error}");
+                              }
+                              if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
+                                return const Center(child: CircularProgressIndicator());
+                              }
+                              var users = snapshot.data!;
+                              return DropdownButtonFormField<Account>(
+                                  value: account,
+                                  decoration: const InputDecoration(labelText: "Account", border: OutlineInputBorder()),
+                                  onChanged: (value) => setState(() => account = value),
+                                  items: [
+                                    ...Hive.box('accounts')
+                                        .values
+                                        .map((e) => DropdownMenuItem(child: Text(e), value: e)),
+                                    ...users
+                                        .map((e) => Account.fromLocalUser(e))
+                                        .map((e) => DropdownMenuItem(child: Text(e.toString()), value: e))
+                                  ]);
+                            });
+                      }),
+                      const SizedBox(height: 50),
+                      Expanded(
+                        child: TabBarView(children: [
+                          SingleChildScrollView(
+                              child: Column(children: [
                             TextField(
                                 decoration: const InputDecoration(
                                     filled: true, labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
@@ -153,28 +154,57 @@ class _TaskPageState extends State<TaskPage> {
                                     }
                                   })
                             ]
-                          ])))),
-              ListView(children: [
-                ExpansionTile(title: const Text("Admin"), leading: const Icon(PhosphorIcons.gearLight), children: [
-                  ListTile(
-                      title: const Text("Submission type"),
-                      subtitle: const Text("None"),
-                      onTap: () {},
-                      leading: const Icon(PhosphorIcons.fileLight)),
-                  ListTile(
-                      title: const Text("Show submissions"), onTap: () {}, leading: const Icon(PhosphorIcons.listLight))
-                ]),
-                if (task != null)
-                  StreamBuilder<Submission?>(
-                      stream: service.onSubmission(task.id!, 0),
-                      builder: (context, snapshot) {
-                        return const ExpansionTile(
-                            title: Text("Your submission"),
-                            leading: Icon(PhosphorIcons.folderLight),
-                            initiallyExpanded: true,
-                            children: []);
-                      })
-              ])
-            ])));
+                          ])),
+                          ListView(children: [
+                            ExpansionTile(
+                                title: const Text("Admin"),
+                                leading: const Icon(PhosphorIcons.gearLight),
+                                children: [
+                                  ListTile(
+                                      title: const Text("Submission type"),
+                                      subtitle: const Text("None"),
+                                      onTap: () {},
+                                      leading: const Icon(PhosphorIcons.fileLight)),
+                                  ListTile(
+                                      title: const Text("Show submissions"),
+                                      onTap: () {},
+                                      leading: const Icon(PhosphorIcons.listLight))
+                                ]),
+                            if (task != null && account != null)
+                              Builder(builder: (context) {
+                                return StreamBuilder<Submission?>(
+                                    stream: service.onSubmission(task.id!, 0),
+                                    builder: (context, snapshot) {
+                                      return ExpansionTile(
+                                          title: const Text("Your submission"),
+                                          leading: const Icon(PhosphorIcons.folderLight),
+                                          initiallyExpanded: true,
+                                          children: [
+                                            Row(children: [
+                                              if (snapshot.hasData)
+                                                Expanded(
+                                                    child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: TextButton.icon(
+                                                      onPressed: () {},
+                                                      icon: const Icon(PhosphorIcons.xLight),
+                                                      label: const Text("REMOVE")),
+                                                )),
+                                              Expanded(
+                                                  child: Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: ElevatedButton.icon(
+                                                    onPressed: () {},
+                                                    icon: const Icon(PhosphorIcons.paperPlaneRightLight),
+                                                    label: const Text("SUBMIT")),
+                                              ))
+                                            ])
+                                          ]);
+                                    });
+                              })
+                          ])
+                        ]),
+                      ),
+                    ])))));
   }
 }

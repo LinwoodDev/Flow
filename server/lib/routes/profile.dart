@@ -13,6 +13,7 @@ part 'profile.g.dart';
 
 class ProfileService {
   final Map<String, Object> jsonHeaders = {HttpHeaders.contentTypeHeader: ContentType.json.mimeType};
+
   JWTService get jwtService => GetIt.I.get<JWTService>();
 
   @Route.get("/")

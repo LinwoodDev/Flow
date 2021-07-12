@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/services/api_service.dart';
 import 'package:shared/models/assign.dart';
 import 'package:shared/models/event.dart';
 import 'package:shared/models/team.dart';
 import 'package:shared/models/user.dart';
+import 'package:shared/services/api_service.dart';
 import 'package:shared/services/local_service.dart';
 
 class AssignDialog extends StatefulWidget {

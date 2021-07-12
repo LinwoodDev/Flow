@@ -60,9 +60,7 @@ class _EventsPageState extends State<EventsPage> {
                       .map((e) => PopupMenuItem(
                           value: e,
                           child: ListTile(
-                              title: Text(e.name),
-                              leading: Icon(e.icon),
-                              selected: e.index == box.get("events"))))
+                              title: Text(e.name), leading: Icon(e.icon), selected: e.index == box.get("events"))))
                       .toList())
             ],
             body: EventView.values[box.get("events", defaultValue: 0)!].buildWidget()));

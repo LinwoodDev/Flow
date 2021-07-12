@@ -12,7 +12,6 @@
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/LinwoodCloud/Flow/Documentation?label=docs&style=for-the-badge)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/LinwoodCloud/Flow/Tests?label=tests&style=for-the-badge)
 
-
 ## Introduction
 
 ### Your data is decentralized
@@ -27,8 +26,10 @@ You don't need a server. Everything can be saved on the local device or in the c
 ## Getting started
 
 * **Try the app** [in the web](https://flow.linwood.tk). You have nothing to lose!
-* **To download the app**, visit the [download page](https://docs.flow.linwood.tk/downloads). Please use [the guide](https://docs.flow.linwood.tk/app) if you need help.
-* **To setup your own server**, [download the binaries](https://docs.flow.linwood.tk/downloads) and [follow the guide](https://docs.flow.linwood.tk/server)
+* **To download the app**, visit the [download page](https://docs.flow.linwood.tk/downloads). Please
+  use [the guide](https://docs.flow.linwood.tk/app) if you need help.
+* **To setup your own server**, [download the binaries](https://docs.flow.linwood.tk/downloads)
+  and [follow the guide](https://docs.flow.linwood.tk/server)
 * **To contribute**, visit the [contribution guide](CONTRIBUTING.md)
 * **To communicate with us**, visit [the discord server](https://discord.linwood.tk)
 

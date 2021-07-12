@@ -1,10 +1,10 @@
-import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:shared/models/jsonobject.dart';
 
 import 'assign.dart';
 
 @immutable
-class Season extends Equatable {
+class Season extends JsonObject {
   final int? id;
   final String name;
   final int? color;
@@ -20,9 +20,11 @@ class Season extends Equatable {
         description = json['description'] ?? '',
         assigned = Assigned.fromJson(json['assigned'] ?? {});
 
+  @override
   Map<String, dynamic> toJson() =>
       {'name': name, 'color': color, 'description': description, 'assigned': assigned.toJson()};
 
+  @override
   Season copyWith(
           {String? name, String? description, int? color, int? id, bool removeColor = false, Assigned? assigned}) =>
       Season(name ?? this.name,

@@ -8,6 +8,7 @@ import 'package:shared/models/account.dart';
 
 class AccountsSettingsPage extends StatefulWidget {
   const AccountsSettingsPage({Key? key}) : super(key: key);
+
   @override
   _AccountsSettingsPageState createState() => _AccountsSettingsPageState();
 }

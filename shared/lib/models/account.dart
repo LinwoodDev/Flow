@@ -1,9 +1,9 @@
-import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:shared/models/jsonobject.dart';
 import 'package:shared/models/user.dart';
 
 @immutable
-class Account extends Equatable {
+class Account extends JsonObject {
   final String username;
   final String address;
 
@@ -17,6 +17,7 @@ class Account extends Equatable {
       : username = user.name,
         address = "localhost";
 
+  @override
   Map<String, dynamic> toJson() => {"username": username, "address": address};
 
   @override
@@ -26,4 +27,7 @@ class Account extends Equatable {
 
   @override
   List<Object?> get props => [toString()];
+
+  @override
+  Account copyWith({String? username, String? address}) => Account(username ?? this.username, address ?? this.address);
 }

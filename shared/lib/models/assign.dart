@@ -1,8 +1,9 @@
-import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
+import 'jsonobject.dart';
+
 @immutable
-class Assigned {
+class Assigned extends JsonObject {
   final bool? everyone;
   final List<AssignedObject> teams;
   final List<AssignedObject> users;
@@ -16,6 +17,7 @@ class Assigned {
         events = List.from(json['events'] ?? []).map((e) => AssignedObject.fromJson(e)).toList(),
         everyone = json['everyone'];
 
+  @override
   Map<String, dynamic> toJson() => {
         'teams': teams.map((e) => e.toJson()).toList(),
         'users': users.map((e) => e.toJson()).toList(),
@@ -23,6 +25,7 @@ class Assigned {
         'everyone': everyone
       };
 
+  @override
   Assigned copyWith(
           {bool? everyone,
           bool removeEveryone = false,
@@ -34,10 +37,13 @@ class Assigned {
           events: events ?? this.events,
           everyone: removeEveryone ? true : (everyone ?? this.everyone),
           users: users ?? this.users);
+
+  @override
+  List<Object?> get props => [everyone, teams, users, events];
 }
 
 @immutable
-class AssignedObject extends Equatable {
+class AssignedObject extends JsonObject {
   final int? id;
   final bool? flag;
 
@@ -47,9 +53,11 @@ class AssignedObject extends Equatable {
       : id = json['id'],
         flag = json['flag'];
 
+  @override
   AssignedObject copyWith({int? id, bool? flag, bool removeFlag = false}) =>
       AssignedObject(flag: removeFlag ? null : (flag ?? this.flag), id: id ?? this.id);
 
+  @override
   Map<String, dynamic> toJson() => {'id': id, 'flag': flag};
 
   @override
