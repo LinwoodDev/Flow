@@ -2,8 +2,8 @@ import 'package:flow_app/events/details.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/services/api_service.dart';
 import 'package:shared/models/event.dart';
+import 'package:shared/services/api_service.dart';
 import 'package:shared/services/local_service.dart';
 
 class EventsOverviewView extends StatefulWidget {
@@ -30,9 +30,18 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
     });
   }
 
-  void openDialog(Event? event) => showDialog(
+  void openDialog(Event? event) => showGeneralDialog(
       context: context,
-      builder: (context) => Dialog(
+      barrierDismissible: true,
+      barrierLabel: "Close",
+      transitionDuration: Duration(milliseconds: 100),
+      transitionBuilder: (context, anim1, anim2, child) {
+        return SlideTransition(
+          position: Tween(begin: const Offset(0, -1), end: const Offset(0, 0)).animate(anim1),
+          child: child,
+        );
+      },
+      pageBuilder: (context, animation, secondaryAnimation) => Dialog(
           child: Container(
               constraints: const BoxConstraints(maxHeight: 750, maxWidth: 500),
               child: EventPage(isDesktop: true, isDialog: true, id: event?.id))));

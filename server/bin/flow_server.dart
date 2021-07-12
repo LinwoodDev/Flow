@@ -11,10 +11,10 @@ import 'package:shelf/shelf_io.dart' as shelf_io;
 Future<void> main(List<String> arguments) async {
   await initServices();
   final service = Service();
-  final server =
-      await shelf_io.serve(service.handler, 'localhost', int.fromEnvironment('flow.port', defaultValue: 3000));
+  final address = Platform.environment["flow.address"] ?? "localhost";
+  final server = await shelf_io.serve(service.handler, address, int.fromEnvironment('flow.port', defaultValue: 3000));
   server.autoCompress = true;
-  print('Server running on localhost:${server.port}');
+  print('Server running on $address:${server.port}');
 }
 
 Future<void> initServices() async {
@@ -29,5 +29,6 @@ Future<void> initServices() async {
   GetIt.I.registerSingleton(LocalService(db));
 
   // JWT Service
-  GetIt.I.registerSingleton(JWTService(Platform.environment['flow.secret'] ?? ''));
+  final address = Platform.environment["flow.address"];
+  GetIt.I.registerSingleton(JWTService(Platform.environment['flow.secret'] ?? '', address ?? "http://localhost"));
 }

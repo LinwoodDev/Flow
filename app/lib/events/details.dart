@@ -26,6 +26,7 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   late TabController _tabController;
+
   late ApiService service;
   int? id;
 
@@ -42,6 +43,12 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
     super.didUpdateWidget(oldWidget);
     service = GetIt.I.get<LocalService>();
     if (oldWidget.id != widget.id) setState(() => id = widget.id);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   Account? account;
