@@ -1,9 +1,10 @@
-import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:shared/models/assign.dart';
 
+import 'jsonobject.dart';
+
 @immutable
-class Event extends Equatable {
+class Event extends JsonObject {
   final int? id;
   final String name;
   final String description;
@@ -35,6 +36,7 @@ class Event extends Equatable {
         isCanceled = json['canceled'],
         assigned = Assigned.fromJson(json['assigned'] ?? {});
 
+  @override
   Map<String, dynamic> toJson() => {
         'parent': parent,
         'description': description,
@@ -46,6 +48,7 @@ class Event extends Equatable {
         'assigned': assigned.toJson()
       };
 
+  @override
   Event copyWith(
           {String? name,
           String? description,

@@ -1,8 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
+import 'accounts.dart';
 import 'appearance.dart';
 import 'general.dart';
-import 'servers.dart';
 
 class SettingsModule extends Module {
   // Provide a list of dependencies to inject into your project
@@ -14,6 +14,6 @@ class SettingsModule extends Module {
   final List<ModularRoute> routes = [
     ChildRoute('/', child: (_, __) => const GeneralSettingsPage()),
     ChildRoute('/appearance', child: (_, __) => const AppearanceSettingsPage()),
-    ChildRoute('/servers', child: (_, __) => const ServersSettingsPage())
+    ChildRoute('/accounts', child: (_, __) => const AccountsSettingsPage())
   ];
 }

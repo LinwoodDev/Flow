@@ -4,8 +4,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/services/api_service.dart';
+import 'package:shared/models/account.dart';
 import 'package:shared/models/task.dart';
+import 'package:shared/models/user.dart';
+import 'package:shared/services/api_service.dart';
 import 'package:shared/services/local_service.dart';
 
 class TaskPage extends StatefulWidget {
@@ -35,7 +37,7 @@ class _TaskPageState extends State<TaskPage> {
     service = GetIt.I.get<LocalService>();
   }
 
-  String? server = "";
+  Account? account;
 
   @override
   Widget build(BuildContext context) {
@@ -90,25 +92,42 @@ class _TaskPageState extends State<TaskPage> {
                   }
                   if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
                 }),
-            body: TabBarView(children: [
-              SingleChildScrollView(
-                  child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Container(
-                          constraints: const BoxConstraints(maxWidth: 800),
-                          child: Column(children: [
-                            const SizedBox(height: 50),
-                            DropdownButtonFormField<String>(
-                                value: server,
-                                decoration: const InputDecoration(labelText: "Server", border: OutlineInputBorder()),
-                                onChanged: (value) => setState(() => server = value),
-                                items: [
-                                  ...Hive.box<String>('servers')
-                                      .values
-                                      .map((e) => DropdownMenuItem(child: Text(e), value: e)),
-                                  const DropdownMenuItem(child: Text("Local"), value: "")
-                                ]),
-                            const SizedBox(height: 50),
+            body: Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                    constraints: const BoxConstraints(maxWidth: 800),
+                    child: Column(children: [
+                      const SizedBox(height: 50),
+                      Builder(builder: (context) {
+                        return StreamBuilder<List<User>>(
+                            stream: service.onUsers(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasError) {
+                                return Text("Error: ${snapshot.error}");
+                              }
+                              if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
+                                return const Center(child: CircularProgressIndicator());
+                              }
+                              var users = snapshot.data!;
+                              return DropdownButtonFormField<Account>(
+                                  value: account,
+                                  decoration: const InputDecoration(labelText: "Account", border: OutlineInputBorder()),
+                                  onChanged: (value) => setState(() => account = value),
+                                  items: [
+                                    ...Hive.box('accounts')
+                                        .values
+                                        .map((e) => DropdownMenuItem(child: Text(e), value: e)),
+                                    ...users
+                                        .map((e) => Account.fromLocalUser(e))
+                                        .map((e) => DropdownMenuItem(child: Text(e.toString()), value: e))
+                                  ]);
+                            });
+                      }),
+                      const SizedBox(height: 50),
+                      Expanded(
+                        child: TabBarView(children: [
+                          SingleChildScrollView(
+                              child: Column(children: [
                             TextField(
                                 decoration: const InputDecoration(
                                     filled: true, labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
@@ -135,28 +154,57 @@ class _TaskPageState extends State<TaskPage> {
                                     }
                                   })
                             ]
-                          ])))),
-              ListView(children: [
-                ExpansionTile(title: const Text("Admin"), leading: const Icon(PhosphorIcons.gearLight), children: [
-                  ListTile(
-                      title: const Text("Submission type"),
-                      subtitle: const Text("None"),
-                      onTap: () {},
-                      leading: const Icon(PhosphorIcons.fileLight)),
-                  ListTile(
-                      title: const Text("Show submissions"), onTap: () {}, leading: const Icon(PhosphorIcons.listLight))
-                ]),
-                if (task != null)
-                  StreamBuilder<Submission?>(
-                      stream: service.onSubmission(task.id!, 0),
-                      builder: (context, snapshot) {
-                        return const ExpansionTile(
-                            title: Text("Your submission"),
-                            leading: Icon(PhosphorIcons.folderLight),
-                            initiallyExpanded: true,
-                            children: []);
-                      })
-              ])
-            ])));
+                          ])),
+                          ListView(children: [
+                            ExpansionTile(
+                                title: const Text("Admin"),
+                                leading: const Icon(PhosphorIcons.gearLight),
+                                children: [
+                                  ListTile(
+                                      title: const Text("Submission type"),
+                                      subtitle: const Text("None"),
+                                      onTap: () {},
+                                      leading: const Icon(PhosphorIcons.fileLight)),
+                                  ListTile(
+                                      title: const Text("Show submissions"),
+                                      onTap: () {},
+                                      leading: const Icon(PhosphorIcons.listLight))
+                                ]),
+                            if (task != null && account != null)
+                              Builder(builder: (context) {
+                                return StreamBuilder<Submission?>(
+                                    stream: service.onSubmission(task.id!, 0),
+                                    builder: (context, snapshot) {
+                                      return ExpansionTile(
+                                          title: const Text("Your submission"),
+                                          leading: const Icon(PhosphorIcons.folderLight),
+                                          initiallyExpanded: true,
+                                          children: [
+                                            Row(children: [
+                                              if (snapshot.hasData)
+                                                Expanded(
+                                                    child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: TextButton.icon(
+                                                      onPressed: () {},
+                                                      icon: const Icon(PhosphorIcons.xLight),
+                                                      label: const Text("REMOVE")),
+                                                )),
+                                              Expanded(
+                                                  child: Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: ElevatedButton.icon(
+                                                    onPressed: () {},
+                                                    icon: const Icon(PhosphorIcons.paperPlaneRightLight),
+                                                    label: const Text("SUBMIT")),
+                                              ))
+                                            ])
+                                          ]);
+                                    });
+                              })
+                          ])
+                        ]),
+                      ),
+                    ])))));
   }
 }

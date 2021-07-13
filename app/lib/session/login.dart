@@ -5,6 +5,7 @@ class LoginPage extends StatefulWidget {
   final String address;
 
   const LoginPage({Key? key, required this.address}) : super(key: key);
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }

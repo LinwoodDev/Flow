@@ -6,8 +6,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/services/api_service.dart';
+import 'package:shared/models/account.dart';
 import 'package:shared/models/event.dart';
+import 'package:shared/models/user.dart';
+import 'package:shared/services/api_service.dart';
 import 'package:shared/services/local_service.dart';
 
 class EventPage extends StatefulWidget {
@@ -24,6 +26,7 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   late TabController _tabController;
+
   late ApiService service;
   int? id;
 
@@ -42,7 +45,13 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
     if (oldWidget.id != widget.id) setState(() => id = widget.id);
   }
 
-  String? server = "";
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  Account? account;
 
   @override
   Widget build(BuildContext context) {
@@ -114,121 +123,130 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
               }
               if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
             }),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TabBarView(controller: _tabController, children: [
-            Column(children: [
-              Expanded(
-                  child: SingleChildScrollView(
-                      child: Align(
-                          alignment: Alignment.topCenter,
-                          child: Container(
-                              padding: const EdgeInsets.all(8.0),
-                              constraints: const BoxConstraints(maxWidth: 800),
-                              child: Column(children: [
-                                const SizedBox(height: 50),
-                                DropdownButtonFormField<String>(
-                                    value: server,
-                                    decoration:
-                                        const InputDecoration(labelText: "Server", border: OutlineInputBorder()),
-                                    onChanged: (value) => setState(() => server = value),
-                                    items: [
-                                      ...Hive.box<String>('servers')
-                                          .values
-                                          .map((e) => DropdownMenuItem(child: Text(e), value: e)),
-                                      const DropdownMenuItem(child: Text("Local"), value: "")
-                                    ]),
-                                const SizedBox(height: 50),
-                                TextField(
-                                    decoration: const InputDecoration(
-                                        filled: true, labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
-                                    controller: _nameController),
-                                const SizedBox(height: 20),
-                                TextField(
-                                    decoration: const InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        labelText: "Description",
-                                        icon: Icon(PhosphorIcons.articleLight)),
-                                    maxLines: null,
-                                    controller: _descriptionController,
-                                    minLines: 3),
-                                if (event != null) ...[
-                                  const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Divider(),
-                                  ),
-                                  ListTile(
-                                      leading: const Icon(PhosphorIcons.compassLight),
-                                      title: const Text("Assign"),
-                                      onTap: () async {
-                                        var assigned = await showDialog(
-                                            context: context,
-                                            builder: (context) => AssignDialog(assigned: event.assigned));
-                                        if (assigned != null) {
-                                          service.updateEvent(event.copyWith(assigned: assigned));
-                                        }
-                                      })
-                                ]
-                              ])))))
-            ]),
-            Column(children: [
-              const SizedBox(height: 20),
-              Row(children: [
-                Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DateInputField(
-                      label: "Start date",
-                      initialDate: startDateTime,
-                      onChanged: (dateTime) => startDateTime = dateTime),
-                )),
-                Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TimeInputField(
-                      label: "Start time",
-                      initialTime: startDateTime != null ? TimeOfDay.fromDateTime(startDateTime!) : null,
-                      onChanged: (time) {
-                        var oldDate = startDateTime ?? DateTime.now();
-                        startDateTime =
-                            DateTime(oldDate.year, oldDate.month, oldDate.day, time?.hour ?? 0, time?.minute ?? 0);
-                      }),
-                ))
+        body: Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              padding: const EdgeInsets.all(16.0),
+              constraints: const BoxConstraints(maxWidth: 800),
+              child: TabBarView(controller: _tabController, children: [
+                Column(children: [
+                  Expanded(
+                      child: SingleChildScrollView(
+                          child: Column(children: [
+                    const SizedBox(height: 50),
+                    Builder(builder: (context) {
+                      return StreamBuilder<List<User>>(
+                          stream: service.onUsers(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              return Text("Error: ${snapshot.error}");
+                            }
+                            if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
+                              return const Center(child: CircularProgressIndicator());
+                            }
+                            var users = snapshot.data!;
+                            return DropdownButtonFormField<Account>(
+                                value: account,
+                                decoration: const InputDecoration(labelText: "Account", border: OutlineInputBorder()),
+                                onChanged: (value) => setState(() => account = value),
+                                items: [
+                                  ...Hive.box('accounts').values.map((e) => DropdownMenuItem(child: Text(e), value: e)),
+                                  ...users
+                                      .map((e) => Account.fromLocalUser(e))
+                                      .map((e) => DropdownMenuItem(child: Text(e.toString()), value: e))
+                                ]);
+                          });
+                    }),
+                    const SizedBox(height: 50),
+                    TextField(
+                        decoration: const InputDecoration(
+                            filled: true, labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
+                        controller: _nameController),
+                    const SizedBox(height: 20),
+                    TextField(
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Description",
+                            icon: Icon(PhosphorIcons.articleLight)),
+                        maxLines: null,
+                        controller: _descriptionController,
+                        minLines: 3),
+                    if (event != null) ...[
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Divider(),
+                      ),
+                      ListTile(
+                          leading: const Icon(PhosphorIcons.compassLight),
+                          title: const Text("Assign"),
+                          onTap: () async {
+                            var assigned = await showDialog(
+                                context: context, builder: (context) => AssignDialog(assigned: event.assigned));
+                            if (assigned != null) {
+                              service.updateEvent(event.copyWith(assigned: assigned));
+                            }
+                          })
+                    ]
+                  ])))
+                ]),
+                Column(children: [
+                  const SizedBox(height: 20),
+                  Row(children: [
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DateInputField(
+                          label: "Start date",
+                          initialDate: startDateTime,
+                          onChanged: (dateTime) => startDateTime = dateTime),
+                    )),
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TimeInputField(
+                          label: "Start time",
+                          initialTime: startDateTime != null ? TimeOfDay.fromDateTime(startDateTime!) : null,
+                          onChanged: (time) {
+                            var oldDate = startDateTime ?? DateTime.now();
+                            startDateTime =
+                                DateTime(oldDate.year, oldDate.month, oldDate.day, time?.hour ?? 0, time?.minute ?? 0);
+                          }),
+                    ))
+                  ]),
+                  const SizedBox(height: 20),
+                  Row(children: [
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DateInputField(
+                          label: "End date", initialDate: endDateTime, onChanged: (dateTime) => endDateTime = dateTime),
+                    )),
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TimeInputField(
+                          label: "End time",
+                          initialTime: endDateTime != null ? TimeOfDay.fromDateTime(endDateTime!) : null,
+                          onChanged: (time) {
+                            var oldDate = endDateTime ?? DateTime.now();
+                            endDateTime =
+                                DateTime(oldDate.year, oldDate.month, oldDate.day, time?.hour ?? 0, time?.minute ?? 0);
+                          }),
+                    ))
+                  ]),
+                  if (event != null) ...[
+                    const SizedBox(height: 20),
+                    StatefulBuilder(builder: (context, setState) {
+                      return CheckboxListTile(
+                          value: isCanceled,
+                          onChanged: (value) => setState(() => isCanceled = value ?? isCanceled),
+                          title: const Text("Canceled"),
+                          subtitle: const Text("Check if the event is canceled"),
+                          controlAffinity: ListTileControlAffinity.leading);
+                    })
+                  ]
+                ])
               ]),
-              const SizedBox(height: 20),
-              Row(children: [
-                Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DateInputField(
-                      label: "End date", initialDate: endDateTime, onChanged: (dateTime) => endDateTime = dateTime),
-                )),
-                Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TimeInputField(
-                      label: "End time",
-                      initialTime: endDateTime != null ? TimeOfDay.fromDateTime(endDateTime!) : null,
-                      onChanged: (time) {
-                        var oldDate = endDateTime ?? DateTime.now();
-                        endDateTime =
-                            DateTime(oldDate.year, oldDate.month, oldDate.day, time?.hour ?? 0, time?.minute ?? 0);
-                      }),
-                ))
-              ]),
-              if (event != null) ...[
-                const SizedBox(height: 20),
-                StatefulBuilder(builder: (context, setState) {
-                  return CheckboxListTile(
-                      value: isCanceled,
-                      onChanged: (value) => setState(() => isCanceled = value ?? isCanceled),
-                      title: const Text("Canceled"),
-                      subtitle: const Text("Check if the event is canceled"),
-                      controlAffinity: ListTileControlAffinity.leading);
-                })
-              ]
-            ])
-          ]),
-        ));
+            )));
   }
 }

@@ -28,10 +28,7 @@ class Service {
   Router get _auth => AuthService().router;
 
   @Route.mount('/profile/')
-  Handler _profile(Request request) {
-    var jwtService = GetIt.I.get<JWTService>();
-    return Pipeline().addMiddleware(jwtService.checkAuthorization()).addHandler(ProfileService().router);
-  }
+  Router get _profile => ProfileService().router;
 
   // You can catch all verbs and use a URL-parameter with a regular expression
   // that matches everything to catch app.

@@ -287,4 +287,19 @@ class RemoteService extends ApiService {
   Stream<Submission?> onSubmission(int task, int user) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> createSubmission(Submission submission) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> deleteSubmission(int id) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updateSubmission(Submission submission) {
+    throw UnimplementedError();
+  }
 }

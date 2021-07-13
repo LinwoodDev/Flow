@@ -8,8 +8,7 @@ class TimeInputField extends StatefulWidget {
   final String? label;
   final TimeChangedCallback onChanged;
 
-  const TimeInputField({Key? key, this.initialTime, required this.onChanged, this.label})
-      : super(key: key);
+  const TimeInputField({Key? key, this.initialTime, required this.onChanged, this.label}) : super(key: key);
 
   @override
   _TimeInputFieldState createState() => _TimeInputFieldState();
@@ -23,8 +22,7 @@ class _TimeInputFieldState extends State<TimeInputField> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-        Duration.zero, () => _textController.text = widget.initialTime?.format(context) ?? "");
+    Future.delayed(Duration.zero, () => _textController.text = widget.initialTime?.format(context) ?? "");
     currentTime = widget.initialTime;
   }
 
@@ -38,12 +36,10 @@ class _TimeInputFieldState extends State<TimeInputField> {
             labelText: widget.label ?? "Time",
             suffixIcon: currentTime == null
                 ? null
-                : IconButton(
-                    icon: const Icon(PhosphorIcons.xLight), onPressed: () => changeTime(null))),
+                : IconButton(icon: const Icon(PhosphorIcons.xLight), onPressed: () => changeTime(null))),
         readOnly: true,
         onTap: () => textFieldFocusNode.canRequestFocus
-            ? showTimePicker(context: context, initialTime: currentTime ?? TimeOfDay.now())
-                .then(changeTime)
+            ? showTimePicker(context: context, initialTime: currentTime ?? TimeOfDay.now()).then(changeTime)
             : null);
   }
 

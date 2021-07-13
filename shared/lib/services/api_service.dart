@@ -121,4 +121,10 @@ abstract class ApiService {
   Stream<List<Submission>> onSubmissions(int task, {SubmissionState? state});
 
   Stream<Submission?> onSubmission(int task, int user);
+
+  Future<void> createSubmission(Submission submission);
+
+  Future<void> updateSubmission(Submission submission);
+
+  Future<void> deleteSubmission(int id);
 }

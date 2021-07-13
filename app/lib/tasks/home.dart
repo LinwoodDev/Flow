@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/services/api_service.dart';
 import 'package:shared/models/task.dart';
+import 'package:shared/services/api_service.dart';
 import 'package:shared/services/local_service.dart';
 
 import 'details.dart';
@@ -28,6 +28,7 @@ extension TaskViewExtension on TaskView {
 
 class TasksPage extends StatefulWidget {
   const TasksPage({Key? key}) : super(key: key);
+
   @override
   _TasksPageState createState() => _TasksPageState();
 }
