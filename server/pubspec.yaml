@@ -19,4 +19,4 @@ dev_dependencies:
   shelf_router_generator: ^1.0.0
   build_runner: ^2.0.6
   lints: ^1.0.1
-  test: ^1.17.9
+  test: ^1.17.10
