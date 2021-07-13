@@ -10,15 +10,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late TextEditingController _urlController;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _urlController = TextEditingController(text: widget.address);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,9 +34,12 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 20),
                     TextFormField(
                         decoration: const InputDecoration(
-                            filled: true, labelText: "Password", prefixIcon: Icon(PhosphorIcons.lockLight)))
+                            filled: true,
+                            labelText: "Password",
+                            prefixIcon: Icon(PhosphorIcons.lockLight)))
                   ]))),
         ))))),
-        floatingActionButton: FloatingActionButton(child: const Icon(PhosphorIcons.checkLight), onPressed: () {}));
+        floatingActionButton:
+            FloatingActionButton(child: const Icon(PhosphorIcons.checkLight), onPressed: () {}));
   }
 }
