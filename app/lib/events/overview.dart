@@ -34,7 +34,7 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
       context: context,
       barrierDismissible: true,
       barrierLabel: "Close",
-      transitionDuration: const Duration(milliseconds: 100),
+      transitionDuration: const Duration(milliseconds: 200),
       transitionBuilder: (context, anim1, anim2, child) {
         return SlideTransition(
           position: Tween(begin: const Offset(0, -1), end: const Offset(0, 0)).animate(anim1),
@@ -118,9 +118,13 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
         ),
         bottomNavigationBar: BottomNavigationBar(items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              activeIcon: Icon(PhosphorIcons.squareFill), icon: Icon(PhosphorIcons.squareLight), label: 'Opened'),
+              activeIcon: Icon(PhosphorIcons.squareFill),
+              icon: Icon(PhosphorIcons.squareLight),
+              label: 'Opened'),
           BottomNavigationBarItem(
-              activeIcon: Icon(PhosphorIcons.calendarFill), icon: Icon(PhosphorIcons.calendarLight), label: 'Planned'),
+              activeIcon: Icon(PhosphorIcons.calendarFill),
+              icon: Icon(PhosphorIcons.calendarLight),
+              label: 'Planned'),
           BottomNavigationBarItem(
               activeIcon: Icon(PhosphorIcons.checkSquareFill),
               icon: Icon(PhosphorIcons.checkSquareLight),

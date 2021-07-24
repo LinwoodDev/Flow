@@ -13,10 +13,10 @@ title: Downloads
   <button className="button button--outline button--primary">Web</button>
   <ul className="dropdown__menu">
     <li>
-      <a className="dropdown__link" href="https://flow.linwood.tk">
+      <a className="dropdown__link" href="https://flow.linwood.dev">
         Release
       </a>
-      <a className="dropdown__link" href="https://preview.flow.linwood.tk">
+      <a className="dropdown__link" href="https://preview.flow.linwood.dev">
         Preview
       </a>
     </li>
@@ -121,4 +121,4 @@ title: Downloads
 - [Changelog](changelog)
 - [Older releases](https://github.com/LinwoodCloud/Flow/releases)
 - [Latest release](https://github.com/LinwoodCloud/Flow/releases/latest)
-- [Support](https://discord.linwood.tk)
+- [Support](https://discord.linwood.dev)

@@ -2,7 +2,7 @@
 module.exports = {
     title: 'Linwood Flow Docs',
     tagline: 'A feature rich event and time managment system',
-    url: 'https://docs.flow.linwood.tk',
+    url: 'https://docs.flow.linwood.dev',
     baseUrl: '/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
@@ -28,7 +28,7 @@ module.exports = {
                     label: 'Downloads',
                     position: 'left'
                 },
-                {href: 'https://linwood.tk/blog', label: 'Blog', position: 'left'},
+                {href: 'https://linwood.dev/blog', label: 'Blog', position: 'left'},
                 {
                     href: 'https://github.com/LinwoodCloud/Flow',
                     label: 'GitHub',
@@ -44,7 +44,7 @@ module.exports = {
                     items: [
                         {
                             label: 'Discord',
-                            href: 'https://discord.linwood.tk',
+                            href: 'https://discord.linwood.dev',
                         },
                         {
                             label: 'Twitter',

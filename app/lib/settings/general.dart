@@ -29,15 +29,15 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
           ListTile(
               leading: const Icon(PhosphorIcons.usersLight),
               title: const Text("Discord"),
-              onTap: () => launch("https://discord.linwood.tk")),
+              onTap: () => launch("https://discord.linwood.dev")),
           ListTile(
               leading: const Icon(PhosphorIcons.articleLight),
               title: const Text("Docs"),
-              onTap: () => launch("https://docs.flow.linwood.tk")),
+              onTap: () => launch("https://docs.flow.linwood.dev")),
           ListTile(
               leading: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
               title: const Text("Changelog"),
-              onTap: () => launch("https://docs.flow.linwood.tk/changelog")),
+              onTap: () => launch("https://docs.flow.linwood.dev/changelog")),
           ListTile(
               leading: const Icon(PhosphorIcons.identificationCardLight),
               title: const Text("Imprint"),
@@ -45,7 +45,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
           ListTile(
               leading: const Icon(PhosphorIcons.shieldLight),
               title: const Text("Privacy policy"),
-              onTap: () => launch("https://docs.flow.linwood.tk/privacypolicy")),
+              onTap: () => launch("https://docs.flow.linwood.dev/privacypolicy")),
           ListTile(
               leading: const Icon(PhosphorIcons.infoLight),
               title: const Text("About"),

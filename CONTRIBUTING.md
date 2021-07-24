@@ -21,7 +21,7 @@ If you can translate well, you can help us by translating the message on [crowdi
 
 ## Community Server
 
-A project without a community isn't a good project. You can [join the discord](https://discord.linwood.tk) and talk to
+A project without a community isn't a good project. You can [join the discord](https://discord.linwood.dev) and talk to
 each other!
 
 ## Branches
