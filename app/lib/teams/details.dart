@@ -89,8 +89,9 @@ class _TeamPageState extends State<TeamPage> {
                         color: color.value,
                         description: _descriptionController.text));
                   }
-                  if (Modular.to.canPop() && !widget.isDesktop)
+                  if (Modular.to.canPop() && !widget.isDesktop) {
                     Modular.to.pop();
+                  }
                 }),
             body: Column(children: [
               if (widget.isDesktop)

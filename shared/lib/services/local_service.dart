@@ -70,10 +70,12 @@ class LocalService extends ApiService {
     if (user.email.isEmpty) errors.add(InputError("email.empty"));
     if (user.password.isEmpty) errors.add(InputError("password.empty"));
     if (errors.isNotEmpty) throw InputException(errors);
-    if (await fetchUserByName(user.name) != null)
+    if (await fetchUserByName(user.name) != null) {
       errors.add(InputError("name.exist"));
-    if (await fetchUserByEmail(user.email) != null)
+    }
+    if (await fetchUserByEmail(user.email) != null) {
       errors.add(InputError("email.exist"));
+    }
     if (errors.isNotEmpty) throw InputException(errors);
     var salt = generateSalt();
     return usersStore
@@ -118,8 +120,9 @@ class LocalService extends ApiService {
 
     if (await usersStore.update(db, user.toJson(),
             finder: Finder(filter: Filter.byKey(user.id))) ==
-        await usersStore.count(db))
+        await usersStore.count(db)) {
       throw InputException([InputError("invalid")]);
+    }
   }
 
   @override

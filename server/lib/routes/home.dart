@@ -15,6 +15,10 @@ Future<void> handleHomeSockets(SocketRoute route) async {
         'applications': ['events', 'teams', 'dev-doctor']
       }));
   }
-  handleAuthSockets(route);
-  handleProfileSockets(route);
+  if (route.path.startsWith("auth")) {
+    handleAuthSockets(route);
+  }
+  if (route.path.startsWith("profile")) {
+    handleProfileSockets(route);
+  }
 }

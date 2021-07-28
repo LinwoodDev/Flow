@@ -1,12 +1,16 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
-import 'package:shelf/shelf.dart';
+import 'package:get_it/get_it.dart';
+import 'package:sembast/sembast.dart';
+import 'package:shared/services/local_service.dart';
+import 'package:uuid/uuid.dart';
 
 class JWTService {
   final String secret;
   final String issuer;
+
+  Database get db => GetIt.I.get<LocalService>().db;
+  static const String tokensStoreName = 'tokens';
+  final tokensStore = intMapStoreFactory.store(tokensStoreName);
 
   JWTService(this.secret, [this.issuer = "http://localhost"]);
 
@@ -15,6 +19,18 @@ class JWTService {
         subject: subject, issuer: issuer);
     return jwt.sign(SecretKey(secret));
   }
+  Future<JWTPair> createPair(String userId) async {
+    final tokenId = Uuid().v4();
+    final token = generate(userId);
+
+    final refreshTokenExpiry = Duration(seconds: 60);
+    final refreshToken = generate(userId);
+
+    await addRefreshToken(tokenId, refreshToken, refreshTokenExpiry);
+
+    return JWTPair(token, refreshToken);
+  }
+
 
   JWT? verify(String token) {
     try {
@@ -22,33 +38,32 @@ class JWTService {
     } catch (_) {}
   }
 
-  Middleware handleAuth() {
-    return (Handler innerHandler) {
-      return (Request request) async {
-        final authHeader = request.headers['authorization'];
-        String token;
-        JWT? jwt;
+  JWT? handleAuth(String? authHeader) {
+    String token;
 
-        if (authHeader != null && authHeader.startsWith('Bearer ')) {
-          token = authHeader.substring(7);
-          jwt = verify(token);
-        }
-        final updatedRequest = request.change(context: {'authDetails': jwt});
-        return await innerHandler(updatedRequest);
-      };
-    };
+    if (authHeader != null && authHeader.startsWith('Bearer ')) {
+      token = authHeader.substring(7);
+      return verify(token);
+    }
+  }
+  Future<void> addRefreshToken(String id, String token, Duration expiry) async {
+    await tokensStore.add(db, {"id": id, "token": token, "expire": expiry.inSeconds});
   }
 
-  Middleware checkAuthorization() {
-    return createMiddleware(
-      requestHandler: (request) {
-        if (request.context['authDetails'] == null) {
-          return Response.forbidden(json.encode(["unauthorized"]), headers: {
-            HttpHeaders.contentTypeHeader: ContentType.json.mimeType
-          });
-        }
-        return null;
-      },
-    );
+  Future<dynamic> getRefreshToken(String id) async {
+    return await tokensStore.findFirst(db, finder: Finder(filter: Filter.equals("token", id))).then((value) => value?.value);
   }
+
+  Future<void> removeRefreshToken(String id) async {
+    await tokensStore.delete(db, finder: Finder(filter: Filter.equals("token", id)));
+  }
+}
+
+class JWTPair {
+  final String token, refreshToken;
+
+  JWTPair(this.token, this.refreshToken);
+
+  Map<String, dynamic> toJson() =>
+      {"token": token, "refresh-token": refreshToken};
 }

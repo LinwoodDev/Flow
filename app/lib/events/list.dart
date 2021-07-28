@@ -57,8 +57,9 @@ class _EventsListViewState extends State<EventsListView> {
                       builder: (context) => StreamBuilder<List<Event>>(
                           stream: service.onEvents(),
                           builder: (context, snapshot) {
-                            if (snapshot.hasError)
+                            if (snapshot.hasError) {
                               return Text("Error: ${snapshot.error}");
+                            }
                             if (snapshot.connectionState ==
                                     ConnectionState.waiting ||
                                 !snapshot.hasData) {

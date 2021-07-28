@@ -9,7 +9,9 @@ import 'package:shared/services/local_service.dart';
 import 'package:shared/utils.dart';
 
 Future<void> handleAuthSockets(SocketRoute route) async {
-  var service = GetIt.I.get<LocalService>();
+  final service = GetIt.I.get<LocalService>();
+  final jwtService = GetIt.I.get<JWTService>();
+
   switch (route.path) {
     case "auth:register":
       try {
@@ -39,21 +41,24 @@ Future<void> handleAuthSockets(SocketRoute route) async {
       }
       final service = GetIt.I.get<LocalService>();
       User? foundUser;
-      if (user.email.isNotEmpty)
+      if (user.email.isNotEmpty) {
         foundUser = await service.fetchUserByEmail(user.email);
-      if (user.name.isNotEmpty)
+      }
+      if (user.name.isNotEmpty) {
         foundUser = await service.fetchUserByName(user.name);
+      }
       if (foundUser == null ||
           foundUser.password != hashPassword(user.password, foundUser.salt)) {
         route.reply(
             exception: InputException([InputError("credentials.failed")]));
         return;
       }
-      final jwtService = GetIt.I.get<JWTService>();
 
       final token = jwtService.generate(foundUser.id!.toRadixString(16));
 
       route.reply(
           value: ({"token": token, "user": foundUser.toJson(addId: true)}));
+      break;
+    case "auth:logout":
   }
 }

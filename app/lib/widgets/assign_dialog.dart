@@ -68,8 +68,9 @@ class _AssignDialogState extends State<AssignDialog>
                               builder: (context) => StreamBuilder<List<User>>(
                                   stream: service.onUsers(),
                                   builder: (context, snapshot) {
-                                    if (snapshot.hasError)
+                                    if (snapshot.hasError) {
                                       return Text("Error: ${snapshot.error}");
+                                    }
                                     if (snapshot.connectionState ==
                                             ConnectionState.waiting ||
                                         !snapshot.hasData) {
@@ -147,8 +148,9 @@ class _AssignDialogState extends State<AssignDialog>
                               builder: (context) => StreamBuilder<List<Team>>(
                                   stream: service.onTeams(),
                                   builder: (context, snapshot) {
-                                    if (snapshot.hasError)
+                                    if (snapshot.hasError) {
                                       return Text("Error: ${snapshot.error}");
+                                    }
                                     if (snapshot.connectionState ==
                                             ConnectionState.waiting ||
                                         !snapshot.hasData) {
@@ -227,8 +229,9 @@ class _AssignDialogState extends State<AssignDialog>
                                         List<Event>>(
                                     stream: service.onEvents(),
                                     builder: (context, snapshot) {
-                                      if (snapshot.hasError)
+                                      if (snapshot.hasError) {
                                         return Text("Error: ${snapshot.error}");
+                                      }
                                       if (snapshot.connectionState ==
                                               ConnectionState.waiting ||
                                           !snapshot.hasData) {

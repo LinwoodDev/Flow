@@ -1,5 +1,6 @@
+<!--suppress HtmlDeprecatedAttribute -->
 <p align="center">
-  <img src="https://raw.githubusercontent.com/LinwoodCloud/Flow/develop/app/images/logo.png" width="350px">
+  <img alt="Linwood Flow Logo" src="https://raw.githubusercontent.com/LinwoodCloud/Flow/develop/app/images/logo.png" width="350px">
 </p>
 
 # Linwood Flow
@@ -30,6 +31,6 @@ You don't need a server. Everything can be saved on the local device or in the c
   use [the guide](https://docs.flow.linwood.dev/app) if you need help.
 * **To setup your own server**, [download the binaries](https://docs.flow.linwood.dev/downloads)
   and [follow the guide](https://docs.flow.linwood.dev/server)
-* **To contribute**, visit the [contribution guide](CONTRIBUTING.md)
+* **To contribute**, visit the [contribution guide](https://github.com/LinwoodCloud/Flow/blob/develop/CONTRIBUTING.md)
 * **To communicate with us**, visit [the discord server](https://discord.linwood.dev)
 
