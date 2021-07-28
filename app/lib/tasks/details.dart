@@ -47,7 +47,8 @@ class _TaskPageState extends State<TaskPage> {
             stream: service.onTask(widget.id!),
             builder: (context, snapshot) {
               if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-              if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData) {
+              if (snapshot.connectionState == ConnectionState.waiting ||
+                  !snapshot.hasData) {
                 return const Center(child: CircularProgressIndicator());
               }
               return _buildView(snapshot.data);
@@ -68,29 +69,39 @@ class _TaskPageState extends State<TaskPage> {
                     IconButton(
                         onPressed: () => Modular.to.pushNamed(widget.id == null
                             ? "/tasks/create"
-                            : Uri(pathSegments: ["", "tasks", "details"], queryParameters: {"id": widget.id.toString()})
-                                .toString()),
+                            : Uri(pathSegments: [
+                                "",
+                                "tasks",
+                                "details"
+                              ], queryParameters: {
+                                "id": widget.id.toString()
+                              }).toString()),
                         icon: const Icon(PhosphorIcons.arrowSquareOutLight))
                 ],
                 bottom: const TabBar(tabs: [
                   Tab(icon: Icon(PhosphorIcons.wrenchLight), text: "General"),
-                  Tab(icon: Icon(PhosphorIcons.foldersLight), text: "Submission")
+                  Tab(
+                      icon: Icon(PhosphorIcons.foldersLight),
+                      text: "Submission")
                 ])),
             floatingActionButton: FloatingActionButton(
                 heroTag: "task-check",
                 child: const Icon(PhosphorIcons.checkLight),
                 onPressed: () {
                   if (create) {
-                    service.createTask(Task(_nameController.text, description: _descriptionController.text));
+                    service.createTask(Task(_nameController.text,
+                        description: _descriptionController.text));
                     if (widget.isDesktop) {
                       _nameController.clear();
                       _descriptionController.clear();
                     }
                   } else {
-                    service.updateTask(
-                        task!.copyWith(name: _nameController.text, description: _descriptionController.text));
+                    service.updateTask(task!.copyWith(
+                        name: _nameController.text,
+                        description: _descriptionController.text));
                   }
-                  if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
+                  if (Modular.to.canPop() && !widget.isDesktop)
+                    Modular.to.pop();
                 }),
             body: Align(
                 alignment: Alignment.topCenter,
@@ -105,21 +116,29 @@ class _TaskPageState extends State<TaskPage> {
                               if (snapshot.hasError) {
                                 return Text("Error: ${snapshot.error}");
                               }
-                              if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
-                                return const Center(child: CircularProgressIndicator());
+                              if (!snapshot.hasData ||
+                                  snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
                               }
                               var users = snapshot.data!;
                               return DropdownButtonFormField<Account>(
                                   value: account,
-                                  decoration: const InputDecoration(labelText: "Account", border: OutlineInputBorder()),
-                                  onChanged: (value) => setState(() => account = value),
+                                  decoration: const InputDecoration(
+                                      labelText: "Account",
+                                      border: OutlineInputBorder()),
+                                  onChanged: (value) =>
+                                      setState(() => account = value),
                                   items: [
-                                    ...Hive.box('accounts')
-                                        .values
-                                        .map((e) => DropdownMenuItem(child: Text(e), value: e)),
+                                    ...Hive.box('accounts').values.map((e) =>
+                                        DropdownMenuItem(
+                                            child: Text(e), value: e)),
                                     ...users
                                         .map((e) => Account.fromLocalUser(e))
-                                        .map((e) => DropdownMenuItem(child: Text(e.toString()), value: e))
+                                        .map((e) => DropdownMenuItem(
+                                            child: Text(e.toString()),
+                                            value: e))
                                   ]);
                             });
                       }),
@@ -130,7 +149,9 @@ class _TaskPageState extends State<TaskPage> {
                               child: Column(children: [
                             TextField(
                                 decoration: const InputDecoration(
-                                    filled: true, labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
+                                    filled: true,
+                                    labelText: "Name",
+                                    icon: Icon(PhosphorIcons.calendarLight)),
                                 controller: _nameController),
                             const SizedBox(height: 20),
                             TextField(
@@ -142,15 +163,20 @@ class _TaskPageState extends State<TaskPage> {
                                 controller: _descriptionController,
                                 minLines: 3),
                             if (task != null) ...[
-                              const Padding(padding: EdgeInsets.all(8.0), child: Divider()),
+                              const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Divider()),
                               ElevatedButton.icon(
                                   icon: const Icon(PhosphorIcons.compassLight),
                                   label: const Text("ASSIGN"),
                                   onPressed: () async {
                                     var assigned = await showDialog(
-                                        context: context, builder: (context) => AssignDialog(assigned: task.assigned));
+                                        context: context,
+                                        builder: (context) => AssignDialog(
+                                            assigned: task.assigned));
                                     if (assigned != null) {
-                                      service.updateTask(task.copyWith(assigned: assigned));
+                                      service.updateTask(
+                                          task.copyWith(assigned: assigned));
                                     }
                                   })
                             ]
@@ -164,11 +190,13 @@ class _TaskPageState extends State<TaskPage> {
                                       title: const Text("Submission type"),
                                       subtitle: const Text("None"),
                                       onTap: () {},
-                                      leading: const Icon(PhosphorIcons.fileLight)),
+                                      leading:
+                                          const Icon(PhosphorIcons.fileLight)),
                                   ListTile(
                                       title: const Text("Show submissions"),
                                       onTap: () {},
-                                      leading: const Icon(PhosphorIcons.listLight))
+                                      leading:
+                                          const Icon(PhosphorIcons.listLight))
                                 ]),
                             if (task != null && account != null)
                               Builder(builder: (context) {
@@ -177,26 +205,33 @@ class _TaskPageState extends State<TaskPage> {
                                     builder: (context, snapshot) {
                                       return ExpansionTile(
                                           title: const Text("Your submission"),
-                                          leading: const Icon(PhosphorIcons.folderLight),
+                                          leading: const Icon(
+                                              PhosphorIcons.folderLight),
                                           initiallyExpanded: true,
                                           children: [
                                             Row(children: [
                                               if (snapshot.hasData)
                                                 Expanded(
                                                     child: Padding(
-                                                  padding: const EdgeInsets.all(8.0),
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
                                                   child: TextButton.icon(
                                                       onPressed: () {},
-                                                      icon: const Icon(PhosphorIcons.xLight),
-                                                      label: const Text("REMOVE")),
+                                                      icon: const Icon(
+                                                          PhosphorIcons.xLight),
+                                                      label:
+                                                          const Text("REMOVE")),
                                                 )),
                                               Expanded(
                                                   child: Padding(
-                                                padding: const EdgeInsets.all(8.0),
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
                                                 child: ElevatedButton.icon(
                                                     onPressed: () {},
-                                                    icon: const Icon(PhosphorIcons.paperPlaneRightLight),
-                                                    label: const Text("SUBMIT")),
+                                                    icon: const Icon(PhosphorIcons
+                                                        .paperPlaneRightLight),
+                                                    label:
+                                                        const Text("SUBMIT")),
                                               ))
                                             ])
                                           ]);

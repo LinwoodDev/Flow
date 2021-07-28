@@ -4,10 +4,12 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class EventsAdminSettingsPage extends StatefulWidget {
   final String server;
 
-  const EventsAdminSettingsPage({Key? key, required this.server}) : super(key: key);
+  const EventsAdminSettingsPage({Key? key, required this.server})
+      : super(key: key);
 
   @override
-  _EventsAdminSettingsPageState createState() => _EventsAdminSettingsPageState();
+  _EventsAdminSettingsPageState createState() =>
+      _EventsAdminSettingsPageState();
 }
 
 class _EventsAdminSettingsPageState extends State<EventsAdminSettingsPage> {
@@ -20,7 +22,9 @@ class _EventsAdminSettingsPageState extends State<EventsAdminSettingsPage> {
             padding: const EdgeInsets.all(16.0),
             child: Column(children: [
               ElevatedButton.icon(
-                  onPressed: () {}, icon: const Icon(PhosphorIcons.flagLight), label: const Text("OPEN PERMISSIONS"))
+                  onPressed: () {},
+                  icon: const Icon(PhosphorIcons.flagLight),
+                  label: const Text("OPEN PERMISSIONS"))
             ])));
   }
 }

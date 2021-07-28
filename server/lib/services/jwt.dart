@@ -11,7 +11,8 @@ class JWTService {
   JWTService(this.secret, [this.issuer = "http://localhost"]);
 
   String generate(String subject) {
-    final jwt = JWT({"iat": DateTime.now().millisecondsSinceEpoch}, subject: subject, issuer: issuer);
+    final jwt = JWT({"iat": DateTime.now().millisecondsSinceEpoch},
+        subject: subject, issuer: issuer);
     return jwt.sign(SecretKey(secret));
   }
 
@@ -42,8 +43,9 @@ class JWTService {
     return createMiddleware(
       requestHandler: (request) {
         if (request.context['authDetails'] == null) {
-          return Response.forbidden(json.encode(["unauthorized"]),
-              headers: {HttpHeaders.contentTypeHeader: ContentType.json.mimeType});
+          return Response.forbidden(json.encode(["unauthorized"]), headers: {
+            HttpHeaders.contentTypeHeader: ContentType.json.mimeType
+          });
         }
         return null;
       },

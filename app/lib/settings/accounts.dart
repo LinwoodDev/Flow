@@ -26,7 +26,8 @@ class _AccountsSettingsPageState extends State<AccountsSettingsPage> {
         body: ValueListenableBuilder<Box>(
             valueListenable: Hive.box('accounts').listenable(),
             builder: (context, box, _) {
-              var accounts = box.values.map((e) => Account.fromJson(e)).toList();
+              var accounts =
+                  box.values.map((e) => Account.fromJson(e)).toList();
               return ListView.builder(
                   itemCount: box.values.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -38,7 +39,9 @@ class _AccountsSettingsPageState extends State<AccountsSettingsPage> {
                       child: ListTile(
                           title: Text(current.toString()),
                           subtitle: Text(box.getAt(index) ?? ""),
-                          trailing: IconButton(icon: const Icon(PhosphorIcons.signOutLight), onPressed: () {})),
+                          trailing: IconButton(
+                              icon: const Icon(PhosphorIcons.signOutLight),
+                              onPressed: () {})),
                     );
                   });
             }));

@@ -30,7 +30,7 @@ dependencies:
   url_launcher: ^6.0.9
   easy_localization: ^3.0.0
   enum_to_string: ^2.0.1
-  get_it: ^7.1.4
+  get_it: ^7.2.0
   phosphor_flutter: ^1.2.0
   sembast_web: ^2.0.0+2
   path_provider: ^2.0.2

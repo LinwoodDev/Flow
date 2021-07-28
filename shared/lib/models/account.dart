@@ -29,5 +29,6 @@ class Account extends JsonObject {
   List<Object?> get props => [toString()];
 
   @override
-  Account copyWith({String? username, String? address}) => Account(username ?? this.username, address ?? this.address);
+  Account copyWith({String? username, String? address}) =>
+      Account(username ?? this.username, address ?? this.address);
 }

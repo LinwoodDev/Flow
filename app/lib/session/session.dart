@@ -49,8 +49,10 @@ class _SessionPageState extends State<SessionPage> {
                           prefixIcon: Icon(PhosphorIcons.linkLight)))),
               const SizedBox(height: 50),
               Expanded(
-                  child:
-                      TabBarView(children: [LoginPage(address: widget.address), RegisterPage(address: widget.address)]))
+                  child: TabBarView(children: [
+                LoginPage(address: widget.address),
+                RegisterPage(address: widget.address)
+              ]))
             ])));
   }
 }

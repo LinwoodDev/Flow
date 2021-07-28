@@ -9,12 +9,22 @@ class Assigned extends JsonObject {
   final List<AssignedObject> users;
   final List<AssignedObject> events;
 
-  const Assigned({this.teams = const [], this.users = const [], this.events = const [], this.everyone});
+  const Assigned(
+      {this.teams = const [],
+      this.users = const [],
+      this.events = const [],
+      this.everyone});
 
   Assigned.fromJson(Map<String, dynamic> json)
-      : teams = List.from(json['teams'] ?? []).map((e) => AssignedObject.fromJson(e)).toList(),
-        users = List.from(json['users'] ?? []).map((e) => AssignedObject.fromJson(e)).toList(),
-        events = List.from(json['events'] ?? []).map((e) => AssignedObject.fromJson(e)).toList(),
+      : teams = List.from(json['teams'] ?? [])
+            .map((e) => AssignedObject.fromJson(e))
+            .toList(),
+        users = List.from(json['users'] ?? [])
+            .map((e) => AssignedObject.fromJson(e))
+            .toList(),
+        events = List.from(json['events'] ?? [])
+            .map((e) => AssignedObject.fromJson(e))
+            .toList(),
         everyone = json['everyone'];
 
   @override
@@ -55,7 +65,8 @@ class AssignedObject extends JsonObject {
 
   @override
   AssignedObject copyWith({int? id, bool? flag, bool removeFlag = false}) =>
-      AssignedObject(flag: removeFlag ? null : (flag ?? this.flag), id: id ?? this.id);
+      AssignedObject(
+          flag: removeFlag ? null : (flag ?? this.flag), id: id ?? this.id);
 
   @override
   Map<String, dynamic> toJson() => {'id': id, 'flag': flag};

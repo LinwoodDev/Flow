@@ -9,14 +9,11 @@ environment:
 dependencies:
   shared:
     path: ../shared
-  shelf: ^1.2.0
-  shelf_router: ^1.1.1
   get_it: ^7.2.0
   sembast: ^3.1.0+2
-  dart_jsonwebtoken: ^2.3.1
+  dart_jsonwebtoken: ^2.3.2
 #  path: ^1.7.0
 dev_dependencies:
-  shelf_router_generator: ^1.0.0
   build_runner: ^2.0.6
   lints: ^1.0.1
   test: ^1.17.10

@@ -25,7 +25,10 @@ class _RegisterPageState extends State<RegisterPage> {
                               TextFormField(
                                   keyboardType: TextInputType.name,
                                   decoration: const InputDecoration(
-                                      filled: true, labelText: "Name", prefixIcon: Icon(PhosphorIcons.userLight))),
+                                      filled: true,
+                                      labelText: "Name",
+                                      prefixIcon:
+                                          Icon(PhosphorIcons.userLight))),
                               const SizedBox(height: 20),
                               TextFormField(
                                   keyboardType: TextInputType.emailAddress,
@@ -33,18 +36,24 @@ class _RegisterPageState extends State<RegisterPage> {
                                       filled: true,
                                       labelText: "Email",
                                       hintText: "email@example.com",
-                                      prefixIcon: Icon(PhosphorIcons.envelopeLight))),
+                                      prefixIcon:
+                                          Icon(PhosphorIcons.envelopeLight))),
                               const SizedBox(height: 50),
                               TextFormField(
                                   decoration: const InputDecoration(
-                                      filled: true, labelText: "Password", prefixIcon: Icon(PhosphorIcons.lockLight))),
+                                      filled: true,
+                                      labelText: "Password",
+                                      prefixIcon:
+                                          Icon(PhosphorIcons.lockLight))),
                               const SizedBox(height: 20),
                               TextFormField(
                                   decoration: const InputDecoration(
                                       filled: true,
                                       labelText: "Repeat password",
-                                      prefixIcon: Icon(PhosphorIcons.lockLight)))
+                                      prefixIcon:
+                                          Icon(PhosphorIcons.lockLight)))
                             ])))))),
-        floatingActionButton: FloatingActionButton(child: const Icon(PhosphorIcons.checkLight), onPressed: () {}));
+        floatingActionButton: FloatingActionButton(
+            child: const Icon(PhosphorIcons.checkLight), onPressed: () {}));
   }
 }

@@ -68,8 +68,11 @@ class Event extends JsonObject {
           id: id ?? this.id,
           parent: removeParent ? null : (parent ?? this.parent),
           season: removeSeason ? null : (season ?? this.season),
-          startDateTime: removeStartDateTime ? null : (startDateTime ?? this.startDateTime),
-          endDateTime: removeEndDateTime ? null : (endDateTime ?? this.endDateTime),
+          startDateTime: removeStartDateTime
+              ? null
+              : (startDateTime ?? this.startDateTime),
+          endDateTime:
+              removeEndDateTime ? null : (endDateTime ?? this.endDateTime),
           isCanceled: isCanceled ?? this.isCanceled,
           assigned: assigned ?? this.assigned);
 

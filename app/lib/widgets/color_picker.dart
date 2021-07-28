@@ -6,7 +6,8 @@ class ColorPicker extends StatefulWidget {
   final ColorCallback onClick;
   final Color? initialColor;
 
-  const ColorPicker({Key? key, required this.onClick, this.initialColor}) : super(key: key);
+  const ColorPicker({Key? key, required this.onClick, this.initialColor})
+      : super(key: key);
 
   @override
   _ColorPickerState createState() => _ColorPickerState();
@@ -52,7 +53,8 @@ class _ColorPickerState extends State<ColorPicker> {
 
   void changeColor({int? red, int? green, int? blue}) {
     setState(() {
-      color = Color.fromRGBO(red ?? color.red, green ?? color.green, blue ?? color.blue, 1);
+      color = Color.fromRGBO(
+          red ?? color.red, green ?? color.green, blue ?? color.blue, 1);
       _redController.text = color.red.toString();
       _greenController.text = color.green.toString();
       _blueController.text = color.blue.toString();
@@ -79,7 +81,8 @@ class _ColorPickerState extends State<ColorPicker> {
                       child: TextField(
                           textAlign: TextAlign.center,
                           controller: _redController,
-                          onSubmitted: (value) => changeColor(red: int.tryParse(value)))),
+                          onSubmitted: (value) =>
+                              changeColor(red: int.tryParse(value)))),
                   Expanded(
                     child: SliderTheme(
                         data: const SliderThemeData(thumbColor: Colors.red),
@@ -89,7 +92,8 @@ class _ColorPickerState extends State<ColorPicker> {
                             max: 255,
                             divisions: 255,
                             label: color.red.round().toString(),
-                            onChanged: (double value) => changeColor(red: value.toInt()))),
+                            onChanged: (double value) =>
+                                changeColor(red: value.toInt()))),
                   ),
                 ],
               ),
@@ -100,7 +104,8 @@ class _ColorPickerState extends State<ColorPicker> {
                       child: TextField(
                           textAlign: TextAlign.center,
                           controller: _greenController,
-                          onSubmitted: (value) => changeColor(green: int.tryParse(value)))),
+                          onSubmitted: (value) =>
+                              changeColor(green: int.tryParse(value)))),
                   Expanded(
                     child: SliderTheme(
                         data: const SliderThemeData(thumbColor: Colors.green),
@@ -110,7 +115,8 @@ class _ColorPickerState extends State<ColorPicker> {
                             max: 255,
                             divisions: 255,
                             label: color.green.round().toString(),
-                            onChanged: (double value) => changeColor(green: value.toInt()))),
+                            onChanged: (double value) =>
+                                changeColor(green: value.toInt()))),
                   ),
                 ],
               ),
@@ -121,7 +127,8 @@ class _ColorPickerState extends State<ColorPicker> {
                       child: TextField(
                           textAlign: TextAlign.center,
                           controller: _blueController,
-                          onSubmitted: (value) => changeColor(blue: int.tryParse(value)))),
+                          onSubmitted: (value) =>
+                              changeColor(blue: int.tryParse(value)))),
                   Expanded(
                     child: SliderTheme(
                         data: const SliderThemeData(thumbColor: Colors.blue),
@@ -131,7 +138,8 @@ class _ColorPickerState extends State<ColorPicker> {
                             max: 255,
                             divisions: 255,
                             label: color.blue.round().toString(),
-                            onChanged: (double value) => changeColor(blue: value.toInt()))),
+                            onChanged: (double value) =>
+                                changeColor(blue: value.toInt()))),
                   ),
                 ],
               )
@@ -153,10 +161,14 @@ class _ColorPickerState extends State<ColorPicker> {
                           padding: const EdgeInsets.all(8.0),
                           child: GestureDetector(
                               child: Container(
-                                  decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle, color: color),
                                   height: 50,
                                   width: 50),
-                              onTap: () => changeColor(red: color.red, green: color.green, blue: color.blue)),
+                              onTap: () => changeColor(
+                                  red: color.red,
+                                  green: color.green,
+                                  blue: color.blue)),
                         );
                       })),
                 ),

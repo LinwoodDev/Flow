@@ -12,7 +12,12 @@ class Task extends JsonObject {
   final int? event;
   final int? parent;
 
-  Task(this.name, {this.id, this.description = '', this.assigned = const Assigned(), this.parent, this.event});
+  Task(this.name,
+      {this.id,
+      this.description = '',
+      this.assigned = const Assigned(),
+      this.parent,
+      this.event});
 
   Task.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -23,8 +28,12 @@ class Task extends JsonObject {
         event = json['event'];
 
   @override
-  Map<String, dynamic> toJson() =>
-      {'name': name, 'description': description, 'assigned': assigned.toJson(), 'event': event};
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'description': description,
+        'assigned': assigned.toJson(),
+        'event': event
+      };
 
   @override
   Task copyWith(
@@ -54,7 +63,8 @@ class Submission extends JsonObject {
   final int? user;
   final SubmissionState state;
 
-  Submission({this.id, this.task, this.user, this.state = SubmissionState.open});
+  Submission(
+      {this.id, this.task, this.user, this.state = SubmissionState.open});
 
   Submission.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -63,13 +73,15 @@ class Submission extends JsonObject {
         state = SubmissionState.values[json['state']];
 
   @override
-  Map<String, dynamic> toJson() => {'task': task, 'user': user, 'state': state.index};
+  Map<String, dynamic> toJson() =>
+      {'task': task, 'user': user, 'state': state.index};
 
   @override
   List<Object?> get props => [id];
 
   @override
-  Submission copyWith({int? id, SubmissionState? state}) => Submission(id: id ?? this.id, state: state ?? this.state);
+  Submission copyWith({int? id, SubmissionState? state}) =>
+      Submission(id: id ?? this.id, state: state ?? this.state);
 }
 
 enum SubmissionState { open, progress, done, closed }

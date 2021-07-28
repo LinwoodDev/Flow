@@ -16,7 +16,8 @@ class UserPage extends StatefulWidget {
   final bool isDesktop;
   final Account? account;
 
-  const UserPage({Key? key, this.id, this.isDesktop = false, this.account}) : super(key: key);
+  const UserPage({Key? key, this.id, this.isDesktop = false, this.account})
+      : super(key: key);
 
   @override
   _UserPageState createState() => _UserPageState();
@@ -24,10 +25,12 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
   late final TextEditingController _nameController = TextEditingController();
-  late final TextEditingController _displayNameController = TextEditingController();
+  late final TextEditingController _displayNameController =
+      TextEditingController();
   late final TextEditingController _bioController = TextEditingController();
   late final TextEditingController _emailController = TextEditingController();
-  late final TextEditingController _passwordController = TextEditingController();
+  late final TextEditingController _passwordController =
+      TextEditingController();
   late ApiService service;
 
   @override
@@ -53,7 +56,8 @@ class _UserPageState extends State<UserPage> {
             stream: service.onUser(widget.id!),
             builder: (context, snapshot) {
               if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-              if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData) {
+              if (snapshot.connectionState == ConnectionState.waiting ||
+                  !snapshot.hasData) {
                 return const Center(child: CircularProgressIndicator());
               }
               return _buildView(snapshot.data);
@@ -68,12 +72,15 @@ class _UserPageState extends State<UserPage> {
     _emailController.text = user?.email ?? "";
     var userState = user?.state ?? UserState.fake;
     return Scaffold(
-        appBar: AppBar(title: Text(create ? "Create user" : user!.name), actions: [
+        appBar:
+            AppBar(title: Text(create ? "Create user" : user!.name), actions: [
           if (widget.isDesktop)
             IconButton(
                 onPressed: () => Modular.to.pushNamed(widget.id == null
                     ? "/users/create"
-                    : Uri(pathSegments: ["", "users", "details"], queryParameters: {"id": widget.id.toString()})
+                    : Uri(
+                            pathSegments: ["", "users", "details"],
+                            queryParameters: {"id": widget.id.toString()})
                         .toString()),
                 icon: const Icon(PhosphorIcons.arrowSquareOutLight))
         ]),
@@ -101,8 +108,15 @@ class _UserPageState extends State<UserPage> {
                       context: context,
                       builder: (context) => AlertDialog(
                             title: const Text("Error while creating an user"),
-                            content: Text((e as InputException).errors.map((e) => e.toString()).join("\n")),
-                            actions: [TextButton(child: const Text("CLOSE"), onPressed: () => Modular.to.pop())],
+                            content: Text((e as InputException)
+                                .errors
+                                .map((e) => e.toString())
+                                .join("\n")),
+                            actions: [
+                              TextButton(
+                                  child: const Text("CLOSE"),
+                                  onPressed: () => Modular.to.pop())
+                            ],
                           ));
                 }, test: (e) => e is InputException);
               } else {
@@ -113,15 +127,23 @@ class _UserPageState extends State<UserPage> {
                     email: _emailController.text);
                 service.updateUser(updatedUser).then((value) {
                   if (account == Account.fromLocalUser(user)) {
-                    setState(() => account = Account.fromLocalUser(updatedUser));
+                    setState(
+                        () => account = Account.fromLocalUser(updatedUser));
                   }
                 }).catchError((e, stackTrace) {
                   showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
                             title: const Text("Error while updating the user"),
-                            content: Text((e as InputException).errors.map((e) => e.toString()).join("\n")),
-                            actions: [TextButton(child: const Text("CLOSE"), onPressed: () => Modular.to.pop())],
+                            content: Text((e as InputException)
+                                .errors
+                                .map((e) => e.toString())
+                                .join("\n")),
+                            actions: [
+                              TextButton(
+                                  child: const Text("CLOSE"),
+                                  onPressed: () => Modular.to.pop())
+                            ],
                           ));
                 }, test: (e) => e is InputException);
               }
@@ -144,42 +166,58 @@ class _UserPageState extends State<UserPage> {
                             if (snapshot.hasError) {
                               return Text("Error: ${snapshot.error}");
                             }
-                            if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
-                              return const Center(child: CircularProgressIndicator());
+                            if (!snapshot.hasData ||
+                                snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
                             }
                             var users = snapshot.data!;
                             return DropdownButtonFormField<Account>(
                                 value: account,
-                                decoration: const InputDecoration(labelText: "Account", border: OutlineInputBorder()),
+                                decoration: const InputDecoration(
+                                    labelText: "Account",
+                                    border: OutlineInputBorder()),
                                 onChanged: (value) => account = value,
                                 items: [
-                                  ...Hive.box('accounts').values.map((e) => DropdownMenuItem(child: Text(e), value: e)),
+                                  ...Hive.box('accounts').values.map((e) =>
+                                      DropdownMenuItem(
+                                          child: Text(e), value: e)),
                                   ...users
                                       .map((e) => Account.fromLocalUser(e))
-                                      .map((e) => DropdownMenuItem(child: Text(e.toString()), value: e))
+                                      .map((e) => DropdownMenuItem(
+                                          child: Text(e.toString()), value: e))
                                 ]);
                           });
                     }),
                     const SizedBox(height: 50),
                     TextField(
-                        decoration:
-                            const InputDecoration(labelText: "Name", icon: Icon(PhosphorIcons.userLight), filled: true),
+                        decoration: const InputDecoration(
+                            labelText: "Name",
+                            icon: Icon(PhosphorIcons.userLight),
+                            filled: true),
                         controller: _nameController),
                     const SizedBox(height: 20),
                     TextField(
                         decoration: const InputDecoration(
-                            labelText: "Display name", icon: Icon(PhosphorIcons.identificationCardLight), filled: true),
+                            labelText: "Display name",
+                            icon: Icon(PhosphorIcons.identificationCardLight),
+                            filled: true),
                         controller: _displayNameController),
                     const SizedBox(height: 20),
                     TextField(
                         decoration: const InputDecoration(
-                            labelText: "Email", icon: Icon(PhosphorIcons.envelopeLight), filled: true),
+                            labelText: "Email",
+                            icon: Icon(PhosphorIcons.envelopeLight),
+                            filled: true),
                         controller: _emailController),
                     const SizedBox(height: 20),
                     if (user == null) ...[
                       TextField(
                           decoration: const InputDecoration(
-                              labelText: "Password", icon: Icon(PhosphorIcons.lockLight), filled: true),
+                              labelText: "Password",
+                              icon: Icon(PhosphorIcons.lockLight),
+                              filled: true),
                           controller: _passwordController),
                       const SizedBox(height: 20),
                     ],
@@ -198,13 +236,17 @@ class _UserPageState extends State<UserPage> {
                       ),
                       PopupMenuButton<UserState>(
                           initialValue: userState,
-                          onSelected: (value) => service.updateUser(user.copyWith(state: value)),
-                          itemBuilder: (context) =>
-                              UserState.values.map((e) => PopupMenuItem(child: Text(e.toString()), value: e)).toList(),
+                          onSelected: (value) =>
+                              service.updateUser(user.copyWith(state: value)),
+                          itemBuilder: (context) => UserState.values
+                              .map((e) => PopupMenuItem(
+                                  child: Text(e.toString()), value: e))
+                              .toList(),
                           child: ListTile(
                               title: const Text("User state"),
                               subtitle: Text(userState.toString()),
-                              leading: const Icon(PhosphorIcons.presentationLight))),
+                              leading:
+                                  const Icon(PhosphorIcons.presentationLight))),
                       ListTile(
                           leading: const Icon(PhosphorIcons.lockLight),
                           title: const Text("Change password"),

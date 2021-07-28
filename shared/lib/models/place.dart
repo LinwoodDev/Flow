@@ -10,7 +10,8 @@ class Place extends JsonObject {
   final String description;
   final Assigned assigned;
 
-  Place(this.name, {this.id, this.description = '', this.assigned = const Assigned()});
+  Place(this.name,
+      {this.id, this.description = '', this.assigned = const Assigned()});
 
   Place.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -19,11 +20,16 @@ class Place extends JsonObject {
         assigned = Assigned.fromJson(json['assigned'] ?? {});
 
   @override
-  Map<String, dynamic> toJson() => {'name': name, 'description': description, 'assigned': assigned.toJson()};
+  Map<String, dynamic> toJson() =>
+      {'name': name, 'description': description, 'assigned': assigned.toJson()};
 
   @override
-  Place copyWith({String? name, String? description, int? id, Assigned? assigned}) => Place(name ?? this.name,
-      description: description ?? this.description, id: id ?? this.id, assigned: assigned ?? this.assigned);
+  Place copyWith(
+          {String? name, String? description, int? id, Assigned? assigned}) =>
+      Place(name ?? this.name,
+          description: description ?? this.description,
+          id: id ?? this.id,
+          assigned: assigned ?? this.assigned);
 
   @override
   List<Object?> get props => [id];

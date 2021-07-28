@@ -16,7 +16,9 @@ class EventPage extends StatefulWidget {
   final int? id;
   final bool isDesktop, isDialog;
 
-  const EventPage({Key? key, this.id, this.isDesktop = false, this.isDialog = false}) : super(key: key);
+  const EventPage(
+      {Key? key, this.id, this.isDesktop = false, this.isDialog = false})
+      : super(key: key);
 
   @override
   _EventPageState createState() => _EventPageState();
@@ -61,7 +63,8 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
             stream: service.onEvent(id!),
             builder: (context, snapshot) {
               if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-              if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData) {
+              if (snapshot.connectionState == ConnectionState.waiting ||
+                  !snapshot.hasData) {
                 return const Center(child: CircularProgressIndicator());
               }
               return _buildView(snapshot.data);
@@ -71,13 +74,16 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
   Widget _buildView(Event? event) {
     var create = event == null;
     bool isCanceled = event?.isCanceled ?? false;
-    DateTime? startDateTime = event?.startDateTime, endDateTime = event?.endDateTime;
+    DateTime? startDateTime = event?.startDateTime,
+        endDateTime = event?.endDateTime;
     _nameController.text = event?.name ?? "";
     _descriptionController.text = event?.description ?? "";
     return Scaffold(
         appBar: AppBar(
             leading: widget.isDialog
-                ? IconButton(icon: const Icon(PhosphorIcons.xLight), onPressed: () => Navigator.of(context).pop())
+                ? IconButton(
+                    icon: const Icon(PhosphorIcons.xLight),
+                    onPressed: () => Navigator.of(context).pop())
                 : null,
             title: Text(create ? "Create event" : event!.name),
             actions: [
@@ -87,21 +93,26 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                       if (widget.isDialog) Modular.to.pop();
                       Modular.to.pushNamed(id == null
                           ? "/events/create"
-                          : Uri(pathSegments: ["", "events", "details"], queryParameters: {"id": id.toString()})
+                          : Uri(
+                                  pathSegments: ["", "events", "details"],
+                                  queryParameters: {"id": id.toString()})
                               .toString());
                     },
                     icon: const Icon(PhosphorIcons.arrowSquareOutLight))
             ],
             bottom: TabBar(controller: _tabController, tabs: const [
               Tab(icon: Icon(PhosphorIcons.wrenchLight), text: "General"),
-              Tab(icon: Icon(PhosphorIcons.calendarLight), text: "Date and time")
+              Tab(
+                  icon: Icon(PhosphorIcons.calendarLight),
+                  text: "Date and time")
             ])),
         floatingActionButton: FloatingActionButton(
             heroTag: "event-check",
             child: const Icon(PhosphorIcons.checkLight),
             onPressed: () async {
               if (create) {
-                var event = await service.createEvent(Event(_nameController.text,
+                var event = await service.createEvent(Event(
+                    _nameController.text,
                     description: _descriptionController.text,
                     isCanceled: isCanceled,
                     startDateTime: startDateTime,
@@ -141,26 +152,37 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                             if (snapshot.hasError) {
                               return Text("Error: ${snapshot.error}");
                             }
-                            if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
-                              return const Center(child: CircularProgressIndicator());
+                            if (!snapshot.hasData ||
+                                snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
                             }
                             var users = snapshot.data!;
                             return DropdownButtonFormField<Account>(
                                 value: account,
-                                decoration: const InputDecoration(labelText: "Account", border: OutlineInputBorder()),
-                                onChanged: (value) => setState(() => account = value),
+                                decoration: const InputDecoration(
+                                    labelText: "Account",
+                                    border: OutlineInputBorder()),
+                                onChanged: (value) =>
+                                    setState(() => account = value),
                                 items: [
-                                  ...Hive.box('accounts').values.map((e) => DropdownMenuItem(child: Text(e), value: e)),
+                                  ...Hive.box('accounts').values.map((e) =>
+                                      DropdownMenuItem(
+                                          child: Text(e), value: e)),
                                   ...users
                                       .map((e) => Account.fromLocalUser(e))
-                                      .map((e) => DropdownMenuItem(child: Text(e.toString()), value: e))
+                                      .map((e) => DropdownMenuItem(
+                                          child: Text(e.toString()), value: e))
                                 ]);
                           });
                     }),
                     const SizedBox(height: 50),
                     TextField(
                         decoration: const InputDecoration(
-                            filled: true, labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
+                            filled: true,
+                            labelText: "Name",
+                            icon: Icon(PhosphorIcons.calendarLight)),
                         controller: _nameController),
                     const SizedBox(height: 20),
                     TextField(
@@ -181,9 +203,12 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                           title: const Text("Assign"),
                           onTap: () async {
                             var assigned = await showDialog(
-                                context: context, builder: (context) => AssignDialog(assigned: event.assigned));
+                                context: context,
+                                builder: (context) =>
+                                    AssignDialog(assigned: event.assigned));
                             if (assigned != null) {
-                              service.updateEvent(event.copyWith(assigned: assigned));
+                              service.updateEvent(
+                                  event.copyWith(assigned: assigned));
                             }
                           })
                     ]
@@ -205,11 +230,17 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                       padding: const EdgeInsets.all(8.0),
                       child: TimeInputField(
                           label: "Start time",
-                          initialTime: startDateTime != null ? TimeOfDay.fromDateTime(startDateTime!) : null,
+                          initialTime: startDateTime != null
+                              ? TimeOfDay.fromDateTime(startDateTime!)
+                              : null,
                           onChanged: (time) {
                             var oldDate = startDateTime ?? DateTime.now();
-                            startDateTime =
-                                DateTime(oldDate.year, oldDate.month, oldDate.day, time?.hour ?? 0, time?.minute ?? 0);
+                            startDateTime = DateTime(
+                                oldDate.year,
+                                oldDate.month,
+                                oldDate.day,
+                                time?.hour ?? 0,
+                                time?.minute ?? 0);
                           }),
                     ))
                   ]),
@@ -219,18 +250,26 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                         child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: DateInputField(
-                          label: "End date", initialDate: endDateTime, onChanged: (dateTime) => endDateTime = dateTime),
+                          label: "End date",
+                          initialDate: endDateTime,
+                          onChanged: (dateTime) => endDateTime = dateTime),
                     )),
                     Expanded(
                         child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TimeInputField(
                           label: "End time",
-                          initialTime: endDateTime != null ? TimeOfDay.fromDateTime(endDateTime!) : null,
+                          initialTime: endDateTime != null
+                              ? TimeOfDay.fromDateTime(endDateTime!)
+                              : null,
                           onChanged: (time) {
                             var oldDate = endDateTime ?? DateTime.now();
-                            endDateTime =
-                                DateTime(oldDate.year, oldDate.month, oldDate.day, time?.hour ?? 0, time?.minute ?? 0);
+                            endDateTime = DateTime(
+                                oldDate.year,
+                                oldDate.month,
+                                oldDate.day,
+                                time?.hour ?? 0,
+                                time?.minute ?? 0);
                           }),
                     ))
                   ]),
@@ -239,9 +278,11 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                     StatefulBuilder(builder: (context, setState) {
                       return CheckboxListTile(
                           value: isCanceled,
-                          onChanged: (value) => setState(() => isCanceled = value ?? isCanceled),
+                          onChanged: (value) =>
+                              setState(() => isCanceled = value ?? isCanceled),
                           title: const Text("Canceled"),
-                          subtitle: const Text("Check if the event is canceled"),
+                          subtitle:
+                              const Text("Check if the event is canceled"),
                           controlAffinity: ListTileControlAffinity.leading);
                     })
                   ]

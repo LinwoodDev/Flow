@@ -269,7 +269,8 @@ class RemoteService extends ApiService {
   }
 
   @override
-  Future<List<Submission>> fetchSubmissions(int task, {SubmissionState? state}) {
+  Future<List<Submission>> fetchSubmissions(int task,
+      {SubmissionState? state}) {
     throw UnimplementedError();
   }
 

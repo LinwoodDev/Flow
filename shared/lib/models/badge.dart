@@ -17,10 +17,16 @@ class Badge extends JsonObject {
         color = json['color'];
 
   @override
-  Map<String, dynamic> toJson() => {'name': name, 'description': description, 'color': color};
+  Map<String, dynamic> toJson() =>
+      {'name': name, 'description': description, 'color': color};
 
   @override
-  Badge copyWith({String? name, String? description, int? color, bool removeColor = false, int? id}) =>
+  Badge copyWith(
+          {String? name,
+          String? description,
+          int? color,
+          bool removeColor = false,
+          int? id}) =>
       Badge(name ?? this.name,
           description: description ?? this.description,
           id: id ?? this.id,

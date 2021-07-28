@@ -53,65 +53,87 @@ class _TasksPageState extends State<TasksPage> {
         page: RoutePages.tasks,
         pageTitle: "Tasks",
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(PhosphorIcons.funnelLight)),
+          IconButton(
+              onPressed: () {}, icon: const Icon(PhosphorIcons.funnelLight)),
           PopupMenuButton<TaskView>(
               initialValue: view,
               onSelected: (value) => setState(() => view = value),
               itemBuilder: (context) => TaskView.values
                   .map((e) => PopupMenuItem(
-                      value: e, child: ListTile(title: Text(e.name), leading: Icon(e.icon), selected: e == view)))
+                      value: e,
+                      child: ListTile(
+                          title: Text(e.name),
+                          leading: Icon(e.icon),
+                          selected: e == view)))
                   .toList())
         ],
         body: LayoutBuilder(builder: (context, constraints) {
           var isDesktop = MediaQuery.of(context).size.width > 1000;
-          return Row(crossAxisAlignment: CrossAxisAlignment.start, textDirection: TextDirection.rtl, children: [
-            if (isDesktop) ...[
-              Expanded(flex: 2, child: TaskPage(isDesktop: isDesktop, id: selected?.id)),
-              const VerticalDivider()
-            ],
-            Expanded(
-                flex: 3,
-                child: Scaffold(
-                    floatingActionButton: selected == null && isDesktop
-                        ? null
-                        : FloatingActionButton.extended(
-                            label: const Text("Create task"),
-                            icon: const Icon(PhosphorIcons.plusLight),
-                            onPressed: () =>
-                                isDesktop ? setState(() => selected = null) : Modular.to.pushNamed("/tasks/create")),
-                    body: Scrollbar(
-                        child: SingleChildScrollView(
-                            child: StreamBuilder<List<Task>>(
-                                stream: taskStream,
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasError) {
-                                    return Text("Error: ${snapshot.error}");
-                                  }
-                                  if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData) {
-                                    return const Center(child: CircularProgressIndicator());
-                                  }
-                                  var tasks = snapshot.data!;
-                                  return Column(
-                                      children: List.generate(tasks.length, (index) {
-                                    var task = tasks[index];
-                                    return Dismissible(
-                                      key: Key(task.id!.toString()),
-                                      onDismissed: (direction) {
-                                        service.deleteTask(task.id!);
-                                      },
-                                      background: Container(color: Colors.red),
-                                      child: ListTile(
-                                          title: Text(task.name),
-                                          selected: selected?.id == task.id,
-                                          onTap: () => isDesktop
-                                              ? setState(() => selected = task)
-                                              : Modular.to.pushNamed(Uri(
-                                                  pathSegments: ["", "tasks", "details"],
-                                                  queryParameters: {"id": task.id.toString()}).toString())),
-                                    );
-                                  }));
-                                })))))
-          ]);
+          return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              textDirection: TextDirection.rtl,
+              children: [
+                if (isDesktop) ...[
+                  Expanded(
+                      flex: 2,
+                      child: TaskPage(isDesktop: isDesktop, id: selected?.id)),
+                  const VerticalDivider()
+                ],
+                Expanded(
+                    flex: 3,
+                    child: Scaffold(
+                        floatingActionButton: selected == null && isDesktop
+                            ? null
+                            : FloatingActionButton.extended(
+                                label: const Text("Create task"),
+                                icon: const Icon(PhosphorIcons.plusLight),
+                                onPressed: () => isDesktop
+                                    ? setState(() => selected = null)
+                                    : Modular.to.pushNamed("/tasks/create")),
+                        body: Scrollbar(
+                            child: SingleChildScrollView(
+                                child: StreamBuilder<List<Task>>(
+                                    stream: taskStream,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasError) {
+                                        return Text("Error: ${snapshot.error}");
+                                      }
+                                      if (snapshot.connectionState ==
+                                              ConnectionState.waiting ||
+                                          !snapshot.hasData) {
+                                        return const Center(
+                                            child: CircularProgressIndicator());
+                                      }
+                                      var tasks = snapshot.data!;
+                                      return Column(
+                                          children: List.generate(tasks.length,
+                                              (index) {
+                                        var task = tasks[index];
+                                        return Dismissible(
+                                          key: Key(task.id!.toString()),
+                                          onDismissed: (direction) {
+                                            service.deleteTask(task.id!);
+                                          },
+                                          background:
+                                              Container(color: Colors.red),
+                                          child: ListTile(
+                                              title: Text(task.name),
+                                              selected: selected?.id == task.id,
+                                              onTap: () => isDesktop
+                                                  ? setState(
+                                                      () => selected = task)
+                                                  : Modular.to.pushNamed(
+                                                      Uri(pathSegments: [
+                                                      "",
+                                                      "tasks",
+                                                      "details"
+                                                    ], queryParameters: {
+                                                      "id": task.id.toString()
+                                                    }).toString())),
+                                        );
+                                      }));
+                                    })))))
+              ]);
         }));
   }
 }

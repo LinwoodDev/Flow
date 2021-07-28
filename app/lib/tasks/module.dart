@@ -12,6 +12,8 @@ class TasksModule extends Module {
   final List<ModularRoute> routes = [
     ChildRoute('/', child: (_, __) => const TasksPage()),
     ChildRoute('/create', child: (_, __) => const TaskPage()),
-    ChildRoute("/details", child: (_, __) => TaskPage(id: int.tryParse(Modular.args?.queryParams['id'] ?? "0")))
+    ChildRoute("/details",
+        child: (_, __) =>
+            TaskPage(id: int.tryParse(Modular.args?.queryParams['id'] ?? "0")))
   ];
 }

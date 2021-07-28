@@ -52,17 +52,23 @@ class _EventsPageState extends State<EventsPage> {
             page: RoutePages.events,
             pageTitle: "Events",
             actions: [
-              IconButton(onPressed: () {}, icon: const Icon(PhosphorIcons.funnelLight)),
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(PhosphorIcons.funnelLight)),
               PopupMenuButton<EventView>(
-                  initialValue: EventView.values[box.get("events", defaultValue: 0)!],
+                  initialValue:
+                      EventView.values[box.get("events", defaultValue: 0)!],
                   onSelected: (value) => box.put("events", value.index),
                   itemBuilder: (context) => EventView.values
                       .map((e) => PopupMenuItem(
                           value: e,
                           child: ListTile(
-                              title: Text(e.name), leading: Icon(e.icon), selected: e.index == box.get("events"))))
+                              title: Text(e.name),
+                              leading: Icon(e.icon),
+                              selected: e.index == box.get("events"))))
                       .toList())
             ],
-            body: EventView.values[box.get("events", defaultValue: 0)!].buildWidget()));
+            body: EventView.values[box.get("events", defaultValue: 0)!]
+                .buildWidget()));
   }
 }

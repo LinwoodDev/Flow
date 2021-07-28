@@ -13,7 +13,8 @@ class SeasonPage extends StatefulWidget {
   final int? id;
   final bool isDesktop;
 
-  const SeasonPage({Key? key, this.id, this.isDesktop = false}) : super(key: key);
+  const SeasonPage({Key? key, this.id, this.isDesktop = false})
+      : super(key: key);
 
   @override
   _SeasonPageState createState() => _SeasonPageState();
@@ -46,7 +47,8 @@ class _SeasonPageState extends State<SeasonPage> {
             stream: service.onSeason(widget.id!),
             builder: (context, snapshot) {
               if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-              if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData) {
+              if (snapshot.connectionState == ConnectionState.waiting ||
+                  !snapshot.hasData) {
                 return const Center(child: CircularProgressIndicator());
               }
               return _buildView(snapshot.data);
@@ -64,14 +66,16 @@ class _SeasonPageState extends State<SeasonPage> {
             child: const Icon(PhosphorIcons.checkLight),
             onPressed: () {
               if (create) {
-                service.createSeason(Season(_nameController.text, description: _descriptionController.text));
+                service.createSeason(Season(_nameController.text,
+                    description: _descriptionController.text));
                 if (widget.isDesktop) {
                   _nameController.clear();
                   _descriptionController.clear();
                 }
               } else {
-                service.updateSeason(
-                    season!.copyWith(name: _nameController.text, description: _descriptionController.text));
+                service.updateSeason(season!.copyWith(
+                    name: _nameController.text,
+                    description: _descriptionController.text));
               }
               if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
             }),
@@ -82,7 +86,9 @@ class _SeasonPageState extends State<SeasonPage> {
               child: ElevatedButton.icon(
                   onPressed: () => Modular.to.pushNamed(widget.id == null
                       ? "/seasons/create"
-                      : Uri(pathSegments: ["", "seasons", "details"], queryParameters: {"id": widget.id.toString()})
+                      : Uri(
+                              pathSegments: ["", "seasons", "details"],
+                              queryParameters: {"id": widget.id.toString()})
                           .toString()),
                   icon: const Icon(PhosphorIcons.arrowSquareOutLight),
                   label: const Text("OPEN IN NEW WINDOW")),
@@ -102,33 +108,42 @@ class _SeasonPageState extends State<SeasonPage> {
                                     if (snapshot.hasError) {
                                       return Text("Error: ${snapshot.error}");
                                     }
-                                    if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
-                                      return const Center(child: CircularProgressIndicator());
+                                    if (!snapshot.hasData ||
+                                        snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                      return const Center(
+                                          child: CircularProgressIndicator());
                                     }
                                     var users = snapshot.data!;
                                     return DropdownButtonFormField<Account>(
                                         value: account,
-                                        decoration:
-                                            const InputDecoration(labelText: "Account", border: OutlineInputBorder()),
+                                        decoration: const InputDecoration(
+                                            labelText: "Account",
+                                            border: OutlineInputBorder()),
                                         onChanged: (value) => account = value,
                                         items: [
-                                          ...Hive.box('accounts')
-                                              .values
-                                              .map((e) => DropdownMenuItem(child: Text(e), value: e)),
+                                          ...Hive.box('accounts').values.map(
+                                              (e) => DropdownMenuItem(
+                                                  child: Text(e), value: e)),
                                           ...users
-                                              .map((e) => Account.fromLocalUser(e))
-                                              .map((e) => DropdownMenuItem(child: Text(e.toString()), value: e))
+                                              .map((e) =>
+                                                  Account.fromLocalUser(e))
+                                              .map((e) => DropdownMenuItem(
+                                                  child: Text(e.toString()),
+                                                  value: e))
                                         ]);
                                   });
                             }),
                             const SizedBox(height: 50),
                             TextField(
-                                decoration:
-                                    const InputDecoration(labelText: "Name", icon: Icon(PhosphorIcons.calendarLight)),
+                                decoration: const InputDecoration(
+                                    labelText: "Name",
+                                    icon: Icon(PhosphorIcons.calendarLight)),
                                 controller: _nameController),
                             TextField(
                                 decoration: const InputDecoration(
-                                    labelText: "Description", icon: Icon(PhosphorIcons.articleLight)),
+                                    labelText: "Description",
+                                    icon: Icon(PhosphorIcons.articleLight)),
                                 maxLines: null,
                                 controller: _descriptionController,
                                 minLines: 3)

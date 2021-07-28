@@ -3,7 +3,8 @@ class InputException implements Exception {
 
   InputException(this.errors);
 
-  InputException.fromJson(List<dynamic> json) : errors = json.map((e) => InputError.fromJson(e)).toList();
+  InputException.fromJson(List<dynamic> json)
+      : errors = json.map((e) => InputError.fromJson(e)).toList();
 
   List<dynamic> toJson() => errors.map((e) => e.toJson()).toList();
 }

@@ -35,12 +35,17 @@ class _ServerViewState extends State<ServerView> {
                       value: server,
                       decoration: const InputDecoration(labelText: "Server"),
                       onChanged: (value) => setState(() => server = value),
-                      items: List.generate(servers.length,
-                          (index) => DropdownMenuItem<String>(value: servers[index], child: Text(servers[index]))))))),
+                      items: List.generate(
+                          servers.length,
+                          (index) => DropdownMenuItem<String>(
+                              value: servers[index],
+                              child: Text(servers[index]))))))),
       if (server != null)
         Card(
             child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0), child: widget.builder(server!)))
+                padding: const EdgeInsets.symmetric(
+                    vertical: 32.0, horizontal: 16.0),
+                child: widget.builder(server!)))
     ]);
   }
 }

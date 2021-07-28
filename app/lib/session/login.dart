@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
                             prefixIcon: Icon(PhosphorIcons.lockLight)))
                   ]))),
         ))))),
-        floatingActionButton:
-            FloatingActionButton(child: const Icon(PhosphorIcons.checkLight), onPressed: () {}));
+        floatingActionButton: FloatingActionButton(
+            child: const Icon(PhosphorIcons.checkLight), onPressed: () {}));
   }
 }

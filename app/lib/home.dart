@@ -13,6 +13,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return FlowScaffold(page: RoutePages.home, pageTitle: "Home", body: ColorPicker(onClick: (color) {}));
+    return FlowScaffold(
+        page: RoutePages.home,
+        pageTitle: "Home",
+        body: ColorPicker(onClick: (color) {}));
   }
 }

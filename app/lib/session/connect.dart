@@ -29,7 +29,8 @@ class _ConnectPageState extends State<ConnectPage> {
                     TextField(
                         controller: _urlController,
                         keyboardType: TextInputType.url,
-                        decoration: const InputDecoration(labelText: "URL", hintText: "https://example.com"))
+                        decoration: const InputDecoration(
+                            labelText: "URL", hintText: "https://example.com"))
                   ])))),
       floatingActionButton: FloatingActionButton(
           child: const Icon(PhosphorIcons.checkLight),
@@ -40,21 +41,33 @@ class _ConnectPageState extends State<ConnectPage> {
               var response = await http.get(uri);
               var data = json.decode(response.body);
               if (data['name'] == "Linwood-Flow") {
-                Modular.to.push(MaterialPageRoute(builder: (context) => SessionPage(address: _urlController.text)));
+                Modular.to.push(MaterialPageRoute(
+                    builder: (context) =>
+                        SessionPage(address: _urlController.text)));
               } else {
                 showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                        title: const Text("Invalid flow server"),
-                        actions: [TextButton(child: const Text("CLOSE"), onPressed: () => Modular.to.pop())]));
+                            title: const Text("Invalid flow server"),
+                            actions: [
+                              TextButton(
+                                  child: const Text("CLOSE"),
+                                  onPressed: () => Modular.to.pop())
+                            ]));
               }
             } catch (e) {
               print("Error: $e");
               showDialog(
                   context: context,
-                  builder: (context) => AlertDialog(
-                      title: const Text("Error while connecting to the server"),
-                      actions: [TextButton(child: const Text("CLOSE"), onPressed: () => Modular.to.pop())]));
+                  builder: (context) =>
+                      AlertDialog(
+                          title: const Text(
+                              "Error while connecting to the server"),
+                          actions: [
+                            TextButton(
+                                child: const Text("CLOSE"),
+                                onPressed: () => Modular.to.pop())
+                          ]));
             }
           }),
     );

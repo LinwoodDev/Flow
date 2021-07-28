@@ -51,7 +51,8 @@ class _TeamPageState extends State<TeamPage> {
             stream: service.onTeam(widget.id!),
             builder: (context, snapshot) {
               if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-              if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData) {
+              if (snapshot.connectionState == ConnectionState.waiting ||
+                  !snapshot.hasData) {
                 return const Center(child: CircularProgressIndicator());
               }
               return _buildView(snapshot.data);
@@ -66,14 +67,17 @@ class _TeamPageState extends State<TeamPage> {
     return DefaultTabController(
         length: 2,
         child: Scaffold(
-            appBar: AppBar(title: Text(create ? "Create team" : team!.name), bottom: _buildTabBar()),
+            appBar: AppBar(
+                title: Text(create ? "Create team" : team!.name),
+                bottom: _buildTabBar()),
             floatingActionButton: FloatingActionButton(
                 heroTag: "team-check",
                 child: const Icon(PhosphorIcons.checkLight),
                 onPressed: () {
                   if (create) {
-                    service.createTeam(
-                        Team(_nameController.text, description: _descriptionController.text, color: color.value));
+                    service.createTeam(Team(_nameController.text,
+                        description: _descriptionController.text,
+                        color: color.value));
                     if (widget.isDesktop) {
                       _nameController.clear();
                       _descriptionController.clear();
@@ -81,9 +85,12 @@ class _TeamPageState extends State<TeamPage> {
                     }
                   } else {
                     service.updateTeam(team!.copyWith(
-                        name: _nameController.text, color: color.value, description: _descriptionController.text));
+                        name: _nameController.text,
+                        color: color.value,
+                        description: _descriptionController.text));
                   }
-                  if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
+                  if (Modular.to.canPop() && !widget.isDesktop)
+                    Modular.to.pop();
                 }),
             body: Column(children: [
               if (widget.isDesktop)
@@ -92,7 +99,9 @@ class _TeamPageState extends State<TeamPage> {
                   child: ElevatedButton.icon(
                       onPressed: () => Modular.to.pushNamed(widget.id == null
                           ? "/teams/create"
-                          : Uri(pathSegments: ["", "teams", "details"], queryParameters: {"id": widget.id.toString()})
+                          : Uri(
+                                  pathSegments: ["", "teams", "details"],
+                                  queryParameters: {"id": widget.id.toString()})
                               .toString()),
                       icon: const Icon(PhosphorIcons.arrowSquareOutLight),
                       label: const Text("OPEN IN NEW WINDOW")),
@@ -113,40 +122,50 @@ class _TeamPageState extends State<TeamPage> {
                                       if (snapshot.hasError) {
                                         return Text("Error: ${snapshot.error}");
                                       }
-                                      if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
-                                        return const Center(child: CircularProgressIndicator());
+                                      if (!snapshot.hasData ||
+                                          snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                        return const Center(
+                                            child: CircularProgressIndicator());
                                       }
                                       var users = snapshot.data!;
                                       return DropdownButtonFormField<Account>(
                                           value: account,
-                                          decoration:
-                                              const InputDecoration(labelText: "Account", border: OutlineInputBorder()),
+                                          decoration: const InputDecoration(
+                                              labelText: "Account",
+                                              border: OutlineInputBorder()),
                                           onChanged: (value) => account = value,
                                           items: [
-                                            ...Hive.box('accounts')
-                                                .values
-                                                .map((e) => DropdownMenuItem(child: Text(e), value: e)),
+                                            ...Hive.box('accounts').values.map(
+                                                (e) => DropdownMenuItem(
+                                                    child: Text(e), value: e)),
                                             ...users
-                                                .map((e) => Account.fromLocalUser(e))
-                                                .map((e) => DropdownMenuItem(child: Text(e.toString()), value: e))
+                                                .map((e) =>
+                                                    Account.fromLocalUser(e))
+                                                .map((e) => DropdownMenuItem(
+                                                    child: Text(e.toString()),
+                                                    value: e))
                                           ]);
                                     });
                               }),
                               const SizedBox(height: 50),
                               TextField(
-                                  decoration:
-                                      const InputDecoration(labelText: "Name", icon: Icon(PhosphorIcons.userLight)),
+                                  decoration: const InputDecoration(
+                                      labelText: "Name",
+                                      icon: Icon(PhosphorIcons.userLight)),
                                   controller: _nameController),
                               TextField(
                                   decoration: const InputDecoration(
-                                      labelText: "Description", icon: Icon(PhosphorIcons.chatTextLight)),
+                                      labelText: "Description",
+                                      icon: Icon(PhosphorIcons.chatTextLight)),
                                   maxLines: null,
                                   controller: _descriptionController,
                                   minLines: 3)
                             ])))),
                 Align(
                     alignment: Alignment.topCenter,
-                    child: ColorPicker(initialColor: color, onClick: (value) => color = value))
+                    child: ColorPicker(
+                        initialColor: color, onClick: (value) => color = value))
               ]))
             ])));
   }

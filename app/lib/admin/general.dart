@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class GeneralAdminSettingsPage extends StatelessWidget {
   final String server;
 
-  const GeneralAdminSettingsPage({Key? key, required this.server}) : super(key: key);
+  const GeneralAdminSettingsPage({Key? key, required this.server})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

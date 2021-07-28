@@ -11,7 +11,11 @@ class Season extends JsonObject {
   final String description;
   final Assigned assigned;
 
-  Season(this.name, {this.description = '', this.color, this.id, this.assigned = const Assigned()});
+  Season(this.name,
+      {this.description = '',
+      this.color,
+      this.id,
+      this.assigned = const Assigned()});
 
   Season.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -21,12 +25,21 @@ class Season extends JsonObject {
         assigned = Assigned.fromJson(json['assigned'] ?? {});
 
   @override
-  Map<String, dynamic> toJson() =>
-      {'name': name, 'color': color, 'description': description, 'assigned': assigned.toJson()};
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'color': color,
+        'description': description,
+        'assigned': assigned.toJson()
+      };
 
   @override
   Season copyWith(
-          {String? name, String? description, int? color, int? id, bool removeColor = false, Assigned? assigned}) =>
+          {String? name,
+          String? description,
+          int? color,
+          int? id,
+          bool removeColor = false,
+          Assigned? assigned}) =>
       Season(name ?? this.name,
           description: description ?? this.description,
           id: id ?? this.id,

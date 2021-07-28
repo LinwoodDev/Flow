@@ -52,7 +52,13 @@ class User extends JsonObject {
 
   @override
   Map<String, dynamic> toJson({bool addSecrets = false, bool addId = false}) =>
-      {'name': name, 'display-name': displayName, 'email': email, 'bio': bio, 'state': state.index}
+      {
+        'name': name,
+        'display-name': displayName,
+        'email': email,
+        'bio': bio,
+        'state': state.index
+      }
         ..addAll(addSecrets ? {'password': password, 'salt': salt} : {})
         ..addAll(addId ? {'id': id} : {});
 

@@ -34,57 +34,77 @@ class _UsersPageState extends State<UsersPage> {
     return FlowScaffold(
         page: RoutePages.users,
         pageTitle: "Users",
-        actions: [IconButton(onPressed: () {}, icon: const Icon(PhosphorIcons.funnelLight))],
+        actions: [
+          IconButton(
+              onPressed: () {}, icon: const Icon(PhosphorIcons.funnelLight))
+        ],
         body: LayoutBuilder(builder: (context, constraints) {
           var isDesktop = MediaQuery.of(context).size.width > 1000;
-          return Row(crossAxisAlignment: CrossAxisAlignment.start, textDirection: TextDirection.rtl, children: [
-            if (isDesktop) ...[
-              Expanded(flex: 2, child: UserPage(isDesktop: isDesktop, id: selected?.id)),
-              const VerticalDivider()
-            ],
-            Expanded(
-                flex: 3,
-                child: Scaffold(
-                    floatingActionButton: selected == null && isDesktop
-                        ? null
-                        : FloatingActionButton.extended(
-                            label: const Text("Create user"),
-                            icon: const Icon(PhosphorIcons.plusLight),
-                            onPressed: () =>
-                                isDesktop ? setState(() => selected = null) : Modular.to.pushNamed("/users/create")),
-                    body: Scrollbar(
-                        child: SingleChildScrollView(
-                            child: StreamBuilder<List<User>>(
-                                stream: userStream,
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasError) {
-                                    return Text("Error: ${snapshot.error}");
-                                  }
-                                  if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData) {
-                                    return const Center(child: CircularProgressIndicator());
-                                  }
-                                  var users = snapshot.data!;
-                                  return Column(
-                                      children: List.generate(users.length, (index) {
-                                    var user = users[index];
-                                    return Dismissible(
-                                      key: Key(user.id!.toString()),
-                                      onDismissed: (direction) {
-                                        service.deleteUser(user.id!);
-                                      },
-                                      background: Container(color: Colors.red),
-                                      child: ListTile(
-                                          title: Text(user.name),
-                                          selected: selected?.id == user.id,
-                                          onTap: () => isDesktop
-                                              ? setState(() => selected = user)
-                                              : Modular.to.pushNamed(Uri(
-                                                  pathSegments: ["", "users", "details"],
-                                                  queryParameters: {"id": user.id.toString()}).toString())),
-                                    );
-                                  }));
-                                })))))
-          ]);
+          return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              textDirection: TextDirection.rtl,
+              children: [
+                if (isDesktop) ...[
+                  Expanded(
+                      flex: 2,
+                      child: UserPage(isDesktop: isDesktop, id: selected?.id)),
+                  const VerticalDivider()
+                ],
+                Expanded(
+                    flex: 3,
+                    child: Scaffold(
+                        floatingActionButton: selected == null && isDesktop
+                            ? null
+                            : FloatingActionButton.extended(
+                                label: const Text("Create user"),
+                                icon: const Icon(PhosphorIcons.plusLight),
+                                onPressed: () => isDesktop
+                                    ? setState(() => selected = null)
+                                    : Modular.to.pushNamed("/users/create")),
+                        body: Scrollbar(
+                            child: SingleChildScrollView(
+                                child: StreamBuilder<List<User>>(
+                                    stream: userStream,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasError) {
+                                        return Text("Error: ${snapshot.error}");
+                                      }
+                                      if (snapshot.connectionState ==
+                                              ConnectionState.waiting ||
+                                          !snapshot.hasData) {
+                                        return const Center(
+                                            child: CircularProgressIndicator());
+                                      }
+                                      var users = snapshot.data!;
+                                      return Column(
+                                          children: List.generate(users.length,
+                                              (index) {
+                                        var user = users[index];
+                                        return Dismissible(
+                                          key: Key(user.id!.toString()),
+                                          onDismissed: (direction) {
+                                            service.deleteUser(user.id!);
+                                          },
+                                          background:
+                                              Container(color: Colors.red),
+                                          child: ListTile(
+                                              title: Text(user.name),
+                                              selected: selected?.id == user.id,
+                                              onTap: () => isDesktop
+                                                  ? setState(
+                                                      () => selected = user)
+                                                  : Modular.to.pushNamed(
+                                                      Uri(pathSegments: [
+                                                      "",
+                                                      "users",
+                                                      "details"
+                                                    ], queryParameters: {
+                                                      "id": user.id.toString()
+                                                    }).toString())),
+                                        );
+                                      }));
+                                    })))))
+              ]);
         }));
   }
 }

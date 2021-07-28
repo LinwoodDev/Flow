@@ -21,7 +21,8 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
           ListTile(
               leading: const Icon(PhosphorIcons.stackLight),
               title: const Text("License"),
-              onTap: () => launch("https://github.com/LinwoodCloud/Flow/blob/main/LICENSE")),
+              onTap: () => launch(
+                  "https://github.com/LinwoodCloud/Flow/blob/main/LICENSE")),
           ListTile(
               leading: const Icon(PhosphorIcons.codeLight),
               title: const Text("Code"),
@@ -45,12 +46,14 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
           ListTile(
               leading: const Icon(PhosphorIcons.shieldLight),
               title: const Text("Privacy policy"),
-              onTap: () => launch("https://docs.flow.linwood.dev/privacypolicy")),
+              onTap: () =>
+                  launch("https://docs.flow.linwood.dev/privacypolicy")),
           ListTile(
               leading: const Icon(PhosphorIcons.infoLight),
               title: const Text("About"),
-              onTap: () =>
-                  showAboutDialog(context: context, applicationIcon: Image.asset("images/logo.png", height: 50))),
+              onTap: () => showAboutDialog(
+                  context: context,
+                  applicationIcon: Image.asset("images/logo.png", height: 50))),
         ])));
   }
 }

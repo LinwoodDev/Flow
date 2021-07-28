@@ -30,15 +30,18 @@ class AppWidget extends StatelessWidget {
                 // is not restarted.
                 primarySwatch: createMaterialColor(color),
                 indicatorColor: color,
-                colorScheme: ColorScheme.light(primary: color, secondary: const Color(0xFF64dd17)),
+                colorScheme: ColorScheme.light(
+                    primary: color, secondary: const Color(0xFF64dd17)),
                 visualDensity: VisualDensity.adaptivePlatformDensity),
             darkTheme: ThemeData(
                 fontFamily: "Comfortaa",
                 brightness: Brightness.dark,
                 primarySwatch: createMaterialColor(color),
                 indicatorColor: color,
-                colorScheme:
-                    ColorScheme.dark(primary: color, onPrimary: Colors.white, secondary: const Color(0xFF64dd17)),
+                colorScheme: ColorScheme.dark(
+                    primary: color,
+                    onPrimary: Colors.white,
+                    secondary: const Color(0xFF64dd17)),
                 visualDensity: VisualDensity.adaptivePlatformDensity),
             home: const ConnectPage(),
           ).modular();

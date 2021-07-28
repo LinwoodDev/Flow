@@ -37,14 +37,16 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
       transitionDuration: const Duration(milliseconds: 200),
       transitionBuilder: (context, anim1, anim2, child) {
         return SlideTransition(
-          position: Tween(begin: const Offset(0, -1), end: const Offset(0, 0)).animate(anim1),
+          position: Tween(begin: const Offset(0, -1), end: const Offset(0, 0))
+              .animate(anim1),
           child: child,
         );
       },
       pageBuilder: (context, animation, secondaryAnimation) => Dialog(
           child: Container(
               constraints: const BoxConstraints(maxHeight: 750, maxWidth: 500),
-              child: EventPage(isDesktop: true, isDialog: true, id: event?.id))));
+              child:
+                  EventPage(isDesktop: true, isDialog: true, id: event?.id))));
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +54,8 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
       StreamBuilder<List<Event>>(
         stream: service.onOpenedEvents(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
+          if (!snapshot.hasData ||
+              snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) return Text("Error: ${snapshot.error}");
@@ -71,7 +74,8 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
       StreamBuilder<List<Event>>(
         stream: service.onPlannedEvents(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
+          if (!snapshot.hasData ||
+              snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) return Text("Error: ${snapshot.error}");
@@ -90,7 +94,8 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
       StreamBuilder<List<Event>>(
         stream: service.onDoneEvents(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
+          if (!snapshot.hasData ||
+              snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) return Text("Error: ${snapshot.error}");
@@ -116,7 +121,8 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
-        bottomNavigationBar: BottomNavigationBar(items: const <BottomNavigationBarItem>[
+        bottomNavigationBar:
+            BottomNavigationBar(items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               activeIcon: Icon(PhosphorIcons.squareFill),
               icon: Icon(PhosphorIcons.squareLight),

@@ -8,7 +8,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'app_module.dart';
 import 'app_widget.dart';
-import 'setup.dart' if (dart.library.html) 'setup_web.dart' if (dart.library.io) 'setup_io.dart';
+import 'setup.dart'
+    if (dart.library.html) 'setup_web.dart'
+    if (dart.library.io) 'setup_io.dart';
 
 final getIt = GetIt.instance;
 
@@ -18,8 +20,8 @@ Future<void> main() async {
   await Hive.openBox('appearance');
   await Hive.openBox<int>('view');
 
-  var biometricStorage =
-      await BiometricStorage().getStorage('key', options: StorageFileInitOptions(authenticationRequired: false));
+  var biometricStorage = await BiometricStorage().getStorage('key',
+      options: StorageFileInitOptions(authenticationRequired: false));
   var containsEncryptionKey = await biometricStorage.read() != null;
   if (!containsEncryptionKey) {
     var key = Hive.generateSecureKey();

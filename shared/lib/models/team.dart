@@ -19,7 +19,12 @@ class Team extends JsonObject {
         color = json['color'];
 
   @override
-  Map<String, dynamic> toJson() => {'name': name, 'description': description, 'color': color, 'parent': parent};
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'description': description,
+        'color': color,
+        'parent': parent
+      };
 
   @override
   Team copyWith(

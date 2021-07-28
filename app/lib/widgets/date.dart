@@ -11,9 +11,18 @@ class DateInputField extends StatefulWidget {
   final DateChangedCallback onChanged;
 
   DateInputField(
-      {Key? key, this.initialDate, DateTime? firstDate, DateTime? lastDate, required this.onChanged, this.label})
-      : firstDate = firstDate ?? DateTime.utc((initialDate?.year ?? DateTime.now().year) - 100, 1, 1, 0, 0),
-        lastDate = lastDate ?? DateTime.utc((initialDate?.year ?? DateTime.now().year) + 100, 12, 31, 23, 59),
+      {Key? key,
+      this.initialDate,
+      DateTime? firstDate,
+      DateTime? lastDate,
+      required this.onChanged,
+      this.label})
+      : firstDate = firstDate ??
+            DateTime.utc(
+                (initialDate?.year ?? DateTime.now().year) - 100, 1, 1, 0, 0),
+        lastDate = lastDate ??
+            DateTime.utc((initialDate?.year ?? DateTime.now().year) + 100, 12,
+                31, 23, 59),
         super(key: key);
 
   @override
@@ -31,7 +40,9 @@ class _DateInputFieldState extends State<DateInputField> {
 
     currentDate = widget.initialDate;
     _textController = TextEditingController(
-        text: currentDate == null ? "" : "${currentDate?.month}/${currentDate?.day}/${currentDate?.year}");
+        text: currentDate == null
+            ? ""
+            : "${currentDate?.month}/${currentDate?.day}/${currentDate?.year}");
   }
 
   @override
@@ -44,7 +55,9 @@ class _DateInputFieldState extends State<DateInputField> {
             labelText: widget.label ?? "Date",
             suffixIcon: currentDate == null
                 ? null
-                : IconButton(icon: const Icon(PhosphorIcons.xLight), onPressed: () => changeDate(null))),
+                : IconButton(
+                    icon: const Icon(PhosphorIcons.xLight),
+                    onPressed: () => changeDate(null))),
         readOnly: true,
         onTap: () {
           print(widget.lastDate);
@@ -62,9 +75,12 @@ class _DateInputFieldState extends State<DateInputField> {
   void changeDate(DateTime? nextDate) {
     textFieldFocusNode.unfocus();
     textFieldFocusNode.canRequestFocus = false;
-    _textController.text = nextDate == null ? "" : "${nextDate.month}/${nextDate.day}/${nextDate.year}";
+    _textController.text = nextDate == null
+        ? ""
+        : "${nextDate.month}/${nextDate.day}/${nextDate.year}";
     widget.onChanged(nextDate);
-    Future.delayed(const Duration(milliseconds: 100), () => textFieldFocusNode.canRequestFocus = true);
+    Future.delayed(const Duration(milliseconds: 100),
+        () => textFieldFocusNode.canRequestFocus = true);
     setState(() {
       currentDate = nextDate;
     });
