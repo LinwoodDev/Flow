@@ -11,7 +11,7 @@ class SocketPackage {
   SocketPackage.fromJson(Map<String, dynamic> json)
       : route = json['route'],
         auth = json['auth'],
-        exception = InputException.fromJson(json['exception']),
+        exception = json.containsKey('exception') ? InputException.fromJson(json['exception']) : null,
         value = json['data'];
 
   bool get hasAuth => auth != null;

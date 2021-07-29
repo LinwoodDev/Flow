@@ -1,24 +1,25 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:flow_server/routes/profile.dart';
-
-import '../socket_route.dart';
+import '../server_route.dart';
 import 'auth.dart';
+import 'event.dart';
+import 'user.dart';
 
-Future<void> handleHomeSockets(SocketRoute route) async {
+Future<void> handleHomeSockets(ServerRoute route) async {
   switch (route.path) {
     case "info":
-      route.reply(
-          value: json.encode({
+      route.reply(value: {
         'name': 'Linwood-Flow',
         'applications': ['events', 'teams', 'dev-doctor']
-      }));
+      });
   }
   if (route.path.startsWith("auth")) {
-    handleAuthSockets(route);
+    await handleAuthSockets(route);
   }
-  if (route.path.startsWith("profile")) {
-    handleProfileSockets(route);
+  if (route.path.startsWith("user")) {
+    await handleUserSockets(route);
+  }
+  if (route.path.startsWith("event")) {
+    await handleEventSockets(route);
   }
 }

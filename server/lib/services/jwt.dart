@@ -32,19 +32,13 @@ class JWTService {
   }
 
 
-  JWT? verify(String token) {
+  JWT? verify(String? token) {
+    if(token == null) {
+      return null;
+    }
     try {
       return JWT.verify(token, SecretKey(secret));
     } catch (_) {}
-  }
-
-  JWT? handleAuth(String? authHeader) {
-    String token;
-
-    if (authHeader != null && authHeader.startsWith('Bearer ')) {
-      token = authHeader.substring(7);
-      return verify(token);
-    }
   }
   Future<void> addRefreshToken(String id, String token, Duration expiry) async {
     await tokensStore.add(db, {"id": id, "token": token, "expire": expiry.inSeconds});

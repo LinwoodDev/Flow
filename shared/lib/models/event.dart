@@ -33,11 +33,11 @@ class Event extends JsonObject {
         startDateTime = DateTime.tryParse(json['start-date-time'] ?? ''),
         endDateTime = DateTime.tryParse(json['end-date-time'] ?? ''),
         season = json['season'],
-        isCanceled = json['canceled'],
+        isCanceled = json['canceled'] ?? false,
         assigned = Assigned.fromJson(json['assigned'] ?? {});
 
   @override
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson({bool addId = false}) => {
         'parent': parent,
         'description': description,
         'canceled': isCanceled,
@@ -46,7 +46,7 @@ class Event extends JsonObject {
         'season': season,
         'name': name,
         'assigned': assigned.toJson()
-      };
+      }..addAll(addId ? {'id': id} : {});
 
   @override
   Event copyWith(

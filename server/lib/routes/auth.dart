@@ -1,21 +1,22 @@
 import 'dart:convert';
 
 import 'package:flow_server/services/jwt.dart';
-import 'package:flow_server/socket_route.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared/exceptions/input.dart';
 import 'package:shared/models/user.dart';
 import 'package:shared/services/local_service.dart';
 import 'package:shared/utils.dart';
 
-Future<void> handleAuthSockets(SocketRoute route) async {
+import '../server_route.dart';
+
+Future<void> handleAuthSockets(ServerRoute route) async {
   final service = GetIt.I.get<LocalService>();
   final jwtService = GetIt.I.get<JWTService>();
 
   switch (route.path) {
     case "auth:register":
       try {
-        var user = User.fromJson(route.value);
+        var user = User.fromJson(json.decode(route.value ?? ""));
         var createdUser =
             await service.createUser(user.copyWith(state: UserState.confirm));
 
@@ -25,7 +26,7 @@ Future<void> handleAuthSockets(SocketRoute route) async {
       }
       break;
     case "auth:login":
-      var user = User.fromJson(route.value);
+      var user = User.fromJson(json.decode(route.value ?? ""));
       var errors = <String>[];
       if (user.email.isEmpty && user.name.isEmpty) {
         errors.add("name.empty");
@@ -54,11 +55,55 @@ Future<void> handleAuthSockets(SocketRoute route) async {
         return;
       }
 
-      final token = jwtService.generate(foundUser.id!.toRadixString(16));
+      final pair = await jwtService.createPair(foundUser.id!.toRadixString(16));
 
       route.reply(
-          value: ({"token": token, "user": foundUser.toJson(addId: true)}));
+          value: (pair.toJson()
+            ..addAll({"user": foundUser.toJson(addId: true)})));
       break;
     case "auth:logout":
+      final auth = jwtService.verify(route.auth);
+      if (auth == null) {
+        route.reply(exception: InputException([InputError("unauthorized")]));
+        return;
+      }
+      try {
+        await jwtService.removeRefreshToken(auth.jwtId!);
+      } catch (e) {
+        route.reply(
+            exception: InputException([
+          InputError("error", placeholders: [e.toString()])
+        ]));
+      }
+      route.reply();
+      break;
+    case "auth:refresh-token":
+      final token = jwtService.verify(route.value);
+      if (token == null) {
+        route.reply(
+            exception: InputException([InputError("refresh-token.invalid")]));
+        return;
+      }
+
+      final dbToken = await jwtService.getRefreshToken(token.jwtId!);
+      if (dbToken == null) {
+        route.reply(
+            exception:
+                InputException([InputError("refresh-token.recognized")]));
+        return;
+      }
+
+      // Generate new token pair
+      try {
+        await jwtService.removeRefreshToken(token.jwtId!);
+
+        final tokenPair = await jwtService.createPair(token.subject!);
+        route.reply(value: tokenPair.toJson());
+      } catch (e) {
+        route.reply(
+            exception: InputException([
+          InputError("refresh-token.error", placeholders: [e.toString()])
+        ]));
+      }
   }
 }
