@@ -17,6 +17,21 @@ void stopConsole() {
   _consoleRunning = false;
 }
 
+void printWarning(String text) {
+  print('\x1B[33m$text\x1B[0m');
+}
+
+void printSuccess(String text) {
+  print('\x1B[32m$text\x1B[0m');
+}
+
+void printError(String text) {
+  print('\x1B[31m$text\x1B[0m');
+}
+void printQuote(String text) {
+  print('\x1B[3m$text\x1B[0m');
+}
+
 Future<void> _runConsole(HttpServer server) async {
   stdout.write("\n> ");
   String? console = stdin.readLineSync();
@@ -32,7 +47,11 @@ Future<void> _runConsole(HttpServer server) async {
     path = console.substring(0, pathIndex);
     value = console.substring(pathIndex);
   }
-  await handleHomeSockets(
+  if(!await handleHomeSockets(
           ConsoleRoute(server, SocketPackage(route: path, value: value)))
-      .catchError((e) => print("Error: $e"));
+      .catchError((e) {
+        print("Error: $e");
+      })) {
+    printWarning("No route was found!");
+  }
 }

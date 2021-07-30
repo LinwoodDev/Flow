@@ -9,7 +9,7 @@ import 'package:shared/utils.dart';
 
 import '../server_route.dart';
 
-Future<void> handleAuthSockets(ServerRoute route) async {
+Future<bool> handleAuthSockets(ServerRoute route) async {
   final service = GetIt.I.get<LocalService>();
   final jwtService = GetIt.I.get<JWTService>();
 
@@ -38,7 +38,7 @@ Future<void> handleAuthSockets(ServerRoute route) async {
         route.reply(
             exception:
                 InputException(errors.map((e) => InputError(e)).toList()));
-        return;
+        return true;
       }
       final service = GetIt.I.get<LocalService>();
       User? foundUser;
@@ -52,7 +52,7 @@ Future<void> handleAuthSockets(ServerRoute route) async {
           foundUser.password != hashPassword(user.password, foundUser.salt)) {
         route.reply(
             exception: InputException([InputError("credentials.failed")]));
-        return;
+        return true;
       }
 
       final pair = await jwtService.createPair(foundUser.id!.toRadixString(16));
@@ -65,7 +65,7 @@ Future<void> handleAuthSockets(ServerRoute route) async {
       final auth = jwtService.verify(route.auth);
       if (auth == null) {
         route.reply(exception: InputException([InputError("unauthorized")]));
-        return;
+        return true;
       }
       try {
         await jwtService.removeRefreshToken(auth.jwtId!);
@@ -82,7 +82,7 @@ Future<void> handleAuthSockets(ServerRoute route) async {
       if (token == null) {
         route.reply(
             exception: InputException([InputError("refresh-token.invalid")]));
-        return;
+        return true;
       }
 
       final dbToken = await jwtService.getRefreshToken(token.jwtId!);
@@ -90,7 +90,7 @@ Future<void> handleAuthSockets(ServerRoute route) async {
         route.reply(
             exception:
                 InputException([InputError("refresh-token.recognized")]));
-        return;
+        return true;
       }
 
       // Generate new token pair
@@ -105,5 +105,9 @@ Future<void> handleAuthSockets(ServerRoute route) async {
           InputError("refresh-token.error", placeholders: [e.toString()])
         ]));
       }
+      break;
+    default:
+      return false;
   }
+  return true;
 }

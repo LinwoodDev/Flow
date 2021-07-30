@@ -12,7 +12,7 @@ import '../server_route.dart';
 const eventsSubs = <WebSocket>[];
 const eventSubs = <WebSocket, int>{};
 
-Future<void> handleEventSockets(ServerRoute route) async {
+Future<bool> handleEventSockets(ServerRoute route) async {
   final service = GetIt.I.get<LocalService>();
   WebSocket? ws;
   if (route is SocketRoute) {
@@ -23,7 +23,7 @@ Future<void> handleEventSockets(ServerRoute route) async {
   final token = jwtService.verify(route.auth);
   if (route.path.startsWith("event") && token?.subject == null && ws != null) {
     route.reply(exception: InputException([InputError("unauthorized")]));
-    return;
+    return true;
   }
   switch (route.path) {
     case "events:subscribe":
@@ -50,7 +50,7 @@ Future<void> handleEventSockets(ServerRoute route) async {
       var id = route.value as int?;
       if (id == null) {
         route.reply(exception: InputException([InputError("invalid")]));
-        return;
+        return true;
       }
       if (route is SocketRoute) {
         eventSubs[route.socket] = id;
@@ -72,7 +72,7 @@ Future<void> handleEventSockets(ServerRoute route) async {
       var id = int.tryParse(route.value ?? "");
       if (id == null) {
         route.reply(exception: InputException([InputError("invalid")]));
-        return;
+        return true;
       }
       var event = await service.fetchEvent(id);
       route.reply(value: event?.toJson());
@@ -82,5 +82,9 @@ Future<void> handleEventSockets(ServerRoute route) async {
       var event = Event.fromJson(json.decode(route.value ?? ""));
       event = await service.createEvent(event);
       route.reply(value: event.toJson(addId: true));
+      break;
+    default:
+      return false;
   }
+  return true;
 }

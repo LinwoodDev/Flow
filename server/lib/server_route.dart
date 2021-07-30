@@ -2,10 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
+import 'package:flow_server/console.dart';
 import 'package:flow_server/services/jwt.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared/exceptions/input.dart';
 import 'package:shared/socket_package.dart';
+
+const tabEncoder = const JsonEncoder.withIndent("\t");
 
 abstract class ServerRoute {
   final HttpServer serverSocket;
@@ -22,13 +25,12 @@ abstract class ServerRoute {
   void reply({InputException? exception, dynamic value});
 
   void broadcast({InputException? exception, dynamic value}) {
-    var output = json.encode(
-        SocketPackage(route: path, exception: exception, value: value)
-            .toJson());
+    var package =
+        SocketPackage(route: path, exception: exception, value: value);
     GetIt.I
         .get<List<Socket>>(instanceName: 'sockets')
-        .forEach((element) => element.write(output));
-    stdout.write("\n" + output);
+        .forEach((element) => element.write(tabEncoder.convert(package.toJson())));
+    _printSocketPackage(package);
   }
 
   JWT? verifyAuth() =>
@@ -43,7 +45,7 @@ class SocketRoute extends ServerRoute {
 
   @override
   void reply({InputException? exception, dynamic value}) => socket.add(
-      json.encode(SocketPackage(route: path, exception: exception, value: value)
+      tabEncoder.convert(SocketPackage(route: path, exception: exception, value: value)
           .toJson()));
 }
 
@@ -52,6 +54,18 @@ class ConsoleRoute extends ServerRoute {
       : super(serverSocket, package);
 
   @override
-  void reply({InputException? exception, value}) => print(json.encode(
-      SocketPackage(route: path, exception: exception, value: value).toJson()));
+  void reply({InputException? exception, value}) => _printSocketPackage(
+      SocketPackage(route: path, exception: exception, value: value));
+}
+
+void _printSocketPackage(SocketPackage package) {
+  var output = tabEncoder.convert(package.value);
+  printQuote("\n${package.route}");
+  if (package.hasException) {
+    printError(tabEncoder.convert(package.exception?.toJson()));
+  } else if(!package.hasData){
+    printWarning("Nothing returned");
+  } else {
+    printSuccess(output);
+  }
 }
