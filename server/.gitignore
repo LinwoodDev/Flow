@@ -11,5 +11,6 @@ doc/api/
 # Compiled
 bin/flow_server.exe
 
-# Database
+# Runtime related files
 linwood_flow.db
+config.json

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flow_server/console.dart';
 import 'package:flow_server/routes/home.dart';
+import 'package:flow_server/services/config.dart';
 import 'package:flow_server/services/jwt.dart';
 import 'package:flow_server/server_route.dart';
 import 'package:get_it/get_it.dart';
@@ -62,6 +63,16 @@ Future<void> initServices() async {
 // open the database
   var db = await databaseFactoryIo.openDatabase(dbPath);
   GetIt.I.registerSingleton(LocalService(db));
+
+  // Create main config
+  var file = File(join(dir.path, "config.json"));
+  if(!(await file.exists())) {
+    await file.create();
+  }
+  var service = ConfigService(file);
+  await service.reload();
+  await service.save();
+  GetIt.I.registerSingleton(service);
 
   // JWT Service
   final address = Platform.environment["flow.address"];

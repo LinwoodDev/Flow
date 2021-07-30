@@ -10,6 +10,9 @@ import 'package:shared/services/local/service.dart';
 import '../server_route.dart';
 
 const eventsSubs = <WebSocket>[];
+const openedEventsSubs = <WebSocket>[];
+const plannedEventsSubs = <WebSocket>[];
+const doneEventsSubs = <WebSocket>[];
 const eventSubs = <WebSocket, int>{};
 
 Future<bool> handleEventSockets(ServerRoute route) async {
@@ -43,8 +46,68 @@ Future<bool> handleEventSockets(ServerRoute route) async {
       }
       route.reply(value: "success");
       break;
+    case "events:subscribe-opened":
+      if (route is SocketRoute) {
+        openedEventsSubs.add(route.socket);
+      }
+      route.reply(value: "success");
+      break;
+    case "events:subscribed-opened":
+      if (route is SocketRoute) {
+        route.reply(value: openedEventsSubs.contains(route.socket));
+      }
+      break;
+    case "events:unsubscribe-opened":
+      if (route is SocketRoute) {
+        openedEventsSubs.remove(route.socket);
+      }
+      route.reply(value: "success");
+      break;
+    case "events:subscribe-planned":
+      if (route is SocketRoute) {
+        plannedEventsSubs.add(route.socket);
+      }
+      route.reply(value: "success");
+      break;
+    case "events:subscribed-planned":
+      if (route is SocketRoute) {
+        route.reply(value: plannedEventsSubs.contains(route.socket));
+      }
+      break;
+    case "events:unsubscribe-planned":
+      if (route is SocketRoute) {
+        plannedEventsSubs.remove(route.socket);
+      }
+      route.reply(value: "success");
+      break;
+    case "events:subscribe-done":
+      if (route is SocketRoute) {
+        doneEventsSubs.add(route.socket);
+      }
+      route.reply(value: "success");
+      break;
+    case "events:subscribed-done":
+      if (route is SocketRoute) {
+        route.reply(value: doneEventsSubs.contains(route.socket));
+      }
+      break;
+    case "events:unsubscribe-done":
+      if (route is SocketRoute) {
+        doneEventsSubs.remove(route.socket);
+      }
+      route.reply(value: "success");
+      break;
     case "events:fetch":
       route.reply(value: await service.fetchEvents().then((value) => value.map((e) => e.toJson(addId: true)).toList()));
+      break;
+    case "events:fetch-opened":
+      route.reply(value: await service.fetchOpenedEvents().then((value) => value.map((e) => e.toJson(addId: true)).toList()));
+      break;
+    case "events:fetch-done":
+      route.reply(value: await service.fetchDoneEvents().then((value) => value.map((e) => e.toJson(addId: true)).toList()));
+      break;
+    case "events:fetch-planned":
+      route.reply(value: await service.fetchPlannedEvents().then((value) => value.map((e) => e.toJson(addId: true)).toList()));
       break;
     case "event:subscribe":
       var id = route.value as int?;
