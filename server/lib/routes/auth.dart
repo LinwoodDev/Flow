@@ -4,13 +4,13 @@ import 'package:flow_server/services/jwt.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared/exceptions/input.dart';
 import 'package:shared/models/user.dart';
-import 'package:shared/services/local_service.dart';
+import 'package:shared/services/local/service.dart';
 import 'package:shared/utils.dart';
 
 import '../server_route.dart';
 
 Future<bool> handleAuthSockets(ServerRoute route) async {
-  final service = GetIt.I.get<LocalService>();
+  final service = GetIt.I.get<LocalService>().users;
   final jwtService = GetIt.I.get<JWTService>();
 
   switch (route.path) {
@@ -40,7 +40,6 @@ Future<bool> handleAuthSockets(ServerRoute route) async {
                 InputException(errors.map((e) => InputError(e)).toList()));
         return true;
       }
-      final service = GetIt.I.get<LocalService>();
       User? foundUser;
       if (user.email.isNotEmpty) {
         foundUser = await service.fetchUserByEmail(user.email);

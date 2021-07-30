@@ -7,7 +7,7 @@ import 'package:shared/exceptions/input.dart';
 import 'package:shared/models/account.dart';
 import 'package:shared/models/user.dart';
 import 'package:shared/services/api_service.dart';
-import 'package:shared/services/local_service.dart';
+import 'package:shared/services/local/service.dart';
 
 typedef OnUserChanged = void Function(int? id);
 
@@ -31,19 +31,19 @@ class _UserPageState extends State<UserPage> {
   late final TextEditingController _emailController = TextEditingController();
   late final TextEditingController _passwordController =
       TextEditingController();
-  late ApiService service;
+  late UsersApiService service;
 
   @override
   void initState() {
     super.initState();
-    service = GetIt.I.get<LocalService>();
+    service = GetIt.I.get<LocalService>().users;
     account = widget.account;
   }
 
   @override
   void didUpdateWidget(UserPage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    service = GetIt.I.get<LocalService>();
+    service = GetIt.I.get<LocalService>().users;
   }
 
   Account? account;

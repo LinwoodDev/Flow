@@ -3,7 +3,7 @@ import 'dart:html';
 
 import 'package:get_it/get_it.dart';
 import 'package:sembast_web/sembast_web.dart';
-import 'package:shared/services/local_service.dart';
+import 'package:shared/services/local/service.dart';
 
 Future<void> setup() async {
   var factory = databaseFactoryWeb;

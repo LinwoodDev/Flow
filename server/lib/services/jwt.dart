@@ -1,7 +1,7 @@
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sembast/sembast.dart';
-import 'package:shared/services/local_service.dart';
+import 'package:shared/services/local/service.dart';
 import 'package:uuid/uuid.dart';
 
 class JWTService {

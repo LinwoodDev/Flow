@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/assign.dart';
-import 'package:shared/models/event.dart';
+import 'package:shared/models/season.dart';
 import 'package:shared/models/team.dart';
 import 'package:shared/models/user.dart';
 import 'package:shared/services/api_service.dart';
-import 'package:shared/services/local_service.dart';
+import 'package:shared/services/local/service.dart';
 
 class AssignDialog extends StatefulWidget {
   final Assigned assigned;
@@ -20,7 +20,9 @@ class AssignDialog extends StatefulWidget {
 class _AssignDialogState extends State<AssignDialog>
     with TickerProviderStateMixin {
   late Assigned assigned;
-  late final ApiService service;
+  late final TeamsApiService teamsService;
+  late final SeasonsApiService seasonsService;
+  late final UsersApiService usersService;
   late final TabController _tabController;
 
   @override
@@ -28,7 +30,9 @@ class _AssignDialogState extends State<AssignDialog>
     super.initState();
 
     assigned = widget.assigned;
-    service = GetIt.I.get<LocalService>();
+    usersService = GetIt.I.get<LocalService>().users;
+    teamsService = GetIt.I.get<LocalService>().teams;
+    seasonsService = GetIt.I.get<LocalService>().seasons;
     _tabController = TabController(length: 3, vsync: this);
   }
 
@@ -66,7 +70,7 @@ class _AssignDialogState extends State<AssignDialog>
                               children: [
                             Builder(
                               builder: (context) => StreamBuilder<List<User>>(
-                                  stream: service.onUsers(),
+                                  stream: usersService.onUsers(),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasError) {
                                       return Text("Error: ${snapshot.error}");
@@ -146,7 +150,7 @@ class _AssignDialogState extends State<AssignDialog>
                             ),
                             Builder(
                               builder: (context) => StreamBuilder<List<Team>>(
-                                  stream: service.onTeams(),
+                                  stream: teamsService.onTeams(),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasError) {
                                       return Text("Error: ${snapshot.error}");
@@ -226,8 +230,8 @@ class _AssignDialogState extends State<AssignDialog>
                             ),
                             Builder(
                                 builder: (context) => StreamBuilder<
-                                        List<Event>>(
-                                    stream: service.onEvents(),
+                                        List<Season>>(
+                                    stream: seasonsService.onSeasons(),
                                     builder: (context, snapshot) {
                                       if (snapshot.hasError) {
                                         return Text("Error: ${snapshot.error}");
@@ -238,10 +242,10 @@ class _AssignDialogState extends State<AssignDialog>
                                         return const Center(
                                             child: CircularProgressIndicator());
                                       }
-                                      var events = snapshot.data!;
+                                      var seasons = snapshot.data!;
                                       return SingleChildScrollView(
                                           child: Column(children: [
-                                        if (events.any((a) => !assigned.events
+                                        if (seasons.any((a) => !assigned.seasons
                                             .any((b) => b.id == a.id)))
                                           OutlinedButton.icon(
                                               onPressed: () => showDialog(
@@ -250,10 +254,10 @@ class _AssignDialogState extends State<AssignDialog>
                                                       SimpleDialog(
                                                           title: const Text(
                                                               "Add event"),
-                                                          children: events
+                                                          children: seasons
                                                               .where((a) =>
                                                                   !assigned
-                                                                      .events
+                                                                      .seasons
                                                                       .any((b) =>
                                                                           b.id ==
                                                                           a.id))
@@ -267,33 +271,33 @@ class _AssignDialogState extends State<AssignDialog>
                                                                             .pop();
                                                                         setState(() =>
                                                                             assigned =
-                                                                                assigned.copyWith(events: List.from(assigned.events)..add(AssignedObject(flag: true, id: e.id))));
+                                                                                assigned.copyWith(seasons: List.from(assigned.seasons)..add(AssignedObject(flag: true, id: e.id))));
                                                                       }))
                                                               .toList())),
                                               icon: const Icon(
                                                   PhosphorIcons.plusLight),
                                               label: const Text("ADD EVENT")),
-                                        ...assigned.events
+                                        ...assigned.seasons
                                             .asMap()
                                             .entries
                                             .map((e) => _AssignedObjectField(
                                                   initialFlag: e.value.flag,
                                                   onDelete: () => assigned =
                                                       assigned.copyWith(
-                                                          events: List.from(
-                                                              assigned.events)
+                                                          seasons: List.from(
+                                                              assigned.seasons)
                                                             ..removeWhere((v) =>
                                                                 v.id ==
                                                                 e.value.id)),
-                                                  title: events
+                                                  title: seasons
                                                       .firstWhere((element) =>
                                                           element.id ==
                                                           e.value.id)
                                                       .name,
                                                   onChanged: (value) => assigned =
                                                       assigned.copyWith(
-                                                          events: List.from(
-                                                              assigned.events)
+                                                          seasons: List.from(
+                                                              assigned.seasons)
                                                             ..[e.key] =
                                                                 AssignedObject(
                                                                     flag: value,

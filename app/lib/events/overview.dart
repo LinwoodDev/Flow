@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/event.dart';
 import 'package:shared/services/api_service.dart';
-import 'package:shared/services/local_service.dart';
+import 'package:shared/services/local/service.dart';
 
 class EventsOverviewView extends StatefulWidget {
   const EventsOverviewView({Key? key}) : super(key: key);
@@ -15,13 +15,13 @@ class EventsOverviewView extends StatefulWidget {
 
 class _EventsOverviewViewState extends State<EventsOverviewView> {
   int _selectedIndex = 1;
-  late ApiService service;
+  late EventsApiService service;
 
   @override
   void initState() {
     super.initState();
 
-    service = GetIt.I.get<LocalService>();
+    service = GetIt.I.get<LocalService>().events;
   }
 
   void _onItemTapped(int index) {

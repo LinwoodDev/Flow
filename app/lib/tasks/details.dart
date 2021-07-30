@@ -8,7 +8,7 @@ import 'package:shared/models/account.dart';
 import 'package:shared/models/task.dart';
 import 'package:shared/models/user.dart';
 import 'package:shared/services/api_service.dart';
-import 'package:shared/services/local_service.dart';
+import 'package:shared/services/local/service.dart';
 
 class TaskPage extends StatefulWidget {
   final int? id;
@@ -23,18 +23,23 @@ class TaskPage extends StatefulWidget {
 class _TaskPageState extends State<TaskPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  late ApiService service;
+  late TasksApiService service;
+  late UsersApiService usersService;
+  late SubmissionsApiService submissionsService;
 
   @override
   void initState() {
     super.initState();
-    service = GetIt.I.get<LocalService>();
+    service = GetIt.I.get<LocalService>().tasks;
+    usersService = GetIt.I.get<LocalService>().users;
+    submissionsService = GetIt.I.get<LocalService>().submissions;
   }
 
   @override
   void didUpdateWidget(TaskPage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    service = GetIt.I.get<LocalService>();
+    service = GetIt.I.get<LocalService>().tasks;
+    usersService = GetIt.I.get<LocalService>().users;
   }
 
   Account? account;
@@ -112,7 +117,7 @@ class _TaskPageState extends State<TaskPage> {
                       const SizedBox(height: 50),
                       Builder(builder: (context) {
                         return StreamBuilder<List<User>>(
-                            stream: service.onUsers(),
+                            stream: usersService.onUsers(),
                             builder: (context, snapshot) {
                               if (snapshot.hasError) {
                                 return Text("Error: ${snapshot.error}");
@@ -202,7 +207,7 @@ class _TaskPageState extends State<TaskPage> {
                             if (task != null && account != null)
                               Builder(builder: (context) {
                                 return StreamBuilder<Submission?>(
-                                    stream: service.onSubmission(task.id!, 0),
+                                    stream: submissionsService.onSubmission(task.id!, 0),
                                     builder: (context, snapshot) {
                                       return ExpansionTile(
                                           title: const Text("Your submission"),

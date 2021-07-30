@@ -6,8 +6,25 @@ import 'package:shared/models/team.dart';
 import 'package:shared/models/user.dart';
 
 abstract class ApiService {
-  // Team operations
+  TeamsApiService get teams;
+
+  UsersApiService get users;
+
+  EventsApiService get events;
+
+  BadgesApiService get badges;
+
+  SeasonsApiService get seasons;
+
+  TasksApiService get tasks;
+
+  SubmissionsApiService get submissions;
+}
+
+abstract class TeamsApiService {
   Future<List<Team>> fetchTeams();
+
+  Future<int> fetchTeamsCount();
 
   Future<Team> createTeam(Team team);
 
@@ -20,9 +37,12 @@ abstract class ApiService {
   Stream<List<Team>> onTeams();
 
   Stream<Team?> onTeam(int id);
+}
 
-  // User operations
+abstract class UsersApiService {
   Future<List<User>> fetchUsers();
+
+  Future<int> fetchUsersCount();
 
   Future<User> createUser(User user);
 
@@ -41,9 +61,12 @@ abstract class ApiService {
   Stream<List<User>> onUsers();
 
   Stream<User?> onUser(int id);
+}
 
-  // Event operations
+abstract class EventsApiService {
   Future<List<Event>> fetchEvents();
+
+  Future<int> fetchEventsCount();
 
   Future<List<Event>> fetchOpenedEvents();
 
@@ -68,9 +91,12 @@ abstract class ApiService {
   Stream<List<Event>> onDoneEvents();
 
   Stream<List<Event>> onPlannedEvents();
+}
 
-  // Badge operations
+abstract class BadgesApiService {
   Future<List<Badge>> fetchBadges();
+
+  Future<int> fetchBadgesCount();
 
   Future<Badge> createBadge(Badge badge);
 
@@ -83,9 +109,12 @@ abstract class ApiService {
   Stream<List<Badge>> onBadges();
 
   Stream<Badge?> onBadge(int id);
+}
 
-  // Season operations
+abstract class SeasonsApiService {
   Future<List<Season>> fetchSeasons();
+
+  Future<int> fetchSeasonsCount();
 
   Future<Season> createSeason(Season season);
 
@@ -98,9 +127,12 @@ abstract class ApiService {
   Stream<List<Season>> onSeasons();
 
   Stream<Season?> onSeason(int id);
+}
 
-  // Task operations
+abstract class TasksApiService {
   Future<List<Task>> fetchTasks();
+
+  Future<int> fetchTasksCount();
 
   Future<Task> createTask(Task task);
 
@@ -113,8 +145,12 @@ abstract class ApiService {
   Stream<List<Task>> onTasks();
 
   Stream<Task?> onTask(int id);
+}
 
+abstract class SubmissionsApiService {
   Future<List<Submission>> fetchSubmissions(int task, {SubmissionState? state});
+
+  Future<int> fetchSubmissionsCount(int task, {SubmissionState? state});
 
   Future<Submission?> fetchSubmission(int task, int user);
 

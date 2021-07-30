@@ -8,7 +8,7 @@ import 'package:shared/models/account.dart';
 import 'package:shared/models/team.dart';
 import 'package:shared/models/user.dart';
 import 'package:shared/services/api_service.dart';
-import 'package:shared/services/local_service.dart';
+import 'package:shared/services/local/service.dart';
 
 class TeamPage extends StatefulWidget {
   final int? id;
@@ -23,7 +23,8 @@ class TeamPage extends StatefulWidget {
 class _TeamPageState extends State<TeamPage> {
   late TextEditingController _nameController;
   late TextEditingController _descriptionController;
-  late ApiService service;
+  late TeamsApiService service;
+  late UsersApiService usersService;
   Color color = Colors.white;
 
   @override
@@ -32,13 +33,15 @@ class _TeamPageState extends State<TeamPage> {
 
     _nameController = TextEditingController();
     _descriptionController = TextEditingController();
-    service = GetIt.I.get<LocalService>();
+    service = GetIt.I.get<LocalService>().teams;
+    usersService = GetIt.I.get<LocalService>().users;
   }
 
   @override
   void didUpdateWidget(TeamPage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    service = GetIt.I.get<LocalService>();
+    service = GetIt.I.get<LocalService>().teams;
+    usersService = GetIt.I.get<LocalService>().users;
   }
 
   Account? account;
@@ -118,7 +121,7 @@ class _TeamPageState extends State<TeamPage> {
                               const SizedBox(height: 50),
                               Builder(builder: (context) {
                                 return StreamBuilder<List<User>>(
-                                    stream: service.onUsers(),
+                                    stream: usersService.onUsers(),
                                     builder: (context, snapshot) {
                                       if (snapshot.hasError) {
                                         return Text("Error: ${snapshot.error}");

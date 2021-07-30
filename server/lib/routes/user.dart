@@ -2,12 +2,12 @@ import 'dart:async';
 import 'package:flow_server/services/jwt.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared/exceptions/input.dart';
-import 'package:shared/services/local_service.dart';
+import 'package:shared/services/local/service.dart';
 
 import '../server_route.dart';
 
 Future<bool> handleUserSockets(ServerRoute route) async {
-  final service = GetIt.I.get<LocalService>();
+  final service = GetIt.I.get<LocalService>().users;
   final jwtService = GetIt.I.get<JWTService>();
 
   final token = jwtService.verify(route.auth);

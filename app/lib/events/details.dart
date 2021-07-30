@@ -10,7 +10,7 @@ import 'package:shared/models/account.dart';
 import 'package:shared/models/event.dart';
 import 'package:shared/models/user.dart';
 import 'package:shared/services/api_service.dart';
-import 'package:shared/services/local_service.dart';
+import 'package:shared/services/local/service.dart';
 
 class EventPage extends StatefulWidget {
   final int? id;
@@ -29,21 +29,24 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
   final TextEditingController _descriptionController = TextEditingController();
   late TabController _tabController;
 
-  late ApiService service;
+  late EventsApiService service;
+  late UsersApiService usersService;
   int? id;
 
   @override
   void initState() {
     super.initState();
     id = widget.id;
-    service = GetIt.I.get<LocalService>();
+    service = GetIt.I.get<LocalService>().events;
+    usersService = GetIt.I.get<LocalService>().users;
     _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
   void didUpdateWidget(EventPage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    service = GetIt.I.get<LocalService>();
+    service = GetIt.I.get<LocalService>().events;
+    usersService = GetIt.I.get<LocalService>().users;
     if (oldWidget.id != widget.id) setState(() => id = widget.id);
   }
 
@@ -147,7 +150,7 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                     const SizedBox(height: 50),
                     Builder(builder: (context) {
                       return StreamBuilder<List<User>>(
-                          stream: service.onUsers(),
+                          stream: usersService.onUsers(),
                           builder: (context, snapshot) {
                             if (snapshot.hasError) {
                               return Text("Error: ${snapshot.error}");

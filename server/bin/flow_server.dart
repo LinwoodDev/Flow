@@ -9,7 +9,7 @@ import 'package:get_it/get_it.dart';
 import 'package:path/path.dart';
 import 'package:sembast/sembast_io.dart';
 import 'package:shared/exceptions/input.dart';
-import 'package:shared/services/local_service.dart';
+import 'package:shared/services/local/service.dart';
 import 'package:shared/socket_package.dart';
 
 Future<void> main(List<String> arguments) async {

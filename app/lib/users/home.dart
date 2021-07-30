@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/user.dart';
 import 'package:shared/services/api_service.dart';
-import 'package:shared/services/local_service.dart';
+import 'package:shared/services/local/service.dart';
 
 import 'details.dart';
 
@@ -18,14 +18,14 @@ class UsersPage extends StatefulWidget {
 
 class _UsersPageState extends State<UsersPage> {
   User? selected;
-  late ApiService service;
+  late UsersApiService service;
   late Stream<List<User>> userStream;
 
   @override
   void initState() {
     super.initState();
 
-    service = GetIt.I.get<LocalService>();
+    service = GetIt.I.get<LocalService>().users;
     userStream = service.onUsers();
   }
 

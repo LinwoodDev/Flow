@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/season.dart';
 import 'package:shared/services/api_service.dart';
-import 'package:shared/services/local_service.dart';
+import 'package:shared/services/local/service.dart';
 
 import 'details.dart';
 
@@ -18,14 +18,14 @@ class SeasonsPage extends StatefulWidget {
 
 class _SeasonsPageState extends State<SeasonsPage> {
   Season? selected;
-  late ApiService service;
+  late SeasonsApiService service;
   late Stream<List<Season>> seasonStream;
 
   @override
   void initState() {
     super.initState();
 
-    service = GetIt.I.get<LocalService>();
+    service = GetIt.I.get<LocalService>().seasons;
     seasonStream = service.onSeasons();
   }
 

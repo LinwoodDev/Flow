@@ -8,7 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:shared/exceptions/input.dart';
 import 'package:shared/socket_package.dart';
 
-const tabEncoder = const JsonEncoder.withIndent("\t");
+const tabEncoder = JsonEncoder.withIndent("\t");
 
 abstract class ServerRoute {
   final HttpServer serverSocket;

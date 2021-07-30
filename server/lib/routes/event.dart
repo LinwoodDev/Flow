@@ -5,7 +5,7 @@ import 'package:flow_server/services/jwt.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared/exceptions/input.dart';
 import 'package:shared/models/event.dart';
-import 'package:shared/services/local_service.dart';
+import 'package:shared/services/local/service.dart';
 
 import '../server_route.dart';
 
@@ -13,7 +13,7 @@ const eventsSubs = <WebSocket>[];
 const eventSubs = <WebSocket, int>{};
 
 Future<bool> handleEventSockets(ServerRoute route) async {
-  final service = GetIt.I.get<LocalService>();
+  final service = GetIt.I.get<LocalService>().events;
   WebSocket? ws;
   if (route is SocketRoute) {
     ws = route.socket;
@@ -82,6 +82,20 @@ Future<bool> handleEventSockets(ServerRoute route) async {
       var event = Event.fromJson(json.decode(route.value ?? ""));
       event = await service.createEvent(event);
       route.reply(value: event.toJson(addId: true));
+      break;
+    case "event:update":
+      var event = Event.fromJson(json.decode(route.value ?? ""));
+      await service.updateEvent(event);
+      route.reply(value: event.toJson(addId: true));
+      break;
+    case "event:delete":
+      var id = int.tryParse(route.value ?? "");
+      if (id == null) {
+        route.reply(exception: InputException([InputError("invalid")]));
+        return true;
+      }
+      await service.deleteEvent(id);
+      route.reply();
       break;
     default:
       return false;

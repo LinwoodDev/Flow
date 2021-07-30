@@ -7,7 +7,7 @@ import 'package:shared/models/account.dart';
 import 'package:shared/models/season.dart';
 import 'package:shared/models/user.dart';
 import 'package:shared/services/api_service.dart';
-import 'package:shared/services/local_service.dart';
+import 'package:shared/services/local/service.dart';
 
 class SeasonPage extends StatefulWidget {
   final int? id;
@@ -23,18 +23,21 @@ class SeasonPage extends StatefulWidget {
 class _SeasonPageState extends State<SeasonPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  late ApiService service;
+  late SeasonsApiService service;
+  late UsersApiService usersService;
 
   @override
   void initState() {
     super.initState();
-    service = GetIt.I.get<LocalService>();
+    service = GetIt.I.get<LocalService>().seasons;
+    usersService = GetIt.I.get<LocalService>().users;
   }
 
   @override
   void didUpdateWidget(SeasonPage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    service = GetIt.I.get<LocalService>();
+    service = GetIt.I.get<LocalService>().seasons;
+    usersService = GetIt.I.get<LocalService>().users;
   }
 
   Account? account;
@@ -103,7 +106,7 @@ class _SeasonPageState extends State<SeasonPage> {
                             const SizedBox(height: 50),
                             Builder(builder: (context) {
                               return StreamBuilder<List<User>>(
-                                  stream: service.onUsers(),
+                                  stream: usersService.onUsers(),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasError) {
                                       return Text("Error: ${snapshot.error}");

@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/badge.dart';
 import 'package:shared/services/api_service.dart';
-import 'package:shared/services/local_service.dart';
+import 'package:shared/services/local/service.dart';
 
 import 'details.dart';
 
@@ -18,14 +18,14 @@ class BadgesPage extends StatefulWidget {
 
 class _BadgesPageState extends State<BadgesPage> {
   Badge? selected;
-  late ApiService service;
+  late BadgesApiService service;
   late Stream<List<Badge>> badgeStream;
 
   @override
   void initState() {
     super.initState();
 
-    service = GetIt.I.get<LocalService>();
+    service = GetIt.I.get<LocalService>().badges;
     badgeStream = service.onBadges();
   }
 
