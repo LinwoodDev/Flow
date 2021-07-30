@@ -28,9 +28,10 @@ class _AccountsSettingsPageState extends State<AccountsSettingsPage> {
             builder: (context, box, _) {
               var accounts =
                   box.values.map((e) => Account.fromJson(e)).toList();
-              return ListView.builder(
-                  itemCount: box.values.length,
-                  itemBuilder: (BuildContext context, int index) {
+              return ListView(
+                  children: [
+                    ListTile(title: const Text("Local"), onTap: () => Modular.to.pushNamed("/admin")),
+                    ...List.generate(box.values.length, (index) {
                     var current = accounts[index];
                     return Dismissible(
                       background: Container(color: Colors.red),
@@ -43,7 +44,7 @@ class _AccountsSettingsPageState extends State<AccountsSettingsPage> {
                               icon: const Icon(PhosphorIcons.signOutLight),
                               onPressed: () {})),
                     );
-                  });
+                  })]);
             }));
   }
 }

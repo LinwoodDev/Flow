@@ -6,8 +6,19 @@ import 'package:shared/socket_package.dart';
 
 bool _consoleRunning = false;
 
+const help = """
+
+\\help\tGet the help
+\\h
+\\stop\tStop the server
+\\s
+
+To execute a route, use:
+<Route> [<value>]""";
+
 void startConsole(HttpServer serverSocket) async {
   _consoleRunning = true;
+  printSuccess("Enter \\h to open the help page");
   while (_consoleRunning) {
     await _runConsole(serverSocket);
   }
@@ -28,6 +39,7 @@ void printSuccess(String text) {
 void printError(String text) {
   print('\x1B[31m$text\x1B[0m');
 }
+
 void printQuote(String text) {
   print('\x1B[3m$text\x1B[0m');
 }
@@ -47,11 +59,27 @@ Future<void> _runConsole(HttpServer server) async {
     path = console.substring(0, pathIndex);
     value = console.substring(pathIndex);
   }
-  if(!await handleHomeSockets(
+  if (path.startsWith("\\")) {
+    _executeCommand(server, path.substring(1), value);
+  } else if (!await handleHomeSockets(
           ConsoleRoute(server, SocketPackage(route: path, value: value)))
       .catchError((e) {
-        print("Error: $e");
-      })) {
+    print("Error: $e");
+  })) {
     printWarning("No route was found!");
+  }
+}
+
+Future<void> _executeCommand(HttpServer server, String command, String? value) async {
+  switch (command) {
+    case "s":
+    case "stop":
+      print("Stopping server...");
+      stopConsole();
+      server.close();
+      break;
+    case "h":
+    case "help":
+      print(help);
   }
 }

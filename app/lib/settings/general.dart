@@ -1,3 +1,4 @@
+import 'package:flow_app/widgets/advanced_switch_list_tile.dart';
 import 'package:flow_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -54,6 +55,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
               onTap: () => showAboutDialog(
                   context: context,
                   applicationIcon: Image.asset("images/logo.png", height: 50))),
+              AdvancedSwitchListTile(value: false, onTap: () {}, onChanged: (value) {},title: const Text("Wifi"))
         ])));
   }
 }
