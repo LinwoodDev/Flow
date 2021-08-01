@@ -4,8 +4,9 @@ import 'package:flow_app/session/session.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:http/http.dart' as http;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:web_socket_channel/status.dart' as status;
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class ConnectPage extends StatefulWidget {
   const ConnectPage({Key? key}) : super(key: key);
@@ -37,10 +38,16 @@ class _ConnectPageState extends State<ConnectPage> {
           onPressed: () async {
             try {
               var uri = Uri.parse(_urlController.text);
+              var channel = WebSocketChannel.connect(uri);
 
-              var response = await http.get(uri);
-              var data = json.decode(response.body);
-              if (data['name'] == "Linwood-Flow") {
+              channel.sink.add(json.encode({"route": "info"}));
+              var response = await channel.stream
+                  .firstWhere((event) => json.decode(event)['route'] == "info");
+              var data = json.decode(response);
+              channel.sink.close(status.goingAway);
+
+              print(data);
+              if (data['data']['name'] == "Linwood-Flow") {
                 Modular.to.push(MaterialPageRoute(
                     builder: (context) =>
                         SessionPage(address: _urlController.text)));

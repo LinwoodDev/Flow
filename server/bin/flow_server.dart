@@ -3,9 +3,9 @@ import 'dart:io';
 
 import 'package:flow_server/console.dart';
 import 'package:flow_server/routes/home.dart';
+import 'package:flow_server/server_route.dart';
 import 'package:flow_server/services/config.dart';
 import 'package:flow_server/services/jwt.dart';
-import 'package:flow_server/server_route.dart';
 import 'package:get_it/get_it.dart';
 import 'package:path/path.dart';
 import 'package:sembast/sembast_io.dart';
@@ -14,43 +14,47 @@ import 'package:shared/services/local/service.dart';
 import 'package:shared/socket_package.dart';
 
 Future<void> main(List<String> arguments) async {
+  print("Starting Linwood Flow backend server...");
   await initServices();
-  //final address = Platform.environment["flow.address"] ?? "localhost";
-  final port = int.fromEnvironment('flow.port', defaultValue: 3000);
+  final address = Platform.environment["flow.address"] ?? "localhost";
+  final port = int.fromEnvironment('FLOW_PORT', defaultValue: 8000);
   GetIt.I.registerSingleton(<WebSocket>[], instanceName: "sockets");
   final sockets = GetIt.I.get<List<WebSocket>>(instanceName: "sockets");
-  HttpServer.bind(InternetAddress.loopbackIPv4, port).then((server) {
-    print("Search server is running on "
-        "'https://${server.address.address}:$port/'");
-    server.listen((HttpRequest request) {
-      WebSocketTransformer.upgrade(request).then((WebSocket ws) {
-        sockets.add(ws);
-        ws.listen((message) {
+  var server = await HttpServer.bind(address, port);
+
+  print("Server started on "
+      "'ws://${server.address.address}:${server.port}/'");
+  try {
+    server.transform(WebSocketTransformer()).listen((WebSocket ws) {
+      sockets.add(ws);
+      ws.listen((message) {
+        try {
+          var data = json.decode(message);
+          var route = SocketRoute(server, ws, SocketPackage.fromJson(data));
           try {
-            var data = json.decode(message);
-            var route = SocketRoute(server, ws, SocketPackage.fromJson(data));
-            try {
-              handleHomeSockets(route);
-            } on FormatException catch (e) {
-              ws.add(e.toString());
-            } on InputException catch (e) {
-              route.reply(exception: e);
-            }
+            handleHomeSockets(route);
           } on FormatException catch (e) {
             ws.add(e.toString());
+          } on InputException catch (e) {
+            route.reply(exception: e);
           }
-        }, onError: (e) {
-          sockets.remove(ws);
-          print(e);
-          ws.close();
-        }, onDone: () {
-          sockets.remove(ws);
-        });
+        } on FormatException catch (e) {
+          ws.add(e.toString());
+        }
+      }, onError: (e) {
+        sockets.remove(ws);
+        print(e);
+        ws.close();
+      }, onDone: () {
+        sockets.remove(ws);
       });
-    });
-    startConsole(server);
-  });
-  stopConsole();
+    },
+        onError: (e) => printError(e),
+        onDone: () => print("Stopping websocket server..."));
+  } catch (e) {
+    printError(e.toString());
+  }
+  startConsole(server);
 }
 
 Future<void> initServices() async {
@@ -66,7 +70,7 @@ Future<void> initServices() async {
 
   // Create main config
   var file = File(join(dir.path, "config.json"));
-  if(!(await file.exists())) {
+  if (!(await file.exists())) {
     await file.create();
   }
   var service = ConfigService(file);

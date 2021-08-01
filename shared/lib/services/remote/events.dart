@@ -1,54 +1,86 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:shared/exceptions/input.dart';
 import 'package:shared/models/event.dart';
 import 'package:shared/services/api_service.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class EventsRemoteService extends EventsApiService {
-  final WebSocket ws;
+  final WebSocketChannel channel;
 
-  EventsRemoteService(this.ws);
+  EventsRemoteService(this.channel);
 
   @override
   Future<Event> createEvent(Event event) async {
-    ws.add({"route":"events:create", "value": event.toJson()});
-    return ws.map((value) {
+    channel.sink.add({"route": "events:create", "value": event.toJson()});
+    return channel.stream
+        .firstWhere((event) => event['route'] == "events:create")
+        .then((value) {
       var data = value as Map<String, dynamic>;
-      if(data.containsKey("exception")) {
+      if (data.containsKey("exception")) {
         throw InputException.fromJson(data["exception"]);
       }
       return Event.fromJson(data);
-    }).first;
+    });
   }
 
   @override
   Future<void> deleteEvent(int id) {
-    ws.add({"route":"events:create", "value": id});
-    return ws.map((value) {
+    channel.sink.add({"route": "event:delete", "value": id});
+    return channel.stream
+        .firstWhere((event) => event['route'] == "event:delete")
+        .then((value) {
       var data = value as Map<String, dynamic>;
-      if(data.containsKey("exception")) {
+      if (data.containsKey("exception")) {
         throw InputException.fromJson(data["exception"]);
       }
-    }).first;
+    });
   }
 
   @override
   Future<List<Event>> fetchDoneEvents() {
-    // TODO: implement fetchDoneEvents
-    throw UnimplementedError();
+    channel.sink.add({"route": "events:fetch-done"});
+    return channel.stream
+        .firstWhere((event) => event['route'] == "events:fetch-done")
+        .then((value) {
+      var data = value as Map<String, dynamic>;
+      if (data.containsKey("exception")) {
+        throw InputException.fromJson(data["exception"]);
+      }
+      return (data['value'] as List<Map<String, dynamic>>)
+          .map((e) => Event.fromJson(e))
+          .toList();
+    });
   }
 
   @override
   Future<Event?> fetchEvent(int id) {
-    // TODO: implement fetchEvent
-    throw UnimplementedError();
+    channel.sink.add({"route": "event:fetch", "value": id});
+    return channel.stream
+        .firstWhere((event) => event['route'] == "event:fetch")
+        .then((value) {
+      var data = value as Map<String, dynamic>;
+      if (data.containsKey("exception")) {
+        throw InputException.fromJson(data["exception"]);
+      }
+      return data.containsKey("value") ? Event.fromJson(data["value"]) : null;
+    });
   }
 
   @override
   Future<List<Event>> fetchEvents() {
-    // TODO: implement fetchEvents
-    throw UnimplementedError();
+    channel.sink.add({"route": "events:fetch"});
+    return channel.stream
+        .firstWhere((event) => event['route'] == "events:fetch")
+        .then((value) {
+      var data = value as Map<String, dynamic>;
+      if (data.containsKey("exception")) {
+        throw InputException.fromJson(data["exception"]);
+      }
+      return (data['value'] as List<Map<String, dynamic>>)
+          .map((e) => Event.fromJson(e))
+          .toList();
+    });
   }
 
   @override

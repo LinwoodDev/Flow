@@ -1,5 +1,7 @@
 # Files and directories created by pub
 .dart_tool/
+.flutter-devtools/
+.dart/
 .packages
 
 # Conventional directory for build outputs

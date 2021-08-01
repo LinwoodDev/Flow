@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class InputException implements Exception {
   final List<InputError> errors;
 
@@ -7,6 +9,11 @@ class InputException implements Exception {
       : errors = json.map((e) => InputError.fromJson(e)).toList();
 
   List<dynamic> toJson() => errors.map((e) => e.toJson()).toList();
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
 }
 
 class InputError {

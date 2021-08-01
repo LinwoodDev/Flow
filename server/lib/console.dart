@@ -4,8 +4,6 @@ import 'package:flow_server/routes/home.dart';
 import 'package:flow_server/server_route.dart';
 import 'package:shared/socket_package.dart';
 
-bool _consoleRunning = false;
-
 const help = """
 
 \\help\tGet the help
@@ -16,16 +14,9 @@ const help = """
 To execute a route, use:
 <Route> [<value>]""";
 
-void startConsole(HttpServer serverSocket) async {
-  _consoleRunning = true;
+void startConsole(HttpServer serverSocket) {
   printSuccess("Enter \\h to open the help page");
-  while (_consoleRunning) {
-    await _runConsole(serverSocket);
-  }
-}
-
-void stopConsole() {
-  _consoleRunning = false;
+  _runConsole(serverSocket);
 }
 
 void printWarning(String text) {
@@ -46,36 +37,37 @@ void printQuote(String text) {
 
 Future<void> _runConsole(HttpServer server) async {
   stdout.write("\n> ");
-  String? console = stdin.readLineSync();
-  if (console == null) {
-    return;
-  }
-  console = console.trim();
-  int pathIndex = console.indexOf(' ');
+  stdin.listen((event) async {
+    var console = String.fromCharCodes(event);
+    console = console.trim();
+    int pathIndex = console.indexOf(' ');
 
-  String path = console;
-  String? value;
-  if (pathIndex >= 0) {
-    path = console.substring(0, pathIndex);
-    value = console.substring(pathIndex);
-  }
-  if (path.startsWith("\\")) {
-    _executeCommand(server, path.substring(1), value);
-  } else if (!await handleHomeSockets(
-          ConsoleRoute(server, SocketPackage(route: path, value: value)))
-      .catchError((e) {
-    print("Error: $e");
-  })) {
-    printWarning("No route was found!");
-  }
+    String path = console;
+    String? value;
+    if (pathIndex >= 0) {
+      path = console.substring(0, pathIndex);
+      value = console.substring(pathIndex);
+    }
+    if (path.startsWith("\\")) {
+      _executeCommand(server, path.substring(1), value);
+    } else if (!await handleHomeSockets(
+            ConsoleRoute(server, SocketPackage(route: path, value: value)))
+        .catchError((e) {
+      printError(e.toString());
+      return true;
+    })) {
+      printWarning("No route was found!");
+    }
+    stdout.write("\n> ");
+  });
 }
 
-Future<void> _executeCommand(HttpServer server, String command, String? value) async {
+Future<void> _executeCommand(
+    HttpServer server, String command, String? value) async {
   switch (command) {
     case "s":
     case "stop":
       print("Stopping server...");
-      stopConsole();
       server.close();
       break;
     case "h":
