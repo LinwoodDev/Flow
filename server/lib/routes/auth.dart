@@ -47,6 +47,7 @@ Future<bool> handleAuthSockets(ServerRoute route) async {
       if (user.name.isNotEmpty) {
         foundUser = await service.fetchUserByName(user.name);
       }
+      if (user.password.isEmpty) throw InputError("password.empty");
       if (foundUser == null ||
           foundUser.password != hashPassword(user.password, foundUser.salt)) {
         route.reply(

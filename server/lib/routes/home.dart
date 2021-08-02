@@ -1,17 +1,22 @@
 import 'dart:async';
 
+import 'package:flow_server/routes/config.dart';
+import 'package:flow_server/services/config.dart';
+import 'package:get_it/get_it.dart';
+
 import '../server_route.dart';
 import 'auth.dart';
 import 'event.dart';
 import 'user.dart';
 
 Future<bool> handleHomeSockets(ServerRoute route) async {
+  var mainConfig = GetIt.I.get<ConfigService>().mainConfig;
   switch (route.path) {
+    case "":
     case "info":
-      route.reply(value: {
-        'name': 'Linwood-Flow',
-        'applications': ['events', 'teams', 'dev-doctor']
-      });
+      route.reply(
+          value: mainConfig.toJson(limited: true)
+            ..addAll({'application': 'Linwood-Flow'}));
       break;
     default:
       if (route.path.startsWith("auth")) {
@@ -22,6 +27,9 @@ Future<bool> handleHomeSockets(ServerRoute route) async {
       }
       if (route.path.startsWith("event")) {
         return await handleEventSockets(route);
+      }
+      if (route.path.startsWith("config")) {
+        return await handleConfigSockets(route);
       }
       return false;
   }

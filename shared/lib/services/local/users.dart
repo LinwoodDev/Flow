@@ -18,7 +18,6 @@ class UsersLocalService extends UsersApiService {
     var errors = <InputError>[];
     if (user.name.isEmpty) errors.add(InputError("name.empty"));
     if (user.email.isEmpty) errors.add(InputError("email.empty"));
-    if (user.password.isEmpty) errors.add(InputError("password.empty"));
     if (errors.isNotEmpty) throw InputException(errors);
     if (await fetchUserByName(user.name) != null) {
       errors.add(InputError("name.exist"));
@@ -30,11 +29,11 @@ class UsersLocalService extends UsersApiService {
     var salt = generateSalt();
     return usersStore
         .add(
-        db,
-        user
-            .copyWith(
-            password: hashPassword(user.password, salt), salt: salt)
-            .toJson(addSecrets: true))
+            db,
+            user
+                .copyWith(
+                    password: hashPassword(user.password, salt), salt: salt)
+                .toJson(addSecrets: true))
         .then((value) => user.copyWith(id: value));
   }
 
@@ -50,29 +49,29 @@ class UsersLocalService extends UsersApiService {
   Future<User?> fetchUser(int id) => usersStore
       .findFirst(db, finder: Finder(filter: Filter.byKey(id)))
       .then((value) => value == null
-      ? null
-      : User.fromJson(Map.from(value.value)..["id"] = value.key));
+          ? null
+          : User.fromJson(Map.from(value.value)..["id"] = value.key));
 
   @override
   Future<User?> fetchUserByEmail(String email) => usersStore
       .findFirst(db, finder: Finder(filter: Filter.equals("email", email)))
       .then((value) => value == null
-      ? null
-      : User.fromJson(Map.from(value.value)..["id"] = value.key));
+          ? null
+          : User.fromJson(Map.from(value.value)..["id"] = value.key));
 
   @override
   Future<User?> fetchUserByName(String name) => usersStore
       .findFirst(db, finder: Finder(filter: Filter.equals("name", name)))
       .then((value) => value == null
-      ? null
-      : User.fromJson(Map.from(value.value)..["id"] = value.key));
+          ? null
+          : User.fromJson(Map.from(value.value)..["id"] = value.key));
 
   @override
   Future<void> updateUser(User user) async {
     if (user.id == null) throw InputException([InputError("empty")]);
 
     if (await usersStore.update(db, user.toJson(),
-        finder: Finder(filter: Filter.byKey(user.id))) ==
+            finder: Finder(filter: Filter.byKey(user.id))) ==
         await usersStore.count(db)) {
       throw InputException([InputError("invalid")]);
     }
@@ -97,10 +96,10 @@ class UsersLocalService extends UsersApiService {
       .query(finder: Finder(filter: Filter.byKey(id)))
       .onSnapshot(db)
       .map((e) =>
-  e == null ? null : User.fromJson(Map.from(e.value)..["id"] = e.key));
+          e == null ? null : User.fromJson(Map.from(e.value)..["id"] = e.key));
 
   @override
   Future<bool> hasUser(User user) => fetchUserByEmail(user.email).then(
-          (emailVerify) => fetchUserByName(user.name)
+      (emailVerify) => fetchUserByName(user.name)
           .then((nameVerify) => (emailVerify != null || nameVerify != null)));
 }

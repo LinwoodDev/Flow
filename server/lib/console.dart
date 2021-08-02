@@ -2,6 +2,10 @@ import 'dart:io';
 
 import 'package:flow_server/routes/home.dart';
 import 'package:flow_server/server_route.dart';
+import 'package:get_it/get_it.dart';
+import 'package:path/path.dart';
+import 'package:sembast/sembast_io.dart';
+import 'package:shared/services/local/service.dart';
 import 'package:shared/socket_package.dart';
 
 const help = """
@@ -10,6 +14,8 @@ const help = """
 \\h
 \\stop\tStop the server
 \\s
+\\reset\tReset the database
+\\r
 
 To execute a route, use:
 <Route> [<value>]""";
@@ -69,9 +75,26 @@ Future<void> _executeCommand(
     case "stop":
       print("Stopping server...");
       server.close();
+      exit(0);
+    case "r":
+    case "reset":
+      print("Resetting database? Use \\reset!");
+      break;
+    case "reset!":
+      var dir = Directory.current;
+      var dbPath = join(dir.path, 'linwood_flow.db');
+      // open the database
+      GetIt.I.unregister<LocalService>();
+      await databaseFactoryIo.deleteDatabase(dbPath);
+      var db = await databaseFactoryIo.openDatabase(dbPath);
+
+      GetIt.I.registerSingleton(LocalService(db));
       break;
     case "h":
     case "help":
       print(help);
+      break;
+    default:
+      printWarning("Command not found! Please use \\help for help");
   }
 }

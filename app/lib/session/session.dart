@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:shared/config/main.dart';
 
+import 'display.dart';
 import 'login.dart';
 import 'register.dart';
 
 class SessionPage extends StatefulWidget {
   final String address;
+  final MainConfig mainConfig;
 
-  const SessionPage({Key? key, required this.address}) : super(key: key);
+  const SessionPage({Key? key, required this.address, required this.mainConfig})
+      : super(key: key);
 
   @override
   State<SessionPage> createState() => _SessionPageState();
@@ -36,6 +40,7 @@ class _SessionPageState extends State<SessionPage> {
                 ])),
             body: Column(children: [
               const SizedBox(height: 20),
+              SessionDisplay(mainConfig: widget.mainConfig),
               Container(
                   constraints: const BoxConstraints(maxWidth: 800),
                   child: TextField(

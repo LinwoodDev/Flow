@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:shared/config/main.dart';
 import 'package:web_socket_channel/status.dart' as status;
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -47,10 +48,11 @@ class _ConnectPageState extends State<ConnectPage> {
               channel.sink.close(status.goingAway);
 
               print(data);
-              if (data['data']['name'] == "Linwood-Flow") {
+              if (data['data']['application'] == "Linwood-Flow") {
                 Modular.to.push(MaterialPageRoute(
-                    builder: (context) =>
-                        SessionPage(address: _urlController.text)));
+                    builder: (context) => SessionPage(
+                        address: _urlController.text,
+                        mainConfig: MainConfig.fromJson(data['data']))));
               } else {
                 showDialog(
                     context: context,
