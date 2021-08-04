@@ -76,12 +76,10 @@ class _UserPageState extends State<UserPage> {
             AppBar(title: Text(create ? "Create user" : user!.name), actions: [
           if (widget.isDesktop)
             IconButton(
-                onPressed: () => Modular.to.pushNamed(widget.id == null
-                    ? "/users/create"
-                    : Uri(
-                            pathSegments: ["", "users", "details"],
-                            queryParameters: {"id": widget.id.toString()})
-                        .toString()),
+                onPressed: () => Modular.to.push(MaterialPageRoute(
+                    fullscreenDialog: true,
+                    builder: (context) =>
+                        UserPage(account: account, id: widget.id))),
                 icon: const Icon(PhosphorIcons.arrowSquareOutLight))
         ]),
         floatingActionButton: FloatingActionButton(
@@ -149,110 +147,108 @@ class _UserPageState extends State<UserPage> {
               }
               if (Modular.to.canPop() && !widget.isDesktop) Modular.to.pop();
             }),
-        body: Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-                padding: const EdgeInsets.all(16.0),
-                constraints: const BoxConstraints(maxWidth: 800),
-                child: Column(children: [
-                  Expanded(
-                      child: SingleChildScrollView(
-                          child: Column(children: [
-                    const SizedBox(height: 50),
-                    Builder(builder: (context) {
-                      return StreamBuilder<List<User>>(
-                          stream: service.onUsers(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasError) {
-                              return Text("Error: ${snapshot.error}");
-                            }
-                            if (!snapshot.hasData ||
-                                snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            }
-                            var users = snapshot.data!;
-                            return DropdownButtonFormField<Account>(
-                                value: account,
-                                decoration: const InputDecoration(
-                                    labelText: "Account",
-                                    border: OutlineInputBorder()),
-                                onChanged: (value) => account = value,
-                                items: [
-                                  ...Hive.box('accounts').values.map((e) =>
-                                      DropdownMenuItem(
-                                          child: Text(e), value: e)),
-                                  ...users
-                                      .map((e) => Account.fromLocalUser(e))
-                                      .map((e) => DropdownMenuItem(
-                                          child: Text(e.toString()), value: e))
-                                ]);
-                          });
-                    }),
-                    const SizedBox(height: 50),
-                    TextField(
-                        decoration: const InputDecoration(
-                            labelText: "Name",
-                            icon: Icon(PhosphorIcons.userLight),
-                            filled: true),
-                        controller: _nameController),
-                    const SizedBox(height: 20),
-                    TextField(
-                        decoration: const InputDecoration(
-                            labelText: "Display name",
-                            icon: Icon(PhosphorIcons.identificationCardLight),
-                            filled: true),
-                        controller: _displayNameController),
-                    const SizedBox(height: 20),
-                    TextField(
-                        decoration: const InputDecoration(
-                            labelText: "Email",
-                            icon: Icon(PhosphorIcons.envelopeLight),
-                            filled: true),
-                        controller: _emailController),
-                    const SizedBox(height: 20),
-                    if (user == null) ...[
+        body: SingleChildScrollView(
+            child: Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                    padding: const EdgeInsets.all(16.0),
+                    constraints: const BoxConstraints(maxWidth: 800),
+                    child: Column(children: [
+                      const SizedBox(height: 50),
+                      Builder(builder: (context) {
+                        return StreamBuilder<List<User>>(
+                            stream: service.onUsers(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasError) {
+                                return Text("Error: ${snapshot.error}");
+                              }
+                              if (!snapshot.hasData ||
+                                  snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              var users = snapshot.data!;
+                              return DropdownButtonFormField<Account>(
+                                  value: account,
+                                  decoration: const InputDecoration(
+                                      labelText: "Account",
+                                      border: OutlineInputBorder()),
+                                  onChanged: (value) => account = value,
+                                  items: [
+                                    ...Hive.box('accounts').values.map((e) =>
+                                        DropdownMenuItem(
+                                            child: Text(e), value: e)),
+                                    ...users
+                                        .map((e) => Account.fromLocalUser(e))
+                                        .map((e) => DropdownMenuItem(
+                                            child: Text(e.toString()),
+                                            value: e))
+                                  ]);
+                            });
+                      }),
+                      const SizedBox(height: 50),
                       TextField(
                           decoration: const InputDecoration(
-                              labelText: "Password",
-                              icon: Icon(PhosphorIcons.lockLight),
+                              labelText: "Name",
+                              icon: Icon(PhosphorIcons.userLight),
                               filled: true),
-                          controller: _passwordController),
+                          controller: _nameController),
                       const SizedBox(height: 20),
-                    ],
-                    TextField(
-                        decoration: const InputDecoration(
-                            labelText: "Biography",
-                            icon: Icon(PhosphorIcons.articleLight),
-                            border: OutlineInputBorder()),
-                        maxLines: null,
-                        controller: _bioController,
-                        minLines: 3),
-                    if (user != null) ...[
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Divider(),
-                      ),
-                      PopupMenuButton<UserState>(
-                          initialValue: userState,
-                          onSelected: (value) =>
-                              service.updateUser(user.copyWith(state: value)),
-                          itemBuilder: (context) => UserState.values
-                              .map((e) => PopupMenuItem(
-                                  child: Text(e.toString()), value: e))
-                              .toList(),
-                          child: ListTile(
-                              title: const Text("User state"),
-                              subtitle: Text(userState.toString()),
-                              leading:
-                                  const Icon(PhosphorIcons.presentationLight))),
-                      ListTile(
-                          leading: const Icon(PhosphorIcons.lockLight),
-                          title: const Text("Change password"),
-                          onTap: () {})
-                    ]
-                  ])))
-                ]))));
+                      TextField(
+                          decoration: const InputDecoration(
+                              labelText: "Display name",
+                              icon: Icon(PhosphorIcons.identificationCardLight),
+                              filled: true),
+                          controller: _displayNameController),
+                      const SizedBox(height: 20),
+                      TextField(
+                          decoration: const InputDecoration(
+                              labelText: "Email",
+                              icon: Icon(PhosphorIcons.envelopeLight),
+                              filled: true),
+                          controller: _emailController),
+                      const SizedBox(height: 20),
+                      if (user == null) ...[
+                        TextField(
+                            decoration: const InputDecoration(
+                                labelText: "Password",
+                                icon: Icon(PhosphorIcons.lockLight),
+                                filled: true),
+                            controller: _passwordController),
+                        const SizedBox(height: 20),
+                      ],
+                      TextField(
+                          decoration: const InputDecoration(
+                              labelText: "Biography",
+                              icon: Icon(PhosphorIcons.articleLight),
+                              border: OutlineInputBorder()),
+                          maxLines: null,
+                          controller: _bioController,
+                          minLines: 3),
+                      if (user != null) ...[
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Divider(),
+                        ),
+                        PopupMenuButton<UserState>(
+                            initialValue: userState,
+                            onSelected: (value) =>
+                                service.updateUser(user.copyWith(state: value)),
+                            itemBuilder: (context) => UserState.values
+                                .map((e) => PopupMenuItem(
+                                    child: Text(e.toString()), value: e))
+                                .toList(),
+                            child: ListTile(
+                                title: const Text("User state"),
+                                subtitle: Text(userState.toString()),
+                                leading: const Icon(
+                                    PhosphorIcons.presentationLight))),
+                        ListTile(
+                            leading: const Icon(PhosphorIcons.lockLight),
+                            title: const Text("Change password"),
+                            onTap: () {})
+                      ]
+                    ])))));
   }
 }

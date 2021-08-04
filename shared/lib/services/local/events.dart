@@ -27,62 +27,63 @@ class EventsLocalService extends EventsApiService {
   @override
   Future<List<Event>> fetchOpenedEvents() => eventsStore
       .find(db,
-      finder: Finder(
-          filter: Filter.and([
+          finder: Finder(
+              filter: Filter.and([
             Filter.isNull("start-date-time"),
             Filter.isNull("end-date-time"),
             Filter.equals("canceled", false)
           ])))
       .then((value) => value
-      .map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key))
-      .toList());
+          .map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key))
+          .toList());
 
   @override
   Future<List<Event>> fetchDoneEvents() => eventsStore
       .find(db,
-      finder: Finder(
-          filter: Filter.or([
+          finder: Finder(
+              filter: Filter.or([
             Filter.equals("canceled", true),
             Filter.and([
               Filter.not(Filter.isNull("start-date-time") &
-              Filter.isNull("end-date-time")),
+                  Filter.isNull("end-date-time")),
               Filter.custom((record) =>
-              !(DateTime.tryParse(record['end-date-time'] as String? ?? "")
-                  ?.isAfter(DateTime.now()) ??
-                  true))
+                  !(DateTime.tryParse(record['end-date-time'] as String? ?? "")
+                          ?.isAfter(DateTime.now()) ??
+                      true))
             ])
           ])))
       .then((value) => value
-      .map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key))
-      .toList());
+          .map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key))
+          .toList());
 
   @override
   Future<List<Event>> fetchPlannedEvents() => eventsStore
       .find(db,
-      finder: Finder(
-          filter: Filter.and([
+          finder: Finder(
+              filter: Filter.and([
             Filter.not(Filter.isNull("start-date-time") &
-            Filter.isNull("end-date-time")),
+                Filter.isNull("end-date-time")),
             Filter.custom((record) =>
-            !(DateTime.tryParse(record['end-date-time'] as String? ?? "")
-                ?.isAfter(DateTime.now()) ??
-                false)),
+                !(DateTime.tryParse(record['end-date-time'] as String? ?? "")
+                        ?.isAfter(DateTime.now()) ??
+                    false)),
             Filter.equals("canceled", false),
             Filter.custom((record) =>
-            DateTime.tryParse(record['start-date-time'] as String? ?? "")
-                ?.isAfter(DateTime.now()) ??
-                true)
+                DateTime.tryParse(record['start-date-time'] as String? ?? "")
+                    ?.isAfter(DateTime.now()) ??
+                true),
+            Filter.isNull("end-date-time") & Filter.notNull("start-date-time")
           ])))
       .then((value) => value
-      .map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key))
-      .toList());
+          .map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key))
+          .toList());
 
   @override
   Future<Event?> fetchEvent(int id) => eventsStore
       .findFirst(db, finder: Finder(filter: Filter.byKey(id)))
       .then((value) => value == null
-      ? null
-      : Event.fromJson(Map.from(value.value)..["id"] = value.key));
+          ? null
+          : Event.fromJson(Map.from(value.value)..["id"] = value.key));
 
   @override
   Future<void> updateEvent(Event event) =>
@@ -104,61 +105,61 @@ class EventsLocalService extends EventsApiService {
       .query(finder: Finder(filter: Filter.byKey(id)))
       .onSnapshot(db)
       .map((e) =>
-  e == null ? null : Event.fromJson(Map.from(e.value)..["id"] = e.key));
+          e == null ? null : Event.fromJson(Map.from(e.value)..["id"] = e.key));
 
   @override
   Stream<List<Event>> onOpenedEvents() => eventsStore
       .query(
-      finder: Finder(
-          filter: Filter.and([
-            Filter.isNull("start-date-time"),
-            Filter.isNull("end-date-time"),
-            Filter.equals("canceled", false)
-          ])))
+          finder: Finder(
+              filter: Filter.and([
+        Filter.isNull("start-date-time"),
+        Filter.isNull("end-date-time"),
+        Filter.equals("canceled", false)
+      ])))
       .onSnapshots(db)
       .map((event) => event
-      .map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key))
-      .toList());
+          .map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key))
+          .toList());
 
   @override
   Stream<List<Event>> onPlannedEvents() => eventsStore
       .query(
-      finder: Finder(
-          filter: Filter.and([
-            Filter.not(
-                Filter.isNull("start-date-time") & Filter.isNull("end-date-time")),
-            Filter.custom((record) =>
+          finder: Finder(
+              filter: Filter.and([
+        Filter.not(
+            Filter.isNull("start-date-time") & Filter.isNull("end-date-time")),
+        Filter.custom((record) =>
             DateTime.tryParse(record['end-date-time'] as String? ?? "")
                 ?.isAfter(DateTime.now()) ??
-                true),
-            Filter.equals("canceled", false),
-            Filter.custom((record) =>
+            true),
+        Filter.equals("canceled", false),
+        Filter.custom((record) =>
             !(DateTime.tryParse(record['start-date-time'] as String? ?? "")
-                ?.isAfter(DateTime.now()) ??
+                    ?.isAfter(DateTime.now()) ??
                 false))
-          ])))
+      ])))
       .onSnapshots(db)
       .map((event) => event
-      .map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key))
-      .toList());
+          .map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key))
+          .toList());
 
   @override
   Stream<List<Event>> onDoneEvents() => eventsStore
       .query(
-      finder: Finder(
-          filter: Filter.or([
-            Filter.equals("canceled", true),
-            Filter.and([
-              Filter.not(Filter.isNull("start-date-time") &
+          finder: Finder(
+              filter: Filter.or([
+        Filter.equals("canceled", true),
+        Filter.and([
+          Filter.not(Filter.isNull("start-date-time") &
               Filter.isNull("end-date-time")),
-              Filter.custom((record) =>
+          Filter.custom((record) =>
               !(DateTime.tryParse(record['end-date-time'] as String? ?? "")
-                  ?.isAfter(DateTime.now()) ??
+                      ?.isAfter(DateTime.now()) ??
                   true))
-            ])
-          ])))
+        ])
+      ])))
       .onSnapshots(db)
       .map((event) => event
-      .map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key))
-      .toList());
+          .map((e) => Event.fromJson(Map.from(e.value)..["id"] = e.key))
+          .toList());
 }

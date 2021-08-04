@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import 'jsonobject.dart';
+import 'json_object.dart';
 
 @immutable
 class Assigned extends JsonObject {

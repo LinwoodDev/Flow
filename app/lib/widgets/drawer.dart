@@ -37,8 +37,7 @@ class FlowDrawer extends StatelessWidget {
     return Material(
         child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       Expanded(
-          child: SingleChildScrollView(
-              child: Column(children: [
+          child: ListView(children: [
         Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             child: Column(children: [
@@ -49,6 +48,7 @@ class FlowDrawer extends StatelessWidget {
                   height: 128,
                 ),
               ),
+              const SizedBox(height: 20),
               Text("Linwood Flow",
                   style: Theme.of(context).textTheme.headline5),
             ])),
@@ -142,7 +142,7 @@ class FlowDrawer extends StatelessWidget {
                                 selected: page == RoutePages.appearance)
                           ])))
             ])
-      ]))),
+      ])),
       if (permanentlyDisplay) const VerticalDivider(width: 5, thickness: 0.5)
     ]));
   }

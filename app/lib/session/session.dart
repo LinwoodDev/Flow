@@ -1,16 +1,23 @@
+import 'package:flow_app/session/display.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/config/main.dart';
+import 'package:web_socket_channel/status.dart' as status;
+import 'package:web_socket_channel/web_socket_channel.dart';
 
-import 'display.dart';
 import 'login.dart';
 import 'register.dart';
 
 class SessionPage extends StatefulWidget {
   final String address;
   final MainConfig mainConfig;
+  final WebSocketChannel channel;
 
-  const SessionPage({Key? key, required this.address, required this.mainConfig})
+  const SessionPage(
+      {Key? key,
+      required this.address,
+      required this.mainConfig,
+      required this.channel})
       : super(key: key);
 
   @override
@@ -28,6 +35,12 @@ class _SessionPageState extends State<SessionPage> {
   }
 
   @override
+  void dispose() {
+    widget.channel.sink.close(status.goingAway);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DefaultTabController(
         length: 2,
@@ -39,24 +52,29 @@ class _SessionPageState extends State<SessionPage> {
                   Tab(icon: Icon(PhosphorIcons.userPlusLight), text: "Register")
                 ])),
             body: Column(children: [
-              const SizedBox(height: 20),
-              SessionDisplay(mainConfig: widget.mainConfig),
               Container(
                   constraints: const BoxConstraints(maxWidth: 800),
-                  child: TextField(
-                      controller: _urlController,
-                      readOnly: true,
-                      keyboardType: TextInputType.url,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: "URL",
-                          hintText: "https://example.com",
-                          prefixIcon: Icon(PhosphorIcons.linkLight)))),
+                  child: Column(children: [
+                    const SizedBox(height: 20),
+                    SessionDisplay(mainConfig: widget.mainConfig),
+                    const SizedBox(height: 20),
+                    const Divider(),
+                    const SizedBox(height: 20),
+                    TextField(
+                        controller: _urlController,
+                        readOnly: true,
+                        keyboardType: TextInputType.url,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "URL",
+                            hintText: "wss://example.com",
+                            prefixIcon: Icon(PhosphorIcons.linkLight)))
+                  ])),
               const SizedBox(height: 50),
               Expanded(
                   child: TabBarView(children: [
-                LoginPage(address: widget.address),
-                RegisterPage(address: widget.address)
+                LoginPage(address: widget.address, channel: widget.channel),
+                RegisterPage(address: widget.address, channel: widget.channel)
               ]))
             ])));
   }

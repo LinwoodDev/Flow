@@ -1,5 +1,5 @@
 import 'package:meta/meta.dart';
-import 'package:shared/models/jsonobject.dart';
+import 'package:shared/models/json_object.dart';
 
 import 'assign.dart';
 

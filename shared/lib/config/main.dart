@@ -23,24 +23,24 @@ class MainConfig {
             ? EventConfig.fromJson(json['event'])
             : EventConfig(
                 isEnabled:
-                    (json['modules'] as List<String>?)?.contains('events') ??
+                    (json['modules'] as List<dynamic>?)?.contains('events') ??
                         true),
         task = json['task'] != null
             ? TaskConfig.fromJson(json['task'])
             : TaskConfig(
                 isEnabled:
-                    (json['modules'] as List<String>?)?.contains('tasks') ??
+                    (json['modules'] as List<dynamic>?)?.contains('tasks') ??
                         true),
         team = json['team'] != null
             ? TeamConfig.fromJson(json['team'])
             : TeamConfig(
                 isEnabled:
-                    (json['modules'] as List<String>?)?.contains('teams') ??
+                    (json['modules'] as List<dynamic>?)?.contains('teams') ??
                         true),
         devDoctor = json['dev-doctor'] != null
             ? DevDoctorConfig.fromJson(json['dev-doctor'])
             : DevDoctorConfig(
-                isEnabled: (json['modules'] as List<String>?)
+                isEnabled: (json['modules'] as List<dynamic>?)
                         ?.contains('dev-doctor') ??
                     true),
         name = json['name'] ?? '',

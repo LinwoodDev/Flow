@@ -374,7 +374,6 @@ class __AssignedObjectFieldState extends State<_AssignedObjectField> {
 
   Widget _buildMenu() => CheckboxListTile(
       title: Text(widget.title),
-      subtitle: Text(flag.toString()),
       onChanged: (bool? value) {
         widget.onChanged(value);
         setState(() => flag = value);

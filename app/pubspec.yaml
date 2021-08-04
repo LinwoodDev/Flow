@@ -1,5 +1,5 @@
 name: flow_app
-description: Linwood Flow is a feature rich event and time managment system
+description: Linwood Flow is a feature rich event and time management system
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.

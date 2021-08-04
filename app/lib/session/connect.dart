@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/config/main.dart';
-import 'package:web_socket_channel/status.dart' as status;
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class ConnectPage extends StatefulWidget {
@@ -23,17 +22,17 @@ class _ConnectPageState extends State<ConnectPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Connect")),
-      body: Scrollbar(
-          child: Center(
-              child: Container(
-                  constraints: const BoxConstraints(maxWidth: 800),
-                  child: ListView(children: [
-                    TextField(
-                        controller: _urlController,
-                        keyboardType: TextInputType.url,
-                        decoration: const InputDecoration(
-                            labelText: "URL", hintText: "https://example.com"))
-                  ])))),
+      body: Align(
+          alignment: Alignment.topCenter,
+          child: Container(
+              constraints: const BoxConstraints(maxWidth: 800),
+              child: ListView(children: [
+                TextField(
+                    controller: _urlController,
+                    keyboardType: TextInputType.url,
+                    decoration: const InputDecoration(
+                        labelText: "URL", hintText: "wss://example.com")),
+              ]))),
       floatingActionButton: FloatingActionButton(
           child: const Icon(PhosphorIcons.checkLight),
           onPressed: () async {
@@ -45,12 +44,11 @@ class _ConnectPageState extends State<ConnectPage> {
               var response = await channel.stream
                   .firstWhere((event) => json.decode(event)['route'] == "info");
               var data = json.decode(response);
-              channel.sink.close(status.goingAway);
 
-              print(data);
               if (data['data']['application'] == "Linwood-Flow") {
-                Modular.to.push(MaterialPageRoute(
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (context) => SessionPage(
+                        channel: channel,
                         address: _urlController.text,
                         mainConfig: MainConfig.fromJson(data['data']))));
               } else {

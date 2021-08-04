@@ -1,15 +1,11 @@
 import 'package:meta/meta.dart';
-import 'package:shared/models/jsonobject.dart';
+import 'package:shared/models/json_object.dart';
 
 @immutable
 class User extends JsonObject {
   final int? id;
-  final String name;
-  final String displayName;
-  final String bio;
-  final String email;
-  final String password;
-  final String salt;
+  final String name, displayName, bio, email, password, salt;
+  final bool admin;
   final UserState state;
 
   User(this.name,
@@ -19,7 +15,8 @@ class User extends JsonObject {
       this.email = '',
       this.password = '',
       this.salt = '',
-      this.state = UserState.active});
+      this.state = UserState.active,
+      this.admin = false});
 
   @override
   User copyWith(
@@ -30,6 +27,7 @@ class User extends JsonObject {
           String? password,
           String? salt,
           UserState? state,
+          bool? admin,
           int? id}) =>
       User(name ?? this.name,
           id: id ?? this.id,
@@ -38,7 +36,8 @@ class User extends JsonObject {
           bio: bio ?? this.bio,
           email: email ?? this.email,
           password: password ?? this.password,
-          salt: salt ?? this.salt);
+          salt: salt ?? this.salt,
+          admin: admin ?? this.admin);
 
   User.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -48,18 +47,21 @@ class User extends JsonObject {
         email = json['email'] ?? '',
         password = json['password'] ?? '',
         state = UserState.values[json['state'] ?? 0],
-        salt = json['salt'] ?? '';
+        salt = json['salt'] ?? '',
+        admin = json['admin'] ?? false;
 
   @override
   Map<String, dynamic> toJson({bool addSecrets = false, bool addId = false}) =>
       {
         'name': name,
         'display-name': displayName,
-        'email': email,
         'bio': bio,
-        'state': state.index
+        'state': state.index,
+        'admin': admin
       }
-        ..addAll(addSecrets ? {'password': password, 'salt': salt} : {})
+        ..addAll(addSecrets
+            ? {'email': email, 'password': password, 'salt': salt}
+            : {})
         ..addAll(addId ? {'id': id} : {});
 
   bool valid() => name.isNotEmpty && email.isNotEmpty;

@@ -84,7 +84,7 @@ Future<void> _executeCommand(
       var dir = Directory.current;
       var dbPath = join(dir.path, 'linwood_flow.db');
       // open the database
-      GetIt.I.unregister<LocalService>();
+      await GetIt.I.unregister<LocalService>();
       await databaseFactoryIo.deleteDatabase(dbPath);
       var db = await databaseFactoryIo.openDatabase(dbPath);
 

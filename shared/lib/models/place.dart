@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 import 'package:shared/models/assign.dart';
 
-import 'jsonobject.dart';
+import 'json_object.dart';
 
 @immutable
 class Place extends JsonObject {

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class RegisterPage extends StatefulWidget {
   final String address;
+  final WebSocketChannel channel;
 
-  const RegisterPage({Key? key, required this.address}) : super(key: key);
+  const RegisterPage({Key? key, required this.address, required this.channel})
+      : super(key: key);
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
