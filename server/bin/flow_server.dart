@@ -16,7 +16,7 @@ import 'package:shared/socket_package.dart';
 Future<void> main(List<String> arguments) async {
   print("Starting Linwood Flow backend server...");
   await initServices();
-  final address = Platform.environment["flow.address"] ?? "localhost";
+  final address = Platform.environment["FLOW_ADDRESS"] ?? "localhost";
   final port = int.fromEnvironment('FLOW_PORT', defaultValue: 8000);
   GetIt.I.registerSingleton(<WebSocket>[], instanceName: "sockets");
   final sockets = GetIt.I.get<List<WebSocket>>(instanceName: "sockets");

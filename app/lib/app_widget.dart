@@ -15,6 +15,10 @@ class AppWidget extends StatelessWidget {
         valueListenable: Hive.box('appearance').listenable(),
         builder: (context, dynamic box, widget) {
           return MaterialApp(
+            /*builder: (context, child) => child == null ? Container() : MediaQuery(
+                data: MediaQuery.of(context)
+                    .copyWith(alwaysUse24HourFormat: true),
+                child: child),*/
             title: 'Linwood Flow',
             themeMode: ThemeMode.values[box.get('theme', defaultValue: 0)],
             theme: ThemeData(

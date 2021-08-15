@@ -36,69 +36,79 @@ class _TeamsPageState extends State<TeamsPage> {
           IconButton(
               onPressed: () {}, icon: const Icon(PhosphorIcons.funnelLight))
         ],
-        body: LayoutBuilder(builder: (context, constraints) {
-          var isDesktop = MediaQuery.of(context).size.width > 1000;
-          return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              textDirection: TextDirection.rtl,
-              children: [
-                if (isDesktop) ...[
-                  Expanded(
-                      flex: 2,
-                      child: TeamPage(isDesktop: isDesktop, id: selected?.id)),
-                  const VerticalDivider()
-                ],
-                Expanded(
-                    flex: 3,
-                    child: Scaffold(
-                        floatingActionButton: selected == null && isDesktop
-                            ? null
-                            : FloatingActionButton.extended(
-                                label: const Text("Create team"),
-                                icon: const Icon(PhosphorIcons.plusLight),
-                                onPressed: () => isDesktop
-                                    ? setState(() => selected = null)
-                                    : Modular.to.pushNamed("/teams/create")),
-                        body: StreamBuilder<List<Team>>(
-                            stream: service.onTeams(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasError) {
-                                return Text("Error: ${snapshot.error}");
-                              }
-                              if (snapshot.connectionState ==
-                                      ConnectionState.waiting ||
-                                  !snapshot.hasData) {
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              }
-                              var teams = snapshot.data!;
-                              return ListView.builder(
-                                itemCount: teams.length, itemBuilder: (context, index) {
-                                var team = teams[index];
-                                return Dismissible(
-                                  key: Key(team.id!.toString()),
-                                  onDismissed: (direction) {
-                                    service.deleteTeam(team.id!);
-                                  },
-                                  background: Container(color: Colors.red),
-                                  child: ListTile(
-                                      title: Text(team.name),
-                                      selected: selected?.id == team.id,
-                                      onTap: () => isDesktop
-                                          ? setState(() => selected = team)
-                                          : Modular.to.pushNamed(Uri(
-                                              pathSegments: [
-                                                  "",
-                                                  "teams",
-                                                  "details"
-                                                ],
-                                              queryParameters: {
-                                                  "id": team.id.toString()
-                                                }).toString())),
-                                );
-                              });
-                            })))
-              ]);
-        }));
+        body: StreamBuilder<List<Team>>(
+            stream: service.onTeams(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Text("Error: ${snapshot.error}");
+              }
+              if (snapshot.connectionState == ConnectionState.waiting ||
+                  !snapshot.hasData) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              var teams = snapshot.data!;
+              return LayoutBuilder(builder: (context, constraints) {
+                var isDesktop = MediaQuery.of(context).size.width > 1000;
+                return StatefulBuilder(
+                    builder: (context, setState) => Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            textDirection: TextDirection.rtl,
+                            children: [
+                              if (isDesktop) ...[
+                                Expanded(
+                                    flex: 2,
+                                    child: TeamPage(
+                                        isDesktop: isDesktop,
+                                        id: selected?.id,
+                                        team: selected)),
+                                const VerticalDivider()
+                              ],
+                              Expanded(
+                                  flex: 3,
+                                  child: Scaffold(
+                                      floatingActionButton: selected == null &&
+                                              isDesktop
+                                          ? null
+                                          : FloatingActionButton.extended(
+                                              label: const Text("Create team"),
+                                              icon: const Icon(
+                                                  PhosphorIcons.plusLight),
+                                              onPressed: () => isDesktop
+                                                  ? setState(
+                                                      () => selected = null)
+                                                  : Modular.to.pushNamed(
+                                                      "/teams/create")),
+                                      body: ListView.builder(
+                                          itemCount: teams.length,
+                                          itemBuilder: (context, index) {
+                                            var team = teams[index];
+                                            return Dismissible(
+                                              key: Key(team.id!.toString()),
+                                              onDismissed: (direction) {
+                                                service.deleteTeam(team.id!);
+                                              },
+                                              background:
+                                                  Container(color: Colors.red),
+                                              child: ListTile(
+                                                  title: Text(team.name),
+                                                  selected:
+                                                      selected?.id == team.id,
+                                                  onTap: () => isDesktop
+                                                      ? setState(
+                                                          () => selected = team)
+                                                      : Modular.to.pushNamed(
+                                                          Uri(pathSegments: [
+                                                          "",
+                                                          "teams",
+                                                          "details"
+                                                        ], queryParameters: {
+                                                          "id":
+                                                              team.id.toString()
+                                                        }).toString())),
+                                            );
+                                          })))
+                            ]));
+              });
+            }));
   }
 }

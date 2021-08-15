@@ -16,67 +16,71 @@ class ConnectPage extends StatefulWidget {
 }
 
 class _ConnectPageState extends State<ConnectPage> {
+  WebSocketChannel? channel;
+  MainConfig? config;
   final TextEditingController _urlController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    if (channel != null && config != null) {
+      return SessionPage(
+          channel: channel!, address: _urlController.text, mainConfig: config!);
+    }
     return Scaffold(
-      appBar: AppBar(title: const Text("Connect")),
-      body: Align(
-          alignment: Alignment.topCenter,
-          child: Container(
-              constraints: const BoxConstraints(maxWidth: 800),
-              child: ListView(children: [
-                TextField(
-                    controller: _urlController,
-                    keyboardType: TextInputType.url,
-                    decoration: const InputDecoration(
-                        labelText: "URL", hintText: "wss://example.com")),
-              ]))),
-      floatingActionButton: FloatingActionButton(
-          child: const Icon(PhosphorIcons.checkLight),
-          onPressed: () async {
-            try {
+        appBar: AppBar(title: const Text("Connect")),
+        body: Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+                constraints: const BoxConstraints(maxWidth: 800),
+                child: ListView(children: [
+                  TextField(
+                      controller: _urlController,
+                      keyboardType: TextInputType.url,
+                      decoration: const InputDecoration(
+                          labelText: "URL", hintText: "wss://example.com")),
+                ]))),
+        floatingActionButton: FloatingActionButton(
+            child: const Icon(PhosphorIcons.checkLight),
+            onPressed: () async {
               var uri = Uri.parse(_urlController.text);
               var channel = WebSocketChannel.connect(uri);
 
               channel.sink.add(json.encode({"route": "info"}));
-              var response = await channel.stream
-                  .firstWhere((event) => json.decode(event)['route'] == "info");
-              var data = json.decode(response);
+              channel.stream
+                  .firstWhere((event) => json.decode(event)['route'] == "info")
+                  .then((response) {
+                var data = json.decode(response);
+                var config = MainConfig.fromJson(data['data']);
 
-              if (data['data']['application'] == "Linwood-Flow") {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => SessionPage(
-                        channel: channel,
-                        address: _urlController.text,
-                        mainConfig: MainConfig.fromJson(data['data']))));
-              } else {
+                if (data['data']['application'] == "Linwood-Flow") {
+                  setState(() {
+                    this.channel = channel;
+                    this.config = config;
+                  });
+                } else {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                              title: const Text("Invalid flow server"),
+                              actions: [
+                                TextButton(
+                                    child: const Text("CLOSE"),
+                                    onPressed: () => Modular.to.pop())
+                              ]));
+                }
+              }, onError: (e) {
+                print("Error: $e");
                 showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                            title: const Text("Invalid flow server"),
+                            title: const Text(
+                                "Error while connecting to the server"),
                             actions: [
                               TextButton(
                                   child: const Text("CLOSE"),
                                   onPressed: () => Modular.to.pop())
                             ]));
-              }
-            } catch (e) {
-              print("Error: $e");
-              showDialog(
-                  context: context,
-                  builder: (context) =>
-                      AlertDialog(
-                          title: const Text(
-                              "Error while connecting to the server"),
-                          actions: [
-                            TextButton(
-                                child: const Text("CLOSE"),
-                                onPressed: () => Modular.to.pop())
-                          ]));
-            }
-          }),
-    );
+              });
+            }));
   }
 }

@@ -45,8 +45,7 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
       pageBuilder: (context, animation, secondaryAnimation) => Dialog(
           child: Container(
               constraints: const BoxConstraints(maxHeight: 750, maxWidth: 500),
-              child:
-                  EventPage(isDesktop: true, isDialog: true, id: event?.id))));
+              child: EventPage(isDesktop: true, id: event?.id))));
 
   @override
   Widget build(BuildContext context) {
