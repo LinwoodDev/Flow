@@ -38,6 +38,30 @@ class FlowDrawer extends StatelessWidget {
         child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       Expanded(
           child: ListView(children: [
+        PopupMenuButton(
+            itemBuilder: (context) => <PopupMenuEntry>[
+                  const PopupMenuItem(
+                      child: ListTile(
+                    leading: Icon(PhosphorIcons.userLight),
+                    title: Text("Another username"),
+                    subtitle: Text("example.com"),
+                  )),
+                  const PopupMenuDivider(),
+                  PopupMenuItem(
+                      child: ListTile(
+                          onTap: () => Modular.to.pushNamed("/connect"),
+                          leading: const Icon(PhosphorIcons.plusLight),
+                          title: const Text("Add new account"))),
+                  PopupMenuItem(
+                      child: ListTile(
+                          onTap: () => Modular.to.pushNamed("/intro"),
+                          title: const Text("Show intro")))
+                ],
+            child: const ListTile(
+                leading: Icon(PhosphorIcons.userLight),
+                trailing: Icon(PhosphorIcons.arrowDownLight),
+                title: Text("Username"),
+                subtitle: Text("example.com"))),
         Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             child: Column(children: [

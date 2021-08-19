@@ -4,11 +4,8 @@ import 'package:flow_app/widgets/time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/models/account.dart';
 import 'package:shared/models/event.dart';
-import 'package:shared/models/user.dart';
 import 'package:shared/services/api_service.dart';
 import 'package:shared/services/local/service.dart';
 
@@ -55,8 +52,6 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
     _tabController.dispose();
     super.dispose();
   }
-
-  Account? account;
 
   @override
   Widget build(BuildContext context) {
@@ -142,39 +137,6 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                         child: SingleChildScrollView(
                             child: Column(children: [
                       const SizedBox(height: 50),
-                      Builder(builder: (context) {
-                        return StreamBuilder<List<User>>(
-                            stream: usersService.onUsers(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasError) {
-                                return Text("Error: ${snapshot.error}");
-                              }
-                              if (!snapshot.hasData ||
-                                  snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              }
-                              var users = snapshot.data!;
-                              return DropdownButtonFormField<Account>(
-                                  value: account,
-                                  decoration: const InputDecoration(
-                                      labelText: "Account",
-                                      border: OutlineInputBorder()),
-                                  onChanged: (value) =>
-                                      setState(() => account = value),
-                                  items: [
-                                    ...Hive.box('accounts').values.map((e) =>
-                                        DropdownMenuItem(
-                                            child: Text(e), value: e)),
-                                    ...users
-                                        .map((e) => Account.fromLocalUser(e))
-                                        .map((e) => DropdownMenuItem(
-                                            child: Text(e.toString()),
-                                            value: e))
-                                  ]);
-                            });
-                      }),
                       const SizedBox(height: 50),
                       TextField(
                           decoration: const InputDecoration(

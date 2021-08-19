@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/exceptions/input.dart';
-import 'package:shared/models/account.dart';
 import 'package:shared/models/user.dart';
 import 'package:shared/services/api_service.dart';
 import 'package:shared/services/local/service.dart';
@@ -14,10 +12,8 @@ typedef OnUserChanged = void Function(int? id);
 class UserPage extends StatefulWidget {
   final int? id;
   final bool isDesktop;
-  final Account? account;
 
-  const UserPage({Key? key, this.id, this.isDesktop = false, this.account})
-      : super(key: key);
+  const UserPage({Key? key, this.id, this.isDesktop = false}) : super(key: key);
 
   @override
   _UserPageState createState() => _UserPageState();
@@ -37,7 +33,6 @@ class _UserPageState extends State<UserPage> {
   void initState() {
     super.initState();
     service = GetIt.I.get<LocalService>().users;
-    account = widget.account;
   }
 
   @override
@@ -45,8 +40,6 @@ class _UserPageState extends State<UserPage> {
     super.didUpdateWidget(oldWidget);
     service = GetIt.I.get<LocalService>().users;
   }
-
-  Account? account;
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +71,7 @@ class _UserPageState extends State<UserPage> {
             IconButton(
                 onPressed: () => Modular.to.push(MaterialPageRoute(
                     fullscreenDialog: true,
-                    builder: (context) =>
-                        UserPage(account: account, id: widget.id))),
+                    builder: (context) => UserPage(id: widget.id))),
                 icon: const Icon(PhosphorIcons.arrowSquareOutLight))
         ]),
         floatingActionButton: FloatingActionButton(
@@ -123,12 +115,7 @@ class _UserPageState extends State<UserPage> {
                     bio: _bioController.text,
                     displayName: _displayNameController.text,
                     email: _emailController.text);
-                service.updateUser(updatedUser).then((value) {
-                  if (account == Account.fromLocalUser(user)) {
-                    setState(
-                        () => account = Account.fromLocalUser(updatedUser));
-                  }
-                }).catchError((e, stackTrace) {
+                service.updateUser(updatedUser).catchError((e, stackTrace) {
                   showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
@@ -155,38 +142,6 @@ class _UserPageState extends State<UserPage> {
                     constraints: const BoxConstraints(maxWidth: 800),
                     child: Column(children: [
                       const SizedBox(height: 50),
-                      Builder(builder: (context) {
-                        return StreamBuilder<List<User>>(
-                            stream: service.onUsers(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasError) {
-                                return Text("Error: ${snapshot.error}");
-                              }
-                              if (!snapshot.hasData ||
-                                  snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              }
-                              var users = snapshot.data!;
-                              return DropdownButtonFormField<Account>(
-                                  value: account,
-                                  decoration: const InputDecoration(
-                                      labelText: "Account",
-                                      border: OutlineInputBorder()),
-                                  onChanged: (value) => account = value,
-                                  items: [
-                                    ...Hive.box('accounts').values.map((e) =>
-                                        DropdownMenuItem(
-                                            child: Text(e), value: e)),
-                                    ...users
-                                        .map((e) => Account.fromLocalUser(e))
-                                        .map((e) => DropdownMenuItem(
-                                            child: Text(e.toString()),
-                                            value: e))
-                                  ]);
-                            });
-                      }),
                       const SizedBox(height: 50),
                       TextField(
                           decoration: const InputDecoration(
