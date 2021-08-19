@@ -1,7 +1,10 @@
+import 'package:flow_app/service/account.dart';
 import 'package:flow_app/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:shared/models/account.dart';
 
 enum RoutePages {
   home,
@@ -38,30 +41,37 @@ class FlowDrawer extends StatelessWidget {
         child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       Expanded(
           child: ListView(children: [
-        PopupMenuButton(
-            itemBuilder: (context) => <PopupMenuEntry>[
-                  const PopupMenuItem(
-                      child: ListTile(
-                    leading: Icon(PhosphorIcons.userLight),
-                    title: Text("Another username"),
-                    subtitle: Text("example.com"),
-                  )),
-                  const PopupMenuDivider(),
-                  PopupMenuItem(
-                      child: ListTile(
-                          onTap: () => Modular.to.pushNamed("/connect"),
-                          leading: const Icon(PhosphorIcons.plusLight),
-                          title: const Text("Add new account"))),
-                  PopupMenuItem(
-                      child: ListTile(
-                          onTap: () => Modular.to.pushNamed("/intro"),
-                          title: const Text("Show intro")))
-                ],
-            child: const ListTile(
-                leading: Icon(PhosphorIcons.userLight),
-                trailing: Icon(PhosphorIcons.arrowDownLight),
-                title: Text("Username"),
-                subtitle: Text("example.com"))),
+        StreamBuilder<Account?>(
+            stream: GetIt.I.get<AccountService>().accountStream,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData)
+                return const ListTile(title: Text("Not logged in"));
+              var account = snapshot.data!;
+              return PopupMenuButton(
+                  itemBuilder: (context) => <PopupMenuEntry>[
+                        PopupMenuItem(
+                            child: ListTile(
+                          leading: const Icon(PhosphorIcons.userLight),
+                          title: Text(account.username),
+                          subtitle: Text(account.address),
+                        )),
+                        const PopupMenuDivider(),
+                        PopupMenuItem(
+                            child: ListTile(
+                                onTap: () => Modular.to.pushNamed("/connect"),
+                                leading: const Icon(PhosphorIcons.plusLight),
+                                title: const Text("Add new account"))),
+                        PopupMenuItem(
+                            child: ListTile(
+                                onTap: () => Modular.to.pushNamed("/intro"),
+                                title: const Text("Show intro")))
+                      ],
+                  child: const ListTile(
+                      leading: Icon(PhosphorIcons.userLight),
+                      trailing: Icon(PhosphorIcons.arrowDownLight),
+                      title: Text("Username"),
+                      subtitle: Text("example.com")));
+            }),
         Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             child: Column(children: [

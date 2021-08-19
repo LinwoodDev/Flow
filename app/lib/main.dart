@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:biometric_storage/biometric_storage.dart';
+import 'package:flow_app/service/account.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';
@@ -18,6 +19,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter("linwood-flow");
   await Hive.openBox('appearance');
+  await Hive.openBox('settings');
   await Hive.openBox<int>('view');
 
   var biometricStorage = await BiometricStorage().getStorage('key',
@@ -33,6 +35,7 @@ Future<void> main() async {
   await Hive.openBox('accounts', encryptionCipher: cipher);
 
   await setup();
+  getIt.registerSingleton(AccountService());
 
   runApp(ModularApp(module: AppModule(), child: const AppWidget()));
 }
