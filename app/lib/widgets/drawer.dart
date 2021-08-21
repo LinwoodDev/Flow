@@ -60,7 +60,7 @@ class FlowDrawer extends StatelessWidget {
                             child: ListTile(
                                 onTap: () => Modular.to.pushNamed("/connect"),
                                 leading: const Icon(PhosphorIcons.plusLight),
-                                title: const Text("Add new account"))),
+                                title: const Text("Connect"))),
                         PopupMenuItem(
                             child: ListTile(
                                 onTap: () => Modular.to.pushNamed("/intro"),

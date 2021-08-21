@@ -4,8 +4,14 @@ import 'package:shared/models/account.dart';
 
 class AccountService {
   final Box _box = Hive.box("settings");
-  Account? get account => Account.fromJson(_box.get("account"));
+
+  Account? get account {
+    if (!_box.containsKey("account")) return null;
+    return Account.fromJson(_box.get("account"));
+  }
+
   set account(Account? value) => _box.put("account", value?.toJson());
+
   Stream<Account?> get accountStream => _box.watch(key: "account").map(
       (event) => event.deleted || event.value == null
           ? null

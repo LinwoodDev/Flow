@@ -21,17 +21,21 @@ Future<void> main() async {
   await Hive.openBox('appearance');
   await Hive.openBox('settings');
   await Hive.openBox<int>('view');
+  HiveAesCipher? cipher;
+  try {
+    var biometricStorage = await BiometricStorage().getStorage('key',
+        options: StorageFileInitOptions(authenticationRequired: false));
+    var containsEncryptionKey = await biometricStorage.read() != null;
+    if (!containsEncryptionKey) {
+      var key = Hive.generateSecureKey();
+      await biometricStorage.write(base64UrlEncode(key));
+    }
 
-  var biometricStorage = await BiometricStorage().getStorage('key',
-      options: StorageFileInitOptions(authenticationRequired: false));
-  var containsEncryptionKey = await biometricStorage.read() != null;
-  if (!containsEncryptionKey) {
-    var key = Hive.generateSecureKey();
-    await biometricStorage.write(base64UrlEncode(key));
+    var encryptionKey = base64Url.decode((await biometricStorage.read())!);
+    var cipher = HiveAesCipher(encryptionKey);
+  } catch (e) {
+    print("Error $e");
   }
-
-  var encryptionKey = base64Url.decode((await biometricStorage.read())!);
-  var cipher = HiveAesCipher(encryptionKey);
   await Hive.openBox('accounts', encryptionCipher: cipher);
 
   await setup();

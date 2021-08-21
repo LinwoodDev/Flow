@@ -9,7 +9,8 @@ import 'package:shared/config/main.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class ConnectPage extends StatefulWidget {
-  const ConnectPage({Key? key}) : super(key: key);
+  final bool inIntro;
+  const ConnectPage({Key? key, this.inIntro = false}) : super(key: key);
 
   @override
   _ConnectPageState createState() => _ConnectPageState();
@@ -27,7 +28,7 @@ class _ConnectPageState extends State<ConnectPage> {
           channel: channel!, address: _urlController.text, mainConfig: config!);
     }
     return Scaffold(
-        appBar: AppBar(title: const Text("Connect")),
+        appBar: widget.inIntro ? null : AppBar(title: const Text("Connect")),
         body: Align(
             alignment: Alignment.topCenter,
             child: Container(

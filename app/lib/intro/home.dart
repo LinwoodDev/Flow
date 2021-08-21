@@ -18,7 +18,7 @@ class _IntroPageState extends State<IntroPage> {
     super.dispose();
   }
 
-  static const _pages = [IntroWelcomePage(), ConnectPage()];
+  static const _pages = [IntroWelcomePage(), ConnectPage(inIntro: true)];
 
   @override
   Widget build(BuildContext context) {
