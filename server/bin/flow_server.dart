@@ -16,17 +16,29 @@ import 'package:shared/socket_package.dart';
 Future<void> main(List<String> arguments) async {
   print("Starting Linwood Flow backend server...");
   await initServices();
-  final address = Platform.environment["FLOW_ADDRESS"] ?? "localhost";
+  final address =
+      Platform.environment["FLOW_ADDRESS"] ?? InternetAddress.anyIPv6;
   final port = int.fromEnvironment('FLOW_PORT', defaultValue: 8000);
   GetIt.I.registerSingleton(<WebSocket>[], instanceName: "sockets");
   final sockets = GetIt.I.get<List<WebSocket>>(instanceName: "sockets");
-  var server = await HttpServer.bind(address, port);
+
+  // SSL
+  SecurityContext context = SecurityContext();
+  var chain =
+      Platform.script.resolve('certificates/server_chain.pem').toFilePath();
+  var key = Platform.script.resolve('certificates/server_key.pem').toFilePath();
+  context.useCertificateChain(chain);
+  context.usePrivateKey(key,
+      password: Platform.environment["FLOW_PRIVATE_KEY"] ?? 'linwood-flow');
+
+  var server = await HttpServer.bindSecure(address, port, context);
 
   print("Server started on "
-      "'ws://${server.address.address}:${server.port}/'");
+      "'wss://${server.address.address}:${server.port}/'");
   try {
     server.transform(WebSocketTransformer()).listen((WebSocket ws) {
       sockets.add(ws);
+      print("Connected!");
       ws.listen((message) {
         try {
           var data = json.decode(message);

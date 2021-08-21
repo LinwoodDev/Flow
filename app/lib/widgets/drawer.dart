@@ -43,8 +43,9 @@ class FlowDrawer extends StatelessWidget {
         StreamBuilder<Account?>(
             stream: GetIt.I.get<AccountService>().accountStream,
             builder: (context, snapshot) {
-              if (!snapshot.hasData)
+              if (!snapshot.hasData) {
                 return const ListTile(title: Text("Not logged in"));
+              }
               var account = snapshot.data!;
               return PopupMenuButton(
                   itemBuilder: (context) => <PopupMenuEntry>[

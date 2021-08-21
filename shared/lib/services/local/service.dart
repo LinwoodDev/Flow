@@ -14,7 +14,6 @@ class LocalService extends ApiService {
   final BadgesLocalService badges;
   @override
   final EventsLocalService events;
-  @override
   final SubmissionsLocalService submissions;
   @override
   final TasksLocalService tasks;

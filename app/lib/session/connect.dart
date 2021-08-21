@@ -17,16 +17,30 @@ class ConnectPage extends StatefulWidget {
   _ConnectPageState createState() => _ConnectPageState();
 }
 
-class _ConnectPageState extends State<ConnectPage> {
+enum ConnectionType {
+  wss, ws, local
+}
+
+class _ConnectPageState extends State<ConnectPage>
+    with TickerProviderStateMixin {
   WebSocketChannel? channel;
   MainConfig? config;
+  ConnectionType _connectionType = ConnectionType.wss;
   final TextEditingController _urlController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
     if (channel != null && config != null) {
       return SessionPage(
           channel: channel!, address: _urlController.text, mainConfig: config!);
+    }
+    String scheme = "";
+    if(_connectionType == ConnectionType.wss) {
+      scheme = "wss://";
+    }
+    if(_connectionType == ConnectionType.ws) {
+      scheme = "ws://";
     }
     return Scaffold(
         appBar: widget.inIntro ? null : AppBar(title: const Text("Connect")),
@@ -43,16 +57,21 @@ class _ConnectPageState extends State<ConnectPage> {
                         style: Theme.of(context).textTheme.headline4,
                         textAlign: TextAlign.center),
                   const SizedBox(height: 20),
+                  ...ConnectionType.values.map((e) => RadioListTile<ConnectionType>(title: Text("${e.toString()[0].toUpperCase()}${e.toString().substring(1)}"), value: e, groupValue: _connectionType, onChanged: (value) => setState(() => _connectionType = value ?? _connectionType))),
+                  const SizedBox(height: 20),
                   TextField(
                       controller: _urlController,
-                      keyboardType: TextInputType.url,
-                      decoration: const InputDecoration(
-                          labelText: "URL wss://", hintText: "example.com")),
+                      keyboardType: TextInputType.url,enabled: _connectionType != ConnectionType.local,
+                      decoration: InputDecoration(filled: true,
+                          labelText: "URL $scheme", hintText: "example.com"))
                 ]))),
         floatingActionButton: FloatingActionButton(
             child: const Icon(PhosphorIcons.checkLight),
             onPressed: () async {
-              var uri = Uri.parse(_urlController.text);
+              if(_connectionType == ConnectionType.local) {
+                return;
+              }
+              var uri = Uri.parse(_connectionType == ConnectionType.wss ? "wss://" : "ws://"  + _urlController.text);
               var channel = WebSocketChannel.connect(uri);
 
               channel.sink.add(json.encode({"route": "info"}));
