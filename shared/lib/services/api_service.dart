@@ -1,6 +1,5 @@
 import 'package:shared/models/badge.dart';
 import 'package:shared/models/event.dart';
-import 'package:shared/models/season.dart';
 import 'package:shared/models/task.dart';
 import 'package:shared/models/team.dart';
 import 'package:shared/models/user.dart';
@@ -14,11 +13,7 @@ abstract class ApiService {
 
   BadgesApiService get badges;
 
-  SeasonsApiService get seasons;
-
   TasksApiService get tasks;
-
-  SubmissionsApiService get submissions;
 }
 
 abstract class TeamsApiService {
@@ -109,24 +104,6 @@ abstract class BadgesApiService {
   Stream<List<Badge>> onBadges();
 
   Stream<Badge?> onBadge(int id);
-}
-
-abstract class SeasonsApiService {
-  Future<List<Season>> fetchSeasons();
-
-  Future<int> fetchSeasonsCount();
-
-  Future<Season> createSeason(Season season);
-
-  Future<Season?> fetchSeason(int id);
-
-  Future<void> updateSeason(Season season);
-
-  Future<void> deleteSeason(int id);
-
-  Stream<List<Season>> onSeasons();
-
-  Stream<Season?> onSeason(int id);
 }
 
 abstract class TasksApiService {

@@ -7,12 +7,12 @@ class Assigned extends JsonObject {
   final bool? everyone;
   final List<AssignedObject> teams;
   final List<AssignedObject> users;
-  final List<AssignedObject> seasons;
+  final List<AssignedObject> events;
 
   const Assigned(
       {this.teams = const [],
       this.users = const [],
-      this.seasons = const [],
+      this.events = const [],
       this.everyone});
 
   Assigned.fromJson(Map<String, dynamic> json)
@@ -22,7 +22,7 @@ class Assigned extends JsonObject {
         users = List.from(json['users'] ?? [])
             .map((e) => AssignedObject.fromJson(e))
             .toList(),
-        seasons = List.from(json['seasons'] ?? [])
+        events = List.from(json['events'] ?? [])
             .map((e) => AssignedObject.fromJson(e))
             .toList(),
         everyone = json['everyone'];
@@ -31,7 +31,7 @@ class Assigned extends JsonObject {
   Map<String, dynamic> toJson() => {
         'teams': teams.map((e) => e.toJson()).toList(),
         'users': users.map((e) => e.toJson()).toList(),
-        'seasons': seasons.map((e) => e.toJson()).toList(),
+        'events': events.map((e) => e.toJson()).toList(),
         'everyone': everyone
       };
 
@@ -41,15 +41,15 @@ class Assigned extends JsonObject {
           bool removeEveryone = false,
           List<AssignedObject>? teams,
           List<AssignedObject>? users,
-          List<AssignedObject>? seasons}) =>
+          List<AssignedObject>? events}) =>
       Assigned(
           teams: teams ?? this.teams,
-          seasons: seasons ?? this.seasons,
+          events: events ?? this.events,
           everyone: removeEveryone ? true : (everyone ?? this.everyone),
           users: users ?? this.users);
 
   @override
-  List<Object?> get props => [everyone, teams, users, seasons];
+  List<Object?> get props => [everyone, teams, users, events];
 }
 
 @immutable

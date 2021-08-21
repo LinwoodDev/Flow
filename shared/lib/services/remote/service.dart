@@ -10,10 +10,6 @@ class RemoteService extends ApiService {
   EventsApiService get events => throw UnimplementedError();
 
   @override
-  // TODO: implement seasonsService
-  SeasonsApiService get seasons => throw UnimplementedError();
-
-  @override
   // TODO: implement submissionsService
   SubmissionsApiService get submissions => throw UnimplementedError();
 

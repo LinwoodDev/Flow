@@ -1,6 +1,5 @@
 import 'package:sembast/sembast.dart';
 import 'package:shared/services/local/events.dart';
-import 'package:shared/services/local/seasons.dart';
 import 'package:shared/services/local/submissions.dart';
 import 'package:shared/services/local/tasks.dart';
 import 'package:shared/services/local/teams.dart';
@@ -16,8 +15,6 @@ class LocalService extends ApiService {
   @override
   final EventsLocalService events;
   @override
-  final SeasonsLocalService seasons;
-  @override
   final SubmissionsLocalService submissions;
   @override
   final TasksLocalService tasks;
@@ -29,7 +26,6 @@ class LocalService extends ApiService {
   LocalService(this.db)
       : badges = BadgesLocalService(db),
         events = EventsLocalService(db),
-        seasons = SeasonsLocalService(db),
         submissions = SubmissionsLocalService(db),
         tasks = TasksLocalService(db),
         teams = TeamsLocalService(db),

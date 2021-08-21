@@ -32,7 +32,7 @@ Future<void> main() async {
     }
 
     var encryptionKey = base64Url.decode((await biometricStorage.read())!);
-    var cipher = HiveAesCipher(encryptionKey);
+    cipher = HiveAesCipher(encryptionKey);
   } catch (e) {
     print("Error $e");
   }

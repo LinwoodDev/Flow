@@ -14,7 +14,6 @@ enum RoutePages {
   teams,
   users,
   events,
-  seasons,
   badges,
   tasks,
 // Settings
@@ -117,13 +116,6 @@ class FlowDrawer extends StatelessWidget {
               title: const Text("Users"),
               onTap: () => Modular.to.pushReplacementNamed("/users"),
               selected: page == RoutePages.users),
-          ListTile(
-              leading: Icon(page == RoutePages.seasons
-                  ? PhosphorIcons.bookBookmarkFill
-                  : PhosphorIcons.bookBookmarkLight),
-              title: const Text("Seasons"),
-              onTap: () => Modular.to.pushReplacementNamed("/seasons"),
-              selected: page == RoutePages.seasons),
           ListTile(
               leading: Icon(page == RoutePages.events
                   ? PhosphorIcons.bookFill

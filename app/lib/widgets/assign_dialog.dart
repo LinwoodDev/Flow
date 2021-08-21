@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/assign.dart';
-import 'package:shared/models/season.dart';
+import 'package:shared/models/event.dart';
 import 'package:shared/models/team.dart';
 import 'package:shared/models/user.dart';
 import 'package:shared/services/api_service.dart';
@@ -21,7 +21,7 @@ class _AssignDialogState extends State<AssignDialog>
     with TickerProviderStateMixin {
   late Assigned assigned;
   late final TeamsApiService teamsService;
-  late final SeasonsApiService seasonsService;
+  late final EventsApiService eventsService;
   late final UsersApiService usersService;
   late final TabController _tabController;
 
@@ -32,7 +32,7 @@ class _AssignDialogState extends State<AssignDialog>
     assigned = widget.assigned;
     usersService = GetIt.I.get<LocalService>().users;
     teamsService = GetIt.I.get<LocalService>().teams;
-    seasonsService = GetIt.I.get<LocalService>().seasons;
+    eventsService = GetIt.I.get<LocalService>().events;
     _tabController = TabController(length: 3, vsync: this);
   }
 
@@ -230,8 +230,8 @@ class _AssignDialogState extends State<AssignDialog>
                             ),
                             Builder(
                                 builder: (context) => StreamBuilder<
-                                        List<Season>>(
-                                    stream: seasonsService.onSeasons(),
+                                        List<Event>>(
+                                    stream: eventsService.onEvents(),
                                     builder: (context, snapshot) {
                                       if (snapshot.hasError) {
                                         return Text("Error: ${snapshot.error}");
@@ -242,10 +242,10 @@ class _AssignDialogState extends State<AssignDialog>
                                         return const Center(
                                             child: CircularProgressIndicator());
                                       }
-                                      var seasons = snapshot.data!;
+                                      var eveents = snapshot.data!;
                                       return SingleChildScrollView(
                                           child: Column(children: [
-                                        if (seasons.any((a) => !assigned.seasons
+                                        if (eveents.any((a) => !assigned.events
                                             .any((b) => b.id == a.id)))
                                           OutlinedButton.icon(
                                               onPressed: () => showDialog(
@@ -254,10 +254,10 @@ class _AssignDialogState extends State<AssignDialog>
                                                       SimpleDialog(
                                                           title: const Text(
                                                               "Add event"),
-                                                          children: seasons
+                                                          children: eveents
                                                               .where((a) =>
                                                                   !assigned
-                                                                      .seasons
+                                                                      .events
                                                                       .any((b) =>
                                                                           b.id ==
                                                                           a.id))
@@ -271,33 +271,33 @@ class _AssignDialogState extends State<AssignDialog>
                                                                             .pop();
                                                                         setState(() =>
                                                                             assigned =
-                                                                                assigned.copyWith(seasons: List.from(assigned.seasons)..add(AssignedObject(flag: true, id: e.id))));
+                                                                                assigned.copyWith(events: List.from(assigned.events)..add(AssignedObject(flag: true, id: e.id))));
                                                                       }))
                                                               .toList())),
                                               icon: const Icon(
                                                   PhosphorIcons.plusLight),
                                               label: const Text("ADD EVENT")),
-                                        ...assigned.seasons
+                                        ...assigned.events
                                             .asMap()
                                             .entries
                                             .map((e) => _AssignedObjectField(
                                                   initialFlag: e.value.flag,
                                                   onDelete: () => assigned =
                                                       assigned.copyWith(
-                                                          seasons: List.from(
-                                                              assigned.seasons)
+                                                          events: List.from(
+                                                              assigned.events)
                                                             ..removeWhere((v) =>
                                                                 v.id ==
                                                                 e.value.id)),
-                                                  title: seasons
+                                                  title: eveents
                                                       .firstWhere((element) =>
                                                           element.id ==
                                                           e.value.id)
                                                       .name,
                                                   onChanged: (value) => assigned =
                                                       assigned.copyWith(
-                                                          seasons: List.from(
-                                                              assigned.seasons)
+                                                          events: List.from(
+                                                              assigned.events)
                                                             ..[e.key] =
                                                                 AssignedObject(
                                                                     flag: value,
