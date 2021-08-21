@@ -10,6 +10,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 class ConnectPage extends StatefulWidget {
   final bool inIntro;
+
   const ConnectPage({Key? key, this.inIntro = false}) : super(key: key);
 
   @override
@@ -30,15 +31,23 @@ class _ConnectPageState extends State<ConnectPage> {
     return Scaffold(
         appBar: widget.inIntro ? null : AppBar(title: const Text("Connect")),
         body: Align(
-            alignment: Alignment.topCenter,
+            alignment: Alignment.center,
             child: Container(
                 constraints: const BoxConstraints(maxWidth: 800),
-                child: ListView(children: [
+                child: ListView(shrinkWrap: true, children: [
+                  const Image(
+                      image: AssetImage("images/logo.png"), height: 200),
+                  const SizedBox(height: 20),
+                  if (widget.inIntro)
+                    Text("Connect",
+                        style: Theme.of(context).textTheme.headline4,
+                        textAlign: TextAlign.center),
+                  const SizedBox(height: 20),
                   TextField(
                       controller: _urlController,
                       keyboardType: TextInputType.url,
                       decoration: const InputDecoration(
-                          labelText: "URL", hintText: "wss://example.com")),
+                          labelText: "URL wss://", hintText: "example.com")),
                 ]))),
         floatingActionButton: FloatingActionButton(
             child: const Icon(PhosphorIcons.checkLight),
