@@ -3,7 +3,7 @@ import 'package:flow_app/admin/home.dart';
 import 'package:flow_app/badges/module.dart';
 import 'package:flow_app/events/module.dart';
 import 'package:flow_app/home.dart';
-import 'package:flow_app/intro/home.dart';
+import 'package:flow_app/intro.dart';
 import 'package:flow_app/service/account.dart';
 import 'package:flow_app/session/connect.dart';
 import 'package:flow_app/settings/module.dart';

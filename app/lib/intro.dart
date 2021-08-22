@@ -47,7 +47,9 @@ class _IntroPageState extends State<IntroPage> {
       Builder(
         builder: (context) => ListView(children: [
           Image(height: 500, image: AssetImage(e["image"] ?? "")),
+          const SizedBox(height: 50),
           Text(e["title"] ?? "", style: Theme.of(context).textTheme.headline4, textAlign: TextAlign.center),
+          const SizedBox(height: 20),
           Text(e["description"] ?? "",textAlign: TextAlign.center)
         ]),
       )),
