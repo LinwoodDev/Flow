@@ -7,19 +7,19 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/account.dart';
 
 enum RoutePages {
+// Popup Menu
+  accounts,
+  appearance,
+  information,
+// Collections
   home,
-  calendar,
-  overview,
-// Admin
   teams,
   users,
   events,
   badges,
   tasks,
 // Settings
-  general,
-  accounts,
-  appearance
+  adminSettings
 }
 
 class FlowDrawer extends StatelessWidget {
@@ -43,18 +43,15 @@ class FlowDrawer extends StatelessWidget {
         StreamBuilder<Account?>(
             stream: GetIt.I.get<AccountService>().accountStream,
             builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return const ListTile(title: Text("Not logged in"));
-              }
-              var account = snapshot.data!;
+              var account = snapshot.data;
               return PopupMenuButton(
                   itemBuilder: (context) => <PopupMenuEntry>[
                         PopupMenuItem(
                             child: ListTile(
-                          leading: const Icon(PhosphorIcons.userLight),
-                          title: Text(account.username),
-                          subtitle: Text(account.address),
-                        )),
+                                leading: const Icon(PhosphorIcons.userFill),
+                                title: Text(account?.username ?? "Local"),
+                                subtitle: Text(account?.address ?? ""),
+                                selected: true)),
                         const PopupMenuDivider(),
                         PopupMenuItem(
                             child: ListTile(
@@ -63,8 +60,37 @@ class FlowDrawer extends StatelessWidget {
                                 title: const Text("Connect"))),
                         PopupMenuItem(
                             child: ListTile(
+                                leading: Icon(page == RoutePages.accounts
+                                    ? PhosphorIcons.listFill
+                                    : PhosphorIcons.listLight),
+                                title: const Text("Accounts"),
+                                onTap: () => Modular.to
+                                    .pushReplacementNamed("/settings/accounts"),
+                                selected: page == RoutePages.accounts)),
+                        PopupMenuItem(
+                            child: ListTile(
                                 onTap: () => Modular.to.pushNamed("/intro"),
-                                title: const Text("Show intro")))
+                                leading:
+                                    const Icon(PhosphorIcons.paperclipLight),
+                                title: const Text("Show intro"))),
+                        PopupMenuItem(
+                            child: ListTile(
+                                leading: Icon(page == RoutePages.appearance
+                                    ? PhosphorIcons.fadersFill
+                                    : PhosphorIcons.fadersLight),
+                                title: const Text("Appearance"),
+                                onTap: () => Modular.to.pushReplacementNamed(
+                                    "/settings/appearance"),
+                                selected: page == RoutePages.appearance)),
+                        PopupMenuItem(
+                            child: ListTile(
+                                leading: Icon(page == RoutePages.information
+                                    ? PhosphorIcons.infoFill
+                                    : PhosphorIcons.infoLight),
+                                title: const Text("Information"),
+                                onTap: () => Modular.to.pushReplacementNamed(
+                                    "/settings/appearance"),
+                                selected: page == RoutePages.information))
                       ],
                   child: const ListTile(
                       leading: Icon(PhosphorIcons.userLight),
@@ -132,43 +158,14 @@ class FlowDrawer extends StatelessWidget {
               onTap: () => Modular.to.pushReplacementNamed("/badges"),
               selected: page == RoutePages.badges)
         ]),
-        ExpansionTile(
-            title: const Text('Settings'),
-            initiallyExpanded: true,
-            children: <Widget>[
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            ListTile(
-                                leading: Icon(page == RoutePages.general
-                                    ? PhosphorIcons.wrenchFill
-                                    : PhosphorIcons.wrenchLight),
-                                title: const Text("General"),
-                                onTap: () => Modular.to
-                                    .pushReplacementNamed("/settings"),
-                                selected: page == RoutePages.general),
-                            ListTile(
-                                leading: Icon(page == RoutePages.accounts
-                                    ? PhosphorIcons.listFill
-                                    : PhosphorIcons.listLight),
-                                title: const Text("Accounts"),
-                                onTap: () => Modular.to
-                                    .pushReplacementNamed("/settings/accounts"),
-                                selected: page == RoutePages.accounts),
-                            ListTile(
-                                leading: Icon(page == RoutePages.appearance
-                                    ? PhosphorIcons.fadersFill
-                                    : PhosphorIcons.fadersLight),
-                                title: const Text("Appearance"),
-                                onTap: () => Modular.to.pushReplacementNamed(
-                                    "/settings/appearance"),
-                                selected: page == RoutePages.appearance)
-                          ])))
-            ])
+        const Divider(),
+        ListTile(
+            leading: Icon(page == RoutePages.adminSettings
+                ? PhosphorIcons.wrenchFill
+                : PhosphorIcons.wrenchLight),
+            title: const Text("Admin settings"),
+            onTap: () => Modular.to.pushReplacementNamed("/settings"),
+            selected: page == RoutePages.adminSettings),
       ])),
       if (permanentlyDisplay) const VerticalDivider(width: 5, thickness: 0.5)
     ]));

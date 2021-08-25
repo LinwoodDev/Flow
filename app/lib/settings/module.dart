@@ -12,7 +12,7 @@ class SettingsModule extends Module {
   // Provide all the routes for your module
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/', child: (_, __) => const GeneralSettingsPage()),
+    ChildRoute('/', child: (_, __) => const AdminSettingsPage()),
     ChildRoute('/appearance', child: (_, __) => const AppearanceSettingsPage()),
     ChildRoute('/accounts', child: (_, __) => const AccountsSettingsPage())
   ];

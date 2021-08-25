@@ -10,6 +10,8 @@ class AccountService {
     return Account.fromJson(_box.get("account"));
   }
 
+  List<Account> get accounts => [];
+
   set account(Account? value) => _box.put("account", value?.toJson());
 
   Stream<Account?> get accountStream => _box.watch(key: "account").map(

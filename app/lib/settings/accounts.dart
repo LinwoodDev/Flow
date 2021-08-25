@@ -17,34 +17,36 @@ class _AccountsSettingsPageState extends State<AccountsSettingsPage> {
   @override
   Widget build(BuildContext context) {
     return FlowScaffold(
-        page: RoutePages.accounts,
         pageTitle: "Accounts",
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () => Modular.to.pushNamed("/connect"),
             label: const Text("Add account"),
             icon: const Icon(PhosphorIcons.plusLight)),
+        page: RoutePages.accounts,
         body: ValueListenableBuilder<Box>(
             valueListenable: Hive.box('accounts').listenable(),
             builder: (context, box, _) {
               var accounts =
                   box.values.map((e) => Account.fromJson(e)).toList();
-              return ListView(
-                  children: [
-                    ListTile(title: const Text("Local"), onTap: () => Modular.to.pushNamed("/admin")),
-                    ...List.generate(box.values.length, (index) {
-                    var current = accounts[index];
-                    return Dismissible(
-                      background: Container(color: Colors.red),
-                      key: Key(box.getAt(index) ?? ""),
-                      onDismissed: (direction) => box.deleteAt(index),
-                      child: ListTile(
-                          title: Text(current.toString()),
-                          subtitle: Text(box.getAt(index) ?? ""),
-                          trailing: IconButton(
-                              icon: const Icon(PhosphorIcons.signOutLight),
-                              onPressed: () {})),
-                    );
-                  })]);
+              return ListView(children: [
+                ListTile(
+                    title: const Text("Local"),
+                    onTap: () => Modular.to.pushNamed("/admin")),
+                ...List.generate(box.values.length, (index) {
+                  var current = accounts[index];
+                  return Dismissible(
+                    background: Container(color: Colors.red),
+                    key: Key(box.getAt(index) ?? ""),
+                    onDismissed: (direction) => box.deleteAt(index),
+                    child: ListTile(
+                        title: Text(current.toString()),
+                        subtitle: Text(box.getAt(index) ?? ""),
+                        trailing: IconButton(
+                            icon: const Icon(PhosphorIcons.signOutLight),
+                            onPressed: () {})),
+                  );
+                })
+              ]);
             }));
   }
 }

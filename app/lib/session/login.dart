@@ -14,6 +14,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  late TextEditingController _urlController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _urlController = TextEditingController(text: widget.address);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +37,17 @@ class _LoginPageState extends State<LoginPage> {
               child: Container(
                   constraints: const BoxConstraints(maxWidth: 800),
                   child: Column(children: [
+                    const SizedBox(height: 20),
+                    TextField(
+                        controller: _urlController,
+                        readOnly: true,
+                        keyboardType: TextInputType.url,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "URL",
+                            hintText: "wss://example.com",
+                            prefixIcon: Icon(PhosphorIcons.linkLight))),
+                    const SizedBox(height: 50),
                     TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         decoration: const InputDecoration(
