@@ -1,6 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'accounts.dart';
 import 'appearance.dart';
 import 'general.dart';
 
@@ -13,7 +12,6 @@ class SettingsModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ChildRoute('/', child: (_, __) => const AdminSettingsPage()),
-    ChildRoute('/appearance', child: (_, __) => const AppearanceSettingsPage()),
-    ChildRoute('/accounts', child: (_, __) => const AccountsSettingsPage())
+    ChildRoute('/appearance', child: (_, __) => const AppearanceSettingsPage())
   ];
 }
