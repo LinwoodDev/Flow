@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class AdminSettingsPage extends StatefulWidget {
-  const AdminSettingsPage({Key? key}) : super(key: key);
+class InformationPage extends StatefulWidget {
+  const InformationPage({Key? key}) : super(key: key);
 
   @override
-  _AdminSettingsPageState createState() => _AdminSettingsPageState();
+  _InformationPageState createState() => _InformationPageState();
 }
 
-class _AdminSettingsPageState extends State<AdminSettingsPage> {
+class _InformationPageState extends State<InformationPage> {
   @override
   Widget build(BuildContext context) {
     return FlowScaffold(
-        page: RoutePages.adminSettings,
-        pageTitle: "Admin settings",
+        page: RoutePages.information,
+        pageTitle: "Information",
         body: SingleChildScrollView(
             child: Column(children: [
           ListTile(

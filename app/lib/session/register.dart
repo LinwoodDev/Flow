@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:shared/models/user.dart';
+import 'package:shared/socket_package.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -15,6 +17,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   late TextEditingController _urlController;
+  bool _hidePassword = true, _hideRepeatPassword = true;
 
   @override
   void initState() {
@@ -64,20 +67,41 @@ class _RegisterPageState extends State<RegisterPage> {
                                           Icon(PhosphorIcons.envelopeLight))),
                               const SizedBox(height: 50),
                               TextFormField(
-                                  decoration: const InputDecoration(
+                                  obscureText: _hidePassword,
+                                  decoration: InputDecoration(
                                       filled: true,
+                                      suffixIcon: IconButton(
+                                        icon: Icon(_hidePassword
+                                            ? PhosphorIcons.eyeLight
+                                            : PhosphorIcons.eyeSlashLight),
+                                        onPressed: () => setState(() =>
+                                            _hidePassword = !_hidePassword),
+                                      ),
                                       labelText: "Password",
                                       prefixIcon:
-                                          Icon(PhosphorIcons.lockLight))),
+                                          const Icon(PhosphorIcons.lockLight))),
                               const SizedBox(height: 20),
                               TextFormField(
-                                  decoration: const InputDecoration(
+                                  obscureText: _hideRepeatPassword,
+                                  decoration: InputDecoration(
                                       filled: true,
                                       labelText: "Repeat password",
+                                      suffixIcon: IconButton(
+                                        icon: Icon(_hideRepeatPassword
+                                            ? PhosphorIcons.eyeLight
+                                            : PhosphorIcons.eyeSlashLight),
+                                        onPressed: () => setState(() =>
+                                            _hideRepeatPassword =
+                                                !_hideRepeatPassword),
+                                      ),
                                       prefixIcon:
-                                          Icon(PhosphorIcons.lockLight)))
+                                          const Icon(PhosphorIcons.lockLight)))
                             ])))))),
         floatingActionButton: FloatingActionButton(
-            child: const Icon(PhosphorIcons.checkLight), onPressed: () {}));
+            child: const Icon(PhosphorIcons.checkLight),
+            onPressed: () {
+              SocketPackage(value: User(""), route: 'auth:register')
+                  .send(widget.channel);
+            }));
   }
 }
