@@ -18,6 +18,11 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   late TextEditingController _urlController;
   bool _hidePassword = true, _hideRepeatPassword = true;
+  final TextEditingController _nameController = TextEditingController(),
+      _passwordController = TextEditingController(),
+      _repeatPasswordController = TextEditingController(),
+      _emailController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
   void initState() {
@@ -32,6 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
         body: Scrollbar(
             child: SingleChildScrollView(
                 child: Form(
+                    key: _formKey,
                     child: Align(
                         alignment: Alignment.topCenter,
                         child: Container(
@@ -50,6 +56,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                           Icon(PhosphorIcons.linkLight))),
                               const SizedBox(height: 50),
                               TextFormField(
+                                  controller: _nameController,
                                   keyboardType: TextInputType.name,
                                   decoration: const InputDecoration(
                                       filled: true,
@@ -58,6 +65,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                           Icon(PhosphorIcons.userLight))),
                               const SizedBox(height: 20),
                               TextFormField(
+                                  controller: _emailController,
                                   keyboardType: TextInputType.emailAddress,
                                   decoration: const InputDecoration(
                                       filled: true,
@@ -67,6 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                           Icon(PhosphorIcons.envelopeLight))),
                               const SizedBox(height: 50),
                               TextFormField(
+                                  controller: _passwordController,
                                   obscureText: _hidePassword,
                                   decoration: InputDecoration(
                                       filled: true,
@@ -82,7 +91,17 @@ class _RegisterPageState extends State<RegisterPage> {
                                           const Icon(PhosphorIcons.lockLight))),
                               const SizedBox(height: 20),
                               TextFormField(
+                                  controller: _repeatPasswordController,
                                   obscureText: _hideRepeatPassword,
+                                  validator: (value) {
+                                    if (value?.isEmpty ?? true) {
+                                      return "Password can't be empty";
+                                    }
+                                    if (_passwordController.text == value) {
+                                      return "Password are not the same";
+                                    }
+                                    return null;
+                                  },
                                   decoration: InputDecoration(
                                       filled: true,
                                       labelText: "Repeat password",
@@ -100,7 +119,12 @@ class _RegisterPageState extends State<RegisterPage> {
         floatingActionButton: FloatingActionButton(
             child: const Icon(PhosphorIcons.checkLight),
             onPressed: () {
-              SocketPackage(value: User(""), route: 'auth:register')
+              if (!(_formKey.currentState?.validate() ?? false)) return;
+              SocketPackage(
+                      value: User(_nameController.text,
+                          email: _emailController.text,
+                          password: _passwordController.text),
+                      route: 'auth:register')
                   .send(widget.channel);
             }));
   }

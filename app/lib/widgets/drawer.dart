@@ -27,11 +27,7 @@ class FlowDrawer extends StatelessWidget {
   final bool admin;
   final bool permanentlyDisplay;
 
-  const FlowDrawer(
-      {Key? key,
-      this.page,
-      this.admin = false,
-      this.permanentlyDisplay = false})
+  const FlowDrawer({Key? key, this.page, this.admin = false, this.permanentlyDisplay = false})
       : super(key: key);
 
   @override
@@ -56,69 +52,55 @@ class FlowDrawer extends StatelessWidget {
                           itemBuilder: (context) => <PopupMenuEntry>[
                                 PopupMenuItem(
                                     child: ListTile(
-                                        leading:
-                                            const Icon(PhosphorIcons.userFill),
-                                        title:
-                                            Text(account?.username ?? "Local"),
+                                        leading: const Icon(PhosphorIcons.userFill),
+                                        title: Text(account?.username ?? "Local"),
                                         subtitle: Text(account?.address ?? ""),
                                         selected: true)),
                                 ...accounts.map((e) => PopupMenuItem(
                                     child: ListTile(
-                                        title: Text(e.username),
-                                        subtitle: Text(e.address)))),
+                                        title: Text(e.username), subtitle: Text(e.address)))),
                                 const PopupMenuDivider(),
                                 PopupMenuItem(
-                                    onTap: () =>
-                                        Modular.to.pushNamed("/connect"),
+                                    onTap: () => Modular.to.pushNamed("/connect"),
                                     child: const ListTile(
                                         leading: Icon(PhosphorIcons.plusLight),
                                         title: Text("Connect"))),
                                 PopupMenuItem(
-                                    onTap: () => Modular.to
-                                        .pushReplacementNamed(
-                                            "/settings/accounts"),
+                                    onTap: () => Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(builder: (context) => AccountsPage())),
                                     child: ListTile(
-                                        leading: Icon(
-                                            page == RoutePages.accounts
-                                                ? PhosphorIcons.listFill
-                                                : PhosphorIcons.listLight),
+                                        leading: Icon(page == RoutePages.accounts
+                                            ? PhosphorIcons.listFill
+                                            : PhosphorIcons.listLight),
                                         title: const Text("Accounts"),
                                         selected: page == RoutePages.accounts)),
                                 const PopupMenuDivider(),
                                 PopupMenuItem(
                                     onTap: () => Modular.to.pushNamed("/intro"),
                                     child: const ListTile(
-                                        leading:
-                                            Icon(PhosphorIcons.paperclipLight),
+                                        leading: Icon(PhosphorIcons.paperclipLight),
                                         title: Text("Show intro"))),
                                 PopupMenuItem(
-                                    onTap: () => Modular.to
-                                        .pushReplacementNamed(
-                                            "/settings/appearance"),
+                                    onTap: () =>
+                                        Modular.to.pushReplacementNamed("/settings/appearance"),
                                     child: ListTile(
-                                        leading: Icon(
-                                            page == RoutePages.appearance
-                                                ? PhosphorIcons.fadersFill
-                                                : PhosphorIcons.fadersLight),
+                                        leading: Icon(page == RoutePages.appearance
+                                            ? PhosphorIcons.fadersFill
+                                            : PhosphorIcons.fadersLight),
                                         title: const Text("Appearance"),
-                                        selected:
-                                            page == RoutePages.appearance)),
+                                        selected: page == RoutePages.appearance)),
                                 PopupMenuItem(
-                                    onTap: () => Modular.to
-                                        .pushReplacementNamed("/settings"),
+                                    onTap: () => Modular.to.pushReplacementNamed("/settings"),
                                     child: ListTile(
-                                        leading: Icon(
-                                            page == RoutePages.information
-                                                ? PhosphorIcons.infoFill
-                                                : PhosphorIcons.infoLight),
+                                        leading: Icon(page == RoutePages.information
+                                            ? PhosphorIcons.infoFill
+                                            : PhosphorIcons.infoLight),
                                         title: const Text("Information"),
-                                        selected:
-                                            page == RoutePages.information))
+                                        selected: page == RoutePages.information))
                               ],
                           child: ListTile(
                               leading: const Icon(PhosphorIcons.userLight),
-                              trailing:
-                                  const Icon(PhosphorIcons.arrowDownLight),
+                              trailing: const Icon(PhosphorIcons.arrowDownLight),
                               title: Text(account?.username ?? "Local"),
                               subtitle: Text(account?.address ?? "")));
                     });
@@ -134,16 +116,14 @@ class FlowDrawer extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Text("Linwood Flow",
-                    style: Theme.of(context).textTheme.headline5),
+                Text("Linwood Flow", style: Theme.of(context).textTheme.headline5),
               ])),
           const Divider(),
           const SizedBox(height: 10),
           Column(children: [
             ListTile(
-                leading: Icon(page == RoutePages.home
-                    ? PhosphorIcons.houseFill
-                    : PhosphorIcons.houseLight),
+                leading: Icon(
+                    page == RoutePages.home ? PhosphorIcons.houseFill : PhosphorIcons.houseLight),
                 title: const Text("Home"),
                 onTap: () => Modular.to.pushReplacementNamed("/"),
                 selected: page == RoutePages.home),
@@ -162,16 +142,14 @@ class FlowDrawer extends StatelessWidget {
                 onTap: () => Modular.to.pushReplacementNamed("/tasks"),
                 selected: page == RoutePages.tasks),
             ListTile(
-                leading: Icon(page == RoutePages.users
-                    ? PhosphorIcons.usersFill
-                    : PhosphorIcons.usersLight),
+                leading: Icon(
+                    page == RoutePages.users ? PhosphorIcons.usersFill : PhosphorIcons.usersLight),
                 title: const Text("Users"),
                 onTap: () => Modular.to.pushReplacementNamed("/users"),
                 selected: page == RoutePages.users),
             ListTile(
-                leading: Icon(page == RoutePages.events
-                    ? PhosphorIcons.bookFill
-                    : PhosphorIcons.bookLight),
+                leading: Icon(
+                    page == RoutePages.events ? PhosphorIcons.bookFill : PhosphorIcons.bookLight),
                 title: const Text("Events"),
                 onTap: () => Modular.to.pushReplacementNamed("/events"),
                 selected: page == RoutePages.events),
@@ -217,9 +195,8 @@ class FlowScaffold extends ResponsiveScaffold {
             bottom: bottom,
             body: body,
             drawer: FlowDrawer(page: page, permanentlyDisplay: false),
-            desktopDrawer: Hero(
-                tag: "drawer",
-                child: FlowDrawer(page: page, permanentlyDisplay: true)),
+            desktopDrawer:
+                Hero(tag: "drawer", child: FlowDrawer(page: page, permanentlyDisplay: true)),
             floatingActionButton: floatingActionButton,
             key: key);
 }
