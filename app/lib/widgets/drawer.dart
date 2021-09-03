@@ -6,6 +6,8 @@ import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/account.dart';
 
+import 'accounts_dialog.dart';
+
 enum RoutePages {
 // Popup Menu
   accounts,
@@ -40,10 +42,7 @@ class FlowDrawer extends StatelessWidget {
           StreamBuilder<List<Account>>(
               stream: GetIt.I.get<AccountService>().accountsStream,
               builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return const CircularProgressIndicator();
-                }
-                var accounts = snapshot.data!;
+                var accounts = snapshot.data;
                 return StreamBuilder<Account?>(
                     stream: GetIt.I.get<AccountService>().accountStream,
                     builder: (context, snapshot) {
@@ -52,23 +51,33 @@ class FlowDrawer extends StatelessWidget {
                           itemBuilder: (context) => <PopupMenuEntry>[
                                 PopupMenuItem(
                                     child: ListTile(
+                                        mouseCursor: MouseCursor.defer,
                                         leading: const Icon(PhosphorIcons.userFill),
                                         title: Text(account?.username ?? "Local"),
                                         subtitle: Text(account?.address ?? ""),
                                         selected: true)),
-                                ...accounts.map((e) => PopupMenuItem(
-                                    child: ListTile(
-                                        title: Text(e.username), subtitle: Text(e.address)))),
+                                if (accounts != null)
+                                  ...accounts.map((e) => PopupMenuItem(
+                                      child: ListTile(
+                                          mouseCursor: MouseCursor.defer,
+                                          title: Text(e.username),
+                                          subtitle: Text(e.address)))),
                                 const PopupMenuDivider(),
                                 PopupMenuItem(
                                     onTap: () => Modular.to.pushNamed("/connect"),
                                     child: const ListTile(
+                                        mouseCursor: MouseCursor.defer,
                                         leading: Icon(PhosphorIcons.plusLight),
                                         title: Text("Connect"))),
                                 PopupMenuItem(
-                                    onTap: () => Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(builder: (context) => AccountsPage())),
+                                    onTap: () {
+                                      print("TEST");
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => const AccountsDialog());
+                                    },
                                     child: ListTile(
+                                        mouseCursor: MouseCursor.defer,
                                         leading: Icon(page == RoutePages.accounts
                                             ? PhosphorIcons.listFill
                                             : PhosphorIcons.listLight),
@@ -78,12 +87,14 @@ class FlowDrawer extends StatelessWidget {
                                 PopupMenuItem(
                                     onTap: () => Modular.to.pushNamed("/intro"),
                                     child: const ListTile(
+                                        mouseCursor: MouseCursor.defer,
                                         leading: Icon(PhosphorIcons.paperclipLight),
                                         title: Text("Show intro"))),
                                 PopupMenuItem(
                                     onTap: () =>
                                         Modular.to.pushReplacementNamed("/settings/appearance"),
                                     child: ListTile(
+                                        mouseCursor: MouseCursor.defer,
                                         leading: Icon(page == RoutePages.appearance
                                             ? PhosphorIcons.fadersFill
                                             : PhosphorIcons.fadersLight),
@@ -92,6 +103,7 @@ class FlowDrawer extends StatelessWidget {
                                 PopupMenuItem(
                                     onTap: () => Modular.to.pushReplacementNamed("/settings"),
                                     child: ListTile(
+                                        mouseCursor: MouseCursor.defer,
                                         leading: Icon(page == RoutePages.information
                                             ? PhosphorIcons.infoFill
                                             : PhosphorIcons.infoLight),
@@ -99,6 +111,7 @@ class FlowDrawer extends StatelessWidget {
                                         selected: page == RoutePages.information))
                               ],
                           child: ListTile(
+                              mouseCursor: MouseCursor.defer,
                               leading: const Icon(PhosphorIcons.userLight),
                               trailing: const Icon(PhosphorIcons.arrowDownLight),
                               title: Text(account?.username ?? "Local"),
@@ -122,12 +135,14 @@ class FlowDrawer extends StatelessWidget {
           const SizedBox(height: 10),
           Column(children: [
             ListTile(
+                mouseCursor: MouseCursor.defer,
                 leading: Icon(
                     page == RoutePages.home ? PhosphorIcons.houseFill : PhosphorIcons.houseLight),
                 title: const Text("Home"),
                 onTap: () => Modular.to.pushReplacementNamed("/"),
                 selected: page == RoutePages.home),
             ListTile(
+                mouseCursor: MouseCursor.defer,
                 leading: Icon(page == RoutePages.teams
                     ? PhosphorIcons.flagBannerFill
                     : PhosphorIcons.flagBannerLight),
@@ -135,6 +150,7 @@ class FlowDrawer extends StatelessWidget {
                 onTap: () => Modular.to.pushReplacementNamed("/teams"),
                 selected: page == RoutePages.teams),
             ListTile(
+                mouseCursor: MouseCursor.defer,
                 leading: Icon(page == RoutePages.tasks
                     ? PhosphorIcons.checkSquareFill
                     : PhosphorIcons.checkSquareLight),
@@ -142,18 +158,21 @@ class FlowDrawer extends StatelessWidget {
                 onTap: () => Modular.to.pushReplacementNamed("/tasks"),
                 selected: page == RoutePages.tasks),
             ListTile(
+                mouseCursor: MouseCursor.defer,
                 leading: Icon(
                     page == RoutePages.users ? PhosphorIcons.usersFill : PhosphorIcons.usersLight),
                 title: const Text("Users"),
                 onTap: () => Modular.to.pushReplacementNamed("/users"),
                 selected: page == RoutePages.users),
             ListTile(
+                mouseCursor: MouseCursor.defer,
                 leading: Icon(
                     page == RoutePages.events ? PhosphorIcons.bookFill : PhosphorIcons.bookLight),
                 title: const Text("Events"),
                 onTap: () => Modular.to.pushReplacementNamed("/events"),
                 selected: page == RoutePages.events),
             ListTile(
+                mouseCursor: MouseCursor.defer,
                 leading: Icon(page == RoutePages.badges
                     ? PhosphorIcons.circleWavyFill
                     : PhosphorIcons.circleWavyLight),
@@ -166,6 +185,7 @@ class FlowDrawer extends StatelessWidget {
               child: Column(children: [
                 const Divider(),
                 ListTile(
+                    mouseCursor: MouseCursor.defer,
                     leading: Icon(page == RoutePages.adminSettings
                         ? PhosphorIcons.gearFill
                         : PhosphorIcons.gearLight),
