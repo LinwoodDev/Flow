@@ -35,12 +35,11 @@ class AppModule extends Module {
   ];
 }
 
-class IntroGuard implements RouteGuard {
+class IntroGuard extends RouteGuard {
   @override
-  Future<bool> canActivate(String url, ModularRoute route) async {
+  Future<bool> canActivate(String path, ModularRoute route) async {
     return Hive.box('settings').get("intro", defaultValue: false);
   }
 
-  @override
-  String? get guardedRoute => "/intro";
+  IntroGuard() : super(redirectTo: "/intro");
 }
