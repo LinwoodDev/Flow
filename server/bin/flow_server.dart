@@ -19,19 +19,26 @@ Future<void> main(List<String> arguments) async {
   final address =
       Platform.environment["FLOW_ADDRESS"] ?? InternetAddress.anyIPv6;
   final port = int.fromEnvironment('FLOW_PORT', defaultValue: 8000);
+  final secure = bool.fromEnvironment('FLOW_SECURE', defaultValue: false);
   GetIt.I.registerSingleton(<WebSocket>[], instanceName: "sockets");
   final sockets = GetIt.I.get<List<WebSocket>>(instanceName: "sockets");
+  late HttpServer server;
 
   // SSL
-  SecurityContext context = SecurityContext();
-  var chain =
-      Platform.script.resolve('certificates/server_chain.pem').toFilePath();
-  var key = Platform.script.resolve('certificates/server_key.pem').toFilePath();
-  context.useCertificateChain(chain);
-  context.usePrivateKey(key,
-      password: Platform.environment["FLOW_PRIVATE_KEY"] ?? 'linwood-flow');
+  if (secure) {
+    SecurityContext context = SecurityContext();
+    var chain =
+        Platform.script.resolve('certificates/server_chain.pem').toFilePath();
+    var key =
+        Platform.script.resolve('certificates/server_key.pem').toFilePath();
+    context.useCertificateChain(chain);
+    context.usePrivateKey(key,
+        password: Platform.environment["FLOW_PRIVATE_KEY"] ?? 'linwood-flow');
 
-  var server = await HttpServer.bindSecure(address, port, context);
+    server = await HttpServer.bindSecure(address, port, context);
+  } else {
+    server = await HttpServer.bind(address, port);
+  }
 
   print("Server started on "
       "'wss://${server.address.address}:${server.port}/'");

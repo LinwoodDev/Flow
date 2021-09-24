@@ -25,15 +25,6 @@ class SessionPage extends StatefulWidget {
 }
 
 class _SessionPageState extends State<SessionPage> {
-  late TextEditingController _urlController;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _urlController = TextEditingController(text: widget.address);
-  }
-
   @override
   void dispose() {
     widget.channel.sink.close(status.goingAway);
@@ -58,19 +49,8 @@ class _SessionPageState extends State<SessionPage> {
                     const SizedBox(height: 20),
                     SessionDisplay(mainConfig: widget.mainConfig),
                     const SizedBox(height: 20),
-                    const Divider(),
-                    const SizedBox(height: 20),
-                    TextField(
-                        controller: _urlController,
-                        readOnly: true,
-                        keyboardType: TextInputType.url,
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: "URL",
-                            hintText: "wss://example.com",
-                            prefixIcon: Icon(PhosphorIcons.linkLight)))
+                    const Divider()
                   ])),
-              const SizedBox(height: 50),
               Expanded(
                   child: TabBarView(children: [
                 LoginPage(address: widget.address, channel: widget.channel),

@@ -15,5 +15,6 @@ bin/flow_server.exe
 
 # Runtime related files
 linwood_flow.db
+.env
 config.json
 certificates/

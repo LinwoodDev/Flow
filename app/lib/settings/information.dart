@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class GeneralSettingsPage extends StatefulWidget {
-  const GeneralSettingsPage({Key? key}) : super(key: key);
+class InformationPage extends StatefulWidget {
+  const InformationPage({Key? key}) : super(key: key);
 
   @override
-  _GeneralSettingsPageState createState() => _GeneralSettingsPageState();
+  _InformationPageState createState() => _InformationPageState();
 }
 
-class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
+class _InformationPageState extends State<InformationPage> {
   @override
   Widget build(BuildContext context) {
     return FlowScaffold(
-        page: RoutePages.general,
-        pageTitle: "General settings",
+        page: RoutePages.information,
+        pageTitle: "Information",
         body: SingleChildScrollView(
             child: Column(children: [
           ListTile(
@@ -55,7 +55,11 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
               onTap: () => showAboutDialog(
                   context: context,
                   applicationIcon: Image.asset("images/logo.png", height: 50))),
-              AdvancedSwitchListTile(value: false, onTap: () {}, onChanged: (value) {},title: const Text("Wifi"))
+          AdvancedSwitchListTile(
+              value: false,
+              onTap: () {},
+              onChanged: (value) {},
+              title: const Text("Wifi"))
         ])));
   }
 }

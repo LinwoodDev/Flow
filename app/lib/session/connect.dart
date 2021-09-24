@@ -1,9 +1,10 @@
 import 'dart:convert';
 
-import 'package:flow_app/session/session.dart';
+import 'package:flow_app/session/home.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/config/main.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -17,17 +18,12 @@ class ConnectPage extends StatefulWidget {
   _ConnectPageState createState() => _ConnectPageState();
 }
 
-enum ConnectionType {
-  wss, ws, local
-}
-
 class _ConnectPageState extends State<ConnectPage>
     with TickerProviderStateMixin {
   WebSocketChannel? channel;
   MainConfig? config;
-  ConnectionType _connectionType = ConnectionType.wss;
+  bool _secure = true;
   final TextEditingController _urlController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +31,7 @@ class _ConnectPageState extends State<ConnectPage>
       return SessionPage(
           channel: channel!, address: _urlController.text, mainConfig: config!);
     }
-    String scheme = "";
-    if(_connectionType == ConnectionType.wss) {
-      scheme = "wss://";
-    }
-    if(_connectionType == ConnectionType.ws) {
-      scheme = "ws://";
-    }
+    String scheme = _secure ? "wss://" : "ws://";
     return Scaffold(
         appBar: widget.inIntro ? null : AppBar(title: const Text("Connect")),
         body: Align(
@@ -57,21 +47,37 @@ class _ConnectPageState extends State<ConnectPage>
                         style: Theme.of(context).textTheme.headline4,
                         textAlign: TextAlign.center),
                   const SizedBox(height: 20),
-                  ...ConnectionType.values.map((e) => RadioListTile<ConnectionType>(title: Text("${e.toString()[0].toUpperCase()}${e.toString().substring(1)}"), value: e, groupValue: _connectionType, onChanged: (value) => setState(() => _connectionType = value ?? _connectionType))),
+                  CheckboxListTile(
+                      title: const Text("Secure"),
+                      value: _secure,
+                      onChanged: (value) =>
+                          setState(() => _secure = value ?? _secure)),
                   const SizedBox(height: 20),
                   TextField(
                       controller: _urlController,
-                      keyboardType: TextInputType.url,enabled: _connectionType != ConnectionType.local,
-                      decoration: InputDecoration(filled: true,
-                          labelText: "URL $scheme", hintText: "example.com"))
+                      keyboardType: TextInputType.url,
+                      decoration: InputDecoration(
+                          filled: true,
+                          labelText: "URL $scheme",
+                          hintText: "example.com")),
+                  const SizedBox(height: 20),
+                  Row(mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      OutlinedButton(
+                          child: const Text("USE LOCAL"),
+                          onPressed: () {
+                            print("INTRO!");
+                            Hive.box('settings').put("intro", true);
+                            Modular.to.navigate("/");
+                          }),
+                    ],
+                  ),
                 ]))),
         floatingActionButton: FloatingActionButton(
             child: const Icon(PhosphorIcons.checkLight),
             onPressed: () async {
-              if(_connectionType == ConnectionType.local) {
-                return;
-              }
-              var uri = Uri.parse(_connectionType == ConnectionType.wss ? "wss://" : "ws://"  + _urlController.text);
+              var uri =
+                  Uri.parse(_secure ? "wss://" : "ws://" + _urlController.text);
               var channel = WebSocketChannel.connect(uri);
 
               channel.sink.add(json.encode({"route": "info"}));

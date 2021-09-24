@@ -1,8 +1,8 @@
 import 'package:flow_app/admin/events.dart';
 import 'package:flow_app/widgets/advanced_switch_list_tile.dart';
+import 'package:flow_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class AdminPage extends StatefulWidget {
@@ -18,17 +18,13 @@ class _AdminPageState extends State<AdminPage> {
 
   @override
   Widget build(BuildContext context) {
-    String? server;
-    if (Modular.args.queryParams.containsKey("id")) {
-      server = Hive.box<String>('servers')
-          .getAt(int.tryParse(Modular.args.queryParams['id'] ?? '0') ?? 0)!;
-    }
+    if (Modular.args?.queryParams.containsKey("id") ?? false) {}
 
     return DefaultTabController(
         length: 4,
-        child: Scaffold(
-            appBar:
-                AppBar(title: Text("Admin Dashboard - " + (server ?? "Local"))),
+        child: FlowScaffold(
+            page: RoutePages.adminSettings,
+            pageTitle: "Admin Dashboard",
             body: Scrollbar(
                 controller: _scrollController,
                 child: SingleChildScrollView(
