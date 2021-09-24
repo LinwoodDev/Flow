@@ -14,6 +14,6 @@ class BadgesModule extends Module {
     ChildRoute('/create', child: (_, __) => const BadgePage()),
     ChildRoute("/details",
         child: (_, __) =>
-            BadgePage(id: int.tryParse(Modular.args?.queryParams['id'] ?? "0")))
+            BadgePage(id: int.tryParse(Modular.args.queryParams['id'] ?? "0")))
   ];
 }

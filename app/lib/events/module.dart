@@ -14,6 +14,6 @@ class EventsModule extends Module {
     ChildRoute('/create', child: (_, __) => const EventPage()),
     ChildRoute("/details",
         child: (_, __) =>
-            EventPage(id: int.tryParse(Modular.args?.queryParams['id'] ?? "0")))
+            EventPage(id: int.tryParse(Modular.args.queryParams['id'] ?? "0")))
   ];
 }

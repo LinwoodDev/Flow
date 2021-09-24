@@ -19,9 +19,9 @@ class _AdminPageState extends State<AdminPage> {
   @override
   Widget build(BuildContext context) {
     String? server;
-    if (Modular.args?.queryParams.containsKey("id") ?? false) {
+    if (Modular.args.queryParams.containsKey("id")) {
       server = Hive.box<String>('servers')
-          .getAt(int.tryParse(Modular.args?.queryParams['id'] ?? '0') ?? 0)!;
+          .getAt(int.tryParse(Modular.args.queryParams['id'] ?? '0') ?? 0)!;
     }
 
     return DefaultTabController(

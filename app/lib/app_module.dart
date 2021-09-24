@@ -1,4 +1,6 @@
 // app_module.dart
+import 'dart:async';
+
 import 'package:flow_app/admin/home.dart';
 import 'package:flow_app/badges/module.dart';
 import 'package:flow_app/events/module.dart';
@@ -36,13 +38,14 @@ class AppModule extends Module {
   ];
 }
 
-class AuthGuard implements RouteGuard {
+
+class AuthGuard extends RouteGuard {
   @override
-  Future<bool> canActivate(String url, ModularRoute route) async {
+  Future<bool> canActivate(String path, ModularRoute route) async {
     print(GetIt.I.get<AccountService>().account);
     return GetIt.I.get<AccountService>().account != null;
   }
 
-  @override
-  String? get guardedRoute => "/intro";
+
+  AuthGuard() : super(redirectTo: '/intro');
 }

@@ -14,6 +14,6 @@ class UsersModule extends Module {
     ChildRoute('/create', child: (_, __) => const UserPage()),
     ChildRoute("/details",
         child: (_, __) =>
-            UserPage(id: int.tryParse(Modular.args?.queryParams['id'] ?? "0")))
+            UserPage(id: int.tryParse(Modular.args.queryParams['id'] ?? "0")))
   ];
 }
