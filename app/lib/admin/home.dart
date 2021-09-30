@@ -18,7 +18,7 @@ class _AdminPageState extends State<AdminPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (Modular.args?.queryParams.containsKey("id") ?? false) {}
+    if (Modular.args.queryParams.containsKey("id")) {}
 
     return DefaultTabController(
         length: 4,
