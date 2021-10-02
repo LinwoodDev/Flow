@@ -1,4 +1,3 @@
-import 'package:flow_app/widgets/color_picker.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/drawer.dart';
@@ -16,6 +15,36 @@ class _HomePageState extends State<HomePage> {
     return FlowScaffold(
         page: RoutePages.home,
         pageTitle: "Home",
-        body: ColorPicker(onClick: (color) {}));
+        body: Align(
+          alignment: Alignment.topCenter,
+          child: Container(
+              constraints: const BoxConstraints(maxWidth: 800),
+              child: ListView(children: [
+                Card(child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text("Hello", textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline4),
+                )),
+                const SizedBox(height: 20),
+                Card(
+                    child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Currently happening",
+                            style: Theme.of(context).textTheme.headline5),
+                        const SizedBox(height: 20),
+                        Column(
+                          children: [
+                            ListTile(
+                                title: const Text("entry.name"),
+                                subtitle: const Text("entry.description"),
+                                onTap: () {})
+                          ],
+                        )
+                      ]),
+                ))
+              ])),
+        ));
   }
 }
