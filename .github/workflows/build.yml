@@ -1,29 +1,29 @@
-name: Build
+name: Flutter build
 
-on: [ push ]
+on: [push]
 
 jobs:
   build-apk:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v2
       - name: 🔧 Setup java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
-          java-version: "8.x"
+          java-version: "11"
+          distribution: "adopt"
       - uses: subosito/flutter-action@v1
         with:
           channel: "beta" # or: 'stable' or 'dev'
-      - name: ✅ Enable platforms
-        run: flutter config --enable-web
       - name: 📦 Get dependencies
-        working-directory: app
-        run: flutter pub get
+        run: |
+          cd app
+          flutter pub get
       #- run: flutter test
       - name: 🏭 Build
-        working-directory: app
         run: |
+          cd app
           flutter doctor -v
           flutter build apk -v --release
       - name: Archive
@@ -42,77 +42,65 @@ jobs:
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
       - name: 📦 Get dependencies
-        working-directory: app
-        run: flutter pub get
-      - name: 🏭 Build
-        working-directory: app
         run: |
+          cd app
+          flutter pub get
+      - name: 🏭 Build
+        shell: powershell
+        run: |
+          cd app
           flutter clean
           flutter doctor -v
           flutter build windows -v --release
-          flutter pub run msix:create
+      - name: Build setup
+        shell: pwsh
+        run: |
+          cd app
+          Get-Content pubspec.yaml | Select-String -Pattern 'version:\s(.+)\+'  | % {Set-Item -Path Env:BUTTERFLY_VERSION -Value "$($_.matches.groups[1])"}
+          & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:BUTTERFLY_VERSION ButterflySetup.iss
+        # flutter pub run msix:create
       - name: Archive
         uses: actions/upload-artifact@v2
         with:
           name: windows-build
           path: |
             app/build/windows/runner/Release/**
+      - name: Archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows-setup
+          path: |
+            app/build/windows/Butterfly-Setup.exe
   build-linux:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v2
       - name: Get dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgtk-3-dev libx11-dev pkg-config cmake ninja-build libblkid-dev liblzma-dev
+          sudo apt-get install -y python3-pip python3-setuptools desktop-file-utils libgdk-pixbuf2.0-dev fakeroot strace fuse libgtk-3-dev libx11-dev pkg-config cmake ninja-build libblkid-dev liblzma-dev clang dpkg-dev patchelf alien
       - uses: subosito/flutter-action@v1
         with:
-          channel: "dev" # or: 'stable' or 'dev'
+          channel: "beta" # or: 'stable' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
-        working-directory: app
-        run: flutter pub get
-      - name: 🏭 Build
-        working-directory: app
         run: |
+          cd app
+          flutter pub get
+      - name: 🏭 Build
+        run: |
+          cd app
           flutter clean
           flutter doctor -v
           flutter build linux -v --release
-          chmod +x build/linux/x64/release/bundle/app
       - name: Archive
         uses: actions/upload-artifact@v2
         with:
           name: linux-build
           path: |
             app/build/linux/x64/release/bundle/**
-  build-server:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ ubuntu-latest, windows-latest, macOS-latest ]
-        include:
-          - os: ubuntu-latest
-            output-name: server-linux
-          - os: macOS-latest
-            output-name: server-mac
-          - os: windows-latest
-            output-name: server-windows.exe
-    steps:
-      - uses: actions/checkout@v2
-      - uses: DanTup/gh-actions/setup-dart@master
-      - name: Build server
-        working-directory: server
-        run: |
-          mkdir build
-          pub get
-          dart compile exe bin/flow_server.dart -v -o build/${{ matrix.output-name }}
-      - uses: actions/upload-artifact@v2
-        with:
-          name: server-executables
-          path: server/build
   #build-macos:
   #  runs-on: macos-latest
   #  steps:
@@ -138,12 +126,14 @@ jobs:
   #        path: |
   #          build/windows/runner/Release/**
   deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     needs:
       - build-apk
       - build-windows
       - build-linux
     steps:
+      - name: ⬆️ Checkout
+        uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
         with:
           name: apk-build
@@ -157,49 +147,72 @@ jobs:
           path: linux-build/
       - uses: actions/download-artifact@v2
         with:
-          name: server-executables
-          path: server-executables/
+          name: linux-deb
+      #- uses: actions/download-artifact@v2
+      #  with:
+      #    name: linux-rpm
+      - uses: actions/download-artifact@v2
+        with:
+          name: linux-appimage
+      - uses: actions/download-artifact@v2
+        with:
+          name: windows-setup
       - name: 📦 Zip artifacts
         run: |
           zip -r windows.zip windows-build/*
           zip -r linux.zip linux-build/*
-      - name: 🚀 Deploy release
-        uses: eine/tip@master
+      - name: Configure git
+        if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
+        run: |
+          git --version
+          git config --global user.email "actions@github.com"
+          git config --global user.name "Actions"
+          git pull --tags
+      - name: Retag stable
         if: github.ref == 'refs/heads/main'
-        with:
-          tag: release
-          token: ${{ secrets.GITHUB_TOKEN }}
-          files: |
-            app-release.apk
-            windows.zip
-            linux.zip
-            server-executables/server-linux
-            server-executables/server-mac
-            server-executables/server-windows.exe
-      - name: 🚀 Deploy preview
-        uses: eine/tip@master
+        run: |
+          git tag -fa stable -m "Find all stable releases here"
+          git push origin stable -f
+      - name: Retag nightly
         if: github.ref == 'refs/heads/develop'
+        run: |
+          git tag -fa nightly -m "Find all nightly releases here"
+          git push origin nightly -f
+      - name: 🚀 Deploy stable
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v1
+        continue-on-error: true
         with:
-          tag: preview
-          token: ${{ secrets.GITHUB_TOKEN }}
-          rm: true
+          tag_name: stable
           files: |
+            Butterfly-Setup.exe
             app-release.apk
             windows.zip
             linux.zip
-            server-executables/server-linux
-            server-executables/server-mac
-            server-executables/server-windows.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 🚀 Deploy nightly
+        if: github.ref == 'refs/heads/develop'
+        uses: softprops/action-gh-release@v1
+        continue-on-error: true
+        with:
+          tag_name: nightly
+          files: |
+            Butterfly-Setup.exe
+            app-release.apk
+            windows.zip
+            linux.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
         uses: softprops/action-gh-release@v1
+        continue-on-error: true
         if: startsWith(github.ref, 'refs/tags/v')
         with:
           files: |
+            Butterfly-Setup.exe
             app-release.apk
             windows.zip
             linux.zip
-            server-executables/server-linux
-            server-executables/server-mac
-            server-executables/server-windows.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
