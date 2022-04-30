@@ -13,7 +13,9 @@ include: package:flutter_lints/flutter.yaml
 linter:
   rules:
     avoid_print: false
+    library_private_types_in_public_api: false
 analyzer:
   exclude:
     - "build/**"
     - "**/*.g.dart"
+    - "lib/generated_plugin_registrant.dart"

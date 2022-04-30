@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:flow_app/session/home.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/config/main.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:web_socket_channel/web_socket_channel.dart'
+    show WebSocketChannel;
 
 class ConnectPage extends StatefulWidget {
   final bool inIntro;
@@ -61,7 +61,8 @@ class _ConnectPageState extends State<ConnectPage>
                           labelText: "URL $scheme",
                           hintText: "example.com")),
                   const SizedBox(height: 20),
-                  Row(mainAxisAlignment: MainAxisAlignment.center,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       OutlinedButton(
                           child: const Text("USE LOCAL"),
@@ -77,7 +78,7 @@ class _ConnectPageState extends State<ConnectPage>
             child: const Icon(PhosphorIcons.checkLight),
             onPressed: () async {
               var uri =
-                  Uri.parse(_secure ? "wss://" : "ws://" + _urlController.text);
+                  Uri.parse(_secure ? "wss://" : "ws://${_urlController.text}");
               var channel = WebSocketChannel.connect(uri);
 
               channel.sink.add(json.encode({"route": "info"}));

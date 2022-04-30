@@ -229,84 +229,90 @@ class _AssignDialogState extends State<AssignDialog>
                                   }),
                             ),
                             Builder(
-                                builder: (context) => StreamBuilder<
-                                        List<Event>>(
-                                    stream: eventsService.onEvents(),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasError) {
-                                        return Text("Error: ${snapshot.error}");
-                                      }
-                                      if (snapshot.connectionState ==
-                                              ConnectionState.waiting ||
-                                          !snapshot.hasData) {
-                                        return const Center(
-                                            child: CircularProgressIndicator());
-                                      }
-                                      var eveents = snapshot.data!;
-                                      return SingleChildScrollView(
-                                          child: Column(children: [
-                                        if (eveents.any((a) => !assigned.events
-                                            .any((b) => b.id == a.id)))
-                                          OutlinedButton.icon(
-                                              onPressed: () => showDialog(
-                                                  context: context,
-                                                  builder: (context) =>
-                                                      SimpleDialog(
-                                                          title: const Text(
-                                                              "Add event"),
-                                                          children: eveents
-                                                              .where((a) =>
-                                                                  !assigned
+                                builder: (context) =>
+                                    StreamBuilder<List<Event>>(
+                                        stream: eventsService.onEvents(),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.hasError) {
+                                            return Text(
+                                                "Error: ${snapshot.error}");
+                                          }
+                                          if (snapshot.connectionState ==
+                                                  ConnectionState.waiting ||
+                                              !snapshot.hasData) {
+                                            return const Center(
+                                                child:
+                                                    CircularProgressIndicator());
+                                          }
+                                          var eveents = snapshot.data!;
+                                          return SingleChildScrollView(
+                                              child: Column(children: [
+                                            if (eveents.any((a) => !assigned
+                                                .events
+                                                .any((b) => b.id == a.id)))
+                                              OutlinedButton.icon(
+                                                  onPressed: () => showDialog(
+                                                      context: context,
+                                                      builder: (context) =>
+                                                          SimpleDialog(
+                                                              title: const Text(
+                                                                  "Add event"),
+                                                              children: eveents
+                                                                  .where((a) => !assigned
                                                                       .events
                                                                       .any((b) =>
                                                                           b.id ==
                                                                           a.id))
-                                                              .map((e) =>
-                                                                  SimpleDialogOption(
-                                                                      child: Text(e
-                                                                          .name),
-                                                                      onPressed:
-                                                                          () {
+                                                                  .map((e) => SimpleDialogOption(
+                                                                      child: Text(e.name),
+                                                                      onPressed: () {
                                                                         Navigator.of(context)
                                                                             .pop();
                                                                         setState(() =>
                                                                             assigned =
                                                                                 assigned.copyWith(events: List.from(assigned.events)..add(AssignedObject(flag: true, id: e.id))));
                                                                       }))
-                                                              .toList())),
-                                              icon: const Icon(
-                                                  PhosphorIcons.plusLight),
-                                              label: const Text("ADD EVENT")),
-                                        ...assigned.events
-                                            .asMap()
-                                            .entries
-                                            .map((e) => _AssignedObjectField(
-                                                  initialFlag: e.value.flag,
-                                                  onDelete: () => assigned =
-                                                      assigned.copyWith(
-                                                          events: List.from(
-                                                              assigned.events)
-                                                            ..removeWhere((v) =>
-                                                                v.id ==
-                                                                e.value.id)),
-                                                  title: eveents
-                                                      .firstWhere((element) =>
-                                                          element.id ==
-                                                          e.value.id)
-                                                      .name,
-                                                  onChanged: (value) => assigned =
-                                                      assigned.copyWith(
-                                                          events: List.from(
-                                                              assigned.events)
-                                                            ..[e.key] =
-                                                                AssignedObject(
-                                                                    flag: value,
-                                                                    id: e.value
-                                                                        .id)),
-                                                ))
-                                            .toList()
-                                      ]));
-                                    }))
+                                                                  .toList())),
+                                                  icon: const Icon(PhosphorIcons.plusLight),
+                                                  label: const Text("ADD EVENT")),
+                                            ...assigned.events
+                                                .asMap()
+                                                .entries
+                                                .map((e) =>
+                                                    _AssignedObjectField(
+                                                      initialFlag: e.value.flag,
+                                                      onDelete: () => assigned =
+                                                          assigned.copyWith(
+                                                              events: List.from(
+                                                                  assigned
+                                                                      .events)
+                                                                ..removeWhere(
+                                                                    (v) =>
+                                                                        v.id ==
+                                                                        e.value
+                                                                            .id)),
+                                                      title: eveents
+                                                          .firstWhere(
+                                                              (element) =>
+                                                                  element.id ==
+                                                                  e.value.id)
+                                                          .name,
+                                                      onChanged: (value) => assigned =
+                                                          assigned.copyWith(
+                                                              events: List.from(
+                                                                  assigned
+                                                                      .events)
+                                                                ..[e.key] =
+                                                                    AssignedObject(
+                                                                        flag:
+                                                                            value,
+                                                                        id: e
+                                                                            .value
+                                                                            .id)),
+                                                    ))
+                                                .toList()
+                                          ]));
+                                        }))
                           ])),
                       const Divider(),
                       Padding(
@@ -366,9 +372,9 @@ class __AssignedObjectFieldState extends State<_AssignedObjectField> {
     return widget.onDelete != null
         ? Dismissible(
             key: _dismissibleKey,
-            child: _buildMenu(),
             onDismissed: (direction) => widget.onDelete!(),
-            background: Container(color: Colors.red))
+            background: Container(color: Colors.red),
+            child: _buildMenu())
         : _buildMenu();
   }
 

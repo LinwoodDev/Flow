@@ -22,27 +22,27 @@ environment:
 
 dependencies:
   animations: ^2.0.2
-  hive: ^2.0.5
+  hive: ^2.1.0
   hive_flutter: ^1.1.0
-  flutter_modular: ^4.3.1
+  flutter_modular: ^5.0.0-dev.8
   http: ^0.13.4
-  msix: ^2.7.3
-  url_launcher: ^6.0.17
+  msix: ^3.5.1
+  url_launcher: ^6.1.0
   easy_localization: ^3.0.0
-  enum_to_string: ^2.0.1
   get_it: ^7.2.0
   phosphor_flutter: ^1.4.0
   sembast_web: ^2.0.1+1
-  path_provider: ^2.0.8
-  biometric_storage: ^3.0.1
+  path_provider: ^2.0.9
+  biometric_storage: ^4.1.1
   shared:
     path: ../shared
   flutter:
     sdk: flutter
+  web_socket_channel: ^2.2.0
 dev_dependencies:
-  hive_generator: ^1.1.1
-  build_runner: ^2.1.7
-  flutter_lints: ^1.0.4
+  hive_generator: ^1.1.2
+  build_runner: ^2.1.10
+  flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
 

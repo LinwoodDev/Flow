@@ -77,9 +77,9 @@ class _IntroPageState extends State<IntroPage> {
         child: Align(
           child: PageView(
               scrollDirection: Axis.horizontal,
-              children: _pages,
               controller: _pageController,
-              onPageChanged: (value) => setState(() => _currentPage = value)),
+              onPageChanged: (value) => setState(() => _currentPage = value),
+              children: _pages),
         ),
       ),
       const Divider(),

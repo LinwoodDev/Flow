@@ -1,7 +1,5 @@
-import 'package:flow_app/session/connect.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class AppWidget extends StatelessWidget {
@@ -14,7 +12,7 @@ class AppWidget extends StatelessWidget {
     return ValueListenableBuilder(
         valueListenable: Hive.box('appearance').listenable(),
         builder: (context, dynamic box, widget) {
-          return MaterialApp(
+          return MaterialApp.router(
             /*builder: (context, child) => child == null ? Container() : MediaQuery(
                 data: MediaQuery.of(context)
                     .copyWith(alwaysUse24HourFormat: true),
@@ -47,8 +45,9 @@ class AppWidget extends StatelessWidget {
                     onPrimary: Colors.white,
                     secondary: const Color(0xFF64dd17)),
                 visualDensity: VisualDensity.adaptivePlatformDensity),
-            home: const ConnectPage(),
-          ).modular();
+            routeInformationParser: Modular.routeInformationParser,
+            routerDelegate: Modular.routerDelegate,
+          );
         });
   }
 

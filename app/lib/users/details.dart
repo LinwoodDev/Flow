@@ -192,7 +192,7 @@ class _UserPageState extends State<UserPage> {
                                 service.updateUser(user.copyWith(state: value)),
                             itemBuilder: (context) => UserState.values
                                 .map((e) => PopupMenuItem(
-                                    child: Text(e.toString()), value: e))
+                                    value: e, child: Text(e.toString())))
                                 .toList(),
                             child: ListTile(
                                 title: const Text("User state"),

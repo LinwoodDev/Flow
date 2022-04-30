@@ -49,7 +49,7 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> _widgetOptions = <Widget>[
+    List<Widget> widgetOptions = <Widget>[
       StreamBuilder<List<Event>>(
         stream: service.onOpenedEvents(),
         builder: (context, snapshot) {
@@ -118,7 +118,7 @@ class _EventsOverviewViewState extends State<EventsOverviewView> {
             label: const Text("Create event"),
             icon: const Icon(PhosphorIcons.plusLight)),
         body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
+          child: widgetOptions.elementAt(_selectedIndex),
         ),
         bottomNavigationBar:
             BottomNavigationBar(items: const <BottomNavigationBarItem>[

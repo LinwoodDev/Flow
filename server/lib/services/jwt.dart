@@ -19,6 +19,7 @@ class JWTService {
         subject: subject, issuer: issuer);
     return jwt.sign(SecretKey(secret));
   }
+
   Future<JWTPair> createPair(String userId) async {
     final tokenId = Uuid().v4();
     final token = generate(userId);
@@ -31,25 +32,30 @@ class JWTService {
     return JWTPair(token, refreshToken);
   }
 
-
   JWT? verify(String? token) {
-    if(token == null) {
+    if (token == null) {
       return null;
     }
     try {
       return JWT.verify(token, SecretKey(secret));
     } catch (_) {}
+    return null;
   }
+
   Future<void> addRefreshToken(String id, String token, Duration expiry) async {
-    await tokensStore.add(db, {"id": id, "token": token, "expire": expiry.inSeconds});
+    await tokensStore
+        .add(db, {"id": id, "token": token, "expire": expiry.inSeconds});
   }
 
   Future<dynamic> getRefreshToken(String id) async {
-    return await tokensStore.findFirst(db, finder: Finder(filter: Filter.equals("token", id))).then((value) => value?.value);
+    return await tokensStore
+        .findFirst(db, finder: Finder(filter: Filter.equals("token", id)))
+        .then((value) => value?.value);
   }
 
   Future<void> removeRefreshToken(String id) async {
-    await tokensStore.delete(db, finder: Finder(filter: Filter.equals("token", id)));
+    await tokensStore.delete(db,
+        finder: Finder(filter: Filter.equals("token", id)));
   }
 }
 

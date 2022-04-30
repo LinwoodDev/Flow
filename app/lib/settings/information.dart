@@ -22,33 +22,36 @@ class _InformationPageState extends State<InformationPage> {
           ListTile(
               leading: const Icon(PhosphorIcons.stackLight),
               title: const Text("License"),
-              onTap: () => launch(
-                  "https://github.com/LinwoodCloud/Flow/blob/main/LICENSE")),
+              onTap: () => launchUrl(Uri.https(
+                  "github.com", "/LinwoodCloud/Flow/blob/main/LICENSE"))),
           ListTile(
               leading: const Icon(PhosphorIcons.codeLight),
               title: const Text("Code"),
-              onTap: () => launch("https://github.com/LinwoodCloud/Flow")),
+              onTap: () =>
+                  launchUrl(Uri.https("github.com", "/LinwoodCloud/Flow"))),
           ListTile(
               leading: const Icon(PhosphorIcons.usersLight),
               title: const Text("Discord"),
-              onTap: () => launch("https://discord.linwood.dev")),
+              onTap: () => launchUrl(Uri.https("discord.linwood.dev", ""))),
           ListTile(
               leading: const Icon(PhosphorIcons.articleLight),
               title: const Text("Docs"),
-              onTap: () => launch("https://docs.flow.linwood.dev")),
+              onTap: () => launchUrl(Uri.https("docs.flow.linwood.dev", ""))),
           ListTile(
               leading: const Icon(PhosphorIcons.arrowCounterClockwiseLight),
               title: const Text("Changelog"),
-              onTap: () => launch("https://docs.flow.linwood.dev/changelog")),
+              onTap: () =>
+                  launchUrl(Uri.https("docs.flow.linwood.dev", "/changelog"))),
           ListTile(
               leading: const Icon(PhosphorIcons.identificationCardLight),
               title: const Text("Imprint"),
-              onTap: () => launch("https://codedoctor.tk/impress")),
+              onTap: () =>
+                  launchUrl(Uri.https("https://go.linwood.dev", "/impress"))),
           ListTile(
               leading: const Icon(PhosphorIcons.shieldLight),
               title: const Text("Privacy policy"),
-              onTap: () =>
-                  launch("https://docs.flow.linwood.dev/privacypolicy")),
+              onTap: () => launchUrl(
+                  Uri.https("docs.flow.linwood.dev", "/privacypolicy"))),
           ListTile(
               leading: const Icon(PhosphorIcons.infoLight),
               title: const Text("About"),

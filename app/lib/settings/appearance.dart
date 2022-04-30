@@ -1,9 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flow_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class AppearanceSettingsPage extends StatelessWidget {
@@ -21,9 +19,8 @@ class AppearanceSettingsPage extends StatelessWidget {
               return ListView(children: [
                 ListTile(
                     title: const Text('settings.appearance.theme.title').tr(),
-                    subtitle: Text('settings.appearance.theme.' +
-                            EnumToString.convertToString(theme))
-                        .tr(),
+                    subtitle:
+                        Text('settings.appearance.theme.${theme.name}').tr(),
                     onTap: () => showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -50,11 +47,7 @@ class AppearanceSettingsPage extends StatelessWidget {
                                           value: ThemeMode.values[index],
                                           groupValue: selectedRadio,
                                           title: Text(
-                                                  'settings.appearance.theme.' +
-                                                      EnumToString
-                                                          .convertToString(
-                                                              ThemeMode.values[
-                                                                  index]))
+                                                  'settings.appearance.theme.${ThemeMode.values[index].name}')
                                               .tr(),
                                           onChanged: (value) {
                                             setState(
