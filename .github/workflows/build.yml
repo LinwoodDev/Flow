@@ -1,112 +1,161 @@
 name: Flutter build
 
-on: [push]
-
+on: [push, release]
 jobs:
   build-apk:
-    runs-on: ubuntu-18.04
+    defaults:
+      run:
+        working-directory: app
+    runs-on: ubuntu-22.04
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: 🔧 Setup java
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: "11"
           distribution: "adopt"
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v2
         with:
-          channel: "beta" # or: 'stable' or 'dev'
+          flutter-version: '3.0.2'
+          channel: "stable" # or: 'beta' or 'dev'
       - name: 📦 Get dependencies
         run: |
-          cd app
           flutter pub get
       #- run: flutter test
-      - name: 🏭 Build
+      - name: 🏭 Build nightly
+        if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
-          cd app
           flutter doctor -v
-          flutter build apk -v --release
+          flutter build apk -v --release --flavor development
+          cp build/app/outputs/flutter-apk/app-development-release.apk linwood-flow-android.apk
+      - name: 🏭 Build production
+        if: ${{ github.ref == 'refs/tags/stable' }}
+        run: |
+          flutter doctor -v
+          flutter build apk -v --release --flavor production
+          cp build/app/outputs/flutter-apk/app-production-release.apk linwood-flow-android.apk
       - name: Archive
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: apk-build
-          path: app/build/app/outputs/flutter-apk/app-release.apk
+          path: app/linwood-flow-android.apk
   build-windows:
-    runs-on: windows-latest
+    runs-on: windows-2022
+    defaults:
+      run:
+        working-directory: app
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v1
+        uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
         with:
-          channel: "beta" # or: 'stable' or 'dev'
+          flutter-version: '3.0.2'
+          channel: "stable" # or: 'beta' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
       - name: 📦 Get dependencies
         run: |
-          cd app
           flutter pub get
       - name: 🏭 Build
-        shell: powershell
+        shell: pwsh
         run: |
-          cd app
           flutter clean
           flutter doctor -v
           flutter build windows -v --release
       - name: Build setup
         shell: pwsh
         run: |
-          cd app
-          Get-Content pubspec.yaml | Select-String -Pattern 'version:\s(.+)\+'  | % {Set-Item -Path Env:BUTTERFLY_VERSION -Value "$($_.matches.groups[1])"}
-          & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:BUTTERFLY_VERSION ButterflySetup.iss
+          Get-Content pubspec.yaml | Select-String -Pattern 'version:\s(.+)\+'  | % {Set-Item -Path Env:FLOW_VERSION -Value "$($_.matches.groups[1])"}
+          & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:FLOW_VERSION FlowSetup.iss
         # flutter pub run msix:create
       - name: Archive
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: windows-build
           path: |
             app/build/windows/runner/Release/**
       - name: Archive
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: windows-setup
           path: |
-            app/build/windows/Butterfly-Setup.exe
+            app/build/windows/linwood-flow-windows-setup.exe
   build-linux:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: app
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Get dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-pip python3-setuptools desktop-file-utils libgdk-pixbuf2.0-dev fakeroot strace fuse libgtk-3-dev libx11-dev pkg-config cmake ninja-build libblkid-dev liblzma-dev clang dpkg-dev patchelf alien
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v2
         with:
-          channel: "beta" # or: 'stable' or 'dev'
+          flutter-version: '3.0.2'
+          channel: "stable" # or: 'beta' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
         run: |
-          cd app
           flutter pub get
       - name: 🏭 Build
         run: |
-          cd app
           flutter clean
           flutter doctor -v
           flutter build linux -v --release
+      - name: Build .deb executable
+        run: |
+          cp -fr build/linux/x64/release/bundle linux/debian/usr/bin
+          dpkg-deb --build --root-owner-group linux/debian
+          cp linux/*.deb linwood-flow-linux.deb
+      #- name: Build .rpm executable
+      #  run: |
+      #    cd app
+      #    alien -r linwood-flow-linux.deb
+      #    mv linwood-flow*.rpm linwood-flow-linux.rpm
+      - name: Build .AppImage executable
+        run: |
+          wget -O appimage-builder-x86_64.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.0.0-beta.1/appimage-builder-1.0.0-677acbd-x86_64.AppImage
+          chmod +x appimage-builder-x86_64.AppImage
+          sudo mv appimage-builder-x86_64.AppImage /usr/local/bin/appimage-builder
+          appimage-builder --recipe AppImageBuilder.yml --skip-test
+      - name: Rename AppImage
+        run: |
+          mv ./*.AppImage* linwood-flow-linux.AppImage
       - name: Archive
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: linux-build
           path: |
             app/build/linux/x64/release/bundle/**
+      - name: Archive .deb
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux-deb
+          path: |
+            app/linwood-flow-linux.deb
+      #- name: Archive .rpm
+      #  uses: actions/upload-artifact@v3
+      #  with:
+      #    name: linux-rpm
+      #    path: |
+      #      app/linwood-flow-linux.rpm
+      - name: Archive .AppImage
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux-appimage
+          path: |
+            app/linwood-flow-linux.AppImage
   #build-macos:
   #  runs-on: macos-latest
   #  steps:
   #    - name: ⬆️ Checkout
-  #      uses: actions/checkout@v2
-  #    - uses: subosito/flutter-action@v1
+  #      uses: actions/checkout@v3
+  #    - uses: subosito/flutter-action@v2
   #      with:
   #        channel: "dev" # or: 'stable' or 'dev'
   #    - name: ✅ Enable platforms
@@ -120,47 +169,53 @@ jobs:
   #        flutter doctor -v
   #        flutter build macos -v
   #    - name: Archive
-  #      uses: actions/upload-artifact@v2
+  #      uses: actions/upload-artifact@v3
   #      with:
   #        name: macos-build
   #        path: |
   #          build/windows/runner/Release/**
   deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     needs:
       - build-apk
       - build-windows
       - build-linux
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v2
-      - uses: actions/download-artifact@v2
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.CI_PAT }}
+      - name: Setup git
+        run: |
+          git config --global user.email "ci@linwood.dev"
+          git config --global user.name "Linwood CI"
+      - uses: actions/download-artifact@v3
         with:
           name: apk-build
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: windows-build
           path: windows-build/
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: linux-build
           path: linux-build/
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: linux-deb
-      #- uses: actions/download-artifact@v2
+      #- uses: actions/download-artifact@v3
       #  with:
       #    name: linux-rpm
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: linux-appimage
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: windows-setup
       - name: 📦 Zip artifacts
         run: |
-          zip -r windows.zip windows-build/*
-          zip -r linux.zip linux-build/*
+          zip -r linwood-flow-windows.zip windows-build/*
+          zip -r linwood-flow-linux.zip linux-build/*
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
@@ -168,40 +223,36 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "Actions"
           git pull --tags
-      - name: Retag stable
-        if: github.ref == 'refs/heads/main'
-        run: |
-          git tag -fa stable -m "Find all stable releases here"
-          git push origin stable -f
-      - name: Retag nightly
-        if: github.ref == 'refs/heads/develop'
-        run: |
-          git tag -fa nightly -m "Find all nightly releases here"
-          git push origin nightly -f
       - name: 🚀 Deploy stable
-        if: github.ref == 'refs/heads/main'
+        if: ${{ github.ref == 'refs/tags/stable' }}
         uses: softprops/action-gh-release@v1
         continue-on-error: true
         with:
+          prerelease: true
           tag_name: stable
           files: |
-            Butterfly-Setup.exe
-            app-release.apk
-            windows.zip
-            linux.zip
+            linwood-flow-windows-setup.exe
+            linwood-flow-windows.zip
+            linwood-flow-android.apk
+            linwood-flow-linux.zip
+            linwood-flow-linux.deb
+            linwood-flow-linux.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy nightly
-        if: github.ref == 'refs/heads/develop'
+        if: ${{ github.ref == 'refs/tags/nightly' }}
         uses: softprops/action-gh-release@v1
         continue-on-error: true
         with:
+          prerelease: true
           tag_name: nightly
           files: |
-            Butterfly-Setup.exe
-            app-release.apk
-            windows.zip
-            linux.zip
+            linwood-flow-windows-setup.exe
+            linwood-flow-windows.zip
+            linwood-flow-android.apk
+            linwood-flow-linux.zip
+            linwood-flow-linux.deb
+            linwood-flow-linux.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
@@ -210,9 +261,62 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         with:
           files: |
-            Butterfly-Setup.exe
-            app-release.apk
-            windows.zip
-            linux.zip
+            linwood-flow-windows-setup.exe
+            linwood-flow-windows.zip
+            linwood-flow-android.apk
+            linwood-flow-linux.zip
+            linwood-flow-linux.deb
+            linwood-flow-linux.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  deploy-to-play-store:
+    runs-on: ubuntu-22.04
+    if: startsWith(github.ref, 'refs/tags/')
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - name: ⬆️ Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.CI_PAT }}
+      - name: Setup git
+        run: |
+          git config --global user.email "ci@linwood.dev"
+          git config --global user.name "Linwood CI"
+      - name: Import files
+        env:
+          KEY_JKS: ${{ secrets.KEY_JKS }}
+          KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
+          PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
+        run: |
+          cd android
+          echo "$KEY_PROPERTIES" | base64 --decode > key.properties
+          echo "$KEY_JKS" | base64 --decode > key.jks
+          echo "$PLAY_STORE_CREDENTIALS" | base64 --decode > play-store-credentials.json
+      - name: 🔧 Setup java
+        uses: actions/setup-java@v3
+        with:
+          java-version: "11"
+          distribution: "adopt"
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.0.2'
+          channel: "stable" # or: 'beta' or 'dev'
+      - name: 📦 Get dependencies
+        run: |
+          flutter pub get
+      - name: Setup Fastlane
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.1.2"
+          bundler-cache: true
+          working-directory: app/android
+      - name: 🚀 Deploy to Play Store
+        if: ${{ github.ref == 'refs/tags/stable' }}
+        run: bundle exec fastlane deploy
+        working-directory: app/android
+      - name: 🚀 Deploy to Play Store
+        if: ${{ github.ref == 'refs/tags/nightly' }}
+        run: bundle exec fastlane beta
+        working-directory: app/android

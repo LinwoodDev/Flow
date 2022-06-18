@@ -1,29 +1,29 @@
-name: Documentation
+name: documentation
 
 on:
   pull_request:
-    branches: [ develop ]
+    branches: [develop]
   push:
-    branches: [ develop ]
+    branches: [develop]
 
 jobs:
   checks:
-    runs-on: ubuntu-latest
+    if: github.event_name != 'push'
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '12.x'
+          node-version: '16'
+      - name: Install dependencies
+        run: |
+          cd docs
+          yarn install
+      - name: Check lint
+        run: |
+          cd docs
+          yarn lint
       - name: Test Build
         run: |
-          cp CHANGELOG.md docs/src/pages/changelog.md
-          cp SECURITY.md docs/src/pages/versions.md
           cd docs
-          if [ -e yarn.lock ]; then
-          yarn install --frozen-lockfile
-          elif [ -e package-lock.json ]; then
-          npm ci
-          else
-          npm i
-          fi
-          npm run build
+          yarn build

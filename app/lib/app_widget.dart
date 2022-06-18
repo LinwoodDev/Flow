@@ -20,6 +20,7 @@ class AppWidget extends StatelessWidget {
             title: 'Linwood Flow',
             themeMode: ThemeMode.values[box.get('theme', defaultValue: 0)],
             theme: ThemeData(
+                useMaterial3: true,
                 fontFamily: "Comfortaa",
                 // This is the theme of your application.
                 //
@@ -36,6 +37,7 @@ class AppWidget extends StatelessWidget {
                     primary: color, secondary: const Color(0xFF64dd17)),
                 visualDensity: VisualDensity.adaptivePlatformDensity),
             darkTheme: ThemeData(
+                useMaterial3: true,
                 fontFamily: "Comfortaa",
                 brightness: Brightness.dark,
                 primarySwatch: createMaterialColor(color),

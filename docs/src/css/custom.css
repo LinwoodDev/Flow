@@ -5,8 +5,14 @@
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
-:root {
+/* Import Montserrat font from file */
+@font-face {
+    font-family: 'Raleway';
+    src: url('/Raleway.ttf') format('truetype');
+  }
+  
+  /* You can override the default Infima variables here. */
+  :root {
     --ifm-color-primary: #7c4dff;
     --ifm-color-primary-dark: #642cff;
     --ifm-color-primary-darker: #571bff;
@@ -15,11 +21,264 @@
     --ifm-color-primary-lighter: #a17fff;
     --ifm-color-primary-lightest: #c5b1ff;
     --ifm-code-font-size: 95%;
-}
-
-.docusaurus-highlight-code-line {
+    --ifm-font-family-base: 'Raleway', sans-serif;
+    --ifm-menu-color-background-active: var(--ifm-color-primary-darkest);
+    --ifm-menu-link-padding-vertical: 0.75rem;
+    --ifm-menu-color-active: var(--ifm-color-gray-100);
+    --custom-border-radius: 8px;
+    --custom-border-radius-md: 12px;
+    --ifm-code-border-radius: var(--custom-border-radius);
+    --ifm-button-border-radius: var(--custom-border-radius);
+    scroll-behavior: smooth;
+  }
+  
+  img {
+    border-radius: 12px;
+  }
+  
+  .DocSearch-Button {
+    border-radius: var(--custom-border-radius-md) !important;
+  }
+  .menu__list-item-collapsible {
+    --ifm-menu-color-active: var(--ifm-color-emphasis-900);
+  }
+  .footer {
+    --ifm-footer-background-color:var(--ifm-color-emphasis-900);
+    --ifm-footer-link-color: var(--ifm-color-emphasis-700);
+  }
+  .footer--dark {
+    --ifm-footer-title-color: var(--ifm-color-primary-darkest);
+    --ifm-footer-background-color:var(--ifm-color-emphasis-100);
+    --ifm-footer-color: inherit;
+  }
+  .navbar__item {
+    margin: 0;
+    padding: 0;
+  }
+  .navbar__link {
+    border-radius: 0.25rem;
+    padding: 0.4rem 0.8rem;
+    margin: 0.25rem;
+    transition: background 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+  }
+  @media (max-width: 996px) {
+    .navbar__link {
+      display: none;
+    }
+  }
+  .navbar__link:hover {
+    background: var(--ifm-color-emphasis-300);
+    color: var(--ifm-color-emphasis-900);
+  }
+  .navbar__link--active {
+    font-weight: bold;
+    background: var(--ifm-color-primary-dark);
+    color: var(--ifm-color-white);
+  }
+  .navbar__link--active:hover {
+    background: var(--ifm-color-primary-darkest);
+    color: var(--ifm-color-white);
+  }
+  .docusaurus-highlight-code-line {
     background-color: rgb(72, 77, 91);
     display: block;
     margin: 0 calc(-1 * var(--ifm-pre-padding));
     padding: 0 var(--ifm-pre-padding);
-}
+  }
+  
+  html[data-theme='light'] .DocSearch {
+    /* --docsearch-primary-color: var(--ifm-color-primary); */
+    /* --docsearch-text-color: var(--ifm-font-color-base); */
+    --docsearch-muted-color: var(--ifm-color-secondary-darkest);
+    --docsearch-container-background: rgba(94, 100, 112, 0.7);
+    /* Modal */
+    --docsearch-modal-background: var(--ifm-color-secondary-lighter);
+    /* Search box */
+    --docsearch-searchbox-background: var(--ifm-color-secondary);
+    --docsearch-searchbox-focus-background: var(--ifm-color-white);
+    /* Hit */
+    --docsearch-hit-color: var(--ifm-font-color-base);
+    --docsearch-hit-active-color: var(--ifm-color-white);
+    --docsearch-hit-background: var(--ifm-color-white);
+    /* Footer */
+    --docsearch-footer-background: var(--ifm-color-white);
+  }
+  
+  html[data-theme='dark'] .DocSearch {
+    --docsearch-text-color: var(--ifm-font-color-base);
+    --docsearch-muted-color: var(--ifm-color-secondary-darkest);
+    --docsearch-container-background: rgba(47, 55, 69, 0.7);
+    /* Modal */
+    --docsearch-modal-background: var(--ifm-background-color);
+    /* Search box */
+    --docsearch-searchbox-background: var(--ifm-background-color);
+    --docsearch-searchbox-focus-background: var(--ifm-color-black);
+    /* Hit */
+    --docsearch-hit-color: var(--ifm-font-color-base);
+    --docsearch-hit-active-color: var(--ifm-color-white);
+    --docsearch-hit-background: var(--ifm-color-emphasis-100);
+    /* Footer */
+    --docsearch-footer-background: var(--ifm-background-surface-color);
+    --docsearch-key-gradient: linear-gradient(
+      -26.5deg,
+      var(--ifm-color-emphasis-200) 0%,
+      var(--ifm-color-emphasis-100) 100%
+    );
+  }
+  
+  .DocSearch-Button {
+    border-radius: 10px;
+  }
+  
+  .menu__list-item-collapsible {
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 0.5rem 0rem;
+  }
+  .menu__list-item-collapsible--active {
+    background-color: var(--ifm-color-primary-dark);
+    color: var(--ifm-color-white);
+  }
+  .menu__list-item-collapsible--active:hover {
+    background-color: var(--ifm-color-primary-darkest);
+    color: var(--ifm-color-white);
+  }
+  
+  .menu__link--active:not(.menu__link--sublist) {
+    background-color: var(--ifm-color-primary-dark);
+    font-weight: bold;
+    transition: background 0.2s ease-in-out;
+  
+  }
+  .menu__link--active:not(.menu__link--sublist):hover {
+    background-color: var(--ifm-color-primary-darkest);
+  }
+  
+  /* -- Checkbox -- */
+  .checkbox {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkbox-checkmark {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: var(--ifm-color-emphasis-200);
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .checkbox:hover input ~ .checkbox-checkmark {
+    background-color: var(--ifm-color-emphasis-300);
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .checkbox input:checked ~ .checkbox-checkmark {
+    background-color: var(--ifm-color-primary);
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkbox-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .checkbox input:checked ~ .checkbox-checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .checkbox .checkbox-checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  
+  .input {
+    display: block;
+    width: 100%;
+    flex: 1;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--ifm-font-color-base);
+    background-color: var(--ifm-background-color);
+    background-clip: padding-box;
+    border: 1px solid var(--ifm-color-primary);
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    margin: 0.5rem 1rem;
+  }
+  .input:focus {
+    outline: none;
+    border-color: var(--ifm-color-primary);
+  }
+  .input-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .icon-button {
+    display: inline-flex;
+    align-items: center;
+  }
+  .icon-button svg {
+    fill: var(--ifm-button-color);
+    stroke: var(--ifm-button-color);
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5rem;
+  }
+  
+  :where(.icon-button--windows) {
+    --ifm-button-background-color: #0078D6;
+    --ifm-button-border-color: #0078D6;
+  }
+  
+  :where(.icon-button--linux) {
+    --ifm-button-background-color: #FCC624;
+    --ifm-button-border-color: #FCC624;
+  }
+  :where(.icon-button--android) {
+    --ifm-button-background-color: #3DDC84;
+    --ifm-button-border-color: #3DDC84;
+  }
+  :where(.icon-button--pwa) {
+    --ifm-button-background-color: #5A0FC8;
+    --ifm-button-border-color: #5A0FC8;
+  }
