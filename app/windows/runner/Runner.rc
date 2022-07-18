@@ -94,7 +94,7 @@ BEGIN
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "Linwood Flow" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2021 dev.linwood.flow. All rights reserved." "\0"
-            VALUE "OriginalFilename", "flow_app.exe" "\0"
+            VALUE "OriginalFilename", "flow.exe" "\0"
             VALUE "ProductName", "Linwood Flow" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END

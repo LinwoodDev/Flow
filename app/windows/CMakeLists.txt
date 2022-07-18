@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
-project(flow_app LANGUAGES CXX)
+project(flow LANGUAGES CXX)
 
-set(BINARY_NAME "flow_app")
+set(BINARY_NAME "flow")
 
 cmake_policy(SET CMP0063 NEW)
 
