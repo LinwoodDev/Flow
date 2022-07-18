@@ -281,6 +281,10 @@ jobs:
         with:
           name: server-build
           path: server-build/
+      - name: Rename ubuntu server file
+        run: |
+          mv server-build/linwood-flow-server-ubuntu server-build/linwood-flow-server-linux
+        continue-on-error: true
       - name: 📦 Zip artifacts
         run: |
           zip -r linwood-flow-windows.zip windows-build/*
