@@ -20,9 +20,12 @@ class _HomePageState extends State<HomePage> {
           child: Container(
               constraints: const BoxConstraints(maxWidth: 800),
               child: ListView(children: [
-                Card(child: Padding(
+                Card(
+                    child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Text("Hello", textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline4),
+                  child: Text("Hello",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline4),
                 )),
                 const SizedBox(height: 20),
                 Card(

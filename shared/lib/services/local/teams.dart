@@ -27,8 +27,8 @@ class TeamsLocalService extends TeamsApiService {
   Future<Team?> fetchTeam(int id) => teamsStore
       .findFirst(db, finder: Finder(filter: Filter.byKey(id)))
       .then((value) => value == null
-      ? null
-      : Team.fromJson(Map.from(value.value)..["id"] = value.key));
+          ? null
+          : Team.fromJson(Map.from(value.value)..["id"] = value.key));
 
   @override
   Future<void> updateTeam(Team team) => teamsStore.update(db, team.toJson(),
@@ -49,5 +49,5 @@ class TeamsLocalService extends TeamsApiService {
       .query(finder: Finder(filter: Filter.byKey(id)))
       .onSnapshot(db)
       .map((e) =>
-  e == null ? null : Team.fromJson(Map.from(e.value)..["id"] = e.key));
+          e == null ? null : Team.fromJson(Map.from(e.value)..["id"] = e.key));
 }

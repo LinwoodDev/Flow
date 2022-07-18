@@ -98,16 +98,24 @@ Future<bool> handleEventSockets(ServerRoute route) async {
       route.reply(value: "success");
       break;
     case "events:fetch":
-      route.reply(value: await service.fetchEvents().then((value) => value.map((e) => e.toJson(addId: true)).toList()));
+      route.reply(
+          value: await service.fetchEvents().then(
+              (value) => value.map((e) => e.toJson(addId: true)).toList()));
       break;
     case "events:fetch-opened":
-      route.reply(value: await service.fetchOpenedEvents().then((value) => value.map((e) => e.toJson(addId: true)).toList()));
+      route.reply(
+          value: await service.fetchOpenedEvents().then(
+              (value) => value.map((e) => e.toJson(addId: true)).toList()));
       break;
     case "events:fetch-done":
-      route.reply(value: await service.fetchDoneEvents().then((value) => value.map((e) => e.toJson(addId: true)).toList()));
+      route.reply(
+          value: await service.fetchDoneEvents().then(
+              (value) => value.map((e) => e.toJson(addId: true)).toList()));
       break;
     case "events:fetch-planned":
-      route.reply(value: await service.fetchPlannedEvents().then((value) => value.map((e) => e.toJson(addId: true)).toList()));
+      route.reply(
+          value: await service.fetchPlannedEvents().then(
+              (value) => value.map((e) => e.toJson(addId: true)).toList()));
       break;
     case "event:subscribe":
       var id = route.value as int?;

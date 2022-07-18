@@ -26,10 +26,10 @@ Future<bool> handleUserSockets(ServerRoute route) async {
     return true;
   }
   User? user;
-  if(token != null) {
+  if (token != null) {
     user = await service.fetchUser(int.parse(token.subject!, radix: 16));
   }
-  switch(route.path) {
+  switch (route.path) {
     case "users:subscribe":
       if (route is SocketRoute) {
         usersSubs.add(route.socket);
@@ -48,7 +48,9 @@ Future<bool> handleUserSockets(ServerRoute route) async {
       route.reply(value: "success");
       break;
     case "users:fetch":
-      route.reply(value: await service.fetchUsers().then((value) => value.map((e) => e.toJson(addId: true)).toList()));
+      route.reply(
+          value: await service.fetchUsers().then(
+              (value) => value.map((e) => e.toJson(addId: true)).toList()));
       break;
     case "user:info":
       route.reply(value: user?.toJson(addId: true));

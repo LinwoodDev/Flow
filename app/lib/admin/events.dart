@@ -22,8 +22,8 @@ class _EventsAdminSettingsPageState extends State<EventsAdminSettingsPage> {
         title: const Text("Events"),
         actions: [
           Switch(
-            onChanged: (bool value) => setState(() => enabled = value), value: enabled
-          )
+              onChanged: (bool value) => setState(() => enabled = value),
+              value: enabled)
         ],
       ),
       body: Align(

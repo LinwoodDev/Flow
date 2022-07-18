@@ -236,6 +236,7 @@ jobs:
       - build-apk
       - build-windows
       - build-linux
+      - build-server
       #- build-flatpak
     steps:
       - name: ⬆️ Checkout

@@ -27,9 +27,8 @@ abstract class ServerRoute {
   void broadcast({InputException? exception, dynamic value}) {
     var package =
         SocketPackage(route: path, exception: exception, value: value);
-    GetIt.I
-        .get<List<Socket>>(instanceName: 'sockets')
-        .forEach((element) => element.write(tabEncoder.convert(package.toJson())));
+    GetIt.I.get<List<Socket>>(instanceName: 'sockets').forEach(
+        (element) => element.write(tabEncoder.convert(package.toJson())));
     _printSocketPackage(package);
   }
 
@@ -44,9 +43,10 @@ class SocketRoute extends ServerRoute {
       : super(serverSocket, package);
 
   @override
-  void reply({InputException? exception, dynamic value}) => socket.add(
-      tabEncoder.convert(SocketPackage(route: path, exception: exception, value: value)
-          .toJson()));
+  void reply({InputException? exception, dynamic value}) =>
+      socket.add(tabEncoder.convert(
+          SocketPackage(route: path, exception: exception, value: value)
+              .toJson()));
 }
 
 class ConsoleRoute extends ServerRoute {
@@ -63,7 +63,7 @@ void _printSocketPackage(SocketPackage package) {
   printQuote("\n${package.route}");
   if (package.hasException) {
     printError(tabEncoder.convert(package.exception?.toJson()));
-  } else if(!package.hasData){
+  } else if (!package.hasData) {
     printWarning("Nothing returned");
   } else {
     printSuccess(output);

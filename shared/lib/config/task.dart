@@ -5,7 +5,8 @@ class TaskConfig {
 
   TaskConfig.fromJson(Map<String, dynamic> json) : isEnabled = json['enabled'];
 
-  TaskConfig copyWith({bool? isEnabled}) => TaskConfig(isEnabled: isEnabled ?? this.isEnabled);
+  TaskConfig copyWith({bool? isEnabled}) =>
+      TaskConfig(isEnabled: isEnabled ?? this.isEnabled);
 
   Map<String, dynamic> toJson() => {"enabled": isEnabled};
 }

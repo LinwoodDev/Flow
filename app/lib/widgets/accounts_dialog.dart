@@ -20,9 +20,14 @@ class _AccountsDialogState extends State<AccountsDialog> {
                   title: const Text("Assign"),
                   leading: const Icon(PhosphorIcons.compassLight),
                 ),
-                body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                  ...[Account("test", "example.com"), Account("test2", "example.com")]
-                      .map((e) => ListTile(title: Text(e.username), subtitle: Text(e.address)))
-                ]))));
+                body: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      ...[
+                        Account("test", "example.com"),
+                        Account("test2", "example.com")
+                      ].map((e) => ListTile(
+                          title: Text(e.username), subtitle: Text(e.address)))
+                    ]))));
   }
 }

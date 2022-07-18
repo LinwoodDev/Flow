@@ -28,8 +28,8 @@ class BadgesLocalService extends BadgesApiService {
   Future<Badge?> fetchBadge(int id) => badgesStore
       .findFirst(db, finder: Finder(filter: Filter.byKey(id)))
       .then((value) => value == null
-      ? null
-      : Badge.fromJson(Map.from(value.value)..["id"] = value.key));
+          ? null
+          : Badge.fromJson(Map.from(value.value)..["id"] = value.key));
 
   @override
   Future<void> updateBadge(Badge badge) =>
@@ -51,5 +51,5 @@ class BadgesLocalService extends BadgesApiService {
       .query(finder: Finder(filter: Filter.byKey(id)))
       .onSnapshot(db)
       .map((e) =>
-  e == null ? null : Badge.fromJson(Map.from(e.value)..["id"] = e.key));
+          e == null ? null : Badge.fromJson(Map.from(e.value)..["id"] = e.key));
 }
