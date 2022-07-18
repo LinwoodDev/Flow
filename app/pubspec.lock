@@ -7,14 +7,14 @@ packages:
       name: _fe_analyzer_shared
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "40.0.0"
+    version: "41.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.0"
+    version: "4.2.0"
   animations:
     dependency: "direct main"
     description:
@@ -63,7 +63,7 @@ packages:
       name: build_config
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0"
   build_daemon:
     dependency: transitive
     description:
@@ -84,7 +84,7 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.11"
+    version: "2.2.0"
   build_runner_core:
     dependency: transitive
     description:
@@ -105,7 +105,7 @@ packages:
       name: built_value
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.3.3"
+    version: "8.4.0"
   characters:
     dependency: transitive
     description:
@@ -203,7 +203,7 @@ packages:
       name: ffi
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   file:
     dependency: transitive
     description:
@@ -293,7 +293,7 @@ packages:
       name: hive
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.2"
+    version: "2.2.3"
   hive_flutter:
     dependency: "direct main"
     description:
@@ -363,7 +363,7 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.5.0"
+    version: "4.6.0"
   lints:
     dependency: transitive
     description:
@@ -428,7 +428,7 @@ packages:
     source: hosted
     version: "2.1.0"
   path:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path
       url: "https://pub.dartlang.org"
@@ -447,7 +447,7 @@ packages:
       name: path_provider_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.15"
+    version: "2.0.16"
   path_provider_ios:
     dependency: transitive
     description:
@@ -533,7 +533,7 @@ packages:
     source: hosted
     version: "1.2.0"
   sembast:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: sembast
       url: "https://pub.dartlang.org"
@@ -718,7 +718,7 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.3"
+    version: "6.1.5"
   url_launcher_android:
     dependency: transitive
     description:

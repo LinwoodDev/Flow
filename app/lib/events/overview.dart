@@ -1,4 +1,4 @@
-import 'package:flow_app/events/details.dart';
+import 'package:flow/events/details.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';

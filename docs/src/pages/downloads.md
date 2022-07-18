@@ -48,28 +48,6 @@ title: Downloads
     </li>
   </ul>
 </div>
-<div className="dropdown dropdown--hoverable">
-  <button className="button button--outline button--warning">Android</button>
-  <ul className="dropdown__menu">
-    <li>
-      <a className="dropdown__link" href="https://play.google.com/store/apps/details?id=com.github.linwoodcloud.dev_doctor">
-        Play Store
-      </a>
-      <a className="dropdown__link" href="https://to.skydroid.app/com.github.linwoodcloud.dev_doctor.izzyondroid">
-        SkyDroid
-      </a>
-      <a className="dropdown__link" href="https://www.f-droid.org/en/packages/com.github.linwoodcloud.dev_doctor/">
-        F-Droid
-      </a>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/Flow/releases/download/release/app-release.apk">
-        Release
-      </a>
-      <a className="dropdown__link" href="https://github.com/LinwoodCloud/Flow/releases/download/preview/app-release.apk">
-        Preview
-      </a>
-    </li>
-  </ul>
-</div>
 </div>
 
 ## Server

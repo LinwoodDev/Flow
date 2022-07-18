@@ -1,5 +1,5 @@
-import 'package:flow_app/tasks/details.dart';
-import 'package:flow_app/tasks/home.dart';
+import 'package:flow/tasks/details.dart';
+import 'package:flow/tasks/home.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class TasksModule extends Module {

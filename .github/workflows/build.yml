@@ -3,6 +3,7 @@ name: Flutter build
 on: [push, release]
 jobs:
   build-apk:
+    concurrency: ci-${{ github.ref }}
     defaults:
       run:
         working-directory: app
@@ -17,7 +18,7 @@ jobs:
           distribution: "adopt"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.2'
+          flutter-version: "3.0.5"
           channel: "stable" # or: 'beta' or 'dev'
       - name: 📦 Get dependencies
         run: |
@@ -27,14 +28,14 @@ jobs:
         if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
           flutter doctor -v
-          flutter build apk -v --release --flavor development
-          cp build/app/outputs/flutter-apk/app-development-release.apk linwood-flow-android.apk
+          flutter build apk -v --release
+          cp build/app/outputs/flutter-apk/app-release.apk linwood-flow-android.apk
       - name: 🏭 Build production
         if: ${{ github.ref == 'refs/tags/stable' }}
         run: |
           flutter doctor -v
-          flutter build apk -v --release --flavor production
-          cp build/app/outputs/flutter-apk/app-production-release.apk linwood-flow-android.apk
+          flutter build apk -v --release
+          cp build/app/outputs/flutter-apk/app-release.apk linwood-flow-android.apk
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
@@ -50,7 +51,7 @@ jobs:
         uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.2'
+          flutter-version: "3.0.5"
           channel: "stable" # or: 'beta' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
@@ -92,10 +93,29 @@ jobs:
       - name: Get dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3-pip python3-setuptools desktop-file-utils libgdk-pixbuf2.0-dev fakeroot strace fuse libgtk-3-dev libx11-dev pkg-config cmake ninja-build libblkid-dev liblzma-dev clang dpkg-dev patchelf alien
+          sudo apt-get install -y python3-pip \
+            python3-setuptools \
+            desktop-file-utils \
+            libgdk-pixbuf2.0-dev \
+            fakeroot \
+            strace \
+            fuse \
+            libgtk-3-dev \
+            libx11-dev \
+            pkg-config \
+            cmake \
+            ninja-build \
+            libblkid-dev \
+            liblzma-dev \
+            clang \
+            dpkg-dev \
+            patchelf \
+            alien \
+            libsecret-1-dev \
+            libjsoncpp-dev
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.2'
+          flutter-version: "3.0.5"
           channel: "stable" # or: 'beta' or 'dev'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
@@ -150,6 +170,42 @@ jobs:
           name: linux-appimage
           path: |
             app/linwood-flow-linux.AppImage
+  build-server:
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu, windows, macos]
+    runs-on: ${{ matrix.os }}-latest
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - name: ⬆️ Checkout
+        uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.0.5"
+          channel: "stable" # or: 'beta' or 'dev'
+      - name: 📦 Get dependencies
+        run: |
+          dart pub get
+      - name: Create build directory
+        run: |
+          mkdir -p build
+      - name: 🏭 Build
+        if: ${{ matrix.os }} == "windows"
+        run: |
+          dart compile exe bin/flow_server.dart --output build/linwood-flow-server-${{ matrix.os }}.exe
+      - name: 🏭 Build
+        if: ${{ matrix.os }} != "windows"
+        run: |
+          dart compile exe bin/flow_server.dart --output build/linwood-flow-server-${{ matrix.os }}
+      - name: Archive
+        uses: actions/upload-artifact@v3
+        with:
+          name: server-build
+          path: |
+            server/build/**
   #build-macos:
   #  runs-on: macos-latest
   #  steps:
@@ -180,6 +236,7 @@ jobs:
       - build-apk
       - build-windows
       - build-linux
+      #- build-flatpak
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
@@ -209,13 +266,25 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: linux-appimage
+      #- uses: actions/download-artifact@v3
+      #  with:
+      #    name: linux-flatpak
+      - uses: actions/download-artifact@v3
+        with:
+          name: linux-alternative-portable
+          path: linux-alternative-portable/
       - uses: actions/download-artifact@v3
         with:
           name: windows-setup
+      - uses: actions/download-artifact@v3
+        with:
+          name: server-build
+          path: server-build/
       - name: 📦 Zip artifacts
         run: |
           zip -r linwood-flow-windows.zip windows-build/*
-          zip -r linwood-flow-linux.zip linux-build/*
+          tar -C linux-build -czf linwood-flow-linux.tar.gz .
+          tar -C linux-alternative-portable -czf linwood-flow-linux-alternative.tar.gz .
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
@@ -234,9 +303,12 @@ jobs:
             linwood-flow-windows-setup.exe
             linwood-flow-windows.zip
             linwood-flow-android.apk
-            linwood-flow-linux.zip
+            linwood-flow-linux.tar.gz
+            linwood-flow-linux-alternative.tar.gz
             linwood-flow-linux.deb
             linwood-flow-linux.AppImage
+            server-build/*.*
+          #  linwood-flow-linux.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy nightly
@@ -250,9 +322,12 @@ jobs:
             linwood-flow-windows-setup.exe
             linwood-flow-windows.zip
             linwood-flow-android.apk
-            linwood-flow-linux.zip
+            linwood-flow-linux.tar.gz
+            linwood-flow-linux-alternative.tar.gz
             linwood-flow-linux.deb
             linwood-flow-linux.AppImage
+            server-build/*.*
+          #  linwood-flow-linux.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
@@ -264,9 +339,12 @@ jobs:
             linwood-flow-windows-setup.exe
             linwood-flow-windows.zip
             linwood-flow-android.apk
-            linwood-flow-linux.zip
+            linwood-flow-linux.tar.gz
+            linwood-flow-linux-alternative.tar.gz
             linwood-flow-linux.deb
             linwood-flow-linux.AppImage
+            server-build/*.*
+          #  linwood-flow-linux.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-to-play-store:
@@ -301,7 +379,7 @@ jobs:
           distribution: "adopt"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.2'
+          flutter-version: "3.0.5"
           channel: "stable" # or: 'beta' or 'dev'
       - name: 📦 Get dependencies
         run: |

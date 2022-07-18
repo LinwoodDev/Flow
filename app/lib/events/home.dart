@@ -1,7 +1,7 @@
-import 'package:flow_app/events/calendar.dart';
-import 'package:flow_app/events/list.dart';
-import 'package:flow_app/events/overview.dart';
-import 'package:flow_app/widgets/drawer.dart';
+import 'package:flow/events/calendar.dart';
+import 'package:flow/events/list.dart';
+import 'package:flow/events/overview.dart';
+import 'package:flow/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';

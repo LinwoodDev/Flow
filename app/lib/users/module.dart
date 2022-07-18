@@ -1,5 +1,5 @@
-import 'package:flow_app/users/details.dart';
-import 'package:flow_app/users/home.dart';
+import 'package:flow/users/details.dart';
+import 'package:flow/users/home.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class UsersModule extends Module {

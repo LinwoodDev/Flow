@@ -1,4 +1,4 @@
-import 'package:flow_app/widgets/drawer.dart';
+import 'package:flow/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';

@@ -1,6 +1,6 @@
-import 'package:flow_app/widgets/assign_dialog.dart';
-import 'package:flow_app/widgets/date.dart';
-import 'package:flow_app/widgets/time.dart';
+import 'package:flow/widgets/assign_dialog.dart';
+import 'package:flow/widgets/date.dart';
+import 'package:flow/widgets/time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';

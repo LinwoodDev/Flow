@@ -1,5 +1,5 @@
-import 'package:flow_app/teams/details.dart';
-import 'package:flow_app/teams/home.dart';
+import 'package:flow/teams/details.dart';
+import 'package:flow/teams/home.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class TeamsModule extends Module {

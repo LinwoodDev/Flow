@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flow_app/session/home.dart';
+import 'package:flow/session/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hive/hive.dart';

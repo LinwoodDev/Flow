@@ -1,4 +1,4 @@
-import 'package:flow_app/session/connect.dart';
+import 'package:flow/session/connect.dart';
 import 'package:flutter/material.dart';
 
 class IntroPage extends StatefulWidget {

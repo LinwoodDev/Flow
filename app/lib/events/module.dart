@@ -1,5 +1,5 @@
-import 'package:flow_app/events/details.dart';
-import 'package:flow_app/events/home.dart';
+import 'package:flow/events/details.dart';
+import 'package:flow/events/home.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class EventsModule extends Module {

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:biometric_storage/biometric_storage.dart';
-import 'package:flow_app/service/account.dart';
+import 'package:flow/service/account.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';

@@ -1,5 +1,5 @@
-import 'package:flow_app/badges/details.dart';
-import 'package:flow_app/badges/home.dart';
+import 'package:flow/badges/details.dart';
+import 'package:flow/badges/home.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class BadgesModule extends Module {

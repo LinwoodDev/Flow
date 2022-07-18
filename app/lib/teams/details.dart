@@ -1,6 +1,6 @@
 import 'package:animations/animations.dart';
-import 'package:flow_app/widgets/assign_dialog.dart';
-import 'package:flow_app/widgets/color_picker.dart';
+import 'package:flow/widgets/assign_dialog.dart';
+import 'package:flow/widgets/color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_it/get_it.dart';

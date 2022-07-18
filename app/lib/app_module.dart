@@ -1,14 +1,14 @@
 // app_module.dart
-import 'package:flow_app/admin/home.dart';
-import 'package:flow_app/badges/module.dart';
-import 'package:flow_app/events/module.dart';
-import 'package:flow_app/home.dart';
-import 'package:flow_app/intro.dart';
-import 'package:flow_app/session/connect.dart';
-import 'package:flow_app/settings/module.dart';
-import 'package:flow_app/tasks/module.dart';
-import 'package:flow_app/teams/module.dart';
-import 'package:flow_app/users/module.dart';
+import 'package:flow/admin/home.dart';
+import 'package:flow/badges/module.dart';
+import 'package:flow/events/module.dart';
+import 'package:flow/home.dart';
+import 'package:flow/intro.dart';
+import 'package:flow/session/connect.dart';
+import 'package:flow/settings/module.dart';
+import 'package:flow/tasks/module.dart';
+import 'package:flow/teams/module.dart';
+import 'package:flow/users/module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hive/hive.dart';
 
