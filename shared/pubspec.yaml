@@ -15,6 +15,6 @@ dependencies:
   uuid: ^3.0.5
   crypto: ^3.0.1
 dev_dependencies:
-  build_runner: ^2.1.7
+  build_runner: ^2.2.0
   lints: ^2.0.0
-  test: ^1.20.1
+  test: ^1.21.4
