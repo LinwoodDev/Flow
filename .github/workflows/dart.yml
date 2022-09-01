@@ -8,10 +8,14 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat app/FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.5'
-          channel: 'stable' # or: 'stable' or 'dev'
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'any'
       - uses: actions/checkout@v3
       - name: Print Dart SDK version
         run: |

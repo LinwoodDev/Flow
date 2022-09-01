@@ -1,4 +1,3 @@
-import 'package:flow/session/connect.dart';
 import 'package:flutter/material.dart';
 
 class IntroPage extends StatefulWidget {
@@ -59,7 +58,6 @@ class _IntroPageState extends State<IntroPage> {
             const SizedBox(height: 50)
           ]),
         )),
-    const ConnectPage(inIntro: true)
   ];
 
   void _setPage(int index) {

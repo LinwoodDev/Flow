@@ -1,0 +1,262 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      next_version:
+        default: "0.0.0"
+        description: "The next version to be released"
+        required: false
+      stable:
+        default: false
+        description: "Is this version stable?"
+        type: boolean
+        required: false
+
+jobs:
+  update-changelog:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.CI_PAT }}
+          fetch-depth: 0
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat app/FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'any'
+      - name: Setup git
+        id: setup
+        run: |
+          FLOW_VERSION_REGEX="version:\s(.+)\+(.+)"
+          [[ $(grep -E "${FLOW_VERSION_REGEX}" app/pubspec.yaml) =~ ${FLOW_VERSION_REGEX} ]]
+          FLOW_VERSION="${BASH_REMATCH[1]}"
+          echo "FLOW_VERSION=${FLOW_VERSION}" >> $GITHUB_ENV
+          FLOW_BUILD_NUMBER="${BASH_REMATCH[2]}"
+          echo "FLOW_BUILD_NUMBER=${FLOW_BUILD_NUMBER}" >> $GITHUB_ENV
+          git config --global user.email "ci@linwood.dev"
+          git config --global user.name "Linwood CI"
+      - name: Update changelog
+        run: |
+          git fetch
+          git pull origin
+          dart pub get -C tools
+          dart run tools/set_version.dart --build-number keep ${{ env.FLOW_VERSION }} --changelog
+          git add .
+          git commit -m "Add changelog of v${{ env.FLOW_VERSION }}"
+          git push origin
+      - name: Merge in develop
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          git fetch
+          git checkout develop
+          git pull origin develop
+          git merge main --strategy-option ours
+          git push origin develop
+  release:
+    runs-on: ubuntu-22.04
+    needs:
+      - update-changelog
+    outputs:
+      build_number: ${{ steps.setup.outputs.build_number }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.CI_PAT }}
+          ref: ${{ github.ref }}
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat app/FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'any'
+      - name: Setup git
+        id: setup
+        shell: bash
+        run: |
+          FLOW_VERSION_REGEX="version:\s(.+)\+(.+)"
+          [[ $(grep -E "${FLOW_VERSION_REGEX}" app/pubspec.yaml) =~ ${FLOW_VERSION_REGEX} ]]
+          FLOW_VERSION="${BASH_REMATCH[1]}"
+          echo "FLOW_VERSION=${FLOW_VERSION}" >> $GITHUB_ENV
+          FLOW_BUILD_NUMBER="${BASH_REMATCH[2]}"
+          echo "FLOW_BUILD_NUMBER=${FLOW_BUILD_NUMBER}" >> $GITHUB_ENV
+          echo "::set-output name=build_number::${FLOW_BUILD_NUMBER}"
+          git config --global user.email "ci@linwood.dev"
+          git config --global user.name "Linwood CI"
+      - name: Create tag
+        run: |
+          FLOW_VERSION="${{ env.FLOW_VERSION }}"
+          git tag -fa v${{ env.FLOW_VERSION }} -m "Release ${FLOW_VERSION}"
+          git push origin v${FLOW_VERSION} -f
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.CI_PAT }}
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        with:
+          prerelease: ${{ github.event.inputs.stable != 'true' }}
+          tag_name: v${{ env.FLOW_VERSION }}
+          name: v${{ env.FLOW_VERSION }}
+          token: ${{ secrets.CI_PAT }}
+          body_path: fastlane/metadata/android/en-US/changelogs/${{ env.FLOW_BUILD_NUMBER }}.txt
+      - name: Retag stable
+        if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
+        run: |
+          git tag -fa stable -m "Find all stable releases here"
+          git push origin stable -f
+      - name: Retag nightly
+        if: ${{ github.event.inputs.stable != 'true' && github.ref == 'refs/heads/develop' }}
+        run: |
+          git tag -fa nightly -m "Find all nightly releases here"
+          git push origin nightly -f
+  set-next-version:
+    runs-on: ubuntu-22.04
+    needs:
+      - update-changelog
+      - release
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.CI_PAT }}
+          fetch-depth: 0
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat app/FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'any'
+      - name: Setup git
+        id: setup
+        run: |
+          FLOW_VERSION_REGEX="version:\s(.+)\+(.+)"
+          [[ $(grep -E "${FLOW_VERSION_REGEX}" app/pubspec.yaml) =~ ${FLOW_VERSION_REGEX} ]]
+          FLOW_VERSION="${BASH_REMATCH[1]}"
+          echo "FLOW_VERSION=${FLOW_VERSION}" >> $GITHUB_ENV
+          FLOW_BUILD_NUMBER="${BASH_REMATCH[2]}"
+          echo "FLOW_BUILD_NUMBER=${FLOW_BUILD_NUMBER}" >> $GITHUB_ENV
+          git config --global user.email "ci@linwood.dev"
+          git config --global user.name "Linwood CI"
+      - name: Set next version
+        run: |
+          git fetch
+          git pull origin
+          dart pub get -C tools
+          dart run tools/set_version.dart --build-number increment ${{ github.event.inputs.next_version }} --no-changelog
+          git add .
+          git commit -m "Update Version to ${{ github.event.inputs.next_version }}"
+          git push origin
+      - name: Merge develop
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          git fetch
+          git checkout develop
+          git pull origin develop
+          git merge main --strategy-option ours
+          git push origin develop
+  bump-version:
+    runs-on: ubuntu-22.04
+    needs:
+      - update-changelog
+      - release
+      - set-next-version
+    steps:
+      - name: Checkout main
+        if: ${{ github.ref == 'refs/heads/develop' }}
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.CI_PAT }}
+          fetch-depth: 0
+          ref: main
+      - name: Checkout develop
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.CI_PAT }}
+          fetch-depth: 0
+          ref: develop
+      - name: Setup git
+        id: setup
+        run: |
+          FLOW_VERSION_REGEX="version:\s(.+)\+(.+)"
+          [[ $(grep -E "${FLOW_VERSION_REGEX}" app/pubspec.yaml) =~ ${FLOW_VERSION_REGEX} ]]
+          FLOW_VERSION="${BASH_REMATCH[1]}"
+          echo "FLOW_VERSION=${FLOW_VERSION}" >> $GITHUB_ENV
+          FLOW_BUILD_NUMBER="${BASH_REMATCH[2]}"
+          echo "FLOW_BUILD_NUMBER=${FLOW_BUILD_NUMBER}" >> $GITHUB_ENV
+          git config --global user.email "ci@linwood.dev"
+          git config --global user.name "Linwood CI"
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat app/FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'any'
+      - name: Bump version
+        run: |
+          git fetch
+          git pull origin
+          dart pub get -C tools
+          dart run tools/set_version.dart --build-number increment ${{ env.FLOW_VERSION }} --no-changelog
+          git add .
+          git commit -m "Bump version"
+          git push origin
+      - name: Update develop
+        if: ${{ github.ref == 'refs/heads/develop' }}
+        run: |
+          git fetch
+          git checkout develop
+          git pull origin
+          git merge main --strategy-option ours
+          git push origin develop
+  notify:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.CI_PAT }}
+      - name: Get information
+        shell: bash
+        run: |
+          FLOW_VERSION_REGEX="version:\s(.+)\+(.+)"
+          [[ $(grep -E "${FLOW_VERSION_REGEX}" app/pubspec.yaml) =~ ${FLOW_VERSION_REGEX} ]]
+          FLOW_VERSION="${BASH_REMATCH[1]}"
+          echo "FLOW_VERSION=${FLOW_VERSION}" >> $GITHUB_ENV
+          FLOW_BUILD_NUMBER="${BASH_REMATCH[2]}"
+          echo "FLOW_BUILD_NUMBER=${FLOW_BUILD_NUMBER}" >> $GITHUB_ENV
+          echo 'FLOW_CHANGELOG<<EOF' >> $GITHUB_ENV
+          cat fastlane/metadata/android/en-US/changelogs/${FLOW_BUILD_NUMBER}.txt >> $GITHUB_ENV
+          echo '' >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+      - name: Discord Webhook Action
+        uses: tsickert/discord-webhook@v4.0.0
+        if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
+        with:
+          webhook-url: ${{ secrets.WEBHOOK_URL }}
+          embed-title: ${{ env.FLOW_VERSION }}
+          embed-description: ${{ env.FLOW_CHANGELOG }}
+          content: |
+            Version ${{ env.FLOW_VERSION }} released!
+            Download it here: https://docs.flow.linwood.dev/downloads
+            https://github.com/LinwoodCloud/flow/releases/tag/v${{ env.FLOW_VERSION }}
+      - name: Discord Webhook Action
+        uses: tsickert/discord-webhook@v4.0.0
+        if: ${{ github.event.inputs.stable == 'false' && github.ref == 'refs/heads/develop' }}
+        with:
+          webhook-url: ${{ secrets.WEBHOOK_URL }}
+          embed-title: ${{ env.FLOW_VERSION }}
+          embed-description: ${{ env.FLOW_CHANGELOG }}
+          content: |
+            Pre-release version ${{ env.FLOW_VERSION }} released!
+            Download it here: https://docs.flow.linwood.dev/downloads
+            Please note that this is a pre-release version and is not intended for production use.
+            Read more about it here: https://docs.flow.linwood.dev/nightly
