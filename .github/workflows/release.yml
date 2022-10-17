@@ -115,6 +115,38 @@ jobs:
         run: |
           git tag -fa nightly -m "Find all nightly releases here"
           git push origin nightly -f
+  publish-winget:
+    needs: [ release ]
+    runs-on: windows-latest
+    steps:
+      - name: Setup git
+        id: setup
+        shell: bash
+        run: |
+          FLOW_VERSION_REGEX="version:\s(.+)\+(.+)"
+          [[ $(grep -E "${FLOW_VERSION_REGEX}" app/pubspec.yaml) =~ ${FLOW_VERSION_REGEX} ]]
+          FLOW_VERSION="${BASH_REMATCH[1]}"
+          echo "FLOW_VERSION=${FLOW_VERSION}" >> $GITHUB_ENV
+          FLOW_BUILD_NUMBER="${BASH_REMATCH[2]}"
+          echo "FLOW_BUILD_NUMBER=${FLOW_BUILD_NUMBER}" >> $GITHUB_ENV
+          echo "::set-output name=build_number::${FLOW_BUILD_NUMBER}"
+          git config --global user.email "ci@linwood.dev"
+          git config --global user.name "Linwood CI"
+      - if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
+        uses: vedantmgoyal2009/winget-releaser@v1
+        with:
+          identifier: LinwoodCloud.Flow
+          version: ${{ env.FLOW_VERSION }}
+          release-tag: v${{ env.FLOW_VERSION }}
+          token: ${{ secrets.CI_PAT }}
+
+      - if: ${{ github.event.inputs.stable == 'false' && github.ref == 'refs/heads/develop' }}
+        uses: vedantmgoyal2009/winget-releaser@v1
+        with:
+          identifier: LinwoodCloud.Flow.Nightly
+          version: ${{ env.FLOW_VERSION }}
+          release-tag: v${{ env.FLOW_VERSION }}
+          token: ${{ secrets.CI_PAT }}
   set-next-version:
     runs-on: ubuntu-22.04
     needs:
@@ -238,23 +270,25 @@ jobs:
           echo '' >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
       - name: Discord Webhook Action
-        uses: tsickert/discord-webhook@v4.0.0
+        uses: tsickert/discord-webhook@v5.3.0
         if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
           embed-title: ${{ env.FLOW_VERSION }}
           embed-description: ${{ env.FLOW_CHANGELOG }}
+          embed-url: https://github.com/LinwoodCloud/flow/releases/tag/v${{ env.FLOW_VERSION }}
           content: |
             Version ${{ env.FLOW_VERSION }} released!
             Download it here: https://docs.flow.linwood.dev/downloads
             https://github.com/LinwoodCloud/flow/releases/tag/v${{ env.FLOW_VERSION }}
       - name: Discord Webhook Action
-        uses: tsickert/discord-webhook@v4.0.0
+        uses: tsickert/discord-webhook@v5.3.0
         if: ${{ github.event.inputs.stable == 'false' && github.ref == 'refs/heads/develop' }}
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
           embed-title: ${{ env.FLOW_VERSION }}
           embed-description: ${{ env.FLOW_CHANGELOG }}
+          embed-url: https://github.com/LinwoodCloud/flow/releases/tag/v${{ env.FLOW_VERSION }}
           content: |
             Pre-release version ${{ env.FLOW_VERSION }} released!
             Download it here: https://docs.flow.linwood.dev/downloads
