@@ -1,50 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-const _navigationItems = [
-  {
-    "title": "Dashboard",
-    "name": "dashboard",
-    "icon": Icons.dashboard_outlined,
-    "link": "/"
-  },
-  {
-    "title": "Calendar",
-    "name": "calendar",
-    "icon": Icons.calendar_month_outlined,
-    "link": "/calendar"
-  },
-  null,
-  {
-    "title": "Places",
-    "name": "places",
-    "icon": Icons.location_on_outlined,
-    "link": "/places"
-  },
-  {
-    "title": "Users",
-    "name": "users",
-    "icon": Icons.people_outlined,
-    "link": "/users"
-  },
-  {
-    "title": "Settings",
-    "name": "settings",
-    "icon": Icons.settings_outlined,
-    "link": "/settings"
-  },
-];
+List _getNavigationItems(BuildContext context) => [
+      {
+        "title": AppLocalizations.of(context)!.dashboard,
+        "name": "dashboard",
+        "icon": Icons.dashboard_outlined,
+        "link": "/"
+      },
+      {
+        "title": AppLocalizations.of(context)!.calendar,
+        "name": "calendar",
+        "icon": Icons.calendar_month_outlined,
+        "link": "/calendar"
+      },
+      null,
+      {
+        "title": AppLocalizations.of(context)!.places,
+        "name": "places",
+        "icon": Icons.location_on_outlined,
+        "link": "/places"
+      },
+      {
+        "title": AppLocalizations.of(context)!.users,
+        "name": "users",
+        "icon": Icons.people_outlined,
+        "link": "/users"
+      },
+    ];
+
+List _getSecondaryItems(BuildContext context) => [
+      null,
+      {
+        "title": AppLocalizations.of(context)!.sources,
+        "name": "sources",
+        "icon": Icons.dns_outlined,
+        "link": "/sources"
+      },
+      {
+        "title": AppLocalizations.of(context)!.settings,
+        "name": "settings",
+        "icon": Icons.settings_outlined,
+        "link": "/settings"
+      }
+    ];
 
 class FlowNavigation extends StatelessWidget {
   final String title;
   final String selected;
   final Widget body;
+  final Widget? endDrawer;
+  final List<Widget>? actions;
+  final FloatingActionButton? floatingActionButton;
 
   const FlowNavigation({
     super.key,
     required this.title,
     required this.body,
     required this.selected,
+    this.endDrawer,
+    this.actions,
+    this.floatingActionButton,
   });
 
   Widget _getItem(BuildContext context, Map? map) {
@@ -55,7 +72,7 @@ class FlowNavigation extends StatelessWidget {
             style: ListTileStyle.drawer,
             title: Text(map['title']),
             leading: Icon(map['icon']),
-            onTap: () => GoRouter.of(context).push(map['link']),
+            onTap: () => GoRouter.of(context).go(map['link']),
             selected: currentSelected,
             shape: const BeveledRectangleBorder(
               borderRadius: BorderRadius.only(
@@ -69,60 +86,82 @@ class FlowNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      final isMobile = constraints.maxWidth < 600;
+      final isMobile = constraints.maxWidth < 768;
+      final drawer = Material(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          child: LayoutBuilder(builder: (context, constraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(children: [
+                      Material(
+                          elevation: 1,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 8, right: 8, top: 16, bottom: 64),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text("Linwood Flow",
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge),
+                              ],
+                            ),
+                          )),
+                      Column(
+                        children: _getNavigationItems(context)
+                            .map((e) => _getItem(context, e))
+                            .toList(),
+                      ),
+                    ]),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: _getSecondaryItems(context)
+                          .map((e) => _getItem(context, e))
+                          .toList(),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }),
+        ),
+      );
       return Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (!isMobile)
             SizedBox(
               width: 250,
-              child: Material(
-                child: Column(
-                  children: [
-                    Material(
-                        elevation: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text("Lorem ipsum",
-                                  style:
-                                      Theme.of(context).textTheme.titleLarge),
-                              const SizedBox(height: 16),
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                        icon: const Icon(Icons.settings),
-                                        onPressed: () {}),
-                                    IconButton(
-                                        icon: const Icon(Icons.logout),
-                                        onPressed: () {}),
-                                  ])
-                            ],
-                          ),
-                        )),
-                    Flexible(
-                      child: ListView(
-                        children: _navigationItems
-                            .map((e) => _getItem(context, e))
-                            .toList(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              child: drawer,
             ),
           Expanded(
             child: Scaffold(
               appBar: AppBar(
                 title: Text(title),
+                actions: [if (actions != null) ...actions!],
               ),
-              body: body,
+              drawer: isMobile ? Drawer(child: drawer) : null,
+              endDrawer: isMobile && endDrawer != null
+                  ? Drawer(child: endDrawer)
+                  : null,
+              body: Row(
+                children: [
+                  Expanded(child: body),
+                  if (!isMobile && endDrawer != null)
+                    SizedBox(
+                      width: 250,
+                      child: endDrawer!,
+                    )
+                ],
+              ),
+              floatingActionButton: floatingActionButton,
             ),
-          )
+          ),
         ],
       );
     });

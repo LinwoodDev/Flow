@@ -97,8 +97,8 @@ bool isPreRelease(String version) {
 }
 
 Future<void> updateAppData(String version) async {
-  var file = File(
-      'app/linux/debian/usr/share/metainfo/dev.linwood.flow.appdata.xml');
+  var file =
+      File('app/linux/debian/usr/share/metainfo/dev.linwood.flow.appdata.xml');
   if (isPreRelease(version)) {
     return;
   }

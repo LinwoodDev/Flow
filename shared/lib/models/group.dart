@@ -1,0 +1,3 @@
+class EventGroup {}
+
+class UserGroup {}

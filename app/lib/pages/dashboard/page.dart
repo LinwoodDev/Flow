@@ -1,18 +1,19 @@
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class DashboardPage extends StatefulWidget {
+  const DashboardPage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _DashboardPageState createState() => _DashboardPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return FlowNavigation(
-        title: "Hi",
+        title: AppLocalizations.of(context)!.dashboard,
         selected: "dashboard",
         body: Align(
           alignment: Alignment.topCenter,

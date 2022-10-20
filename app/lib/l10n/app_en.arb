@@ -1,3 +1,26 @@
 {
-    
+  "dashboard": "Dashboard",
+  "calendar": "Calendar",
+  "places": "Places",
+  "users": "Users",
+  "sources": "Sources",
+  "settings": "Settings",
+  "create":"Create",
+  "information": "Information",
+  "source": "Source",
+  "license": "License",
+  "thirdPartyLicenses": "Third Party Licenses",
+  "documentation": "Documentation",
+  "privacyPolicy": "Privacy Policy",
+  "imprint": "Imprint",
+  "releaseNotes": "Release Notes",
+  "changelog": "Changelog",
+  "legal": "Legal",
+  "personalization": "Personalization",
+  "design": "Design",
+  "language": "Language",
+  "theme": "Theme",
+  "systemDefault": "System Default",
+  "light": "Light",
+  "dark": "Dark"
 }
