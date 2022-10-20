@@ -1,4 +1,9 @@
+import 'package:flow/cubits/settings.dart';
+import 'package:flow/helpers/string.dart';
+import 'package:flow/helpers/theme_mode.dart';
+import 'package:flow/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PersonalizationSettingsView extends StatelessWidget {
@@ -6,27 +11,157 @@ class PersonalizationSettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<SettingsCubit, FlowSettings>(
+        builder: (context, state) => Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(AppLocalizations.of(context)!.personalization,
+                    style: Theme.of(context).textTheme.headline5),
+                const SizedBox(height: 32),
+                ListTile(
+                  title: Text(AppLocalizations.of(context)!.design),
+                  leading: const Icon(Icons.palette_outlined),
+                  subtitle: Text(state.design.toDisplayString()),
+                  onTap: () async {
+                    final cubit = context.read<SettingsCubit>();
+                    final design = await showModalBottomSheet<String>(
+                        context: context,
+                        builder: (context) => Container(
+                            margin: const EdgeInsets.only(bottom: 20),
+                            child: ListView(
+                              shrinkWrap: true,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 20),
+                                  child: Text(
+                                    AppLocalizations.of(context)!.design,
+                                    style:
+                                        Theme.of(context).textTheme.headline5,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                ...getThemes().map(
+                                  (e) {
+                                    final theme = getThemeData(e, false);
+                                    return ListTile(
+                                        title: Text(e.toDisplayString()),
+                                        selected: e == state.design,
+                                        onTap: () async {
+                                          Navigator.of(context).pop(e);
+                                        },
+                                        leading: _ThemeBox(
+                                          theme: theme,
+                                        ));
+                                  },
+                                ),
+                              ],
+                            )));
+                    if (design != null) cubit.setDesign(design);
+                  },
+                ),
+                ListTile(
+                  title: Text(AppLocalizations.of(context)!.theme),
+                  leading: Icon(state.themeMode.icon),
+                  subtitle: Text(state.themeMode.getDisplayString(context)),
+                  onTap: () async {
+                    final cubit = context.read<SettingsCubit>();
+
+                    final theme = await showModalBottomSheet<ThemeMode>(
+                        context: context,
+                        builder: (context) => Container(
+                            margin: const EdgeInsets.only(bottom: 20),
+                            child: ListView(
+                              shrinkWrap: true,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 20),
+                                  child: Text(
+                                    AppLocalizations.of(context)!.theme,
+                                    style:
+                                        Theme.of(context).textTheme.headline5,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                ...ThemeMode.values.map((e) => ListTile(
+                                      title: Text(e.getDisplayString(context)),
+                                      selected: state.themeMode == e,
+                                      leading: Icon(e.icon),
+                                      onTap: () {
+                                        Navigator.of(context).pop(e);
+                                      },
+                                    )),
+                              ],
+                            )));
+                    if (theme != null) cubit.setThemeMode(theme);
+                  },
+                ),
+                ListTile(
+                  title: Text(AppLocalizations.of(context)!.language),
+                  leading: const Icon(Icons.translate_outlined),
+                  onTap: () {},
+                ),
+              ],
+            ));
+  }
+}
+
+class _ThemeBox extends StatelessWidget {
+  final ThemeData theme;
+  static const double size = 12;
+  const _ThemeBox({required this.theme});
+
+  @override
+  Widget build(BuildContext context) {
+    // 2x2 grid of colors
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Text(AppLocalizations.of(context)!.personalization,
-            style: Theme.of(context).textTheme.headline5),
-        const SizedBox(height: 32),
-        ListTile(
-          title: Text(AppLocalizations.of(context)!.design),
-          leading: const Icon(Icons.palette_outlined),
-          onTap: () {},
-        ),
-        ListTile(
-          title: Text(AppLocalizations.of(context)!.theme),
-          leading: const Icon(Icons.brightness_4_outlined),
-          onTap: () {},
-        ),
-        ListTile(
-          title: Text(AppLocalizations.of(context)!.language),
-          leading: const Icon(Icons.translate_outlined),
-          onTap: () {},
-        ),
+        Row(mainAxisSize: MainAxisSize.min, children: [
+          Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              color: theme.colorScheme.primary,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(size),
+              ),
+            ),
+          ),
+          Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              color: theme.colorScheme.secondary,
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(size),
+              ),
+            ),
+          ),
+        ]),
+        Row(mainAxisSize: MainAxisSize.min, children: [
+          Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              color: theme.colorScheme.primaryContainer,
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(size),
+              ),
+            ),
+          ),
+          Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              color: theme.colorScheme.tertiary,
+              borderRadius: const BorderRadius.only(
+                bottomRight: Radius.circular(size),
+              ),
+            ),
+          ),
+        ]),
       ],
     );
   }
