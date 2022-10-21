@@ -22,5 +22,13 @@
   "theme": "Theme",
   "systemDefault": "System Default",
   "light": "Light",
-  "dark": "Dark"
+  "dark": "Dark",
+  "createPlace": "Create Place",
+  "cancel": "Cancel",
+  "name": "Name",
+  "description": "Description",
+  "start": "Start",
+  "next": "Next",
+  "skip": "Skip",
+  "back": "Back"
 }

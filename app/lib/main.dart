@@ -37,6 +37,7 @@ class FlowApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, FlowSettings>(
         builder: (context, state) => MaterialApp.router(
+              debugShowCheckedModeBanner: false,
               routerConfig: _router,
               title: 'Linwood Flow',
               // Use a predefined FlexThemeData.light() theme for the light theme.

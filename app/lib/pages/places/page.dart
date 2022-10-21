@@ -1,3 +1,4 @@
+import 'package:flow/pages/places/create.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -11,6 +12,15 @@ class PlacesPage extends StatelessWidget {
       title: AppLocalizations.of(context)!.places,
       selected: "places",
       body: ListView(),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) => const CreatePlaceDialog());
+        },
+        label: Text(AppLocalizations.of(context)!.create),
+        icon: const Icon(Icons.add_outlined),
+      ),
     );
   }
 }
