@@ -1,3 +1,4 @@
+import 'package:flow/pages/groups/page.dart';
 import 'package:flow/pages/settings/page.dart';
 import 'package:flow/pages/users/page.dart';
 import 'package:flow/theme.dart';
@@ -69,6 +70,11 @@ class FlowApp extends StatelessWidget {
         path: '/calendar',
         builder: (BuildContext context, GoRouterState state) =>
             const CalendarPage(),
+      ),
+      GoRoute(
+        path: '/groups',
+        builder: (BuildContext context, GoRouterState state) =>
+            const GroupsPage(),
       ),
       GoRoute(
         path: '/places',

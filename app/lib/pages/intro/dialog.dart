@@ -69,10 +69,10 @@ class _IntroDialogState extends State<IntroDialog> {
               )),
               const SizedBox(height: 16),
               Builder(builder: (context) {
-                return Row(
-                  children: [
-                    Expanded(
-                      child: Builder(builder: (context) {
+                return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Builder(builder: (context) {
                         return SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
@@ -89,36 +89,40 @@ class _IntroDialogState extends State<IntroDialog> {
                           ),
                         );
                       }),
-                    ),
-                    const SizedBox(width: 8),
-                    if (_pageController.page != _pages.length - 1) ...[
-                      OutlinedButton(
-                          child: Text(AppLocalizations.of(context)!.skip),
-                          onPressed: () => _pageController.animateToPage(
-                              _pages.length - 1,
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeInOut)),
-                      const SizedBox(width: 8),
-                    ],
-                    if ((_pageController.page ?? 0) > 0)
-                      TextButton(
-                        onPressed: () => _pageController.previousPage(
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeInOut),
-                        child: Text(AppLocalizations.of(context)!.back),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                            onPressed: (_pageController.page ?? 0) > 0
+                                ? () => _pageController.previousPage(
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.easeInOut)
+                                : null,
+                            child: Text(AppLocalizations.of(context)!.back),
+                          ),
+                          if (_pageController.page != _pages.length - 1) ...[
+                            OutlinedButton(
+                                child: Text(AppLocalizations.of(context)!.skip),
+                                onPressed: () => _pageController.animateToPage(
+                                    _pages.length - 1,
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.easeInOut)),
+                          ],
+                          if (_pageController.page != _pages.length - 1) ...[
+                            ElevatedButton(
+                                child: Text(AppLocalizations.of(context)!.next),
+                                onPressed: () => _pageController.nextPage(
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.easeInOut)),
+                          ] else
+                            ElevatedButton(
+                                child:
+                                    Text(AppLocalizations.of(context)!.start),
+                                onPressed: () {}),
+                        ],
                       ),
-                    if (_pageController.page != _pages.length - 1) ...[
-                      ElevatedButton(
-                          child: Text(AppLocalizations.of(context)!.next),
-                          onPressed: () => _pageController.nextPage(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeInOut)),
-                    ] else
-                      ElevatedButton(
-                          child: Text(AppLocalizations.of(context)!.start),
-                          onPressed: () {}),
-                  ],
-                );
+                    ]);
               }),
             ],
           ),

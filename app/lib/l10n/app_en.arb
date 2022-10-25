@@ -5,7 +5,7 @@
   "users": "Users",
   "sources": "Sources",
   "settings": "Settings",
-  "create":"Create",
+  "create": "Create",
   "information": "Information",
   "source": "Source",
   "license": "License",
@@ -30,5 +30,8 @@
   "start": "Start",
   "next": "Next",
   "skip": "Skip",
-  "back": "Back"
+  "back": "Back",
+  "today": "Today",
+  "groups": "Groups",
+  "createGroup": "Create group"
 }

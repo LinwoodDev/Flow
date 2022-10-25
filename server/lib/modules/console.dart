@@ -61,10 +61,9 @@ class ConsoleModule extends Module {
       case "reset":
         print("Resetting database? Use \\reset!");
         break;
-      case "reset!":
-        break;
       case "h":
       case "help":
+        print("Modules: \n${server.modules.map((e) => e.name).join(', ')}");
         break;
       default:
         printWarning("Command not found! Please use \\help for help");

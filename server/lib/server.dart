@@ -2,14 +2,16 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dotenv/dotenv.dart';
-import 'package:server/auth.dart';
+import 'package:server/modules/auth.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-import 'console.dart';
+import 'modules/console.dart';
 
 abstract class Module {
+  String get name => runtimeType.toString();
+
   FutureOr<void> start(WebServer server) {}
   FutureOr<void> registerRoutes(WebServer server, Router router) {}
   FutureOr<void> stop(WebServer server) {}
@@ -23,7 +25,7 @@ class WebServer {
 
   HttpServer? get server => _server;
 
-  static final List<Module> modules = [ConsoleModule(), AuthModule()];
+  static final List<Module> _modules = [ConsoleModule(), AuthModule()];
 
   WebServer(
       {this.port = 8080, required this.databaseUrl, required this.jwtSecret});
@@ -38,18 +40,18 @@ class WebServer {
   }
 
   T getModule<T extends Module>() {
-    return modules.firstWhere((element) => element is T) as T;
+    return _modules.firstWhere((element) => element is T) as T;
   }
 
   Future<void> start() async {
     if (_server != null) {
       throw StateError('Server already started');
     }
-    for (var module in modules) {
+    for (var module in _modules) {
       await module.start(this);
     }
     final Router router = Router();
-    for (var module in modules) {
+    for (var module in _modules) {
       await module.registerRoutes(this, router);
     }
     // Use any available host or container IP (usually `0.0.0.0`).
@@ -64,12 +66,14 @@ class WebServer {
   }
 
   Future<void> stop() async {
-    for (var module in modules) {
+    for (var module in _modules) {
       await module.stop(this);
     }
     await server?.close(force: true);
     _server = null;
   }
+
+  List<Module> get modules => List.unmodifiable(_modules);
 
   bool get isRunning => server != null;
 }

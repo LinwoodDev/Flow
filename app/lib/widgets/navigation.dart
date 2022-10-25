@@ -17,6 +17,12 @@ List _getNavigationItems(BuildContext context) => [
       },
       null,
       {
+        "title": AppLocalizations.of(context)!.groups,
+        "name": "groups",
+        "icon": Icons.folder_outlined,
+        "link": "/groups"
+      },
+      {
         "title": AppLocalizations.of(context)!.places,
         "name": "places",
         "icon": Icons.location_on_outlined,
@@ -50,6 +56,7 @@ class FlowNavigation extends StatelessWidget {
   final String title;
   final String selected;
   final Widget body;
+  final PreferredSizeWidget? bottom;
   final Widget? endDrawer;
   final List<Widget>? actions;
   final FloatingActionButton? floatingActionButton;
@@ -59,6 +66,7 @@ class FlowNavigation extends StatelessWidget {
     required this.title,
     required this.body,
     required this.selected,
+    this.bottom,
     this.endDrawer,
     this.actions,
     this.floatingActionButton,
@@ -74,6 +82,10 @@ class FlowNavigation extends StatelessWidget {
             leading: Icon(map['icon']),
             onTap: () => GoRouter.of(context).go(map['link']),
             selected: currentSelected,
+            selectedColor: Theme.of(context).colorScheme.onBackground,
+            selectedTileColor: currentSelected
+                ? Theme.of(context).colorScheme.primaryContainer.withAlpha(200)
+                : null,
             shape: const BeveledRectangleBorder(
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(16),
@@ -89,7 +101,7 @@ class FlowNavigation extends StatelessWidget {
       final isMobile = constraints.maxWidth < 768;
       final drawer = Material(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          padding: const EdgeInsets.only(right: 8, top: 16, bottom: 8),
           child: LayoutBuilder(builder: (context, constraints) {
             return SingleChildScrollView(
               child: ConstrainedBox(
@@ -142,6 +154,7 @@ class FlowNavigation extends StatelessWidget {
           Expanded(
             child: Scaffold(
               appBar: AppBar(
+                bottom: bottom,
                 title: Text(title),
                 actions: [if (actions != null) ...actions!],
               ),
