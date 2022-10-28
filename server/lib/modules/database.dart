@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:sqlite3/common.dart';
 import 'package:sqlite3/open.dart';
 
@@ -14,10 +15,14 @@ class DatabaseModule extends Module {
   DatabaseModule(super.server);
 
   @override
-  void start() {
+  Future<void> start() async {
     open.overrideFor(OperatingSystem.linux, _openOnLinux);
     open.overrideFor(OperatingSystem.macOS, _openOnMacOS);
     open.overrideFor(OperatingSystem.windows, _openOnWindows);
+    for (final module in server.modules) {
+      await module.migrate(_databaseVersion);
+    }
+    printInfo(getDatabaseVersion().toString());
     _setDatabaseVersion();
   }
 
@@ -25,8 +30,12 @@ class DatabaseModule extends Module {
     _db?.execute("PRAGMA user_version = $_databaseVersion");
   }
 
-  void getDatabaseVersion() {
-    _db?.select("PRAGMA user_version").map((row) => row[0]).single;
+  int getDatabaseVersion() {
+    return _db
+            ?.select("PRAGMA user_version")
+            .map((row) => row[0])
+            .firstOrNull ??
+        _databaseVersion;
   }
 
   @override

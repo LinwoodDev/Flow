@@ -19,6 +19,7 @@ abstract class Module {
 
   FutureOr<void> start() {}
   FutureOr<void> registerRoutes(Router router) {}
+  FutureOr<void> migrate(int version) {}
   FutureOr<void> stop() {}
 
   void printInfo(String text) {

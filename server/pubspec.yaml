@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   args: ^2.0.0
+  collection: ^1.17.0
   dotenv: ^4.0.1
   shelf: ^1.4.0
   shelf_router: ^1.0.0

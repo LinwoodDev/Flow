@@ -18,4 +18,9 @@ class AuthModule extends Module {
   void stop() {
     // TODO: implement stop
   }
+  @override
+  Future<void> migrate(int version) {
+    printInfo("Migrating AuthModule to version $version");
+    return Future.delayed(Duration(seconds: 1));
+  }
 }
