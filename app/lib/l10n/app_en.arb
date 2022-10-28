@@ -34,5 +34,9 @@
   "back": "Back",
   "today": "Today",
   "groups": "Groups",
-  "createGroup": "Create group"
+  "createGroup": "Create group",
+  "list": "List",
+  "day": "Day",
+  "week": "Week",
+  "month": "Month"
 }

@@ -1,5 +1,5 @@
 import 'package:flow/cubits/settings.dart';
-import 'package:flow/helpers/string.dart';
+import 'package:shared/helpers/string.dart';
 import 'package:flow/helpers/theme_mode.dart';
 import 'package:flow/theme.dart';
 import 'package:flutter/material.dart';
