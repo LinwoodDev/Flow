@@ -12,10 +12,8 @@ class DatabaseManager {
   }
 }
 
-abstract class TableManager {
-  final CommonDatabase db;
-
-  TableManager(this.db);
+mixin DatabaseService {
+  CommonDatabase get db;
 
   FutureOr<void> create();
   FutureOr<void> migrate(int version);
