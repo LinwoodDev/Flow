@@ -1,6 +1,13 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 
+const kClassicThemePrimary = Color(0xFF7c4dff);
+const kClassicThemeSecondary = Color(0xFF35EF53);
+const kClassicTheme = FlexSchemeColor(
+    primary: kClassicThemePrimary, secondary: kClassicThemeSecondary);
+const kClassicThemeData = FlexSchemeData(
+    name: '', description: '', light: kClassicTheme, dark: kClassicTheme);
+
 ThemeData getThemeData(String name, bool dark) {
   final color = getFlexThemeColor(name, dark);
   if (dark) {
@@ -22,7 +29,7 @@ ThemeData getThemeData(String name, bool dark) {
 FlexSchemeColor getFlexThemeColor(String name, bool dark) {
   final color = FlexColor.schemesList.firstWhere(
       (scheme) => scheme.name == name,
-      orElse: () => FlexColor.mandyRed);
+      orElse: () => kClassicThemeData);
   if (dark) return color.dark;
   return color.light;
 }

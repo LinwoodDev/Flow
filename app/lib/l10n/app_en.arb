@@ -20,6 +20,7 @@
   "design": "Design",
   "language": "Language",
   "theme": "Theme",
+  "classic": "Classic",
   "systemDefault": "System Default",
   "light": "Light",
   "dark": "Dark",

@@ -21,7 +21,9 @@ class PersonalizationSettingsView extends StatelessWidget {
                 ListTile(
                   title: Text(AppLocalizations.of(context)!.design),
                   leading: const Icon(Icons.palette_outlined),
-                  subtitle: Text(state.design.toDisplayString()),
+                  subtitle: Text(state.design.isEmpty
+                      ? AppLocalizations.of(context)!.classic
+                      : state.design.toDisplayString()),
                   onTap: () async {
                     final cubit = context.read<SettingsCubit>();
                     final design = await showModalBottomSheet<String>(
@@ -40,6 +42,14 @@ class PersonalizationSettingsView extends StatelessWidget {
                                         Theme.of(context).textTheme.headline5,
                                     textAlign: TextAlign.center,
                                   ),
+                                ),
+                                ListTile(
+                                  title: Text(
+                                      AppLocalizations.of(context)!.classic),
+                                  leading:
+                                      _ThemeBox(theme: getThemeData('', false)),
+                                  onTap: () => Navigator.pop(context, ''),
+                                  selected: state.design.isEmpty,
                                 ),
                                 ...getThemes().map(
                                   (e) {
