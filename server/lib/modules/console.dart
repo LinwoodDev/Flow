@@ -3,33 +3,40 @@ import 'dart:io';
 import 'package:server/server.dart';
 
 class ConsoleModule extends Module {
+  ConsoleModule(super.server);
+
   @override
-  void start(WebServer server) {
+  void start() {
     printInfo("Enter \\h to open the help page");
-    _runConsole(server);
+    _runConsole();
   }
 
+  @override
   void printWarning(String text) {
     print('\x1B[33m$text\x1B[0m');
   }
 
+  @override
   void printSuccess(String text) {
     print('\x1B[32m$text\x1B[0m');
   }
 
+  @override
   void printError(String text) {
     print('\x1B[31m$text\x1B[0m');
   }
 
+  @override
   void printQuote(String text) {
     print('\x1B[3m$text\x1B[0m');
   }
 
+  @override
   void printInfo(String text) {
     print('\x1B[34m$text\x1B[0m');
   }
 
-  void _runConsole(WebServer server) {
+  void _runConsole() {
     stdout.write("\n> ");
     stdin.listen((event) async {
       var console = String.fromCharCodes(event);
@@ -43,14 +50,13 @@ class ConsoleModule extends Module {
         value = console.substring(pathIndex);
       }
       if (path.startsWith("\\")) {
-        _executeCommand(server, path.substring(1), value);
+        _executeCommand(path.substring(1), value);
       }
       stdout.write("\n> ");
     });
   }
 
-  Future<void> _executeCommand(
-      WebServer server, String command, String? value) async {
+  Future<void> _executeCommand(String command, String? value) async {
     switch (command) {
       case "s":
       case "stop":
