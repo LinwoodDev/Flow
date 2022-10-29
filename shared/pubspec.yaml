@@ -13,7 +13,7 @@ dependencies:
   equatable: ^2.0.5
   uuid: ^3.0.5
   crypto: ^3.0.1
-  sqlite3: ^1.9.1
+  sqflite_common: ^2.4.0+2
   freezed_annotation: ^2.2.0
   json_annotation: ^4.7.0
 dev_dependencies:

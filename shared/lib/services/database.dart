@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:sqlite3/common.dart';
+import 'package:sqflite_common/sqlite_api.dart';
 
 class DatabaseManager {
-  final CommonDatabase db;
+  final Database db;
 
   DatabaseManager(this.db);
 
@@ -13,7 +13,7 @@ class DatabaseManager {
 }
 
 mixin DatabaseService {
-  CommonDatabase get db;
+  Database get db;
 
   FutureOr<void> create();
   FutureOr<void> migrate(int version);
