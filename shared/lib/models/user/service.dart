@@ -1,3 +1,5 @@
-abstract class UserService {}
+import 'package:shared/services/source.dart';
 
-abstract class UserGroupService {}
+abstract class UserService extends ModelService {}
+
+abstract class UserGroupService extends ModelService {}

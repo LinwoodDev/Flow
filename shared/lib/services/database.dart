@@ -5,8 +5,16 @@ import 'package:shared/models/user/database.dart';
 import 'package:shared/services/source.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
+typedef DatabaseFactory = Database Function(
+  int? version,
+  FutureOr<void> Function(Database, int, int)? onUpgrade,
+  FutureOr<void> Function(Database, int)? onCreate,
+);
+
+const databaseVersion = 1;
+
 class DatabaseService extends SourceService {
-  final Database db;
+  late final Database db;
   @override
   late final EventDatabaseService event;
   @override
@@ -17,11 +25,12 @@ class DatabaseService extends SourceService {
   @override
   late final UserGroupDatabaseService userGroup;
 
-  DatabaseService(this.db) {
-    setup();
+  DatabaseService(DatabaseFactory databaseFactory) {
+    _setup(databaseFactory);
   }
 
-  void setup() {
+  void _setup(DatabaseFactory databaseFactory) {
+    db = databaseFactory(databaseVersion, _onUpgrade, _onCreate);
     db.execute("PRAGMA foreign_keys = ON");
 
     event = EventDatabaseService(db);
@@ -29,6 +38,20 @@ class DatabaseService extends SourceService {
 
     user = UserDatabaseService(db);
     userGroup = UserGroupDatabaseService(db);
+  }
+
+  List<TableService> get tables => models.cast<TableService>();
+
+  FutureOr<void> _onCreate(Database db, int version) async {
+    for (var table in tables) {
+      await table.create();
+    }
+  }
+
+  FutureOr<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    for (var table in tables) {
+      await table.migrate(newVersion);
+    }
   }
 
   Future<int> getVersion() {

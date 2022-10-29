@@ -12,10 +12,13 @@ import 'database_stub.dart' if (dart.library.io) 'database_mobile.dart'
 Future<Database> openDatabase({
   int? version,
   FutureOr<void> Function(Database, int, int)? onUpgrade,
+  FutureOr<void> Function(Database, int)? onCreate,
 }) {
   if (kIsWeb || Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-    return desktop.openDatabase(onUpgrade: onUpgrade, version: version);
+    return desktop.openDatabase(
+        onUpgrade: onUpgrade, onCreate: onCreate, version: version);
   } else {
-    return mobile.openDatabase(onUpgrade: onUpgrade, version: version);
+    return mobile.openDatabase(
+        onUpgrade: onUpgrade, onCreate: onCreate, version: version);
   }
 }
