@@ -1,6 +1,7 @@
 import 'package:flow/pages/settings/contents/information.dart';
 import 'package:flow/pages/settings/contents/legal.dart';
 import 'package:flow/pages/settings/contents/personalization.dart';
+import 'package:flow/pages/settings/contents/version.dart';
 import 'package:flutter/material.dart';
 
 class SettingsContent extends StatelessWidget {
@@ -12,6 +13,7 @@ class SettingsContent extends StatelessWidget {
     return Column(
       children: [
         ...[
+          const VersionSettingsView(),
           const PersonalizationSettingsView(),
           const InformationSettingsView(),
           const LegalSettingsView()

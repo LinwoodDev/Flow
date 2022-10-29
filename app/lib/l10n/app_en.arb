@@ -38,5 +38,13 @@
   "list": "List",
   "day": "Day",
   "week": "Week",
-  "month": "Month"
+  "month": "Month",
+  "version": "Version",
+  "intro": "Intro",
+  "webdav": "WebDAV",
+  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. You can use it to synchronize your data with other devices or services.",
+  "server": "Server",
+  "serverDescription": "Sync your data with a native Linwood Flow server. This is recommended for users that want to self-host their data.",
+  "addSource": "Add source",
+  "local": "Local"
 }

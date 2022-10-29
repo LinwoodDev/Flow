@@ -5,13 +5,10 @@ import 'package:shared/services/database.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
 class UserDatabaseService extends UserService with TableService {
-  @override
-  final Database db;
-
-  UserDatabaseService(this.db);
+  UserDatabaseService();
 
   @override
-  Future<void> create() {
+  Future<void> create(Database db) {
     return db.execute("""
       CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY,
@@ -25,17 +22,14 @@ class UserDatabaseService extends UserService with TableService {
   }
 
   @override
-  FutureOr<void> migrate(int version) {}
+  FutureOr<void> migrate(Database db, int version) {}
 }
 
 class UserGroupDatabaseService extends UserGroupService with TableService {
-  @override
-  final Database db;
-
-  UserGroupDatabaseService(this.db);
+  UserGroupDatabaseService();
 
   @override
-  Future<void> create() async {
+  Future<void> create(Database db) async {
     await db.execute("""
       CREATE TABLE IF NOT EXISTS userGroups (
         id INTEGER PRIMARY KEY,
@@ -53,5 +47,5 @@ class UserGroupDatabaseService extends UserGroupService with TableService {
   }
 
   @override
-  FutureOr<void> migrate(int version) {}
+  FutureOr<void> migrate(Database db, int version) {}
 }

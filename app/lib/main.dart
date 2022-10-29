@@ -1,6 +1,8 @@
 import 'package:flow/pages/groups/page.dart';
 import 'package:flow/pages/settings/page.dart';
 import 'package:flow/pages/users/page.dart';
+import 'package:flow/storage/db/database.dart';
+import 'package:flow/storage/sources.dart';
 import 'package:flow/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:shared/services/database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'cubits/settings.dart';
@@ -27,8 +30,20 @@ Future<void> main() async {
 
   final prefs = await SharedPreferences.getInstance();
 
+  final database = DatabaseService(openDatabase);
+  await database.setup();
+
   await setup();
-  runApp(BlocProvider(create: (_) => SettingsCubit(prefs), child: FlowApp()));
+  runApp(
+    BlocProvider(
+      create: (_) => SettingsCubit(prefs),
+      child: RepositoryProvider(
+        create: (context) =>
+            SourcesService(context.read<SettingsCubit>(), database),
+        child: FlowApp(),
+      ),
+    ),
+  );
 }
 
 class FlowApp extends StatelessWidget {

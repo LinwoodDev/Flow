@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'drawer.dart';
 
 class SettingsPage extends StatelessWidget {
-  final List<GlobalKey> _itemKeys = List.generate(3, (index) => GlobalKey());
+  final List<GlobalKey> _itemKeys = List.generate(4, (index) => GlobalKey());
   SettingsPage({super.key});
 
   @override

@@ -13,7 +13,6 @@ class PersonalizationSettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, FlowSettings>(
         builder: (context, state) => Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(AppLocalizations.of(context)!.personalization,
                     style: Theme.of(context).textTheme.headline5),
