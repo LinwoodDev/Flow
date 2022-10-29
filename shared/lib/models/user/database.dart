@@ -4,7 +4,7 @@ import 'package:shared/models/user/service.dart';
 import 'package:shared/services/database.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
-class UserDatabaseService extends UserService with DatabaseService {
+class UserDatabaseService extends UserService with TableService {
   @override
   final Database db;
 
@@ -28,7 +28,7 @@ class UserDatabaseService extends UserService with DatabaseService {
   FutureOr<void> migrate(int version) {}
 }
 
-class UserGroupDatabaseService extends UserGroupService with DatabaseService {
+class UserGroupDatabaseService extends UserGroupService with TableService {
   @override
   final Database db;
 

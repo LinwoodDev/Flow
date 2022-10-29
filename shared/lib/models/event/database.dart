@@ -6,7 +6,7 @@ import 'package:sqflite_common/sqlite_api.dart';
 import 'model.dart';
 import 'service.dart';
 
-class EventDatabaseService extends EventService implements DatabaseService {
+class EventDatabaseService extends EventService implements TableService {
   @override
   final Database db;
 
@@ -45,7 +45,7 @@ class EventDatabaseService extends EventService implements DatabaseService {
   }
 }
 
-class EventGroupDatabaseService extends EventGroupService with DatabaseService {
+class EventGroupDatabaseService extends EventGroupService with TableService {
   @override
   final Database db;
 
