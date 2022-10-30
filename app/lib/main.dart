@@ -113,3 +113,7 @@ class FlowApp extends StatelessWidget {
     ],
   );
 }
+
+const flavor = String.fromEnvironment('flavor');
+const isNightly =
+    flavor == 'nightly' || flavor == 'dev' || flavor == 'development';

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../main.dart';
+
 List _getNavigationItems(BuildContext context) => [
       {
         "title": AppLocalizations.of(context)!.dashboard,
@@ -118,10 +120,18 @@ class FlowNavigation extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Image.asset("images/logo.png",
-                                    width: 64, height: 64),
+                                Image.asset(
+                                    isNightly
+                                        ? "images/nightly.png"
+                                        : "images/logo.png",
+                                    width: 64,
+                                    height: 64),
                                 const SizedBox(height: 16),
-                                Text("Linwood Flow",
+                                Text(
+                                    isNightly
+                                        ? "Linwood Flow Nightly"
+                                        : "Linwood Flow",
+                                    textAlign: TextAlign.center,
                                     style:
                                         Theme.of(context).textTheme.titleLarge),
                               ],

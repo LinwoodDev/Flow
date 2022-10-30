@@ -41,13 +41,13 @@ jobs:
         if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
           flutter doctor -v
-          flutter build apk -v --release --flavor development
+          flutter build apk -v --release --flavor development --dart-define=flavor=development
           cp build/app/outputs/flutter-apk/app-development-release.apk linwood-flow-android.apk
       - name: 🏭 Build production
         if: ${{ github.ref == 'refs/tags/stable' }}
         run: |
           flutter doctor -v
-          flutter build apk -v --release --flavor production
+          flutter build apk -v --release --flavor production --dart-define=flavor=production
           cp build/app/outputs/flutter-apk/app-production-release.apk linwood-flow-android.apk
       - name: Archive
         uses: actions/upload-artifact@v3
@@ -76,12 +76,16 @@ jobs:
       - name: 📦 Get dependencies
         run: |
           flutter pub get
-      - name: 🏭 Build
-        shell: pwsh
+      - name: 🏭 Build nightly
+        if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
-          flutter clean
           flutter doctor -v
-          flutter build windows -v --release
+          flutter build windows -v --release --dart-define=flavor=development
+      - name: 🏭 Build production
+        if: ${{ github.ref == 'refs/tags/stable' }}
+        run: |
+          flutter doctor -v
+          flutter build windows -v --release --dart-define=flavor=production
       - name: Build setup
         shell: pwsh
         run: |
@@ -144,11 +148,16 @@ jobs:
       - name: 📦 Get dependencies
         run: |
           flutter pub get
-      - name: 🏭 Build
+      - name: 🏭 Build nightly
+        if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
-          flutter clean
           flutter doctor -v
-          flutter build linux -v --release
+          flutter build linux -v --release --dart-define=flavor=development
+      - name: 🏭 Build production
+        if: ${{ github.ref == 'refs/tags/stable' }}
+        run: |
+          flutter doctor -v
+          flutter build linux -v --release --dart-define=flavor=production
       - name: Build .deb executable
         run: |
           cp -fr build/linux/x64/release/bundle linux/debian/usr/bin
@@ -242,11 +251,16 @@ jobs:
       - name: 📦 Get dependencies
         run: |
           flutter pub get
-      - name: 🏭 Build
+      - name: 🏭 Build nightly
+        if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
-          flutter clean
           flutter doctor -v
-          flutter build linux -v --release
+          flutter build linux -v --release --dart-define=flavor=development
+      - name: 🏭 Build production
+        if: ${{ github.ref == 'refs/tags/stable' }}
+        run: |
+          flutter doctor -v
+          flutter build linux -v --release --dart-define=flavor=production
       - name: Copy nessessary files
         run: |
           cp images/logo.svg build/linux/x64/release/bundle/dev.linwood.flow.svg
