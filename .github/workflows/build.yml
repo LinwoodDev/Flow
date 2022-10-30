@@ -41,14 +41,14 @@ jobs:
         if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
           flutter doctor -v
-          flutter build apk -v --release
-          cp build/app/outputs/flutter-apk/app-release.apk linwood-flow-android.apk
+          flutter build apk -v --release --flavor development
+          cp build/app/outputs/flutter-apk/app-development-release.apk linwood-flow-android.apk
       - name: 🏭 Build production
         if: ${{ github.ref == 'refs/tags/stable' }}
         run: |
           flutter doctor -v
-          flutter build apk -v --release
-          cp build/app/outputs/flutter-apk/app-release.apk linwood-flow-android.apk
+          flutter build apk -v --release --flavor production
+          cp build/app/outputs/flutter-apk/app-production-release.apk linwood-flow-android.apk
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
@@ -288,7 +288,7 @@ jobs:
   #       uses: actions/checkout@v3
   #     - name: Get flutter version
   #       run: |
-  #         FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
+  #         FLUTTER_VERSION=$(cat FLUTTER_VERSION)
   #         echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
   #     - uses: subosito/flutter-action@v2
   #       with:
@@ -313,6 +313,9 @@ jobs:
   deploy:
     runs-on: ubuntu-22.04
     if: github.event_name == 'push'
+    outputs:
+      version: ${{ steps.setup.outputs.FLOW_VERSION }}
+      build_number: ${{ steps.setup.outputs.FLOW_BUILD_NUMBER }}
     needs:
       - build-apk
       - build-windows
@@ -327,7 +330,16 @@ jobs:
         with:
           token: ${{ env.CI_PAT }}
       - name: Setup git
+        id: setup
         run: |
+          FLOW_VERSION_REGEX="version:\s(.+)\+(.+)"
+          [[ $(grep -E "${FLOW_VERSION_REGEX}" app/pubspec.yaml) =~ ${FLOW_VERSION_REGEX} ]]
+          FLOW_VERSION="${BASH_REMATCH[1]}"
+          echo "FLOW_VERSION=${FLOW_VERSION}" >> $GITHUB_ENV
+          echo "FLOW_VERSION=${FLOW_VERSION}" >> $GITHUB_OUTPUT
+          FLOW_BUILD_NUMBER="${BASH_REMATCH[2]}"
+          echo "FLOW_BUILD_NUMBER=${FLOW_BUILD_NUMBER}" >> $GITHUB_ENV
+          echo "FLOW_BUILD_NUMBER=${FLOW_BUILD_NUMBER}" >> $GITHUB_OUTPUT
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
       - uses: actions/download-artifact@v3
@@ -369,7 +381,7 @@ jobs:
           zip -r linwood-flow-windows.zip windows-build/*
           tar -C linux-build -czf linwood-flow-linux.tar.gz .
           tar -C linux-alternative-portable -czf linwood-flow-linux-alternative.tar.gz .
-          # tar -C macos-build -czf linwood-flow-macos.tar.gz .
+        #  tar -C macos-build -czf linwood-flow-macos.tar.gz .
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
@@ -494,3 +506,24 @@ jobs:
           PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
         run: bundle exec fastlane beta
         working-directory: app/android
+  publish-winget:
+    needs: [deploy]
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.CI_PAT }}
+      - if: ${{ github.ref == 'refs/tags/stable' }}
+        uses: vedantmgoyal2009/winget-releaser@v1
+        with:
+          identifier: LinwoodCloud.Flow
+          version: ${{ needs.deploy.outputs.version }}
+          release-tag: v${{ needs.deploy.outputs.version }}
+          token: ${{ secrets.CI_PAT }}
+      - if: ${{ github.ref == 'refs/tags/nightly' }}
+        uses: vedantmgoyal2009/winget-releaser@v1
+        with:
+          identifier: LinwoodCloud.Flow.Nightly
+          version: ${{ needs.deploy.outputs.version }}
+          release-tag: v${{ needs.deploy.outputs.version }}
+          token: ${{ secrets.CI_PAT }}
