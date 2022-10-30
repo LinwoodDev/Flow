@@ -1,8 +1,9 @@
-import 'package:flow/pages/intro/dialog.dart';
 import 'package:flow/pages/sources/dialog.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'local.dart';
 
 class SourcesPage extends StatelessWidget {
   const SourcesPage({super.key});
@@ -21,7 +22,9 @@ class SourcesPage extends StatelessWidget {
                 ListTile(
                   title: Text(AppLocalizations.of(context)!.local),
                   leading: const Icon(Icons.computer_outlined),
-                  onTap: () {},
+                  onTap: () => showDialog(
+                      context: context,
+                      builder: (context) => const LocalSourceDialog()),
                 )
               ]),
             )),

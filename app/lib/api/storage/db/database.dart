@@ -22,3 +22,11 @@ Future<Database> openDatabase({
         onUpgrade: onUpgrade, onCreate: onCreate, version: version);
   }
 }
+
+Future<Uint8List> exportDatabase(Database database) {
+  if (kIsWeb || Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    return desktop.exportDatabase(database);
+  } else {
+    return mobile.exportDatabase(database);
+  }
+}

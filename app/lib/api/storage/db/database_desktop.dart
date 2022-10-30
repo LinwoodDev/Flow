@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:sqflite_common/sqlite_api.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart'
@@ -17,4 +19,10 @@ Future<Database> openDatabase({
         version: version, onUpgrade: onUpgrade, onCreate: onCreate),
   );
   return db;
+}
+
+Future<Uint8List> exportDatabase(Database database) {
+  final path = database.path;
+  final file = File(path);
+  return file.readAsBytes();
 }

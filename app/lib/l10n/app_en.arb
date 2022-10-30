@@ -46,5 +46,10 @@
   "server": "Server",
   "serverDescription": "Sync your data with a native Linwood Flow server. This is recommended for users that want to self-host their data.",
   "addSource": "Add source",
-  "local": "Local"
+  "local": "Local",
+  "close": "Close",
+  "unknown": "Unknown",
+  "loading": "Loading",
+  "export": "Export",
+  "createEvent": "Create event"
 }

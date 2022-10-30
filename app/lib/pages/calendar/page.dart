@@ -1,3 +1,4 @@
+import 'package:flow/pages/calendar/create.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -76,7 +77,8 @@ class _CalendarPageState extends State<CalendarPage>
       ],
       body: Container(),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () => showDialog(
+            context: context, builder: (context) => const CreateEventDialog()),
         label: Text(AppLocalizations.of(context)!.create),
         icon: const Icon(Icons.add_outlined),
       ),

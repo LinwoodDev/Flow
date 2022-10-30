@@ -218,6 +218,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.4"
+  file_picker:
+    dependency: "direct main"
+    description:
+      name: file_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.2.2"
   fixnum:
     dependency: transitive
     description:
@@ -263,20 +270,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_modular:
-    dependency: "direct main"
-    description:
-      name: flutter_modular
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.0.3"
-  flutter_modular_annotations:
+  flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
-      name: flutter_modular_annotations
+      name: flutter_plugin_android_lifecycle
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.2"
+    version: "2.0.7"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -427,20 +427,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
-  modular_core:
-    dependency: transitive
-    description:
-      name: modular_core
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.3+1"
-  modular_interfaces:
-    dependency: transitive
-    description:
-      name: modular_interfaces
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.2"
   nested:
     dependency: transitive
     description:
@@ -741,7 +727,7 @@ packages:
     source: hosted
     version: "0.3.1"
   sqlite3:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: sqlite3
       url: "https://pub.dartlang.org"

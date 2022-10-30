@@ -1,8 +1,8 @@
 import 'package:flow/pages/groups/page.dart';
 import 'package:flow/pages/settings/page.dart';
 import 'package:flow/pages/users/page.dart';
-import 'package:flow/storage/db/database.dart';
-import 'package:flow/storage/sources.dart';
+import 'package:flow/api/storage/db/database.dart';
+import 'package:flow/api/storage/sources.dart';
 import 'package:flow/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

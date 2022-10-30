@@ -118,6 +118,9 @@ class FlowNavigation extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                                Image.asset("images/logo.png",
+                                    width: 64, height: 64),
+                                const SizedBox(height: 16),
                                 Text("Linwood Flow",
                                     style:
                                         Theme.of(context).textTheme.titleLarge),
