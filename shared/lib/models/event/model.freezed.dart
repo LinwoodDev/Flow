@@ -26,7 +26,9 @@ mixin _$Event {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
+  @DateTimeConverter()
   DateTime? get start => throw _privateConstructorUsedError;
+  @DateTimeConverter()
   DateTime? get end => throw _privateConstructorUsedError;
   EventStatus get status => throw _privateConstructorUsedError;
 
@@ -47,8 +49,8 @@ abstract class $EventCopyWith<$Res> {
       String name,
       String description,
       String location,
-      DateTime? start,
-      DateTime? end,
+      @DateTimeConverter() DateTime? start,
+      @DateTimeConverter() DateTime? end,
       EventStatus status});
 }
 
@@ -129,8 +131,8 @@ abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
       String name,
       String description,
       String location,
-      DateTime? start,
-      DateTime? end,
+      @DateTimeConverter() DateTime? start,
+      @DateTimeConverter() DateTime? end,
       EventStatus status});
 }
 
@@ -204,8 +206,8 @@ class _$_Event implements _Event {
       this.name = '',
       this.description = '',
       this.location = '',
-      this.start,
-      this.end,
+      @DateTimeConverter() this.start,
+      @DateTimeConverter() this.end,
       this.status = EventStatus.accepted});
 
   factory _$_Event.fromJson(Map<String, dynamic> json) =>
@@ -228,8 +230,10 @@ class _$_Event implements _Event {
   @JsonKey()
   final String location;
   @override
+  @DateTimeConverter()
   final DateTime? start;
   @override
+  @DateTimeConverter()
   final DateTime? end;
   @override
   @JsonKey()
@@ -285,8 +289,8 @@ abstract class _Event implements Event {
       final String name,
       final String description,
       final String location,
-      final DateTime? start,
-      final DateTime? end,
+      @DateTimeConverter() final DateTime? start,
+      @DateTimeConverter() final DateTime? end,
       final EventStatus status}) = _$_Event;
 
   factory _Event.fromJson(Map<String, dynamic> json) = _$_Event.fromJson;
@@ -304,8 +308,10 @@ abstract class _Event implements Event {
   @override
   String get location;
   @override
+  @DateTimeConverter()
   DateTime? get start;
   @override
+  @DateTimeConverter()
   DateTime? get end;
   @override
   EventStatus get status;

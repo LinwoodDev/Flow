@@ -19,8 +19,8 @@ class EventDatabaseService extends EventService with TableService {
         description TEXT,
         location TEXT,
         placeId INTEGER,
-        start TEXT,
-        end TEXT,
+        start INTEGER,
+        end INTEGER,
         status TEXT
       )
     """);
@@ -40,6 +40,29 @@ class EventDatabaseService extends EventService with TableService {
     final result =
         await db?.query('events', where: where, whereArgs: whereArgs);
     return result?.map((row) => Event.fromJson(row)).toList() ?? [];
+  }
+
+  @override
+  Future<Event?> createEvent({
+    required String name,
+    String description = '',
+    required DateTime start,
+    required DateTime end,
+  }) async {
+    final id = await db?.insert('events', {
+      'name': name,
+      'description': description,
+      'start': start.millisecondsSinceEpoch,
+      'end': end.millisecondsSinceEpoch,
+    });
+    if (id == null) return null;
+    return Event(
+      id: id,
+      name: name,
+      description: description,
+      start: start,
+      end: end,
+    );
   }
 }
 

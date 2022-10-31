@@ -49,6 +49,7 @@ dependencies:
   sqlite3_flutter_libs: ^0.5.10
   sqlite3: ^1.9.1
   file_picker: ^5.2.2
+  collection: ^1.16.0
 dev_dependencies:
   build_runner: ^2.3.2
   flutter_launcher_icons: ^0.10.0

@@ -12,6 +12,7 @@ class LocalSourceDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      scrollable: true,
       title: Text(AppLocalizations.of(context)!.local),
       content: Column(mainAxisSize: MainAxisSize.min, children: [
         ListTile(

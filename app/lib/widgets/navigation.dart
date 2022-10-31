@@ -1,4 +1,6 @@
+import 'package:flow/cubits/flow.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -74,87 +76,12 @@ class FlowNavigation extends StatelessWidget {
     this.floatingActionButton,
   });
 
-  Widget _getItem(BuildContext context, Map? map) {
-    final currentSelected = selected == map?['name'];
-    return map == null
-        ? const Divider()
-        : ListTile(
-            style: ListTileStyle.drawer,
-            title: Text(map['title']),
-            leading: Icon(map['icon']),
-            onTap: () => GoRouter.of(context).go(map['link']),
-            selected: currentSelected,
-            selectedColor: Theme.of(context).colorScheme.onBackground,
-            selectedTileColor: currentSelected
-                ? Theme.of(context).colorScheme.primaryContainer.withAlpha(200)
-                : null,
-            shape: const BeveledRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(16),
-                bottomRight: Radius.circular(16),
-              ),
-            ),
-          );
-  }
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       final isMobile = constraints.maxWidth < 768;
-      final drawer = Material(
-        child: Padding(
-          padding: const EdgeInsets.only(right: 8, top: 16, bottom: 8),
-          child: LayoutBuilder(builder: (context, constraints) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(children: [
-                      Material(
-                          elevation: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 8, right: 8, top: 16, bottom: 64),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                    isNightly
-                                        ? "images/nightly.png"
-                                        : "images/logo.png",
-                                    width: 64,
-                                    height: 64),
-                                const SizedBox(height: 16),
-                                Text(
-                                    isNightly
-                                        ? "Linwood Flow Nightly"
-                                        : "Linwood Flow",
-                                    textAlign: TextAlign.center,
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge),
-                              ],
-                            ),
-                          )),
-                      Column(
-                        children: _getNavigationItems(context)
-                            .map((e) => _getItem(context, e))
-                            .toList(),
-                      ),
-                    ]),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: _getSecondaryItems(context)
-                          .map((e) => _getItem(context, e))
-                          .toList(),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }),
-        ),
+      final drawer = _FlowDrawer(
+        selected: selected,
       );
       return Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -191,5 +118,161 @@ class FlowNavigation extends StatelessWidget {
         ],
       );
     });
+  }
+}
+
+class _FlowDrawer extends StatelessWidget {
+  final String selected;
+  const _FlowDrawer({required this.selected});
+
+  Widget _getItem(BuildContext context, Map? map) {
+    final currentSelected = selected == map?['name'];
+    return map == null
+        ? const Divider()
+        : ListTile(
+            style: ListTileStyle.drawer,
+            title: Text(map['title']),
+            leading: Icon(map['icon']),
+            onTap: () => GoRouter.of(context).go(map['link']),
+            selected: currentSelected,
+            selectedColor: Theme.of(context).colorScheme.onBackground,
+            selectedTileColor: currentSelected
+                ? Theme.of(context).colorScheme.primaryContainer.withAlpha(200)
+                : null,
+            shape: const BeveledRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(16),
+                bottomRight: Radius.circular(16),
+              ),
+            ),
+          );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Padding(
+        padding: const EdgeInsets.only(right: 8, top: 16, bottom: 8),
+        child: LayoutBuilder(builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(children: [
+                    Material(
+                        elevation: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8, right: 8, top: 16, bottom: 64),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                  isNightly
+                                      ? "images/nightly.png"
+                                      : "images/logo.png",
+                                  width: 64,
+                                  height: 64),
+                              const SizedBox(height: 16),
+                              Text(
+                                  isNightly
+                                      ? "Linwood Flow Nightly"
+                                      : "Linwood Flow",
+                                  textAlign: TextAlign.center,
+                                  style:
+                                      Theme.of(context).textTheme.titleLarge),
+                              const SizedBox(height: 16),
+                              OutlinedButton.icon(
+                                label:
+                                    Text(AppLocalizations.of(context)!.sources),
+                                icon: const Icon(Icons.menu_outlined),
+                                onPressed: () => _showSources(context),
+                              ),
+                            ],
+                          ),
+                        )),
+                    Column(
+                      children: _getNavigationItems(context)
+                          .map((e) => _getItem(context, e))
+                          .toList(),
+                    ),
+                  ]),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: _getSecondaryItems(context)
+                        .map((e) => _getItem(context, e))
+                        .toList(),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }),
+      ),
+    );
+  }
+
+  Future<dynamic> _showSources(BuildContext context) {
+    final sources = [''];
+    final currents =
+        List<String>.from(context.read<FlowCubit>().getCurrentSources());
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        scrollable: true,
+        title: Text(AppLocalizations.of(context)!.sources),
+        content: StatefulBuilder(
+          builder: (context, setState) {
+            bool? allSources;
+            if (currents.length == sources.length) {
+              allSources = true;
+            } else if (currents.isEmpty) {
+              allSources = false;
+            }
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CheckboxListTile(
+                  title: Text(AppLocalizations.of(context)!.allSources),
+                  value: allSources,
+                  tristate: true,
+                  onChanged: (value) => setState(() {
+                    if (value ?? false) {
+                      currents.clear();
+                      currents.addAll(sources);
+                    } else {
+                      currents.clear();
+                    }
+                  }),
+                ),
+                const Divider(),
+                CheckboxListTile(
+                  title: Text(AppLocalizations.of(context)!.local),
+                  value: currents.contains(""),
+                  onChanged: (value) => setState(() => (value ?? false)
+                      ? currents.add("")
+                      : currents.remove("")),
+                ),
+              ],
+            );
+          },
+        ),
+        actions: [
+          TextButton(
+            child: Text(AppLocalizations.of(context)!.cancel),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          ElevatedButton(
+            child: Text(AppLocalizations.of(context)!.save),
+            onPressed: () {
+              context.read<FlowCubit>().setSources(currents);
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
+    );
   }
 }

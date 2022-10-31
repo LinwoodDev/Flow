@@ -8,6 +8,13 @@ abstract class EventService extends ModelService {
   FutureOr<List<Event>> getEvents({
     EventStatus? status,
   });
+
+  FutureOr<Event?> createEvent({
+    required String name,
+    String description = '',
+    required DateTime start,
+    required DateTime end,
+  });
 }
 
 abstract class EventGroupService extends ModelService {

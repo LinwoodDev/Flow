@@ -39,6 +39,9 @@ class DatabaseService extends SourceService {
     db = await databaseFactory(
         version: databaseVersion, onUpgrade: _onUpgrade, onCreate: _onCreate);
     db.execute("PRAGMA foreign_keys = ON");
+    for (final table in tables) {
+      table.opened(db);
+    }
   }
 
   List<TableService> get tables => models.cast<TableService>();

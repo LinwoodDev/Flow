@@ -1,7 +1,10 @@
+import 'package:flow/cubits/flow.dart';
 import 'package:flow/pages/calendar/create.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared/models/event/model.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
@@ -75,10 +78,30 @@ class _CalendarPageState extends State<CalendarPage>
               .toList(),
         ),
       ],
-      body: Container(),
+      body: BlocBuilder<FlowCubit, FlowState>(
+          builder: (context, state) => FutureBuilder<List<Event>>(
+                future: Future.wait(context
+                        .read<FlowCubit>()
+                        .getCurrentServices()
+                        .map((e) async => await e.event.getEvents()))
+                    .then(
+                        (value) => value.expand((element) => element).toList()),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) => ListTile(
+                      title: Text(snapshot.data![index].name),
+                      subtitle: Text(snapshot.data![index].description),
+                    ),
+                  );
+                },
+              )),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
-            context: context, builder: (context) => const CreateEventDialog()),
+            context: context, builder: (context) => CreateEventDialog()),
         label: Text(AppLocalizations.of(context)!.create),
         icon: const Icon(Icons.add_outlined),
       ),

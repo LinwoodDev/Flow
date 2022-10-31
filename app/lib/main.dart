@@ -1,3 +1,4 @@
+import 'package:flow/cubits/flow.dart';
 import 'package:flow/pages/groups/page.dart';
 import 'package:flow/pages/settings/page.dart';
 import 'package:flow/pages/users/page.dart';
@@ -40,7 +41,9 @@ Future<void> main() async {
       child: RepositoryProvider(
         create: (context) =>
             SourcesService(context.read<SettingsCubit>(), database),
-        child: FlowApp(),
+        child: BlocProvider(
+            create: (context) => FlowCubit(context.read<SourcesService>()),
+            child: FlowApp()),
       ),
     ),
   );

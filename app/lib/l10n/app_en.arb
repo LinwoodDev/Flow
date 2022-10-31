@@ -51,5 +51,7 @@
   "unknown": "Unknown",
   "loading": "Loading",
   "export": "Export",
-  "createEvent": "Create event"
+  "createEvent": "Create event",
+  "save": "Save",
+  "allSources": "All sources"
 }

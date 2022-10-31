@@ -13,10 +13,10 @@ _$_Event _$$_EventFromJson(Map<String, dynamic> json) => _$_Event(
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       location: json['location'] as String? ?? '',
-      start: json['start'] == null
-          ? null
-          : DateTime.parse(json['start'] as String),
-      end: json['end'] == null ? null : DateTime.parse(json['end'] as String),
+      start: _$JsonConverterFromJson<int, DateTime>(
+          json['start'], const DateTimeConverter().fromJson),
+      end: _$JsonConverterFromJson<int, DateTime>(
+          json['end'], const DateTimeConverter().fromJson),
       status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
           EventStatus.accepted,
     );
@@ -28,16 +28,30 @@ Map<String, dynamic> _$$_EventToJson(_$_Event instance) => <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
       'location': instance.location,
-      'start': instance.start?.toIso8601String(),
-      'end': instance.end?.toIso8601String(),
+      'start': _$JsonConverterToJson<int, DateTime>(
+          instance.start, const DateTimeConverter().toJson),
+      'end': _$JsonConverterToJson<int, DateTime>(
+          instance.end, const DateTimeConverter().toJson),
       'status': _$EventStatusEnumMap[instance.status]!,
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
 
 const _$EventStatusEnumMap = {
   EventStatus.pending: 'pending',
   EventStatus.accepted: 'accepted',
   EventStatus.declined: 'declined',
 };
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);
 
 _$_EventGroup _$$_EventGroupFromJson(Map<String, dynamic> json) =>
     _$_EventGroup(

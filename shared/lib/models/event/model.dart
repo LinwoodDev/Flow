@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shared/helpers/converter.dart';
 
 part 'model.freezed.dart';
 part 'model.g.dart';
@@ -12,8 +13,8 @@ class Event with _$Event {
     @Default('') String name,
     @Default('') String description,
     @Default('') String location,
-    DateTime? start,
-    DateTime? end,
+    @DateTimeConverter() DateTime? start,
+    @DateTimeConverter() DateTime? end,
     @Default(EventStatus.accepted) EventStatus status,
   }) = _Event;
 
