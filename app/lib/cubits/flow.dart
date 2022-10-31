@@ -58,4 +58,8 @@ class FlowCubit extends Cubit<FlowState> {
   SourceService getSource(String source) {
     return sourcesService.local;
   }
+
+  Map<String, SourceService> getCurrentServicesMap() {
+    return Map.fromIterables(getCurrentSources(), getCurrentServices());
+  }
 }

@@ -64,6 +64,17 @@ class EventDatabaseService extends EventService with TableService {
       end: end,
     );
   }
+
+  @override
+  FutureOr<bool> updateEvent(Event event) async {
+    return await db?.update(
+          'events',
+          event.toJson(),
+          where: 'id = ?',
+          whereArgs: [event.id],
+        ) ==
+        1;
+  }
 }
 
 class EventGroupDatabaseService extends EventGroupService with TableService {

@@ -53,5 +53,7 @@
   "export": "Export",
   "createEvent": "Create event",
   "save": "Save",
-  "allSources": "All sources"
+  "allSources": "All sources",
+  "editEvent": "Edit event",
+  "end": "End"
 }

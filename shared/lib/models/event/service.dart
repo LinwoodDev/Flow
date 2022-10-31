@@ -15,6 +15,8 @@ abstract class EventService extends ModelService {
     required DateTime start,
     required DateTime end,
   });
+
+  FutureOr<bool> updateEvent(Event event);
 }
 
 abstract class EventGroupService extends ModelService {

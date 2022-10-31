@@ -1,5 +1,6 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/pages/calendar/create.dart';
+import 'package:flow/pages/calendar/edit.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,29 +80,47 @@ class _CalendarPageState extends State<CalendarPage>
         ),
       ],
       body: BlocBuilder<FlowCubit, FlowState>(
-          builder: (context, state) => FutureBuilder<List<Event>>(
+          builder: (context, state) =>
+              FutureBuilder<List<MapEntry<String, List<Event>>>>(
                 future: Future.wait(context
-                        .read<FlowCubit>()
-                        .getCurrentServices()
-                        .map((e) async => await e.event.getEvents()))
-                    .then(
-                        (value) => value.expand((element) => element).toList()),
+                    .read<FlowCubit>()
+                    .getCurrentServicesMap()
+                    .entries
+                    .map((e) async =>
+                        MapEntry(e.key, await e.value.event.getEvents()))),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  return ListView.builder(
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) => ListTile(
-                      title: Text(snapshot.data![index].name),
-                      subtitle: Text(snapshot.data![index].description),
+                  final events = snapshot.data!
+                      .expand((e) => e.value.map((i) => MapEntry(i, e.key)))
+                      .toList();
+                  return RefreshIndicator(
+                    onRefresh: () async => setState(() {}),
+                    child: ListView.builder(
+                      itemCount: events.length,
+                      itemBuilder: (context, index) {
+                        final event = events[index];
+                        return ListTile(
+                          title: Text(event.key.name),
+                          subtitle: Text(event.key.description),
+                          onTap: () => showDialog(
+                            context: context,
+                            builder: (context) => EditEventDialog(
+                              event: event.key,
+                              source: event.value,
+                            ),
+                          ).then((value) => setState(() {})),
+                        );
+                      },
                     ),
                   );
                 },
               )),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
-            context: context, builder: (context) => CreateEventDialog()),
+                context: context, builder: (context) => CreateEventDialog())
+            .then((value) => setState(() {})),
         label: Text(AppLocalizations.of(context)!.create),
         icon: const Icon(Icons.add_outlined),
       ),

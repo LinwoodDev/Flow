@@ -1,15 +1,16 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shared/helpers/date_time.dart';
 
 class DateTimeConverter extends JsonConverter<DateTime, int> {
   const DateTimeConverter();
 
   @override
   DateTime fromJson(int json) {
-    return DateTime.fromMillisecondsSinceEpoch(json);
+    return DateTimeHelper.fromSecondsSinceEpoch(json);
   }
 
   @override
   int toJson(DateTime object) {
-    return object.millisecondsSinceEpoch;
+    return object.secondsSinceEpoch;
   }
 }

@@ -12,6 +12,7 @@ class CreateEventDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String source = context.read<FlowCubit>().getCurrentSource();
+    DateTime start = DateTime.now(), end = DateTime.now();
     return AlertDialog(
       scrollable: true,
       title: Text(AppLocalizations.of(context)!.createEvent),
@@ -58,7 +59,20 @@ class CreateEventDialog extends StatelessWidget {
             maxLines: 5,
             controller: _descriptionController,
           ),
-          const DateTimeField()
+          const SizedBox(height: 16),
+          DateTimeField(
+            label: AppLocalizations.of(context)!.start,
+            icon: const Icon(Icons.calendar_today_outlined),
+            onChanged: (value) => start = value,
+            initialValue: start,
+          ),
+          const SizedBox(height: 8),
+          DateTimeField(
+            label: AppLocalizations.of(context)!.end,
+            icon: const Icon(Icons.calendar_today_outlined),
+            onChanged: (value) => end = value,
+            initialValue: end,
+          ),
         ]),
       ),
       actions: [
