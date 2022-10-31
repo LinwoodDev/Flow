@@ -84,6 +84,7 @@ class FlowNavigation extends StatelessWidget {
         selected: selected,
       );
       return Row(
+        textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (!isMobile)
@@ -115,7 +116,7 @@ class FlowNavigation extends StatelessWidget {
               floatingActionButton: floatingActionButton,
             ),
           ),
-        ],
+        ].reversed.toList(),
       );
     });
   }

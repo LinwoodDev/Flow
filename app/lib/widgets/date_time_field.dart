@@ -20,13 +20,13 @@ class DateTimeField extends StatefulWidget {
 }
 
 class _DateTimeFieldState extends State<DateTimeField> {
-  late DateTime _value;
+  late DateTime? _value;
   final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _value = widget.initialValue ?? DateTime.now();
+    _value = widget.initialValue;
   }
 
   void _change(DateTime value) {
@@ -48,7 +48,8 @@ class _DateTimeFieldState extends State<DateTimeField> {
 
   @override
   Widget build(BuildContext context) {
-    _controller.text = _format(_value);
+    final useValue = _value ?? DateTime.now();
+    _controller.text = _value == null ? '' : _format(useValue);
     return TextFormField(
       controller: _controller,
       readOnly: true,
@@ -64,9 +65,9 @@ class _DateTimeFieldState extends State<DateTimeField> {
                 onPressed: () async {
                   final result = await showDatePicker(
                     context: context,
-                    initialDate: _value,
+                    initialDate: useValue,
                     firstDate: DateTime.fromMicrosecondsSinceEpoch(0),
-                    lastDate: _addYears(_value, 200),
+                    lastDate: _addYears(useValue, 200),
                   );
                   if (result != null) {
                     _change(result);
@@ -77,17 +78,11 @@ class _DateTimeFieldState extends State<DateTimeField> {
                 onPressed: () async {
                   final result = await showTimePicker(
                     context: context,
-                    initialTime: TimeOfDay.fromDateTime(_value),
+                    initialTime: TimeOfDay.fromDateTime(useValue),
                   );
                   if (result != null) {
-                    _change(DateTime(
-                        _value.year,
-                        _value.month,
-                        _value.day,
-                        result.hour,
-                        result.minute,
-                        _value.second,
-                        _value.millisecond));
+                    _change(DateTime(useValue.year, useValue.month,
+                        useValue.day, result.hour, result.minute));
                   }
                 }),
           ],

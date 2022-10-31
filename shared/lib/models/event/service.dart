@@ -9,14 +9,11 @@ abstract class EventService extends ModelService {
     EventStatus? status,
   });
 
-  FutureOr<Event?> createEvent({
-    required String name,
-    String description = '',
-    required DateTime start,
-    required DateTime end,
-  });
+  FutureOr<Event?> createEvent(Event event);
 
   FutureOr<bool> updateEvent(Event event);
+
+  FutureOr<bool> deleteEvent(Event event);
 }
 
 abstract class EventGroupService extends ModelService {

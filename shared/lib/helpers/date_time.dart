@@ -4,6 +4,10 @@ extension DateTimeHelper on DateTime {
     return (ms / 1000).round();
   }
 
+  DateTime onlyDate() {
+    return DateTime(year, month, day);
+  }
+
   static DateTime fromSecondsSinceEpoch(int seconds) {
     return DateTime.fromMillisecondsSinceEpoch(seconds * 1000);
   }

@@ -1,11 +1,12 @@
 import 'package:flow/cubits/flow.dart';
-import 'package:flow/pages/calendar/create.dart';
-import 'package:flow/pages/calendar/edit.dart';
+import 'package:flow/pages/calendar/list.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/event/model.dart';
+
+import 'event.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
@@ -52,8 +53,6 @@ class _CalendarPageState extends State<CalendarPage>
   @override
   void initState() {
     super.initState();
-
-    _future = _buildFuture();
   }
 
   Future<List<MapEntry<String, List<Event>>>> _buildFuture() =>
@@ -107,43 +106,31 @@ class _CalendarPageState extends State<CalendarPage>
               .toList(),
         ),
       ],
-      body: BlocBuilder<FlowCubit, FlowState>(
-          builder: (context, state) =>
-              FutureBuilder<List<MapEntry<String, List<Event>>>>(
-                future: _future,
-                builder: (context, snapshot) {
-                  final events = snapshot.data
-                          ?.expand(
-                              (e) => e.value.map((i) => MapEntry(i, e.key)))
-                          .toList() ??
-                      [];
-                  return RefreshIndicator(
-                    onRefresh: () => _updateFuture(true),
-                    child: !snapshot.hasData
-                        ? const Center(child: CircularProgressIndicator())
-                        : ListView.builder(
-                            itemCount: events.length,
-                            itemBuilder: (context, index) {
-                              final event = events[index];
-                              return ListTile(
-                                title: Text(event.key.name),
-                                subtitle: Text(event.key.description),
-                                onTap: () => showDialog(
-                                  context: context,
-                                  builder: (context) => EditEventDialog(
-                                    event: event.key,
-                                    source: event.value,
-                                  ),
-                                ).then((value) => _updateFuture()),
-                              );
-                            },
-                          ),
-                  );
-                },
-              )),
+      body: BlocBuilder<FlowCubit, FlowState>(builder: (context, state) {
+        _future = _buildFuture();
+        return FutureBuilder<List<MapEntry<String, List<Event>>>>(
+          future: _future,
+          builder: (context, snapshot) {
+            final events = snapshot.data
+                    ?.expand((e) => e.value.map((i) => MapEntry(i, e.key)))
+                    .toList() ??
+                [];
+            return StatefulBuilder(builder: (context, setInnerState) {
+              return RefreshIndicator(
+                  onRefresh: () => _updateFuture(true),
+                  child: !snapshot.hasData
+                      ? const Center(child: CircularProgressIndicator())
+                      : CalendarListView(
+                          events: events,
+                          onRefresh: _updateFuture,
+                        ));
+            });
+          },
+        );
+      }),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
-                context: context, builder: (context) => CreateEventDialog())
+                context: context, builder: (context) => const EventDialog())
             .then((value) => _updateFuture()),
         label: Text(AppLocalizations.of(context)!.create),
         icon: const Icon(Icons.add_outlined),

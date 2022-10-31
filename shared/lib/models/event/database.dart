@@ -43,33 +43,27 @@ class EventDatabaseService extends EventService with TableService {
   }
 
   @override
-  Future<Event?> createEvent({
-    required String name,
-    String description = '',
-    required DateTime start,
-    required DateTime end,
-  }) async {
-    final id = await db?.insert('events', {
-      'name': name,
-      'description': description,
-      'start': start.millisecondsSinceEpoch,
-      'end': end.millisecondsSinceEpoch,
-    });
+  Future<Event?> createEvent(Event event) async {
+    final id = await db?.insert('events', event.toJson()..remove('id'));
     if (id == null) return null;
-    return Event(
-      id: id,
-      name: name,
-      description: description,
-      start: start,
-      end: end,
-    );
+    return event.copyWith(id: id);
   }
 
   @override
-  FutureOr<bool> updateEvent(Event event) async {
+  Future<bool> updateEvent(Event event) async {
     return await db?.update(
           'events',
           event.toJson(),
+          where: 'id = ?',
+          whereArgs: [event.id],
+        ) ==
+        1;
+  }
+
+  @override
+  Future<bool> deleteEvent(Event event) async {
+    return await db?.delete(
+          'events',
           where: 'id = ?',
           whereArgs: [event.id],
         ) ==
