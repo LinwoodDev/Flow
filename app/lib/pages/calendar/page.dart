@@ -47,6 +47,34 @@ extension _CalendarViewExtension on _CalendarView {
 class _CalendarPageState extends State<CalendarPage>
     with TickerProviderStateMixin {
   _CalendarView _calendarView = _CalendarView.list;
+  late Future<List<MapEntry<String, List<Event>>>> _future;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _future = _buildFuture();
+  }
+
+  Future<List<MapEntry<String, List<Event>>>> _buildFuture() =>
+      Future.wait(context
+          .read<FlowCubit>()
+          .getCurrentServicesMap()
+          .entries
+          .map((e) async => MapEntry(e.key, await e.value.event.getEvents())));
+
+  Future<void> _updateFuture([bool holdFuture = false]) async {
+    if (holdFuture) {
+      final events = await _buildFuture();
+      setState(() {
+        _future = Future.value(events);
+      });
+    } else {
+      setState(() {
+        _future = _buildFuture();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,45 +110,41 @@ class _CalendarPageState extends State<CalendarPage>
       body: BlocBuilder<FlowCubit, FlowState>(
           builder: (context, state) =>
               FutureBuilder<List<MapEntry<String, List<Event>>>>(
-                future: Future.wait(context
-                    .read<FlowCubit>()
-                    .getCurrentServicesMap()
-                    .entries
-                    .map((e) async =>
-                        MapEntry(e.key, await e.value.event.getEvents()))),
+                future: _future,
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  final events = snapshot.data!
-                      .expand((e) => e.value.map((i) => MapEntry(i, e.key)))
-                      .toList();
+                  final events = snapshot.data
+                          ?.expand(
+                              (e) => e.value.map((i) => MapEntry(i, e.key)))
+                          .toList() ??
+                      [];
                   return RefreshIndicator(
-                    onRefresh: () async => setState(() {}),
-                    child: ListView.builder(
-                      itemCount: events.length,
-                      itemBuilder: (context, index) {
-                        final event = events[index];
-                        return ListTile(
-                          title: Text(event.key.name),
-                          subtitle: Text(event.key.description),
-                          onTap: () => showDialog(
-                            context: context,
-                            builder: (context) => EditEventDialog(
-                              event: event.key,
-                              source: event.value,
-                            ),
-                          ).then((value) => setState(() {})),
-                        );
-                      },
-                    ),
+                    onRefresh: () => _updateFuture(true),
+                    child: !snapshot.hasData
+                        ? const Center(child: CircularProgressIndicator())
+                        : ListView.builder(
+                            itemCount: events.length,
+                            itemBuilder: (context, index) {
+                              final event = events[index];
+                              return ListTile(
+                                title: Text(event.key.name),
+                                subtitle: Text(event.key.description),
+                                onTap: () => showDialog(
+                                  context: context,
+                                  builder: (context) => EditEventDialog(
+                                    event: event.key,
+                                    source: event.value,
+                                  ),
+                                ).then((value) => _updateFuture()),
+                              );
+                            },
+                          ),
                   );
                 },
               )),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
                 context: context, builder: (context) => CreateEventDialog())
-            .then((value) => setState(() {})),
+            .then((value) => _updateFuture()),
         label: Text(AppLocalizations.of(context)!.create),
         icon: const Icon(Icons.add_outlined),
       ),

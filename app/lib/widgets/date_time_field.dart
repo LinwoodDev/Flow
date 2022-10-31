@@ -33,6 +33,7 @@ class _DateTimeFieldState extends State<DateTimeField> {
     setState(() {
       _value = value;
     });
+    widget.onChanged(value);
   }
 
   String _format(DateTime value) {
