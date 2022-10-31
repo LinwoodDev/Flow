@@ -55,7 +55,7 @@ class FlowApp extends StatelessWidget {
         builder: (context, state) => MaterialApp.router(
               debugShowCheckedModeBanner: false,
               routerConfig: _router,
-              title: 'Linwood Flow',
+              title: isNightly ? 'Linwood Flow Nightly' : 'Linwood Flow',
               // Use a predefined FlexThemeData.light() theme for the light theme.
               theme: getThemeData(state.design, false),
               // Same definition for the dark theme, but using FlexThemeData.dark().

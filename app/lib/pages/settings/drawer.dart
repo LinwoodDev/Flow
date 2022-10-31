@@ -13,6 +13,7 @@ class SettingsDrawer extends StatelessWidget {
         );
     return ListView(children: [
       ...<List<dynamic>>[
+        [Icons.refresh_outlined, AppLocalizations.of(context)!.version],
         [Icons.palette_outlined, AppLocalizations.of(context)!.personalization],
         [Icons.info_outlined, AppLocalizations.of(context)!.information],
         [Icons.article_outlined, AppLocalizations.of(context)!.legal]
