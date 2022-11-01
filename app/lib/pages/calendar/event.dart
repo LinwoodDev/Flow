@@ -81,6 +81,7 @@ class EventDialog extends StatelessWidget {
               onChanged: (value) {
                 event = event.copyWith(start: value);
               },
+              canBeEmpty: true,
             ),
             const SizedBox(height: 8),
             DateTimeField(
@@ -90,6 +91,7 @@ class EventDialog extends StatelessWidget {
               onChanged: (value) {
                 event = event.copyWith(end: value);
               },
+              canBeEmpty: true,
             ),
           ],
         ),

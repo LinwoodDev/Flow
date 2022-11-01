@@ -5,13 +5,15 @@ class DateTimeField extends StatefulWidget {
   final DateTime? initialValue;
   final String label;
   final Widget? icon;
-  final ValueChanged<DateTime> onChanged;
+  final bool canBeEmpty;
+  final ValueChanged<DateTime?> onChanged;
 
   const DateTimeField({
     super.key,
     this.initialValue,
     required this.label,
     required this.onChanged,
+    this.canBeEmpty = false,
     this.icon,
   });
 
@@ -29,7 +31,7 @@ class _DateTimeFieldState extends State<DateTimeField> {
     _value = widget.initialValue;
   }
 
-  void _change(DateTime value) {
+  void _change(DateTime? value) {
     setState(() {
       _value = value;
     });
@@ -38,7 +40,7 @@ class _DateTimeFieldState extends State<DateTimeField> {
 
   String _format(DateTime value) {
     String locale = Localizations.localeOf(context).languageCode;
-    return '${DateFormat.yMMMd(locale).format(value)} ${DateFormat.Hm().format(value)}';
+    return '${DateFormat.yMd(locale).format(value)} ${DateFormat.Hm().format(value)}';
   }
 
   DateTime _addYears(DateTime dateTime, int years) {
@@ -70,7 +72,8 @@ class _DateTimeFieldState extends State<DateTimeField> {
                     lastDate: _addYears(useValue, 200),
                   );
                   if (result != null) {
-                    _change(result);
+                    _change(DateTime(result.year, result.month, result.day,
+                        useValue.hour, useValue.minute));
                   }
                 }),
             IconButton(
@@ -85,6 +88,12 @@ class _DateTimeFieldState extends State<DateTimeField> {
                         useValue.day, result.hour, result.minute));
                   }
                 }),
+            if (widget.canBeEmpty)
+              IconButton(
+                  icon: const Icon(Icons.clear),
+                  onPressed: () {
+                    _change(null);
+                  }),
           ],
         ),
       ),
