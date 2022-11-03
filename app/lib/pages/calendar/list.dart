@@ -1,3 +1,4 @@
+import 'package:flow/helpers/event.dart';
 import 'package:flow/pages/calendar/event.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -132,6 +133,8 @@ class _CalendarListDayView extends StatelessWidget {
           return ListTile(
             title: Text(e.key.name),
             subtitle: Text(range),
+            leading:
+                Icon(e.key.status.getIcon(), color: e.key.status.getColor()),
             onTap: () => showDialog(
                     context: context,
                     builder: (context) =>

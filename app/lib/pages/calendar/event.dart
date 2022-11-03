@@ -1,4 +1,5 @@
 import 'package:flow/cubits/flow.dart';
+import 'package:flow/helpers/event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -16,10 +17,10 @@ class EventDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     var event = this.event ?? const Event();
     var currentSource = source ?? '';
-    TextEditingController nameController =
-        TextEditingController(text: event.name);
-    TextEditingController descriptionController =
+    final nameController = TextEditingController(text: event.name);
+    final descriptionController =
         TextEditingController(text: event.description);
+    final locationController = TextEditingController(text: event.location);
     return AlertDialog(
       title: Text(source == null
           ? AppLocalizations.of(context)!.createEvent
@@ -53,6 +54,31 @@ class EventDialog extends StatelessWidget {
               ),
               const SizedBox(height: 16),
             ],
+            DropdownButtonFormField<EventStatus>(
+              value: event.status,
+              items: EventStatus.values
+                  .map<DropdownMenuItem<EventStatus>>((value) {
+                return DropdownMenuItem<EventStatus>(
+                  value: value,
+                  child: Row(
+                    children: [
+                      Icon(value.getIcon(), color: value.getColor()),
+                      const SizedBox(width: 8),
+                      Text(value.getLocalizedName(context)),
+                    ],
+                  ),
+                );
+              }).toList(),
+              onChanged: (EventStatus? value) {
+                event = event.copyWith(status: value ?? event.status);
+              },
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.status,
+                icon: const Icon(Icons.info_outlined),
+                border: const OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
             TextFormField(
               controller: nameController,
               decoration: InputDecoration(
@@ -72,6 +98,18 @@ class EventDialog extends StatelessWidget {
               maxLines: 5,
               controller: descriptionController,
               onChanged: (value) => event = event.copyWith(description: value),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.location,
+                filled: true,
+                icon: const Icon(Icons.location_on_outlined),
+              ),
+              minLines: 1,
+              maxLines: 2,
+              controller: locationController,
+              onChanged: (value) => event = event.copyWith(location: value),
             ),
             const SizedBox(height: 16),
             DateTimeField(

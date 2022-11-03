@@ -208,7 +208,7 @@ class _$_Event implements _Event {
       this.location = '',
       @DateTimeConverter() this.start,
       @DateTimeConverter() this.end,
-      this.status = EventStatus.accepted});
+      this.status = EventStatus.confirmed});
 
   factory _$_Event.fromJson(Map<String, dynamic> json) =>
       _$$_EventFromJson(json);

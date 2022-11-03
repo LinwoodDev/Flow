@@ -18,7 +18,7 @@ _$_Event _$$_EventFromJson(Map<String, dynamic> json) => _$_Event(
       end: _$JsonConverterFromJson<int, DateTime>(
           json['end'], const DateTimeConverter().fromJson),
       status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
-          EventStatus.accepted,
+          EventStatus.confirmed,
     );
 
 Map<String, dynamic> _$$_EventToJson(_$_Event instance) => <String, dynamic>{
@@ -42,9 +42,9 @@ Value? _$JsonConverterFromJson<Json, Value>(
     json == null ? null : fromJson(json as Json);
 
 const _$EventStatusEnumMap = {
-  EventStatus.pending: 'pending',
-  EventStatus.accepted: 'accepted',
-  EventStatus.declined: 'declined',
+  EventStatus.draft: 'draft',
+  EventStatus.confirmed: 'confirmed',
+  EventStatus.cancelled: 'cancelled',
 };
 
 Json? _$JsonConverterToJson<Json, Value>(

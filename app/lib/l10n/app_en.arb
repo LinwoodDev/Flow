@@ -55,5 +55,10 @@
   "save": "Save",
   "allSources": "All sources",
   "editEvent": "Edit event",
-  "end": "End"
+  "end": "End",
+  "location": "Location",
+  "status": "Status",
+  "confirmed": "Confirmed",
+  "draft": "Draft",
+  "cancelled": "Cancelled"
 }

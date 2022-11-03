@@ -15,16 +15,16 @@ class Event with _$Event {
     @Default('') String location,
     @DateTimeConverter() DateTime? start,
     @DateTimeConverter() DateTime? end,
-    @Default(EventStatus.accepted) EventStatus status,
+    @Default(EventStatus.confirmed) EventStatus status,
   }) = _Event;
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
 }
 
 enum EventStatus {
-  pending,
-  accepted,
-  declined,
+  confirmed,
+  draft,
+  cancelled,
 }
 
 @freezed
