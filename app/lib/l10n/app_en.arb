@@ -64,5 +64,11 @@
   "general": "General",
   "todos": "Todos",
   "createTodo": "Create todo",
-  "editTodo": "Edit todo"
+  "editTodo": "Edit todo",
+  "indicatorEmpty": "No items found",
+  "indicatorEmptyDescription": "The list is currently empty.",
+  "indicatorLoading": "Loading",
+  "indicatorError": "An error occurred",
+  "indicatorErrorDescription": "An error occurred while loading the data.",
+  "tryAgain": "Try again"
 }

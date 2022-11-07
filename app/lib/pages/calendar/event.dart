@@ -1,5 +1,7 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/event.dart';
+import 'package:flow/widgets/indicators/empty.dart';
+import 'package:flow/widgets/indicators/error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -271,28 +273,46 @@ class _EventTodosTabState extends State<_EventTodosTab> {
                 child: PagedListView<int, EventTodo>(
                   pagingController: _pagingController,
                   builderDelegate: PagedChildBuilderDelegate<EventTodo>(
-                    itemBuilder: (context, item, index) => ListTile(
-                      title: Text(item.name),
-                      leading: Checkbox(
-                        value: item.done,
-                        onChanged: (value) async {
-                          _todoService
-                              .updateTodo(item.copyWith(done: value ?? false));
-                          _pagingController.refresh();
-                        },
-                      ),
-                      onTap: () async {
-                        await showDialog<EventTodo>(
-                          context: context,
-                          builder: (context) => EventTodoDialog(
-                            source: widget.source,
-                            event: widget.event,
-                            todo: item,
-                          ),
-                        );
-                        _pagingController.refresh();
-                      },
+                    noItemsFoundIndicatorBuilder: (context) =>
+                        const EmptyIndicatorDisplay(),
+                    firstPageErrorIndicatorBuilder: (context) =>
+                        ErrorIndicatorDisplay(
+                      onTryAgain: _pagingController.refresh,
                     ),
+                    itemBuilder: (context, item, index) {
+                      var done = item.done;
+                      return Dismissible(
+                        key: ValueKey(item.id),
+                        onDismissed: (direction) {
+                          _todoService.deleteTodo(item.id);
+                          _pagingController.itemList!.remove(item);
+                        },
+                        child: ListTile(
+                          title: Text(item.name),
+                          leading: StatefulBuilder(
+                            builder: (context, setState) => Checkbox(
+                              value: done,
+                              onChanged: (value) async {
+                                _todoService.updateTodo(
+                                    item.copyWith(done: value ?? false));
+                                setState(() => done = value ?? false);
+                              },
+                            ),
+                          ),
+                          onTap: () async {
+                            await showDialog<EventTodo>(
+                              context: context,
+                              builder: (context) => EventTodoDialog(
+                                source: widget.source,
+                                event: widget.event,
+                                todo: item,
+                              ),
+                            );
+                            _pagingController.refresh();
+                          },
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -304,13 +324,16 @@ class _EventTodosTabState extends State<_EventTodosTab> {
             child: FloatingActionButton.extended(
               label: Text(AppLocalizations.of(context)!.create),
               icon: const Icon(Icons.add_outlined),
-              onPressed: () => showDialog<EventTodo>(
-                context: context,
-                builder: (context) => EventTodoDialog(
-                  event: widget.event,
-                  source: widget.source,
-                ),
-              ),
+              onPressed: () async {
+                await showDialog<EventTodo>(
+                  context: context,
+                  builder: (context) => EventTodoDialog(
+                    event: widget.event,
+                    source: widget.source,
+                  ),
+                );
+                _pagingController.refresh();
+              },
             ),
           ),
         ],
