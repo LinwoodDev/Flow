@@ -6,6 +6,7 @@ const apiVersion = 0;
 abstract class SourceService {
   EventService get event;
   EventGroupService get eventGroup;
+  EventTodoService get eventTodo;
 
   UserService get user;
   UserGroupService get userGroup;
@@ -13,6 +14,7 @@ abstract class SourceService {
   List<ModelService> get models => [
         event,
         eventGroup,
+        eventTodo,
         user,
         userGroup,
       ];

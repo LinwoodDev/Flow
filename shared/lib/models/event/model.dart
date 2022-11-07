@@ -39,3 +39,17 @@ class EventGroup with _$EventGroup {
   factory EventGroup.fromJson(Map<String, dynamic> json) =>
       _$EventGroupFromJson(json);
 }
+
+@freezed
+class EventTodo with _$EventTodo {
+  const factory EventTodo({
+    @Default(-1) int id,
+    @Default('') String name,
+    @Default('') String description,
+    @Default(false) bool done,
+    @Default(-1) int eventId,
+  }) = _EventTodo;
+
+  factory EventTodo.fromJson(Map<String, dynamic> json) =>
+      _$EventTodoFromJson(json);
+}

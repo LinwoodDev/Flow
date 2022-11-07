@@ -13,9 +13,23 @@ abstract class EventService extends ModelService {
 
   FutureOr<bool> updateEvent(Event event);
 
-  FutureOr<bool> deleteEvent(Event event);
+  FutureOr<bool> deleteEvent(int id);
 }
 
 abstract class EventGroupService extends ModelService {
   FutureOr<List<EventGroup>> getGroups();
+}
+
+abstract class EventTodoService extends ModelService {
+  FutureOr<List<EventTodo>> getTodos({
+    int? eventId,
+    int offset = 0,
+    int limit = 50,
+  });
+
+  FutureOr<EventTodo?> createTodo(EventTodo todo);
+
+  FutureOr<bool> updateTodo(EventTodo todo);
+
+  FutureOr<bool> deleteTodo(int id);
 }

@@ -61,11 +61,11 @@ class EventDatabaseService extends EventService with TableService {
   }
 
   @override
-  Future<bool> deleteEvent(Event event) async {
+  Future<bool> deleteEvent(int id) async {
     return await db?.delete(
           'events',
           where: 'id = ?',
-          whereArgs: [event.id],
+          whereArgs: [id],
         ) ==
         1;
   }
@@ -93,5 +93,74 @@ class EventGroupDatabaseService extends EventGroupService with TableService {
   Future<List<EventGroup>> getGroups() async {
     final result = await db?.query('eventGroups');
     return result?.map((row) => EventGroup.fromJson(row)).toList() ?? [];
+  }
+}
+
+class EventTodoDatabaseService extends EventTodoService with TableService {
+  @override
+  Future<void> create(Database db) {
+    return db.execute("""
+      CREATE TABLE IF NOT EXISTS eventTodos (
+        id INTEGER PRIMARY KEY,
+        eventId INTEGER,
+        name VARCHAR(100) NOT NULL DEFAULT '',
+        description TEXT,
+        done INTEGER NOT NULL DEFAULT 0
+      )
+    """);
+  }
+
+  @override
+  Future<EventTodo?> createTodo(EventTodo todo) async {
+    final id = await db?.insert(
+        'eventTodos',
+        todo.toJson()
+          ..remove('id')
+          ..['done'] = todo.done ? 1 : 0);
+    if (id == null) return null;
+    return todo.copyWith(id: id);
+  }
+
+  @override
+  Future<bool> deleteTodo(int id) async {
+    return await db?.delete(
+          'eventTodos',
+          where: 'id = ?',
+          whereArgs: [id],
+        ) ==
+        1;
+  }
+
+  @override
+  Future<List<EventTodo>> getTodos(
+      {int? eventId, int offset = 0, int limit = 50}) async {
+    final result = await db?.query(
+      'eventTodos',
+      where: eventId == null ? null : 'eventId = ?',
+      whereArgs: eventId == null ? null : [eventId],
+      offset: offset,
+      limit: limit,
+    );
+    return result
+            ?.map((row) =>
+                EventTodo.fromJson(Map.from(row)..['done'] = row['done'] == 1))
+            .toList() ??
+        [];
+  }
+
+  @override
+  FutureOr<void> migrate(Database db, int version) {}
+
+  @override
+  FutureOr<bool> updateTodo(EventTodo todo) async {
+    return await db?.update(
+          'eventTodos',
+          todo.toJson()
+            ..remove('id')
+            ..['done'] = todo.done ? 1 : 0,
+          where: 'id = ?',
+          whereArgs: [todo.id],
+        ) ==
+        1;
   }
 }

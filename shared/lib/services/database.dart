@@ -19,6 +19,8 @@ class DatabaseService extends SourceService {
   late final EventDatabaseService event;
   @override
   late final EventGroupDatabaseService eventGroup;
+  @override
+  late final EventTodoDatabaseService eventTodo;
 
   @override
   late final UserDatabaseService user;
@@ -32,6 +34,7 @@ class DatabaseService extends SourceService {
   Future<void> setup() async {
     event = EventDatabaseService();
     eventGroup = EventGroupDatabaseService();
+    eventTodo = EventTodoDatabaseService();
 
     user = UserDatabaseService();
     userGroup = UserGroupDatabaseService();

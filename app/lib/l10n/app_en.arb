@@ -60,5 +60,9 @@
   "status": "Status",
   "confirmed": "Confirmed",
   "draft": "Draft",
-  "cancelled": "Cancelled"
+  "cancelled": "Cancelled",
+  "general": "General",
+  "todos": "Todos",
+  "createTodo": "Create todo",
+  "editTodo": "Edit todo"
 }
