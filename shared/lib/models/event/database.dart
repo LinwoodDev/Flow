@@ -149,6 +149,25 @@ class EventTodoDatabaseService extends EventTodoService with TableService {
   }
 
   @override
+  Future<bool?> todosDone(int eventId) async {
+    final result = await db?.rawQuery(
+        'SELECT COUNT(*) AS count FROM eventTodos WHERE eventId = ? AND done = 1',
+        [eventId]);
+    final resultCount = result?.first['count'] as int? ?? 0;
+    final all = await db?.rawQuery(
+        'SELECT COUNT(*) AS count FROM eventTodos WHERE eventId = ?',
+        [eventId]);
+    final allCount = all?.first['count'] as int? ?? 0;
+    if (resultCount == allCount && allCount > 0) {
+      return true;
+    }
+    if (resultCount == 0 && allCount > 0) {
+      return false;
+    }
+    return null;
+  }
+
+  @override
   FutureOr<void> migrate(Database db, int version) {}
 
   @override

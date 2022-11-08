@@ -283,6 +283,7 @@ class _EventTodosTabState extends State<_EventTodosTab> {
                       var done = item.done;
                       return Dismissible(
                         key: ValueKey(item.id),
+                        background: Container(color: Colors.red),
                         onDismissed: (direction) {
                           _todoService.deleteTodo(item.id);
                           _pagingController.itemList!.remove(item);

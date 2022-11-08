@@ -27,6 +27,8 @@ abstract class EventTodoService extends ModelService {
     int limit = 50,
   });
 
+  FutureOr<bool?> todosDone(int eventId);
+
   FutureOr<EventTodo?> createTodo(EventTodo todo);
 
   FutureOr<bool> updateTodo(EventTodo todo);

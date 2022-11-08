@@ -1,6 +1,8 @@
+import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/event.dart';
 import 'package:flow/pages/calendar/event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/helpers/date_time.dart';
@@ -140,6 +142,27 @@ class _CalendarListDayView extends StatelessWidget {
                     builder: (context) =>
                         EventDialog(event: event, source: e.value))
                 .then((_) => onRefresh()),
+            trailing: FutureBuilder<bool?>(
+              future: Future.value(context
+                  .read<FlowCubit>()
+                  .getSource(e.value)
+                  .eventTodo
+                  .todosDone(event.id)),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Icon(
+                    snapshot.data!
+                        ? Icons.check_circle_outline_outlined
+                        : Icons.circle_outlined,
+                    color: snapshot.data ?? false
+                        ? Theme.of(context).primaryColor
+                        : Theme.of(context).disabledColor,
+                  );
+                } else {
+                  return const SizedBox.shrink();
+                }
+              },
+            ),
           );
         }).toList()),
         const SizedBox(height: 32),
