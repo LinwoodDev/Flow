@@ -21,6 +21,12 @@ List _getNavigationItems(BuildContext context) => [
       },
       null,
       {
+        "title": AppLocalizations.of(context)!.todos,
+        "name": "todos",
+        "icon": Icons.checklist_outlined,
+        "link": "/todos"
+      },
+      {
         "title": AppLocalizations.of(context)!.groups,
         "name": "groups",
         "icon": Icons.folder_outlined,

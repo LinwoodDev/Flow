@@ -1,4 +1,5 @@
 import 'package:flow/cubits/flow.dart';
+import 'package:flow/pages/calendar/filter.dart';
 import 'package:flow/pages/calendar/list.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +49,7 @@ extension _CalendarViewExtension on _CalendarView {
 class _CalendarPageState extends State<CalendarPage>
     with TickerProviderStateMixin {
   _CalendarView _calendarView = _CalendarView.list;
+  CalendarFilter _filter = const CalendarFilter();
   late Future<List<MapEntry<String, List<Event>>>> _future;
 
   @override
@@ -60,7 +62,14 @@ class _CalendarPageState extends State<CalendarPage>
           .read<FlowCubit>()
           .getCurrentServicesMap()
           .entries
-          .map((e) async => MapEntry(e.key, await e.value.event.getEvents())));
+          .map((e) async => MapEntry(
+              e.key,
+              await e.value.event.getEvents(
+                status: EventStatus.values
+                    .where(
+                        (element) => !_filter.hiddenStatuses.contains(element))
+                    .toList(),
+              ))));
 
   Future<void> _updateFuture([bool holdFuture = false]) async {
     if (holdFuture) {
@@ -84,6 +93,22 @@ class _CalendarPageState extends State<CalendarPage>
         IconButton(
           icon: const Icon(Icons.search_outlined),
           onPressed: () {},
+        ),
+        IconButton(
+          icon: const Icon(Icons.filter_alt_outlined),
+          onPressed: () async {
+            final filter = await showDialog<CalendarFilter>(
+              context: context,
+              builder: (context) => CalendarFilterDialog(
+                initialFilter: _filter,
+              ),
+            );
+            if (filter != null) {
+              setState(() {
+                _filter = filter;
+              });
+            }
+          },
         ),
         PopupMenuButton<_CalendarView>(
           icon: Icon(_calendarView.getIcon()),

@@ -70,5 +70,30 @@
   "indicatorLoading": "Loading",
   "indicatorError": "An error occurred",
   "indicatorErrorDescription": "An error occurred while loading the data.",
-  "tryAgain": "Try again"
+  "tryAgain": "Try again",
+  "eventInfo": "{event} on {date} at {time} in {location} ({status})",
+  "@eventInfo": {
+    "placeholders": {
+      "event": {
+        "type": "String",
+        "example": "Meeting"
+      },
+      "date": {
+        "type": "String",
+        "example": "2021-01-01"
+      },
+      "time": {
+        "type": "String",
+        "example": "12:00"
+      },
+      "location": {
+        "type": "String",
+        "example": "Office"
+      },
+      "status": {
+        "type": "String",
+        "example": "Confirmed"
+      }
+    }
+  }
 }

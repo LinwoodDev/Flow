@@ -5,8 +5,9 @@ import 'package:shared/services/source.dart';
 import 'model.dart';
 
 abstract class EventService extends ModelService {
+  FutureOr<Event?> getEvent(int id);
   FutureOr<List<Event>> getEvents({
-    EventStatus? status,
+    List<EventStatus> status,
   });
 
   FutureOr<Event?> createEvent(Event event);

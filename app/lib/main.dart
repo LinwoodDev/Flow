@@ -1,7 +1,4 @@
 import 'package:flow/cubits/flow.dart';
-import 'package:flow/pages/groups/page.dart';
-import 'package:flow/pages/settings/page.dart';
-import 'package:flow/pages/users/page.dart';
 import 'package:flow/api/storage/db/database.dart';
 import 'package:flow/api/storage/sources.dart';
 import 'package:flow/theme.dart';
@@ -19,7 +16,11 @@ import 'pages/calendar/page.dart';
 import 'pages/dashboard/page.dart';
 import 'pages/sources/page.dart';
 import 'pages/places/page.dart';
+import 'pages/groups/page.dart';
+import 'pages/settings/page.dart';
+import 'pages/users/page.dart';
 
+import 'pages/todos/page.dart';
 import 'setup.dart'
     if (dart.library.html) 'setup_web.dart'
     if (dart.library.io) 'setup_io.dart';
@@ -93,6 +94,11 @@ class FlowApp extends StatelessWidget {
         path: '/groups',
         builder: (BuildContext context, GoRouterState state) =>
             const GroupsPage(),
+      ),
+      GoRoute(
+        path: '/todos',
+        builder: (BuildContext context, GoRouterState state) =>
+            const TodosPage(),
       ),
       GoRoute(
         path: '/places',
