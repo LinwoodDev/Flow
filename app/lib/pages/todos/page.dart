@@ -6,8 +6,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
 import 'package:shared/models/event/model.dart';
+import 'package:shared/models/event/service.dart';
 
 import '../../cubits/flow.dart';
+
+part 'card.dart';
+part 'filter.dart';
 
 class TodosPage extends StatefulWidget {
   const TodosPage({Key? key}) : super(key: key);
@@ -86,99 +90,5 @@ class _TodosPageState extends State<TodosPage> {
                             )),
               )),
         ));
-  }
-}
-
-class _TodoCard extends StatelessWidget {
-  final String source;
-  final Event? event;
-  final EventTodo todo;
-
-  const _TodoCard({
-    required this.source,
-    required this.event,
-    required this.todo,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final locale = Localizations.localeOf(context).languageCode;
-    final dateFormatter = DateFormat.yMMMMd(locale);
-    final timeFormatter = DateFormat.Hm(locale);
-    final _todoService =
-        context.read<FlowCubit>().getCurrentServicesMap()[source]?.eventTodo;
-    var newTodo = todo;
-    void _updateTodo() {
-      _todoService?.updateTodo(
-        newTodo,
-      );
-    }
-
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                StatefulBuilder(builder: (context, setState) {
-                  return Checkbox(
-                    value: newTodo.done,
-                    onChanged: (value) {
-                      setState(() {
-                        newTodo = newTodo.copyWith(done: value!);
-                        _updateTodo();
-                      });
-                    },
-                  );
-                }),
-                const SizedBox(width: 8),
-                Flexible(
-                    child: TextFormField(
-                        initialValue: todo.name,
-                        style: Theme.of(context).textTheme.headline6)),
-              ],
-            ),
-            if (source.isNotEmpty)
-              Text(source, style: Theme.of(context).textTheme.caption),
-            if (event != null)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Icon(event!.status.getIcon(),
-                        color: event!.status.getColor()),
-                    const SizedBox(width: 8),
-                    Text(
-                        AppLocalizations.of(context)!.eventInfo(
-                          event!.name,
-                          event?.start == null
-                              ? '-'
-                              : dateFormatter.format(event!.start!),
-                          event?.start == null
-                              ? '-'
-                              : timeFormatter.format(event!.start!),
-                          event!.location.isEmpty ? '-' : event!.location,
-                          event!.status.getLocalizedName(context),
-                        ),
-                        style: Theme.of(context).textTheme.caption),
-                  ],
-                ),
-              ),
-            const SizedBox(height: 8),
-            TextFormField(
-              initialValue: todo.description,
-              decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.description,
-                border: const OutlineInputBorder(),
-              ),
-              minLines: 3,
-              maxLines: 5,
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }

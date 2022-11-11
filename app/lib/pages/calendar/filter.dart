@@ -35,7 +35,7 @@ class _CalendarFilterDialogState extends State<CalendarFilterDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Filter'),
+      title: Text(AppLocalizations.of(context)!.filter),
       scrollable: true,
       content: Form(
         child: Column(
