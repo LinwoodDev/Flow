@@ -87,6 +87,9 @@ class _EventGroupsPageState extends State<EventGroupsPage> {
                   _pagingController.itemList!.remove(item);
                   _pagingController.refresh();
                 },
+                background: Container(
+                  color: Colors.red,
+                ),
                 child: ListTile(
                   title: Text(item.key.name),
                   subtitle: Text(item.key.description),

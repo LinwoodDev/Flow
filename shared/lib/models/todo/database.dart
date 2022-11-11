@@ -15,7 +15,8 @@ class TodoDatabaseService extends TodoService with TableService {
         eventId INTEGER,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT,
-        done INTEGER NOT NULL DEFAULT 0
+        done INTEGER NOT NULL DEFAULT 0,
+        parentID INTEGER
       )
     """);
   }

@@ -107,6 +107,7 @@ class _TodosPageState extends State<TodosPage> {
                               event: _events[item.key.eventId],
                               todo: item.key,
                               source: item.value,
+                              controller: _pagingController,
                             )),
               )),
         ));

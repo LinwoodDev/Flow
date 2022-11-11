@@ -2,6 +2,7 @@ import 'package:flow/helpers/event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/todo/model.dart';
@@ -13,12 +14,14 @@ class TodoCard extends StatefulWidget {
   final String source;
   final Event? event;
   final Todo todo;
+  final PagingController<int, MapEntry<Todo, String>> controller;
 
   const TodoCard({
     super.key,
     required this.source,
     required this.event,
     required this.todo,
+    required this.controller,
   });
 
   @override
@@ -114,10 +117,34 @@ class _TodoCardState extends State<TodoCard> {
                     _updateTodo();
                   },
                 )),
+                PopupMenuButton(
+                  itemBuilder: (context) => <dynamic>[
+                    [
+                      Icons.delete_outlined,
+                      AppLocalizations.of(context)!.delete,
+                      () async {
+                        await _todoService.deleteTodo(_newTodo.id);
+                        widget.controller.itemList
+                            ?.remove(MapEntry(_newTodo, widget.source));
+                      }
+                    ]
+                  ]
+                      .map((e) => PopupMenuItem(
+                          onTap: e[2],
+                          child: Row(children: [
+                            Icon(e[0]),
+                            const SizedBox(width: 8),
+                            Text(e[1]),
+                          ])))
+                      .toList(),
+                )
               ],
             ),
             if (widget.source.isNotEmpty)
-              Text(widget.source, style: Theme.of(context).textTheme.caption),
+              Text(
+                widget.source,
+                style: Theme.of(context).textTheme.caption,
+              ),
             if (widget.event != null)
               Padding(
                 padding: const EdgeInsets.all(8.0),

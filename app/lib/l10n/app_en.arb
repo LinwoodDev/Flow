@@ -99,5 +99,6 @@
   },
   "filter": "Filter",
   "completed": "Completed",
-  "incomplete": "Incomplete"
+  "incomplete": "Incomplete",
+  "delete": "Delete"
 }
