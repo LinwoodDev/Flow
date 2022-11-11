@@ -26,6 +26,8 @@ abstract class EventTodoService extends ModelService {
     int? eventId,
     int offset = 0,
     int limit = 50,
+    bool incomplete = true,
+    bool completed = true,
   });
 
   FutureOr<bool?> todosDone(int eventId);

@@ -95,7 +95,7 @@ class _CalendarPageState extends State<CalendarPage>
           onPressed: () {},
         ),
         IconButton(
-          icon: const Icon(Icons.filter_alt_outlined),
+          icon: const Icon(Icons.filter_list_outlined),
           onPressed: () async {
             final filter = await showDialog<CalendarFilter>(
               context: context,

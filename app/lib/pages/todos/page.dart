@@ -1,17 +1,13 @@
-import 'package:flow/helpers/event.dart';
+import 'package:flow/pages/todos/filter.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:intl/intl.dart';
 import 'package:shared/models/event/model.dart';
-import 'package:shared/models/event/service.dart';
 
 import '../../cubits/flow.dart';
-
-part 'card.dart';
-part 'filter.dart';
+import 'card.dart';
 
 class TodosPage extends StatefulWidget {
   const TodosPage({Key? key}) : super(key: key);
@@ -26,6 +22,7 @@ class _TodosPageState extends State<TodosPage> {
   final PagingController<int, MapEntry<EventTodo, String>> _pagingController =
       PagingController(firstPageKey: 0);
   final Map<int, Event> _events = {};
+  TodoFilter _filter = const TodoFilter();
 
   @override
   void initState() {
@@ -45,6 +42,8 @@ class _TodosPageState extends State<TodosPage> {
         final fetched = await source.value.eventTodo.getTodos(
           offset: pageKey * _pageSize,
           limit: _pageSize,
+          incomplete: _filter.showIncompleted,
+          completed: _filter.showCompleted,
         );
         todos.addAll(fetched.map((todo) => MapEntry(todo, source.key)));
         if (fetched.length < _pageSize) {
@@ -75,6 +74,25 @@ class _TodosPageState extends State<TodosPage> {
     return FlowNavigation(
         title: AppLocalizations.of(context)!.todos,
         selected: "todos",
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.filter_list),
+            onPressed: () async {
+              final filter = await showDialog<TodoFilter>(
+                context: context,
+                builder: (context) => TodoFilterDialog(
+                  initialFilter: _filter,
+                ),
+              );
+              if (filter != null) {
+                setState(() {
+                  _filter = filter;
+                  _pagingController.refresh();
+                });
+              }
+            },
+          ),
+        ],
         body: Align(
           alignment: Alignment.topCenter,
           child: Container(
@@ -83,7 +101,7 @@ class _TodosPageState extends State<TodosPage> {
                 pagingController: _pagingController,
                 builderDelegate:
                     PagedChildBuilderDelegate<MapEntry<EventTodo, String>>(
-                        itemBuilder: (context, item, index) => _TodoCard(
+                        itemBuilder: (context, item, index) => TodoCard(
                               event: _events[item.key.eventId],
                               todo: item.key,
                               source: item.value,

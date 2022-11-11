@@ -1,21 +1,30 @@
-part of 'page.dart';
+import 'package:flow/helpers/event.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
+import 'package:shared/models/event/model.dart';
+import 'package:shared/models/event/service.dart';
 
-class _TodoCard extends StatefulWidget {
+import '../../cubits/flow.dart';
+
+class TodoCard extends StatefulWidget {
   final String source;
   final Event? event;
   final EventTodo todo;
 
-  const _TodoCard({
+  const TodoCard({
+    super.key,
     required this.source,
     required this.event,
     required this.todo,
   });
 
   @override
-  State<_TodoCard> createState() => _TodoCardState();
+  State<TodoCard> createState() => _TodoCardState();
 }
 
-class _TodoCardState extends State<_TodoCard> {
+class _TodoCardState extends State<TodoCard> {
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
   late EventTodo _newTodo;
@@ -57,7 +66,9 @@ class _TodoCardState extends State<_TodoCard> {
     await _todoService.updateTodo(
       _newTodo,
     );
-    setState(() => _loading = false);
+    if (mounted) {
+      setState(() => _loading = false);
+    }
   }
 
   @override

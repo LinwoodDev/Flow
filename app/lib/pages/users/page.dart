@@ -13,7 +13,7 @@ class UsersPage extends StatelessWidget {
       body: ListView(),
       actions: [
         IconButton(
-          icon: const Icon(Icons.filter_alt_outlined),
+          icon: const Icon(Icons.filter_list_outlined),
           onPressed: () {},
         )
       ],

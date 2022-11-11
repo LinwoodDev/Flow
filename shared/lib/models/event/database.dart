@@ -142,12 +142,32 @@ class EventTodoDatabaseService extends EventTodoService with TableService {
   }
 
   @override
-  Future<List<EventTodo>> getTodos(
-      {int? eventId, int offset = 0, int limit = 50}) async {
+  Future<List<EventTodo>> getTodos({
+    int? eventId,
+    int offset = 0,
+    int limit = 50,
+    bool incomplete = true,
+    bool completed = true,
+  }) async {
+    var where = '';
+    final whereArgs = <Object?>[];
+    if (eventId != null) {
+      where += 'eventId = ?';
+      whereArgs.add(eventId);
+    }
+    if (incomplete && !completed) {
+      if (where.isNotEmpty) where += ' AND ';
+      where += 'done = 0';
+    } else if (!incomplete && completed) {
+      if (where.isNotEmpty) where += ' AND ';
+      where += 'done = 1';
+    } else if (!incomplete && !completed) {
+      return [];
+    }
     final result = await db?.query(
       'eventTodos',
-      where: eventId == null ? null : 'eventId = ?',
-      whereArgs: eventId == null ? null : [eventId],
+      where: where == '' ? null : where,
+      whereArgs: whereArgs.isEmpty ? null : whereArgs,
       offset: offset,
       limit: limit,
     );

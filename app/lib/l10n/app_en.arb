@@ -96,5 +96,7 @@
       }
     }
   },
-  "filter": "Filter"
+  "filter": "Filter",
+  "completed": "Completed",
+  "incomplete": "Incomplete"
 }
