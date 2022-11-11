@@ -91,7 +91,8 @@ class EventGroupDatabaseService extends EventGroupService with TableService {
         id INTEGER PRIMARY KEY,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT,
-        image TEXT
+        image BLOB,
+        open INTEGER NOT NULL DEFAULT 0
       )
     """);
   }
@@ -100,41 +101,44 @@ class EventGroupDatabaseService extends EventGroupService with TableService {
   FutureOr<void> migrate(Database db, int version) {}
 
   @override
-  Future<List<EventGroup>> getGroups() async {
-    final result = await db?.query('eventGroups');
-    return result?.map((row) => EventGroup.fromJson(row)).toList() ?? [];
-  }
-}
-
-class EventTodoDatabaseService extends EventTodoService with TableService {
-  @override
-  Future<void> create(Database db) {
-    return db.execute("""
-      CREATE TABLE IF NOT EXISTS eventTodos (
-        id INTEGER PRIMARY KEY,
-        eventId INTEGER,
-        name VARCHAR(100) NOT NULL DEFAULT '',
-        description TEXT,
-        done INTEGER NOT NULL DEFAULT 0
-      )
-    """);
+  Future<List<EventGroup>> getGroups({
+    int limit = 50,
+    int offset = 0,
+  }) async {
+    final result = await db?.query('eventGroups', limit: limit, offset: offset);
+    return result
+            ?.map((row) => EventGroup.fromJson(
+                Map<String, dynamic>.from(row)..['open'] = row['open'] == 1))
+            .toList() ??
+        [];
   }
 
   @override
-  Future<EventTodo?> createTodo(EventTodo todo) async {
+  Future<EventGroup?> createGroup(EventGroup group) async {
     final id = await db?.insert(
-        'eventTodos',
-        todo.toJson()
+        'eventGroups',
+        group.toJson()
           ..remove('id')
-          ..['done'] = todo.done ? 1 : 0);
+          ..['open'] = group.open ? 1 : 0);
     if (id == null) return null;
-    return todo.copyWith(id: id);
+    return group.copyWith(id: id);
   }
 
   @override
-  Future<bool> deleteTodo(int id) async {
+  Future<bool> updateGroup(EventGroup group) async {
+    return await db?.update(
+          'eventGroups',
+          group.toJson()..['open'] = group.open ? 1 : 0,
+          where: 'id = ?',
+          whereArgs: [group.id],
+        ) ==
+        1;
+  }
+
+  @override
+  Future<bool> deleteGroup(int id) async {
     return await db?.delete(
-          'eventTodos',
+          'eventGroups',
           where: 'id = ?',
           whereArgs: [id],
         ) ==
@@ -142,74 +146,14 @@ class EventTodoDatabaseService extends EventTodoService with TableService {
   }
 
   @override
-  Future<List<EventTodo>> getTodos({
-    int? eventId,
-    int offset = 0,
-    int limit = 50,
-    bool incomplete = true,
-    bool completed = true,
-  }) async {
-    var where = '';
-    final whereArgs = <Object?>[];
-    if (eventId != null) {
-      where += 'eventId = ?';
-      whereArgs.add(eventId);
-    }
-    if (incomplete && !completed) {
-      if (where.isNotEmpty) where += ' AND ';
-      where += 'done = 0';
-    } else if (!incomplete && completed) {
-      if (where.isNotEmpty) where += ' AND ';
-      where += 'done = 1';
-    } else if (!incomplete && !completed) {
-      return [];
-    }
+  FutureOr<EventGroup?> getGroup(int id) async {
     final result = await db?.query(
-      'eventTodos',
-      where: where == '' ? null : where,
-      whereArgs: whereArgs.isEmpty ? null : whereArgs,
-      offset: offset,
-      limit: limit,
+      'eventGroups',
+      where: 'id = ?',
+      whereArgs: [id],
     );
     return result
-            ?.map((row) =>
-                EventTodo.fromJson(Map.from(row)..['done'] = row['done'] == 1))
-            .toList() ??
-        [];
-  }
-
-  @override
-  Future<bool?> todosDone(int eventId) async {
-    final result = await db?.rawQuery(
-        'SELECT COUNT(*) AS count FROM eventTodos WHERE eventId = ? AND done = 1',
-        [eventId]);
-    final resultCount = result?.first['count'] as int? ?? 0;
-    final all = await db?.rawQuery(
-        'SELECT COUNT(*) AS count FROM eventTodos WHERE eventId = ?',
-        [eventId]);
-    final allCount = all?.first['count'] as int? ?? 0;
-    if (resultCount == allCount && allCount > 0) {
-      return true;
-    }
-    if (resultCount == 0 && allCount > 0) {
-      return false;
-    }
-    return null;
-  }
-
-  @override
-  FutureOr<void> migrate(Database db, int version) {}
-
-  @override
-  FutureOr<bool> updateTodo(EventTodo todo) async {
-    return await db?.update(
-          'eventTodos',
-          todo.toJson()
-            ..remove('id')
-            ..['done'] = todo.done ? 1 : 0,
-          where: 'id = ?',
-          whereArgs: [todo.id],
-        ) ==
-        1;
+        ?.map((row) => EventGroup.fromJson(row..['open'] = row['open'] == 1))
+        .first;
   }
 }

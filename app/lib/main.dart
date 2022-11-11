@@ -93,7 +93,7 @@ class FlowApp extends StatelessWidget {
       GoRoute(
         path: '/groups',
         builder: (BuildContext context, GoRouterState state) =>
-            const GroupsPage(),
+            const EventGroupsPage(),
       ),
       GoRoute(
         path: '/todos',

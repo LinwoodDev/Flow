@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/event/model.dart';
+import 'package:shared/models/todo/model.dart';
 
 import '../../cubits/flow.dart';
 import 'card.dart';
@@ -19,7 +20,7 @@ class TodosPage extends StatefulWidget {
 class _TodosPageState extends State<TodosPage> {
   static const _pageSize = 10;
   late final FlowCubit _flowCubit;
-  final PagingController<int, MapEntry<EventTodo, String>> _pagingController =
+  final PagingController<int, MapEntry<Todo, String>> _pagingController =
       PagingController(firstPageKey: 0);
   final Map<int, Event> _events = {};
   TodoFilter _filter = const TodoFilter();
@@ -36,10 +37,10 @@ class _TodosPageState extends State<TodosPage> {
   Future<void> _fetchPage(int pageKey) async {
     try {
       final sources = _flowCubit.getCurrentServicesMap().entries;
-      final todos = <MapEntry<EventTodo, String>>[];
+      final todos = <MapEntry<Todo, String>>[];
       var isLast = false;
       for (final source in sources) {
-        final fetched = await source.value.eventTodo.getTodos(
+        final fetched = await source.value.todo.getTodos(
           offset: pageKey * _pageSize,
           limit: _pageSize,
           incomplete: _filter.showIncompleted,
@@ -50,11 +51,12 @@ class _TodosPageState extends State<TodosPage> {
           isLast = true;
         }
         for (final todo in fetched) {
-          if (!_events.containsKey(todo.eventId)) {
+          final eventId = todo.eventId;
+          if (!_events.containsKey(todo.eventId) && eventId != null) {
             final event = await source.value.event.getEvent(
-              todo.eventId,
+              eventId,
             );
-            if (event != null) _events[todo.eventId] = event;
+            if (event != null) _events[eventId] = event;
           }
         }
       }
@@ -100,7 +102,7 @@ class _TodosPageState extends State<TodosPage> {
               child: PagedListView(
                 pagingController: _pagingController,
                 builderDelegate:
-                    PagedChildBuilderDelegate<MapEntry<EventTodo, String>>(
+                    PagedChildBuilderDelegate<MapEntry<Todo, String>>(
                         itemBuilder: (context, item, index) => TodoCard(
                               event: _events[item.key.eventId],
                               todo: item.key,

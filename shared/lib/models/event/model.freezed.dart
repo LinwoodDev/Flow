@@ -330,7 +330,9 @@ mixin _$EventGroup {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  List<int> get image => throw _privateConstructorUsedError;
+  bool get open => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get image => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -344,7 +346,12 @@ abstract class $EventGroupCopyWith<$Res> {
           EventGroup value, $Res Function(EventGroup) then) =
       _$EventGroupCopyWithImpl<$Res, EventGroup>;
   @useResult
-  $Res call({int id, String name, String description, List<int> image});
+  $Res call(
+      {int id,
+      String name,
+      String description,
+      bool open,
+      @Uint8ListConverter() Uint8List? image});
 }
 
 /// @nodoc
@@ -363,7 +370,8 @@ class _$EventGroupCopyWithImpl<$Res, $Val extends EventGroup>
     Object? id = null,
     Object? name = null,
     Object? description = null,
-    Object? image = null,
+    Object? open = null,
+    Object? image = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -378,10 +386,14 @@ class _$EventGroupCopyWithImpl<$Res, $Val extends EventGroup>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image: null == image
+      open: null == open
+          ? _value.open
+          : open // ignore: cast_nullable_to_non_nullable
+              as bool,
+      image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as Uint8List?,
     ) as $Val);
   }
 }
@@ -394,7 +406,12 @@ abstract class _$$_EventGroupCopyWith<$Res>
       __$$_EventGroupCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, String description, List<int> image});
+  $Res call(
+      {int id,
+      String name,
+      String description,
+      bool open,
+      @Uint8ListConverter() Uint8List? image});
 }
 
 /// @nodoc
@@ -411,7 +428,8 @@ class __$$_EventGroupCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? description = null,
-    Object? image = null,
+    Object? open = null,
+    Object? image = freezed,
   }) {
     return _then(_$_EventGroup(
       id: null == id
@@ -426,10 +444,14 @@ class __$$_EventGroupCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image: null == image
-          ? _value._image
+      open: null == open
+          ? _value.open
+          : open // ignore: cast_nullable_to_non_nullable
+              as bool,
+      image: freezed == image
+          ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as Uint8List?,
     ));
   }
 }
@@ -441,8 +463,8 @@ class _$_EventGroup implements _EventGroup {
       {this.id = -1,
       this.name = '',
       this.description = '',
-      final List<int> image = const []})
-      : _image = image;
+      this.open = true,
+      @Uint8ListConverter() this.image});
 
   factory _$_EventGroup.fromJson(Map<String, dynamic> json) =>
       _$$_EventGroupFromJson(json);
@@ -456,17 +478,16 @@ class _$_EventGroup implements _EventGroup {
   @override
   @JsonKey()
   final String description;
-  final List<int> _image;
   @override
   @JsonKey()
-  List<int> get image {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_image);
-  }
+  final bool open;
+  @override
+  @Uint8ListConverter()
+  final Uint8List? image;
 
   @override
   String toString() {
-    return 'EventGroup(id: $id, name: $name, description: $description, image: $image)';
+    return 'EventGroup(id: $id, name: $name, description: $description, open: $open, image: $image)';
   }
 
   @override
@@ -478,13 +499,14 @@ class _$_EventGroup implements _EventGroup {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            const DeepCollectionEquality().equals(other._image, _image));
+            (identical(other.open, open) || other.open == open) &&
+            const DeepCollectionEquality().equals(other.image, image));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description,
-      const DeepCollectionEquality().hash(_image));
+  int get hashCode => Object.hash(runtimeType, id, name, description, open,
+      const DeepCollectionEquality().hash(image));
 
   @JsonKey(ignore: true)
   @override
@@ -505,7 +527,8 @@ abstract class _EventGroup implements EventGroup {
       {final int id,
       final String name,
       final String description,
-      final List<int> image}) = _$_EventGroup;
+      final bool open,
+      @Uint8ListConverter() final Uint8List? image}) = _$_EventGroup;
 
   factory _EventGroup.fromJson(Map<String, dynamic> json) =
       _$_EventGroup.fromJson;
@@ -517,224 +540,12 @@ abstract class _EventGroup implements EventGroup {
   @override
   String get description;
   @override
-  List<int> get image;
+  bool get open;
+  @override
+  @Uint8ListConverter()
+  Uint8List? get image;
   @override
   @JsonKey(ignore: true)
   _$$_EventGroupCopyWith<_$_EventGroup> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-EventTodo _$EventTodoFromJson(Map<String, dynamic> json) {
-  return _EventTodo.fromJson(json);
-}
-
-/// @nodoc
-mixin _$EventTodo {
-  int get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  bool get done => throw _privateConstructorUsedError;
-  int get eventId => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $EventTodoCopyWith<EventTodo> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $EventTodoCopyWith<$Res> {
-  factory $EventTodoCopyWith(EventTodo value, $Res Function(EventTodo) then) =
-      _$EventTodoCopyWithImpl<$Res, EventTodo>;
-  @useResult
-  $Res call({int id, String name, String description, bool done, int eventId});
-}
-
-/// @nodoc
-class _$EventTodoCopyWithImpl<$Res, $Val extends EventTodo>
-    implements $EventTodoCopyWith<$Res> {
-  _$EventTodoCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? description = null,
-    Object? done = null,
-    Object? eventId = null,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      done: null == done
-          ? _value.done
-          : done // ignore: cast_nullable_to_non_nullable
-              as bool,
-      eventId: null == eventId
-          ? _value.eventId
-          : eventId // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$_EventTodoCopyWith<$Res> implements $EventTodoCopyWith<$Res> {
-  factory _$$_EventTodoCopyWith(
-          _$_EventTodo value, $Res Function(_$_EventTodo) then) =
-      __$$_EventTodoCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int id, String name, String description, bool done, int eventId});
-}
-
-/// @nodoc
-class __$$_EventTodoCopyWithImpl<$Res>
-    extends _$EventTodoCopyWithImpl<$Res, _$_EventTodo>
-    implements _$$_EventTodoCopyWith<$Res> {
-  __$$_EventTodoCopyWithImpl(
-      _$_EventTodo _value, $Res Function(_$_EventTodo) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? description = null,
-    Object? done = null,
-    Object? eventId = null,
-  }) {
-    return _then(_$_EventTodo(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      done: null == done
-          ? _value.done
-          : done // ignore: cast_nullable_to_non_nullable
-              as bool,
-      eventId: null == eventId
-          ? _value.eventId
-          : eventId // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_EventTodo implements _EventTodo {
-  const _$_EventTodo(
-      {this.id = -1,
-      this.name = '',
-      this.description = '',
-      this.done = false,
-      this.eventId = -1});
-
-  factory _$_EventTodo.fromJson(Map<String, dynamic> json) =>
-      _$$_EventTodoFromJson(json);
-
-  @override
-  @JsonKey()
-  final int id;
-  @override
-  @JsonKey()
-  final String name;
-  @override
-  @JsonKey()
-  final String description;
-  @override
-  @JsonKey()
-  final bool done;
-  @override
-  @JsonKey()
-  final int eventId;
-
-  @override
-  String toString() {
-    return 'EventTodo(id: $id, name: $name, description: $description, done: $done, eventId: $eventId)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_EventTodo &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.done, done) || other.done == done) &&
-            (identical(other.eventId, eventId) || other.eventId == eventId));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, description, done, eventId);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_EventTodoCopyWith<_$_EventTodo> get copyWith =>
-      __$$_EventTodoCopyWithImpl<_$_EventTodo>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_EventTodoToJson(
-      this,
-    );
-  }
-}
-
-abstract class _EventTodo implements EventTodo {
-  const factory _EventTodo(
-      {final int id,
-      final String name,
-      final String description,
-      final bool done,
-      final int eventId}) = _$_EventTodo;
-
-  factory _EventTodo.fromJson(Map<String, dynamic> json) =
-      _$_EventTodo.fromJson;
-
-  @override
-  int get id;
-  @override
-  String get name;
-  @override
-  String get description;
-  @override
-  bool get done;
-  @override
-  int get eventId;
-  @override
-  @JsonKey(ignore: true)
-  _$$_EventTodoCopyWith<_$_EventTodo> get copyWith =>
       throw _privateConstructorUsedError;
 }

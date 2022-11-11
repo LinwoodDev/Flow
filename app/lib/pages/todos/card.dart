@@ -4,14 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:shared/models/event/model.dart';
-import 'package:shared/models/event/service.dart';
+import 'package:shared/models/todo/model.dart';
+import 'package:shared/models/todo/service.dart';
 
 import '../../cubits/flow.dart';
 
 class TodoCard extends StatefulWidget {
   final String source;
   final Event? event;
-  final EventTodo todo;
+  final Todo todo;
 
   const TodoCard({
     super.key,
@@ -27,8 +28,8 @@ class TodoCard extends StatefulWidget {
 class _TodoCardState extends State<TodoCard> {
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
-  late EventTodo _newTodo;
-  late final EventTodoService _todoService;
+  late Todo _newTodo;
+  late final TodoService _todoService;
 
   final FocusNode _nameFocus = FocusNode();
   final FocusNode _descriptionFocus = FocusNode();
@@ -42,10 +43,8 @@ class _TodoCardState extends State<TodoCard> {
     _descriptionController =
         TextEditingController(text: widget.todo.description);
     _newTodo = widget.todo;
-    _todoService = context
-        .read<FlowCubit>()
-        .getCurrentServicesMap()[widget.source]!
-        .eventTodo;
+    _todoService =
+        context.read<FlowCubit>().getCurrentServicesMap()[widget.source]!.todo;
 
     _nameFocus.addListener(() {
       if (!_nameFocus.hasFocus) {
@@ -127,8 +126,10 @@ class _TodoCardState extends State<TodoCard> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Icon(widget.event!.status.getIcon(),
-                          color: widget.event!.status.getColor()),
+                      Icon(
+                        widget.event!.status.getIcon(),
+                        color: widget.event!.status.getColor(),
+                      ),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(

@@ -5,6 +5,8 @@ import 'package:shared/models/user/database.dart';
 import 'package:shared/services/source.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
+import '../models/todo/database.dart';
+
 typedef DatabaseFactory = Future<Database> Function({
   int? version,
   FutureOr<void> Function(Database, int, int)? onUpgrade,
@@ -20,7 +22,7 @@ class DatabaseService extends SourceService {
   @override
   late final EventGroupDatabaseService eventGroup;
   @override
-  late final EventTodoDatabaseService eventTodo;
+  late final TodoDatabaseService todo;
 
   @override
   late final UserDatabaseService user;
@@ -34,7 +36,7 @@ class DatabaseService extends SourceService {
   Future<void> setup() async {
     event = EventDatabaseService();
     eventGroup = EventGroupDatabaseService();
-    eventTodo = EventTodoDatabaseService();
+    todo = TodoDatabaseService();
 
     user = UserDatabaseService();
     userGroup = UserGroupDatabaseService();

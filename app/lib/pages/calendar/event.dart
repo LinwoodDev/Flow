@@ -7,7 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/event/model.dart';
-import 'package:shared/models/event/service.dart';
+import 'package:shared/models/todo/model.dart';
+import 'package:shared/models/todo/service.dart';
 
 import '../../widgets/date_time_field.dart';
 import 'todo.dart';
@@ -228,14 +229,14 @@ class _EventTodosTab extends StatefulWidget {
 class _EventTodosTabState extends State<_EventTodosTab> {
   static const _pageSize = 20;
 
-  late final EventTodoService _todoService;
+  late final TodoService _todoService;
 
-  final PagingController<int, EventTodo> _pagingController =
+  final PagingController<int, Todo> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
   void initState() {
-    _todoService = context.read<FlowCubit>().getSource(widget.source).eventTodo;
+    _todoService = context.read<FlowCubit>().getSource(widget.source).todo;
     _pagingController.addPageRequestListener((pageKey) {
       _fetchPage(pageKey);
     });
@@ -270,9 +271,9 @@ class _EventTodosTabState extends State<_EventTodosTab> {
           Column(
             children: [
               Flexible(
-                child: PagedListView<int, EventTodo>(
+                child: PagedListView<int, Todo>(
                   pagingController: _pagingController,
-                  builderDelegate: PagedChildBuilderDelegate<EventTodo>(
+                  builderDelegate: PagedChildBuilderDelegate<Todo>(
                     noItemsFoundIndicatorBuilder: (context) =>
                         const EmptyIndicatorDisplay(),
                     firstPageErrorIndicatorBuilder: (context) =>
@@ -301,7 +302,7 @@ class _EventTodosTabState extends State<_EventTodosTab> {
                             ),
                           ),
                           onTap: () async {
-                            await showDialog<EventTodo>(
+                            await showDialog<Todo>(
                               context: context,
                               builder: (context) => EventTodoDialog(
                                 source: widget.source,
@@ -326,7 +327,7 @@ class _EventTodosTabState extends State<_EventTodosTab> {
               label: Text(AppLocalizations.of(context)!.create),
               icon: const Icon(Icons.add_outlined),
               onPressed: () async {
-                await showDialog<EventTodo>(
+                await showDialog<Todo>(
                   context: context,
                   builder: (context) => EventTodoDialog(
                     event: widget.event,

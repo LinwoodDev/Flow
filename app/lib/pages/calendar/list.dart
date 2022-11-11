@@ -146,7 +146,7 @@ class _CalendarListDayView extends StatelessWidget {
               future: Future.value(context
                   .read<FlowCubit>()
                   .getSource(e.value)
-                  .eventTodo
+                  .todo
                   .todosDone(event.id)),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {

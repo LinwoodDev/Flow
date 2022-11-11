@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared/helpers/converter.dart';
 
@@ -33,23 +35,10 @@ class EventGroup with _$EventGroup {
     @Default(-1) int id,
     @Default('') String name,
     @Default('') String description,
-    @Default([]) List<int> image,
+    @Default(true) bool open,
+    @Uint8ListConverter() Uint8List? image,
   }) = _EventGroup;
 
   factory EventGroup.fromJson(Map<String, dynamic> json) =>
       _$EventGroupFromJson(json);
-}
-
-@freezed
-class EventTodo with _$EventTodo {
-  const factory EventTodo({
-    @Default(-1) int id,
-    @Default('') String name,
-    @Default('') String description,
-    @Default(false) bool done,
-    @Default(-1) int eventId,
-  }) = _EventTodo;
-
-  factory EventTodo.fromJson(Map<String, dynamic> json) =>
-      _$EventTodoFromJson(json);
 }

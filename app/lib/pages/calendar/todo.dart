@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared/models/event/service.dart';
+import 'package:shared/models/todo/model.dart';
+import 'package:shared/models/todo/service.dart';
 
 class EventTodoDialog extends StatefulWidget {
   final String source;
   final Event event;
-  final EventTodo? todo;
+  final Todo? todo;
   const EventTodoDialog(
       {super.key, required this.source, required this.event, this.todo});
 
@@ -17,15 +18,15 @@ class EventTodoDialog extends StatefulWidget {
 }
 
 class _EventTodoDialogState extends State<EventTodoDialog> {
-  late EventTodo _newTodo;
-  late final EventTodoService _todoService;
+  late Todo _newTodo;
+  late final TodoService _todoService;
 
   @override
   void initState() {
     super.initState();
 
-    _todoService = context.read<FlowCubit>().getSource(widget.source).eventTodo;
-    _newTodo = widget.todo ?? EventTodo(eventId: widget.event.id);
+    _todoService = context.read<FlowCubit>().getSource(widget.source).todo;
+    _newTodo = widget.todo ?? Todo(eventId: widget.event.id);
   }
 
   @override

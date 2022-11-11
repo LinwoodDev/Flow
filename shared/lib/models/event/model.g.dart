@@ -58,8 +58,9 @@ _$_EventGroup _$$_EventGroupFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int? ?? -1,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      image: (json['image'] as List<dynamic>?)?.map((e) => e as int).toList() ??
-          const [],
+      open: json['open'] as bool? ?? true,
+      image: _$JsonConverterFromJson<List<int>, Uint8List>(
+          json['image'], const Uint8ListConverter().fromJson),
     );
 
 Map<String, dynamic> _$$_EventGroupToJson(_$_EventGroup instance) =>
@@ -67,22 +68,7 @@ Map<String, dynamic> _$$_EventGroupToJson(_$_EventGroup instance) =>
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,
-      'image': instance.image,
-    };
-
-_$_EventTodo _$$_EventTodoFromJson(Map<String, dynamic> json) => _$_EventTodo(
-      id: json['id'] as int? ?? -1,
-      name: json['name'] as String? ?? '',
-      description: json['description'] as String? ?? '',
-      done: json['done'] as bool? ?? false,
-      eventId: json['eventId'] as int? ?? -1,
-    );
-
-Map<String, dynamic> _$$_EventTodoToJson(_$_EventTodo instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'done': instance.done,
-      'eventId': instance.eventId,
+      'open': instance.open,
+      'image': _$JsonConverterToJson<List<int>, Uint8List>(
+          instance.image, const Uint8ListConverter().toJson),
     };
