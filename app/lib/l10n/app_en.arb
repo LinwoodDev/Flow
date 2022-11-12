@@ -100,5 +100,34 @@
   "filter": "Filter",
   "completed": "Completed",
   "incomplete": "Incomplete",
-  "delete": "Delete"
+  "delete": "Delete",
+  "edit": "Edit",
+  "deleteGroup": "Delete group {name}",
+  "@deleteGroup": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "deleteGroupDescription": "Are you sure you want to delete the group {name}?",
+  "@deleteGroupDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "groupName": "Group {name}",
+  "@groupName": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "noData": "There is no data to display."
 }

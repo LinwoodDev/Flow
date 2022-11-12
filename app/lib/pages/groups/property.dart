@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/event/model.dart';
 
-class EventGroupDialog extends StatelessWidget {
+class EventGroupPropertyDialog extends StatelessWidget {
   final String? source;
   final EventGroup? eventGroup;
 
-  const EventGroupDialog({super.key, this.eventGroup, this.source});
+  const EventGroupPropertyDialog({super.key, this.eventGroup, this.source});
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class EventGroupDialog extends StatelessWidget {
                   .eventGroup
                   .updateGroup(eventGroup);
             }
-            Navigator.of(context).pop();
+            Navigator.of(context).pop(eventGroup);
           },
           child: Text(AppLocalizations.of(context)!.save),
         ),

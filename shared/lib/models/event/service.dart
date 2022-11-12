@@ -8,6 +8,9 @@ abstract class EventService extends ModelService {
   FutureOr<Event?> getEvent(int id);
   FutureOr<List<Event>> getEvents({
     List<EventStatus> status,
+    int? groupId,
+    int offset = 0,
+    int limit = 50,
   });
 
   FutureOr<Event?> createEvent(Event event);

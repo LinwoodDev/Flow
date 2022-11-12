@@ -1,8 +1,9 @@
-import 'package:flow/pages/groups/group.dart';
+import 'package:flow/pages/groups/property.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/event/model.dart';
 
@@ -77,7 +78,7 @@ class _EventGroupsPageState extends State<EventGroupsPage> {
             pagingController: _pagingController,
             builderDelegate:
                 PagedChildBuilderDelegate<MapEntry<EventGroup, String>>(
-              itemBuilder: (context, item, index) => Dismissible(
+              itemBuilder: (ctx, item, index) => Dismissible(
                 key: ValueKey(item.key.id),
                 onDismissed: (direction) async {
                   await _flowCubit
@@ -85,14 +86,15 @@ class _EventGroupsPageState extends State<EventGroupsPage> {
                       .eventGroup
                       .deleteGroup(item.key.id);
                   _pagingController.itemList!.remove(item);
-                  _pagingController.refresh();
                 },
                 background: Container(
                   color: Colors.red,
                 ),
-                child: ListTile(
-                  title: Text(item.key.name),
-                  subtitle: Text(item.key.description),
+                child: EventGroupTile(
+                  flowCubit: _flowCubit,
+                  pagingController: _pagingController,
+                  source: item.value,
+                  eventGroup: item.key,
                 ),
               ),
             ),
@@ -102,11 +104,120 @@ class _EventGroupsPageState extends State<EventGroupsPage> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
                 context: context,
-                builder: (context) => const EventGroupDialog())
+                builder: (context) => const EventGroupPropertyDialog())
             .then((value) => _pagingController.refresh()),
         label: Text(AppLocalizations.of(context)!.create),
         icon: const Icon(Icons.add_outlined),
       ),
     );
+  }
+}
+
+class EventGroupTile extends StatelessWidget {
+  const EventGroupTile({
+    Key? key,
+    required this.source,
+    required this.eventGroup,
+    required this.flowCubit,
+    required this.pagingController,
+  }) : super(key: key);
+
+  final FlowCubit flowCubit;
+  final EventGroup eventGroup;
+  final String source;
+  final PagingController<int, MapEntry<EventGroup, String>> pagingController;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(eventGroup.name),
+      subtitle: Text(eventGroup.description),
+      onTap: () {
+        GoRouter.of(context).push(
+          source.isEmpty
+              ? "/groups/${eventGroup.id}"
+              : "/groups/${eventGroup.id}?source=$source",
+          extra: eventGroup,
+        );
+        void watchRouteChanges() {
+          pagingController.refresh();
+          GoRouter.of(context).removeListener(watchRouteChanges);
+        }
+
+        GoRouter.of(context).addListener(watchRouteChanges);
+      },
+      trailing: PopupMenuButton<Function>(
+        itemBuilder: (ctx) => <dynamic>[
+          [
+            Icons.edit_outlined,
+            AppLocalizations.of(context)!.edit,
+            _editGroup,
+          ],
+          [
+            Icons.delete_outline,
+            AppLocalizations.of(context)!.delete,
+            _deleteGroup,
+          ],
+        ]
+            .map((e) => PopupMenuItem<Function>(
+                  value: e[2],
+                  child: Row(
+                    children: [
+                      Icon(e[0]),
+                      const SizedBox(width: 8),
+                      Text(e[1]),
+                    ],
+                  ),
+                ))
+            .toList(),
+        onSelected: (value) => value(context),
+      ),
+    );
+  }
+
+  void _deleteGroup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(AppLocalizations.of(context)!.deleteGroup(eventGroup.name)),
+        content: Text(AppLocalizations.of(context)!
+            .deleteGroupDescription(eventGroup.name)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(
+              AppLocalizations.of(context)!.cancel,
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.of(context).pop();
+              await flowCubit
+                  .getSource(source)
+                  .eventGroup
+                  .deleteGroup(eventGroup.id);
+              pagingController.itemList!.remove(MapEntry(
+                eventGroup,
+                source,
+              ));
+              pagingController.refresh();
+            },
+            child: Text(
+              AppLocalizations.of(context)!.delete,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _editGroup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => EventGroupPropertyDialog(
+        eventGroup: eventGroup,
+        source: source,
+      ),
+    ).then((value) => pagingController.refresh());
   }
 }

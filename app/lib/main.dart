@@ -14,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'cubits/settings.dart';
 import 'pages/calendar/page.dart';
 import 'pages/dashboard/page.dart';
+import 'pages/groups/group/page.dart';
 import 'pages/sources/page.dart';
 import 'pages/places/page.dart';
 import 'pages/groups/page.dart';
@@ -94,6 +95,24 @@ class FlowApp extends StatelessWidget {
         path: '/groups',
         builder: (BuildContext context, GoRouterState state) =>
             const EventGroupsPage(),
+        routes: <RouteBase>[
+          GoRoute(
+            path: ':id',
+            builder: (BuildContext context, GoRouterState state) =>
+                EventGroupPage(
+              source: '',
+              eventGroupId: int.parse(state.params['id']!),
+            ),
+          ), /*
+          GoRoute(
+            path: ':source/:id',
+            builder: (BuildContext context, GoRouterState state) =>
+                EventGroupPage(
+              eventGroupId: int.parse(state.params['id']!),
+              source: state.params['source']!,
+            ),
+          ),*/
+        ],
       ),
       GoRoute(
         path: '/todos',

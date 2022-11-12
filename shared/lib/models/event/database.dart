@@ -30,12 +30,21 @@ class EventDatabaseService extends EventService with TableService {
   FutureOr<void> migrate(Database db, int version) {}
 
   @override
-  Future<List<Event>> getEvents({List<EventStatus> status = const []}) async {
+  Future<List<Event>> getEvents({
+    List<EventStatus> status = const [],
+    int? groupId,
+    int offset = 0,
+    int limit = 50,
+  }) async {
     String? where;
     List<Object?>? whereArgs;
     if (status.isNotEmpty) {
       where = 'status IN (${status.map((e) => '?').join(', ')})';
       whereArgs = status.map((e) => e.name).toList();
+    }
+    if (groupId != null) {
+      where = where == null ? 'groupId = ?' : '$where AND groupId = ?';
+      whereArgs = whereArgs == null ? [groupId] : [...whereArgs, groupId];
     }
     final result =
         await db?.query('events', where: where, whereArgs: whereArgs);
@@ -153,7 +162,8 @@ class EventGroupDatabaseService extends EventGroupService with TableService {
       whereArgs: [id],
     );
     return result
-        ?.map((row) => EventGroup.fromJson(row..['open'] = row['open'] == 1))
+        ?.map((row) => EventGroup.fromJson(
+            Map<String, dynamic>.from(row)..['open'] = row['open'] == 1))
         .first;
   }
 }

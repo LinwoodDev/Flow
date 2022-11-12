@@ -75,7 +75,7 @@ class FlowNavigation extends StatelessWidget {
     super.key,
     required this.title,
     required this.body,
-    required this.selected,
+    this.selected = '',
     this.bottom,
     this.endDrawer,
     this.actions,
