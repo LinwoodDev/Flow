@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:shared/helpers/date_time.dart';
 import 'package:shared/services/database.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
@@ -30,12 +31,14 @@ class EventDatabaseService extends EventService with TableService {
   FutureOr<void> migrate(Database db, int version) {}
 
   @override
-  Future<List<Event>> getEvents({
-    List<EventStatus> status = const [],
-    int? groupId,
-    int offset = 0,
-    int limit = 50,
-  }) async {
+  Future<List<Event>> getEvents(
+      {List<EventStatus> status = const [],
+      int? groupId,
+      int offset = 0,
+      int limit = 50,
+      DateTime? start,
+      DateTime? end,
+      DateTime? date}) async {
     String? where;
     List<Object?>? whereArgs;
     if (status.isNotEmpty) {
@@ -46,6 +49,45 @@ class EventDatabaseService extends EventService with TableService {
       where = where == null ? 'groupId = ?' : '$where AND groupId = ?';
       whereArgs = whereArgs == null ? [groupId] : [...whereArgs, groupId];
     }
+    if (start != null) {
+      where = where == null ? 'start >= ?' : '$where AND start >= ?';
+      whereArgs = whereArgs == null
+          ? [start.secondsSinceEpoch]
+          : [...whereArgs, start.secondsSinceEpoch];
+    }
+    if (end != null) {
+      where = where == null ? 'end <= ?' : '$where AND end <= ?';
+      whereArgs = whereArgs == null
+          ? [end.secondsSinceEpoch]
+          : [...whereArgs, end.secondsSinceEpoch];
+    }
+    if (date != null) {
+      var startDate = date.onlyDate();
+      var endDate =
+          startDate.add(Duration(hours: 23, minutes: 59, seconds: 59));
+      where = where == null
+          ? '(start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))'
+          : '$where AND (start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))';
+      whereArgs = whereArgs == null
+          ? [
+              startDate.secondsSinceEpoch,
+              endDate.secondsSinceEpoch,
+              startDate.secondsSinceEpoch,
+              endDate.secondsSinceEpoch,
+              startDate.secondsSinceEpoch,
+              endDate.secondsSinceEpoch,
+            ]
+          : [
+              ...whereArgs,
+              startDate.secondsSinceEpoch,
+              endDate.secondsSinceEpoch,
+              startDate.secondsSinceEpoch,
+              endDate.secondsSinceEpoch,
+              startDate.secondsSinceEpoch,
+              endDate.secondsSinceEpoch,
+            ];
+    }
+
     final result =
         await db?.query('events', where: where, whereArgs: whereArgs);
     return result?.map((row) => Event.fromJson(row)).toList() ?? [];

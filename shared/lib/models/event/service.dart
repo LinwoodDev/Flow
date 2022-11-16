@@ -6,12 +6,14 @@ import 'model.dart';
 
 abstract class EventService extends ModelService {
   FutureOr<Event?> getEvent(int id);
-  FutureOr<List<Event>> getEvents({
-    List<EventStatus> status,
-    int? groupId,
-    int offset = 0,
-    int limit = 50,
-  });
+  FutureOr<List<Event>> getEvents(
+      {List<EventStatus> status,
+      int? groupId,
+      int offset = 0,
+      int limit = 50,
+      DateTime? start,
+      DateTime? end,
+      DateTime? date});
 
   FutureOr<Event?> createEvent(Event event);
 

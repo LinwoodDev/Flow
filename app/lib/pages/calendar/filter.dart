@@ -2,7 +2,6 @@ import 'package:flow/helpers/event.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared/models/event/model.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'filter.freezed.dart';
 
@@ -15,16 +14,18 @@ class CalendarFilter with _$CalendarFilter {
   }) = _CalendarFilter;
 }
 
-class CalendarFilterDialog extends StatefulWidget {
+class CalendarFilterView extends StatefulWidget {
   final CalendarFilter? initialFilter;
+  final ValueChanged<CalendarFilter> onChanged;
 
-  const CalendarFilterDialog({super.key, this.initialFilter});
+  const CalendarFilterView(
+      {super.key, this.initialFilter, required this.onChanged});
 
   @override
-  State<CalendarFilterDialog> createState() => _CalendarFilterDialogState();
+  State<CalendarFilterView> createState() => _CalendarFilterViewState();
 }
 
-class _CalendarFilterDialogState extends State<CalendarFilterDialog> {
+class _CalendarFilterViewState extends State<CalendarFilterView> {
   late CalendarFilter _filter;
   @override
   void initState() {
@@ -34,51 +35,51 @@ class _CalendarFilterDialogState extends State<CalendarFilterDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(AppLocalizations.of(context)!.filter),
-      scrollable: true,
-      content: Form(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ...EventStatus.values.map(
-              (status) => CheckboxListTile(
-                title: Text(status.getLocalizedName(context)),
-                secondary: Icon(status.getIcon()),
-                value: !_filter.hiddenStatuses.contains(status),
-                onChanged: (value) {
-                  setState(() {
-                    if (value == true) {
-                      _filter = _filter.copyWith(
-                        hiddenStatuses: _filter.hiddenStatuses
-                            .where((element) => element != status)
-                            .toList(),
-                      );
-                    } else {
-                      _filter = _filter.copyWith(
-                        hiddenStatuses: [
-                          ..._filter.hiddenStatuses,
-                          status,
-                        ],
-                      );
-                    }
-                  });
-                },
-              ),
-            ),
-          ],
-        ),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ...EventStatus.values.map(
+            (status) {
+              final selected = !_filter.hiddenStatuses.contains(status);
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InputChip(
+                  label: Text(status.getLocalizedName(context)),
+                  avatar: Icon(status.getIcon(),
+                      color: selected
+                          ? Colors.white
+                          : Theme.of(context).iconTheme.color),
+                  selected: selected,
+                  selectedColor: status.getColor(),
+                  labelStyle: TextStyle(color: selected ? Colors.white : null),
+                  showCheckmark: false,
+                  onSelected: (value) {
+                    setState(() {
+                      if (value == true) {
+                        _filter = _filter.copyWith(
+                          hiddenStatuses: _filter.hiddenStatuses
+                              .where((element) => element != status)
+                              .toList(),
+                        );
+                      } else {
+                        _filter = _filter.copyWith(
+                          hiddenStatuses: [
+                            ..._filter.hiddenStatuses,
+                            status,
+                          ],
+                        );
+                      }
+                    });
+                    widget.onChanged(_filter);
+                  },
+                ),
+              );
+            },
+          ),
+        ],
       ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(AppLocalizations.of(context)!.cancel),
-        ),
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(_filter),
-          child: Text(AppLocalizations.of(context)!.save),
-        ),
-      ],
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/event/model.dart';
 
 import 'event.dart';
@@ -50,38 +51,13 @@ class _CalendarPageState extends State<CalendarPage>
     with TickerProviderStateMixin {
   _CalendarView _calendarView = _CalendarView.list;
   CalendarFilter _filter = const CalendarFilter();
-  late Future<List<MapEntry<String, List<Event>>>> _future;
+  final PagingController<int, List<MapEntry<String, Event>>> _pagingController =
+      PagingController(firstPageKey: 0);
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  Future<List<MapEntry<String, List<Event>>>> _buildFuture() =>
-      Future.wait(context
-          .read<FlowCubit>()
-          .getCurrentServicesMap()
-          .entries
-          .map((e) async => MapEntry(
-              e.key,
-              await e.value.event.getEvents(
-                status: EventStatus.values
-                    .where(
-                        (element) => !_filter.hiddenStatuses.contains(element))
-                    .toList(),
-              ))));
-
-  Future<void> _updateFuture([bool holdFuture = false]) async {
-    if (holdFuture) {
-      final events = await _buildFuture();
-      setState(() {
-        _future = Future.value(events);
-      });
-    } else {
-      setState(() {
-        _future = _buildFuture();
-      });
-    }
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
   }
 
   @override
@@ -93,22 +69,6 @@ class _CalendarPageState extends State<CalendarPage>
         IconButton(
           icon: const Icon(Icons.search_outlined),
           onPressed: () {},
-        ),
-        IconButton(
-          icon: const Icon(Icons.filter_list_outlined),
-          onPressed: () async {
-            final filter = await showDialog<CalendarFilter>(
-              context: context,
-              builder: (context) => CalendarFilterDialog(
-                initialFilter: _filter,
-              ),
-            );
-            if (filter != null) {
-              setState(() {
-                _filter = filter;
-              });
-            }
-          },
         ),
         PopupMenuButton<_CalendarView>(
           icon: Icon(_calendarView.getIcon()),
@@ -132,31 +92,19 @@ class _CalendarPageState extends State<CalendarPage>
         ),
       ],
       body: BlocBuilder<FlowCubit, FlowState>(builder: (context, state) {
-        _future = _buildFuture();
-        return FutureBuilder<List<MapEntry<String, List<Event>>>>(
-          future: _future,
-          builder: (context, snapshot) {
-            final events = snapshot.data
-                    ?.expand((e) => e.value.map((i) => MapEntry(i, e.key)))
-                    .toList() ??
-                [];
-            return StatefulBuilder(builder: (context, setInnerState) {
-              return RefreshIndicator(
-                  onRefresh: () => _updateFuture(true),
-                  child: !snapshot.hasData
-                      ? const Center(child: CircularProgressIndicator())
-                      : CalendarListView(
-                          events: events,
-                          onRefresh: _updateFuture,
-                        ));
-            });
+        return CalendarListView(
+          controller: _pagingController,
+          onFilterChanged: (value) {
+            setState(() => _filter = value);
+            _pagingController.refresh();
           },
+          filter: _filter,
         );
       }),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
                 context: context, builder: (context) => const EventDialog())
-            .then((value) => _updateFuture()),
+            .then((value) => _pagingController.refresh()),
         label: Text(AppLocalizations.of(context)!.create),
         icon: const Icon(Icons.add_outlined),
       ),

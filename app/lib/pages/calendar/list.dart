@@ -1,172 +1,202 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/event.dart';
 import 'package:flow/pages/calendar/event.dart';
+import 'package:flow/pages/calendar/filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/helpers/date_time.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CalendarListView extends StatefulWidget {
-  final List<MapEntry<Event, String>> events;
-  final VoidCallback onRefresh;
+  final CalendarFilter filter;
+  final PagingController<int, List<MapEntry<String, Event>>> controller;
+  final ValueChanged<CalendarFilter> onFilterChanged;
 
-  const CalendarListView(
-      {super.key, required this.events, required this.onRefresh});
+  const CalendarListView({
+    super.key,
+    required this.controller,
+    required this.onFilterChanged,
+    required this.filter,
+  });
 
   @override
   State<CalendarListView> createState() => _CalendarListViewState();
 }
 
 class _CalendarListViewState extends State<CalendarListView> {
-  final GlobalKey _todayKey = GlobalKey();
-
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToday());
-  }
-
-  void _scrollToday() {
-    Scrollable.ensureVisible(_todayKey.currentContext!,
-        duration: const Duration(milliseconds: 500));
+    widget.controller.addPageRequestListener(_requestPage);
   }
 
   @override
-  Widget build(BuildContext context) {
-    final today = DateTime.now().onlyDate();
-    var days = widget.events.expand((e) {
-      final start = e.key.start?.onlyDate();
-      final end = e.key.end?.onlyDate();
-      if (start != null && end != null) {
-        return List.generate(end.difference(start).inDays + 1,
-            (index) => DateTime(start.year, start.month, start.day + index));
-      } else if (start != null) {
-        return <DateTime>[start];
-      } else if (end != null) {
-        return <DateTime>[end];
-      } else {
-        return <DateTime>[];
-      }
-    }).toList()
-      ..add(today);
-    days = days.toSet().toList();
-    return SingleChildScrollView(
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 600),
-          child: Column(
-            children: List.generate(
-              days.length,
-              (index) => _CalendarListDayView(
-                  date: days[index],
-                  onRefresh: widget.onRefresh,
-                  key: days[index] == today ? _todayKey : null,
-                  events: widget.events.where((element) {
-                    final start = element.key.start;
-                    final end = element.key.end;
-                    return start?.onlyDate() == days[index] ||
-                        end?.onlyDate() == days[index] ||
-                        start != null &&
-                            end != null &&
-                            start.isBefore(days[index]) &&
-                            end.isAfter(days[index]);
-                  }).toList()),
-            ),
-          ),
-        ),
-      ),
-    );
+  void dispose() {
+    widget.controller.removePageRequestListener(_requestPage);
+    super.dispose();
   }
-}
 
-class _CalendarListDayView extends StatelessWidget {
-  final DateTime date;
-  final List<MapEntry<Event, String>> events;
-  final VoidCallback onRefresh;
+  Future<void> _requestPage(int key) async {
+    final events = await _fetchEvents(key);
+    widget.controller.appendPage([events], key + 1);
+  }
 
-  const _CalendarListDayView(
-      {super.key,
-      required this.date,
-      required this.events,
-      required this.onRefresh});
+  Future<List<MapEntry<String, Event>>> _fetchEvents(int day) async {
+    final dateTime = DateTime.now().onlyDate().add(Duration(days: day));
+    final sources = context.read<FlowCubit>().getCurrentServicesMap();
+    final events = <MapEntry<String, Event>>[];
+    for (final source in sources.entries) {
+      final fetched = await source.value.event.getEvents(
+        date: dateTime,
+        status: EventStatus.values
+            .where((element) => !widget.filter.hiddenStatuses.contains(element))
+            .toList(),
+      );
+      events.addAll(fetched.map((event) => MapEntry(source.key, event)));
+    }
+    return events;
+  }
 
   @override
   Widget build(BuildContext context) {
     final locale = Localizations.localeOf(context).languageCode;
     final dateFormatter = DateFormat.yMMMMd(locale);
-    final timeFormatter = DateFormat.Hm(locale);
     return Column(
       children: [
-        if (date == DateTime.now().onlyDate())
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Icon(
-              Icons.today_outlined,
-              color: Theme.of(context).primaryColor,
-              size: 64,
-            ),
-          ),
-        Text(
-          dateFormatter.format(date),
-          style: Theme.of(context).textTheme.headline6,
+        CalendarFilterView(
+          initialFilter: widget.filter,
+          onChanged: widget.onFilterChanged,
         ),
-        const SizedBox(height: 16),
-        Column(
-            children: events.map((e) {
-          final event = e.key;
-          final start = event.start?.onlyDate() == date && event.start != null
-              ? timeFormatter.format(event.start!)
-              : '';
-          final end = event.end?.onlyDate() == date && event.end != null
-              ? timeFormatter.format(event.end!)
-              : '';
-          String range;
-          if (start == '' && end == '') {
-            range = '';
-          } else if (start == '') {
-            range = ' - $end';
-          } else if (end == '') {
-            range = '$start -';
-          } else {
-            range = '$start - $end';
-          }
-          return ListTile(
-            title: Text(e.key.name),
-            subtitle: Text(range),
-            leading:
-                Icon(e.key.status.getIcon(), color: e.key.status.getColor()),
-            onTap: () => showDialog(
-                    context: context,
-                    builder: (context) =>
-                        EventDialog(event: event, source: e.value))
-                .then((_) => onRefresh()),
-            trailing: FutureBuilder<bool?>(
-              future: Future.value(context
-                  .read<FlowCubit>()
-                  .getSource(e.value)
-                  .todo
-                  .todosDone(event.id)),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Icon(
-                    snapshot.data!
-                        ? Icons.check_circle_outline_outlined
-                        : Icons.circle_outlined,
-                    color: snapshot.data ?? false
-                        ? Theme.of(context).primaryColor
-                        : Theme.of(context).disabledColor,
-                  );
-                } else {
-                  return const SizedBox.shrink();
-                }
+        const SizedBox(height: 8),
+        Flexible(
+          child: PagedListView(
+            pagingController: widget.controller,
+            builderDelegate:
+                PagedChildBuilderDelegate<List<MapEntry<String, Event>>>(
+              itemBuilder: (context, item, index) {
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 64,
+                        horizontal: 16,
+                      ),
+                      child: Column(
+                        children: [
+                          if (index == 0)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              child: Icon(
+                                Icons.today_outlined,
+                                color: Theme.of(context).primaryColor,
+                                size: 64,
+                              ),
+                            ),
+                          Text(
+                            dateFormatter.format(DateTime.now()
+                                .onlyDate()
+                                .add(Duration(days: index))),
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                        ],
+                      ),
+                    ),
+                    if (item.isEmpty)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: Text(
+                          AppLocalizations.of(context)!.noEvents,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
+                    ...item.map((event) {
+                      return _CalendarListTile(
+                        key: ValueKey(event.key + event.value.id.toString()),
+                        event: event.value,
+                        source: event.key,
+                        date: DateTime.now()
+                            .onlyDate()
+                            .add(Duration(days: index)),
+                        onRefresh: widget.controller.refresh,
+                      );
+                    }),
+                  ],
+                );
               },
             ),
-          );
-        }).toList()),
-        const SizedBox(height: 32),
+          ),
+        ),
       ],
+    );
+  }
+}
+
+class _CalendarListTile extends StatelessWidget {
+  final Event event;
+  final String source;
+  final DateTime date;
+  final VoidCallback onRefresh;
+
+  const _CalendarListTile({
+    super.key,
+    required this.event,
+    required this.source,
+    required this.date,
+    required this.onRefresh,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final locale = Localizations.localeOf(context).languageCode;
+    final timeFormatter = DateFormat.Hm(locale);
+    final start = event.start?.onlyDate() == date && event.start != null
+        ? timeFormatter.format(event.start!)
+        : '';
+    final end = event.end?.onlyDate() == date && event.end != null
+        ? timeFormatter.format(event.end!)
+        : '';
+    String range;
+    if (start == '' && end == '') {
+      range = '';
+    } else if (start == '') {
+      range = ' - $end';
+    } else if (end == '') {
+      range = '$start -';
+    } else {
+      range = '$start - $end';
+    }
+    return ListTile(
+      title: Text(event.name),
+      subtitle: Text(range),
+      leading: Icon(event.status.getIcon(), color: event.status.getColor()),
+      onTap: () => showDialog(
+              context: context,
+              builder: (context) => EventDialog(event: event, source: source))
+          .then((_) => onRefresh()),
+      trailing: FutureBuilder<bool?>(
+        future: Future.value(context
+            .read<FlowCubit>()
+            .getSource(source)
+            .todo
+            .todosDone(event.id)),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Icon(
+              snapshot.data!
+                  ? Icons.check_circle_outline_outlined
+                  : Icons.circle_outlined,
+              color: snapshot.data ?? false
+                  ? Theme.of(context).primaryColor
+                  : Theme.of(context).disabledColor,
+            );
+          } else {
+            return const SizedBox.shrink();
+          }
+        },
+      ),
     );
   }
 }
