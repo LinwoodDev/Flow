@@ -54,6 +54,8 @@ List _getSecondaryItems(BuildContext context) => [
       }
     ];
 
+const _drawerWidth = 250.0;
+
 class FlowRootNavigation extends StatelessWidget {
   final Widget child;
   const FlowRootNavigation({super.key, required this.child});
@@ -63,21 +65,21 @@ class FlowRootNavigation extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isMobile = constraints.maxWidth < 768;
-        if (!isMobile) {
-          return Row(
-            textDirection: TextDirection.rtl,
-            children: [
-              Expanded(
-                child: child,
-              ),
-              const SizedBox(
-                width: 250,
-                child: _FlowDrawer(),
-              ),
-            ],
-          );
-        }
-        return child;
+        return Row(textDirection: TextDirection.rtl, children: [
+          Expanded(
+            child: child,
+          ),
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            width: isMobile ? 0 : _drawerWidth,
+            curve: Curves.easeInOut,
+            child: const ClipRect(
+                child: OverflowBox(
+                    maxWidth: _drawerWidth,
+                    minWidth: _drawerWidth,
+                    child: _FlowDrawer())),
+          ),
+        ]);
       },
     );
   }
@@ -104,7 +106,7 @@ class FlowNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      final isMobile = constraints.maxWidth < 768;
+      final isMobile = MediaQuery.of(context).size.width < 768;
       const drawer = _FlowDrawer();
       return Row(
         textDirection: TextDirection.rtl,
@@ -117,7 +119,12 @@ class FlowNavigation extends StatelessWidget {
                 title: Text(title),
                 actions: [if (actions != null) ...actions!],
               ),
-              drawer: isMobile ? const Drawer(child: drawer) : null,
+              drawer: isMobile
+                  ? const Drawer(
+                      width: _drawerWidth,
+                      child: drawer,
+                    )
+                  : null,
               endDrawer: isMobile && endDrawer != null
                   ? Drawer(child: endDrawer)
                   : null,
