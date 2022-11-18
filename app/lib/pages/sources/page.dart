@@ -12,7 +12,6 @@ class SourcesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlowNavigation(
       title: AppLocalizations.of(context)!.sources,
-      selected: "sources",
       body: SingleChildScrollView(
         child: Align(
             alignment: Alignment.topCenter,

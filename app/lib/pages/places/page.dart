@@ -10,7 +10,6 @@ class PlacesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlowNavigation(
       title: AppLocalizations.of(context)!.places,
-      selected: "places",
       body: ListView(),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {

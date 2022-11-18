@@ -9,38 +9,32 @@ import '../main.dart';
 List _getNavigationItems(BuildContext context) => [
       {
         "title": AppLocalizations.of(context)!.dashboard,
-        "name": "dashboard",
         "icon": Icons.dashboard_outlined,
         "link": "/"
       },
       {
         "title": AppLocalizations.of(context)!.calendar,
-        "name": "calendar",
         "icon": Icons.calendar_month_outlined,
         "link": "/calendar"
       },
       null,
       {
         "title": AppLocalizations.of(context)!.todos,
-        "name": "todos",
         "icon": Icons.checklist_outlined,
         "link": "/todos"
       },
       {
         "title": AppLocalizations.of(context)!.groups,
-        "name": "groups",
         "icon": Icons.folder_outlined,
         "link": "/groups"
       },
       {
         "title": AppLocalizations.of(context)!.places,
-        "name": "places",
         "icon": Icons.location_on_outlined,
         "link": "/places"
       },
       {
         "title": AppLocalizations.of(context)!.users,
-        "name": "users",
         "icon": Icons.people_outlined,
         "link": "/users"
       },
@@ -50,21 +44,47 @@ List _getSecondaryItems(BuildContext context) => [
       null,
       {
         "title": AppLocalizations.of(context)!.sources,
-        "name": "sources",
         "icon": Icons.dns_outlined,
         "link": "/sources"
       },
       {
         "title": AppLocalizations.of(context)!.settings,
-        "name": "settings",
         "icon": Icons.settings_outlined,
         "link": "/settings"
       }
     ];
 
+class FlowRootNavigation extends StatelessWidget {
+  final Widget child;
+  const FlowRootNavigation({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isMobile = constraints.maxWidth < 768;
+        if (!isMobile) {
+          return Row(
+            textDirection: TextDirection.rtl,
+            children: [
+              Expanded(
+                child: child,
+              ),
+              const SizedBox(
+                width: 250,
+                child: _FlowDrawer(),
+              ),
+            ],
+          );
+        }
+        return child;
+      },
+    );
+  }
+}
+
 class FlowNavigation extends StatelessWidget {
   final String title;
-  final String selected;
   final Widget body;
   final PreferredSizeWidget? bottom;
   final Widget? endDrawer;
@@ -75,7 +95,6 @@ class FlowNavigation extends StatelessWidget {
     super.key,
     required this.title,
     required this.body,
-    this.selected = '',
     this.bottom,
     this.endDrawer,
     this.actions,
@@ -86,18 +105,11 @@ class FlowNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       final isMobile = constraints.maxWidth < 768;
-      final drawer = _FlowDrawer(
-        selected: selected,
-      );
+      const drawer = _FlowDrawer();
       return Row(
         textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (!isMobile)
-            SizedBox(
-              width: 250,
-              child: drawer,
-            ),
           Expanded(
             child: Scaffold(
               appBar: AppBar(
@@ -105,7 +117,7 @@ class FlowNavigation extends StatelessWidget {
                 title: Text(title),
                 actions: [if (actions != null) ...actions!],
               ),
-              drawer: isMobile ? Drawer(child: drawer) : null,
+              drawer: isMobile ? const Drawer(child: drawer) : null,
               endDrawer: isMobile && endDrawer != null
                   ? Drawer(child: endDrawer)
                   : null,
@@ -129,11 +141,14 @@ class FlowNavigation extends StatelessWidget {
 }
 
 class _FlowDrawer extends StatelessWidget {
-  final String selected;
-  const _FlowDrawer({required this.selected});
+  const _FlowDrawer();
 
-  Widget _getItem(BuildContext context, Map? map) {
-    final currentSelected = selected == map?['name'];
+  Widget _getItem(BuildContext context, String location, Map? map) {
+    var currentSelected =
+        (map?["link"] as String?)?.startsWith(location) ?? false;
+    if (location == "/") {
+      currentSelected = location == map?["link"];
+    }
     return map == null
         ? const Divider()
         : ListTile(
@@ -157,6 +172,7 @@ class _FlowDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final location = GoRouter.of(context).location;
     return Material(
       child: Padding(
         padding: const EdgeInsets.only(right: 8, top: 16, bottom: 8),
@@ -202,14 +218,14 @@ class _FlowDrawer extends StatelessWidget {
                         )),
                     Column(
                       children: _getNavigationItems(context)
-                          .map((e) => _getItem(context, e))
+                          .map((e) => _getItem(context, location, e))
                           .toList(),
                     ),
                   ]),
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: _getSecondaryItems(context)
-                        .map((e) => _getItem(context, e))
+                        .map((e) => _getItem(context, location, e))
                         .toList(),
                   ),
                 ],

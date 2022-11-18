@@ -63,7 +63,6 @@ class _EventGroupsPageState extends State<EventGroupsPage> {
   Widget build(BuildContext context) {
     return FlowNavigation(
       title: AppLocalizations.of(context)!.groups,
-      selected: "groups",
       actions: [
         IconButton(
           icon: const Icon(Icons.filter_list),

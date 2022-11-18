@@ -11,7 +11,7 @@ dependencies:
   path: ^1.8.2
   web_socket_channel: ^2.1.0
   equatable: ^2.0.5
-  uuid: ^3.0.5
+  uuid: ^3.0.7
   crypto: ^3.0.1
   sqflite_common: ^2.4.0+2
   freezed_annotation: ^2.2.0

@@ -13,7 +13,6 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlowNavigation(
       title: AppLocalizations.of(context)!.settings,
-      selected: "settings",
       endDrawer: SettingsDrawer(
         itemKeys: _itemKeys,
       ),

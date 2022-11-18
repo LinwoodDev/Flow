@@ -9,7 +9,6 @@ class UsersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlowNavigation(
       title: AppLocalizations.of(context)!.users,
-      selected: "users",
       body: ListView(),
       actions: [
         IconButton(

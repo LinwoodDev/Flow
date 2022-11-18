@@ -14,7 +14,6 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return FlowNavigation(
         title: AppLocalizations.of(context)!.dashboard,
-        selected: "dashboard",
         body: Align(
           alignment: Alignment.topCenter,
           child: Container(

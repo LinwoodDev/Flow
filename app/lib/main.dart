@@ -2,6 +2,7 @@ import 'package:flow/cubits/flow.dart';
 import 'package:flow/api/storage/db/database.dart';
 import 'package:flow/api/storage/sources.dart';
 import 'package:flow/theme.dart';
+import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -80,30 +81,33 @@ class FlowApp extends StatelessWidget {
   }
 
   final GoRouter _router = GoRouter(
-    routes: <GoRoute>[
-      GoRoute(
-        path: '/',
-        builder: (BuildContext context, GoRouterState state) =>
-            const DashboardPage(),
-      ),
-      GoRoute(
-        path: '/calendar',
-        builder: (BuildContext context, GoRouterState state) =>
-            const CalendarPage(),
-      ),
-      GoRoute(
-        path: '/groups',
-        builder: (BuildContext context, GoRouterState state) =>
-            const EventGroupsPage(),
-        routes: <RouteBase>[
-          GoRoute(
-            path: ':id',
-            builder: (BuildContext context, GoRouterState state) =>
-                EventGroupPage(
-              source: '',
-              eventGroupId: int.parse(state.params['id']!),
+    routes: <RouteBase>[
+      ShellRoute(
+          builder: (context, state, child) => FlowRootNavigation(child: child),
+          routes: [
+            GoRoute(
+              path: '/',
+              builder: (BuildContext context, GoRouterState state) =>
+                  const DashboardPage(),
             ),
-          ), /*
+            GoRoute(
+              path: '/calendar',
+              builder: (BuildContext context, GoRouterState state) =>
+                  const CalendarPage(),
+            ),
+            GoRoute(
+              path: '/groups',
+              builder: (BuildContext context, GoRouterState state) =>
+                  const EventGroupsPage(),
+              routes: <RouteBase>[
+                GoRoute(
+                  path: ':id',
+                  builder: (BuildContext context, GoRouterState state) =>
+                      EventGroupPage(
+                    source: '',
+                    eventGroupId: int.parse(state.params['id']!),
+                  ),
+                ), /*
           GoRoute(
             path: ':source/:id',
             builder: (BuildContext context, GoRouterState state) =>
@@ -112,32 +116,34 @@ class FlowApp extends StatelessWidget {
               source: state.params['source']!,
             ),
           ),*/
-        ],
-      ),
-      GoRoute(
-        path: '/todos',
-        builder: (BuildContext context, GoRouterState state) =>
-            const TodosPage(),
-      ),
-      GoRoute(
-        path: '/places',
-        builder: (BuildContext context, GoRouterState state) =>
-            const PlacesPage(),
-      ),
-      GoRoute(
-        path: '/users',
-        builder: (BuildContext context, GoRouterState state) =>
-            const UsersPage(),
-      ),
-      GoRoute(
-        path: '/sources',
-        builder: (BuildContext context, GoRouterState state) =>
-            const SourcesPage(),
-      ),
-      GoRoute(
-        path: '/settings',
-        builder: (BuildContext context, GoRouterState state) => SettingsPage(),
-      ),
+              ],
+            ),
+            GoRoute(
+              path: '/todos',
+              builder: (BuildContext context, GoRouterState state) =>
+                  const TodosPage(),
+            ),
+            GoRoute(
+              path: '/places',
+              builder: (BuildContext context, GoRouterState state) =>
+                  const PlacesPage(),
+            ),
+            GoRoute(
+              path: '/users',
+              builder: (BuildContext context, GoRouterState state) =>
+                  const UsersPage(),
+            ),
+            GoRoute(
+              path: '/sources',
+              builder: (BuildContext context, GoRouterState state) =>
+                  const SourcesPage(),
+            ),
+            GoRoute(
+              path: '/settings',
+              builder: (BuildContext context, GoRouterState state) =>
+                  SettingsPage(),
+            ),
+          ]),
     ],
   );
 }

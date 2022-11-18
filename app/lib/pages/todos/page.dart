@@ -75,7 +75,6 @@ class _TodosPageState extends State<TodosPage> {
   Widget build(BuildContext context) {
     return FlowNavigation(
         title: AppLocalizations.of(context)!.todos,
-        selected: "todos",
         actions: [
           IconButton(
             icon: const Icon(Icons.filter_list),

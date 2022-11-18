@@ -47,7 +47,6 @@ class EventGroupPage extends StatelessWidget {
           return StatefulBuilder(builder: (context, setState) {
             return FlowNavigation(
               title: AppLocalizations.of(context)!.groupName(eventGroup.name),
-              selected: "groups",
               actions: [
                 IconButton(
                   icon: const Icon(Icons.edit_outlined),

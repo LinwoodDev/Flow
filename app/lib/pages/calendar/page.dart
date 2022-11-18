@@ -64,7 +64,6 @@ class _CalendarPageState extends State<CalendarPage>
   Widget build(BuildContext context) {
     return FlowNavigation(
       title: AppLocalizations.of(context)!.calendar,
-      selected: "calendar",
       actions: [
         IconButton(
           icon: const Icon(Icons.search_outlined),
