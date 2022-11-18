@@ -18,7 +18,7 @@ class TodosPage extends StatefulWidget {
 }
 
 class _TodosPageState extends State<TodosPage> {
-  static const _pageSize = 10;
+  static const _pageSize = 20;
   late final FlowCubit _flowCubit;
   final PagingController<int, MapEntry<Todo, String>> _pagingController =
       PagingController(firstPageKey: 0);
@@ -28,9 +28,7 @@ class _TodosPageState extends State<TodosPage> {
   @override
   void initState() {
     _flowCubit = context.read<FlowCubit>();
-    _pagingController.addPageRequestListener((pageKey) {
-      _fetchPage(pageKey);
-    });
+    _pagingController.addPageRequestListener(_fetchPage);
     super.initState();
   }
 

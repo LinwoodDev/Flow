@@ -549,3 +549,254 @@ abstract class _EventGroup implements EventGroup {
   _$$_EventGroupCopyWith<_$_EventGroup> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+Repetition _$RepetitionFromJson(Map<String, dynamic> json) {
+  return _Repetition.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Repetition {
+  int get id => throw _privateConstructorUsedError;
+  RepeatType get type => throw _privateConstructorUsedError;
+  int get interval => throw _privateConstructorUsedError;
+  int get variation => throw _privateConstructorUsedError;
+  int get count => throw _privateConstructorUsedError;
+  @DateTimeConverter()
+  DateTime? get until => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $RepetitionCopyWith<Repetition> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RepetitionCopyWith<$Res> {
+  factory $RepetitionCopyWith(
+          Repetition value, $Res Function(Repetition) then) =
+      _$RepetitionCopyWithImpl<$Res, Repetition>;
+  @useResult
+  $Res call(
+      {int id,
+      RepeatType type,
+      int interval,
+      int variation,
+      int count,
+      @DateTimeConverter() DateTime? until});
+}
+
+/// @nodoc
+class _$RepetitionCopyWithImpl<$Res, $Val extends Repetition>
+    implements $RepetitionCopyWith<$Res> {
+  _$RepetitionCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? type = null,
+    Object? interval = null,
+    Object? variation = null,
+    Object? count = null,
+    Object? until = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as RepeatType,
+      interval: null == interval
+          ? _value.interval
+          : interval // ignore: cast_nullable_to_non_nullable
+              as int,
+      variation: null == variation
+          ? _value.variation
+          : variation // ignore: cast_nullable_to_non_nullable
+              as int,
+      count: null == count
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
+      until: freezed == until
+          ? _value.until
+          : until // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_RepetitionCopyWith<$Res>
+    implements $RepetitionCopyWith<$Res> {
+  factory _$$_RepetitionCopyWith(
+          _$_Repetition value, $Res Function(_$_Repetition) then) =
+      __$$_RepetitionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int id,
+      RepeatType type,
+      int interval,
+      int variation,
+      int count,
+      @DateTimeConverter() DateTime? until});
+}
+
+/// @nodoc
+class __$$_RepetitionCopyWithImpl<$Res>
+    extends _$RepetitionCopyWithImpl<$Res, _$_Repetition>
+    implements _$$_RepetitionCopyWith<$Res> {
+  __$$_RepetitionCopyWithImpl(
+      _$_Repetition _value, $Res Function(_$_Repetition) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? type = null,
+    Object? interval = null,
+    Object? variation = null,
+    Object? count = null,
+    Object? until = freezed,
+  }) {
+    return _then(_$_Repetition(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as RepeatType,
+      interval: null == interval
+          ? _value.interval
+          : interval // ignore: cast_nullable_to_non_nullable
+              as int,
+      variation: null == variation
+          ? _value.variation
+          : variation // ignore: cast_nullable_to_non_nullable
+              as int,
+      count: null == count
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
+      until: freezed == until
+          ? _value.until
+          : until // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_Repetition implements _Repetition {
+  const _$_Repetition(
+      {this.id = -1,
+      this.type = RepeatType.daily,
+      this.interval = 1,
+      this.variation = 0,
+      this.count = 0,
+      @DateTimeConverter() this.until});
+
+  factory _$_Repetition.fromJson(Map<String, dynamic> json) =>
+      _$$_RepetitionFromJson(json);
+
+  @override
+  @JsonKey()
+  final int id;
+  @override
+  @JsonKey()
+  final RepeatType type;
+  @override
+  @JsonKey()
+  final int interval;
+  @override
+  @JsonKey()
+  final int variation;
+  @override
+  @JsonKey()
+  final int count;
+  @override
+  @DateTimeConverter()
+  final DateTime? until;
+
+  @override
+  String toString() {
+    return 'Repetition(id: $id, type: $type, interval: $interval, variation: $variation, count: $count, until: $until)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Repetition &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.interval, interval) ||
+                other.interval == interval) &&
+            (identical(other.variation, variation) ||
+                other.variation == variation) &&
+            (identical(other.count, count) || other.count == count) &&
+            (identical(other.until, until) || other.until == until));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, id, type, interval, variation, count, until);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RepetitionCopyWith<_$_Repetition> get copyWith =>
+      __$$_RepetitionCopyWithImpl<_$_Repetition>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_RepetitionToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Repetition implements Repetition {
+  const factory _Repetition(
+      {final int id,
+      final RepeatType type,
+      final int interval,
+      final int variation,
+      final int count,
+      @DateTimeConverter() final DateTime? until}) = _$_Repetition;
+
+  factory _Repetition.fromJson(Map<String, dynamic> json) =
+      _$_Repetition.fromJson;
+
+  @override
+  int get id;
+  @override
+  RepeatType get type;
+  @override
+  int get interval;
+  @override
+  int get variation;
+  @override
+  int get count;
+  @override
+  @DateTimeConverter()
+  DateTime? get until;
+  @override
+  @JsonKey(ignore: true)
+  _$$_RepetitionCopyWith<_$_Repetition> get copyWith =>
+      throw _privateConstructorUsedError;
+}

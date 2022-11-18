@@ -26,6 +26,7 @@ abstract class EventGroupService extends ModelService {
   FutureOr<EventGroup?> getGroup(int id);
 
   FutureOr<List<EventGroup>> getGroups({
+    String search = '',
     int limit = 50,
     int offset = 0,
   });

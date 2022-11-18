@@ -42,3 +42,25 @@ class EventGroup with _$EventGroup {
   factory EventGroup.fromJson(Map<String, dynamic> json) =>
       _$EventGroupFromJson(json);
 }
+
+enum RepeatType {
+  daily,
+  weekly,
+  monthly,
+  yearly,
+}
+
+@freezed
+class Repetition with _$Repetition {
+  const factory Repetition({
+    @Default(-1) int id,
+    @Default(RepeatType.daily) RepeatType type,
+    @Default(1) int interval,
+    @Default(0) int variation,
+    @Default(0) int count,
+    @DateTimeConverter() DateTime? until,
+  }) = _Repetition;
+
+  factory Repetition.fromJson(Map<String, dynamic> json) =>
+      _$RepetitionFromJson(json);
+}

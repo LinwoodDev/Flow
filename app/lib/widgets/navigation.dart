@@ -144,10 +144,12 @@ class _FlowDrawer extends StatelessWidget {
   const _FlowDrawer();
 
   Widget _getItem(BuildContext context, String location, Map? map) {
-    var currentSelected =
-        (map?["link"] as String?)?.startsWith(location) ?? false;
-    if (location == "/") {
+    var currentSelected = false;
+    final link = map?["link"] as String?;
+    if (map?["link"] == "/") {
       currentSelected = location == map?["link"];
+    } else if (link != null) {
+      currentSelected = location.startsWith(link);
     }
     return map == null
         ? const Divider()

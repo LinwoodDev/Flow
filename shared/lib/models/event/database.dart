@@ -153,10 +153,25 @@ class EventGroupDatabaseService extends EventGroupService with TableService {
 
   @override
   Future<List<EventGroup>> getGroups({
+    String search = '',
     int limit = 50,
     int offset = 0,
   }) async {
-    final result = await db?.query('eventGroups', limit: limit, offset: offset);
+    String? where;
+    List<Object?>? whereArgs;
+
+    if (search.isNotEmpty) {
+      where = 'name LIKE ?';
+      whereArgs = ['%$search%'];
+    }
+
+    final result = await db?.query(
+      'eventGroups',
+      limit: limit,
+      offset: offset,
+      where: where,
+      whereArgs: whereArgs,
+    );
     return result
             ?.map((row) => EventGroup.fromJson(
                 Map<String, dynamic>.from(row)..['open'] = row['open'] == 1))

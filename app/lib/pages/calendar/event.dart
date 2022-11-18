@@ -1,5 +1,6 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/event.dart';
+import 'package:flow/pages/calendar/group.dart';
 import 'package:flow/widgets/indicators/empty.dart';
 import 'package:flow/widgets/indicators/error.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,7 @@ class EventDialog extends StatelessWidget {
                       child: ListView(
                         shrinkWrap: true,
                         children: [
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 16),
                           if (source == null) ...[
                             DropdownButtonFormField<String>(
                               value: source,
@@ -141,6 +142,53 @@ class EventDialog extends StatelessWidget {
                             onChanged: (value) =>
                                 event = event.copyWith(description: value),
                           ),
+                          if (source != null) ...[
+                            const SizedBox(height: 16),
+                            StatefulBuilder(
+                                builder: (context, setState) => ListTile(
+                                      leading:
+                                          const Icon(Icons.folder_outlined),
+                                      title: Text(
+                                          AppLocalizations.of(context)!.group),
+                                      onTap: () async {
+                                        final groupId = await showDialog<int>(
+                                          context: context,
+                                          builder: (context) =>
+                                              EventGroupDialog(
+                                            event: event,
+                                            source: source!,
+                                          ),
+                                        );
+                                        if (groupId != null) {
+                                          setState(() {
+                                            event = event.copyWith(
+                                                groupId: groupId);
+                                          });
+                                        }
+                                      },
+                                      subtitle: event.groupId == null
+                                          ? null
+                                          : FutureBuilder<EventGroup?>(
+                                              future: Future.value(context
+                                                  .read<FlowCubit>()
+                                                  .getSource(source!)
+                                                  .eventGroup
+                                                  .getGroup(
+                                                      event.groupId ?? -1)),
+                                              builder: (context, snapshot) {
+                                                if (snapshot.hasData) {
+                                                  return Text(
+                                                      snapshot.data!.name);
+                                                } else if (snapshot.hasError) {
+                                                  return Text(snapshot.error
+                                                      .toString());
+                                                } else {
+                                                  return const CircularProgressIndicator();
+                                                }
+                                              },
+                                            ),
+                                    )),
+                          ],
                           const SizedBox(height: 16),
                           TextField(
                             decoration: InputDecoration(

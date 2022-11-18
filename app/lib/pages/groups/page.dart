@@ -19,7 +19,7 @@ class EventGroupsPage extends StatefulWidget {
 }
 
 class _EventGroupsPageState extends State<EventGroupsPage> {
-  static const _pageSize = 10;
+  static const _pageSize = 20;
   late final FlowCubit _flowCubit;
   final PagingController<int, MapEntry<EventGroup, String>> _pagingController =
       PagingController(firstPageKey: 0);
@@ -27,9 +27,7 @@ class _EventGroupsPageState extends State<EventGroupsPage> {
   @override
   void initState() {
     _flowCubit = context.read<FlowCubit>();
-    _pagingController.addPageRequestListener((pageKey) {
-      _fetchPage(pageKey);
-    });
+    _pagingController.addPageRequestListener(_fetchPage);
     super.initState();
   }
 
