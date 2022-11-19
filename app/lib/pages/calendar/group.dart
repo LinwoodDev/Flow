@@ -4,15 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/event/model.dart';
+import 'package:shared/services/source.dart';
 
 class EventGroupDialog extends StatefulWidget {
-  final String source;
-  final Event event;
+  final String? source;
+  final MapEntry<String, int>? selected;
 
   const EventGroupDialog({
     super.key,
-    required this.source,
-    required this.event,
+    this.source,
+    this.selected,
   });
 
   @override
@@ -22,7 +23,7 @@ class EventGroupDialog extends StatefulWidget {
 class _EventGroupDialogState extends State<EventGroupDialog> {
   static const _pageSize = 20;
   final TextEditingController _controller = TextEditingController();
-  final PagingController<int, EventGroup> _pagingController =
+  final PagingController<int, MapEntry<String, EventGroup>> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
@@ -34,21 +35,25 @@ class _EventGroupDialogState extends State<EventGroupDialog> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final groups = await context
-          .read<FlowCubit>()
-          .getSource(widget.source)
-          .eventGroup
-          .getGroups(
-            offset: pageKey * _pageSize,
-            limit: _pageSize,
-            search: _controller.text,
-          );
+      final cubit = context.read<FlowCubit>();
+      Map<String, SourceService> sources = widget.source == null
+          ? cubit.getCurrentServicesMap()
+          : {widget.source!: cubit.getSource(widget.source!)};
+      final groups = await Future.wait(sources.entries.map((source) async {
+        final groups = await source.value.eventGroup.getGroups(
+          offset: pageKey * _pageSize,
+          limit: _pageSize,
+          search: _controller.text,
+        );
+        return groups.map((group) => MapEntry(source.key, group)).toList();
+      }));
+      final allGroups = groups.expand((element) => element).toList();
       final isLast = groups.length < _pageSize;
       if (isLast) {
-        _pagingController.appendLastPage(groups);
+        _pagingController.appendLastPage(allGroups);
       } else {
         final nextPageKey = pageKey + 1;
-        _pagingController.appendPage(groups, nextPageKey);
+        _pagingController.appendPage(allGroups, nextPageKey);
       }
     } catch (error) {
       _pagingController.error = error;
@@ -71,7 +76,6 @@ class _EventGroupDialogState extends State<EventGroupDialog> {
               ),
               controller: _controller,
               onSubmitted: (_) {
-                print('onSubmitted');
                 _pagingController.refresh();
               },
             ),
@@ -79,21 +83,17 @@ class _EventGroupDialogState extends State<EventGroupDialog> {
             const Divider(),
             const SizedBox(height: 8),
             Expanded(
-              child: PagedListView<int, EventGroup>(
+              child: PagedListView<int, MapEntry<String, EventGroup>>(
                 pagingController: _pagingController,
-                builderDelegate: PagedChildBuilderDelegate<EventGroup>(
+                builderDelegate:
+                    PagedChildBuilderDelegate<MapEntry<String, EventGroup>>(
                   itemBuilder: (context, item, index) => ListTile(
-                    title: Text(item.name),
-                    selected: widget.event.groupId == item.id,
+                    title: Text(item.value.name),
+                    selected: widget.selected?.value == item.value.id &&
+                        widget.selected?.key == item.key,
                     onTap: () {
-                      context
-                          .read<FlowCubit>()
-                          .getSource(widget.source)
-                          .event
-                          .updateEvent(
-                            widget.event.copyWith(groupId: item.id),
-                          );
-                      Navigator.of(context).pop(item.id);
+                      Navigator.of(context)
+                          .pop(MapEntry(item.key, item.value.id));
                     },
                   ),
                 ),

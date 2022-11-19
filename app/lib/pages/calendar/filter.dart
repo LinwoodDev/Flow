@@ -1,7 +1,9 @@
 import 'package:flow/helpers/event.dart';
+import 'package:flow/pages/calendar/group.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared/models/event/model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'filter.freezed.dart';
 
@@ -11,6 +13,8 @@ class CalendarFilter with _$CalendarFilter {
     @Default([EventStatus.draft, EventStatus.cancelled])
         List<EventStatus> hiddenStatuses,
     @Default('') String search,
+    String? source,
+    int? group,
   }) = _CalendarFilter;
 }
 
@@ -78,6 +82,44 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
               );
             },
           ),
+          InputChip(
+            label: Text(AppLocalizations.of(context)!.group),
+            avatar: Icon(Icons.folder_outlined,
+                color: _filter.group != null
+                    ? Colors.white
+                    : Theme.of(context).iconTheme.color),
+            selected: _filter.group != null,
+            selectedColor: Theme.of(context).primaryColor,
+            labelStyle:
+                TextStyle(color: _filter.group != null ? Colors.white : null),
+            showCheckmark: false,
+            deleteIconColor: Colors.white,
+            onDeleted: _filter.group == null
+                ? null
+                : () {
+                    setState(() {
+                      _filter = _filter.copyWith(group: null, source: null);
+                    });
+                    widget.onChanged(_filter);
+                  },
+            onSelected: (value) async {
+              final groupId = await showDialog<MapEntry<String, int>>(
+                context: context,
+                builder: (context) => EventGroupDialog(
+                  selected: _filter.source != null && _filter.group != null
+                      ? MapEntry(_filter.source!, _filter.group!)
+                      : null,
+                ),
+              );
+              if (groupId != null) {
+                setState(() {
+                  _filter = _filter.copyWith(
+                      group: groupId.value, source: groupId.key);
+                });
+                widget.onChanged(_filter);
+              }
+            },
+          )
         ],
       ),
     );

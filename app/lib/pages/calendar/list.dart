@@ -46,7 +46,11 @@ class _CalendarListViewState extends State<CalendarListView> {
 
   Future<List<MapEntry<String, Event>>> _fetchEvents(int day) async {
     final dateTime = DateTime.now().onlyDate().add(Duration(days: day));
-    final sources = context.read<FlowCubit>().getCurrentServicesMap();
+    final cubit = context.read<FlowCubit>();
+    var sources = cubit.getCurrentServicesMap();
+    if (widget.filter.source != null) {
+      sources = {widget.filter.source!: cubit.getSource(widget.filter.source!)};
+    }
     final events = <MapEntry<String, Event>>[];
     for (final source in sources.entries) {
       final fetched = await source.value.event.getEvents(
@@ -54,6 +58,7 @@ class _CalendarListViewState extends State<CalendarListView> {
         status: EventStatus.values
             .where((element) => !widget.filter.hiddenStatuses.contains(element))
             .toList(),
+        groupId: widget.filter.group,
       );
       events.addAll(fetched.map((event) => MapEntry(source.key, event)));
     }

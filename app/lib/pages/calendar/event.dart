@@ -151,18 +151,22 @@ class EventDialog extends StatelessWidget {
                                       title: Text(
                                           AppLocalizations.of(context)!.group),
                                       onTap: () async {
-                                        final groupId = await showDialog<int>(
+                                        final groupId = await showDialog<
+                                            MapEntry<String, int>>(
                                           context: context,
                                           builder: (context) =>
                                               EventGroupDialog(
-                                            event: event,
+                                            selected: event.groupId == null
+                                                ? null
+                                                : MapEntry(
+                                                    source!, event.groupId!),
                                             source: source!,
                                           ),
                                         );
                                         if (groupId != null) {
                                           setState(() {
                                             event = event.copyWith(
-                                                groupId: groupId);
+                                                groupId: groupId.value);
                                           });
                                         }
                                       },
