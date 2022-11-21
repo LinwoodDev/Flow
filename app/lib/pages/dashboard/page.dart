@@ -22,7 +22,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 Card(
                     child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Text("Hello",
+                  child: Text("Work in progress",
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headline4),
                 )),

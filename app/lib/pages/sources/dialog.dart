@@ -21,6 +21,12 @@ class AddSourceDialog extends StatelessWidget {
               subtitle: Text(AppLocalizations.of(context)!.serverDescription),
               leading: const Icon(Icons.storage_outlined),
               onTap: () => Navigator.of(context).pop()),
+          ListTile(
+              title: Text(AppLocalizations.of(context)!.decentralized),
+              subtitle:
+                  Text(AppLocalizations.of(context)!.decentralizedDescription),
+              leading: const Icon(Icons.language_outlined),
+              onTap: () => Navigator.of(context).pop()),
         ]),
       ),
       scrollable: true,

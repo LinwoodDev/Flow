@@ -10,7 +10,7 @@ class TodoDatabaseService extends TodoService with TableService {
   @override
   Future<void> create(Database db) {
     return db.execute("""
-      CREATE TABLE IF NOT EXISTS Todos (
+      CREATE TABLE IF NOT EXISTS todos (
         id INTEGER PRIMARY KEY,
         eventId INTEGER,
         name VARCHAR(100) NOT NULL DEFAULT '',
@@ -24,7 +24,7 @@ class TodoDatabaseService extends TodoService with TableService {
   @override
   Future<Todo?> createTodo(Todo todo) async {
     final id = await db?.insert(
-        'Todos',
+        'todos',
         todo.toJson()
           ..remove('id')
           ..['done'] = todo.done ? 1 : 0);
@@ -35,7 +35,7 @@ class TodoDatabaseService extends TodoService with TableService {
   @override
   Future<bool> deleteTodo(int id) async {
     return await db?.delete(
-          'Todos',
+          'todos',
           where: 'id = ?',
           whereArgs: [id],
         ) ==

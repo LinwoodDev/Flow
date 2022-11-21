@@ -1,5 +1,6 @@
 import 'package:flow/helpers/event.dart';
 import 'package:flow/pages/calendar/group.dart';
+import 'package:flow/pages/calendar/place.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared/models/event/model.dart';
@@ -15,6 +16,7 @@ class CalendarFilter with _$CalendarFilter {
     @Default('') String search,
     String? source,
     int? group,
+    int? place,
     @Default(false) bool past,
   }) = _CalendarFilter;
 }
@@ -113,6 +115,44 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                 setState(() {
                   _filter = _filter.copyWith(
                       group: groupId.value, source: groupId.key);
+                });
+                widget.onChanged(_filter);
+              }
+            },
+          ),
+          InputChip(
+            label: Text(AppLocalizations.of(context)!.place),
+            avatar: Icon(Icons.location_on_outlined,
+                color: _filter.place != null
+                    ? Colors.white
+                    : Theme.of(context).iconTheme.color),
+            selected: _filter.place != null,
+            selectedColor: Theme.of(context).primaryColor,
+            labelStyle:
+                TextStyle(color: _filter.place != null ? Colors.white : null),
+            showCheckmark: false,
+            deleteIconColor: Colors.white,
+            onDeleted: _filter.place == null
+                ? null
+                : () {
+                    setState(() {
+                      _filter = _filter.copyWith(place: null);
+                    });
+                    widget.onChanged(_filter);
+                  },
+            onSelected: (value) async {
+              final placeId = await showDialog<MapEntry<String, int>>(
+                context: context,
+                builder: (context) => EventPlaceDialog(
+                  selected: _filter.place != null
+                      ? MapEntry(_filter.source!, _filter.group!)
+                      : null,
+                ),
+              );
+              if (placeId != null) {
+                setState(() {
+                  _filter = _filter.copyWith(
+                      place: placeId.value, source: placeId.key);
                 });
                 widget.onChanged(_filter);
               }

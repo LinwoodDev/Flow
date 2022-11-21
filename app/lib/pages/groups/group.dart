@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/event/model.dart';
 
-class EventGroupPropertyDialog extends StatelessWidget {
+class GroupDialog extends StatelessWidget {
   final String? source;
   final EventGroup? eventGroup;
 
-  const EventGroupPropertyDialog({super.key, this.eventGroup, this.source});
+  const GroupDialog({super.key, this.eventGroup, this.source});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +24,31 @@ class EventGroupPropertyDialog extends StatelessWidget {
       content: SizedBox(
         width: 500,
         child: Column(mainAxisSize: MainAxisSize.min, children: [
+          if (source == null) ...[
+            DropdownButtonFormField<String>(
+              value: source,
+              items: context
+                  .read<FlowCubit>()
+                  .getCurrentSources()
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value.isEmpty
+                      ? AppLocalizations.of(context)!.local
+                      : value),
+                );
+              }).toList(),
+              onChanged: (String? value) {
+                currentSource = value ?? '';
+              },
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.source,
+                icon: const Icon(Icons.storage_outlined),
+                border: const OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
+          ],
           TextField(
             decoration: InputDecoration(
               filled: true,

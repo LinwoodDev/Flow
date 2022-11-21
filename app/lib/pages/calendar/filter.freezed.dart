@@ -20,6 +20,7 @@ mixin _$CalendarFilter {
   String get search => throw _privateConstructorUsedError;
   String? get source => throw _privateConstructorUsedError;
   int? get group => throw _privateConstructorUsedError;
+  int? get place => throw _privateConstructorUsedError;
   bool get past => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -38,6 +39,7 @@ abstract class $CalendarFilterCopyWith<$Res> {
       String search,
       String? source,
       int? group,
+      int? place,
       bool past});
 }
 
@@ -58,6 +60,7 @@ class _$CalendarFilterCopyWithImpl<$Res, $Val extends CalendarFilter>
     Object? search = null,
     Object? source = freezed,
     Object? group = freezed,
+    Object? place = freezed,
     Object? past = null,
   }) {
     return _then(_value.copyWith(
@@ -76,6 +79,10 @@ class _$CalendarFilterCopyWithImpl<$Res, $Val extends CalendarFilter>
       group: freezed == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
+              as int?,
+      place: freezed == place
+          ? _value.place
+          : place // ignore: cast_nullable_to_non_nullable
               as int?,
       past: null == past
           ? _value.past
@@ -98,6 +105,7 @@ abstract class _$$_CalendarFilterCopyWith<$Res>
       String search,
       String? source,
       int? group,
+      int? place,
       bool past});
 }
 
@@ -116,6 +124,7 @@ class __$$_CalendarFilterCopyWithImpl<$Res>
     Object? search = null,
     Object? source = freezed,
     Object? group = freezed,
+    Object? place = freezed,
     Object? past = null,
   }) {
     return _then(_$_CalendarFilter(
@@ -134,6 +143,10 @@ class __$$_CalendarFilterCopyWithImpl<$Res>
       group: freezed == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
+              as int?,
+      place: freezed == place
+          ? _value.place
+          : place // ignore: cast_nullable_to_non_nullable
               as int?,
       past: null == past
           ? _value.past
@@ -154,6 +167,7 @@ class _$_CalendarFilter implements _CalendarFilter {
       this.search = '',
       this.source,
       this.group,
+      this.place,
       this.past = false})
       : _hiddenStatuses = hiddenStatuses;
 
@@ -173,12 +187,14 @@ class _$_CalendarFilter implements _CalendarFilter {
   @override
   final int? group;
   @override
+  final int? place;
+  @override
   @JsonKey()
   final bool past;
 
   @override
   String toString() {
-    return 'CalendarFilter(hiddenStatuses: $hiddenStatuses, search: $search, source: $source, group: $group, past: $past)';
+    return 'CalendarFilter(hiddenStatuses: $hiddenStatuses, search: $search, source: $source, group: $group, place: $place, past: $past)';
   }
 
   @override
@@ -191,6 +207,7 @@ class _$_CalendarFilter implements _CalendarFilter {
             (identical(other.search, search) || other.search == search) &&
             (identical(other.source, source) || other.source == source) &&
             (identical(other.group, group) || other.group == group) &&
+            (identical(other.place, place) || other.place == place) &&
             (identical(other.past, past) || other.past == past));
   }
 
@@ -201,6 +218,7 @@ class _$_CalendarFilter implements _CalendarFilter {
       search,
       source,
       group,
+      place,
       past);
 
   @JsonKey(ignore: true)
@@ -216,6 +234,7 @@ abstract class _CalendarFilter implements CalendarFilter {
       final String search,
       final String? source,
       final int? group,
+      final int? place,
       final bool past}) = _$_CalendarFilter;
 
   @override
@@ -226,6 +245,8 @@ abstract class _CalendarFilter implements CalendarFilter {
   String? get source;
   @override
   int? get group;
+  @override
+  int? get place;
   @override
   bool get past;
   @override

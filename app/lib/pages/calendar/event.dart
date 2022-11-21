@@ -68,12 +68,11 @@ class EventDialog extends StatelessWidget {
                           if (source == null) ...[
                             DropdownButtonFormField<String>(
                               value: source,
-                              items: <String>[
-                                '',
-                                'Google',
-                                'Outlook',
-                                'iCloud'
-                              ].map<DropdownMenuItem<String>>((String value) {
+                              items: context
+                                  .read<FlowCubit>()
+                                  .getCurrentSources()
+                                  .map<DropdownMenuItem<String>>(
+                                      (String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Text(value.isEmpty

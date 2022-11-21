@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:shared/models/event/database.dart';
+import 'package:shared/models/place/database.dart';
 import 'package:shared/models/user/database.dart';
 import 'package:shared/services/source.dart';
 import 'package:sqflite_common/sqlite_api.dart';
@@ -28,6 +29,8 @@ class DatabaseService extends SourceService {
   late final UserDatabaseService user;
   @override
   late final UserGroupDatabaseService userGroup;
+  @override
+  late final PlaceDatabaseService place;
 
   final DatabaseFactory databaseFactory;
 
@@ -37,6 +40,7 @@ class DatabaseService extends SourceService {
     event = EventDatabaseService();
     eventGroup = EventGroupDatabaseService();
     todo = TodoDatabaseService();
+    place = PlaceDatabaseService();
 
     user = UserDatabaseService();
     userGroup = UserGroupDatabaseService();

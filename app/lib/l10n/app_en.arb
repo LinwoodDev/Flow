@@ -135,5 +135,27 @@
   "search": "Search",
   "events": "Events",
   "teams": "Teams",
-  "past": "Past"
+  "past": "Past",
+  "decentralized": "Decentralized",
+  "decentralizedDescription": "The decentralized interface allows you to access your data from any decentralized server. You can use it to synchronize your data with other devices or services.",
+  "place": "Place",
+  "editPlace": "Edit place",
+  "deletePlace": "Delete place {name}",
+  "@deletePlace": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "deletePlaceDescription": "Are you sure you want to delete the place {name}?",
+  "@deletePlaceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  }
 }

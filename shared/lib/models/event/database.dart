@@ -34,6 +34,7 @@ class EventDatabaseService extends EventService with TableService {
   Future<List<Event>> getEvents(
       {List<EventStatus> status = const [],
       int? groupId,
+      int? placeId,
       int offset = 0,
       int limit = 50,
       DateTime? start,
@@ -48,6 +49,10 @@ class EventDatabaseService extends EventService with TableService {
     if (groupId != null) {
       where = where == null ? 'groupId = ?' : '$where AND groupId = ?';
       whereArgs = whereArgs == null ? [groupId] : [...whereArgs, groupId];
+    }
+    if (placeId != null) {
+      where = where == null ? 'placeId = ?' : '$where AND placeId = ?';
+      whereArgs = whereArgs == null ? [placeId] : [...whereArgs, placeId];
     }
     if (start != null) {
       where = where == null ? 'start >= ?' : '$where AND start >= ?';

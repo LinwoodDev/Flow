@@ -1,5 +1,5 @@
 import 'package:flow/pages/calendar/filter.dart';
-import 'package:flow/pages/groups/property.dart';
+import 'package:flow/pages/groups/group.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -101,8 +101,7 @@ class _EventGroupsPageState extends State<EventGroupsPage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
-                context: context,
-                builder: (context) => const EventGroupPropertyDialog())
+                context: context, builder: (context) => const GroupDialog())
             .then((value) => _pagingController.refresh()),
         label: Text(AppLocalizations.of(context)!.create),
         icon: const Icon(Icons.add_outlined),
@@ -209,7 +208,7 @@ class EventGroupTile extends StatelessWidget {
   void _editGroup(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => EventGroupPropertyDialog(
+      builder: (context) => GroupDialog(
         eventGroup: eventGroup,
         source: source,
       ),
