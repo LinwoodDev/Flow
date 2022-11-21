@@ -73,39 +73,36 @@ class _TodosPageState extends State<TodosPage> {
   Widget build(BuildContext context) {
     return FlowNavigation(
         title: AppLocalizations.of(context)!.todos,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.filter_list),
-            onPressed: () async {
-              final filter = await showDialog<TodoFilter>(
-                context: context,
-                builder: (context) => TodoFilterDialog(
-                  initialFilter: _filter,
-                ),
-              );
-              if (filter != null) {
-                setState(() {
-                  _filter = filter;
-                  _pagingController.refresh();
-                });
-              }
-            },
-          ),
-        ],
         body: Align(
           alignment: Alignment.topCenter,
           child: Container(
               constraints: const BoxConstraints(maxWidth: 800),
-              child: PagedListView(
-                pagingController: _pagingController,
-                builderDelegate:
-                    PagedChildBuilderDelegate<MapEntry<Todo, String>>(
-                        itemBuilder: (context, item, index) => TodoCard(
-                              event: _events[item.key.eventId],
-                              todo: item.key,
-                              source: item.value,
-                              controller: _pagingController,
-                            )),
+              child: Column(
+                children: [
+                  TodoFilterView(
+                    initialFilter: _filter,
+                    onChanged: (filter) {
+                      setState(() {
+                        _filter = filter;
+                        _pagingController.refresh();
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  Flexible(
+                    child: PagedListView(
+                      pagingController: _pagingController,
+                      builderDelegate:
+                          PagedChildBuilderDelegate<MapEntry<Todo, String>>(
+                              itemBuilder: (context, item, index) => TodoCard(
+                                    event: _events[item.key.eventId],
+                                    todo: item.key,
+                                    source: item.value,
+                                    controller: _pagingController,
+                                  )),
+                    ),
+                  ),
+                ],
               )),
         ));
   }

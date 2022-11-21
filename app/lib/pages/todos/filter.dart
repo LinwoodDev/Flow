@@ -13,15 +13,17 @@ class TodoFilter with _$TodoFilter {
   }) = _TodoFilter;
 }
 
-class TodoFilterDialog extends StatefulWidget {
+class TodoFilterView extends StatefulWidget {
   final TodoFilter? initialFilter;
-  const TodoFilterDialog({super.key, this.initialFilter});
+  final ValueChanged<TodoFilter> onChanged;
+  const TodoFilterView(
+      {super.key, this.initialFilter, required this.onChanged});
 
   @override
-  State<TodoFilterDialog> createState() => _TodoFilterDialogState();
+  State<TodoFilterView> createState() => _TodoFilterViewState();
 }
 
-class _TodoFilterDialogState extends State<TodoFilterDialog> {
+class _TodoFilterViewState extends State<TodoFilterView> {
   late TodoFilter _filter;
 
   @override
@@ -32,42 +34,49 @@ class _TodoFilterDialogState extends State<TodoFilterDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(AppLocalizations.of(context)!.filter),
-      scrollable: true,
-      content: Column(
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          CheckboxListTile(
-            title: Text(AppLocalizations.of(context)!.completed),
-            value: _filter.showCompleted,
-            onChanged: (value) {
+        children: <Widget>[
+          InputChip(
+            label: Text(AppLocalizations.of(context)!.completed),
+            avatar: Icon(Icons.check_box_outlined,
+                color: _filter.showCompleted
+                    ? Colors.white
+                    : Theme.of(context).iconTheme.color),
+            selected: _filter.showCompleted,
+            selectedColor: Theme.of(context).primaryColor,
+            labelStyle:
+                TextStyle(color: _filter.showCompleted ? Colors.white : null),
+            showCheckmark: false,
+            onSelected: (value) {
               setState(() {
-                _filter = _filter.copyWith(showCompleted: value ?? false);
+                _filter = _filter.copyWith(showCompleted: value);
               });
             },
           ),
-          CheckboxListTile(
-            title: Text(AppLocalizations.of(context)!.incomplete),
-            value: _filter.showIncompleted,
-            onChanged: (value) {
+          InputChip(
+            label: Text(AppLocalizations.of(context)!.incomplete),
+            avatar: Icon(Icons.check_box_outline_blank_outlined,
+                color: _filter.showIncompleted
+                    ? Colors.white
+                    : Theme.of(context).iconTheme.color),
+            selected: _filter.showIncompleted,
+            selectedColor: Theme.of(context).primaryColor,
+            labelStyle:
+                TextStyle(color: _filter.showIncompleted ? Colors.white : null),
+            showCheckmark: false,
+            onSelected: (value) {
               setState(() {
-                _filter = _filter.copyWith(showIncompleted: value ?? false);
+                _filter = _filter.copyWith(showIncompleted: value);
               });
             },
           ),
-        ],
+        ]
+            .map((e) => Padding(padding: const EdgeInsets.all(8.0), child: e))
+            .toList(),
       ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(AppLocalizations.of(context)!.cancel),
-        ),
-        ElevatedButton(
-          onPressed: () => Navigator.of(context).pop(_filter),
-          child: Text(AppLocalizations.of(context)!.save),
-        ),
-      ],
     );
   }
 }
