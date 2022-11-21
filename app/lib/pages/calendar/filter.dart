@@ -15,6 +15,7 @@ class CalendarFilter with _$CalendarFilter {
     @Default('') String search,
     String? source,
     int? group,
+    @Default(false) bool past,
   }) = _CalendarFilter;
 }
 
@@ -43,42 +44,39 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
       scrollDirection: Axis.horizontal,
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: [
+        children: <Widget>[
           ...EventStatus.values.map(
             (status) {
               final selected = !_filter.hiddenStatuses.contains(status);
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: InputChip(
-                  label: Text(status.getLocalizedName(context)),
-                  avatar: Icon(status.getIcon(),
-                      color: selected
-                          ? Colors.white
-                          : Theme.of(context).iconTheme.color),
-                  selected: selected,
-                  selectedColor: status.getColor(),
-                  labelStyle: TextStyle(color: selected ? Colors.white : null),
-                  showCheckmark: false,
-                  onSelected: (value) {
-                    setState(() {
-                      if (value == true) {
-                        _filter = _filter.copyWith(
-                          hiddenStatuses: _filter.hiddenStatuses
-                              .where((element) => element != status)
-                              .toList(),
-                        );
-                      } else {
-                        _filter = _filter.copyWith(
-                          hiddenStatuses: [
-                            ..._filter.hiddenStatuses,
-                            status,
-                          ],
-                        );
-                      }
-                    });
-                    widget.onChanged(_filter);
-                  },
-                ),
+              return InputChip(
+                label: Text(status.getLocalizedName(context)),
+                avatar: Icon(status.getIcon(),
+                    color: selected
+                        ? Colors.white
+                        : Theme.of(context).iconTheme.color),
+                selected: selected,
+                selectedColor: status.getColor(),
+                labelStyle: TextStyle(color: selected ? Colors.white : null),
+                showCheckmark: false,
+                onSelected: (value) {
+                  setState(() {
+                    if (value == true) {
+                      _filter = _filter.copyWith(
+                        hiddenStatuses: _filter.hiddenStatuses
+                            .where((element) => element != status)
+                            .toList(),
+                      );
+                    } else {
+                      _filter = _filter.copyWith(
+                        hiddenStatuses: [
+                          ..._filter.hiddenStatuses,
+                          status,
+                        ],
+                      );
+                    }
+                  });
+                  widget.onChanged(_filter);
+                },
               );
             },
           ),
@@ -119,8 +117,27 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                 widget.onChanged(_filter);
               }
             },
+          ),
+          InputChip(
+            label: Text(AppLocalizations.of(context)!.past),
+            avatar: Icon(Icons.history_outlined,
+                color: _filter.past
+                    ? Colors.white
+                    : Theme.of(context).iconTheme.color),
+            selected: _filter.past,
+            selectedColor: Theme.of(context).primaryColor,
+            labelStyle: TextStyle(color: _filter.past ? Colors.white : null),
+            showCheckmark: false,
+            onSelected: (value) {
+              setState(() {
+                _filter = _filter.copyWith(past: value);
+              });
+              widget.onChanged(_filter);
+            },
           )
-        ],
+        ]
+            .map((e) => Padding(padding: const EdgeInsets.all(8.0), child: e))
+            .toList(),
       ),
     );
   }

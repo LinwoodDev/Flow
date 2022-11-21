@@ -45,7 +45,13 @@ class _CalendarListViewState extends State<CalendarListView> {
   }
 
   Future<List<MapEntry<String, Event>>> _fetchEvents(int day) async {
-    final dateTime = DateTime.now().onlyDate().add(Duration(days: day));
+    var date = DateTime.now().onlyDate();
+    if (widget.filter.past) {
+      date = date.subtract(Duration(days: day));
+    } else {
+      date = date.add(Duration(days: day));
+    }
+
     final cubit = context.read<FlowCubit>();
     var sources = cubit.getCurrentServicesMap();
     if (widget.filter.source != null) {
@@ -54,7 +60,7 @@ class _CalendarListViewState extends State<CalendarListView> {
     final events = <MapEntry<String, Event>>[];
     for (final source in sources.entries) {
       final fetched = await source.value.event.getEvents(
-        date: dateTime,
+        date: date,
         status: EventStatus.values
             .where((element) => !widget.filter.hiddenStatuses.contains(element))
             .toList(),
@@ -82,6 +88,12 @@ class _CalendarListViewState extends State<CalendarListView> {
             builderDelegate:
                 PagedChildBuilderDelegate<List<MapEntry<String, Event>>>(
               itemBuilder: (context, item, index) {
+                var date = DateTime.now().onlyDate();
+                if (widget.filter.past) {
+                  date = date.subtract(Duration(days: index));
+                } else {
+                  date = date.add(Duration(days: index));
+                }
                 return Column(
                   children: [
                     Padding(
@@ -101,9 +113,7 @@ class _CalendarListViewState extends State<CalendarListView> {
                               ),
                             ),
                           Text(
-                            dateFormatter.format(DateTime.now()
-                                .onlyDate()
-                                .add(Duration(days: index))),
+                            dateFormatter.format(date),
                             style: Theme.of(context).textTheme.headline6,
                           ),
                         ],
@@ -122,9 +132,7 @@ class _CalendarListViewState extends State<CalendarListView> {
                         key: ValueKey(event.key + event.value.id.toString()),
                         event: event.value,
                         source: event.key,
-                        date: DateTime.now()
-                            .onlyDate()
-                            .add(Duration(days: index)),
+                        date: date,
                         onRefresh: widget.controller.refresh,
                       );
                     }),

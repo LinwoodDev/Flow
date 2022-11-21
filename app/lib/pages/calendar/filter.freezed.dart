@@ -20,6 +20,7 @@ mixin _$CalendarFilter {
   String get search => throw _privateConstructorUsedError;
   String? get source => throw _privateConstructorUsedError;
   int? get group => throw _privateConstructorUsedError;
+  bool get past => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CalendarFilterCopyWith<CalendarFilter> get copyWith =>
@@ -36,7 +37,8 @@ abstract class $CalendarFilterCopyWith<$Res> {
       {List<EventStatus> hiddenStatuses,
       String search,
       String? source,
-      int? group});
+      int? group,
+      bool past});
 }
 
 /// @nodoc
@@ -56,6 +58,7 @@ class _$CalendarFilterCopyWithImpl<$Res, $Val extends CalendarFilter>
     Object? search = null,
     Object? source = freezed,
     Object? group = freezed,
+    Object? past = null,
   }) {
     return _then(_value.copyWith(
       hiddenStatuses: null == hiddenStatuses
@@ -74,6 +77,10 @@ class _$CalendarFilterCopyWithImpl<$Res, $Val extends CalendarFilter>
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
               as int?,
+      past: null == past
+          ? _value.past
+          : past // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -90,7 +97,8 @@ abstract class _$$_CalendarFilterCopyWith<$Res>
       {List<EventStatus> hiddenStatuses,
       String search,
       String? source,
-      int? group});
+      int? group,
+      bool past});
 }
 
 /// @nodoc
@@ -108,6 +116,7 @@ class __$$_CalendarFilterCopyWithImpl<$Res>
     Object? search = null,
     Object? source = freezed,
     Object? group = freezed,
+    Object? past = null,
   }) {
     return _then(_$_CalendarFilter(
       hiddenStatuses: null == hiddenStatuses
@@ -126,6 +135,10 @@ class __$$_CalendarFilterCopyWithImpl<$Res>
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
               as int?,
+      past: null == past
+          ? _value.past
+          : past // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -140,7 +153,8 @@ class _$_CalendarFilter implements _CalendarFilter {
       ],
       this.search = '',
       this.source,
-      this.group})
+      this.group,
+      this.past = false})
       : _hiddenStatuses = hiddenStatuses;
 
   final List<EventStatus> _hiddenStatuses;
@@ -158,10 +172,13 @@ class _$_CalendarFilter implements _CalendarFilter {
   final String? source;
   @override
   final int? group;
+  @override
+  @JsonKey()
+  final bool past;
 
   @override
   String toString() {
-    return 'CalendarFilter(hiddenStatuses: $hiddenStatuses, search: $search, source: $source, group: $group)';
+    return 'CalendarFilter(hiddenStatuses: $hiddenStatuses, search: $search, source: $source, group: $group, past: $past)';
   }
 
   @override
@@ -173,7 +190,8 @@ class _$_CalendarFilter implements _CalendarFilter {
                 .equals(other._hiddenStatuses, _hiddenStatuses) &&
             (identical(other.search, search) || other.search == search) &&
             (identical(other.source, source) || other.source == source) &&
-            (identical(other.group, group) || other.group == group));
+            (identical(other.group, group) || other.group == group) &&
+            (identical(other.past, past) || other.past == past));
   }
 
   @override
@@ -182,7 +200,8 @@ class _$_CalendarFilter implements _CalendarFilter {
       const DeepCollectionEquality().hash(_hiddenStatuses),
       search,
       source,
-      group);
+      group,
+      past);
 
   @JsonKey(ignore: true)
   @override
@@ -196,7 +215,8 @@ abstract class _CalendarFilter implements CalendarFilter {
       {final List<EventStatus> hiddenStatuses,
       final String search,
       final String? source,
-      final int? group}) = _$_CalendarFilter;
+      final int? group,
+      final bool past}) = _$_CalendarFilter;
 
   @override
   List<EventStatus> get hiddenStatuses;
@@ -206,6 +226,8 @@ abstract class _CalendarFilter implements CalendarFilter {
   String? get source;
   @override
   int? get group;
+  @override
+  bool get past;
   @override
   @JsonKey(ignore: true)
   _$$_CalendarFilterCopyWith<_$_CalendarFilter> get copyWith =>
