@@ -132,5 +132,7 @@
   "noData": "There is no data to display.",
   "noEvents": "There are no events to display.",
   "group": "Group",
-  "search": "Search"
+  "search": "Search",
+  "events": "Events",
+  "teams": "Teams"
 }

@@ -11,7 +11,8 @@ import 'package:shared/models/event/model.dart';
 import 'event.dart';
 
 class CalendarPage extends StatefulWidget {
-  const CalendarPage({super.key});
+  final CalendarFilter? filter;
+  const CalendarPage({super.key, this.filter});
 
   @override
   State<CalendarPage> createState() => _CalendarPageState();
@@ -50,9 +51,16 @@ extension _CalendarViewExtension on _CalendarView {
 class _CalendarPageState extends State<CalendarPage>
     with TickerProviderStateMixin {
   _CalendarView _calendarView = _CalendarView.list;
-  CalendarFilter _filter = const CalendarFilter();
+  late CalendarFilter _filter;
   final PagingController<int, List<MapEntry<String, Event>>> _pagingController =
       PagingController(firstPageKey: 0);
+
+  @override
+  void initState() {
+    super.initState();
+
+    _filter = widget.filter ?? const CalendarFilter();
+  }
 
   @override
   void dispose() {

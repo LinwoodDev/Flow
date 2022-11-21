@@ -1,3 +1,4 @@
+import 'package:flow/pages/calendar/filter.dart';
 import 'package:flow/pages/groups/property.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
@@ -129,26 +130,13 @@ class EventGroupTile extends StatelessWidget {
     return ListTile(
       title: Text(eventGroup.name),
       subtitle: Text(eventGroup.description),
-      onTap: () {
-        GoRouter.of(context).push(
-          source.isEmpty
-              ? "/groups/${eventGroup.id}"
-              : "/groups/${eventGroup.id}?source=$source",
-          extra: eventGroup,
-        );
-        void watchRouteChanges() {
-          pagingController.refresh();
-          GoRouter.of(context).removeListener(watchRouteChanges);
-        }
-
-        GoRouter.of(context).addListener(watchRouteChanges);
-      },
+      onTap: () => _editGroup(context),
       trailing: PopupMenuButton<Function>(
         itemBuilder: (ctx) => <dynamic>[
           [
-            Icons.edit_outlined,
-            AppLocalizations.of(context)!.edit,
-            _editGroup,
+            Icons.calendar_month_outlined,
+            AppLocalizations.of(context)!.events,
+            _openEvents,
           ],
           [
             Icons.delete_outline,
@@ -204,6 +192,16 @@ class EventGroupTile extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _openEvents(BuildContext context) {
+    GoRouter.of(context).go(
+      "/calendar",
+      extra: CalendarFilter(
+        group: eventGroup.id,
+        source: source,
       ),
     );
   }
