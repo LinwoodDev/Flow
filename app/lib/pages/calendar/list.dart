@@ -83,62 +83,92 @@ class _CalendarListViewState extends State<CalendarListView> {
         ),
         const SizedBox(height: 8),
         Flexible(
-          child: PagedListView(
-            pagingController: widget.controller,
-            builderDelegate:
-                PagedChildBuilderDelegate<List<MapEntry<String, Event>>>(
-              itemBuilder: (context, item, index) {
-                var date = DateTime.now().onlyDate();
-                if (widget.filter.past) {
-                  date = date.subtract(Duration(days: index));
-                } else {
-                  date = date.add(Duration(days: index));
-                }
-                return Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 64,
-                        horizontal: 16,
-                      ),
-                      child: Column(
-                        children: [
-                          if (index == 0)
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              child: Icon(
-                                Icons.today_outlined,
-                                color: Theme.of(context).primaryColor,
-                                size: 64,
-                              ),
-                            ),
-                          Text(
-                            dateFormatter.format(date),
-                            style: Theme.of(context).textTheme.headline6,
+          child: LayoutBuilder(
+            builder: (context, constraints) => SingleChildScrollView(
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1000),
+                  child: PagedListView(
+                    pagingController: widget.controller,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    builderDelegate: PagedChildBuilderDelegate<
+                        List<MapEntry<String, Event>>>(
+                      itemBuilder: (context, item, index) {
+                        var date = DateTime.now().onlyDate();
+                        if (widget.filter.past) {
+                          date = date.subtract(Duration(days: index));
+                        } else {
+                          date = date.add(Duration(days: index));
+                        }
+                        final header = Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 64,
+                            horizontal: 16,
                           ),
-                        ],
-                      ),
+                          child: Column(
+                            children: [
+                              if (index == 0)
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 16),
+                                  child: Icon(
+                                    Icons.today_outlined,
+                                    color: Theme.of(context).primaryColor,
+                                    size: 64,
+                                  ),
+                                ),
+                              Text(
+                                dateFormatter.format(date),
+                                style: Theme.of(context).textTheme.headline6,
+                              ),
+                            ],
+                          ),
+                        );
+                        final list = Column(
+                          children: [
+                            if (item.isEmpty)
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                child: Text(
+                                  AppLocalizations.of(context)!.noEvents,
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                              ),
+                            ...item.map((event) {
+                              return _CalendarListTile(
+                                key: ValueKey(
+                                    event.key + event.value.id.toString()),
+                                event: event.value,
+                                source: event.key,
+                                date: date,
+                                onRefresh: widget.controller.refresh,
+                              );
+                            }),
+                          ],
+                        );
+                        final isMobile = constraints.maxWidth < 800;
+                        return isMobile
+                            ? Column(
+                                children: [
+                                  header,
+                                  list,
+                                ],
+                              )
+                            : Row(
+                                children: [
+                                  header,
+                                  const SizedBox(width: 16),
+                                  Expanded(child: list),
+                                ],
+                              );
+                      },
                     ),
-                    if (item.isEmpty)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        child: Text(
-                          AppLocalizations.of(context)!.noEvents,
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                      ),
-                    ...item.map((event) {
-                      return _CalendarListTile(
-                        key: ValueKey(event.key + event.value.id.toString()),
-                        event: event.value,
-                        source: event.key,
-                        date: date,
-                        onRefresh: widget.controller.refresh,
-                      );
-                    }),
-                  ],
-                );
-              },
+                  ),
+                ),
+              ),
             ),
           ),
         ),
