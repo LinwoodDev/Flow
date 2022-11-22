@@ -24,7 +24,8 @@ mixin _$Todo {
   int? get parentId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  bool get done => throw _privateConstructorUsedError;
+  TodoStatus get status => throw _privateConstructorUsedError;
+  int get priority => throw _privateConstructorUsedError;
   int? get eventId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,7 +43,8 @@ abstract class $TodoCopyWith<$Res> {
       int? parentId,
       String name,
       String description,
-      bool done,
+      TodoStatus status,
+      int priority,
       int? eventId});
 }
 
@@ -63,7 +65,8 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
     Object? parentId = freezed,
     Object? name = null,
     Object? description = null,
-    Object? done = null,
+    Object? status = null,
+    Object? priority = null,
     Object? eventId = freezed,
   }) {
     return _then(_value.copyWith(
@@ -83,10 +86,14 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      done: null == done
-          ? _value.done
-          : done // ignore: cast_nullable_to_non_nullable
-              as bool,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as TodoStatus,
+      priority: null == priority
+          ? _value.priority
+          : priority // ignore: cast_nullable_to_non_nullable
+              as int,
       eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
@@ -106,7 +113,8 @@ abstract class _$$_TodoCopyWith<$Res> implements $TodoCopyWith<$Res> {
       int? parentId,
       String name,
       String description,
-      bool done,
+      TodoStatus status,
+      int priority,
       int? eventId});
 }
 
@@ -123,7 +131,8 @@ class __$$_TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$_Todo>
     Object? parentId = freezed,
     Object? name = null,
     Object? description = null,
-    Object? done = null,
+    Object? status = null,
+    Object? priority = null,
     Object? eventId = freezed,
   }) {
     return _then(_$_Todo(
@@ -143,10 +152,14 @@ class __$$_TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$_Todo>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      done: null == done
-          ? _value.done
-          : done // ignore: cast_nullable_to_non_nullable
-              as bool,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as TodoStatus,
+      priority: null == priority
+          ? _value.priority
+          : priority // ignore: cast_nullable_to_non_nullable
+              as int,
       eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
@@ -163,7 +176,8 @@ class _$_Todo implements _Todo {
       this.parentId,
       this.name = '',
       this.description = '',
-      this.done = false,
+      this.status = TodoStatus.todo,
+      this.priority = 0,
       this.eventId});
 
   factory _$_Todo.fromJson(Map<String, dynamic> json) => _$$_TodoFromJson(json);
@@ -181,13 +195,16 @@ class _$_Todo implements _Todo {
   final String description;
   @override
   @JsonKey()
-  final bool done;
+  final TodoStatus status;
+  @override
+  @JsonKey()
+  final int priority;
   @override
   final int? eventId;
 
   @override
   String toString() {
-    return 'Todo(id: $id, parentId: $parentId, name: $name, description: $description, done: $done, eventId: $eventId)';
+    return 'Todo(id: $id, parentId: $parentId, name: $name, description: $description, status: $status, priority: $priority, eventId: $eventId)';
   }
 
   @override
@@ -201,14 +218,16 @@ class _$_Todo implements _Todo {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.done, done) || other.done == done) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.priority, priority) ||
+                other.priority == priority) &&
             (identical(other.eventId, eventId) || other.eventId == eventId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, parentId, name, description, done, eventId);
+  int get hashCode => Object.hash(
+      runtimeType, id, parentId, name, description, status, priority, eventId);
 
   @JsonKey(ignore: true)
   @override
@@ -230,7 +249,8 @@ abstract class _Todo implements Todo {
       final int? parentId,
       final String name,
       final String description,
-      final bool done,
+      final TodoStatus status,
+      final int priority,
       final int? eventId}) = _$_Todo;
 
   factory _Todo.fromJson(Map<String, dynamic> json) = _$_Todo.fromJson;
@@ -244,7 +264,9 @@ abstract class _Todo implements Todo {
   @override
   String get description;
   @override
-  bool get done;
+  TodoStatus get status;
+  @override
+  int get priority;
   @override
   int? get eventId;
   @override

@@ -9,8 +9,7 @@ abstract class TodoService extends ModelService {
     int? eventId,
     int offset = 0,
     int limit = 50,
-    bool incomplete = true,
-    bool completed = true,
+    Set<TodoStatus> statuses = const {TodoStatus.todo, TodoStatus.done},
   });
 
   FutureOr<bool?> todosDone(int eventId);

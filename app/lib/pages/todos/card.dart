@@ -89,10 +89,12 @@ class _TodoCardState extends State<TodoCard> {
               children: [
                 StatefulBuilder(builder: (context, setState) {
                   return Checkbox(
-                    value: _newTodo.done,
+                    value: _newTodo.status.done,
+                    tristate: true,
                     onChanged: (value) {
                       setState(() {
-                        _newTodo = _newTodo.copyWith(done: value!);
+                        _newTodo = _newTodo.copyWith(
+                            status: TodoStatusExtension.fromDone(value));
                         _updateTodo();
                       });
                     },

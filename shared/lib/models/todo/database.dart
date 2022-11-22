@@ -15,19 +15,16 @@ class TodoDatabaseService extends TodoService with TableService {
         eventId INTEGER,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT,
-        done INTEGER NOT NULL DEFAULT 0,
-        parentID INTEGER
+        status VARCHAR(20) NOT NULL DEFAULT 'todo',
+        priority INTEGER NOT NULL DEFAULT 0,
+        parentId INTEGER
       )
     """);
   }
 
   @override
   Future<Todo?> createTodo(Todo todo) async {
-    final id = await db?.insert(
-        'todos',
-        todo.toJson()
-          ..remove('id')
-          ..['done'] = todo.done ? 1 : 0);
+    final id = await db?.insert('todos', todo.toJson()..remove('id'));
     if (id == null) return null;
     return todo.copyWith(id: id);
   }
@@ -47,8 +44,7 @@ class TodoDatabaseService extends TodoService with TableService {
     int? eventId,
     int offset = 0,
     int limit = 50,
-    bool incomplete = true,
-    bool completed = true,
+    Set<TodoStatus> statuses = const {TodoStatus.todo, TodoStatus.done},
   }) async {
     var where = '';
     final whereArgs = <Object?>[];
@@ -56,15 +52,8 @@ class TodoDatabaseService extends TodoService with TableService {
       where += 'eventId = ?';
       whereArgs.add(eventId);
     }
-    if (incomplete && !completed) {
-      if (where.isNotEmpty) where += ' AND ';
-      where += 'done = 0';
-    } else if (!incomplete && completed) {
-      if (where.isNotEmpty) where += ' AND ';
-      where += 'done = 1';
-    } else if (!incomplete && !completed) {
-      return [];
-    }
+    if (where.isNotEmpty) where += ' AND ';
+    where += 'status IN (${statuses.map((e) => "'$e'").join(',')})';
     final result = await db?.query(
       'todos',
       where: where == '' ? null : where,
@@ -82,8 +71,8 @@ class TodoDatabaseService extends TodoService with TableService {
   @override
   Future<bool?> todosDone(int eventId) async {
     final result = await db?.rawQuery(
-        'SELECT COUNT(*) AS count FROM todos WHERE eventId = ? AND done = 1',
-        [eventId]);
+        'SELECT COUNT(*) AS count FROM todos WHERE eventId = ? AND status = ?',
+        [eventId, TodoStatus.done.name]);
     final resultCount = result?.first['count'] as int? ?? 0;
     final all = await db?.rawQuery(
         'SELECT COUNT(*) AS count FROM todos WHERE eventId = ?', [eventId]);
@@ -104,9 +93,7 @@ class TodoDatabaseService extends TodoService with TableService {
   FutureOr<bool> updateTodo(Todo todo) async {
     return await db?.update(
           'todos',
-          todo.toJson()
-            ..remove('id')
-            ..['done'] = todo.done ? 1 : 0,
+          todo.toJson()..remove('id'),
           where: 'id = ?',
           whereArgs: [todo.id],
         ) ==

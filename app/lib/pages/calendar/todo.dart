@@ -42,10 +42,12 @@ class _EventTodoDialogState extends State<EventTodoDialog> {
             ),
           ),
           Checkbox(
-            value: _newTodo.done,
+            value: _newTodo.status.done,
+            tristate: true,
             onChanged: (value) {
               setState(() {
-                _newTodo = _newTodo.copyWith(done: value ?? _newTodo.done);
+                _newTodo = _newTodo.copyWith(
+                    status: TodoStatusExtension.fromDone(value));
               });
             },
           ),

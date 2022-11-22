@@ -332,7 +332,7 @@ class _EventTodosTabState extends State<_EventTodosTab> {
                       onTryAgain: _pagingController.refresh,
                     ),
                     itemBuilder: (context, item, index) {
-                      var done = item.done;
+                      var status = item.status;
                       return Dismissible(
                         key: ValueKey(item.id),
                         background: Container(color: Colors.red),
@@ -344,11 +344,14 @@ class _EventTodosTabState extends State<_EventTodosTab> {
                           title: Text(item.name),
                           leading: StatefulBuilder(
                             builder: (context, setState) => Checkbox(
-                              value: done,
+                              value: status.done,
+                              tristate: true,
                               onChanged: (value) async {
-                                _todoService.updateTodo(
-                                    item.copyWith(done: value ?? false));
-                                setState(() => done = value ?? false);
+                                final next =
+                                    TodoStatusExtension.fromDone(value);
+                                _todoService
+                                    .updateTodo(item.copyWith(status: next));
+                                setState(() => status = next);
                               },
                             ),
                           ),

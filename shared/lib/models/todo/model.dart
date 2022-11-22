@@ -10,9 +10,35 @@ class Todo with _$Todo {
     int? parentId,
     @Default('') String name,
     @Default('') String description,
-    @Default(false) bool done,
+    @Default(TodoStatus.todo) TodoStatus status,
+    @Default(0) int priority,
     int? eventId,
   }) = _Todo;
 
   factory Todo.fromJson(Map<String, dynamic> json) => _$TodoFromJson(json);
+}
+
+enum TodoStatus {
+  todo,
+  inProgress,
+  done,
+}
+
+extension TodoStatusExtension on TodoStatus {
+  bool? get done {
+    switch (this) {
+      case TodoStatus.todo:
+        return false;
+      case TodoStatus.inProgress:
+        return null;
+      case TodoStatus.done:
+        return true;
+    }
+  }
+
+  static TodoStatus fromDone(bool? done) {
+    if (done == null) return TodoStatus.inProgress;
+    if (done) return TodoStatus.done;
+    return TodoStatus.todo;
+  }
 }

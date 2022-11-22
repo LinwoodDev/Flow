@@ -98,8 +98,9 @@
     }
   },
   "filter": "Filter",
-  "completed": "Completed",
-  "incomplete": "Incomplete",
+  "done": "Done",
+  "inProgress": "In progress",
+  "todo": "Todo",
   "delete": "Delete",
   "edit": "Edit",
   "deleteGroup": "Delete group {name}",

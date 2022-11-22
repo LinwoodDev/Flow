@@ -11,7 +11,9 @@ _$_Todo _$$_TodoFromJson(Map<String, dynamic> json) => _$_Todo(
       parentId: json['parentId'] as int?,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      done: json['done'] as bool? ?? false,
+      status: $enumDecodeNullable(_$TodoStatusEnumMap, json['status']) ??
+          TodoStatus.todo,
+      priority: json['priority'] as int? ?? 0,
       eventId: json['eventId'] as int?,
     );
 
@@ -20,6 +22,13 @@ Map<String, dynamic> _$$_TodoToJson(_$_Todo instance) => <String, dynamic>{
       'parentId': instance.parentId,
       'name': instance.name,
       'description': instance.description,
-      'done': instance.done,
+      'status': _$TodoStatusEnumMap[instance.status]!,
+      'priority': instance.priority,
       'eventId': instance.eventId,
     };
+
+const _$TodoStatusEnumMap = {
+  TodoStatus.todo: 'todo',
+  TodoStatus.inProgress: 'inProgress',
+  TodoStatus.done: 'done',
+};

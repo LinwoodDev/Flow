@@ -41,8 +41,7 @@ class _TodosPageState extends State<TodosPage> {
         final fetched = await source.value.todo.getTodos(
           offset: pageKey * _pageSize,
           limit: _pageSize,
-          incomplete: _filter.showIncompleted,
-          completed: _filter.showCompleted,
+          statuses: _filter.statuses,
         );
         todos.addAll(fetched.map((todo) => MapEntry(todo, source.key)));
         if (fetched.length < _pageSize) {

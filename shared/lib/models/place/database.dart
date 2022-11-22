@@ -14,7 +14,7 @@ class PlaceDatabaseService extends PlaceService with TableService {
         id INTEGER PRIMARY KEY,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT,
-        address TEXT,
+        address TEXT
       )
     """);
   }

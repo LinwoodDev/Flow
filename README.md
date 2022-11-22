@@ -17,11 +17,11 @@
 
 
 <p align="center">
-    <a href="http:**//docs.flow.linwood.dev"><b>Website</b></a> •
-    <a href="http:**//docs.flow.linwood.dev/downloads"><b>Download</b></a> •
-    <a href="https:**//linwood.dev/matrix"><b>Matrix</b></a> •
-    <a href="https:**//go.linwood.dev/discord"><b>Discord</b></a> •
-    <a href="https:**//twitter.com/LinwoodCloud"><b>Twitter</b></a> •
+    <a href="https://docs.flow.linwood.dev"><b>Website</b></a> •
+    <a href="https://docs.flow.linwood.dev/downloads"><b>Download</b></a> •
+    <a href="https://linwood.dev/matrix"><b>Matrix</b></a> •
+    <a href="https://go.linwood.dev/discord"><b>Discord</b></a> •
+    <a href="https://twitter.com/LinwoodCloud"><b>Twitter</b></a> •
     <a href="CONTRIBUTING.md"><b>Contribute</b></a>
 </p>  
 

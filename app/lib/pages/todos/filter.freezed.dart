@@ -16,8 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TodoFilter {
-  bool get showCompleted => throw _privateConstructorUsedError;
-  bool get showIncompleted => throw _privateConstructorUsedError;
+  bool get showDone => throw _privateConstructorUsedError;
+  bool get showInProgress => throw _privateConstructorUsedError;
+  bool get showTodo => throw _privateConstructorUsedError;
   String get search => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,7 +32,7 @@ abstract class $TodoFilterCopyWith<$Res> {
           TodoFilter value, $Res Function(TodoFilter) then) =
       _$TodoFilterCopyWithImpl<$Res, TodoFilter>;
   @useResult
-  $Res call({bool showCompleted, bool showIncompleted, String search});
+  $Res call({bool showDone, bool showInProgress, bool showTodo, String search});
 }
 
 /// @nodoc
@@ -47,18 +48,23 @@ class _$TodoFilterCopyWithImpl<$Res, $Val extends TodoFilter>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? showCompleted = null,
-    Object? showIncompleted = null,
+    Object? showDone = null,
+    Object? showInProgress = null,
+    Object? showTodo = null,
     Object? search = null,
   }) {
     return _then(_value.copyWith(
-      showCompleted: null == showCompleted
-          ? _value.showCompleted
-          : showCompleted // ignore: cast_nullable_to_non_nullable
+      showDone: null == showDone
+          ? _value.showDone
+          : showDone // ignore: cast_nullable_to_non_nullable
               as bool,
-      showIncompleted: null == showIncompleted
-          ? _value.showIncompleted
-          : showIncompleted // ignore: cast_nullable_to_non_nullable
+      showInProgress: null == showInProgress
+          ? _value.showInProgress
+          : showInProgress // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showTodo: null == showTodo
+          ? _value.showTodo
+          : showTodo // ignore: cast_nullable_to_non_nullable
               as bool,
       search: null == search
           ? _value.search
@@ -76,7 +82,7 @@ abstract class _$$_TodoFilterCopyWith<$Res>
       __$$_TodoFilterCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool showCompleted, bool showIncompleted, String search});
+  $Res call({bool showDone, bool showInProgress, bool showTodo, String search});
 }
 
 /// @nodoc
@@ -90,18 +96,23 @@ class __$$_TodoFilterCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? showCompleted = null,
-    Object? showIncompleted = null,
+    Object? showDone = null,
+    Object? showInProgress = null,
+    Object? showTodo = null,
     Object? search = null,
   }) {
     return _then(_$_TodoFilter(
-      showCompleted: null == showCompleted
-          ? _value.showCompleted
-          : showCompleted // ignore: cast_nullable_to_non_nullable
+      showDone: null == showDone
+          ? _value.showDone
+          : showDone // ignore: cast_nullable_to_non_nullable
               as bool,
-      showIncompleted: null == showIncompleted
-          ? _value.showIncompleted
-          : showIncompleted // ignore: cast_nullable_to_non_nullable
+      showInProgress: null == showInProgress
+          ? _value.showInProgress
+          : showInProgress // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showTodo: null == showTodo
+          ? _value.showTodo
+          : showTodo // ignore: cast_nullable_to_non_nullable
               as bool,
       search: null == search
           ? _value.search
@@ -113,25 +124,30 @@ class __$$_TodoFilterCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TodoFilter implements _TodoFilter {
+class _$_TodoFilter extends _TodoFilter {
   const _$_TodoFilter(
-      {this.showCompleted = true,
-      this.showIncompleted = true,
-      this.search = ''});
+      {this.showDone = true,
+      this.showInProgress = true,
+      this.showTodo = true,
+      this.search = ''})
+      : super._();
 
   @override
   @JsonKey()
-  final bool showCompleted;
+  final bool showDone;
   @override
   @JsonKey()
-  final bool showIncompleted;
+  final bool showInProgress;
+  @override
+  @JsonKey()
+  final bool showTodo;
   @override
   @JsonKey()
   final String search;
 
   @override
   String toString() {
-    return 'TodoFilter(showCompleted: $showCompleted, showIncompleted: $showIncompleted, search: $search)';
+    return 'TodoFilter(showDone: $showDone, showInProgress: $showInProgress, showTodo: $showTodo, search: $search)';
   }
 
   @override
@@ -139,16 +155,18 @@ class _$_TodoFilter implements _TodoFilter {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TodoFilter &&
-            (identical(other.showCompleted, showCompleted) ||
-                other.showCompleted == showCompleted) &&
-            (identical(other.showIncompleted, showIncompleted) ||
-                other.showIncompleted == showIncompleted) &&
+            (identical(other.showDone, showDone) ||
+                other.showDone == showDone) &&
+            (identical(other.showInProgress, showInProgress) ||
+                other.showInProgress == showInProgress) &&
+            (identical(other.showTodo, showTodo) ||
+                other.showTodo == showTodo) &&
             (identical(other.search, search) || other.search == search));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, showCompleted, showIncompleted, search);
+      Object.hash(runtimeType, showDone, showInProgress, showTodo, search);
 
   @JsonKey(ignore: true)
   @override
@@ -157,16 +175,20 @@ class _$_TodoFilter implements _TodoFilter {
       __$$_TodoFilterCopyWithImpl<_$_TodoFilter>(this, _$identity);
 }
 
-abstract class _TodoFilter implements TodoFilter {
+abstract class _TodoFilter extends TodoFilter {
   const factory _TodoFilter(
-      {final bool showCompleted,
-      final bool showIncompleted,
+      {final bool showDone,
+      final bool showInProgress,
+      final bool showTodo,
       final String search}) = _$_TodoFilter;
+  const _TodoFilter._() : super._();
 
   @override
-  bool get showCompleted;
+  bool get showDone;
   @override
-  bool get showIncompleted;
+  bool get showInProgress;
+  @override
+  bool get showTodo;
   @override
   String get search;
   @override
