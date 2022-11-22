@@ -65,6 +65,7 @@ class _TodoFilterViewState extends State<TodoFilterView> {
             onSelected: (value) {
               setState(() {
                 _filter = _filter.copyWith(showDone: value);
+                widget.onChanged(_filter);
               });
             },
           ),
@@ -82,6 +83,7 @@ class _TodoFilterViewState extends State<TodoFilterView> {
             onSelected: (value) {
               setState(() {
                 _filter = _filter.copyWith(showInProgress: value);
+                widget.onChanged(_filter);
               });
             },
           ),
@@ -99,6 +101,7 @@ class _TodoFilterViewState extends State<TodoFilterView> {
             onSelected: (value) {
               setState(() {
                 _filter = _filter.copyWith(showTodo: value);
+                widget.onChanged(_filter);
               });
             },
           ),

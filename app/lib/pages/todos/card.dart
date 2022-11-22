@@ -63,6 +63,16 @@ class _TodoCardState extends State<TodoCard> {
     });
   }
 
+  @override
+  void didUpdateWidget(covariant TodoCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.todo != widget.todo) {
+      _nameController.text = widget.todo.name;
+      _descriptionController.text = widget.todo.description;
+      _newTodo = widget.todo;
+    }
+  }
+
   Future<void> _updateTodo() async {
     setState(() => _loading = true);
     await _todoService.updateTodo(
@@ -147,49 +157,76 @@ class _TodoCardState extends State<TodoCard> {
                 widget.source,
                 style: Theme.of(context).textTheme.caption,
               ),
-            if (widget.event != null)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: 32,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        widget.event!.status.getIcon(),
-                        color: widget.event!.status.getColor(),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                            AppLocalizations.of(context)!.eventInfo(
-                              widget.event!.name,
-                              widget.event?.start == null
-                                  ? '-'
-                                  : dateFormatter.format(widget.event!.start!),
-                              widget.event?.start == null
-                                  ? '-'
-                                  : timeFormatter.format(widget.event!.start!),
-                              widget.event!.location.isEmpty
-                                  ? '-'
-                                  : widget.event!.location,
-                              widget.event!.status.getLocalizedName(context),
-                            ),
-                            style: Theme.of(context).textTheme.caption),
-                      ),
-                      if (_loading) ...[
-                        const SizedBox(width: 8),
-                        const SizedBox(
-                          height: 16,
-                          width: 16,
-                          child: CircularProgressIndicator(),
-                        ),
-                      ]
-                    ],
+            const SizedBox(height: 16),
+            Row(children: [
+              SizedBox(
+                width: 100,
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.priority,
+                    filled: true,
+                    floatingLabelAlignment: FloatingLabelAlignment.center,
                   ),
+                  textAlign: TextAlign.center,
+                  initialValue: _newTodo.priority.toString(),
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    _newTodo = _newTodo.copyWith(
+                        priority: int.tryParse(value) ?? _newTodo.priority);
+                    _updateTodo();
+                  },
                 ),
               ),
-            const SizedBox(height: 8),
+              const SizedBox(width: 8),
+              if (widget.event != null)
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: 32,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            widget.event!.status.getIcon(),
+                            color: widget.event!.status.getColor(),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              AppLocalizations.of(context)!.eventInfo(
+                                widget.event!.name,
+                                widget.event?.start == null
+                                    ? '-'
+                                    : dateFormatter
+                                        .format(widget.event!.start!),
+                                widget.event?.start == null
+                                    ? '-'
+                                    : timeFormatter
+                                        .format(widget.event!.start!),
+                                widget.event!.location.isEmpty
+                                    ? '-'
+                                    : widget.event!.location,
+                                widget.event!.status.getLocalizedName(context),
+                              ),
+                              style: Theme.of(context).textTheme.caption,
+                            ),
+                          ),
+                          if (_loading) ...[
+                            const SizedBox(width: 8),
+                            const SizedBox(
+                              height: 16,
+                              width: 16,
+                              child: CircularProgressIndicator(),
+                            ),
+                          ]
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+            ]),
+            const SizedBox(height: 16),
             TextFormField(
               controller: _descriptionController,
               focusNode: _descriptionFocus,

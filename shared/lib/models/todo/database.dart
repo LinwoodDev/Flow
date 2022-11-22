@@ -44,7 +44,11 @@ class TodoDatabaseService extends TodoService with TableService {
     int? eventId,
     int offset = 0,
     int limit = 50,
-    Set<TodoStatus> statuses = const {TodoStatus.todo, TodoStatus.done},
+    Set<TodoStatus> statuses = const {
+      TodoStatus.todo,
+      TodoStatus.inProgress,
+      TodoStatus.done
+    },
   }) async {
     var where = '';
     final whereArgs = <Object?>[];
@@ -53,13 +57,14 @@ class TodoDatabaseService extends TodoService with TableService {
       whereArgs.add(eventId);
     }
     if (where.isNotEmpty) where += ' AND ';
-    where += 'status IN (${statuses.map((e) => "'$e'").join(',')})';
+    where += 'status IN (${statuses.map((e) => "'${e.name}'").join(',')})';
     final result = await db?.query(
       'todos',
       where: where == '' ? null : where,
       whereArgs: whereArgs.isEmpty ? null : whereArgs,
       offset: offset,
       limit: limit,
+      orderBy: 'priority DESC',
     );
     return result
             ?.map((row) =>

@@ -252,7 +252,7 @@ packages:
       name: flex_color_scheme
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.0"
+    version: "6.1.1"
   flex_seed_scheme:
     dependency: transitive
     description:
