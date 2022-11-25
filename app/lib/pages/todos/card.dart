@@ -152,11 +152,6 @@ class _TodoCardState extends State<TodoCard> {
                 )
               ],
             ),
-            if (widget.source.isNotEmpty)
-              Text(
-                widget.source,
-                style: Theme.of(context).textTheme.caption,
-              ),
             const SizedBox(height: 16),
             Row(children: [
               SizedBox(
@@ -182,46 +177,53 @@ class _TodoCardState extends State<TodoCard> {
                 Flexible(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      height: 32,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            widget.event!.status.getIcon(),
-                            color: widget.event!.status.getColor(),
+                    child: Column(
+                      children: [
+                        if (widget.source.isNotEmpty)
+                          Text(
+                            widget.source,
+                            style: Theme.of(context).textTheme.caption,
                           ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              AppLocalizations.of(context)!.eventInfo(
-                                widget.event!.name,
-                                widget.event?.start == null
-                                    ? '-'
-                                    : dateFormatter
-                                        .format(widget.event!.start!),
-                                widget.event?.start == null
-                                    ? '-'
-                                    : timeFormatter
-                                        .format(widget.event!.start!),
-                                widget.event!.location.isEmpty
-                                    ? '-'
-                                    : widget.event!.location,
-                                widget.event!.status.getLocalizedName(context),
-                              ),
-                              style: Theme.of(context).textTheme.caption,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              widget.event!.status.getIcon(),
+                              color: widget.event!.status.getColor(),
                             ),
-                          ),
-                          if (_loading) ...[
                             const SizedBox(width: 8),
-                            const SizedBox(
-                              height: 16,
-                              width: 16,
-                              child: CircularProgressIndicator(),
+                            Expanded(
+                              child: Text(
+                                AppLocalizations.of(context)!.eventInfo(
+                                  widget.event!.name,
+                                  widget.event?.start == null
+                                      ? '-'
+                                      : dateFormatter
+                                          .format(widget.event!.start!),
+                                  widget.event?.start == null
+                                      ? '-'
+                                      : timeFormatter
+                                          .format(widget.event!.start!),
+                                  widget.event!.location.isEmpty
+                                      ? '-'
+                                      : widget.event!.location,
+                                  widget.event!.status
+                                      .getLocalizedName(context),
+                                ),
+                                style: Theme.of(context).textTheme.caption,
+                              ),
                             ),
-                          ]
-                        ],
-                      ),
+                            if (_loading) ...[
+                              const SizedBox(width: 8),
+                              const SizedBox(
+                                height: 16,
+                                width: 16,
+                                child: CircularProgressIndicator(),
+                              ),
+                            ]
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),

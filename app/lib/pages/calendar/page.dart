@@ -51,17 +51,8 @@ extension _CalendarViewExtension on _CalendarView {
 class _CalendarPageState extends State<CalendarPage>
     with TickerProviderStateMixin {
   _CalendarView _calendarView = _CalendarView.list;
-  late CalendarFilter _filter;
   final PagingController<int, List<MapEntry<String, Event>>> _pagingController =
       PagingController(firstPageKey: 0);
-
-  @override
-  void initState() {
-    super.initState();
-
-    _filter = widget.filter ?? const CalendarFilter();
-  }
-
   @override
   void dispose() {
     _pagingController.dispose();
@@ -75,7 +66,8 @@ class _CalendarPageState extends State<CalendarPage>
       actions: [
         IconButton(
           icon: const Icon(Icons.search_outlined),
-          onPressed: () {},
+          onPressed: () =>
+              showSearch(context: context, delegate: _CalendarSearchDelegate()),
         ),
         PopupMenuButton<_CalendarView>(
           icon: Icon(_calendarView.getIcon()),
@@ -98,16 +90,9 @@ class _CalendarPageState extends State<CalendarPage>
               .toList(),
         ),
       ],
-      body: BlocBuilder<FlowCubit, FlowState>(builder: (context, state) {
-        return CalendarListView(
-          controller: _pagingController,
-          onFilterChanged: (value) {
-            setState(() => _filter = value);
-            _pagingController.refresh();
-          },
-          filter: _filter,
-        );
-      }),
+      body: CalendarBodyView(
+        pagingController: _pagingController,
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
                 context: context, builder: (context) => const EventDialog())
@@ -116,5 +101,99 @@ class _CalendarPageState extends State<CalendarPage>
         icon: const Icon(Icons.add_outlined),
       ),
     );
+  }
+}
+
+class _CalendarSearchDelegate extends SearchDelegate {
+  final PagingController<int, List<MapEntry<String, Event>>> _pagingController =
+      PagingController(firstPageKey: 0);
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: const Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    _pagingController.refresh();
+    return CalendarBodyView(
+      pagingController: _pagingController,
+      search: query,
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return Container();
+  }
+}
+
+class CalendarBodyView extends StatefulWidget {
+  final String search;
+  final _CalendarView view;
+  final PagingController<int, List<MapEntry<String, Event>>> pagingController;
+  const CalendarBodyView(
+      {super.key,
+      this.search = '',
+      this.view = _CalendarView.list,
+      required this.pagingController});
+
+  @override
+  State<CalendarBodyView> createState() => _CalendarBodyViewState();
+}
+
+class _CalendarBodyViewState extends State<CalendarBodyView> {
+  late CalendarFilter _filter;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _filter = CalendarFilter(
+      search: widget.search,
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant CalendarBodyView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.search != widget.search) {
+      _filter = _filter.copyWith(search: widget.search);
+      widget.pagingController.refresh();
+    } else if (oldWidget.view != widget.view) {
+      setState(() {});
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<FlowCubit, FlowState>(builder: (context, state) {
+      return CalendarListView(
+        controller: widget.pagingController,
+        onFilterChanged: (value) {
+          setState(() => _filter = value);
+          widget.pagingController.refresh();
+        },
+        filter: _filter,
+      );
+    });
   }
 }

@@ -12,7 +12,6 @@ include: package:flutter_lints/flutter.yaml
 #     - path/to/excluded/files/**
 linter:
   rules:
-    avoid_print: false
     library_private_types_in_public_api: false
 analyzer:
   exclude:

@@ -39,7 +39,8 @@ class EventDatabaseService extends EventService with TableService {
       int limit = 50,
       DateTime? start,
       DateTime? end,
-      DateTime? date}) async {
+      DateTime? date,
+      String search = ''}) async {
     String? where;
     List<Object?>? whereArgs;
     if (status.isNotEmpty) {
@@ -91,6 +92,14 @@ class EventDatabaseService extends EventService with TableService {
               startDate.secondsSinceEpoch,
               endDate.secondsSinceEpoch,
             ];
+    }
+    if (search.isNotEmpty) {
+      where = where == null
+          ? '(name LIKE ? OR description LIKE ?)'
+          : '$where AND (name LIKE ? OR description LIKE ?)';
+      whereArgs = whereArgs == null
+          ? ['%$search%', '%$search%']
+          : [...whereArgs, '%$search%', '%$search%'];
     }
 
     final result =

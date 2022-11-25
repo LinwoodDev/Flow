@@ -52,6 +52,23 @@ Future<void> main() async {
   );
 }
 
+Page<void> Function(BuildContext, GoRouterState) _fadeTransitionBuilder(
+    Widget Function(BuildContext, GoRouterState) child) {
+  return (context, state) => CustomTransitionPage<void>(
+        key: state.pageKey,
+        child: child(context, state),
+        transitionDuration: const Duration(milliseconds: 200),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            FadeTransition(
+          opacity: CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeInOut,
+          ),
+          child: child,
+        ),
+      );
+}
+
 class FlowApp extends StatelessWidget {
   FlowApp({Key? key}) : super(key: key);
 
@@ -87,47 +104,54 @@ class FlowApp extends StatelessWidget {
           routes: [
             GoRoute(
               path: '/',
-              builder: (BuildContext context, GoRouterState state) =>
-                  const DashboardPage(),
+              pageBuilder: _fadeTransitionBuilder(
+                  (context, state) => const DashboardPage()),
             ),
             GoRoute(
               path: '/calendar',
-              builder: (BuildContext context, GoRouterState state) =>
-                  CalendarPage(
-                filter: state.extra is CalendarFilter
-                    ? state.extra as CalendarFilter
-                    : null,
+              pageBuilder: _fadeTransitionBuilder(
+                (context, state) => CalendarPage(
+                  filter: state.extra is CalendarFilter
+                      ? state.extra as CalendarFilter
+                      : null,
+                ),
               ),
             ),
             GoRoute(
               path: '/groups',
-              builder: (BuildContext context, GoRouterState state) =>
-                  const EventGroupsPage(),
+              pageBuilder: _fadeTransitionBuilder(
+                (context, state) => const EventGroupsPage(),
+              ),
             ),
             GoRoute(
               path: '/todos',
-              builder: (BuildContext context, GoRouterState state) =>
-                  const TodosPage(),
+              pageBuilder: _fadeTransitionBuilder(
+                (context, state) => const TodosPage(),
+              ),
             ),
             GoRoute(
               path: '/places',
-              builder: (BuildContext context, GoRouterState state) =>
-                  const PlacesPage(),
+              pageBuilder: _fadeTransitionBuilder(
+                (context, state) => const PlacesPage(),
+              ),
             ),
             GoRoute(
               path: '/users',
-              builder: (BuildContext context, GoRouterState state) =>
-                  const UsersPage(),
+              pageBuilder: _fadeTransitionBuilder(
+                (context, state) => const UsersPage(),
+              ),
             ),
             GoRoute(
               path: '/sources',
-              builder: (BuildContext context, GoRouterState state) =>
-                  const SourcesPage(),
+              pageBuilder: _fadeTransitionBuilder(
+                (context, state) => const SourcesPage(),
+              ),
             ),
             GoRoute(
               path: '/settings',
-              builder: (BuildContext context, GoRouterState state) =>
-                  SettingsPage(),
+              pageBuilder: _fadeTransitionBuilder(
+                (context, state) => SettingsPage(),
+              ),
             ),
           ]),
     ],
