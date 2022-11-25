@@ -1,4 +1,5 @@
-import 'package:flow/pages/intro/welcome.dart';
+import 'package:flow/main.dart';
+import 'package:flow/pages/intro/feature.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -10,24 +11,43 @@ class IntroDialog extends StatefulWidget {
 }
 
 class _IntroDialogState extends State<IntroDialog> {
-  final _pages = const [
-    IntroWelcomeView(),
-    IntroWelcomeView(),
-    IntroWelcomeView(),
-    IntroWelcomeView(),
-    IntroWelcomeView(),
-    IntroWelcomeView(),
-    IntroWelcomeView(),
-    IntroWelcomeView(),
-    IntroWelcomeView(),
-    IntroWelcomeView(),
-    IntroWelcomeView(),
-    IntroWelcomeView(),
-    IntroWelcomeView(),
-    IntroWelcomeView(),
-    IntroWelcomeView(),
-    IntroWelcomeView(),
-    IntroWelcomeView(),
+  final _pages = [
+    ...[
+      {
+        "image": isNightly ? "images/nightly.png" : "images/logo.png",
+        "title": "Welcome to Linwood Flow",
+        "description": "A feature rich event and time managment system"
+      },
+      {
+        "image": "images/undraw_time_management_30iu.png",
+        "title": "Time management",
+        "description": "Manage the time efficiency and automate it."
+      },
+      {
+        "image": "images/undraw_Schedule_re_2vro.png",
+        "title": "Event management",
+        "description":
+            "Schedule events, assign users to it and give tasks to them"
+      },
+      {
+        "image": "images/undraw_personal_data_29co.png",
+        "title": "Your data",
+        "description":
+            "Everyone can create their own server and have your data on it."
+      },
+      {
+        "image": "images/undraw_open_source_1qxw.png",
+        "title": "Open source",
+        "description":
+            "The app and the server are all open source. Everyone can contribute!"
+      }
+    ].map(
+      (e) => IntroFeatureView(
+        title: e["title"]!,
+        description: e["description"]!,
+        icon: Image.asset(e["image"]!),
+      ),
+    ),
   ];
   late final PageController _pageController;
 
@@ -117,9 +137,11 @@ class _IntroDialogState extends State<IntroDialog> {
                                     curve: Curves.easeInOut)),
                           ] else
                             ElevatedButton(
-                                child:
-                                    Text(AppLocalizations.of(context)!.start),
-                                onPressed: () {}),
+                              child: Text(AppLocalizations.of(context)!.start),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
                         ],
                       ),
                     ]);
