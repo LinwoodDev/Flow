@@ -166,9 +166,7 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
   void initState() {
     super.initState();
 
-    _filter = CalendarFilter(
-      search: widget.search,
-    );
+    _filter = const CalendarFilter();
   }
 
   @override
@@ -176,7 +174,6 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.search != widget.search) {
-      _filter = _filter.copyWith(search: widget.search);
       widget.pagingController.refresh();
     } else if (oldWidget.view != widget.view) {
       setState(() {});
@@ -188,6 +185,7 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
     return BlocBuilder<FlowCubit, FlowState>(builder: (context, state) {
       return CalendarListView(
         controller: widget.pagingController,
+        search: widget.search,
         onFilterChanged: (value) {
           setState(() => _filter = value);
           widget.pagingController.refresh();

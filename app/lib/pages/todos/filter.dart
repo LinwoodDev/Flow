@@ -11,7 +11,6 @@ class TodoFilter with _$TodoFilter {
     @Default(true) bool showDone,
     @Default(true) bool showInProgress,
     @Default(true) bool showTodo,
-    @Default('') String search,
   }) = _TodoFilter;
 
   const TodoFilter._();

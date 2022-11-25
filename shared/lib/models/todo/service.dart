@@ -14,6 +14,7 @@ abstract class TodoService extends ModelService {
       TodoStatus.inProgress,
       TodoStatus.done
     },
+    String search = '',
   });
 
   FutureOr<bool?> todosDone(int eventId);

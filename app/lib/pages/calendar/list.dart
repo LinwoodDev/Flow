@@ -12,6 +12,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CalendarListView extends StatefulWidget {
   final CalendarFilter filter;
+  final String search;
   final PagingController<int, List<MapEntry<String, Event>>> controller;
   final ValueChanged<CalendarFilter> onFilterChanged;
 
@@ -20,6 +21,7 @@ class CalendarListView extends StatefulWidget {
     required this.controller,
     required this.onFilterChanged,
     required this.filter,
+    required this.search,
   });
 
   @override
@@ -65,7 +67,7 @@ class _CalendarListViewState extends State<CalendarListView> {
         status: EventStatus.values
             .where((element) => !widget.filter.hiddenStatuses.contains(element))
             .toList(),
-        search: widget.filter.search,
+        search: widget.search,
         groupId: widget.filter.group,
       );
       events.addAll(fetched.map((event) =>

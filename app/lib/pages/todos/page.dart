@@ -18,6 +18,88 @@ class TodosPage extends StatefulWidget {
 }
 
 class _TodosPageState extends State<TodosPage> {
+  final PagingController<int, MapEntry<Todo, String>> _pagingController =
+      PagingController(firstPageKey: 0);
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FlowNavigation(
+      title: AppLocalizations.of(context)!.todos,
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.search_outlined),
+          onPressed: () =>
+              showSearch(context: context, delegate: _TodoSearchDelegate()),
+        ),
+      ],
+      body: TodoBodyView(
+        pagingController: _pagingController,
+      ),
+    );
+  }
+}
+
+class _TodoSearchDelegate extends SearchDelegate {
+  final PagingController<int, MapEntry<Todo, String>> _pagingController =
+      PagingController(firstPageKey: 0);
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: const Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    _pagingController.refresh();
+    return TodoBodyView(
+      pagingController: _pagingController,
+      search: query,
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return Container();
+  }
+}
+
+class TodoBodyView extends StatefulWidget {
+  final String search;
+  final PagingController<int, MapEntry<Todo, String>> pagingController;
+
+  const TodoBodyView({
+    super.key,
+    this.search = '',
+    required this.pagingController,
+  });
+
+  @override
+  State<TodoBodyView> createState() => _TodoBodyViewState();
+}
+
+class _TodoBodyViewState extends State<TodoBodyView> {
   static const _pageSize = 20;
   late final FlowCubit _flowCubit;
   final PagingController<int, MapEntry<Todo, String>> _pagingController =
@@ -42,6 +124,7 @@ class _TodosPageState extends State<TodosPage> {
           offset: pageKey * _pageSize,
           limit: _pageSize,
           statuses: _filter.statuses,
+          search: widget.search,
         );
         todos.addAll(fetched.map((todo) => MapEntry(todo, source.key)));
         if (fetched.length < _pageSize) {
@@ -70,39 +153,37 @@ class _TodosPageState extends State<TodosPage> {
 
   @override
   Widget build(BuildContext context) {
-    return FlowNavigation(
-        title: AppLocalizations.of(context)!.todos,
-        body: Align(
-          alignment: Alignment.topCenter,
-          child: Container(
-              constraints: const BoxConstraints(maxWidth: 800),
-              child: Column(
-                children: [
-                  TodoFilterView(
-                    initialFilter: _filter,
-                    onChanged: (filter) {
-                      setState(() {
-                        _filter = filter;
-                        _pagingController.refresh();
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 8),
-                  Flexible(
-                    child: PagedListView(
-                      pagingController: _pagingController,
-                      builderDelegate:
-                          PagedChildBuilderDelegate<MapEntry<Todo, String>>(
-                              itemBuilder: (context, item, index) => TodoCard(
-                                    event: _events[item.key.eventId],
-                                    todo: item.key,
-                                    source: item.value,
-                                    controller: _pagingController,
-                                  )),
-                    ),
-                  ),
-                ],
-              )),
-        ));
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Container(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: Column(
+            children: [
+              TodoFilterView(
+                initialFilter: _filter,
+                onChanged: (filter) {
+                  setState(() {
+                    _filter = filter;
+                    _pagingController.refresh();
+                  });
+                },
+              ),
+              const SizedBox(height: 8),
+              Flexible(
+                child: PagedListView(
+                  pagingController: _pagingController,
+                  builderDelegate:
+                      PagedChildBuilderDelegate<MapEntry<Todo, String>>(
+                          itemBuilder: (context, item, index) => TodoCard(
+                                event: _events[item.key.eventId],
+                                todo: item.key,
+                                source: item.value,
+                                controller: _pagingController,
+                              )),
+                ),
+              ),
+            ],
+          )),
+    );
   }
 }

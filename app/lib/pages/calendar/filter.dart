@@ -13,7 +13,6 @@ class CalendarFilter with _$CalendarFilter {
   const factory CalendarFilter({
     @Default([EventStatus.draft, EventStatus.cancelled])
         List<EventStatus> hiddenStatuses,
-    @Default('') String search,
     String? source,
     int? group,
     int? place,

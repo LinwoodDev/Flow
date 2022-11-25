@@ -49,19 +49,33 @@ class TodoDatabaseService extends TodoService with TableService {
       TodoStatus.inProgress,
       TodoStatus.done
     },
+    String search = '',
   }) async {
-    var where = '';
-    final whereArgs = <Object?>[];
+    String? where;
+    List<Object>? whereArgs;
     if (eventId != null) {
-      where += 'eventId = ?';
-      whereArgs.add(eventId);
+      where = 'eventId = ?';
+      whereArgs = [eventId];
     }
-    if (where.isNotEmpty) where += ' AND ';
-    where += 'status IN (${statuses.map((e) => "'${e.name}'").join(',')})';
+    if (search.isNotEmpty) {
+      where = where == null
+          ? '(name LIKE ? OR description LIKE ?)'
+          : '$where AND (name LIKE ? OR description LIKE ?)';
+      whereArgs = whereArgs == null
+          ? ['%$search%', '%$search%']
+          : [...whereArgs, '%$search%', '%$search%'];
+    }
+    final statusStatement =
+        "status IN (${statuses.map((e) => "'${e.name}'").join(',')})";
+    if (where != null) {
+      where += ' AND $statusStatement';
+    } else {
+      where = statusStatement;
+    }
     final result = await db?.query(
       'todos',
-      where: where == '' ? null : where,
-      whereArgs: whereArgs.isEmpty ? null : whereArgs,
+      where: where,
+      whereArgs: whereArgs,
       offset: offset,
       limit: limit,
       orderBy: 'priority DESC',
