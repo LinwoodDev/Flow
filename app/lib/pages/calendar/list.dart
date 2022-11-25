@@ -70,8 +70,7 @@ class _CalendarListViewState extends State<CalendarListView> {
         search: widget.search,
         groupId: widget.filter.group,
       );
-      events.addAll(fetched.map((event) =>
-          MapEntry(source.key, event.copyWith(name: "${event.name} ($day)"))));
+      events.addAll(fetched.map((event) => MapEntry(source.key, event)));
     }
     return events;
   }

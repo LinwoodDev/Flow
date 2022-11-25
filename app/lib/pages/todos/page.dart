@@ -34,17 +34,17 @@ class _TodosPageState extends State<TodosPage> {
         IconButton(
           icon: const Icon(Icons.search_outlined),
           onPressed: () =>
-              showSearch(context: context, delegate: _TodoSearchDelegate()),
+              showSearch(context: context, delegate: _TodosSearchDelegate()),
         ),
       ],
-      body: TodoBodyView(
+      body: TodosBodyView(
         pagingController: _pagingController,
       ),
     );
   }
 }
 
-class _TodoSearchDelegate extends SearchDelegate {
+class _TodosSearchDelegate extends SearchDelegate {
   final PagingController<int, MapEntry<Todo, String>> _pagingController =
       PagingController(firstPageKey: 0);
 
@@ -73,7 +73,7 @@ class _TodoSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     _pagingController.refresh();
-    return TodoBodyView(
+    return TodosBodyView(
       pagingController: _pagingController,
       search: query,
     );
@@ -85,32 +85,30 @@ class _TodoSearchDelegate extends SearchDelegate {
   }
 }
 
-class TodoBodyView extends StatefulWidget {
+class TodosBodyView extends StatefulWidget {
   final String search;
   final PagingController<int, MapEntry<Todo, String>> pagingController;
 
-  const TodoBodyView({
+  const TodosBodyView({
     super.key,
     this.search = '',
     required this.pagingController,
   });
 
   @override
-  State<TodoBodyView> createState() => _TodoBodyViewState();
+  State<TodosBodyView> createState() => _TodosBodyViewState();
 }
 
-class _TodoBodyViewState extends State<TodoBodyView> {
+class _TodosBodyViewState extends State<TodosBodyView> {
   static const _pageSize = 20;
   late final FlowCubit _flowCubit;
-  final PagingController<int, MapEntry<Todo, String>> _pagingController =
-      PagingController(firstPageKey: 0);
   final Map<int, Event> _events = {};
   TodoFilter _filter = const TodoFilter();
 
   @override
   void initState() {
     _flowCubit = context.read<FlowCubit>();
-    _pagingController.addPageRequestListener(_fetchPage);
+    widget.pagingController.addPageRequestListener(_fetchPage);
     super.initState();
   }
 
@@ -141,13 +139,13 @@ class _TodoBodyViewState extends State<TodoBodyView> {
         }
       }
       if (isLast) {
-        _pagingController.appendLastPage(todos);
+        widget.pagingController.appendLastPage(todos);
       } else {
         final nextPageKey = pageKey + 1;
-        _pagingController.appendPage(todos, nextPageKey);
+        widget.pagingController.appendPage(todos, nextPageKey);
       }
     } catch (error) {
-      _pagingController.error = error;
+      widget.pagingController.error = error;
     }
   }
 
@@ -164,21 +162,21 @@ class _TodoBodyViewState extends State<TodoBodyView> {
                 onChanged: (filter) {
                   setState(() {
                     _filter = filter;
-                    _pagingController.refresh();
+                    widget.pagingController.refresh();
                   });
                 },
               ),
               const SizedBox(height: 8),
               Flexible(
                 child: PagedListView(
-                  pagingController: _pagingController,
+                  pagingController: widget.pagingController,
                   builderDelegate:
                       PagedChildBuilderDelegate<MapEntry<Todo, String>>(
                           itemBuilder: (context, item, index) => TodoCard(
                                 event: _events[item.key.eventId],
                                 todo: item.key,
                                 source: item.value,
-                                controller: _pagingController,
+                                controller: widget.pagingController,
                               )),
                 ),
               ),
