@@ -53,11 +53,14 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                 label: Text(status.getLocalizedName(context)),
                 avatar: Icon(status.getIcon(),
                     color: selected
-                        ? Colors.white
+                        ? Theme.of(context).colorScheme.onPrimaryContainer
                         : Theme.of(context).iconTheme.color),
                 selected: selected,
                 selectedColor: status.getColor(),
-                labelStyle: TextStyle(color: selected ? Colors.white : null),
+                labelStyle: TextStyle(
+                    color: selected
+                        ? Theme.of(context).colorScheme.onPrimaryContainer
+                        : null),
                 showCheckmark: false,
                 onSelected: (value) {
                   setState(() {
@@ -85,14 +88,16 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
             label: Text(AppLocalizations.of(context)!.group),
             avatar: Icon(Icons.folder_outlined,
                 color: _filter.group != null
-                    ? Colors.white
+                    ? Theme.of(context).colorScheme.onPrimaryContainer
                     : Theme.of(context).iconTheme.color),
             selected: _filter.group != null,
-            selectedColor: Theme.of(context).primaryColor,
-            labelStyle:
-                TextStyle(color: _filter.group != null ? Colors.white : null),
+            selectedColor: Theme.of(context).colorScheme.primaryContainer,
+            labelStyle: TextStyle(
+                color: _filter.group != null
+                    ? Theme.of(context).colorScheme.onPrimaryContainer
+                    : null),
             showCheckmark: false,
-            deleteIconColor: Colors.white,
+            deleteIconColor: Theme.of(context).colorScheme.onPrimaryContainer,
             onDeleted: _filter.group == null
                 ? null
                 : () {
@@ -123,14 +128,16 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
             label: Text(AppLocalizations.of(context)!.place),
             avatar: Icon(Icons.location_on_outlined,
                 color: _filter.place != null
-                    ? Colors.white
+                    ? Theme.of(context).colorScheme.onPrimaryContainer
                     : Theme.of(context).iconTheme.color),
             selected: _filter.place != null,
-            selectedColor: Theme.of(context).primaryColor,
-            labelStyle:
-                TextStyle(color: _filter.place != null ? Colors.white : null),
+            selectedColor: Theme.of(context).colorScheme.primaryContainer,
+            labelStyle: TextStyle(
+                color: _filter.place != null
+                    ? Theme.of(context).colorScheme.onPrimaryContainer
+                    : null),
             showCheckmark: false,
-            deleteIconColor: Colors.white,
+            deleteIconColor: Theme.of(context).colorScheme.onPrimaryContainer,
             onDeleted: _filter.place == null
                 ? null
                 : () {
@@ -161,11 +168,14 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
             label: Text(AppLocalizations.of(context)!.past),
             avatar: Icon(Icons.history_outlined,
                 color: _filter.past
-                    ? Colors.white
+                    ? Theme.of(context).colorScheme.onPrimaryContainer
                     : Theme.of(context).iconTheme.color),
             selected: _filter.past,
-            selectedColor: Theme.of(context).primaryColor,
-            labelStyle: TextStyle(color: _filter.past ? Colors.white : null),
+            selectedColor: Theme.of(context).colorScheme.primaryContainer,
+            labelStyle: TextStyle(
+                color: _filter.past
+                    ? Theme.of(context).colorScheme.onPrimaryContainer
+                    : null),
             showCheckmark: false,
             onSelected: (value) {
               setState(() {

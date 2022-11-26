@@ -54,12 +54,14 @@ class _TodoFilterViewState extends State<TodoFilterView> {
             label: Text(AppLocalizations.of(context)!.done),
             avatar: Icon(Icons.check_box_outlined,
                 color: _filter.showDone
-                    ? Colors.white
+                    ? Theme.of(context).colorScheme.onPrimaryContainer
                     : Theme.of(context).iconTheme.color),
             selected: _filter.showDone,
-            selectedColor: Theme.of(context).primaryColor,
-            labelStyle:
-                TextStyle(color: _filter.showDone ? Colors.white : null),
+            selectedColor: Theme.of(context).colorScheme.primaryContainer,
+            labelStyle: TextStyle(
+                color: _filter.showDone
+                    ? Theme.of(context).colorScheme.onPrimaryContainer
+                    : null),
             showCheckmark: false,
             onSelected: (value) {
               setState(() {
@@ -72,12 +74,14 @@ class _TodoFilterViewState extends State<TodoFilterView> {
             label: Text(AppLocalizations.of(context)!.inProgress),
             avatar: Icon(Icons.indeterminate_check_box_outlined,
                 color: _filter.showInProgress
-                    ? Colors.white
+                    ? Theme.of(context).colorScheme.onPrimaryContainer
                     : Theme.of(context).iconTheme.color),
             selected: _filter.showInProgress,
-            selectedColor: Theme.of(context).primaryColor,
-            labelStyle:
-                TextStyle(color: _filter.showInProgress ? Colors.white : null),
+            selectedColor: Theme.of(context).colorScheme.primaryContainer,
+            labelStyle: TextStyle(
+                color: _filter.showInProgress
+                    ? Theme.of(context).colorScheme.onPrimaryContainer
+                    : null),
             showCheckmark: false,
             onSelected: (value) {
               setState(() {
@@ -90,12 +94,14 @@ class _TodoFilterViewState extends State<TodoFilterView> {
             label: Text(AppLocalizations.of(context)!.todo),
             avatar: Icon(Icons.check_box_outline_blank_outlined,
                 color: _filter.showTodo
-                    ? Colors.white
+                    ? Theme.of(context).colorScheme.onPrimaryContainer
                     : Theme.of(context).iconTheme.color),
             selected: _filter.showTodo,
-            selectedColor: Theme.of(context).primaryColor,
-            labelStyle:
-                TextStyle(color: _filter.showTodo ? Colors.white : null),
+            selectedColor: Theme.of(context).colorScheme.primaryContainer,
+            labelStyle: TextStyle(
+                color: _filter.showTodo
+                    ? Theme.of(context).colorScheme.onPrimaryContainer
+                    : null),
             showCheckmark: false,
             onSelected: (value) {
               setState(() {

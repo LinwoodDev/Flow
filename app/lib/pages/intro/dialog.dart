@@ -93,19 +93,23 @@ class _IntroDialogState extends State<IntroDialog> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Builder(builder: (context) {
-                        return SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              for (var i = 0; i < _pages.length; i++)
-                                _Indicator(
-                                  onTap: () => _pageController.animateToPage(i,
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      curve: Curves.easeInOut),
-                                  active: (_pageController.page ?? 0) == i,
-                                ),
-                            ],
+                        return Align(
+                          alignment: Alignment.center,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                for (var i = 0; i < _pages.length; i++)
+                                  _Indicator(
+                                    onTap: () => _pageController.animateToPage(
+                                        i,
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        curve: Curves.easeInOut),
+                                    active: (_pageController.page ?? 0) == i,
+                                  ),
+                              ],
+                            ),
                           ),
                         );
                       }),
@@ -171,7 +175,9 @@ class _Indicator extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         margin: EdgeInsets.symmetric(horizontal: active ? 2 : 10),
         decoration: BoxDecoration(
-          color: active ? Theme.of(context).primaryColor : Colors.grey,
+          color: active
+              ? Theme.of(context).colorScheme.primaryContainer
+              : Theme.of(context).colorScheme.outline,
           borderRadius: BorderRadius.circular(16),
         ),
       ),

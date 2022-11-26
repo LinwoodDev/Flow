@@ -111,7 +111,9 @@ class _CalendarListViewState extends State<CalendarListView> {
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             child: Icon(
                               Icons.today_outlined,
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .secondaryContainer,
                               size: 64,
                             ),
                           ),
@@ -228,8 +230,8 @@ class _CalendarListTile extends StatelessWidget {
                   ? Icons.check_circle_outline_outlined
                   : Icons.circle_outlined,
               color: snapshot.data ?? false
-                  ? Theme.of(context).primaryColor
-                  : Theme.of(context).disabledColor,
+                  ? Theme.of(context).colorScheme.onPrimaryContainer
+                  : Theme.of(context).colorScheme.onSurfaceVariant,
             );
           } else {
             return const SizedBox.shrink();

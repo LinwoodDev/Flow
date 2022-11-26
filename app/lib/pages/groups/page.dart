@@ -116,6 +116,21 @@ class _EventGroupsBodyViewState extends State<EventGroupsBodyView> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    widget.pagingController.removePageRequestListener(_fetchPage);
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(covariant EventGroupsBodyView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.search != widget.search) {
+      widget.pagingController.refresh();
+    }
+  }
+
   Future<void> _fetchPage(int pageKey) async {
     try {
       final sources = _flowCubit.getCurrentServicesMap().entries;
@@ -145,15 +160,14 @@ class _EventGroupsBodyViewState extends State<EventGroupsBodyView> {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: Container(
-        constraints: const BoxConstraints(maxWidth: 800),
-        child: PagedListView(
-          pagingController: widget.pagingController,
-          builderDelegate:
-              PagedChildBuilderDelegate<MapEntry<EventGroup, String>>(
-            itemBuilder: (ctx, item, index) => Dismissible(
+    return PagedListView(
+      pagingController: widget.pagingController,
+      builderDelegate: PagedChildBuilderDelegate<MapEntry<EventGroup, String>>(
+        itemBuilder: (ctx, item, index) => Align(
+          alignment: Alignment.topCenter,
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 800),
+            child: Dismissible(
               key: ValueKey(item.key.id),
               onDismissed: (direction) async {
                 await _flowCubit

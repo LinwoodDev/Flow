@@ -112,6 +112,12 @@ class _TodosBodyViewState extends State<TodosBodyView> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    widget.pagingController.removePageRequestListener(_fetchPage);
+    super.dispose();
+  }
+
   Future<void> _fetchPage(int pageKey) async {
     try {
       final sources = _flowCubit.getCurrentServicesMap().entries;
@@ -150,38 +156,47 @@ class _TodosBodyViewState extends State<TodosBodyView> {
   }
 
   @override
+  void didUpdateWidget(covariant TodosBodyView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.search != widget.search) {
+      widget.pagingController.refresh();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: Container(
-          constraints: const BoxConstraints(maxWidth: 800),
-          child: Column(
-            children: [
-              TodoFilterView(
-                initialFilter: _filter,
-                onChanged: (filter) {
-                  setState(() {
-                    _filter = filter;
-                    widget.pagingController.refresh();
-                  });
-                },
+    return Column(
+      children: [
+        TodoFilterView(
+          initialFilter: _filter,
+          onChanged: (filter) {
+            setState(() {
+              _filter = filter;
+              widget.pagingController.refresh();
+            });
+          },
+        ),
+        const SizedBox(height: 8),
+        Flexible(
+          child: PagedListView(
+            pagingController: widget.pagingController,
+            builderDelegate: PagedChildBuilderDelegate<MapEntry<Todo, String>>(
+              itemBuilder: (context, item, index) => Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                    constraints: const BoxConstraints(maxWidth: 800),
+                    child: TodoCard(
+                      event: _events[item.key.eventId],
+                      todo: item.key,
+                      source: item.value,
+                      controller: widget.pagingController,
+                    )),
               ),
-              const SizedBox(height: 8),
-              Flexible(
-                child: PagedListView(
-                  pagingController: widget.pagingController,
-                  builderDelegate:
-                      PagedChildBuilderDelegate<MapEntry<Todo, String>>(
-                          itemBuilder: (context, item, index) => TodoCard(
-                                event: _events[item.key.eventId],
-                                todo: item.key,
-                                source: item.value,
-                                controller: widget.pagingController,
-                              )),
-                ),
-              ),
-            ],
-          )),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
