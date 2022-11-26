@@ -113,7 +113,7 @@ class FlowApp extends StatelessWidget {
                 (context, state) => CalendarPage(
                   filter: state.extra is CalendarFilter
                       ? state.extra as CalendarFilter
-                      : null,
+                      : const CalendarFilter(),
                 ),
               ),
             ),

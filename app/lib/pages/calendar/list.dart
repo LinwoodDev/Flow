@@ -136,7 +136,7 @@ class _CalendarListViewState extends State<CalendarListView> {
                         ),
                       ...item.map((event) {
                         return _CalendarListTile(
-                          key: ValueKey(event.key + event.value.id.toString()),
+                          key: ValueKey('${event.key}@${event.value.id}'),
                           event: event.value,
                           source: event.key,
                           date: date,

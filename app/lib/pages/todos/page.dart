@@ -191,6 +191,7 @@ class _TodosBodyViewState extends State<TodosBodyView> {
                       todo: item.key,
                       source: item.value,
                       controller: widget.pagingController,
+                      key: ValueKey('${item.key.id}@${item.value}'),
                     )),
               ),
             ),

@@ -11,8 +11,11 @@ import 'package:shared/models/event/model.dart';
 import 'event.dart';
 
 class CalendarPage extends StatefulWidget {
-  final CalendarFilter? filter;
-  const CalendarPage({super.key, this.filter});
+  final CalendarFilter filter;
+  const CalendarPage({
+    super.key,
+    this.filter = const CalendarFilter(),
+  });
 
   @override
   State<CalendarPage> createState() => _CalendarPageState();
@@ -92,6 +95,7 @@ class _CalendarPageState extends State<CalendarPage>
       ],
       body: CalendarBodyView(
         pagingController: _pagingController,
+        filter: widget.filter,
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
@@ -148,10 +152,12 @@ class _CalendarSearchDelegate extends SearchDelegate {
 class CalendarBodyView extends StatefulWidget {
   final String search;
   final _CalendarView view;
+  final CalendarFilter filter;
   final PagingController<int, List<MapEntry<String, Event>>> pagingController;
   const CalendarBodyView(
       {super.key,
       this.search = '',
+      this.filter = const CalendarFilter(),
       this.view = _CalendarView.list,
       required this.pagingController});
 
@@ -166,7 +172,7 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
   void initState() {
     super.initState();
 
-    _filter = const CalendarFilter();
+    _filter = widget.filter;
   }
 
   @override

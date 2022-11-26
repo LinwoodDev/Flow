@@ -164,6 +164,7 @@ class _EventGroupsBodyViewState extends State<EventGroupsBodyView> {
       pagingController: widget.pagingController,
       builderDelegate: PagedChildBuilderDelegate<MapEntry<EventGroup, String>>(
         itemBuilder: (ctx, item, index) => Align(
+          key: ValueKey('${item.key.id}@${item.value}'),
           alignment: Alignment.topCenter,
           child: Container(
             constraints: const BoxConstraints(maxWidth: 800),
