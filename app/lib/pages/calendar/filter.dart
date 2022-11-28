@@ -16,6 +16,7 @@ class CalendarFilter with _$CalendarFilter {
     String? source,
     int? group,
     int? place,
+    int? team,
     @Default(false) bool past,
   }) = _CalendarFilter;
 }
@@ -159,6 +160,46 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                 setState(() {
                   _filter = _filter.copyWith(
                       place: placeId.value, source: placeId.key);
+                });
+                widget.onChanged(_filter);
+              }
+            },
+          ),
+          InputChip(
+            label: Text(AppLocalizations.of(context)!.team),
+            avatar: Icon(Icons.groups_outlined,
+                color: _filter.team != null
+                    ? Theme.of(context).colorScheme.onPrimaryContainer
+                    : Theme.of(context).iconTheme.color),
+            selected: _filter.team != null,
+            selectedColor: Theme.of(context).colorScheme.primaryContainer,
+            labelStyle: TextStyle(
+                color: _filter.team != null
+                    ? Theme.of(context).colorScheme.onPrimaryContainer
+                    : null),
+            showCheckmark: false,
+            deleteIconColor: Theme.of(context).colorScheme.onPrimaryContainer,
+            onDeleted: _filter.team == null
+                ? null
+                : () {
+                    setState(() {
+                      _filter = _filter.copyWith(team: null, source: null);
+                    });
+                    widget.onChanged(_filter);
+                  },
+            onSelected: (value) async {
+              final teamId = await showDialog<MapEntry<String, int>>(
+                context: context,
+                builder: (context) => EventGroupDialog(
+                  selected: _filter.source != null && _filter.team != null
+                      ? MapEntry(_filter.source!, _filter.team!)
+                      : null,
+                ),
+              );
+              if (teamId != null) {
+                setState(() {
+                  _filter =
+                      _filter.copyWith(group: teamId.value, source: teamId.key);
                 });
                 widget.onChanged(_filter);
               }

@@ -4,29 +4,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/todo/model.dart';
-import 'package:shared/models/todo/service.dart';
 
-class EventTodoDialog extends StatefulWidget {
-  final String source;
-  final Event event;
+class TodoDialog extends StatefulWidget {
+  final String? source;
+  final Event? event;
   final Todo? todo;
-  const EventTodoDialog(
-      {super.key, required this.source, required this.event, this.todo});
+  const TodoDialog({super.key, this.source, this.event, this.todo});
 
   @override
-  State<EventTodoDialog> createState() => _EventTodoDialogState();
+  State<TodoDialog> createState() => _TodoDialogState();
 }
 
-class _EventTodoDialogState extends State<EventTodoDialog> {
+class _TodoDialogState extends State<TodoDialog> {
   late Todo _newTodo;
-  late final TodoService _todoService;
+  late String _newSource;
 
   @override
   void initState() {
     super.initState();
 
-    _todoService = context.read<FlowCubit>().getSource(widget.source).todo;
-    _newTodo = widget.todo ?? Todo(eventId: widget.event.id);
+    _newTodo = widget.todo ?? Todo(eventId: widget.event?.id);
+    _newSource = widget.source ?? '';
   }
 
   @override
@@ -59,6 +57,31 @@ class _EventTodoDialogState extends State<EventTodoDialog> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            if (widget.source == null) ...[
+              DropdownButtonFormField<String>(
+                value: _newSource,
+                items: context
+                    .read<FlowCubit>()
+                    .getCurrentSources()
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value.isEmpty
+                        ? AppLocalizations.of(context)!.local
+                        : value),
+                  );
+                }).toList(),
+                onChanged: (String? value) {
+                  _newSource = value ?? '';
+                },
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.source,
+                  icon: const Icon(Icons.storage_outlined),
+                  border: const OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
             TextFormField(
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context)!.name,
@@ -96,10 +119,12 @@ class _EventTodoDialogState extends State<EventTodoDialog> {
         ),
         ElevatedButton(
           onPressed: () {
+            final service =
+                context.read<FlowCubit>().getSource(_newSource).todo;
             if (widget.todo == null) {
-              _todoService.createTodo(_newTodo);
+              service.createTodo(_newTodo);
             } else {
-              _todoService.updateTodo(_newTodo);
+              service.updateTodo(_newTodo);
             }
             Navigator.of(context).pop();
           },

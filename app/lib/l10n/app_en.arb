@@ -159,5 +159,28 @@
       }
     }
   },
-  "priority": "Priority"
+  "priority": "Priority",
+  "assignEvent": "Assign event",
+  "noEvent": "No event",
+  "team": "Team",
+  "createTeam": "Create team",
+  "editTeam": "Edit team",
+  "deleteTeam": "Delete team {name}",
+  "@deleteTeam": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Team name"
+      }
+    }
+  },
+  "deleteTeamDescription": "Are you sure you want to delete the team {name}?",
+  "@deleteTeamDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Team name"
+      }
+    }
+  }
 }

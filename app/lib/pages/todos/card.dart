@@ -101,10 +101,18 @@ class _TodoCardState extends State<TodoCard> {
                   return Checkbox(
                     value: _newTodo.status.done,
                     tristate: true,
-                    onChanged: (value) {
+                    onChanged: (_) {
+                      bool? newState;
+                      if (_newTodo.status.done == null) {
+                        newState = true;
+                      } else if (_newTodo.status.done == true) {
+                        newState = false;
+                      } else {
+                        newState = null;
+                      }
                       setState(() {
                         _newTodo = _newTodo.copyWith(
-                            status: TodoStatusExtension.fromDone(value));
+                            status: TodoStatusExtension.fromDone(newState));
                         _updateTodo();
                       });
                     },
@@ -173,12 +181,13 @@ class _TodoCardState extends State<TodoCard> {
                 ),
               ),
               const SizedBox(width: 8),
-              if (widget.event != null)
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      if (widget.event != null) ...[
                         if (widget.source.isNotEmpty)
                           Text(
                             widget.source,
@@ -223,10 +232,39 @@ class _TodoCardState extends State<TodoCard> {
                             ]
                           ],
                         ),
-                      ],
-                    ),
+                      ] else ...[
+                        Wrap(
+                          alignment: WrapAlignment.spaceBetween,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!.noEvent,
+                              style: Theme.of(context).textTheme.caption,
+                            ),
+                            Wrap(
+                              children: [
+                                TextButton.icon(
+                                  onPressed: () async {},
+                                  icon: const Icon(Icons.add),
+                                  label: Text(AppLocalizations.of(context)!
+                                      .createEvent),
+                                ),
+                                TextButton.icon(
+                                  onPressed: () async {},
+                                  icon:
+                                      const Icon(Icons.calendar_month_outlined),
+                                  label: Text(AppLocalizations.of(context)!
+                                      .assignEvent),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ]
+                    ],
                   ),
                 ),
+              ),
             ]),
             const SizedBox(height: 16),
             TextFormField(

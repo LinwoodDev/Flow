@@ -12,7 +12,7 @@ import 'package:shared/models/todo/model.dart';
 import 'package:shared/models/todo/service.dart';
 
 import '../../widgets/date_time_field.dart';
-import 'todo.dart';
+import '../todos/todo.dart';
 
 class EventDialog extends StatelessWidget {
   final String? source;
@@ -346,9 +346,17 @@ class _EventTodosTabState extends State<_EventTodosTab> {
                             builder: (context, setState) => Checkbox(
                               value: status.done,
                               tristate: true,
-                              onChanged: (value) async {
+                              onChanged: (_) async {
+                                bool? newState;
+                                if (status.done == null) {
+                                  newState = true;
+                                } else if (status.done == true) {
+                                  newState = false;
+                                } else {
+                                  newState = null;
+                                }
                                 final next =
-                                    TodoStatusExtension.fromDone(value);
+                                    TodoStatusExtension.fromDone(newState);
                                 _todoService
                                     .updateTodo(item.copyWith(status: next));
                                 setState(() => status = next);
@@ -358,7 +366,7 @@ class _EventTodosTabState extends State<_EventTodosTab> {
                           onTap: () async {
                             await showDialog<Todo>(
                               context: context,
-                              builder: (context) => EventTodoDialog(
+                              builder: (context) => TodoDialog(
                                 source: widget.source,
                                 event: widget.event,
                                 todo: item,
@@ -383,7 +391,7 @@ class _EventTodosTabState extends State<_EventTodosTab> {
               onPressed: () async {
                 await showDialog<Todo>(
                   context: context,
-                  builder: (context) => EventTodoDialog(
+                  builder: (context) => TodoDialog(
                     event: widget.event,
                     source: widget.source,
                   ),

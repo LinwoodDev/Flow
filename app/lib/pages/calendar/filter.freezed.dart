@@ -20,6 +20,7 @@ mixin _$CalendarFilter {
   String? get source => throw _privateConstructorUsedError;
   int? get group => throw _privateConstructorUsedError;
   int? get place => throw _privateConstructorUsedError;
+  int? get team => throw _privateConstructorUsedError;
   bool get past => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -38,6 +39,7 @@ abstract class $CalendarFilterCopyWith<$Res> {
       String? source,
       int? group,
       int? place,
+      int? team,
       bool past});
 }
 
@@ -58,6 +60,7 @@ class _$CalendarFilterCopyWithImpl<$Res, $Val extends CalendarFilter>
     Object? source = freezed,
     Object? group = freezed,
     Object? place = freezed,
+    Object? team = freezed,
     Object? past = null,
   }) {
     return _then(_value.copyWith(
@@ -76,6 +79,10 @@ class _$CalendarFilterCopyWithImpl<$Res, $Val extends CalendarFilter>
       place: freezed == place
           ? _value.place
           : place // ignore: cast_nullable_to_non_nullable
+              as int?,
+      team: freezed == team
+          ? _value.team
+          : team // ignore: cast_nullable_to_non_nullable
               as int?,
       past: null == past
           ? _value.past
@@ -98,6 +105,7 @@ abstract class _$$_CalendarFilterCopyWith<$Res>
       String? source,
       int? group,
       int? place,
+      int? team,
       bool past});
 }
 
@@ -116,6 +124,7 @@ class __$$_CalendarFilterCopyWithImpl<$Res>
     Object? source = freezed,
     Object? group = freezed,
     Object? place = freezed,
+    Object? team = freezed,
     Object? past = null,
   }) {
     return _then(_$_CalendarFilter(
@@ -134,6 +143,10 @@ class __$$_CalendarFilterCopyWithImpl<$Res>
       place: freezed == place
           ? _value.place
           : place // ignore: cast_nullable_to_non_nullable
+              as int?,
+      team: freezed == team
+          ? _value.team
+          : team // ignore: cast_nullable_to_non_nullable
               as int?,
       past: null == past
           ? _value.past
@@ -154,6 +167,7 @@ class _$_CalendarFilter implements _CalendarFilter {
       this.source,
       this.group,
       this.place,
+      this.team,
       this.past = false})
       : _hiddenStatuses = hiddenStatuses;
 
@@ -172,12 +186,14 @@ class _$_CalendarFilter implements _CalendarFilter {
   @override
   final int? place;
   @override
+  final int? team;
+  @override
   @JsonKey()
   final bool past;
 
   @override
   String toString() {
-    return 'CalendarFilter(hiddenStatuses: $hiddenStatuses, source: $source, group: $group, place: $place, past: $past)';
+    return 'CalendarFilter(hiddenStatuses: $hiddenStatuses, source: $source, group: $group, place: $place, team: $team, past: $past)';
   }
 
   @override
@@ -190,6 +206,7 @@ class _$_CalendarFilter implements _CalendarFilter {
             (identical(other.source, source) || other.source == source) &&
             (identical(other.group, group) || other.group == group) &&
             (identical(other.place, place) || other.place == place) &&
+            (identical(other.team, team) || other.team == team) &&
             (identical(other.past, past) || other.past == past));
   }
 
@@ -200,6 +217,7 @@ class _$_CalendarFilter implements _CalendarFilter {
       source,
       group,
       place,
+      team,
       past);
 
   @JsonKey(ignore: true)
@@ -215,6 +233,7 @@ abstract class _CalendarFilter implements CalendarFilter {
       final String? source,
       final int? group,
       final int? place,
+      final int? team,
       final bool past}) = _$_CalendarFilter;
 
   @override
@@ -225,6 +244,8 @@ abstract class _CalendarFilter implements CalendarFilter {
   int? get group;
   @override
   int? get place;
+  @override
+  int? get team;
   @override
   bool get past;
   @override

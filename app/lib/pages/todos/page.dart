@@ -1,3 +1,4 @@
+import 'package:flow/pages/todos/todo.dart';
 import 'package:flow/pages/todos/filter.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,14 @@ class _TodosPageState extends State<TodosPage> {
       ],
       body: TodosBodyView(
         pagingController: _pagingController,
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => showDialog(
+          context: context,
+          builder: (context) => const TodoDialog(),
+        ).then((value) => _pagingController.refresh()),
+        label: Text(AppLocalizations.of(context)!.create),
+        icon: const Icon(Icons.add_outlined),
       ),
     );
   }
