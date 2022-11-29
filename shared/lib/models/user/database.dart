@@ -24,28 +24,3 @@ class UserDatabaseService extends UserService with TableService {
   @override
   FutureOr<void> migrate(Database db, int version) {}
 }
-
-class UserGroupDatabaseService extends UserGroupService with TableService {
-  UserGroupDatabaseService();
-
-  @override
-  Future<void> create(Database db) async {
-    await db.execute("""
-      CREATE TABLE IF NOT EXISTS userGroups (
-        id INTEGER PRIMARY KEY,
-        name VARCHAR(100) NOT NULL DEFAULT '',
-        description TEXT
-      )
-    """);
-    await db.execute("""
-      CREATE TABLE IF NOT EXISTS userGroupMembers (
-        id INTEGER PRIMARY KEY,
-        groupId INTEGER,
-        userId INTEGER
-      )
-    """);
-  }
-
-  @override
-  FutureOr<void> migrate(Database db, int version) {}
-}

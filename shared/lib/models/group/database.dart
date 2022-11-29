@@ -6,15 +6,15 @@ import 'package:sqflite_common/sqlite_api.dart';
 import 'model.dart';
 import 'service.dart';
 
-class TeamDatabaseService extends TeamService with TableService {
+class GroupDatabaseService extends GroupService with TableService {
   @override
   Future<void> create(Database db) {
     return db.execute("""
-      CREATE TABLE IF NOT EXISTS teams (
+      CREATE TABLE IF NOT EXISTS groups (
         id INTEGER PRIMARY KEY,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT,
-        address TEXT
+        parentId INTEGER
       )
     """);
   }
@@ -23,16 +23,16 @@ class TeamDatabaseService extends TeamService with TableService {
   FutureOr<void> migrate(Database db, int version) {}
 
   @override
-  FutureOr<Team?> createTeam(Team team) async {
-    final id = await db?.insert('teams', team.toJson()..remove('id'));
+  Future<Group?> createGroup(Group group) async {
+    final id = await db?.insert('groups', group.toJson()..remove('id'));
     if (id == null) return null;
-    return team.copyWith(id: id);
+    return group.copyWith(id: id);
   }
 
   @override
-  FutureOr<bool> deleteTeam(int id) async {
+  Future<bool> deleteGroup(int id) async {
     return await db?.delete(
-          'teams',
+          'groups',
           where: 'id = ?',
           whereArgs: [id],
         ) ==
@@ -40,28 +40,39 @@ class TeamDatabaseService extends TeamService with TableService {
   }
 
   @override
-  FutureOr<List<Team>> getTeams(
+  Future<List<Group>> getGroups(
       {int offset = 0, int limit = 50, String search = ''}) async {
     final where = search.isEmpty ? null : 'name LIKE ?';
     final whereArgs = search.isEmpty ? null : ['%$search%'];
     final result = await db?.query(
-      'teams',
+      'groups',
       limit: limit,
       offset: offset,
       where: where,
       whereArgs: whereArgs,
     );
     if (result == null) return [];
-    return result.map((row) => Team.fromJson(row)).toList();
+    return result.map((row) => Group.fromJson(row)).toList();
   }
 
   @override
-  FutureOr<bool> updateTeam(Team team) async {
+  Future<Group?> getGroup(int id) async {
+    final result = await db?.query(
+      'groups',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    if (result == null) return null;
+    return result.map((row) => Group.fromJson(row)).first;
+  }
+
+  @override
+  Future<bool> updateGroup(Group group) async {
     return await db?.update(
-          'teams',
-          team.toJson()..remove('id'),
+          'groups',
+          group.toJson()..remove('id'),
           where: 'id = ?',
-          whereArgs: [team.id],
+          whereArgs: [group.id],
         ) ==
         1;
   }

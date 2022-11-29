@@ -23,14 +23,14 @@ class PlaceDatabaseService extends PlaceService with TableService {
   FutureOr<void> migrate(Database db, int version) {}
 
   @override
-  FutureOr<Place?> createPlace(Place place) async {
+  Future<Place?> createPlace(Place place) async {
     final id = await db?.insert('places', place.toJson()..remove('id'));
     if (id == null) return null;
     return place.copyWith(id: id);
   }
 
   @override
-  FutureOr<bool> deletePlace(int id) async {
+  Future<bool> deletePlace(int id) async {
     return await db?.delete(
           'places',
           where: 'id = ?',
@@ -40,7 +40,7 @@ class PlaceDatabaseService extends PlaceService with TableService {
   }
 
   @override
-  FutureOr<List<Place>> getPlaces(
+  Future<List<Place>> getPlaces(
       {int offset = 0, int limit = 50, String search = ''}) async {
     final where = search.isEmpty ? null : 'name LIKE ?';
     final whereArgs = search.isEmpty ? null : ['%$search%'];
@@ -56,7 +56,7 @@ class PlaceDatabaseService extends PlaceService with TableService {
   }
 
   @override
-  FutureOr<bool> updatePlace(Place place) async {
+  Future<bool> updatePlace(Place place) async {
     return await db?.update(
           'places',
           place.toJson()..remove('id'),

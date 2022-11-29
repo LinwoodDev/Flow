@@ -37,38 +37,6 @@ const _$EventStatusEnumMap = {
   EventStatus.cancelled: 'cancelled',
 };
 
-_$_EventGroup _$$_EventGroupFromJson(Map<String, dynamic> json) =>
-    _$_EventGroup(
-      id: json['id'] as int? ?? -1,
-      name: json['name'] as String? ?? '',
-      description: json['description'] as String? ?? '',
-      open: json['open'] as bool? ?? true,
-      image: _$JsonConverterFromJson<List<int>, Uint8List>(
-          json['image'], const Uint8ListConverter().fromJson),
-    );
-
-Map<String, dynamic> _$$_EventGroupToJson(_$_EventGroup instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'open': instance.open,
-      'image': _$JsonConverterToJson<List<int>, Uint8List>(
-          instance.image, const Uint8ListConverter().toJson),
-    };
-
-Value? _$JsonConverterFromJson<Json, Value>(
-  Object? json,
-  Value? Function(Json json) fromJson,
-) =>
-    json == null ? null : fromJson(json as Json);
-
-Json? _$JsonConverterToJson<Json, Value>(
-  Value? value,
-  Json? Function(Value value) toJson,
-) =>
-    value == null ? null : toJson(value);
-
 _$_Repetition _$$_RepetitionFromJson(Map<String, dynamic> json) =>
     _$_Repetition(
       id: json['id'] as int? ?? -1,

@@ -34,11 +34,6 @@ List _getNavigationItems(BuildContext context) => [
         "link": "/places"
       },
       {
-        "title": AppLocalizations.of(context)!.teams,
-        "icon": Icons.groups_outlined,
-        "link": "/teams"
-      },
-      {
         "title": AppLocalizations.of(context)!.users,
         "icon": Icons.people_outlined,
         "link": "/users"

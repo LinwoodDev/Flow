@@ -1,6 +1,6 @@
 import 'package:flow/helpers/event.dart';
-import 'package:flow/pages/calendar/group.dart';
-import 'package:flow/pages/calendar/place.dart';
+import 'package:flow/pages/groups/select.dart';
+import 'package:flow/pages/places/select.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared/models/event/model.dart';
@@ -110,7 +110,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
             onSelected: (value) async {
               final groupId = await showDialog<MapEntry<String, int>>(
                 context: context,
-                builder: (context) => EventGroupDialog(
+                builder: (context) => GroupSelectDialog(
                   selected: _filter.source != null && _filter.group != null
                       ? MapEntry(_filter.source!, _filter.group!)
                       : null,
@@ -150,7 +150,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
             onSelected: (value) async {
               final placeId = await showDialog<MapEntry<String, int>>(
                 context: context,
-                builder: (context) => EventPlaceDialog(
+                builder: (context) => PlaceSelectDialog(
                   selected: _filter.place != null
                       ? MapEntry(_filter.source!, _filter.group!)
                       : null,
@@ -160,46 +160,6 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                 setState(() {
                   _filter = _filter.copyWith(
                       place: placeId.value, source: placeId.key);
-                });
-                widget.onChanged(_filter);
-              }
-            },
-          ),
-          InputChip(
-            label: Text(AppLocalizations.of(context)!.team),
-            avatar: Icon(Icons.groups_outlined,
-                color: _filter.team != null
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : Theme.of(context).iconTheme.color),
-            selected: _filter.team != null,
-            selectedColor: Theme.of(context).colorScheme.primaryContainer,
-            labelStyle: TextStyle(
-                color: _filter.team != null
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : null),
-            showCheckmark: false,
-            deleteIconColor: Theme.of(context).colorScheme.onPrimaryContainer,
-            onDeleted: _filter.team == null
-                ? null
-                : () {
-                    setState(() {
-                      _filter = _filter.copyWith(team: null, source: null);
-                    });
-                    widget.onChanged(_filter);
-                  },
-            onSelected: (value) async {
-              final teamId = await showDialog<MapEntry<String, int>>(
-                context: context,
-                builder: (context) => EventGroupDialog(
-                  selected: _filter.source != null && _filter.team != null
-                      ? MapEntry(_filter.source!, _filter.team!)
-                      : null,
-                ),
-              );
-              if (teamId != null) {
-                setState(() {
-                  _filter =
-                      _filter.copyWith(group: teamId.value, source: teamId.key);
                 });
                 widget.onChanged(_filter);
               }

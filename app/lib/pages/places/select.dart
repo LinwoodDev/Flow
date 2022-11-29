@@ -6,21 +6,21 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/place/model.dart';
 import 'package:shared/services/source.dart';
 
-class EventPlaceDialog extends StatefulWidget {
+class PlaceSelectDialog extends StatefulWidget {
   final String? source;
   final MapEntry<String, int>? selected;
 
-  const EventPlaceDialog({
+  const PlaceSelectDialog({
     super.key,
     this.source,
     this.selected,
   });
 
   @override
-  State<EventPlaceDialog> createState() => _EventPlaceDialogState();
+  State<PlaceSelectDialog> createState() => _PlaceSelectDialogState();
 }
 
-class _EventPlaceDialogState extends State<EventPlaceDialog> {
+class _PlaceSelectDialogState extends State<PlaceSelectDialog> {
   static const _pageSize = 20;
   final TextEditingController _controller = TextEditingController();
   final PagingController<int, MapEntry<String, Place>> _pagingController =

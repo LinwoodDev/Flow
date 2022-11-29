@@ -2,21 +2,23 @@ import 'package:flow/cubits/flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared/models/event/model.dart';
+import 'package:shared/models/group/model.dart';
+
+import 'select.dart';
 
 class GroupDialog extends StatelessWidget {
   final String? source;
-  final EventGroup? eventGroup;
+  final Group? group;
 
-  const GroupDialog({super.key, this.eventGroup, this.source});
+  const GroupDialog({super.key, this.group, this.source});
 
   @override
   Widget build(BuildContext context) {
-    var eventGroup = this.eventGroup ?? const EventGroup();
+    var group = this.group ?? const Group();
     var currentSource = source ?? '';
-    final nameController = TextEditingController(text: eventGroup.name);
+    final nameController = TextEditingController(text: group.name);
     final descriptionController =
-        TextEditingController(text: eventGroup.description);
+        TextEditingController(text: group.description);
     return AlertDialog(
       title: Text(source == null
           ? AppLocalizations.of(context)!.createGroup
@@ -48,6 +50,34 @@ class GroupDialog extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
+          ] else ...[
+            StatefulBuilder(
+                builder: (context, setState) => ListTile(
+                      title: Text(AppLocalizations.of(context)!.parentGroup),
+                      subtitle: Text(group.parentId.toString()),
+                      onTap: () async {
+                        final groupId = await showDialog<MapEntry<String, int>>(
+                          context: context,
+                          builder: (context) => GroupSelectDialog(
+                            source: currentSource,
+                            ignore: group.id,
+                          ),
+                        );
+                        if (groupId != null) {
+                          setState(() =>
+                              group = group.copyWith(parentId: groupId.value));
+                        }
+                      },
+                      trailing: group.parentId != null
+                          ? IconButton(
+                              icon: const Icon(Icons.clear),
+                              onPressed: () {
+                                setState(() =>
+                                    group = group.copyWith(parentId: null));
+                              },
+                            )
+                          : null,
+                    )),
           ],
           TextField(
             decoration: InputDecoration(
@@ -57,7 +87,7 @@ class GroupDialog extends StatelessWidget {
             ),
             controller: nameController,
             onChanged: (value) {
-              eventGroup = eventGroup.copyWith(name: value);
+              group = group.copyWith(name: value);
             },
           ),
           const SizedBox(height: 16),
@@ -71,7 +101,7 @@ class GroupDialog extends StatelessWidget {
             minLines: 3,
             maxLines: 5,
             onChanged: (value) {
-              eventGroup = eventGroup.copyWith(description: value);
+              group = group.copyWith(description: value);
             },
           )
         ]),
@@ -89,16 +119,16 @@ class GroupDialog extends StatelessWidget {
               context
                   .read<FlowCubit>()
                   .getSource(currentSource)
-                  .eventGroup
-                  .createGroup(eventGroup);
+                  .group
+                  .createGroup(group);
             } else {
               context
                   .read<FlowCubit>()
                   .getSource(source!)
-                  .eventGroup
-                  .updateGroup(eventGroup);
+                  .group
+                  .updateGroup(group);
             }
-            Navigator.of(context).pop(eventGroup);
+            Navigator.of(context).pop(group);
           },
           child: Text(AppLocalizations.of(context)!.save),
         ),

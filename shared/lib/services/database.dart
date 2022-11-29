@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:shared/models/event/database.dart';
-import 'package:shared/models/place/database.dart';
-import 'package:shared/models/team/database.dart';
-import 'package:shared/models/user/database.dart';
 import 'package:shared/services/source.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
+import '../models/event/database.dart';
+import '../models/place/database.dart';
+import '../models/user/database.dart';
+import '../models/group/database.dart';
 import '../models/todo/database.dart';
 
 typedef DatabaseFactory = Future<Database> Function({
@@ -22,16 +22,12 @@ class DatabaseService extends SourceService {
   @override
   late final EventDatabaseService event;
   @override
-  late final EventGroupDatabaseService eventGroup;
-  @override
   late final TodoDatabaseService todo;
   @override
-  late final TeamDatabaseService team;
+  late final GroupDatabaseService group;
 
   @override
   late final UserDatabaseService user;
-  @override
-  late final UserGroupDatabaseService userGroup;
   @override
   late final PlaceDatabaseService place;
 
@@ -41,13 +37,11 @@ class DatabaseService extends SourceService {
 
   Future<void> setup() async {
     event = EventDatabaseService();
-    eventGroup = EventGroupDatabaseService();
     todo = TodoDatabaseService();
     place = PlaceDatabaseService();
-    team = TeamDatabaseService();
+    group = GroupDatabaseService();
 
     user = UserDatabaseService();
-    userGroup = UserGroupDatabaseService();
 
     db = await databaseFactory(
         version: databaseVersion, onUpgrade: _onUpgrade, onCreate: _onCreate);

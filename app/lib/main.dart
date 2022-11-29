@@ -20,7 +20,6 @@ import 'pages/sources/page.dart';
 import 'pages/places/page.dart';
 import 'pages/groups/page.dart';
 import 'pages/settings/page.dart';
-import 'pages/teams/page.dart';
 import 'pages/users/page.dart';
 
 import 'pages/todos/page.dart';
@@ -121,19 +120,13 @@ class FlowApp extends StatelessWidget {
             GoRoute(
               path: '/groups',
               pageBuilder: _fadeTransitionBuilder(
-                (context, state) => const EventGroupsPage(),
+                (context, state) => const GroupsPage(),
               ),
             ),
             GoRoute(
               path: '/todos',
               pageBuilder: _fadeTransitionBuilder(
                 (context, state) => const TodosPage(),
-              ),
-            ),
-            GoRoute(
-              path: '/teams',
-              pageBuilder: _fadeTransitionBuilder(
-                (context, state) => const TeamsPage(),
               ),
             ),
             GoRoute(

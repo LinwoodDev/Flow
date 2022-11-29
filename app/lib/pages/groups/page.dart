@@ -4,22 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:shared/models/event/model.dart';
+import 'package:shared/models/group/model.dart';
 
 import '../../cubits/flow.dart';
 import 'tile.dart';
 
-class EventGroupsPage extends StatefulWidget {
-  const EventGroupsPage({
+class GroupsPage extends StatefulWidget {
+  const GroupsPage({
     super.key,
   });
 
   @override
-  _EventGroupsPageState createState() => _EventGroupsPageState();
+  _GroupsPageState createState() => _GroupsPageState();
 }
 
-class _EventGroupsPageState extends State<EventGroupsPage> {
-  final PagingController<int, MapEntry<EventGroup, String>> _pagingController =
+class _GroupsPageState extends State<GroupsPage> {
+  final PagingController<int, MapEntry<Group, String>> _pagingController =
       PagingController(firstPageKey: 0);
   @override
   void dispose() {
@@ -34,11 +34,11 @@ class _EventGroupsPageState extends State<EventGroupsPage> {
       actions: [
         IconButton(
           icon: const Icon(Icons.search_outlined),
-          onPressed: () => showSearch(
-              context: context, delegate: _EventGroupsSearchDelegate()),
+          onPressed: () =>
+              showSearch(context: context, delegate: _GroupsSearchDelegate()),
         ),
       ],
-      body: EventGroupsBodyView(pagingController: _pagingController),
+      body: GroupsBodyView(pagingController: _pagingController),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
                 context: context, builder: (context) => const GroupDialog())
@@ -50,8 +50,8 @@ class _EventGroupsPageState extends State<EventGroupsPage> {
   }
 }
 
-class _EventGroupsSearchDelegate extends SearchDelegate {
-  final PagingController<int, MapEntry<EventGroup, String>> _pagingController =
+class _GroupsSearchDelegate extends SearchDelegate {
+  final PagingController<int, MapEntry<Group, String>> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
@@ -79,7 +79,7 @@ class _EventGroupsSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     _pagingController.refresh();
-    return EventGroupsBodyView(
+    return GroupsBodyView(
       pagingController: _pagingController,
       search: query,
     );
@@ -91,21 +91,21 @@ class _EventGroupsSearchDelegate extends SearchDelegate {
   }
 }
 
-class EventGroupsBodyView extends StatefulWidget {
-  final PagingController<int, MapEntry<EventGroup, String>> pagingController;
+class GroupsBodyView extends StatefulWidget {
+  final PagingController<int, MapEntry<Group, String>> pagingController;
   final String search;
 
-  const EventGroupsBodyView({
+  const GroupsBodyView({
     super.key,
     required this.pagingController,
     this.search = '',
   });
 
   @override
-  State<EventGroupsBodyView> createState() => _EventGroupsBodyViewState();
+  State<GroupsBodyView> createState() => _GroupsBodyViewState();
 }
 
-class _EventGroupsBodyViewState extends State<EventGroupsBodyView> {
+class _GroupsBodyViewState extends State<GroupsBodyView> {
   static const _pageSize = 20;
   late final FlowCubit _flowCubit;
 
@@ -123,7 +123,7 @@ class _EventGroupsBodyViewState extends State<EventGroupsBodyView> {
   }
 
   @override
-  void didUpdateWidget(covariant EventGroupsBodyView oldWidget) {
+  void didUpdateWidget(covariant GroupsBodyView oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.search != widget.search) {
@@ -134,24 +134,24 @@ class _EventGroupsBodyViewState extends State<EventGroupsBodyView> {
   Future<void> _fetchPage(int pageKey) async {
     try {
       final sources = _flowCubit.getCurrentServicesMap().entries;
-      final todos = <MapEntry<EventGroup, String>>[];
+      final groups = <MapEntry<Group, String>>[];
       var isLast = false;
       for (final source in sources) {
-        final fetched = await source.value.eventGroup.getGroups(
+        final fetched = await source.value.group.getGroups(
           offset: pageKey * _pageSize,
           limit: _pageSize,
           search: widget.search,
         );
-        todos.addAll(fetched.map((todo) => MapEntry(todo, source.key)));
+        groups.addAll(fetched.map((todo) => MapEntry(todo, source.key)));
         if (fetched.length < _pageSize) {
           isLast = true;
         }
       }
       if (isLast) {
-        widget.pagingController.appendLastPage(todos);
+        widget.pagingController.appendLastPage(groups);
       } else {
         final nextPageKey = pageKey + 1;
-        widget.pagingController.appendPage(todos, nextPageKey);
+        widget.pagingController.appendPage(groups, nextPageKey);
       }
     } catch (error) {
       widget.pagingController.error = error;
@@ -162,7 +162,7 @@ class _EventGroupsBodyViewState extends State<EventGroupsBodyView> {
   Widget build(BuildContext context) {
     return PagedListView(
       pagingController: widget.pagingController,
-      builderDelegate: PagedChildBuilderDelegate<MapEntry<EventGroup, String>>(
+      builderDelegate: PagedChildBuilderDelegate<MapEntry<Group, String>>(
         itemBuilder: (ctx, item, index) => Align(
           key: ValueKey('${item.key.id}@${item.value}'),
           alignment: Alignment.topCenter,
@@ -173,18 +173,18 @@ class _EventGroupsBodyViewState extends State<EventGroupsBodyView> {
               onDismissed: (direction) async {
                 await _flowCubit
                     .getSource(item.value)
-                    .eventGroup
+                    .group
                     .deleteGroup(item.key.id);
                 widget.pagingController.itemList!.remove(item);
               },
               background: Container(
                 color: Colors.red,
               ),
-              child: EventGroupTile(
+              child: GroupTile(
                 flowCubit: _flowCubit,
                 pagingController: widget.pagingController,
                 source: item.value,
-                eventGroup: item.key,
+                group: item.key,
               ),
             ),
           ),

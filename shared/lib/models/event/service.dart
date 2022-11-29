@@ -24,19 +24,3 @@ abstract class EventService extends ModelService {
 
   FutureOr<bool> deleteEvent(int id);
 }
-
-abstract class EventGroupService extends ModelService {
-  FutureOr<EventGroup?> getGroup(int id);
-
-  FutureOr<List<EventGroup>> getGroups({
-    String search = '',
-    int limit = 50,
-    int offset = 0,
-  });
-
-  FutureOr<EventGroup?> createGroup(EventGroup group);
-
-  FutureOr<bool> updateGroup(EventGroup group);
-
-  FutureOr<bool> deleteGroup(int id);
-}

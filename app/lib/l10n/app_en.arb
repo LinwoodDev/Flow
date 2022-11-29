@@ -135,7 +135,6 @@
   "group": "Group",
   "search": "Search",
   "events": "Events",
-  "teams": "Teams",
   "past": "Past",
   "decentralized": "Decentralized",
   "decentralizedDescription": "The decentralized interface allows you to access your data from any decentralized server. You can use it to synchronize your data with other devices or services.",
@@ -162,25 +161,5 @@
   "priority": "Priority",
   "assignEvent": "Assign event",
   "noEvent": "No event",
-  "team": "Team",
-  "createTeam": "Create team",
-  "editTeam": "Edit team",
-  "deleteTeam": "Delete team {name}",
-  "@deleteTeam": {
-    "placeholders": {
-      "name": {
-        "type": "String",
-        "example": "Team name"
-      }
-    }
-  },
-  "deleteTeamDescription": "Are you sure you want to delete the team {name}?",
-  "@deleteTeamDescription": {
-    "placeholders": {
-      "name": {
-        "type": "String",
-        "example": "Team name"
-      }
-    }
-  }
+  "parentGroup": "Parent group"
 }

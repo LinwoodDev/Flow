@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared/helpers/converter.dart';
 
@@ -27,20 +25,6 @@ enum EventStatus {
   confirmed,
   draft,
   cancelled,
-}
-
-@freezed
-class EventGroup with _$EventGroup {
-  const factory EventGroup({
-    @Default(-1) int id,
-    @Default('') String name,
-    @Default('') String description,
-    @Default(true) bool open,
-    @Uint8ListConverter() Uint8List? image,
-  }) = _EventGroup;
-
-  factory EventGroup.fromJson(Map<String, dynamic> json) =>
-      _$EventGroupFromJson(json);
 }
 
 enum RepeatType {

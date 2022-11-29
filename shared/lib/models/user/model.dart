@@ -16,15 +16,3 @@ class User with _$User {
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }
-
-@freezed
-class UserGroup with _$UserGroup {
-  const factory UserGroup({
-    @Default(-1) int id,
-    @Default('') String name,
-    @Default('') String description,
-  }) = _UserGroup;
-
-  factory UserGroup.fromJson(Map<String, dynamic> json) =>
-      _$UserGroupFromJson(json);
-}

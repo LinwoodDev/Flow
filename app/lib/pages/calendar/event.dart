@@ -1,6 +1,6 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/event.dart';
-import 'package:flow/pages/calendar/group.dart';
+import 'package:flow/pages/groups/select.dart';
 import 'package:flow/widgets/indicators/empty.dart';
 import 'package:flow/widgets/indicators/error.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/event/model.dart';
+import 'package:shared/models/group/model.dart';
 import 'package:shared/models/todo/model.dart';
 import 'package:shared/models/todo/service.dart';
 
@@ -154,7 +155,7 @@ class EventDialog extends StatelessWidget {
                                             MapEntry<String, int>>(
                                           context: context,
                                           builder: (context) =>
-                                              EventGroupDialog(
+                                              GroupSelectDialog(
                                             selected: event.groupId == null
                                                 ? null
                                                 : MapEntry(
@@ -171,11 +172,11 @@ class EventDialog extends StatelessWidget {
                                       },
                                       subtitle: event.groupId == null
                                           ? null
-                                          : FutureBuilder<EventGroup?>(
+                                          : FutureBuilder<Group?>(
                                               future: Future.value(context
                                                   .read<FlowCubit>()
                                                   .getSource(source!)
-                                                  .eventGroup
+                                                  .group
                                                   .getGroup(
                                                       event.groupId ?? -1)),
                                               builder: (context, snapshot) {

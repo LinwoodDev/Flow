@@ -1,38 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:shared/models/event/model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared/models/group/model.dart';
 
 import '../../cubits/flow.dart';
 import '../calendar/filter.dart';
 import 'group.dart';
 
-class EventGroupTile extends StatelessWidget {
-  const EventGroupTile({
+class GroupTile extends StatelessWidget {
+  const GroupTile({
     Key? key,
     required this.source,
-    required this.eventGroup,
+    required this.group,
     required this.flowCubit,
     required this.pagingController,
   }) : super(key: key);
 
   final FlowCubit flowCubit;
-  final EventGroup eventGroup;
+  final Group group;
   final String source;
-  final PagingController<int, MapEntry<EventGroup, String>> pagingController;
+  final PagingController<int, MapEntry<Group, String>> pagingController;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(eventGroup.name),
-      subtitle: Text(eventGroup.description),
+      title: Text(group.name),
+      subtitle: Text(group.description),
       onTap: () => _editGroup(context),
       trailing: PopupMenuButton<Function>(
         itemBuilder: (ctx) => <dynamic>[
           [
             Icons.calendar_month_outlined,
             AppLocalizations.of(context)!.events,
+            _openEvents,
+          ],
+          [
+            Icons.people_outlined,
+            AppLocalizations.of(context)!.users,
             _openEvents,
           ],
           [
@@ -61,9 +66,9 @@ class EventGroupTile extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.deleteGroup(eventGroup.name)),
-        content: Text(AppLocalizations.of(context)!
-            .deleteGroupDescription(eventGroup.name)),
+        title: Text(AppLocalizations.of(context)!.deleteGroup(group.name)),
+        content: Text(
+            AppLocalizations.of(context)!.deleteGroupDescription(group.name)),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -74,12 +79,9 @@ class EventGroupTile extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               Navigator.of(context).pop();
-              await flowCubit
-                  .getSource(source)
-                  .eventGroup
-                  .deleteGroup(eventGroup.id);
+              await flowCubit.getSource(source).group.deleteGroup(group.id);
               pagingController.itemList!.remove(MapEntry(
-                eventGroup,
+                group,
                 source,
               ));
               pagingController.refresh();
@@ -97,7 +99,7 @@ class EventGroupTile extends StatelessWidget {
     GoRouter.of(context).go(
       "/calendar",
       extra: CalendarFilter(
-        group: eventGroup.id,
+        group: group.id,
         source: source,
       ),
     );
@@ -107,7 +109,7 @@ class EventGroupTile extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => GroupDialog(
-        eventGroup: eventGroup,
+        group: group,
         source: source,
       ),
     ).then((value) => pagingController.refresh());
