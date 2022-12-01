@@ -58,7 +58,7 @@ dev_dependencies:
   flutter_native_splash: ^2.2.16
   flutter_test:
     sdk: flutter
-  freezed: ^2.2.1
+  freezed: ^2.3.0
   json_serializable: ^6.5.4
 dependency_overrides:
   test_api: ^0.4.15

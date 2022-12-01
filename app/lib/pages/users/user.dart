@@ -1,29 +1,26 @@
-import 'package:flow/cubits/flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared/models/group/model.dart';
+import 'package:shared/models/user/model.dart';
 
-class GroupDialog extends StatelessWidget {
+import '../../cubits/flow.dart';
+
+class UserDialog extends StatelessWidget {
   final String? source;
-  final Group? group;
-
-  const GroupDialog({super.key, this.group, this.source});
+  final User? user;
+  const UserDialog({super.key, this.source, this.user});
 
   @override
   Widget build(BuildContext context) {
-    var group = this.group ?? const Group();
+    var user = this.user ?? const User();
     var currentSource = source ?? '';
-    final nameController = TextEditingController(text: group.name);
-    final descriptionController =
-        TextEditingController(text: group.description);
     return AlertDialog(
       title: Text(source == null
-          ? AppLocalizations.of(context)!.createGroup
-          : AppLocalizations.of(context)!.editGroup),
+          ? AppLocalizations.of(context)!.createUser
+          : AppLocalizations.of(context)!.editUser),
       content: SizedBox(
         width: 500,
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
+        child: Column(children: [
           if (source == null) ...[
             DropdownButtonFormField<String>(
               value: source,
@@ -49,38 +46,37 @@ class GroupDialog extends StatelessWidget {
             ),
             const SizedBox(height: 16),
           ],
-          TextField(
+          TextFormField(
             decoration: InputDecoration(
-              filled: true,
               labelText: AppLocalizations.of(context)!.name,
+              filled: true,
               icon: const Icon(Icons.folder_outlined),
             ),
-            controller: nameController,
+            initialValue: user.name,
             onChanged: (value) {
-              group = group.copyWith(name: value);
+              user = user.copyWith(name: value);
             },
           ),
           const SizedBox(height: 16),
-          TextField(
+          TextFormField(
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context)!.description,
               border: const OutlineInputBorder(),
               icon: const Icon(Icons.description_outlined),
             ),
-            controller: descriptionController,
             minLines: 3,
             maxLines: 5,
+            initialValue: user.description,
             onChanged: (value) {
-              group = group.copyWith(description: value);
+              user = user.copyWith(description: value);
             },
           )
         ]),
       ),
+      scrollable: true,
       actions: [
         TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+          onPressed: () => Navigator.of(context).pop(),
           child: Text(AppLocalizations.of(context)!.cancel),
         ),
         ElevatedButton(
@@ -89,18 +85,18 @@ class GroupDialog extends StatelessWidget {
               context
                   .read<FlowCubit>()
                   .getSource(currentSource)
-                  .group
-                  .createGroup(group);
+                  .user
+                  .createUser(user);
             } else {
               context
                   .read<FlowCubit>()
                   .getSource(source!)
-                  .group
-                  .updateGroup(group);
+                  .user
+                  .updateUser(user);
             }
-            Navigator.of(context).pop(group);
+            Navigator.of(context).pop(user);
           },
-          child: Text(AppLocalizations.of(context)!.save),
+          child: Text(AppLocalizations.of(context)!.create),
         ),
       ],
     );

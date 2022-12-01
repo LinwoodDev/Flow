@@ -161,5 +161,25 @@
   "priority": "Priority",
   "assignEvent": "Assign event",
   "noEvent": "No event",
-  "parentGroup": "Parent group"
+  "parentGroup": "Parent group",
+  "deleteUser": "Delete user {name}",
+  "@deleteUser": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "createUser": "Create user",
+  "editUser": "Edit user",
+  "deleteUserDescription": "Are you sure you want to delete the user {name}?",
+  "@deleteUserDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  }
 }
