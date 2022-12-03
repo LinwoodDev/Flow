@@ -10,7 +10,7 @@ part 'model.g.dart';
 class User with _$User {
   const factory User({
     @Default(-1) int id,
-    int? teamId,
+    int? groupId,
     @Default('') String name,
     @Default('') String email,
     @Default('') String description,

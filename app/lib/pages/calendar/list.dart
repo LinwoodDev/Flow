@@ -68,7 +68,10 @@ class _CalendarListViewState extends State<CalendarListView> {
             .where((element) => !widget.filter.hiddenStatuses.contains(element))
             .toList(),
         search: widget.search,
-        groupId: widget.filter.group,
+        groupId:
+            source.key == widget.filter.source ? widget.filter.group : null,
+        placeId:
+            source.key == widget.filter.source ? widget.filter.place : null,
       );
       events.addAll(fetched.map((event) => MapEntry(source.key, event)));
     }

@@ -13,7 +13,7 @@ class UserDatabaseService extends UserService with TableService {
     return db.execute("""
       CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY,
-        teamId INTEGER,
+        groupId INTEGER,
         name VARCHAR(100) NOT NULL DEFAULT '',
         email VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT,
@@ -44,13 +44,21 @@ class UserDatabaseService extends UserService with TableService {
   }
 
   @override
-  Future<List<User>> getUsers(
-      {int offset = 0, int limit = 50, String search = ''}) async {
+  Future<List<User>> getUsers({
+    int offset = 0,
+    int limit = 50,
+    String search = '',
+    int? groupId,
+  }) async {
     String? where;
     List<Object>? whereArgs;
     if (search.isNotEmpty) {
       where = 'name LIKE ?';
       whereArgs = ['%$search%'];
+    }
+    if (groupId != null) {
+      where = where == null ? 'groupId = ?' : '$where AND groupId = ?';
+      whereArgs = whereArgs == null ? [groupId] : [...whereArgs, groupId];
     }
     final result = await db?.query(
       'users',

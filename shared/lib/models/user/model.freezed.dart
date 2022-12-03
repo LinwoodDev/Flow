@@ -21,7 +21,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$User {
   int get id => throw _privateConstructorUsedError;
-  int? get teamId => throw _privateConstructorUsedError;
+  int? get groupId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -41,7 +41,7 @@ abstract class $UserCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      int? teamId,
+      int? groupId,
       String name,
       String email,
       String description,
@@ -63,7 +63,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @override
   $Res call({
     Object? id = null,
-    Object? teamId = freezed,
+    Object? groupId = freezed,
     Object? name = null,
     Object? email = null,
     Object? description = null,
@@ -75,9 +75,9 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      teamId: freezed == teamId
-          ? _value.teamId
-          : teamId // ignore: cast_nullable_to_non_nullable
+      groupId: freezed == groupId
+          ? _value.groupId
+          : groupId // ignore: cast_nullable_to_non_nullable
               as int?,
       name: null == name
           ? _value.name
@@ -111,7 +111,7 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      int? teamId,
+      int? groupId,
       String name,
       String email,
       String description,
@@ -129,7 +129,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
   @override
   $Res call({
     Object? id = null,
-    Object? teamId = freezed,
+    Object? groupId = freezed,
     Object? name = null,
     Object? email = null,
     Object? description = null,
@@ -141,9 +141,9 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      teamId: freezed == teamId
-          ? _value.teamId
-          : teamId // ignore: cast_nullable_to_non_nullable
+      groupId: freezed == groupId
+          ? _value.groupId
+          : groupId // ignore: cast_nullable_to_non_nullable
               as int?,
       name: null == name
           ? _value.name
@@ -174,7 +174,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 class _$_User implements _User {
   const _$_User(
       {this.id = -1,
-      this.teamId,
+      this.groupId,
       this.name = '',
       this.email = '',
       this.description = '',
@@ -187,7 +187,7 @@ class _$_User implements _User {
   @JsonKey()
   final int id;
   @override
-  final int? teamId;
+  final int? groupId;
   @override
   @JsonKey()
   final String name;
@@ -206,7 +206,7 @@ class _$_User implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, teamId: $teamId, name: $name, email: $email, description: $description, phone: $phone, image: $image)';
+    return 'User(id: $id, groupId: $groupId, name: $name, email: $email, description: $description, phone: $phone, image: $image)';
   }
 
   @override
@@ -215,7 +215,7 @@ class _$_User implements _User {
         (other.runtimeType == runtimeType &&
             other is _$_User &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.teamId, teamId) || other.teamId == teamId) &&
+            (identical(other.groupId, groupId) || other.groupId == groupId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.description, description) ||
@@ -226,7 +226,7 @@ class _$_User implements _User {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, teamId, name, email,
+  int get hashCode => Object.hash(runtimeType, id, groupId, name, email,
       description, phone, const DeepCollectionEquality().hash(image));
 
   @JsonKey(ignore: true)
@@ -246,7 +246,7 @@ class _$_User implements _User {
 abstract class _User implements User {
   const factory _User(
       {final int id,
-      final int? teamId,
+      final int? groupId,
       final String name,
       final String email,
       final String description,
@@ -258,7 +258,7 @@ abstract class _User implements User {
   @override
   int get id;
   @override
-  int? get teamId;
+  int? get groupId;
   @override
   String get name;
   @override

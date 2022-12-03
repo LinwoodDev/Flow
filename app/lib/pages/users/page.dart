@@ -1,4 +1,5 @@
 import 'package:flow/pages/calendar/filter.dart';
+import 'package:flow/pages/users/filter.dart';
 import 'package:flow/pages/users/user.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class UsersPage extends StatefulWidget {
 class _UsersPageState extends State<UsersPage> {
   static const _pageSize = 20;
   late final FlowCubit _flowCubit;
+  UserFilter _filter = const UserFilter();
   final PagingController<int, MapEntry<User, String>> _pagingController =
       PagingController(firstPageKey: 0);
 
@@ -41,6 +43,7 @@ class _UsersPageState extends State<UsersPage> {
         final fetched = await source.value.user.getUsers(
           offset: pageKey * _pageSize,
           limit: _pageSize,
+          groupId: source.key == _filter.source ? _filter.group : null,
         );
         todos.addAll(fetched.map((todo) => MapEntry(todo, source.key)));
         if (fetched.length < _pageSize) {
@@ -62,41 +65,52 @@ class _UsersPageState extends State<UsersPage> {
   Widget build(BuildContext context) {
     return FlowNavigation(
       title: AppLocalizations.of(context)!.users,
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.filter_list),
-          onPressed: () async {},
-        ),
-      ],
-      body: Align(
-        alignment: Alignment.topCenter,
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 800),
-          child: PagedListView(
-            pagingController: _pagingController,
-            builderDelegate: PagedChildBuilderDelegate<MapEntry<User, String>>(
-              itemBuilder: (ctx, item, index) => Dismissible(
-                key: ValueKey(item.key.id),
-                onDismissed: (direction) async {
-                  await _flowCubit
-                      .getSource(item.value)
-                      .user
-                      .deleteUser(item.key.id);
-                  _pagingController.itemList!.remove(item);
-                },
-                background: Container(
-                  color: Colors.red,
-                ),
-                child: UserTile(
-                  flowCubit: _flowCubit,
+      body: Column(
+        children: [
+          UserFilterView(
+            initialFilter: _filter,
+            onChanged: (filter) {
+              setState(() {
+                _filter = filter;
+              });
+              _pagingController.refresh();
+            },
+          ),
+          const SizedBox(height: 8),
+          Expanded(
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: 800),
+                child: PagedListView(
                   pagingController: _pagingController,
-                  source: item.value,
-                  user: item.key,
+                  builderDelegate:
+                      PagedChildBuilderDelegate<MapEntry<User, String>>(
+                    itemBuilder: (ctx, item, index) => Dismissible(
+                      key: ValueKey(item.key.id),
+                      onDismissed: (direction) async {
+                        await _flowCubit
+                            .getSource(item.value)
+                            .user
+                            .deleteUser(item.key.id);
+                        _pagingController.itemList!.remove(item);
+                      },
+                      background: Container(
+                        color: Colors.red,
+                      ),
+                      child: UserTile(
+                        flowCubit: _flowCubit,
+                        pagingController: _pagingController,
+                        source: item.value,
+                        user: item.key,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(

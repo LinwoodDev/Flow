@@ -16,7 +16,6 @@ class CalendarFilter with _$CalendarFilter {
     String? source,
     int? group,
     int? place,
-    int? team,
     @Default(false) bool past,
   }) = _CalendarFilter;
 }
