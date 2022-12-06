@@ -43,7 +43,7 @@ dependencies:
   shared_preferences: ^2.0.15
   # Database
   sqflite_common: ^2.4.0+2
-  sqflite: ^2.2.1
+  sqflite: ^2.2.2
   sqflite_common_ffi: ^2.2.0+1
   sqflite_common_ffi_web: ^0.3.1
   sqlite3_flutter_libs: ^0.5.12
@@ -61,7 +61,7 @@ dev_dependencies:
   freezed: ^2.3.0
   json_serializable: ^6.5.4
 dependency_overrides:
-  test_api: ^0.4.15
+  test_api: ^0.4.16
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
