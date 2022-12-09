@@ -41,6 +41,10 @@ dependencies:
   freezed_annotation: ^2.2.0
   json_annotation: ^4.7.0
   shared_preferences: ^2.0.15
+  file_picker: ^5.2.3
+  collection: ^1.16.0
+  infinite_scroll_pagination: 4.0.0-dev.1
+  window_manager: ^0.2.8
   # Database
   sqflite_common: ^2.4.0+2
   sqflite: ^2.2.2
@@ -48,9 +52,6 @@ dependencies:
   sqflite_common_ffi_web: ^0.3.1
   sqlite3_flutter_libs: ^0.5.12
   sqlite3: ^1.9.1
-  file_picker: ^5.2.3
-  collection: ^1.16.0
-  infinite_scroll_pagination: 4.0.0-dev.1
 dev_dependencies:
   build_runner: ^2.3.2
   flutter_launcher_icons: ^0.11.0

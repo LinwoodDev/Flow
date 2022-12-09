@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:flow/cubits/flow.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:window_manager/window_manager.dart';
 
 import '../main.dart';
+import 'title_bar.dart';
 
 List _getNavigationItems(BuildContext context) => [
       {
@@ -67,7 +72,15 @@ class FlowRootNavigation extends StatelessWidget {
         final isMobile = constraints.maxWidth < 768;
         return Row(textDirection: TextDirection.rtl, children: [
           Expanded(
-            child: child,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (!kIsWeb) const FlowTitleBar(),
+                Expanded(
+                  child: child,
+                ),
+              ],
+            ),
           ),
           AnimatedContainer(
             duration: const Duration(milliseconds: 300),
@@ -189,65 +202,74 @@ class _FlowDrawer extends StatelessWidget {
           return SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(children: [
-                    Material(
-                        elevation: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8, right: 8, top: 16, bottom: 64),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                  isNightly
-                                      ? "images/nightly.png"
-                                      : "images/logo.png",
-                                  width: 64,
-                                  height: 64),
-                              const SizedBox(height: 16),
-                              Text(
-                                  isNightly
-                                      ? "Linwood Flow Nightly"
-                                      : "Linwood Flow",
-                                  textAlign: TextAlign.center,
-                                  style:
-                                      Theme.of(context).textTheme.titleLarge),
-                              const SizedBox(height: 16),
-                              OutlinedButton.icon(
-                                label:
-                                    Text(AppLocalizations.of(context)!.sources),
-                                icon: const Icon(Icons.menu_outlined),
-                                onPressed: () => _showSources(context),
-                                style: OutlinedButton.styleFrom(
-                                  foregroundColor:
-                                      Theme.of(context).colorScheme.secondary,
-                                  side: BorderSide(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      width: 2),
+              child: Builder(builder: (context) {
+                Widget widget = Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(children: [
+                      Material(
+                          elevation: 1,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 8, right: 8, top: 16, bottom: 64),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                    isNightly
+                                        ? "images/nightly.png"
+                                        : "images/logo.png",
+                                    width: 64,
+                                    height: 64),
+                                const SizedBox(height: 16),
+                                Text(
+                                    isNightly
+                                        ? "Linwood Flow Nightly"
+                                        : "Linwood Flow",
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge),
+                                const SizedBox(height: 16),
+                                OutlinedButton.icon(
+                                  label: Text(
+                                      AppLocalizations.of(context)!.sources),
+                                  icon: const Icon(Icons.menu_outlined),
+                                  onPressed: () => _showSources(context),
+                                  style: OutlinedButton.styleFrom(
+                                    foregroundColor:
+                                        Theme.of(context).colorScheme.secondary,
+                                    side: BorderSide(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                        width: 2),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        )),
+                              ],
+                            ),
+                          )),
+                      Column(
+                        children: _getNavigationItems(context)
+                            .map((e) => _getItem(context, location, e))
+                            .toList(),
+                      ),
+                    ]),
                     Column(
-                      children: _getNavigationItems(context)
+                      mainAxisSize: MainAxisSize.min,
+                      children: _getSecondaryItems(context)
                           .map((e) => _getItem(context, location, e))
                           .toList(),
                     ),
-                  ]),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: _getSecondaryItems(context)
-                        .map((e) => _getItem(context, location, e))
-                        .toList(),
-                  ),
-                ],
-              ),
+                  ],
+                );
+                if (!kIsWeb &&
+                    (Platform.isWindows ||
+                        Platform.isLinux ||
+                        Platform.isMacOS)) {
+                  widget = DragToMoveArea(child: widget);
+                }
+                return widget;
+              }),
             ),
           );
         }),
