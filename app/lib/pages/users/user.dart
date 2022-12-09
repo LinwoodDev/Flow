@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared/models/group/model.dart';
 import 'package:shared/models/user/model.dart';
 
 import '../../cubits/flow.dart';
+import '../groups/select.dart';
 
 class UserDialog extends StatelessWidget {
   final String? source;
@@ -44,8 +46,48 @@ class UserDialog extends StatelessWidget {
                 border: const OutlineInputBorder(),
               ),
             ),
-            const SizedBox(height: 16),
+          ] else ...[
+            StatefulBuilder(
+                builder: (context, setState) => ListTile(
+                      leading: const Icon(Icons.folder_outlined),
+                      title: Text(AppLocalizations.of(context)!.group),
+                      onTap: () async {
+                        final groupId = await showDialog<MapEntry<String, int>>(
+                          context: context,
+                          builder: (context) => GroupSelectDialog(
+                            selected: user.groupId == null
+                                ? null
+                                : MapEntry(source!, user.groupId!),
+                            source: source!,
+                          ),
+                        );
+                        if (groupId != null) {
+                          setState(() {
+                            user = user.copyWith(groupId: groupId.value);
+                          });
+                        }
+                      },
+                      subtitle: user.groupId == null
+                          ? null
+                          : FutureBuilder<Group?>(
+                              future: Future.value(context
+                                  .read<FlowCubit>()
+                                  .getSource(source!)
+                                  .group
+                                  .getGroup(user.groupId ?? -1)),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Text(snapshot.data!.name);
+                                } else if (snapshot.hasError) {
+                                  return Text(snapshot.error.toString());
+                                } else {
+                                  return const CircularProgressIndicator();
+                                }
+                              },
+                            ),
+                    )),
           ],
+          const SizedBox(height: 16),
           TextFormField(
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context)!.name,

@@ -33,6 +33,7 @@ class EventDatabaseService extends EventService with TableService {
   @override
   Future<List<Event>> getEvents(
       {List<EventStatus> status = const [],
+      bool pending = false,
       int? groupId,
       int? placeId,
       int offset = 0,
@@ -100,6 +101,11 @@ class EventDatabaseService extends EventService with TableService {
       whereArgs = whereArgs == null
           ? ['%$search%', '%$search%']
           : [...whereArgs, '%$search%', '%$search%'];
+    }
+    if (pending) {
+      where = where == null
+          ? 'start == NULL AND end == NULL'
+          : '$where AND start == NULL AND end == NULL';
     }
 
     final result =

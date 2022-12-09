@@ -181,5 +181,6 @@
         "example": "User name"
       }
     }
-  }
+  },
+  "pending": "Pending"
 }

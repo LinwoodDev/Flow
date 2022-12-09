@@ -1,6 +1,7 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/pages/calendar/filter.dart';
 import 'package:flow/pages/calendar/list.dart';
+import 'package:flow/pages/calendar/pending.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +22,7 @@ class CalendarPage extends StatefulWidget {
   State<CalendarPage> createState() => _CalendarPageState();
 }
 
-enum _CalendarView { list, day, week, month }
+enum _CalendarView { list, day, week, month, pending }
 
 extension _CalendarViewExtension on _CalendarView {
   String getLocalizedName(BuildContext context) {
@@ -34,6 +35,8 @@ extension _CalendarViewExtension on _CalendarView {
         return AppLocalizations.of(context)!.week;
       case _CalendarView.month:
         return AppLocalizations.of(context)!.month;
+      case _CalendarView.pending:
+        return AppLocalizations.of(context)!.pending;
     }
   }
 
@@ -47,6 +50,8 @@ extension _CalendarViewExtension on _CalendarView {
         return Icons.calendar_view_week;
       case _CalendarView.month:
         return Icons.calendar_view_month;
+      case _CalendarView.pending:
+        return Icons.pending_actions;
     }
   }
 }
@@ -79,6 +84,7 @@ class _CalendarPageState extends State<CalendarPage>
             setState(() {
               _calendarView = value;
             });
+            _pagingController.refresh();
           },
           itemBuilder: (context) => _CalendarView.values
               .map((e) => PopupMenuItem(
@@ -96,6 +102,7 @@ class _CalendarPageState extends State<CalendarPage>
       body: CalendarBodyView(
         pagingController: _pagingController,
         filter: widget.filter,
+        view: _calendarView,
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
@@ -189,15 +196,26 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FlowCubit, FlowState>(builder: (context, state) {
-      return CalendarListView(
-        controller: widget.pagingController,
-        search: widget.search,
-        onFilterChanged: (value) {
-          setState(() => _filter = value);
-          widget.pagingController.refresh();
-        },
-        filter: _filter,
-      );
+      switch (widget.view) {
+        case _CalendarView.pending:
+          return CalendarPendingView(
+            filter: _filter,
+            controller: widget.pagingController,
+            onFilterChanged: _onFilterChanged,
+          );
+        default:
+          return CalendarListView(
+            controller: widget.pagingController,
+            search: widget.search,
+            onFilterChanged: _onFilterChanged,
+            filter: _filter,
+          );
+      }
     });
+  }
+
+  void _onFilterChanged(value) {
+    setState(() => _filter = value);
+    widget.pagingController.refresh();
   }
 }
