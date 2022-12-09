@@ -116,9 +116,7 @@ class _CalendarListViewState extends State<CalendarListView> {
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             child: Icon(
                               Icons.today_outlined,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .secondaryContainer,
+                              color: Theme.of(context).colorScheme.secondary,
                               size: 64,
                             ),
                           ),

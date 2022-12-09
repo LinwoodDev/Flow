@@ -221,6 +221,15 @@ class _FlowDrawer extends StatelessWidget {
                                     Text(AppLocalizations.of(context)!.sources),
                                 icon: const Icon(Icons.menu_outlined),
                                 onPressed: () => _showSources(context),
+                                style: OutlinedButton.styleFrom(
+                                  foregroundColor:
+                                      Theme.of(context).colorScheme.secondary,
+                                  side: BorderSide(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                      width: 2),
+                                ),
                               ),
                             ],
                           ),
