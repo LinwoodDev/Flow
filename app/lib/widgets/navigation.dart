@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flow/cubits/flow.dart';
+import 'package:flow/widgets/window_buttons.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +10,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../main.dart';
-import 'title_bar.dart';
 
 List _getNavigationItems(BuildContext context) => [
       {
@@ -67,33 +67,27 @@ class FlowRootNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final isMobile = constraints.maxWidth < 768;
-        return Row(textDirection: TextDirection.rtl, children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                if (!kIsWeb) const FlowTitleBar(),
-                Expanded(
-                  child: child,
-                ),
-              ],
+    return Material(
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final isMobile = constraints.maxWidth < 768;
+          return Row(textDirection: TextDirection.rtl, children: [
+            Expanded(
+              child: child,
             ),
-          ),
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            width: isMobile ? 0 : _drawerWidth,
-            curve: Curves.easeInOut,
-            child: const ClipRect(
-                child: OverflowBox(
-                    maxWidth: _drawerWidth,
-                    minWidth: _drawerWidth,
-                    child: _FlowDrawer())),
-          ),
-        ]);
-      },
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              width: isMobile ? 0 : _drawerWidth,
+              curve: Curves.easeInOut,
+              child: const ClipRect(
+                  child: OverflowBox(
+                      maxWidth: _drawerWidth,
+                      minWidth: _drawerWidth,
+                      child: _FlowDrawer())),
+            ),
+          ]);
+        },
+      ),
     );
   }
 }
@@ -121,17 +115,26 @@ class FlowNavigation extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       final isMobile = MediaQuery.of(context).size.width < 768;
       const drawer = _FlowDrawer();
+      PreferredSizeWidget appBar = AppBar(
+        bottom: bottom,
+        title: Text(title),
+        actions: [if (actions != null) ...actions!, const FlowWindowButtons()],
+      );
+
+      if (!kIsWeb &&
+          (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
+        appBar = PreferredSize(
+            preferredSize: appBar.preferredSize,
+            child: DragToMoveArea(child: appBar));
+      }
+
       return Row(
         textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
             child: Scaffold(
-              appBar: AppBar(
-                bottom: bottom,
-                title: Text(title),
-                actions: [if (actions != null) ...actions!],
-              ),
+              appBar: appBar,
               drawer: isMobile
                   ? const Drawer(
                       width: _drawerWidth,
@@ -196,84 +199,79 @@ class _FlowDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final location = GoRouter.of(context).location;
     return Material(
-      child: Padding(
-        padding: const EdgeInsets.only(right: 8, top: 16, bottom: 8),
-        child: LayoutBuilder(builder: (context, constraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              child: Builder(builder: (context) {
-                Widget widget = Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(children: [
-                      Material(
-                          elevation: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 8, right: 8, top: 16, bottom: 64),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                    isNightly
-                                        ? "images/nightly.png"
-                                        : "images/logo.png",
-                                    width: 64,
-                                    height: 64),
-                                const SizedBox(height: 16),
-                                Text(
-                                    isNightly
-                                        ? "Linwood Flow Nightly"
-                                        : "Linwood Flow",
-                                    textAlign: TextAlign.center,
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge),
-                                const SizedBox(height: 16),
-                                OutlinedButton.icon(
-                                  label: Text(
-                                      AppLocalizations.of(context)!.sources),
-                                  icon: const Icon(Icons.menu_outlined),
-                                  onPressed: () => _showSources(context),
-                                  style: OutlinedButton.styleFrom(
-                                    foregroundColor:
-                                        Theme.of(context).colorScheme.secondary,
-                                    side: BorderSide(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
-                                        width: 2),
-                                  ),
-                                ),
-                              ],
+      child: LayoutBuilder(builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Builder(builder: (context) {
+                        final widget = AppBar(
+                          leading: Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Image.asset(
+                              isNightly
+                                  ? "images/nightly.png"
+                                  : "images/logo.png",
                             ),
-                          )),
-                      Column(
-                        children: _getNavigationItems(context)
-                            .map((e) => _getItem(context, location, e))
-                            .toList(),
+                          ),
+                          leadingWidth: 32,
+                          title: const Text(
+                            isNightly ? "Linwood Flow Nightly" : "Linwood Flow",
+                            textAlign: TextAlign.center,
+                          ),
+                          titleTextStyle:
+                              Theme.of(context).textTheme.titleMedium,
+                        );
+                        if (!kIsWeb &&
+                            (Platform.isWindows ||
+                                Platform.isLinux ||
+                                Platform.isMacOS)) {
+                          return DragToMoveArea(child: widget);
+                        }
+                        return widget;
+                      }),
+                      const SizedBox(height: 16),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: OutlinedButton.icon(
+                            label: Text(AppLocalizations.of(context)!.sources),
+                            icon: const Icon(Icons.menu_outlined),
+                            onPressed: () => _showSources(context),
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor:
+                                  Theme.of(context).colorScheme.secondary,
+                              side: BorderSide(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  width: 2),
+                            ),
+                          ),
+                        ),
                       ),
                     ]),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: _getSecondaryItems(context)
-                          .map((e) => _getItem(context, location, e))
-                          .toList(),
-                    ),
-                  ],
-                );
-                if (!kIsWeb &&
-                    (Platform.isWindows ||
-                        Platform.isLinux ||
-                        Platform.isMacOS)) {
-                  widget = DragToMoveArea(child: widget);
-                }
-                return widget;
-              }),
+                Column(
+                  children: _getNavigationItems(context)
+                      .map((e) => _getItem(context, location, e))
+                      .toList(),
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: _getSecondaryItems(context)
+                      .map((e) => _getItem(context, location, e))
+                      .toList(),
+                ),
+              ],
             ),
-          );
-        }),
-      ),
+          ),
+        );
+      }),
     );
   }
 

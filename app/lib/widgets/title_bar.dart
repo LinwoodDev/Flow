@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
+import 'window_buttons.dart';
+
 class FlowTitleBar extends StatelessWidget {
   const FlowTitleBar({super.key});
 
@@ -14,6 +16,7 @@ class FlowTitleBar extends StatelessWidget {
       return Container();
     }
     return Material(
+      elevation: 2,
       child: SizedBox(
         height: 50,
         child: Row(
@@ -31,20 +34,7 @@ class FlowTitleBar extends StatelessWidget {
                 ),
               ),
             ),
-            ...[
-              IconButton(
-                icon: const Icon(Icons.minimize_outlined),
-                onPressed: () => windowManager.minimize(),
-              ),
-              IconButton(
-                icon: const Icon(Icons.square_outlined),
-                onPressed: () => windowManager.maximize(),
-              ),
-              IconButton(
-                icon: const Icon(Icons.close_outlined),
-                onPressed: () => windowManager.close(),
-              ),
-            ].map((e) => AspectRatio(aspectRatio: 1, child: e))
+            const FlowWindowButtons()
           ],
         ),
       ),
