@@ -10,18 +10,21 @@ const kClassicTheme = FlexSchemeColor(
 const kClassicThemeData = FlexSchemeData(
     name: '', description: '', light: kClassicTheme, dark: kClassicTheme);
 
-ThemeData getThemeData(String name, bool dark) {
+ThemeData getThemeData(String name, bool dark, [ColorScheme? overridden]) {
   final color = getFlexThemeColor(name, dark);
+  final override = overridden != null && name.isEmpty;
   if (dark) {
     return FlexThemeData.dark(
-      colors: color,
+      colors: override ? null : color,
+      colorScheme: override ? overridden : null,
       useMaterial3: true,
       appBarElevation: 2,
       fontFamily: 'Comfortaa',
     );
   }
   return FlexThemeData.light(
-    colors: color,
+    colors: override ? null : color,
+    colorScheme: override ? overridden : null,
     useMaterial3: true,
     appBarElevation: 0.5,
     fontFamily: 'Comfortaa',

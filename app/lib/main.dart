@@ -1,9 +1,11 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/api/storage/db/database.dart';
 import 'package:flow/api/storage/sources.dart';
 import 'package:flow/pages/calendar/filter.dart';
 import 'package:flow/theme.dart';
 import 'package:flow/widgets/navigation.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -74,15 +76,23 @@ class FlowApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (kIsWeb) return _buildApp(null, null);
+    return DynamicColorBuilder(
+      builder: (lightDynamic, darkDynamic) =>
+          _buildApp(lightDynamic, darkDynamic),
+    );
+  }
+
+  Widget _buildApp(ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
     return BlocBuilder<SettingsCubit, FlowSettings>(
         builder: (context, state) => MaterialApp.router(
               debugShowCheckedModeBanner: false,
               routerConfig: _router,
               title: isNightly ? 'Linwood Flow Nightly' : 'Linwood Flow',
               // Use a predefined FlexThemeData.light() theme for the light theme.
-              theme: getThemeData(state.design, false),
+              theme: getThemeData(state.design, false, lightDynamic),
               // Same definition for the dark theme, but using FlexThemeData.dark().
-              darkTheme: getThemeData(state.design, true),
+              darkTheme: getThemeData(state.design, true, darkDynamic),
               themeMode: state.themeMode,
               localizationsDelegates: const [
                 AppLocalizations.delegate,

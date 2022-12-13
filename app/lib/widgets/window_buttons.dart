@@ -32,7 +32,7 @@ class FlowWindowButtons extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.close_outlined),
             onPressed: () => windowManager.close(),
-            highlightColor: Colors.red,
+            color: Colors.red,
           ),
         ].map((e) => AspectRatio(aspectRatio: 1, child: e))
       ]),
