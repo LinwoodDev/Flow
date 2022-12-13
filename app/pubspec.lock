@@ -238,7 +238,7 @@ packages:
       name: file_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.2.3"
+    version: "5.2.4"
   fixnum:
     dependency: transitive
     description:
@@ -356,7 +356,7 @@ packages:
       name: go_router
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.2.3"
+    version: "5.2.4"
   graphs:
     dependency: transitive
     description:

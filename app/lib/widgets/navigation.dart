@@ -118,7 +118,12 @@ class FlowNavigation extends StatelessWidget {
       PreferredSizeWidget appBar = AppBar(
         bottom: bottom,
         title: Text(title),
-        actions: [if (actions != null) ...actions!, const FlowWindowButtons()],
+        actions: [
+          if (actions != null) ...actions!,
+          if (!kIsWeb &&
+              (Platform.isWindows || Platform.isLinux || Platform.isMacOS))
+            const FlowWindowButtons()
+        ],
       );
 
       if (!kIsWeb &&
