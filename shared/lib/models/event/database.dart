@@ -104,12 +104,12 @@ class EventDatabaseService extends EventService with TableService {
     }
     if (pending) {
       where = where == null
-          ? 'start == NULL AND end == NULL'
-          : '$where AND start == NULL AND end == NULL';
+          ? 'start IS NULL AND end IS NULL'
+          : '$where AND start IS NULL AND end IS NULL';
     }
 
-    final result =
-        await db?.query('events', where: where, whereArgs: whereArgs);
+    final result = await db?.query('events',
+        where: where, whereArgs: whereArgs, offset: offset, limit: limit);
     return result?.map((row) => Event.fromJson(row)).toList() ?? [];
   }
 

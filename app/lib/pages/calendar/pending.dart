@@ -32,6 +32,7 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
   void initState() {
     super.initState();
     widget.controller.addPageRequestListener(_requestPage);
+    widget.controller.refresh();
   }
 
   @override
@@ -42,7 +43,13 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
 
   Future<void> _requestPage(int key) async {
     final events = await _fetchEvents(key);
-    if (mounted) widget.controller.appendPage([events], key + 1);
+    if (mounted) {
+      if (events.length < _pageSize) {
+        widget.controller.appendLastPage([events]);
+      } else {
+        widget.controller.appendPage([events], key + 1);
+      }
+    }
   }
 
   Future<List<MapEntry<String, Event>>> _fetchEvents(int key) async {

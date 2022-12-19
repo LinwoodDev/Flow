@@ -29,10 +29,14 @@ class CalendarListView extends StatefulWidget {
 }
 
 class _CalendarListViewState extends State<CalendarListView> {
+  late FlowCubit _cubit;
+
   @override
   void initState() {
     super.initState();
+    _cubit = context.read<FlowCubit>();
     widget.controller.addPageRequestListener(_requestPage);
+    widget.controller.refresh();
   }
 
   @override
@@ -57,10 +61,11 @@ class _CalendarListViewState extends State<CalendarListView> {
 
     if (!mounted) return [];
 
-    final cubit = context.read<FlowCubit>();
-    var sources = cubit.getCurrentServicesMap();
+    var sources = _cubit.getCurrentServicesMap();
     if (widget.filter.source != null) {
-      sources = {widget.filter.source!: cubit.getSource(widget.filter.source!)};
+      sources = {
+        widget.filter.source!: _cubit.getSource(widget.filter.source!)
+      };
     }
     final events = <MapEntry<String, Event>>[];
     for (final source in sources.entries) {
