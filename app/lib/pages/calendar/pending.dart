@@ -99,11 +99,14 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
                   return Column(
                     children: item
                         .map(
-                          (e) => CalendarListTile(
-                            key: ValueKey('${e.key}@${e.value.id}'),
-                            event: e.value,
-                            source: e.key,
-                            onRefresh: widget.controller.refresh,
+                          (e) => ConstrainedBox(
+                            constraints: const BoxConstraints(maxWidth: 1000),
+                            child: CalendarListTile(
+                              key: ValueKey('${e.key}@${e.value.id}'),
+                              event: e.value,
+                              source: e.key,
+                              onRefresh: widget.controller.refresh,
+                            ),
                           ),
                         )
                         .toList(),
