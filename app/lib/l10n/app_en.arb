@@ -182,5 +182,6 @@
       }
     }
   },
-  "pending": "Pending"
+  "pending": "Pending",
+  "removeEvent": "Remove event"
 }

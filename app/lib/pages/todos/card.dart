@@ -9,6 +9,7 @@ import 'package:shared/models/todo/model.dart';
 import 'package:shared/models/todo/service.dart';
 
 import '../../cubits/flow.dart';
+import '../calendar/event.dart';
 
 class TodoCard extends StatefulWidget {
   final String source;
@@ -32,6 +33,7 @@ class _TodoCardState extends State<TodoCard> {
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
   late Todo _newTodo;
+  Event? _event;
   late final TodoService _todoService;
 
   final FocusNode _nameFocus = FocusNode();
@@ -42,6 +44,7 @@ class _TodoCardState extends State<TodoCard> {
   @override
   void initState() {
     super.initState();
+    _event = widget.event;
     _nameController = TextEditingController(text: widget.todo.name);
     _descriptionController =
         TextEditingController(text: widget.todo.description);
@@ -137,6 +140,7 @@ class _TodoCardState extends State<TodoCard> {
                     _updateTodo();
                   },
                 )),
+                const SizedBox(width: 8),
                 PopupMenuButton(
                   itemBuilder: (context) => <dynamic>[
                     [
@@ -187,7 +191,7 @@ class _TodoCardState extends State<TodoCard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      if (widget.event != null) ...[
+                      if (_event != null) ...[
                         if (widget.source.isNotEmpty)
                           Text(
                             widget.source,
@@ -197,27 +201,24 @@ class _TodoCardState extends State<TodoCard> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Icon(
-                              widget.event!.status.getIcon(),
-                              color: widget.event!.status.getColor(),
+                              _event!.status.getIcon(),
+                              color: _event!.status.getColor(),
                             ),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
                                 AppLocalizations.of(context)!.eventInfo(
-                                  widget.event!.name,
-                                  widget.event?.start == null
+                                  _event!.name,
+                                  _event?.start == null
                                       ? '-'
-                                      : dateFormatter
-                                          .format(widget.event!.start!),
-                                  widget.event?.start == null
+                                      : dateFormatter.format(_event!.start!),
+                                  _event?.start == null
                                       ? '-'
-                                      : timeFormatter
-                                          .format(widget.event!.start!),
-                                  widget.event!.location.isEmpty
+                                      : timeFormatter.format(_event!.start!),
+                                  _event!.location.isEmpty
                                       ? '-'
-                                      : widget.event!.location,
-                                  widget.event!.status
-                                      .getLocalizedName(context),
+                                      : _event!.location,
+                                  _event!.status.getLocalizedName(context),
                                 ),
                                 style: Theme.of(context).textTheme.caption,
                               ),
@@ -228,6 +229,17 @@ class _TodoCardState extends State<TodoCard> {
                                 height: 16,
                                 width: 16,
                                 child: CircularProgressIndicator(),
+                              ),
+                            ] else ...[
+                              IconButton(
+                                onPressed: () async {
+                                  _newTodo = _newTodo.copyWith(eventId: null);
+                                  _event = null;
+                                  _updateTodo();
+                                },
+                                icon: const Icon(Icons.delete_outlined),
+                                tooltip:
+                                    AppLocalizations.of(context)!.removeEvent,
                               ),
                             ]
                           ],
@@ -244,7 +256,18 @@ class _TodoCardState extends State<TodoCard> {
                             Wrap(
                               children: [
                                 TextButton.icon(
-                                  onPressed: () async {},
+                                  onPressed: () async {
+                                    final event = await showDialog<Event>(
+                                      context: context,
+                                      builder: (context) => const EventDialog(),
+                                    );
+                                    if (event != null) {
+                                      _newTodo =
+                                          _newTodo.copyWith(eventId: event.id);
+                                      _event = event;
+                                      _updateTodo();
+                                    }
+                                  },
                                   icon: const Icon(Icons.add),
                                   label: Text(AppLocalizations.of(context)!
                                       .createEvent),

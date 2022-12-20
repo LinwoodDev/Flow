@@ -15,32 +15,37 @@ import 'package:shared/models/todo/service.dart';
 import '../../widgets/date_time_field.dart';
 import '../todos/todo.dart';
 
-class EventDialog extends StatelessWidget {
+class EventDialog extends StatefulWidget {
   final String? source;
   final Event? event;
 
   const EventDialog({super.key, this.event, this.source});
 
   @override
+  State<EventDialog> createState() => _EventDialogState();
+}
+
+class _EventDialogState extends State<EventDialog> {
+  @override
   Widget build(BuildContext context) {
-    var event = this.event ?? const Event();
-    var currentSource = source ?? '';
+    var event = widget.event ?? const Event();
+    var currentSource = widget.source ?? '';
     final nameController = TextEditingController(text: event.name);
     final descriptionController =
         TextEditingController(text: event.description);
     final locationController = TextEditingController(text: event.location);
     return AlertDialog(
-      title: Text(source == null
+      title: Text(widget.source == null
           ? AppLocalizations.of(context)!.createEvent
           : AppLocalizations.of(context)!.editEvent),
       content: SizedBox(
         width: 500,
         height: 500,
         child: DefaultTabController(
-          length: source == null ? 1 : 2,
+          length: widget.source == null ? 1 : 2,
           child: Column(
             children: [
-              if (source != null)
+              if (widget.source != null)
                 TabBar(
                     tabs: <dynamic>[
                   [Icons.tune_outlined, AppLocalizations.of(context)!.general],
@@ -66,9 +71,9 @@ class EventDialog extends StatelessWidget {
                         shrinkWrap: true,
                         children: [
                           const SizedBox(height: 16),
-                          if (source == null) ...[
+                          if (widget.source == null) ...[
                             DropdownButtonFormField<String>(
-                              value: source,
+                              value: widget.source,
                               items: context
                                   .read<FlowCubit>()
                                   .getCurrentSources()
@@ -142,7 +147,7 @@ class EventDialog extends StatelessWidget {
                             onChanged: (value) =>
                                 event = event.copyWith(description: value),
                           ),
-                          if (source != null) ...[
+                          if (widget.source != null) ...[
                             const SizedBox(height: 16),
                             StatefulBuilder(
                                 builder: (context, setState) => ListTile(
@@ -158,9 +163,9 @@ class EventDialog extends StatelessWidget {
                                               GroupSelectDialog(
                                             selected: event.groupId == null
                                                 ? null
-                                                : MapEntry(
-                                                    source!, event.groupId!),
-                                            source: source!,
+                                                : MapEntry(widget.source!,
+                                                    event.groupId!),
+                                            source: widget.source!,
                                           ),
                                         );
                                         if (groupId != null) {
@@ -175,7 +180,7 @@ class EventDialog extends StatelessWidget {
                                           : FutureBuilder<Group?>(
                                               future: Future.value(context
                                                   .read<FlowCubit>()
-                                                  .getSource(source!)
+                                                  .getSource(widget.source!)
                                                   .group
                                                   .getGroup(
                                                       event.groupId ?? -1)),
@@ -229,8 +234,8 @@ class EventDialog extends StatelessWidget {
                         ],
                       ),
                     ),
-                    if (source != null)
-                      _EventTodosTab(event: event, source: source!),
+                    if (widget.source != null)
+                      _EventTodosTab(event: event, source: widget.source!),
                   ],
                 ),
               ),
@@ -246,21 +251,25 @@ class EventDialog extends StatelessWidget {
           child: Text(AppLocalizations.of(context)!.cancel),
         ),
         ElevatedButton(
-          onPressed: () {
-            if (source == null) {
-              context
+          onPressed: () async {
+            if (widget.source == null) {
+              final created = await context
                   .read<FlowCubit>()
                   .getSource(currentSource)
                   .event
                   .createEvent(event);
+              if (created != null) {
+                event = created;
+              }
             } else {
               context
                   .read<FlowCubit>()
-                  .getSource(source!)
+                  .getSource(widget.source!)
                   .event
                   .updateEvent(event);
             }
-            Navigator.of(context).pop();
+            if (!mounted) return;
+            Navigator.of(context).pop(event);
           },
           child: Text(AppLocalizations.of(context)!.save),
         ),

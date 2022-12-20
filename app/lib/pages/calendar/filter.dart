@@ -23,9 +23,14 @@ class CalendarFilter with _$CalendarFilter {
 class CalendarFilterView extends StatefulWidget {
   final CalendarFilter? initialFilter;
   final ValueChanged<CalendarFilter> onChanged;
+  final bool past;
 
-  const CalendarFilterView(
-      {super.key, this.initialFilter, required this.onChanged});
+  const CalendarFilterView({
+    super.key,
+    this.initialFilter,
+    required this.onChanged,
+    this.past = true,
+  });
 
   @override
   State<CalendarFilterView> createState() => _CalendarFilterViewState();
@@ -164,26 +169,27 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
               }
             },
           ),
-          InputChip(
-            label: Text(AppLocalizations.of(context)!.past),
-            avatar: Icon(Icons.history_outlined,
-                color: _filter.past
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : Theme.of(context).iconTheme.color),
-            selected: _filter.past,
-            selectedColor: Theme.of(context).colorScheme.primaryContainer,
-            labelStyle: TextStyle(
-                color: _filter.past
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : null),
-            showCheckmark: false,
-            onSelected: (value) {
-              setState(() {
-                _filter = _filter.copyWith(past: value);
-              });
-              widget.onChanged(_filter);
-            },
-          )
+          if (widget.past)
+            InputChip(
+              label: Text(AppLocalizations.of(context)!.past),
+              avatar: Icon(Icons.history_outlined,
+                  color: _filter.past
+                      ? Theme.of(context).colorScheme.onPrimaryContainer
+                      : Theme.of(context).iconTheme.color),
+              selected: _filter.past,
+              selectedColor: Theme.of(context).colorScheme.primaryContainer,
+              labelStyle: TextStyle(
+                  color: _filter.past
+                      ? Theme.of(context).colorScheme.onPrimaryContainer
+                      : null),
+              showCheckmark: false,
+              onSelected: (value) {
+                setState(() {
+                  _filter = _filter.copyWith(past: value);
+                });
+                widget.onChanged(_filter);
+              },
+            )
         ]
             .map((e) => Padding(padding: const EdgeInsets.all(8.0), child: e))
             .toList(),

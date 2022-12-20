@@ -87,6 +87,7 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
         CalendarFilterView(
           initialFilter: widget.filter,
           onChanged: widget.onFilterChanged,
+          past: false,
         ),
         const SizedBox(height: 8),
         Expanded(
