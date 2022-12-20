@@ -211,56 +211,38 @@ class _FlowDrawer extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Builder(builder: (context) {
-                        final widget = AppBar(
-                          leading: Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Image.asset(
-                              isNightly
-                                  ? "images/nightly.png"
-                                  : "images/logo.png",
-                            ),
-                          ),
-                          leadingWidth: 32,
-                          title: const Text(
-                            isNightly ? "Linwood Flow Nightly" : "Linwood Flow",
-                            textAlign: TextAlign.center,
-                          ),
-                          titleTextStyle:
-                              Theme.of(context).textTheme.titleMedium,
-                        );
-                        if (!kIsWeb &&
-                            (Platform.isWindows ||
-                                Platform.isLinux ||
-                                Platform.isMacOS)) {
-                          return DragToMoveArea(child: widget);
-                        }
-                        return widget;
-                      }),
-                      const SizedBox(height: 16),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: OutlinedButton.icon(
-                            label: Text(AppLocalizations.of(context)!.sources),
-                            icon: const Icon(Icons.menu_outlined),
-                            onPressed: () => _showSources(context),
-                            style: OutlinedButton.styleFrom(
-                              foregroundColor:
-                                  Theme.of(context).colorScheme.secondary,
-                              side: BorderSide(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  width: 2),
-                            ),
-                          ),
-                        ),
+                Builder(builder: (context) {
+                  final widget = AppBar(
+                    leading: Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Image.asset(
+                        isNightly ? "images/nightly.png" : "images/logo.png",
                       ),
-                    ]),
+                    ),
+                    leadingWidth: 32,
+                    title: const Text(
+                      isNightly ? "Flow Nightly" : "Flow",
+                      textAlign: TextAlign.center,
+                    ),
+                    centerTitle: true,
+                    automaticallyImplyLeading: false,
+                    actions: [
+                      IconButton(
+                        tooltip: AppLocalizations.of(context)!.sources,
+                        icon: const Icon(Icons.filter_alt_outlined),
+                        onPressed: () => _showSources(context),
+                      ),
+                    ],
+                    titleTextStyle: Theme.of(context).textTheme.titleMedium,
+                  );
+                  if (!kIsWeb &&
+                      (Platform.isWindows ||
+                          Platform.isLinux ||
+                          Platform.isMacOS)) {
+                    return DragToMoveArea(child: widget);
+                  }
+                  return widget;
+                }),
                 Column(
                   children: _getNavigationItems(context)
                       .map((e) => _getItem(context, location, e))
