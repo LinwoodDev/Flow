@@ -183,5 +183,6 @@
     }
   },
   "pending": "Pending",
-  "removeEvent": "Remove event"
+  "removeEvent": "Remove event",
+  "event": "Event"
 }

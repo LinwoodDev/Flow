@@ -1,4 +1,5 @@
 import 'package:flow/helpers/event.dart';
+import 'package:flow/pages/calendar/select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -273,7 +274,25 @@ class _TodoCardState extends State<TodoCard> {
                                       .createEvent),
                                 ),
                                 TextButton.icon(
-                                  onPressed: () async {},
+                                  onPressed: () async {
+                                    final cubit = context.read<FlowCubit>();
+                                    final result =
+                                        await showDialog<MapEntry<String, int>>(
+                                      context: context,
+                                      builder: (context) => EventSelectDialog(
+                                        source: widget.source,
+                                      ),
+                                    );
+                                    if (result != null) {
+                                      _newTodo = _newTodo.copyWith(
+                                          eventId: result.value);
+                                      _event = await cubit
+                                          .getSource(result.key)
+                                          .event
+                                          .getEvent(result.value);
+                                      _updateTodo();
+                                    }
+                                  },
                                   icon:
                                       const Icon(Icons.calendar_month_outlined),
                                   label: Text(AppLocalizations.of(context)!
