@@ -27,10 +27,12 @@ class CalendarPendingView extends StatefulWidget {
 
 class _CalendarPendingViewState extends State<CalendarPendingView> {
   static const _pageSize = 50;
+  late FlowCubit _cubit;
 
   @override
   void initState() {
     super.initState();
+    _cubit = context.read<FlowCubit>();
     widget.controller.addPageRequestListener(_requestPage);
     widget.controller.refresh();
   }
@@ -55,10 +57,11 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
   Future<List<MapEntry<String, Event>>> _fetchEvents(int key) async {
     if (!mounted) return [];
 
-    final cubit = context.read<FlowCubit>();
-    var sources = cubit.getCurrentServicesMap();
+    var sources = _cubit.getCurrentServicesMap();
     if (widget.filter.source != null) {
-      sources = {widget.filter.source!: cubit.getSource(widget.filter.source!)};
+      sources = {
+        widget.filter.source!: _cubit.getSource(widget.filter.source!)
+      };
     }
     final events = <MapEntry<String, Event>>[];
     for (final source in sources.entries) {
@@ -78,6 +81,14 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
       events.addAll(fetched.map((event) => MapEntry(source.key, event)));
     }
     return events;
+  }
+
+  @override
+  void didUpdateWidget(covariant CalendarPendingView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.filter != oldWidget.filter) {
+      widget.controller.refresh();
+    }
   }
 
   @override

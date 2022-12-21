@@ -96,6 +96,20 @@ class _TodoDialogState extends State<TodoDialog> {
             const SizedBox(height: 16),
             TextFormField(
               decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.priority,
+                icon: const Icon(Icons.priority_high_outlined),
+                border: const OutlineInputBorder(),
+              ),
+              initialValue: _newTodo.priority.toString(),
+              keyboardType: TextInputType.number,
+              onChanged: (value) {
+                _newTodo = _newTodo.copyWith(
+                    priority: int.tryParse(value) ?? _newTodo.priority);
+              },
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              decoration: InputDecoration(
                 labelText: AppLocalizations.of(context)!.description,
                 icon: const Icon(Icons.description_outlined),
                 border: const OutlineInputBorder(),

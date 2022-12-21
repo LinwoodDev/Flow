@@ -215,7 +215,8 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
   }
 
   void _onFilterChanged(value) {
-    setState(() => _filter = value);
-    widget.pagingController.refresh();
+    setState(() {
+      _filter = value;
+    });
   }
 }

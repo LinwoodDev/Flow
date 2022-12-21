@@ -9,7 +9,6 @@ Future<void> setup() async {
 
     const windowOptions = WindowOptions(
       size: Size(800, 600),
-      center: true,
       backgroundColor: Colors.transparent,
       titleBarStyle: TitleBarStyle.hidden,
     );
