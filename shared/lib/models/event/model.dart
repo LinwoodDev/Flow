@@ -6,6 +6,8 @@ part 'model.g.dart';
 
 @freezed
 class Event with _$Event {
+  const Event._();
+
   const factory Event({
     @Default(-1) int id,
     int? groupId,
@@ -19,6 +21,11 @@ class Event with _$Event {
   }) = _Event;
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
+
+  bool collidesWith(Event event) {
+    return (event.end == null || (start?.isBefore(event.end!) ?? true)) &&
+        (event.start == null || (end?.isAfter(event.start!) ?? true));
+  }
 }
 
 enum EventStatus {

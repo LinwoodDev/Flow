@@ -9,6 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/event/model.dart';
 
+import 'day.dart';
 import 'event.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -199,6 +200,12 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
       switch (widget.view) {
         case _CalendarView.pending:
           return CalendarPendingView(
+            filter: _filter,
+            controller: widget.pagingController,
+            onFilterChanged: _onFilterChanged,
+          );
+        case _CalendarView.day:
+          return CalendarDayView(
             filter: _filter,
             controller: widget.pagingController,
             onFilterChanged: _onFilterChanged,
