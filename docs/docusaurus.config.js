@@ -28,11 +28,44 @@ module.exports = {
                     label: 'Downloads',
                     position: 'left'
                 },
-                {href: 'https://linwood.dev/blog', label: 'Blog', position: 'left'},
                 {
-                    href: 'https://github.com/LinwoodCloud/Flow',
-                    label: 'GitHub',
-                    position: 'right',
+                    type: 'dropdown',
+                    label: 'More',
+                    position: 'left',
+                    items: [
+                        {
+                            label: 'Matrix',
+                            href: 'https://linwood.dev/matrix',
+                        },
+                        {
+                            label: 'Discord',
+                            href: 'https://discord.linwood.dev',
+                        },
+                        {
+                            label: 'GitHub',
+                            href: 'https://github.com/LinwoodCloud/Butterfly',
+                        },
+                        {
+                            label: 'Blog', 
+                            href: 'https://linwood.dev/blog'
+                        },
+                        {
+                            label: 'Crowdin',
+                            href: 'https://go.linwood.dev/butterfly/crowdin'
+                        },
+                        {
+                            label: 'Twitter',
+                            href: 'https://twitter.com/LinwoodCloud',
+                        },
+                        {
+                            label: 'Mastodon',
+                            href: 'https://floss.social/@linwood',
+                        },
+                        {
+                            label: 'License',
+                            href: 'https://go.linwood.dev/butterfly/license',
+                        }
+                    ],
                 },
             ],
         },
@@ -49,6 +82,21 @@ module.exports = {
                         {
                             label: 'Twitter',
                             href: 'https://twitter.com/LinwoodCloud',
+                        },
+                        {
+                            label: 'Mastodon',
+                            href: 'https://floss.social/@linwood',
+                        },
+                        {
+                            label: 'Contribution guide',
+                            href: 'https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md',
+                        },
+                        {
+                            html: `
+                <a href="https://vercel.com?utm_source=Linwood&utm_campaign=oss" target="_blank" rel="noreferrer noopener" aria-label="Deploys by Vercel">
+                  <img src="/img/powered-by-vercel.svg" alt="Deploys by Vercel" />
+                </a>
+              `,
                         },
                     ],
                 },

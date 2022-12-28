@@ -42,7 +42,7 @@
       "last 1 safari version"
     ]
   },
-  "packageManager": "yarn@3.3.0",
+  "packageManager": "yarn@3.3.1",
   "devDependencies": {
     "markdownlint-cli2": "^0.5.1"
   },
