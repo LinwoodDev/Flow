@@ -79,6 +79,14 @@ class _CalendarDayViewState extends State<CalendarDayView> {
       });
 
   @override
+  void didUpdateWidget(covariant CalendarDayView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.filter != widget.filter) {
+      _refresh();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CreateEventScaffold(
       onCreated: (p0) => _refresh,
@@ -87,7 +95,10 @@ class _CalendarDayViewState extends State<CalendarDayView> {
           alignment: Alignment.center,
           child: CalendarFilterView(
             initialFilter: widget.filter,
-            onChanged: widget.onFilterChanged,
+            onChanged: (value) {
+              _refresh();
+              widget.onFilterChanged(value);
+            },
             past: false,
           ),
         ),
@@ -245,6 +256,7 @@ class SingleDayList extends StatelessWidget {
                     width: currentPosWidth,
                     child: Card(
                       clipBehavior: Clip.antiAliasWithSaveLayer,
+                      color: position.event.status.getColor().withAlpha(100),
                       child: InkWell(
                         onTap: () => showDialog(
                           context: context,

@@ -86,6 +86,14 @@ class _CalendarListViewState extends State<CalendarListView> {
   }
 
   @override
+  void didUpdateWidget(covariant CalendarListView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.filter != widget.filter) {
+      _controller.refresh();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final locale = Localizations.localeOf(context).languageCode;
     final dateFormatter = DateFormat.yMMMMd(locale);
@@ -95,7 +103,7 @@ class _CalendarListViewState extends State<CalendarListView> {
         children: [
           CalendarFilterView(
             initialFilter: widget.filter,
-            onChanged: widget.onFilterChanged,
+            onChanged: (value) => widget.onFilterChanged(value),
           ),
           const SizedBox(height: 8),
           Expanded(

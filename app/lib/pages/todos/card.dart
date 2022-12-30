@@ -149,8 +149,7 @@ class _TodoCardState extends State<TodoCard> {
                       AppLocalizations.of(context)!.delete,
                       () async {
                         await _todoService.deleteTodo(_newTodo.id);
-                        widget.controller.itemList
-                            ?.remove(MapEntry(_newTodo, widget.source));
+                        widget.controller.refresh();
                       }
                     ]
                   ]

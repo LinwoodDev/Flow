@@ -395,19 +395,22 @@ class _EventTodosTabState extends State<_EventTodosTab> {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: FloatingActionButton.extended(
-              label: Text(AppLocalizations.of(context)!.create),
-              icon: const Icon(Icons.add_outlined),
-              onPressed: () async {
-                await showDialog<Todo>(
-                  context: context,
-                  builder: (context) => TodoDialog(
-                    event: widget.event,
-                    source: widget.source,
-                  ),
-                );
-                _pagingController.refresh();
-              },
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: FloatingActionButton.extended(
+                label: Text(AppLocalizations.of(context)!.create),
+                icon: const Icon(Icons.add_outlined),
+                onPressed: () async {
+                  await showDialog<Todo>(
+                    context: context,
+                    builder: (context) => TodoDialog(
+                      event: widget.event,
+                      source: widget.source,
+                    ),
+                  );
+                  _pagingController.refresh();
+                },
+              ),
             ),
           ),
         ],
