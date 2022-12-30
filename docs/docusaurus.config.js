@@ -80,16 +80,16 @@ module.exports = {
                             href: 'https://discord.linwood.dev',
                         },
                         {
+                            label: 'Matrix',
+                            href: 'https://linwood.dev/matrix',
+                        },
+                        {
                             label: 'Twitter',
                             href: 'https://twitter.com/LinwoodCloud',
                         },
                         {
                             label: 'Mastodon',
                             href: 'https://floss.social/@linwood',
-                        },
-                        {
-                            label: 'Contribution guide',
-                            href: 'https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md',
                         },
                         {
                             html: `
@@ -118,7 +118,11 @@ module.exports = {
                         {
                             label: 'Shared',
                             href: 'https://github.com/LinwoodCloud/Flow/tree/develop/shared',
-                        }
+                        },
+                        {
+                            label: 'Contribution guide',
+                            href: 'https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md',
+                        },
                     ],
                 },
                 {

@@ -6,7 +6,6 @@ import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/event/model.dart';
 
 import 'day.dart';
@@ -60,13 +59,6 @@ extension _CalendarViewExtension on _CalendarView {
 class _CalendarPageState extends State<CalendarPage>
     with TickerProviderStateMixin {
   _CalendarView _calendarView = _CalendarView.list;
-  final PagingController<int, List<MapEntry<String, Event>>> _pagingController =
-      PagingController(firstPageKey: 0);
-  @override
-  void dispose() {
-    _pagingController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +77,6 @@ class _CalendarPageState extends State<CalendarPage>
             setState(() {
               _calendarView = value;
             });
-            _pagingController.refresh();
           },
           itemBuilder: (context) => _CalendarView.values
               .map((e) => PopupMenuItem(
@@ -101,25 +92,14 @@ class _CalendarPageState extends State<CalendarPage>
         ),
       ],
       body: CalendarBodyView(
-        pagingController: _pagingController,
         filter: widget.filter,
         view: _calendarView,
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog(
-                context: context, builder: (context) => const EventDialog())
-            .then((value) => _pagingController.refresh()),
-        label: Text(AppLocalizations.of(context)!.create),
-        icon: const Icon(Icons.add_outlined),
       ),
     );
   }
 }
 
 class _CalendarSearchDelegate extends SearchDelegate {
-  final PagingController<int, List<MapEntry<String, Event>>> _pagingController =
-      PagingController(firstPageKey: 0);
-
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -144,9 +124,7 @@ class _CalendarSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    _pagingController.refresh();
     return CalendarBodyView(
-      pagingController: _pagingController,
       search: query,
     );
   }
@@ -161,13 +139,12 @@ class CalendarBodyView extends StatefulWidget {
   final String search;
   final _CalendarView view;
   final CalendarFilter filter;
-  final PagingController<int, List<MapEntry<String, Event>>> pagingController;
-  const CalendarBodyView(
-      {super.key,
-      this.search = '',
-      this.filter = const CalendarFilter(),
-      this.view = _CalendarView.list,
-      required this.pagingController});
+  const CalendarBodyView({
+    super.key,
+    this.search = '',
+    this.filter = const CalendarFilter(),
+    this.view = _CalendarView.list,
+  });
 
   @override
   State<CalendarBodyView> createState() => _CalendarBodyViewState();
@@ -187,9 +164,7 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
   void didUpdateWidget(covariant CalendarBodyView oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.search != widget.search) {
-      widget.pagingController.refresh();
-    } else if (oldWidget.view != widget.view) {
+    if (oldWidget.view != widget.view) {
       setState(() {});
     }
   }
@@ -201,18 +176,15 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
         case _CalendarView.pending:
           return CalendarPendingView(
             filter: _filter,
-            controller: widget.pagingController,
             onFilterChanged: _onFilterChanged,
           );
         case _CalendarView.day:
           return CalendarDayView(
             filter: _filter,
-            controller: widget.pagingController,
             onFilterChanged: _onFilterChanged,
           );
         default:
           return CalendarListView(
-            controller: widget.pagingController,
             search: widget.search,
             onFilterChanged: _onFilterChanged,
             filter: _filter,
@@ -225,5 +197,29 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
     setState(() {
       _filter = value;
     });
+  }
+}
+
+class CreateEventScaffold extends StatelessWidget {
+  final void Function(Event?) onCreated;
+  final Widget child;
+  const CreateEventScaffold({
+    super.key,
+    required this.onCreated,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: child,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => showDialog<Event>(
+            context: context,
+            builder: (context) => const EventDialog()).then(onCreated),
+        label: Text(AppLocalizations.of(context)!.create),
+        icon: const Icon(Icons.add_outlined),
+      ),
+    );
   }
 }

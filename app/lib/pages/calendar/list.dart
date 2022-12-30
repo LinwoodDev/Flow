@@ -1,5 +1,6 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/pages/calendar/filter.dart';
+import 'package:flow/pages/calendar/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -13,12 +14,10 @@ import 'tile.dart';
 class CalendarListView extends StatefulWidget {
   final CalendarFilter filter;
   final String search;
-  final PagingController<int, List<MapEntry<String, Event>>> controller;
   final ValueChanged<CalendarFilter> onFilterChanged;
 
   const CalendarListView({
     super.key,
-    required this.controller,
     required this.onFilterChanged,
     required this.filter,
     required this.search,
@@ -30,24 +29,25 @@ class CalendarListView extends StatefulWidget {
 
 class _CalendarListViewState extends State<CalendarListView> {
   late FlowCubit _cubit;
+  final PagingController<int, List<MapEntry<String, Event>>> _controller =
+      PagingController(firstPageKey: 0);
 
   @override
   void initState() {
     super.initState();
     _cubit = context.read<FlowCubit>();
-    widget.controller.addPageRequestListener(_requestPage);
-    widget.controller.refresh();
+    _controller.addPageRequestListener(_requestPage);
   }
 
   @override
   void dispose() {
-    widget.controller.removePageRequestListener(_requestPage);
+    _controller.dispose();
     super.dispose();
   }
 
   Future<void> _requestPage(int key) async {
     final events = await _fetchEvents(key);
-    if (mounted) widget.controller.appendPage([events], key + 1);
+    if (mounted) _controller.appendPage([events], key + 1);
   }
 
   Future<List<MapEntry<String, Event>>> _fetchEvents(int day) async {
@@ -89,96 +89,99 @@ class _CalendarListViewState extends State<CalendarListView> {
   Widget build(BuildContext context) {
     final locale = Localizations.localeOf(context).languageCode;
     final dateFormatter = DateFormat.yMMMMd(locale);
-    return Column(
-      children: [
-        CalendarFilterView(
-          initialFilter: widget.filter,
-          onChanged: widget.onFilterChanged,
-        ),
-        const SizedBox(height: 8),
-        Expanded(
-          child: LayoutBuilder(
-            builder: (context, constraints) => PagedListView(
-              pagingController: widget.controller,
-              builderDelegate:
-                  PagedChildBuilderDelegate<List<MapEntry<String, Event>>>(
-                itemBuilder: (context, item, index) {
-                  var date = DateTime.now().onlyDate();
-                  if (widget.filter.past) {
-                    date = date.subtract(Duration(days: index));
-                  } else {
-                    date = date.add(Duration(days: index));
-                  }
-                  final header = Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 64,
-                      horizontal: 16,
-                    ),
-                    child: Column(
+    return CreateEventScaffold(
+      onCreated: (p0) => _controller.refresh(),
+      child: Column(
+        children: [
+          CalendarFilterView(
+            initialFilter: widget.filter,
+            onChanged: widget.onFilterChanged,
+          ),
+          const SizedBox(height: 8),
+          Expanded(
+            child: LayoutBuilder(
+              builder: (context, constraints) => PagedListView(
+                pagingController: _controller,
+                builderDelegate:
+                    PagedChildBuilderDelegate<List<MapEntry<String, Event>>>(
+                  itemBuilder: (context, item, index) {
+                    var date = DateTime.now().onlyDate();
+                    if (widget.filter.past) {
+                      date = date.subtract(Duration(days: index));
+                    } else {
+                      date = date.add(Duration(days: index));
+                    }
+                    final header = Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 64,
+                        horizontal: 16,
+                      ),
+                      child: Column(
+                        children: [
+                          if (index == 0)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              child: Icon(
+                                Icons.today_outlined,
+                                color: Theme.of(context).colorScheme.secondary,
+                                size: 64,
+                              ),
+                            ),
+                          Text(
+                            dateFormatter.format(date),
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                        ],
+                      ),
+                    );
+                    final list = Column(
                       children: [
-                        if (index == 0)
+                        if (item.isEmpty)
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16),
-                            child: Icon(
-                              Icons.today_outlined,
-                              color: Theme.of(context).colorScheme.secondary,
-                              size: 64,
+                            child: Text(
+                              AppLocalizations.of(context)!.noEvents,
+                              style: Theme.of(context).textTheme.bodyLarge,
                             ),
                           ),
-                        Text(
-                          dateFormatter.format(date),
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
+                        ...item.map((event) {
+                          return CalendarListTile(
+                            key: ValueKey('${event.key}@${event.value.id}'),
+                            event: event.value,
+                            source: event.key,
+                            date: date,
+                            onRefresh: _controller.refresh,
+                          );
+                        }),
                       ],
-                    ),
-                  );
-                  final list = Column(
-                    children: [
-                      if (item.isEmpty)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          child: Text(
-                            AppLocalizations.of(context)!.noEvents,
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                        ),
-                      ...item.map((event) {
-                        return CalendarListTile(
-                          key: ValueKey('${event.key}@${event.value.id}'),
-                          event: event.value,
-                          source: event.key,
-                          date: date,
-                          onRefresh: widget.controller.refresh,
-                        );
-                      }),
-                    ],
-                  );
-                  final isMobile = constraints.maxWidth < 800;
-                  return Align(
-                    alignment: Alignment.topCenter,
-                    child: ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 1000),
-                        child: isMobile
-                            ? Column(
-                                children: [
-                                  header,
-                                  list,
-                                ],
-                              )
-                            : Row(
-                                children: [
-                                  header,
-                                  const SizedBox(width: 16),
-                                  Expanded(child: list),
-                                ],
-                              )),
-                  );
-                },
+                    );
+                    final isMobile = constraints.maxWidth < 800;
+                    return Align(
+                      alignment: Alignment.topCenter,
+                      child: ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 1000),
+                          child: isMobile
+                              ? Column(
+                                  children: [
+                                    header,
+                                    list,
+                                  ],
+                                )
+                              : Row(
+                                  children: [
+                                    header,
+                                    const SizedBox(width: 16),
+                                    Expanded(child: list),
+                                  ],
+                                )),
+                    );
+                  },
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

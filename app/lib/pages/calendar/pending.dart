@@ -1,3 +1,4 @@
+import 'package:flow/pages/calendar/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -10,14 +11,12 @@ import 'tile.dart';
 class CalendarPendingView extends StatefulWidget {
   final CalendarFilter filter;
   final String search;
-  final PagingController<int, List<MapEntry<String, Event>>> controller;
   final ValueChanged<CalendarFilter> onFilterChanged;
 
   const CalendarPendingView({
     super.key,
     required this.filter,
     this.search = '',
-    required this.controller,
     required this.onFilterChanged,
   });
 
@@ -28,18 +27,19 @@ class CalendarPendingView extends StatefulWidget {
 class _CalendarPendingViewState extends State<CalendarPendingView> {
   static const _pageSize = 50;
   late FlowCubit _cubit;
+  final PagingController<int, List<MapEntry<String, Event>>> _controller =
+      PagingController(firstPageKey: 0);
 
   @override
   void initState() {
     super.initState();
     _cubit = context.read<FlowCubit>();
-    widget.controller.addPageRequestListener(_requestPage);
-    widget.controller.refresh();
+    _controller.addPageRequestListener(_requestPage);
   }
 
   @override
   void dispose() {
-    widget.controller.removePageRequestListener(_requestPage);
+    _controller.dispose();
     super.dispose();
   }
 
@@ -47,9 +47,9 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
     final events = await _fetchEvents(key);
     if (mounted) {
       if (events.length < _pageSize) {
-        widget.controller.appendLastPage([events]);
+        _controller.appendLastPage([events]);
       } else {
-        widget.controller.appendPage([events], key + 1);
+        _controller.appendPage([events], key + 1);
       }
     }
   }
@@ -87,48 +87,51 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
   void didUpdateWidget(covariant CalendarPendingView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.filter != oldWidget.filter) {
-      widget.controller.refresh();
+      _controller.refresh();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CalendarFilterView(
-          initialFilter: widget.filter,
-          onChanged: widget.onFilterChanged,
-          past: false,
-        ),
-        const SizedBox(height: 8),
-        Expanded(
-          child: LayoutBuilder(
-            builder: (context, constraints) => PagedListView(
-              pagingController: widget.controller,
-              builderDelegate:
-                  PagedChildBuilderDelegate<List<MapEntry<String, Event>>>(
-                itemBuilder: (context, item, index) {
-                  return Column(
-                    children: item
-                        .map(
-                          (e) => ConstrainedBox(
-                            constraints: const BoxConstraints(maxWidth: 1000),
-                            child: CalendarListTile(
-                              key: ValueKey('${e.key}@${e.value.id}'),
-                              event: e.value,
-                              source: e.key,
-                              onRefresh: widget.controller.refresh,
+    return CreateEventScaffold(
+      onCreated: (p0) => _controller.refresh(),
+      child: Column(
+        children: [
+          CalendarFilterView(
+            initialFilter: widget.filter,
+            onChanged: widget.onFilterChanged,
+            past: false,
+          ),
+          const SizedBox(height: 8),
+          Expanded(
+            child: LayoutBuilder(
+              builder: (context, constraints) => PagedListView(
+                pagingController: _controller,
+                builderDelegate:
+                    PagedChildBuilderDelegate<List<MapEntry<String, Event>>>(
+                  itemBuilder: (context, item, index) {
+                    return Column(
+                      children: item
+                          .map(
+                            (e) => ConstrainedBox(
+                              constraints: const BoxConstraints(maxWidth: 1000),
+                              child: CalendarListTile(
+                                key: ValueKey('${e.key}@${e.value.id}'),
+                                event: e.value,
+                                source: e.key,
+                                onRefresh: _controller.refresh,
+                              ),
                             ),
-                          ),
-                        )
-                        .toList(),
-                  );
-                },
+                          )
+                          .toList(),
+                    );
+                  },
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

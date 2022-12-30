@@ -19,14 +19,6 @@ class GroupsPage extends StatefulWidget {
 }
 
 class _GroupsPageState extends State<GroupsPage> {
-  final PagingController<int, MapEntry<Group, String>> _pagingController =
-      PagingController(firstPageKey: 0);
-  @override
-  void dispose() {
-    _pagingController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return FlowNavigation(
@@ -38,11 +30,28 @@ class _GroupsPageState extends State<GroupsPage> {
               showSearch(context: context, delegate: _GroupsSearchDelegate()),
         ),
       ],
-      body: GroupsBodyView(pagingController: _pagingController),
+      body: const GroupsBodyView(),
+    );
+  }
+}
+
+class CreateEventScaffold extends StatelessWidget {
+  final void Function(Group?) onCreated;
+  final Widget child;
+  const CreateEventScaffold({
+    super.key,
+    required this.onCreated,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: child,
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog(
-                context: context, builder: (context) => const GroupDialog())
-            .then((value) => _pagingController.refresh()),
+        onPressed: () => showDialog<Group>(
+            context: context,
+            builder: (context) => const GroupDialog()).then(onCreated),
         label: Text(AppLocalizations.of(context)!.create),
         icon: const Icon(Icons.add_outlined),
       ),
@@ -51,9 +60,6 @@ class _GroupsPageState extends State<GroupsPage> {
 }
 
 class _GroupsSearchDelegate extends SearchDelegate {
-  final PagingController<int, MapEntry<Group, String>> _pagingController =
-      PagingController(firstPageKey: 0);
-
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -78,9 +84,7 @@ class _GroupsSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    _pagingController.refresh();
     return GroupsBodyView(
-      pagingController: _pagingController,
       search: query,
     );
   }
@@ -92,12 +96,10 @@ class _GroupsSearchDelegate extends SearchDelegate {
 }
 
 class GroupsBodyView extends StatefulWidget {
-  final PagingController<int, MapEntry<Group, String>> pagingController;
   final String search;
 
   const GroupsBodyView({
     super.key,
-    required this.pagingController,
     this.search = '',
   });
 
@@ -108,17 +110,19 @@ class GroupsBodyView extends StatefulWidget {
 class _GroupsBodyViewState extends State<GroupsBodyView> {
   static const _pageSize = 20;
   late final FlowCubit _flowCubit;
+  final PagingController<int, MapEntry<Group, String>> _controller =
+      PagingController(firstPageKey: 0);
 
   @override
   void initState() {
     _flowCubit = context.read<FlowCubit>();
-    widget.pagingController.addPageRequestListener(_fetchPage);
+    _controller.addPageRequestListener(_fetchPage);
     super.initState();
   }
 
   @override
   void dispose() {
-    widget.pagingController.removePageRequestListener(_fetchPage);
+    _controller.dispose();
     super.dispose();
   }
 
@@ -127,7 +131,7 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.search != widget.search) {
-      widget.pagingController.refresh();
+      _controller.refresh();
     }
   }
 
@@ -148,20 +152,20 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
         }
       }
       if (isLast) {
-        widget.pagingController.appendLastPage(groups);
+        _controller.appendLastPage(groups);
       } else {
         final nextPageKey = pageKey + 1;
-        widget.pagingController.appendPage(groups, nextPageKey);
+        _controller.appendPage(groups, nextPageKey);
       }
     } catch (error) {
-      widget.pagingController.error = error;
+      _controller.error = error;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return PagedListView(
-      pagingController: widget.pagingController,
+      pagingController: _controller,
       builderDelegate: PagedChildBuilderDelegate<MapEntry<Group, String>>(
         itemBuilder: (ctx, item, index) => Align(
           key: ValueKey('${item.key.id}@${item.value}'),
@@ -175,14 +179,14 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
                     .getSource(item.value)
                     .group
                     .deleteGroup(item.key.id);
-                widget.pagingController.itemList!.remove(item);
+                _controller.itemList!.remove(item);
               },
               background: Container(
                 color: Colors.red,
               ),
               child: GroupTile(
                 flowCubit: _flowCubit,
-                pagingController: widget.pagingController,
+                pagingController: _controller,
                 source: item.value,
                 group: item.key,
               ),
