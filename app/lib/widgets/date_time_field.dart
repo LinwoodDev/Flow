@@ -1,3 +1,4 @@
+import 'package:flow/helpers/event.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -43,11 +44,6 @@ class _DateTimeFieldState extends State<DateTimeField> {
     return '${DateFormat.yMd(locale).format(value)} ${DateFormat.Hm().format(value)}';
   }
 
-  DateTime _addYears(DateTime dateTime, int years) {
-    return DateTime(dateTime.year + years, dateTime.month, dateTime.day,
-        dateTime.hour, dateTime.minute, dateTime.second, dateTime.millisecond);
-  }
-
   @override
   Widget build(BuildContext context) {
     final useValue = _value ?? DateTime.now();
@@ -69,7 +65,7 @@ class _DateTimeFieldState extends State<DateTimeField> {
                     context: context,
                     initialDate: useValue,
                     firstDate: DateTime.fromMicrosecondsSinceEpoch(0),
-                    lastDate: _addYears(useValue, 200),
+                    lastDate: useValue.addYears(200),
                   );
                   if (result != null) {
                     _change(DateTime(result.year, result.month, result.day,
