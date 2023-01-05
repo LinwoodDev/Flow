@@ -162,10 +162,13 @@ class _CalendarDayViewState extends State<CalendarDayView> {
               if (!snapshot.hasData) {
                 return const Center(child: CircularProgressIndicator());
               }
-              return SingleDayList(
-                events: snapshot.data!,
-                onChanged: _refresh,
-                current: _date,
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: SingleDayList(
+                  events: snapshot.data!,
+                  onChanged: _refresh,
+                  current: _date,
+                ),
               );
             }),
       ]),
@@ -205,107 +208,104 @@ class SingleDayList extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       final currentPosWidth =
           max(constraints.maxWidth / (maxPosition + 2), _positionWidth);
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: SizedBox(
-          height: 24 * _hourHeight + _dividerHeight,
-          width: currentPosWidth * (maxPosition + 2),
-          child: Stack(
-            children: [
-              GestureDetector(onTapUp: (details) async {
-                var minutes =
-                    ((details.localPosition.dy / _hourHeight) % 1 * 60).floor();
-                minutes = (minutes / 5).floor() * 5;
-                // Calculate current time
-                final dateTime = DateTime(
-                  current.year,
-                  current.month,
-                  current.day,
-                  (details.localPosition.dy / _hourHeight).floor(),
-                  minutes,
-                );
+      return SizedBox(
+        height: 24 * _hourHeight + _dividerHeight,
+        width: currentPosWidth * (maxPosition + 2),
+        child: Stack(
+          children: [
+            GestureDetector(onTapUp: (details) async {
+              var minutes =
+                  ((details.localPosition.dy / _hourHeight) % 1 * 60).floor();
+              minutes = (minutes / 5).floor() * 5;
+              // Calculate current time
+              final dateTime = DateTime(
+                current.year,
+                current.month,
+                current.day,
+                (details.localPosition.dy / _hourHeight).floor(),
+                minutes,
+              );
 
-                await showDialog(
-                    context: context,
-                    builder: (context) => EventDialog(
-                          event: Event(
-                            start: dateTime,
-                            end: dateTime.add(const Duration(hours: 1)),
-                          ),
-                        ));
-                onChanged();
-              }),
-              for (final position in positions)
-                Builder(builder: (context) {
-                  double top = 0, height;
-                  if (position.event.start?.isSameDay(current) ?? false) {
-                    top = (position.event.start?.hour ?? 0) * _hourHeight +
-                        (position.event.start?.minute ?? 0) / 60 * _hourHeight;
-                  }
-                  if (position.event.end?.isSameDay(current) ?? false) {
-                    height = (position.event.end?.hour ?? 23) * _hourHeight +
-                        (position.event.end?.minute ?? 59) / 60 * _hourHeight -
-                        top;
-                  } else {
-                    height = 24 * _hourHeight - top;
-                  }
-                  return Positioned(
-                    top: top,
-                    height: height,
-                    left: currentPosWidth * position.position,
-                    width: currentPosWidth,
-                    child: Card(
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      color: position.event.status.getColor().withAlpha(100),
-                      child: InkWell(
-                        onTap: () => showDialog(
-                          context: context,
-                          builder: (context) => EventDialog(
-                            event: position.event,
-                            source: position.source,
-                          ),
+              await showDialog(
+                  context: context,
+                  builder: (context) => EventDialog(
+                        event: Event(
+                          start: dateTime,
+                          end: dateTime.add(const Duration(hours: 1)),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                position.event.name,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                position.event.description,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          ),
+                      ));
+              onChanged();
+            }),
+            for (final position in positions)
+              Builder(builder: (context) {
+                double top = 0, height;
+                if (position.event.start?.isSameDay(current) ?? false) {
+                  top = (position.event.start?.hour ?? 0) * _hourHeight +
+                      (position.event.start?.minute ?? 0) / 60 * _hourHeight;
+                }
+                if (position.event.end?.isSameDay(current) ?? false) {
+                  height = (position.event.end?.hour ?? 23) * _hourHeight +
+                      (position.event.end?.minute ?? 59) / 60 * _hourHeight -
+                      top;
+                } else {
+                  height = 24 * _hourHeight - top;
+                }
+                return Positioned(
+                  top: top,
+                  height: height,
+                  left: currentPosWidth * position.position,
+                  width: currentPosWidth,
+                  child: Card(
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    color: position.event.status.getColor().withAlpha(100),
+                    child: InkWell(
+                      onTap: () => showDialog(
+                        context: context,
+                        builder: (context) => EventDialog(
+                          event: position.event,
+                          source: position.source,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              position.event.name,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              position.event.description,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  );
-                }),
-              for (int i = 0; i < 24; i++)
-                Positioned(
-                  top: i * _hourHeight,
-                  left: 0,
-                  right: 0,
-                  child: Row(
-                    children: [
-                      const Flexible(child: Divider()),
-                      const SizedBox(width: 8),
-                      Text(DateFormat.Hm(
-                              Localizations.localeOf(context).languageCode)
-                          .format(DateTime(0, 0, 0, i))),
-                      const SizedBox(width: 8),
-                      const Flexible(child: Divider()),
-                    ],
                   ),
+                );
+              }),
+            for (int i = 0; i < 24; i++)
+              Positioned(
+                top: i * _hourHeight,
+                left: 0,
+                right: 0,
+                child: Row(
+                  children: [
+                    const Flexible(child: Divider()),
+                    const SizedBox(width: 8),
+                    Text(DateFormat.Hm(
+                            Localizations.localeOf(context).languageCode)
+                        .format(DateTime(0, 0, 0, i))),
+                    const SizedBox(width: 8),
+                    const Flexible(child: Divider()),
+                  ],
                 ),
-            ],
-          ),
+              ),
+          ],
         ),
       );
     });

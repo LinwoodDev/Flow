@@ -3,18 +3,24 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
-Future<void> setup() async {
+import 'cubits/settings.dart';
+import 'setup.dart' as general_setup;
+
+Future<void> setup(SettingsCubit settingsCubit) async {
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     await windowManager.ensureInitialized();
 
-    const windowOptions = WindowOptions(
-      size: Size(800, 600),
-      backgroundColor: Colors.transparent,
-      titleBarStyle: TitleBarStyle.hidden,
+    final windowOptions = WindowOptions(
+      size: const Size(800, 600),
+      titleBarStyle: settingsCubit.state.nativeTitleBar
+          ? TitleBarStyle.normal
+          : TitleBarStyle.hidden,
+      title: 'Flow',
     );
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       await windowManager.show();
       await windowManager.focus();
     });
+    await general_setup.setup(settingsCubit);
   }
 }

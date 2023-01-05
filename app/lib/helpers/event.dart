@@ -46,4 +46,22 @@ extension DateTimeHelper on DateTime {
     return DateTime(
         year + years, month, day, hour, minute, second, millisecond);
   }
+
+  DateTime addDays(int days) {
+    return DateTime(year, month, day + days, hour, minute, second, millisecond);
+  }
+
+  int get week {
+    final date = DateTime(year, month, day);
+    final firstDay = DateTime(date.year, 1, 1);
+    final days = date.difference(firstDay).inDays;
+    return (days / 7).ceil();
+  }
+
+  DateTime get startOfWeek {
+    final date = DateTime(year, month, day);
+    final firstDay = DateTime(date.year, 1, 1);
+    final days = date.difference(firstDay).inDays;
+    return firstDay.add(Duration(days: days - days % 7));
+  }
 }

@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:flow/cubits/settings.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shared/helpers/string.dart';
 import 'package:flow/helpers/theme_mode.dart';
 import 'package:flow/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:window_manager/window_manager.dart';
 
 class PersonalizationSettingsView extends StatelessWidget {
   const PersonalizationSettingsView({super.key});
@@ -111,6 +115,28 @@ class PersonalizationSettingsView extends StatelessWidget {
                   leading: const Icon(Icons.translate_outlined),
                   onTap: () {},
                 ),
+                if (!kIsWeb &&
+                    (Platform.isWindows ||
+                        Platform.isLinux ||
+                        Platform.isMacOS))
+                  BlocBuilder<SettingsCubit, FlowSettings>(
+                      buildWhen: (previous, current) =>
+                          previous.nativeTitleBar != current.nativeTitleBar,
+                      builder: (context, state) {
+                        return CheckboxListTile(
+                          title: Text(
+                              AppLocalizations.of(context)!.nativeTitleBar),
+                          value: state.nativeTitleBar,
+                          onChanged: (value) {
+                            context
+                                .read<SettingsCubit>()
+                                .setNativeTitleBar(value ?? false);
+                            windowManager.setTitleBarStyle(value ?? false
+                                ? TitleBarStyle.normal
+                                : TitleBarStyle.hidden);
+                          },
+                        );
+                      }),
               ],
             ));
   }

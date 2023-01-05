@@ -11,6 +11,7 @@ class FlowSettings with _$FlowSettings {
 
   const factory FlowSettings({
     @Default(ThemeMode.system) ThemeMode themeMode,
+    @Default(false) bool nativeTitleBar,
     @Default('') String design,
   }) = _FlowSettings;
 
@@ -18,12 +19,14 @@ class FlowSettings with _$FlowSettings {
         themeMode:
             ThemeMode.values.byName(prefs.getString('themeMode') ?? 'system'),
         design: prefs.getString('design') ?? '',
+        nativeTitleBar: prefs.getBool('nativeTitleBar') ?? false,
       );
 
   Future<void> save() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('themeMode', themeMode.name);
     prefs.setString('design', design);
+    prefs.setBool('nativeTitleBar', nativeTitleBar);
   }
 }
 
@@ -37,6 +40,11 @@ class SettingsCubit extends Cubit<FlowSettings> {
 
   Future<void> setDesign(String design) {
     emit(state.copyWith(design: design));
+    return state.save();
+  }
+
+  Future<void> setNativeTitleBar(bool nativeTitleBar) {
+    emit(state.copyWith(nativeTitleBar: nativeTitleBar));
     return state.save();
   }
 }

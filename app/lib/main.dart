@@ -35,14 +35,15 @@ Future<void> main() async {
   usePathUrlStrategy();
 
   final prefs = await SharedPreferences.getInstance();
+  final settingsCubit = SettingsCubit(prefs);
 
   final database = DatabaseService(openDatabase);
   await database.setup();
 
-  await setup();
+  await setup(settingsCubit);
   runApp(
-    BlocProvider(
-      create: (_) => SettingsCubit(prefs),
+    BlocProvider.value(
+      value: settingsCubit,
       child: RepositoryProvider(
         create: (context) =>
             SourcesService(context.read<SettingsCubit>(), database),

@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$FlowSettings {
   ThemeMode get themeMode => throw _privateConstructorUsedError;
+  bool get nativeTitleBar => throw _privateConstructorUsedError;
   String get design => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +31,7 @@ abstract class $FlowSettingsCopyWith<$Res> {
           FlowSettings value, $Res Function(FlowSettings) then) =
       _$FlowSettingsCopyWithImpl<$Res, FlowSettings>;
   @useResult
-  $Res call({ThemeMode themeMode, String design});
+  $Res call({ThemeMode themeMode, bool nativeTitleBar, String design});
 }
 
 /// @nodoc
@@ -47,6 +48,7 @@ class _$FlowSettingsCopyWithImpl<$Res, $Val extends FlowSettings>
   @override
   $Res call({
     Object? themeMode = null,
+    Object? nativeTitleBar = null,
     Object? design = null,
   }) {
     return _then(_value.copyWith(
@@ -54,6 +56,10 @@ class _$FlowSettingsCopyWithImpl<$Res, $Val extends FlowSettings>
           ? _value.themeMode
           : themeMode // ignore: cast_nullable_to_non_nullable
               as ThemeMode,
+      nativeTitleBar: null == nativeTitleBar
+          ? _value.nativeTitleBar
+          : nativeTitleBar // ignore: cast_nullable_to_non_nullable
+              as bool,
       design: null == design
           ? _value.design
           : design // ignore: cast_nullable_to_non_nullable
@@ -70,7 +76,7 @@ abstract class _$$_FlowSettingsCopyWith<$Res>
       __$$_FlowSettingsCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ThemeMode themeMode, String design});
+  $Res call({ThemeMode themeMode, bool nativeTitleBar, String design});
 }
 
 /// @nodoc
@@ -85,6 +91,7 @@ class __$$_FlowSettingsCopyWithImpl<$Res>
   @override
   $Res call({
     Object? themeMode = null,
+    Object? nativeTitleBar = null,
     Object? design = null,
   }) {
     return _then(_$_FlowSettings(
@@ -92,6 +99,10 @@ class __$$_FlowSettingsCopyWithImpl<$Res>
           ? _value.themeMode
           : themeMode // ignore: cast_nullable_to_non_nullable
               as ThemeMode,
+      nativeTitleBar: null == nativeTitleBar
+          ? _value.nativeTitleBar
+          : nativeTitleBar // ignore: cast_nullable_to_non_nullable
+              as bool,
       design: null == design
           ? _value.design
           : design // ignore: cast_nullable_to_non_nullable
@@ -103,7 +114,10 @@ class __$$_FlowSettingsCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_FlowSettings extends _FlowSettings {
-  const _$_FlowSettings({this.themeMode = ThemeMode.system, this.design = ''})
+  const _$_FlowSettings(
+      {this.themeMode = ThemeMode.system,
+      this.nativeTitleBar = false,
+      this.design = ''})
       : super._();
 
   @override
@@ -111,11 +125,14 @@ class _$_FlowSettings extends _FlowSettings {
   final ThemeMode themeMode;
   @override
   @JsonKey()
+  final bool nativeTitleBar;
+  @override
+  @JsonKey()
   final String design;
 
   @override
   String toString() {
-    return 'FlowSettings(themeMode: $themeMode, design: $design)';
+    return 'FlowSettings(themeMode: $themeMode, nativeTitleBar: $nativeTitleBar, design: $design)';
   }
 
   @override
@@ -125,11 +142,14 @@ class _$_FlowSettings extends _FlowSettings {
             other is _$_FlowSettings &&
             (identical(other.themeMode, themeMode) ||
                 other.themeMode == themeMode) &&
+            (identical(other.nativeTitleBar, nativeTitleBar) ||
+                other.nativeTitleBar == nativeTitleBar) &&
             (identical(other.design, design) || other.design == design));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, themeMode, design);
+  int get hashCode =>
+      Object.hash(runtimeType, themeMode, nativeTitleBar, design);
 
   @JsonKey(ignore: true)
   @override
@@ -140,11 +160,15 @@ class _$_FlowSettings extends _FlowSettings {
 
 abstract class _FlowSettings extends FlowSettings {
   const factory _FlowSettings(
-      {final ThemeMode themeMode, final String design}) = _$_FlowSettings;
+      {final ThemeMode themeMode,
+      final bool nativeTitleBar,
+      final String design}) = _$_FlowSettings;
   const _FlowSettings._() : super._();
 
   @override
   ThemeMode get themeMode;
+  @override
+  bool get nativeTitleBar;
   @override
   String get design;
   @override

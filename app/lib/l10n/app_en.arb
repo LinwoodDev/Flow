@@ -184,5 +184,6 @@
   },
   "pending": "Pending",
   "removeEvent": "Remove event",
-  "event": "Event"
+  "event": "Event",
+  "nativeTitleBar": "Native title bar"
 }
