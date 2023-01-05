@@ -28,12 +28,17 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
   late final FlowCubit _cubit;
   int _week = 0, _year = 0;
   late Future<List<List<MapEntry<String, Event>>>> _events;
+  final _columnScrollController = ScrollController(),
+      _rowScrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     _cubit = context.read<FlowCubit>();
     _events = _fetchEvents();
+    final now = DateTime.now();
+    _week = now.week;
+    _year = now.year;
   }
 
   DateTime get _date => DateTime(_year, 1, 1).addDays((_week - 1) * 7);
@@ -72,7 +77,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
 
   void _addWeek(int add) {
     setState(() {
-      final dateTime = DateTime.now().addDays((_week + add) * 7);
+      final dateTime = DateTime(_year - 1, 12, 31).addDays((_week + add) * 7);
       _week = dateTime.week;
       _year = dateTime.year;
       _events = _fetchEvents();
@@ -93,97 +98,125 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
 
   @override
   Widget build(BuildContext context) {
-    return CreateEventScaffold(
-      onCreated: (p0) => _refresh,
-      child: ListView(children: [
-        Align(
-          alignment: Alignment.center,
-          child: CalendarFilterView(
-            initialFilter: widget.filter,
-            onChanged: (value) {
-              _refresh();
-              widget.onFilterChanged(value);
-            },
-            past: false,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            ElevatedButton(
-              onPressed: () => _addWeek(-1),
-              child: const Icon(Icons.chevron_left),
+    return LayoutBuilder(
+      builder: (context, constraints) => CreateEventScaffold(
+        onCreated: (p0) => _refresh,
+        child: Column(children: [
+          Column(mainAxisSize: MainAxisSize.min, children: [
+            CalendarFilterView(
+              initialFilter: widget.filter,
+              onChanged: (value) {
+                _refresh();
+                widget.onFilterChanged(value);
+              },
+              past: false,
             ),
+            const SizedBox(height: 8),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                IconButton(
-                  icon: const Icon(Icons.today_outlined),
-                  isSelected: _date.isSameDay(DateTime.now()),
-                  onPressed: () {
-                    setState(() {
-                      final now = DateTime.now();
-                      _week = now.week;
-                      _year = now.year;
-                      _events = _fetchEvents();
-                    });
-                  },
+                ElevatedButton(
+                  onPressed: () => _addWeek(-1),
+                  child: const Icon(Icons.chevron_left),
                 ),
-                GestureDetector(
-                  child: Text(
-                    "$_week - $_year",
-                    textAlign: TextAlign.center,
-                  ),
-                  onTap: () async {
-                    final date = await showDatePicker(
-                      context: context,
-                      initialDate: _date,
-                      firstDate: DateTime.fromMicrosecondsSinceEpoch(0),
-                      lastDate: _date.addYears(200),
-                    );
-                    if (date != null) {
-                      setState(() {
-                        _week = date.week;
-                        _year = date.year;
-                        _events = _fetchEvents();
-                      });
-                    }
-                  },
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.today_outlined),
+                      isSelected: _date.isSameDay(DateTime.now()),
+                      onPressed: () {
+                        setState(() {
+                          final now = DateTime.now();
+                          _week = now.week;
+                          _year = now.year;
+                          _events = _fetchEvents();
+                        });
+                      },
+                    ),
+                    GestureDetector(
+                      child: Text(
+                        "$_week - $_year",
+                        textAlign: TextAlign.center,
+                      ),
+                      onTap: () async {
+                        final date = await showDatePicker(
+                          context: context,
+                          initialDate: _date,
+                          firstDate: DateTime.fromMicrosecondsSinceEpoch(0),
+                          lastDate: _date.addYears(200),
+                        );
+                        if (date != null) {
+                          setState(() {
+                            _week = date.week;
+                            _year = date.year;
+                            _events = _fetchEvents();
+                          });
+                        }
+                      },
+                    ),
+                  ],
+                ),
+                ElevatedButton(
+                  onPressed: () => _addWeek(1),
+                  child: const Icon(Icons.chevron_right),
                 ),
               ],
             ),
-            ElevatedButton(
-              onPressed: () => _addWeek(1),
-              child: const Icon(Icons.chevron_right),
-            ),
-          ],
-        ),
-        const Divider(),
-        FutureBuilder<List<List<MapEntry<String, Event>>>>(
-            future: _events,
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
-              }
-              if (!snapshot.hasData) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              final events = snapshot.data!;
-              return SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: events.asMap().entries.map<Widget>((entry) {
-                    final date = _date.addDays(entry.key);
-                    return SingleDayList(
-                      current: date,
-                      events: entry.value,
-                      onChanged: _refresh,
-                    );
-                  }).toList(),
+            const Divider(),
+          ]),
+          Expanded(
+            child: Scrollbar(
+              controller: _rowScrollController,
+              notificationPredicate: (notif) => notif.depth == 1,
+              child: Scrollbar(
+                controller: _columnScrollController,
+                child: SingleChildScrollView(
+                  controller: _columnScrollController,
+                  child: SingleChildScrollView(
+                    controller: _rowScrollController,
+                    scrollDirection: Axis.horizontal,
+                    child: FutureBuilder<List<List<MapEntry<String, Event>>>>(
+                        future: _events,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return Text(snapshot.error.toString());
+                          }
+                          if (!snapshot.hasData) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                          final events = snapshot.data!;
+                          return Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children:
+                                events.asMap().entries.map<Widget>((entry) {
+                              final date = _date.addDays(entry.key);
+                              return Column(
+                                children: [
+                                  Text(
+                                    date.day.toString(),
+                                    style:
+                                        Theme.of(context).textTheme.headline6,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  SingleDayList(
+                                    current: date,
+                                    events: entry.value,
+                                    onChanged: _refresh,
+                                    maxWidth: constraints.maxWidth / 7,
+                                  ),
+                                ],
+                              );
+                            }).toList(),
+                          );
+                        }),
+                  ),
                 ),
-              );
-            }),
-      ]),
+              ),
+            ),
+          ),
+        ]),
+      ),
     );
   }
 }
