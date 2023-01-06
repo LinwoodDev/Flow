@@ -69,8 +69,9 @@ class _CalendarPageState extends State<CalendarPage>
       actions: [
         IconButton(
           icon: const Icon(Icons.search_outlined),
-          onPressed: () =>
-              showSearch(context: context, delegate: _CalendarSearchDelegate()),
+          onPressed: () => showSearch(
+              context: context,
+              delegate: _CalendarSearchDelegate(_calendarView)),
         ),
         PopupMenuButton<_CalendarView>(
           icon: Icon(_calendarView.getIcon()),
@@ -102,6 +103,10 @@ class _CalendarPageState extends State<CalendarPage>
 }
 
 class _CalendarSearchDelegate extends SearchDelegate {
+  final _CalendarView view;
+
+  _CalendarSearchDelegate(this.view);
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -128,6 +133,7 @@ class _CalendarSearchDelegate extends SearchDelegate {
   Widget buildResults(BuildContext context) {
     return CalendarBodyView(
       search: query,
+      view: view,
     );
   }
 
@@ -171,37 +177,45 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
     }
   }
 
+  Widget _getView() {
+    switch (widget.view) {
+      case _CalendarView.pending:
+        return CalendarPendingView(
+          filter: _filter,
+          onFilterChanged: _onFilterChanged,
+          search: widget.search,
+        );
+      case _CalendarView.day:
+        return CalendarDayView(
+          filter: _filter,
+          onFilterChanged: _onFilterChanged,
+          search: widget.search,
+        );
+      case _CalendarView.week:
+        return CalendarWeekView(
+          filter: _filter,
+          onFilterChanged: _onFilterChanged,
+          search: widget.search,
+        );
+      case _CalendarView.month:
+        return CalendarMonthView(
+          filter: _filter,
+          onFilterChanged: _onFilterChanged,
+          search: widget.search,
+        );
+      default:
+        return CalendarListView(
+          search: widget.search,
+          onFilterChanged: _onFilterChanged,
+          filter: _filter,
+        );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FlowCubit, FlowState>(builder: (context, state) {
-      switch (widget.view) {
-        case _CalendarView.pending:
-          return CalendarPendingView(
-            filter: _filter,
-            onFilterChanged: _onFilterChanged,
-          );
-        case _CalendarView.day:
-          return CalendarDayView(
-            filter: _filter,
-            onFilterChanged: _onFilterChanged,
-          );
-        case _CalendarView.week:
-          return CalendarWeekView(
-            filter: _filter,
-            onFilterChanged: _onFilterChanged,
-          );
-        case _CalendarView.month:
-          return CalendarMonthView(
-            filter: _filter,
-            onFilterChanged: _onFilterChanged,
-          );
-        default:
-          return CalendarListView(
-            search: widget.search,
-            onFilterChanged: _onFilterChanged,
-            filter: _filter,
-          );
-      }
+      return _getView();
     });
   }
 

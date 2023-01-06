@@ -32,7 +32,7 @@ class EventDatabaseService extends EventService with TableService {
 
   @override
   Future<List<Event>> getEvents(
-      {List<EventStatus> status = const [],
+      {List<EventStatus>? status,
       bool pending = false,
       int? groupId,
       int? placeId,
@@ -44,7 +44,7 @@ class EventDatabaseService extends EventService with TableService {
       String search = ''}) async {
     String? where;
     List<Object?>? whereArgs;
-    if (status.isNotEmpty) {
+    if (status != null) {
       where = 'status IN (${status.map((e) => '?').join(', ')})';
       whereArgs = status.map((e) => e.name).toList();
     }

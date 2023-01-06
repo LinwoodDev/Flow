@@ -174,7 +174,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                     return const Center(child: CircularProgressIndicator());
                   }
                   final events = snapshot.data!;
-                  final emptyPadding = _date.weekday;
+                  final emptyPadding = _date.weekday - 1;
                   return SingleChildScrollView(
                     child: GridView.builder(
                       shrinkWrap: true,
@@ -200,7 +200,14 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                             return Center(
                               child: Text(
                                 text,
-                                style: Theme.of(context).textTheme.headline5,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline5
+                                    ?.copyWith(
+                                      color: current.isSameDay(DateTime.now())
+                                          ? Theme.of(context).primaryColor
+                                          : null,
+                                    ),
                               ),
                             );
                           });
