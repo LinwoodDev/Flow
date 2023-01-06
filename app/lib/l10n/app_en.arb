@@ -187,5 +187,6 @@
   "pending": "Pending",
   "removeEvent": "Remove event",
   "event": "Event",
-  "nativeTitleBar": "Native title bar"
+  "nativeTitleBar": "Native title bar",
+  "blocked": "Blocked"
 }

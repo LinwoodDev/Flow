@@ -16,6 +16,7 @@ class EventDatabaseService extends EventService with TableService {
       CREATE TABLE IF NOT EXISTS events (
         id INTEGER PRIMARY KEY,
         groupId INTEGER,
+        blocked INTEGER NOT NULL DEFAULT 1,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT,
         location TEXT,
@@ -110,12 +111,20 @@ class EventDatabaseService extends EventService with TableService {
 
     final result = await db?.query('events',
         where: where, whereArgs: whereArgs, offset: offset, limit: limit);
-    return result?.map((row) => Event.fromJson(row)).toList() ?? [];
+    return result
+            ?.map((row) => Event.fromJson(
+                Map.from(row)..['blocked'] = row['blocked'] == 1))
+            .toList() ??
+        [];
   }
 
   @override
   Future<Event?> createEvent(Event event) async {
-    final id = await db?.insert('events', event.toJson()..remove('id'));
+    final id = await db?.insert(
+        'events',
+        event.toJson()
+          ..remove('id')
+          ..['blocked'] = event.blocked ? 1 : 0);
     if (id == null) return null;
     return event.copyWith(id: id);
   }
@@ -124,7 +133,7 @@ class EventDatabaseService extends EventService with TableService {
   Future<bool> updateEvent(Event event) async {
     return await db?.update(
           'events',
-          event.toJson(),
+          event.toJson()..['blocked'] = event.blocked ? 1 : 0,
           where: 'id = ?',
           whereArgs: [event.id],
         ) ==
@@ -148,6 +157,9 @@ class EventDatabaseService extends EventService with TableService {
       where: 'id = ?',
       whereArgs: [id],
     );
-    return result?.map((row) => Event.fromJson(row)).first;
+    return result
+        ?.map((row) =>
+            Event.fromJson(Map.from(row)..['blocked'] = row['blocked'] == 1))
+        .first;
   }
 }

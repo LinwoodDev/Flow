@@ -10,8 +10,10 @@ class Event with _$Event {
 
   const factory Event({
     @Default(-1) int id,
+    int? parentId,
     int? groupId,
     int? placeId,
+    @Default(true) bool blocked,
     @Default('') String name,
     @Default('') String description,
     @Default('') String location,

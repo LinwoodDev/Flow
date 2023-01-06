@@ -224,14 +224,15 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                         current = current - emptyPadding;
                         final day = _date.addDays(current);
                         return InkWell(
-                          onTap: () {
-                            showDialog(
+                          onTap: () async {
+                            await showDialog(
                               context: context,
                               builder: (context) => CalendarDayDialog(
                                 date: day,
                                 events: events[current],
                               ),
                             );
+                            _refresh();
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,

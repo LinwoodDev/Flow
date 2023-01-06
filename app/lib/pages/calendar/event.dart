@@ -15,37 +15,33 @@ import 'package:shared/models/todo/service.dart';
 import '../../widgets/date_time_field.dart';
 import '../todos/todo.dart';
 
-class EventDialog extends StatefulWidget {
+class EventDialog extends StatelessWidget {
   final String? source;
   final Event? event;
 
   const EventDialog({super.key, this.event, this.source});
 
   @override
-  State<EventDialog> createState() => _EventDialogState();
-}
-
-class _EventDialogState extends State<EventDialog> {
-  @override
   Widget build(BuildContext context) {
-    var event = widget.event ?? const Event();
-    var currentSource = widget.source ?? '';
-    final nameController = TextEditingController(text: event.name);
+    var currentEvent = event ?? const Event();
+    var currentSource = source ?? '';
+    final nameController = TextEditingController(text: currentEvent.name);
     final descriptionController =
-        TextEditingController(text: event.description);
-    final locationController = TextEditingController(text: event.location);
+        TextEditingController(text: currentEvent.description);
+    final locationController =
+        TextEditingController(text: currentEvent.location);
     return AlertDialog(
-      title: Text(widget.source == null
+      title: Text(source == null
           ? AppLocalizations.of(context)!.createEvent
           : AppLocalizations.of(context)!.editEvent),
       content: SizedBox(
         width: 500,
         height: 500,
         child: DefaultTabController(
-          length: widget.source == null ? 1 : 2,
+          length: source == null ? 1 : 2,
           child: Column(
             children: [
-              if (widget.source != null)
+              if (source != null)
                 TabBar(
                     tabs: <dynamic>[
                   [Icons.tune_outlined, AppLocalizations.of(context)!.general],
@@ -71,9 +67,9 @@ class _EventDialogState extends State<EventDialog> {
                         shrinkWrap: true,
                         children: [
                           const SizedBox(height: 16),
-                          if (widget.source == null) ...[
+                          if (source == null) ...[
                             DropdownButtonFormField<String>(
-                              value: widget.source,
+                              value: source,
                               items: context
                                   .read<FlowCubit>()
                                   .getCurrentSources()
@@ -98,7 +94,7 @@ class _EventDialogState extends State<EventDialog> {
                             const SizedBox(height: 16),
                           ],
                           DropdownButtonFormField<EventStatus>(
-                            value: event.status,
+                            value: currentEvent.status,
                             items: EventStatus.values
                                 .map<DropdownMenuItem<EventStatus>>((value) {
                               return DropdownMenuItem<EventStatus>(
@@ -114,8 +110,8 @@ class _EventDialogState extends State<EventDialog> {
                               );
                             }).toList(),
                             onChanged: (EventStatus? value) {
-                              event =
-                                  event.copyWith(status: value ?? event.status);
+                              currentEvent = currentEvent.copyWith(
+                                  status: value ?? currentEvent.status);
                             },
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context)!.status,
@@ -130,8 +126,8 @@ class _EventDialogState extends State<EventDialog> {
                               labelText: AppLocalizations.of(context)!.name,
                               icon: const Icon(Icons.folder_outlined),
                             ),
-                            onChanged: (value) =>
-                                event = event.copyWith(name: value),
+                            onChanged: (value) => currentEvent =
+                                currentEvent.copyWith(name: value),
                           ),
                           const SizedBox(height: 16),
                           TextField(
@@ -144,10 +140,10 @@ class _EventDialogState extends State<EventDialog> {
                             minLines: 3,
                             maxLines: 5,
                             controller: descriptionController,
-                            onChanged: (value) =>
-                                event = event.copyWith(description: value),
+                            onChanged: (value) => currentEvent =
+                                currentEvent.copyWith(description: value),
                           ),
-                          if (widget.source != null) ...[
+                          if (source != null) ...[
                             const SizedBox(height: 16),
                             StatefulBuilder(
                                 builder: (context, setState) => ListTile(
@@ -161,29 +157,32 @@ class _EventDialogState extends State<EventDialog> {
                                           context: context,
                                           builder: (context) =>
                                               GroupSelectDialog(
-                                            selected: event.groupId == null
-                                                ? null
-                                                : MapEntry(widget.source!,
-                                                    event.groupId!),
-                                            source: widget.source!,
+                                            selected:
+                                                currentEvent.groupId == null
+                                                    ? null
+                                                    : MapEntry(source!,
+                                                        currentEvent.groupId!),
+                                            source: source!,
                                           ),
                                         );
                                         if (groupId != null) {
                                           setState(() {
-                                            event = event.copyWith(
-                                                groupId: groupId.value);
+                                            currentEvent =
+                                                currentEvent.copyWith(
+                                                    groupId: groupId.value);
                                           });
                                         }
                                       },
-                                      subtitle: event.groupId == null
+                                      subtitle: currentEvent.groupId == null
                                           ? null
                                           : FutureBuilder<Group?>(
                                               future: Future.value(context
                                                   .read<FlowCubit>()
-                                                  .getSource(widget.source!)
+                                                  .getSource(source!)
                                                   .group
                                                   .getGroup(
-                                                      event.groupId ?? -1)),
+                                                      currentEvent.groupId ??
+                                                          -1)),
                                               builder: (context, snapshot) {
                                                 if (snapshot.hasData) {
                                                   return Text(
@@ -198,7 +197,20 @@ class _EventDialogState extends State<EventDialog> {
                                             ),
                                     )),
                           ],
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 8),
+                          StatefulBuilder(
+                              builder: (context, setState) => CheckboxListTile(
+                                    title: Text(
+                                        AppLocalizations.of(context)!.blocked),
+                                    value: currentEvent.blocked,
+                                    onChanged: (value) => setState(
+                                      () => currentEvent =
+                                          currentEvent.copyWith(
+                                              blocked: value ??
+                                                  currentEvent.blocked),
+                                    ),
+                                  )),
+                          const SizedBox(height: 8),
                           TextField(
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context)!.location,
@@ -208,34 +220,35 @@ class _EventDialogState extends State<EventDialog> {
                             minLines: 1,
                             maxLines: 2,
                             controller: locationController,
-                            onChanged: (value) =>
-                                event = event.copyWith(location: value),
+                            onChanged: (value) => currentEvent =
+                                currentEvent.copyWith(location: value),
                           ),
                           const SizedBox(height: 16),
                           DateTimeField(
                             label: AppLocalizations.of(context)!.start,
-                            initialValue: event.start,
+                            initialValue: currentEvent.start,
                             icon: const Icon(Icons.calendar_today_outlined),
                             onChanged: (value) {
-                              event = event.copyWith(start: value);
+                              currentEvent =
+                                  currentEvent.copyWith(start: value);
                             },
                             canBeEmpty: true,
                           ),
                           const SizedBox(height: 8),
                           DateTimeField(
                             label: AppLocalizations.of(context)!.end,
-                            initialValue: event.end,
+                            initialValue: currentEvent.end,
                             icon: const Icon(Icons.calendar_today_outlined),
                             onChanged: (value) {
-                              event = event.copyWith(end: value);
+                              currentEvent = currentEvent.copyWith(end: value);
                             },
                             canBeEmpty: true,
                           ),
                         ],
                       ),
                     ),
-                    if (widget.source != null)
-                      _EventTodosTab(event: event, source: widget.source!),
+                    if (source != null)
+                      _EventTodosTab(event: currentEvent, source: source!),
                   ],
                 ),
               ),
@@ -252,24 +265,24 @@ class _EventDialogState extends State<EventDialog> {
         ),
         ElevatedButton(
           onPressed: () async {
-            if (widget.source == null) {
+            if (source == null) {
               final created = await context
                   .read<FlowCubit>()
                   .getSource(currentSource)
                   .event
-                  .createEvent(event);
+                  .createEvent(currentEvent);
               if (created != null) {
-                event = created;
+                currentEvent = created;
               }
             } else {
               context
                   .read<FlowCubit>()
-                  .getSource(widget.source!)
+                  .getSource(source!)
                   .event
-                  .updateEvent(event);
+                  .updateEvent(currentEvent);
             }
-            if (!mounted) return;
-            Navigator.of(context).pop(event);
+            // ignore: use_build_context_synchronously
+            Navigator.of(context).pop(currentEvent);
           },
           child: Text(AppLocalizations.of(context)!.save),
         ),

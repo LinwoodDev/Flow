@@ -21,8 +21,10 @@ Event _$EventFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Event {
   int get id => throw _privateConstructorUsedError;
+  int? get parentId => throw _privateConstructorUsedError;
   int? get groupId => throw _privateConstructorUsedError;
   int? get placeId => throw _privateConstructorUsedError;
+  bool get blocked => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
@@ -44,8 +46,10 @@ abstract class $EventCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
+      int? parentId,
       int? groupId,
       int? placeId,
+      bool blocked,
       String name,
       String description,
       String location,
@@ -68,8 +72,10 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
   @override
   $Res call({
     Object? id = null,
+    Object? parentId = freezed,
     Object? groupId = freezed,
     Object? placeId = freezed,
+    Object? blocked = null,
     Object? name = null,
     Object? description = null,
     Object? location = null,
@@ -82,6 +88,10 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      parentId: freezed == parentId
+          ? _value.parentId
+          : parentId // ignore: cast_nullable_to_non_nullable
+              as int?,
       groupId: freezed == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
@@ -90,6 +100,10 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
           ? _value.placeId
           : placeId // ignore: cast_nullable_to_non_nullable
               as int?,
+      blocked: null == blocked
+          ? _value.blocked
+          : blocked // ignore: cast_nullable_to_non_nullable
+              as bool,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -126,8 +140,10 @@ abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
+      int? parentId,
       int? groupId,
       int? placeId,
+      bool blocked,
       String name,
       String description,
       String location,
@@ -146,8 +162,10 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
   @override
   $Res call({
     Object? id = null,
+    Object? parentId = freezed,
     Object? groupId = freezed,
     Object? placeId = freezed,
+    Object? blocked = null,
     Object? name = null,
     Object? description = null,
     Object? location = null,
@@ -160,6 +178,10 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      parentId: freezed == parentId
+          ? _value.parentId
+          : parentId // ignore: cast_nullable_to_non_nullable
+              as int?,
       groupId: freezed == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
@@ -168,6 +190,10 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
           ? _value.placeId
           : placeId // ignore: cast_nullable_to_non_nullable
               as int?,
+      blocked: null == blocked
+          ? _value.blocked
+          : blocked // ignore: cast_nullable_to_non_nullable
+              as bool,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -201,8 +227,10 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
 class _$_Event extends _Event {
   const _$_Event(
       {this.id = -1,
+      this.parentId,
       this.groupId,
       this.placeId,
+      this.blocked = true,
       this.name = '',
       this.description = '',
       this.location = '',
@@ -218,9 +246,14 @@ class _$_Event extends _Event {
   @JsonKey()
   final int id;
   @override
+  final int? parentId;
+  @override
   final int? groupId;
   @override
   final int? placeId;
+  @override
+  @JsonKey()
+  final bool blocked;
   @override
   @JsonKey()
   final String name;
@@ -242,7 +275,7 @@ class _$_Event extends _Event {
 
   @override
   String toString() {
-    return 'Event(id: $id, groupId: $groupId, placeId: $placeId, name: $name, description: $description, location: $location, start: $start, end: $end, status: $status)';
+    return 'Event(id: $id, parentId: $parentId, groupId: $groupId, placeId: $placeId, blocked: $blocked, name: $name, description: $description, location: $location, start: $start, end: $end, status: $status)';
   }
 
   @override
@@ -251,8 +284,11 @@ class _$_Event extends _Event {
         (other.runtimeType == runtimeType &&
             other is _$_Event &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.parentId, parentId) ||
+                other.parentId == parentId) &&
             (identical(other.groupId, groupId) || other.groupId == groupId) &&
             (identical(other.placeId, placeId) || other.placeId == placeId) &&
+            (identical(other.blocked, blocked) || other.blocked == blocked) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -265,8 +301,8 @@ class _$_Event extends _Event {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, groupId, placeId, name,
-      description, location, start, end, status);
+  int get hashCode => Object.hash(runtimeType, id, parentId, groupId, placeId,
+      blocked, name, description, location, start, end, status);
 
   @JsonKey(ignore: true)
   @override
@@ -285,8 +321,10 @@ class _$_Event extends _Event {
 abstract class _Event extends Event {
   const factory _Event(
       {final int id,
+      final int? parentId,
       final int? groupId,
       final int? placeId,
+      final bool blocked,
       final String name,
       final String description,
       final String location,
@@ -300,9 +338,13 @@ abstract class _Event extends Event {
   @override
   int get id;
   @override
+  int? get parentId;
+  @override
   int? get groupId;
   @override
   int? get placeId;
+  @override
+  bool get blocked;
   @override
   String get name;
   @override
