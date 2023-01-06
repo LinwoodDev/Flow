@@ -10,6 +10,7 @@ import 'package:shared/models/event/model.dart';
 
 import 'day.dart';
 import 'event.dart';
+import 'month.dart';
 import 'week.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -186,6 +187,11 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
           );
         case _CalendarView.week:
           return CalendarWeekView(
+            filter: _filter,
+            onFilterChanged: _onFilterChanged,
+          );
+        case _CalendarView.month:
+          return CalendarMonthView(
             filter: _filter,
             onFilterChanged: _onFilterChanged,
           );

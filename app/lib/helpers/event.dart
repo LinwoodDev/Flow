@@ -64,4 +64,8 @@ extension DateTimeHelper on DateTime {
     final days = date.difference(firstDay).inDays;
     return firstDay.add(Duration(days: days - days % 7));
   }
+
+  int getDaysInMonth() {
+    return DateTime(year, month + 1, 0).day;
+  }
 }
