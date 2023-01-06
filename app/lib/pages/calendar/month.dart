@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:shared/models/event/model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'event.dart';
 import 'filter.dart';
 import '../../helpers/event.dart';
+import 'tile.dart';
 
 class CalendarMonthView extends StatefulWidget {
   final CalendarFilter filter;
@@ -134,7 +137,9 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                     ),
                     GestureDetector(
                       child: Text(
-                        "$_month - $_year",
+                        DateFormat.yMMMM(
+                                AppLocalizations.of(context)!.localeName)
+                            .format(_date),
                         textAlign: TextAlign.center,
                       ),
                       onTap: () async {
@@ -219,7 +224,15 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                         current = current - emptyPadding;
                         final day = _date.addDays(current);
                         return InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => CalendarDayDialog(
+                                date: day,
+                                events: events[current],
+                              ),
+                            );
+                          },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -256,6 +269,67 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
           ),
         ]),
       ),
+    );
+  }
+}
+
+class CalendarDayDialog extends StatelessWidget {
+  final DateTime date;
+  final List<MapEntry<String, Event>> events;
+
+  const CalendarDayDialog({
+    super.key,
+    required this.date,
+    required this.events,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(DateFormat.yMMMMEEEEd().format(date)),
+          const SizedBox(width: 16),
+          IconButton(
+            icon: const Icon(Icons.add_circle_outline_outlined),
+            tooltip: AppLocalizations.of(context)!.createEvent,
+            onPressed: () async {
+              Navigator.of(context).pop();
+              await showDialog(
+                context: context,
+                builder: (context) => const EventDialog(),
+              );
+            },
+          ),
+        ],
+      ),
+      scrollable: true,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (events.isEmpty)
+            Center(
+              child: Text(AppLocalizations.of(context)!.noEvents),
+            )
+          else
+            ...events.map(
+              (e) => CalendarListTile(
+                key: ValueKey('${e.key}@${e.value.id}'),
+                event: e.value,
+                source: e.key,
+                date: date,
+                onRefresh: () => Navigator.of(context).pop(),
+              ),
+            ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text("Close"),
+        ),
+      ],
     );
   }
 }

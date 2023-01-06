@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:simple_icons/simple_icons.dart';
 
 class AddSourceDialog extends StatelessWidget {
   const AddSourceDialog({super.key});
@@ -26,6 +27,18 @@ class AddSourceDialog extends StatelessWidget {
               subtitle:
                   Text(AppLocalizations.of(context)!.decentralizedDescription),
               leading: const Icon(Icons.language_outlined),
+              onTap: () => Navigator.of(context).pop()),
+          const Divider(),
+          ListTile(
+              title: const Text("Google"),
+              subtitle: Text(AppLocalizations.of(context)!.googleDescription),
+              leading: const Icon(SimpleIcons.google),
+              onTap: () => Navigator.of(context).pop()),
+          ListTile(
+              title: const Text("Microsoft"),
+              subtitle:
+                  Text(AppLocalizations.of(context)!.microsoftDescription),
+              leading: const Icon(SimpleIcons.microsoft),
               onTap: () => Navigator.of(context).pop()),
         ]),
       ),

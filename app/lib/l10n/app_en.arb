@@ -46,6 +46,8 @@
   "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. You can use it to synchronize your data with other devices or services.",
   "server": "Server",
   "serverDescription": "Sync your data with a native Linwood Flow server. This is recommended for users that want to self-host their data.",
+  "googleDescription": "Sync your data with Google. This is recommended for users that want to use their Google account to access their data. Not all features are available with this option.",
+  "microsoftDescription": "Sync your data with Microsoft. This is recommended for users that want to use their Microsoft account to access their data. Not all features are available with this option.",
   "addSource": "Add source",
   "local": "Local",
   "close": "Close",

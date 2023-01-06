@@ -53,6 +53,7 @@ dependencies:
   sqlite3_flutter_libs: ^0.5.12
   sqlite3: ^1.9.1
   dynamic_color: ^1.5.4
+  simple_icons: ^7.10.0
 dev_dependencies:
   build_runner: ^2.3.3
   flutter_launcher_icons: ^0.11.0
