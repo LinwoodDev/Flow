@@ -44,7 +44,7 @@ dependencies:
   file_picker: ^5.2.4
   collection: ^1.16.0
   infinite_scroll_pagination: 4.0.0-dev.1
-  window_manager: ^0.2.9
+  window_manager: ^0.3.0
   # Database
   sqflite_common: ^2.4.0+2
   sqflite: ^2.2.2

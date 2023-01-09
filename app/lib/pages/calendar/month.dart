@@ -125,7 +125,8 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.today_outlined),
-                      isSelected: _date.isSameDay(DateTime.now()),
+                      isSelected: _date.year == DateTime.now().year &&
+                          _date.month == DateTime.now().month,
                       onPressed: () {
                         setState(() {
                           final now = DateTime.now();
@@ -287,10 +288,17 @@ class CalendarDayDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
+            color: date.isSameDay(DateTime.now())
+                ? Theme.of(context).colorScheme.primary
+                : null,
+          ),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(DateFormat.yMMMMEEEEd().format(date)),
+          Text(
+            DateFormat.yMMMMEEEEd().format(date),
+          ),
           const SizedBox(width: 16),
           IconButton(
             icon: const Icon(Icons.add_circle_outline_outlined),
@@ -299,7 +307,12 @@ class CalendarDayDialog extends StatelessWidget {
               Navigator.of(context).pop();
               await showDialog(
                 context: context,
-                builder: (context) => const EventDialog(),
+                builder: (context) => EventDialog(
+                  event: Event(
+                    start: date,
+                    end: date.add(const Duration(hours: 1)),
+                  ),
+                ),
               );
             },
           ),

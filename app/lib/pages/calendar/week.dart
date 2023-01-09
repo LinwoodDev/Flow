@@ -123,7 +123,8 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.today_outlined),
-                      isSelected: _date.isSameDay(DateTime.now()),
+                      isSelected: _date.year == DateTime.now().year &&
+                          _date.week == DateTime.now().week - 1,
                       onPressed: () {
                         setState(() {
                           final now = DateTime.now();
@@ -195,8 +196,16 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                                 children: [
                                   Text(
                                     date.day.toString(),
-                                    style:
-                                        Theme.of(context).textTheme.headline6,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline6
+                                        ?.copyWith(
+                                          color: date.isSameDay(DateTime.now())
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary
+                                              : null,
+                                        ),
                                   ),
                                   const SizedBox(height: 8),
                                   SingleDayList(
