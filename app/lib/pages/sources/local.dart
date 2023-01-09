@@ -13,10 +13,10 @@ class LocalSourceDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       scrollable: true,
-      title: Text(AppLocalizations.of(context)!.local),
+      title: Text(AppLocalizations.of(context).local),
       content: Column(mainAxisSize: MainAxisSize.min, children: [
         ListTile(
-            title: Text(AppLocalizations.of(context)!.export),
+            title: Text(AppLocalizations.of(context).export),
             leading: const Icon(Icons.download_outlined),
             onTap: () async {
               Navigator.of(context).pop();
@@ -27,15 +27,15 @@ class LocalSourceDialog extends StatelessWidget {
         const Divider(),
         ListTile(
           leading: const Icon(Icons.storage_outlined),
-          title: Text(AppLocalizations.of(context)!.version),
+          title: Text(AppLocalizations.of(context).version),
           subtitle: FutureBuilder<String>(
               future: context.read<SourcesService>().local.getSqliteVersion(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Text(
-                      snapshot.data ?? AppLocalizations.of(context)!.unknown);
+                      snapshot.data ?? AppLocalizations.of(context).unknown);
                 } else {
-                  return Text(AppLocalizations.of(context)!.loading);
+                  return Text(AppLocalizations.of(context).loading);
                 }
               }),
         ),
@@ -43,7 +43,7 @@ class LocalSourceDialog extends StatelessWidget {
       actions: [
         TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.close))
+            child: Text(AppLocalizations.of(context).close))
       ],
     );
   }

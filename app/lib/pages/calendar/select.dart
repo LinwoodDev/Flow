@@ -75,7 +75,7 @@ class _EventSelectDialogState extends State<EventSelectDialog> {
     final dateFormatter = DateFormat.yMMMMd(locale);
     final timeFormatter = DateFormat.Hm(locale);
     return AlertDialog(
-      title: Text(AppLocalizations.of(context)!.event),
+      title: Text(AppLocalizations.of(context).event),
       content: SizedBox(
         height: 400,
         width: 400,
@@ -83,7 +83,7 @@ class _EventSelectDialogState extends State<EventSelectDialog> {
           children: [
             TextField(
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.search,
+                labelText: AppLocalizations.of(context).search,
                 icon: const Icon(Icons.search_outlined),
               ),
               controller: _controller,
@@ -105,7 +105,7 @@ class _EventSelectDialogState extends State<EventSelectDialog> {
                       subtitle: Text(item.key),
                       selected: widget.selected?.value == item.value.id &&
                           widget.selected?.key == item.key,
-                      title: Text(AppLocalizations.of(context)!.eventInfo(
+                      title: Text(AppLocalizations.of(context).eventInfo(
                         event.name,
                         event.start == null
                             ? '-'
@@ -131,7 +131,7 @@ class _EventSelectDialogState extends State<EventSelectDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(AppLocalizations.of(context).cancel),
         ),
       ],
     );

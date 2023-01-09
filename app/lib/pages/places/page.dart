@@ -61,7 +61,7 @@ class _PlacesPageState extends State<PlacesPage> {
   @override
   Widget build(BuildContext context) {
     return FlowNavigation(
-      title: AppLocalizations.of(context)!.places,
+      title: AppLocalizations.of(context).places,
       actions: [
         IconButton(
           icon: const Icon(Icons.filter_list),
@@ -102,7 +102,7 @@ class _PlacesPageState extends State<PlacesPage> {
         onPressed: () => showDialog(
                 context: context, builder: (context) => const PlaceDialog())
             .then((value) => _pagingController.refresh()),
-        label: Text(AppLocalizations.of(context)!.create),
+        label: Text(AppLocalizations.of(context).create),
         icon: const Icon(Icons.add_outlined),
       ),
     );
@@ -133,12 +133,12 @@ class PlaceTile extends StatelessWidget {
         itemBuilder: (ctx) => <dynamic>[
           [
             Icons.calendar_month_outlined,
-            AppLocalizations.of(context)!.events,
+            AppLocalizations.of(context).events,
             _openEvents,
           ],
           [
             Icons.delete_outline,
-            AppLocalizations.of(context)!.delete,
+            AppLocalizations.of(context).delete,
             _deletePlace,
           ],
         ]
@@ -162,14 +162,14 @@ class PlaceTile extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.deletePlace(place.name)),
+        title: Text(AppLocalizations.of(context).deletePlace(place.name)),
         content: Text(
-            AppLocalizations.of(context)!.deletePlaceDescription(place.name)),
+            AppLocalizations.of(context).deletePlaceDescription(place.name)),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: Text(
-              AppLocalizations.of(context)!.cancel,
+              AppLocalizations.of(context).cancel,
             ),
           ),
           ElevatedButton(
@@ -183,7 +183,7 @@ class PlaceTile extends StatelessWidget {
               pagingController.refresh();
             },
             child: Text(
-              AppLocalizations.of(context)!.delete,
+              AppLocalizations.of(context).delete,
             ),
           ),
         ],

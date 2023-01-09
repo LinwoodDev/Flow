@@ -11,17 +11,17 @@ class InformationSettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(AppLocalizations.of(context)!.information,
+        Text(AppLocalizations.of(context).information,
             style: Theme.of(context).textTheme.headline5),
         const SizedBox(height: 32),
         ListTile(
-          title: Text(AppLocalizations.of(context)!.intro),
+          title: Text(AppLocalizations.of(context).intro),
           leading: const Icon(Icons.info_outline),
           onTap: () => showDialog(
               context: context, builder: (context) => const IntroDialog()),
         ),
         ListTile(
-          title: Text(AppLocalizations.of(context)!.releaseNotes),
+          title: Text(AppLocalizations.of(context).releaseNotes),
           leading: const Icon(Icons.flag_outlined),
           onTap: () => launchUrl(Uri.https("go.linwood.dev", "flow/1.0")),
         ),
@@ -41,17 +41,17 @@ class InformationSettingsView extends StatelessWidget {
           onTap: () => launchUrl(Uri.https("go.linwood.dev", "flow/crowdin")),
         ),
         ListTile(
-          title: Text(AppLocalizations.of(context)!.source),
+          title: Text(AppLocalizations.of(context).source),
           leading: const Icon(Icons.code_outlined),
           onTap: () => launchUrl(Uri.https("go.linwood.dev", "flow/source")),
         ),
         ListTile(
-          title: Text(AppLocalizations.of(context)!.documentation),
+          title: Text(AppLocalizations.of(context).documentation),
           leading: const Icon(Icons.help_outline),
           onTap: () => launchUrl(Uri.https("docs.flow.linwood.dev", "")),
         ),
         ListTile(
-          title: Text(AppLocalizations.of(context)!.changelog),
+          title: Text(AppLocalizations.of(context).changelog),
           leading: const Icon(Icons.history_outlined),
           onTap: () =>
               launchUrl(Uri.https("docs.flow.linwood.dev", "changelog")),

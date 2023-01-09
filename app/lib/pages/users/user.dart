@@ -18,8 +18,8 @@ class UserDialog extends StatelessWidget {
     var currentSource = source ?? '';
     return AlertDialog(
       title: Text(source == null
-          ? AppLocalizations.of(context)!.createUser
-          : AppLocalizations.of(context)!.editUser),
+          ? AppLocalizations.of(context).createUser
+          : AppLocalizations.of(context).editUser),
       content: SizedBox(
         width: 500,
         child: Column(children: [
@@ -33,7 +33,7 @@ class UserDialog extends StatelessWidget {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value.isEmpty
-                      ? AppLocalizations.of(context)!.local
+                      ? AppLocalizations.of(context).local
                       : value),
                 );
               }).toList(),
@@ -41,7 +41,7 @@ class UserDialog extends StatelessWidget {
                 currentSource = value ?? '';
               },
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.source,
+                labelText: AppLocalizations.of(context).source,
                 icon: const Icon(Icons.storage_outlined),
                 border: const OutlineInputBorder(),
               ),
@@ -50,7 +50,7 @@ class UserDialog extends StatelessWidget {
             StatefulBuilder(
                 builder: (context, setState) => ListTile(
                       leading: const Icon(Icons.folder_outlined),
-                      title: Text(AppLocalizations.of(context)!.group),
+                      title: Text(AppLocalizations.of(context).group),
                       onTap: () async {
                         final groupId = await showDialog<MapEntry<String, int>>(
                           context: context,
@@ -90,7 +90,7 @@ class UserDialog extends StatelessWidget {
           const SizedBox(height: 16),
           TextFormField(
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.name,
+              labelText: AppLocalizations.of(context).name,
               filled: true,
               icon: const Icon(Icons.folder_outlined),
             ),
@@ -102,7 +102,7 @@ class UserDialog extends StatelessWidget {
           const SizedBox(height: 16),
           TextFormField(
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.description,
+              labelText: AppLocalizations.of(context).description,
               border: const OutlineInputBorder(),
               icon: const Icon(Icons.description_outlined),
             ),
@@ -119,7 +119,7 @@ class UserDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
           onPressed: () {
@@ -138,7 +138,7 @@ class UserDialog extends StatelessWidget {
             }
             Navigator.of(context).pop(user);
           },
-          child: Text(AppLocalizations.of(context)!.create),
+          child: Text(AppLocalizations.of(context).create),
         ),
       ],
     );

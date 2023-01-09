@@ -30,15 +30,15 @@ extension _CalendarViewExtension on _CalendarView {
   String getLocalizedName(BuildContext context) {
     switch (this) {
       case _CalendarView.list:
-        return AppLocalizations.of(context)!.list;
+        return AppLocalizations.of(context).list;
       case _CalendarView.day:
-        return AppLocalizations.of(context)!.day;
+        return AppLocalizations.of(context).day;
       case _CalendarView.week:
-        return AppLocalizations.of(context)!.week;
+        return AppLocalizations.of(context).week;
       case _CalendarView.month:
-        return AppLocalizations.of(context)!.month;
+        return AppLocalizations.of(context).month;
       case _CalendarView.pending:
-        return AppLocalizations.of(context)!.pending;
+        return AppLocalizations.of(context).pending;
     }
   }
 
@@ -65,7 +65,7 @@ class _CalendarPageState extends State<CalendarPage>
   @override
   Widget build(BuildContext context) {
     return FlowNavigation(
-      title: AppLocalizations.of(context)!.calendar,
+      title: AppLocalizations.of(context).calendar,
       actions: [
         IconButton(
           icon: const Icon(Icons.search_outlined),
@@ -243,7 +243,7 @@ class CreateEventScaffold extends StatelessWidget {
         onPressed: () => showDialog<Event>(
             context: context,
             builder: (context) => const EventDialog()).then(onCreated),
-        label: Text(AppLocalizations.of(context)!.create),
+        label: Text(AppLocalizations.of(context).create),
         icon: const Icon(Icons.add_outlined),
       ),
     );

@@ -63,7 +63,7 @@ class _PlaceSelectDialogState extends State<PlaceSelectDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(AppLocalizations.of(context)!.place),
+      title: Text(AppLocalizations.of(context).place),
       content: SizedBox(
         height: 400,
         width: 400,
@@ -71,7 +71,7 @@ class _PlaceSelectDialogState extends State<PlaceSelectDialog> {
           children: [
             TextField(
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.search,
+                labelText: AppLocalizations.of(context).search,
                 icon: const Icon(Icons.search_outlined),
               ),
               controller: _controller,
@@ -105,7 +105,7 @@ class _PlaceSelectDialogState extends State<PlaceSelectDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(AppLocalizations.of(context).cancel),
         ),
       ],
     );

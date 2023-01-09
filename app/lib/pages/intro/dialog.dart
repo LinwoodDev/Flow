@@ -123,11 +123,11 @@ class _IntroDialogState extends State<IntroDialog> {
                                     duration: const Duration(milliseconds: 300),
                                     curve: Curves.easeInOut)
                                 : null,
-                            child: Text(AppLocalizations.of(context)!.back),
+                            child: Text(AppLocalizations.of(context).back),
                           ),
                           if (_pageController.page != _pages.length - 1) ...[
                             OutlinedButton(
-                                child: Text(AppLocalizations.of(context)!.skip),
+                                child: Text(AppLocalizations.of(context).skip),
                                 onPressed: () => _pageController.animateToPage(
                                     _pages.length - 1,
                                     duration: const Duration(milliseconds: 300),
@@ -135,13 +135,13 @@ class _IntroDialogState extends State<IntroDialog> {
                           ],
                           if (_pageController.page != _pages.length - 1) ...[
                             ElevatedButton(
-                                child: Text(AppLocalizations.of(context)!.next),
+                                child: Text(AppLocalizations.of(context).next),
                                 onPressed: () => _pageController.nextPage(
                                     duration: const Duration(milliseconds: 300),
                                     curve: Curves.easeInOut)),
                           ] else
                             ElevatedButton(
-                              child: Text(AppLocalizations.of(context)!.start),
+                              child: Text(AppLocalizations.of(context).start),
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },

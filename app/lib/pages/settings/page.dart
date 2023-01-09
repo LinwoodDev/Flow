@@ -12,7 +12,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlowNavigation(
-      title: AppLocalizations.of(context)!.settings,
+      title: AppLocalizations.of(context).settings,
       endDrawer: SettingsDrawer(
         itemKeys: _itemKeys,
       ),

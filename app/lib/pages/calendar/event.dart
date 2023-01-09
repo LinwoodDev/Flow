@@ -32,8 +32,8 @@ class EventDialog extends StatelessWidget {
         TextEditingController(text: currentEvent.location);
     return AlertDialog(
       title: Text(source == null
-          ? AppLocalizations.of(context)!.createEvent
-          : AppLocalizations.of(context)!.editEvent),
+          ? AppLocalizations.of(context).createEvent
+          : AppLocalizations.of(context).editEvent),
       content: SizedBox(
         width: 500,
         height: 500,
@@ -44,10 +44,10 @@ class EventDialog extends StatelessWidget {
               if (source != null)
                 TabBar(
                     tabs: <dynamic>[
-                  [Icons.tune_outlined, AppLocalizations.of(context)!.general],
+                  [Icons.tune_outlined, AppLocalizations.of(context).general],
                   [
                     Icons.check_circle_outline_outlined,
-                    AppLocalizations.of(context)!.todos
+                    AppLocalizations.of(context).todos
                   ],
                 ]
                         .map((e) => Tab(
@@ -78,7 +78,7 @@ class EventDialog extends StatelessWidget {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Text(value.isEmpty
-                                      ? AppLocalizations.of(context)!.local
+                                      ? AppLocalizations.of(context).local
                                       : value),
                                 );
                               }).toList(),
@@ -86,7 +86,7 @@ class EventDialog extends StatelessWidget {
                                 currentSource = value ?? '';
                               },
                               decoration: InputDecoration(
-                                labelText: AppLocalizations.of(context)!.source,
+                                labelText: AppLocalizations.of(context).source,
                                 icon: const Icon(Icons.storage_outlined),
                                 border: const OutlineInputBorder(),
                               ),
@@ -114,7 +114,7 @@ class EventDialog extends StatelessWidget {
                                   status: value ?? currentEvent.status);
                             },
                             decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!.status,
+                              labelText: AppLocalizations.of(context).status,
                               icon: const Icon(Icons.info_outlined),
                               border: const OutlineInputBorder(),
                             ),
@@ -123,7 +123,7 @@ class EventDialog extends StatelessWidget {
                           TextFormField(
                             controller: nameController,
                             decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!.name,
+                              labelText: AppLocalizations.of(context).name,
                               icon: const Icon(Icons.folder_outlined),
                             ),
                             onChanged: (value) => currentEvent =
@@ -133,7 +133,7 @@ class EventDialog extends StatelessWidget {
                           TextField(
                             decoration: InputDecoration(
                               labelText:
-                                  AppLocalizations.of(context)!.description,
+                                  AppLocalizations.of(context).description,
                               border: const OutlineInputBorder(),
                               icon: const Icon(Icons.description_outlined),
                             ),
@@ -150,7 +150,7 @@ class EventDialog extends StatelessWidget {
                                       leading:
                                           const Icon(Icons.folder_outlined),
                                       title: Text(
-                                          AppLocalizations.of(context)!.group),
+                                          AppLocalizations.of(context).group),
                                       onTap: () async {
                                         final groupId = await showDialog<
                                             MapEntry<String, int>>(
@@ -201,7 +201,7 @@ class EventDialog extends StatelessWidget {
                           StatefulBuilder(
                               builder: (context, setState) => CheckboxListTile(
                                     title: Text(
-                                        AppLocalizations.of(context)!.blocked),
+                                        AppLocalizations.of(context).blocked),
                                     value: currentEvent.blocked,
                                     onChanged: (value) => setState(
                                       () => currentEvent =
@@ -213,7 +213,7 @@ class EventDialog extends StatelessWidget {
                           const SizedBox(height: 8),
                           TextField(
                             decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!.location,
+                              labelText: AppLocalizations.of(context).location,
                               filled: true,
                               icon: const Icon(Icons.location_on_outlined),
                             ),
@@ -225,7 +225,7 @@ class EventDialog extends StatelessWidget {
                           ),
                           const SizedBox(height: 16),
                           DateTimeField(
-                            label: AppLocalizations.of(context)!.start,
+                            label: AppLocalizations.of(context).start,
                             initialValue: currentEvent.start,
                             icon: const Icon(Icons.calendar_today_outlined),
                             onChanged: (value) {
@@ -236,7 +236,7 @@ class EventDialog extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           DateTimeField(
-                            label: AppLocalizations.of(context)!.end,
+                            label: AppLocalizations.of(context).end,
                             initialValue: currentEvent.end,
                             icon: const Icon(Icons.calendar_today_outlined),
                             onChanged: (value) {
@@ -261,7 +261,7 @@ class EventDialog extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
           onPressed: () async {
@@ -284,7 +284,7 @@ class EventDialog extends StatelessWidget {
             // ignore: use_build_context_synchronously
             Navigator.of(context).pop(currentEvent);
           },
-          child: Text(AppLocalizations.of(context)!.save),
+          child: Text(AppLocalizations.of(context).save),
         ),
       ],
     );
@@ -411,7 +411,7 @@ class _EventTodosTabState extends State<_EventTodosTab> {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: FloatingActionButton.extended(
-                label: Text(AppLocalizations.of(context)!.create),
+                label: Text(AppLocalizations.of(context).create),
                 icon: const Icon(Icons.add_outlined),
                 onPressed: () async {
                   await showDialog<Todo>(

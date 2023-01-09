@@ -41,7 +41,7 @@ class _UserFilterViewState extends State<UserFilterView> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           InputChip(
-            label: Text(AppLocalizations.of(context)!.group),
+            label: Text(AppLocalizations.of(context).group),
             avatar: Icon(Icons.folder_outlined,
                 color: _filter.group != null
                     ? Theme.of(context).colorScheme.onPrimaryContainer

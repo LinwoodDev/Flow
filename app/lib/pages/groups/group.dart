@@ -19,8 +19,8 @@ class GroupDialog extends StatelessWidget {
         TextEditingController(text: group.description);
     return AlertDialog(
       title: Text(source == null
-          ? AppLocalizations.of(context)!.createGroup
-          : AppLocalizations.of(context)!.editGroup),
+          ? AppLocalizations.of(context).createGroup
+          : AppLocalizations.of(context).editGroup),
       content: SizedBox(
         width: 500,
         child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -34,7 +34,7 @@ class GroupDialog extends StatelessWidget {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value.isEmpty
-                      ? AppLocalizations.of(context)!.local
+                      ? AppLocalizations.of(context).local
                       : value),
                 );
               }).toList(),
@@ -42,7 +42,7 @@ class GroupDialog extends StatelessWidget {
                 currentSource = value ?? '';
               },
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.source,
+                labelText: AppLocalizations.of(context).source,
                 icon: const Icon(Icons.storage_outlined),
                 border: const OutlineInputBorder(),
               ),
@@ -52,7 +52,7 @@ class GroupDialog extends StatelessWidget {
           TextField(
             decoration: InputDecoration(
               filled: true,
-              labelText: AppLocalizations.of(context)!.name,
+              labelText: AppLocalizations.of(context).name,
               icon: const Icon(Icons.folder_outlined),
             ),
             controller: nameController,
@@ -63,7 +63,7 @@ class GroupDialog extends StatelessWidget {
           const SizedBox(height: 16),
           TextField(
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.description,
+              labelText: AppLocalizations.of(context).description,
               border: const OutlineInputBorder(),
               icon: const Icon(Icons.description_outlined),
             ),
@@ -81,7 +81,7 @@ class GroupDialog extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
           onPressed: () {
@@ -100,7 +100,7 @@ class GroupDialog extends StatelessWidget {
             }
             Navigator.of(context).pop(group);
           },
-          child: Text(AppLocalizations.of(context)!.save),
+          child: Text(AppLocalizations.of(context).save),
         ),
       ],
     );

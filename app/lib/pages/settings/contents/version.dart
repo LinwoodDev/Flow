@@ -9,7 +9,7 @@ class VersionSettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Text(AppLocalizations.of(context)!.version,
+      Text(AppLocalizations.of(context).version,
           style: Theme.of(context).textTheme.headline5),
       const SizedBox(height: 32),
       ListTile(

@@ -129,7 +129,7 @@ class _TodoCardState extends State<TodoCard> {
                   style: Theme.of(context).textTheme.headline6,
                   decoration: InputDecoration(
                     filled: true,
-                    labelText: AppLocalizations.of(context)!.name,
+                    labelText: AppLocalizations.of(context).name,
                   ),
                   focusNode: _nameFocus,
                   onEditingComplete: () {
@@ -146,7 +146,7 @@ class _TodoCardState extends State<TodoCard> {
                   itemBuilder: (context) => <dynamic>[
                     [
                       Icons.delete_outlined,
-                      AppLocalizations.of(context)!.delete,
+                      AppLocalizations.of(context).delete,
                       () async {
                         await _todoService.deleteTodo(_newTodo.id);
                         widget.controller.refresh();
@@ -170,7 +170,7 @@ class _TodoCardState extends State<TodoCard> {
                 width: 100,
                 child: TextFormField(
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.priority,
+                    labelText: AppLocalizations.of(context).priority,
                     filled: true,
                     floatingLabelAlignment: FloatingLabelAlignment.center,
                   ),
@@ -207,7 +207,7 @@ class _TodoCardState extends State<TodoCard> {
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
-                                AppLocalizations.of(context)!.eventInfo(
+                                AppLocalizations.of(context).eventInfo(
                                   _event!.name,
                                   _event?.start == null
                                       ? '-'
@@ -239,7 +239,7 @@ class _TodoCardState extends State<TodoCard> {
                                 },
                                 icon: const Icon(Icons.delete_outlined),
                                 tooltip:
-                                    AppLocalizations.of(context)!.removeEvent,
+                                    AppLocalizations.of(context).removeEvent,
                               ),
                             ]
                           ],
@@ -250,7 +250,7 @@ class _TodoCardState extends State<TodoCard> {
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
                             Text(
-                              AppLocalizations.of(context)!.noEvent,
+                              AppLocalizations.of(context).noEvent,
                               style: Theme.of(context).textTheme.caption,
                             ),
                             Wrap(
@@ -269,8 +269,8 @@ class _TodoCardState extends State<TodoCard> {
                                     }
                                   },
                                   icon: const Icon(Icons.add),
-                                  label: Text(AppLocalizations.of(context)!
-                                      .createEvent),
+                                  label: Text(
+                                      AppLocalizations.of(context).createEvent),
                                 ),
                                 TextButton.icon(
                                   onPressed: () async {
@@ -294,8 +294,8 @@ class _TodoCardState extends State<TodoCard> {
                                   },
                                   icon:
                                       const Icon(Icons.calendar_month_outlined),
-                                  label: Text(AppLocalizations.of(context)!
-                                      .assignEvent),
+                                  label: Text(
+                                      AppLocalizations.of(context).assignEvent),
                                 ),
                               ],
                             ),
@@ -312,7 +312,7 @@ class _TodoCardState extends State<TodoCard> {
               controller: _descriptionController,
               focusNode: _descriptionFocus,
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.description,
+                labelText: AppLocalizations.of(context).description,
                 border: const OutlineInputBorder(),
               ),
               minLines: 3,

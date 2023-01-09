@@ -35,8 +35,8 @@ class _TodoDialogState extends State<TodoDialog> {
           Expanded(
             child: Text(
               widget.todo == null
-                  ? AppLocalizations.of(context)!.createTodo
-                  : AppLocalizations.of(context)!.editTodo,
+                  ? AppLocalizations.of(context).createTodo
+                  : AppLocalizations.of(context).editTodo,
             ),
           ),
           Checkbox(
@@ -67,7 +67,7 @@ class _TodoDialogState extends State<TodoDialog> {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value.isEmpty
-                        ? AppLocalizations.of(context)!.local
+                        ? AppLocalizations.of(context).local
                         : value),
                   );
                 }).toList(),
@@ -75,7 +75,7 @@ class _TodoDialogState extends State<TodoDialog> {
                   _newSource = value ?? '';
                 },
                 decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.source,
+                  labelText: AppLocalizations.of(context).source,
                   icon: const Icon(Icons.storage_outlined),
                   border: const OutlineInputBorder(),
                 ),
@@ -84,7 +84,7 @@ class _TodoDialogState extends State<TodoDialog> {
             ],
             TextFormField(
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.name,
+                labelText: AppLocalizations.of(context).name,
                 icon: const Icon(Icons.title_outlined),
                 filled: true,
               ),
@@ -96,7 +96,7 @@ class _TodoDialogState extends State<TodoDialog> {
             const SizedBox(height: 16),
             TextFormField(
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.priority,
+                labelText: AppLocalizations.of(context).priority,
                 icon: const Icon(Icons.priority_high_outlined),
                 border: const OutlineInputBorder(),
               ),
@@ -110,7 +110,7 @@ class _TodoDialogState extends State<TodoDialog> {
             const SizedBox(height: 16),
             TextFormField(
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.description,
+                labelText: AppLocalizations.of(context).description,
                 icon: const Icon(Icons.description_outlined),
                 border: const OutlineInputBorder(),
               ),
@@ -129,7 +129,7 @@ class _TodoDialogState extends State<TodoDialog> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
           onPressed: () {
@@ -143,8 +143,8 @@ class _TodoDialogState extends State<TodoDialog> {
             Navigator.of(context).pop();
           },
           child: Text(widget.todo == null
-              ? AppLocalizations.of(context)!.create
-              : AppLocalizations.of(context)!.save),
+              ? AppLocalizations.of(context).create
+              : AppLocalizations.of(context).save),
         ),
       ],
     );

@@ -22,7 +22,7 @@ class _GroupsPageState extends State<GroupsPage> {
   @override
   Widget build(BuildContext context) {
     return FlowNavigation(
-      title: AppLocalizations.of(context)!.groups,
+      title: AppLocalizations.of(context).groups,
       actions: [
         IconButton(
           icon: const Icon(Icons.search_outlined),
@@ -52,7 +52,7 @@ class CreateEventScaffold extends StatelessWidget {
         onPressed: () => showDialog<Group>(
             context: context,
             builder: (context) => const GroupDialog()).then(onCreated),
-        label: Text(AppLocalizations.of(context)!.create),
+        label: Text(AppLocalizations.of(context).create),
         icon: const Icon(Icons.add_outlined),
       ),
     );

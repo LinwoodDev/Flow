@@ -90,7 +90,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
             },
           ),
           InputChip(
-            label: Text(AppLocalizations.of(context)!.group),
+            label: Text(AppLocalizations.of(context).group),
             avatar: Icon(Icons.folder_outlined,
                 color: _filter.group != null
                     ? Theme.of(context).colorScheme.onPrimaryContainer
@@ -130,7 +130,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
             },
           ),
           InputChip(
-            label: Text(AppLocalizations.of(context)!.place),
+            label: Text(AppLocalizations.of(context).place),
             avatar: Icon(Icons.location_on_outlined,
                 color: _filter.place != null
                     ? Theme.of(context).colorScheme.onPrimaryContainer
@@ -171,7 +171,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
           ),
           if (widget.past)
             InputChip(
-              label: Text(AppLocalizations.of(context)!.past),
+              label: Text(AppLocalizations.of(context).past),
               avatar: Icon(Icons.history_outlined,
                   color: _filter.past
                       ? Theme.of(context).colorScheme.onPrimaryContainer

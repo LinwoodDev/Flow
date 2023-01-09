@@ -39,7 +39,7 @@ class IndicatorDisplay extends StatelessWidget {
               child: ElevatedButton.icon(
                 onPressed: onTryAgain,
                 label: Text(
-                  AppLocalizations.of(context)!.tryAgain,
+                  AppLocalizations.of(context).tryAgain,
                 ),
                 icon: const Icon(Icons.refresh_outlined),
               ),

@@ -148,7 +148,7 @@ class _CalendarListViewState extends State<CalendarListView> {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             child: Text(
-                              AppLocalizations.of(context)!.noEvents,
+                              AppLocalizations.of(context).noEvents,
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
                           ),

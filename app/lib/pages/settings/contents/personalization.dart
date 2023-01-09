@@ -18,14 +18,14 @@ class PersonalizationSettingsView extends StatelessWidget {
     return BlocBuilder<SettingsCubit, FlowSettings>(
         builder: (context, state) => Column(
               children: [
-                Text(AppLocalizations.of(context)!.personalization,
+                Text(AppLocalizations.of(context).personalization,
                     style: Theme.of(context).textTheme.headline5),
                 const SizedBox(height: 32),
                 ListTile(
-                  title: Text(AppLocalizations.of(context)!.design),
+                  title: Text(AppLocalizations.of(context).design),
                   leading: const Icon(Icons.palette_outlined),
                   subtitle: Text(state.design.isEmpty
-                      ? AppLocalizations.of(context)!.classic
+                      ? AppLocalizations.of(context).classic
                       : state.design.toDisplayString()),
                   onTap: () async {
                     final cubit = context.read<SettingsCubit>();
@@ -40,7 +40,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10, vertical: 20),
                                   child: Text(
-                                    AppLocalizations.of(context)!.design,
+                                    AppLocalizations.of(context).design,
                                     style:
                                         Theme.of(context).textTheme.headline5,
                                     textAlign: TextAlign.center,
@@ -48,7 +48,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                                 ),
                                 ListTile(
                                   title: Text(
-                                      AppLocalizations.of(context)!.classic),
+                                      AppLocalizations.of(context).classic),
                                   leading:
                                       _ThemeBox(theme: getThemeData('', false)),
                                   onTap: () => Navigator.pop(context, ''),
@@ -74,7 +74,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  title: Text(AppLocalizations.of(context)!.theme),
+                  title: Text(AppLocalizations.of(context).theme),
                   leading: Icon(state.themeMode.icon),
                   subtitle: Text(state.themeMode.getDisplayString(context)),
                   onTap: () async {
@@ -91,7 +91,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10, vertical: 20),
                                   child: Text(
-                                    AppLocalizations.of(context)!.theme,
+                                    AppLocalizations.of(context).theme,
                                     style:
                                         Theme.of(context).textTheme.headline5,
                                     textAlign: TextAlign.center,
@@ -111,7 +111,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  title: Text(AppLocalizations.of(context)!.language),
+                  title: Text(AppLocalizations.of(context).language),
                   leading: const Icon(Icons.translate_outlined),
                   onTap: () {},
                 ),
@@ -124,8 +124,8 @@ class PersonalizationSettingsView extends StatelessWidget {
                           previous.nativeTitleBar != current.nativeTitleBar,
                       builder: (context, state) {
                         return CheckboxListTile(
-                          title: Text(
-                              AppLocalizations.of(context)!.nativeTitleBar),
+                          title:
+                              Text(AppLocalizations.of(context).nativeTitleBar),
                           value: state.nativeTitleBar,
                           onChanged: (value) {
                             context

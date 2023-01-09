@@ -6,11 +6,11 @@ extension EventStatusHelper on EventStatus {
   String getLocalizedName(BuildContext context) {
     switch (this) {
       case EventStatus.confirmed:
-        return AppLocalizations.of(context)!.confirmed;
+        return AppLocalizations.of(context).confirmed;
       case EventStatus.draft:
-        return AppLocalizations.of(context)!.draft;
+        return AppLocalizations.of(context).draft;
       case EventStatus.cancelled:
-        return AppLocalizations.of(context)!.cancelled;
+        return AppLocalizations.of(context).cancelled;
     }
   }
 

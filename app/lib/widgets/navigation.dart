@@ -13,33 +13,33 @@ import '../main.dart';
 
 List _getNavigationItems(BuildContext context) => [
       {
-        "title": AppLocalizations.of(context)!.dashboard,
+        "title": AppLocalizations.of(context).dashboard,
         "icon": Icons.dashboard_outlined,
         "link": "/"
       },
       {
-        "title": AppLocalizations.of(context)!.calendar,
+        "title": AppLocalizations.of(context).calendar,
         "icon": Icons.calendar_month_outlined,
         "link": "/calendar"
       },
       null,
       {
-        "title": AppLocalizations.of(context)!.todos,
+        "title": AppLocalizations.of(context).todos,
         "icon": Icons.checklist_outlined,
         "link": "/todos"
       },
       {
-        "title": AppLocalizations.of(context)!.groups,
+        "title": AppLocalizations.of(context).groups,
         "icon": Icons.folder_outlined,
         "link": "/groups"
       },
       {
-        "title": AppLocalizations.of(context)!.places,
+        "title": AppLocalizations.of(context).places,
         "icon": Icons.location_on_outlined,
         "link": "/places"
       },
       {
-        "title": AppLocalizations.of(context)!.users,
+        "title": AppLocalizations.of(context).users,
         "icon": Icons.people_outlined,
         "link": "/users"
       },
@@ -48,12 +48,12 @@ List _getNavigationItems(BuildContext context) => [
 List _getSecondaryItems(BuildContext context) => [
       null,
       {
-        "title": AppLocalizations.of(context)!.sources,
+        "title": AppLocalizations.of(context).sources,
         "icon": Icons.dns_outlined,
         "link": "/sources"
       },
       {
-        "title": AppLocalizations.of(context)!.settings,
+        "title": AppLocalizations.of(context).settings,
         "icon": Icons.settings_outlined,
         "link": "/settings"
       }
@@ -228,7 +228,7 @@ class _FlowDrawer extends StatelessWidget {
                     automaticallyImplyLeading: false,
                     actions: [
                       IconButton(
-                        tooltip: AppLocalizations.of(context)!.sources,
+                        tooltip: AppLocalizations.of(context).sources,
                         icon: const Icon(Icons.filter_alt_outlined),
                         onPressed: () => _showSources(context),
                       ),
@@ -270,7 +270,7 @@ class _FlowDrawer extends StatelessWidget {
       context: context,
       builder: (context) => AlertDialog(
         scrollable: true,
-        title: Text(AppLocalizations.of(context)!.sources),
+        title: Text(AppLocalizations.of(context).sources),
         content: StatefulBuilder(
           builder: (context, setState) {
             bool? allSources;
@@ -283,7 +283,7 @@ class _FlowDrawer extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 CheckboxListTile(
-                  title: Text(AppLocalizations.of(context)!.allSources),
+                  title: Text(AppLocalizations.of(context).allSources),
                   value: allSources,
                   tristate: true,
                   onChanged: (value) => setState(() {
@@ -297,7 +297,7 @@ class _FlowDrawer extends StatelessWidget {
                 ),
                 const Divider(),
                 CheckboxListTile(
-                  title: Text(AppLocalizations.of(context)!.local),
+                  title: Text(AppLocalizations.of(context).local),
                   value: currents.contains(""),
                   onChanged: (value) => setState(() => (value ?? false)
                       ? currents.add("")
@@ -309,11 +309,11 @@ class _FlowDrawer extends StatelessWidget {
         ),
         actions: [
           TextButton(
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(AppLocalizations.of(context).cancel),
             onPressed: () => Navigator.of(context).pop(),
           ),
           ElevatedButton(
-            child: Text(AppLocalizations.of(context)!.save),
+            child: Text(AppLocalizations.of(context).save),
             onPressed: () {
               context.read<FlowCubit>().setSources(currents);
               Navigator.of(context).pop();

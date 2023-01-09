@@ -8,8 +8,8 @@ class EmptyIndicatorDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IndicatorDisplay(
-      title: AppLocalizations.of(context)!.indicatorEmpty,
-      description: AppLocalizations.of(context)!.indicatorEmptyDescription,
+      title: AppLocalizations.of(context).indicatorEmpty,
+      description: AppLocalizations.of(context).indicatorEmptyDescription,
     );
   }
 }

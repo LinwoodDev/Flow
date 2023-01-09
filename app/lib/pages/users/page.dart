@@ -64,7 +64,7 @@ class _UsersPageState extends State<UsersPage> {
   @override
   Widget build(BuildContext context) {
     return FlowNavigation(
-      title: AppLocalizations.of(context)!.users,
+      title: AppLocalizations.of(context).users,
       body: Column(
         children: [
           UserFilterView(
@@ -116,7 +116,7 @@ class _UsersPageState extends State<UsersPage> {
         onPressed: () => showDialog(
                 context: context, builder: (context) => const UserDialog())
             .then((value) => _pagingController.refresh()),
-        label: Text(AppLocalizations.of(context)!.create),
+        label: Text(AppLocalizations.of(context).create),
         icon: const Icon(Icons.add_outlined),
       ),
     );
@@ -147,12 +147,12 @@ class UserTile extends StatelessWidget {
         itemBuilder: (ctx) => <dynamic>[
           [
             Icons.calendar_month_outlined,
-            AppLocalizations.of(context)!.events,
+            AppLocalizations.of(context).events,
             _openEvents,
           ],
           [
             Icons.delete_outline,
-            AppLocalizations.of(context)!.delete,
+            AppLocalizations.of(context).delete,
             _deleteUser,
           ],
         ]
@@ -176,14 +176,14 @@ class UserTile extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.deleteUser(user.name)),
-        content: Text(
-            AppLocalizations.of(context)!.deleteUserDescription(user.name)),
+        title: Text(AppLocalizations.of(context).deleteUser(user.name)),
+        content:
+            Text(AppLocalizations.of(context).deleteUserDescription(user.name)),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: Text(
-              AppLocalizations.of(context)!.cancel,
+              AppLocalizations.of(context).cancel,
             ),
           ),
           ElevatedButton(
@@ -197,7 +197,7 @@ class UserTile extends StatelessWidget {
               pagingController.refresh();
             },
             child: Text(
-              AppLocalizations.of(context)!.delete,
+              AppLocalizations.of(context).delete,
             ),
           ),
         ],

@@ -51,7 +51,7 @@ class _TodoFilterViewState extends State<TodoFilterView> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           InputChip(
-            label: Text(AppLocalizations.of(context)!.done),
+            label: Text(AppLocalizations.of(context).done),
             avatar: Icon(Icons.check_box_outlined,
                 color: _filter.showDone
                     ? Theme.of(context).colorScheme.onPrimaryContainer
@@ -71,7 +71,7 @@ class _TodoFilterViewState extends State<TodoFilterView> {
             },
           ),
           InputChip(
-            label: Text(AppLocalizations.of(context)!.inProgress),
+            label: Text(AppLocalizations.of(context).inProgress),
             avatar: Icon(Icons.indeterminate_check_box_outlined,
                 color: _filter.showInProgress
                     ? Theme.of(context).colorScheme.onPrimaryContainer
@@ -91,7 +91,7 @@ class _TodoFilterViewState extends State<TodoFilterView> {
             },
           ),
           InputChip(
-            label: Text(AppLocalizations.of(context)!.todo),
+            label: Text(AppLocalizations.of(context).todo),
             avatar: Icon(Icons.check_box_outline_blank_outlined,
                 color: _filter.showTodo
                     ? Theme.of(context).colorScheme.onPrimaryContainer

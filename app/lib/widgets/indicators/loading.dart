@@ -9,7 +9,7 @@ class LoadingIndicatorDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return IndicatorDisplay(
       icon: const CircularProgressIndicator(),
-      title: AppLocalizations.of(context)!.indicatorLoading,
+      title: AppLocalizations.of(context).indicatorLoading,
     );
   }
 }

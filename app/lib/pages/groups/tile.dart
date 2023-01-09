@@ -32,17 +32,17 @@ class GroupTile extends StatelessWidget {
         itemBuilder: (ctx) => <dynamic>[
           [
             Icons.calendar_month_outlined,
-            AppLocalizations.of(context)!.events,
+            AppLocalizations.of(context).events,
             _openEvents,
           ],
           [
             Icons.people_outlined,
-            AppLocalizations.of(context)!.users,
+            AppLocalizations.of(context).users,
             _openEvents,
           ],
           [
             Icons.delete_outline,
-            AppLocalizations.of(context)!.delete,
+            AppLocalizations.of(context).delete,
             _deleteGroup,
           ],
         ]
@@ -66,14 +66,14 @@ class GroupTile extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.deleteGroup(group.name)),
+        title: Text(AppLocalizations.of(context).deleteGroup(group.name)),
         content: Text(
-            AppLocalizations.of(context)!.deleteGroupDescription(group.name)),
+            AppLocalizations.of(context).deleteGroupDescription(group.name)),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: Text(
-              AppLocalizations.of(context)!.cancel,
+              AppLocalizations.of(context).cancel,
             ),
           ),
           ElevatedButton(
@@ -87,7 +87,7 @@ class GroupTile extends StatelessWidget {
               pagingController.refresh();
             },
             child: Text(
-              AppLocalizations.of(context)!.delete,
+              AppLocalizations.of(context).delete,
             ),
           ),
         ],

@@ -9,8 +9,8 @@ class ErrorIndicatorDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IndicatorDisplay(
-      title: AppLocalizations.of(context)!.indicatorError,
-      description: AppLocalizations.of(context)!.indicatorErrorDescription,
+      title: AppLocalizations.of(context).indicatorError,
+      description: AppLocalizations.of(context).indicatorErrorDescription,
       onTryAgain: onTryAgain,
     );
   }

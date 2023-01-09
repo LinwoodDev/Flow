@@ -138,7 +138,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                     GestureDetector(
                       child: Text(
                         DateFormat.yMMMM(
-                                AppLocalizations.of(context)!.localeName)
+                                AppLocalizations.of(context).localeName)
                             .format(_date),
                         textAlign: TextAlign.center,
                       ),
@@ -294,7 +294,7 @@ class CalendarDayDialog extends StatelessWidget {
           const SizedBox(width: 16),
           IconButton(
             icon: const Icon(Icons.add_circle_outline_outlined),
-            tooltip: AppLocalizations.of(context)!.createEvent,
+            tooltip: AppLocalizations.of(context).createEvent,
             onPressed: () async {
               Navigator.of(context).pop();
               await showDialog(
@@ -311,7 +311,7 @@ class CalendarDayDialog extends StatelessWidget {
         children: [
           if (events.isEmpty)
             Center(
-              child: Text(AppLocalizations.of(context)!.noEvents),
+              child: Text(AppLocalizations.of(context).noEvents),
             )
           else
             ...events.map(
