@@ -40,16 +40,16 @@ dependencies:
   flutter_bloc: ^8.1.1
   freezed_annotation: ^2.2.0
   json_annotation: ^4.7.0
-  shared_preferences: ^2.0.15
-  file_picker: ^5.2.4
+  shared_preferences: ^2.0.16
+  file_picker: ^5.2.5
   collection: ^1.16.0
   infinite_scroll_pagination: 4.0.0-dev.1
   window_manager: ^0.3.0
   # Database
-  sqflite_common: ^2.4.0+2
-  sqflite: ^2.2.2
-  sqflite_common_ffi: ^2.2.0+1
-  sqflite_common_ffi_web: ^0.3.1
+  sqflite_common: ^2.4.1
+  sqflite: ^2.2.3
+  sqflite_common_ffi: ^2.2.1
+  sqflite_common_ffi_web: ^0.3.2
   sqlite3_flutter_libs: ^0.5.12
   sqlite3: ^1.9.1
   dynamic_color: ^1.5.4

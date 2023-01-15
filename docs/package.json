@@ -44,7 +44,7 @@
   },
   "packageManager": "yarn@3.3.1",
   "devDependencies": {
-    "markdownlint-cli2": "^0.5.1"
+    "markdownlint-cli2": "^0.6.0"
   },
   "dependenciesMeta": {
     "react@17.0.2": {
