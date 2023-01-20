@@ -262,7 +262,9 @@ class SingleDayList extends StatelessWidget {
                 width: currentPosWidth,
                 child: Card(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
-                  color: position.event.status.getColor().withAlpha(100),
+                  color: position.event.status.getColor().withAlpha(
+                        position.event.blocked ? 220 : 120,
+                      ),
                   child: InkWell(
                     onTap: () => showDialog(
                       context: context,
