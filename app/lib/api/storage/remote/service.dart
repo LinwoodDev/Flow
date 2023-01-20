@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared/services/source.dart';
 
-abstract class RemoteService {
+abstract class RemoteService extends SourceService {
   final String baseUrl;
   String get version;
 

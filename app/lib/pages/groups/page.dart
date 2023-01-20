@@ -35,30 +35,6 @@ class _GroupsPageState extends State<GroupsPage> {
   }
 }
 
-class CreateEventScaffold extends StatelessWidget {
-  final void Function(Group?) onCreated;
-  final Widget child;
-  const CreateEventScaffold({
-    super.key,
-    required this.onCreated,
-    required this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: child,
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog<Group>(
-            context: context,
-            builder: (context) => const GroupDialog()).then(onCreated),
-        label: Text(AppLocalizations.of(context).create),
-        icon: const Icon(Icons.add_outlined),
-      ),
-    );
-  }
-}
-
 class _GroupsSearchDelegate extends SearchDelegate {
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -164,35 +140,44 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
 
   @override
   Widget build(BuildContext context) {
-    return PagedListView(
-      pagingController: _controller,
-      builderDelegate: PagedChildBuilderDelegate<MapEntry<Group, String>>(
-        itemBuilder: (ctx, item, index) => Align(
-          key: ValueKey('${item.key.id}@${item.value}'),
-          alignment: Alignment.topCenter,
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 800),
-            child: Dismissible(
-              key: ValueKey(item.key.id),
-              onDismissed: (direction) async {
-                await _flowCubit
-                    .getSource(item.value)
-                    .group
-                    .deleteGroup(item.key.id);
-                _controller.itemList!.remove(item);
-              },
-              background: Container(
-                color: Colors.red,
-              ),
-              child: GroupTile(
-                flowCubit: _flowCubit,
-                pagingController: _controller,
-                source: item.value,
-                group: item.key,
+    return Scaffold(
+      body: PagedListView(
+        pagingController: _controller,
+        builderDelegate: PagedChildBuilderDelegate<MapEntry<Group, String>>(
+          itemBuilder: (ctx, item, index) => Align(
+            key: ValueKey('${item.key.id}@${item.value}'),
+            alignment: Alignment.topCenter,
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 800),
+              child: Dismissible(
+                key: ValueKey(item.key.id),
+                onDismissed: (direction) async {
+                  await _flowCubit
+                      .getSource(item.value)
+                      .group
+                      .deleteGroup(item.key.id);
+                  _controller.itemList!.remove(item);
+                },
+                background: Container(
+                  color: Colors.red,
+                ),
+                child: GroupTile(
+                  flowCubit: _flowCubit,
+                  pagingController: _controller,
+                  source: item.value,
+                  group: item.key,
+                ),
               ),
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => showDialog<Group>(
+                context: context, builder: (context) => const GroupDialog())
+            .then((_) => _controller.refresh()),
+        label: Text(AppLocalizations.of(context).create),
+        icon: const Icon(Icons.add_outlined),
       ),
     );
   }
