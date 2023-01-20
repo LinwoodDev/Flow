@@ -272,7 +272,7 @@ class SingleDayList extends StatelessWidget {
                         event: position.event,
                         source: position.source,
                       ),
-                    ),
+                    ).then((value) => onChanged()),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(

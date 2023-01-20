@@ -12,8 +12,7 @@ class EventDatabaseService extends EventService with TableService {
 
   @override
   Future<void> create(Database db) async {
-    await db.execute(
-        """
+    await db.execute("""
       CREATE TABLE IF NOT EXISTS events (
         id INTEGER PRIMARY KEY,
         parentId INTEGER,

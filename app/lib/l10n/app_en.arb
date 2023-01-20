@@ -140,6 +140,8 @@
   "past": "Past",
   "decentralized": "Decentralized",
   "decentralizedDescription": "The decentralized interface allows you to access your data from any decentralized server. You can use it to synchronize your data with other devices or services.",
+  "importFile": "Import file",
+  "importFileDescription": "Import a file from your device. You can import a database file from another Linwood Flow instance or a regular calendar file.",
   "place": "Place",
   "editPlace": "Edit place",
   "deletePlace": "Delete place {name}",
