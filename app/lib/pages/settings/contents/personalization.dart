@@ -41,8 +41,9 @@ class PersonalizationSettingsView extends StatelessWidget {
                                       horizontal: 10, vertical: 20),
                                   child: Text(
                                     AppLocalizations.of(context).design,
-                                    style:
-                                        Theme.of(context).textTheme.headlineSmall,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -92,8 +93,9 @@ class PersonalizationSettingsView extends StatelessWidget {
                                       horizontal: 10, vertical: 20),
                                   child: Text(
                                     AppLocalizations.of(context).theme,
-                                    style:
-                                        Theme.of(context).textTheme.headlineSmall,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
