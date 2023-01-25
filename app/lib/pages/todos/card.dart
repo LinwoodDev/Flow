@@ -126,7 +126,7 @@ class _TodoCardState extends State<TodoCard> {
                 Flexible(
                     child: TextFormField(
                   controller: _nameController,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.titleLarge,
                   decoration: InputDecoration(
                     filled: true,
                     labelText: AppLocalizations.of(context).name,
@@ -195,7 +195,7 @@ class _TodoCardState extends State<TodoCard> {
                         if (widget.source.isNotEmpty)
                           Text(
                             widget.source,
-                            style: Theme.of(context).textTheme.caption,
+                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -220,7 +220,7 @@ class _TodoCardState extends State<TodoCard> {
                                       : _event!.location,
                                   _event!.status.getLocalizedName(context),
                                 ),
-                                style: Theme.of(context).textTheme.caption,
+                                style: Theme.of(context).textTheme.bodySmall,
                               ),
                             ),
                             if (_loading) ...[
@@ -251,7 +251,7 @@ class _TodoCardState extends State<TodoCard> {
                           children: [
                             Text(
                               AppLocalizations.of(context).noEvent,
-                              style: Theme.of(context).textTheme.caption,
+                              style: Theme.of(context).textTheme.bodySmall,
                             ),
                             Wrap(
                               children: [

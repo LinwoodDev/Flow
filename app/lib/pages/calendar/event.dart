@@ -63,6 +63,7 @@ class EventDialog extends StatelessWidget {
                 child: TabBarView(
                   children: [
                     Material(
+                      color: Colors.transparent,
                       child: ListView(
                         shrinkWrap: true,
                         children: [

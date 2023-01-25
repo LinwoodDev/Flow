@@ -208,7 +208,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                                 text,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline5
+                                    .headlineSmall
                                     ?.copyWith(
                                       color: current.isSameDay(DateTime.now())
                                           ? Theme.of(context).primaryColor
@@ -243,7 +243,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                                 day.day.toString(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline6
+                                    .titleLarge
                                     ?.copyWith(
                                       color: day.isSameDay(DateTime.now())
                                           ? Theme.of(context).primaryColor
@@ -288,7 +288,7 @@ class CalendarDayDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
+      titleTextStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
             color: date.isSameDay(DateTime.now())
                 ? Theme.of(context).colorScheme.primary
                 : null,

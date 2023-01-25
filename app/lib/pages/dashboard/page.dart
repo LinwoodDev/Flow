@@ -24,7 +24,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   padding: const EdgeInsets.all(16.0),
                   child: Text("Work in progress",
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline4),
+                      style: Theme.of(context).textTheme.headlineMedium),
                 )),
                 const SizedBox(height: 20),
                 Card(
@@ -34,7 +34,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("Currently happening",
-                            style: Theme.of(context).textTheme.headline5),
+                            style: Theme.of(context).textTheme.headlineSmall),
                         const SizedBox(height: 20),
                         Column(
                           children: [

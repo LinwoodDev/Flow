@@ -12,7 +12,7 @@ class InformationSettingsView extends StatelessWidget {
     return Column(
       children: [
         Text(AppLocalizations.of(context).information,
-            style: Theme.of(context).textTheme.headline5),
+            style: Theme.of(context).textTheme.headlineSmall),
         const SizedBox(height: 32),
         ListTile(
           title: Text(AppLocalizations.of(context).intro),

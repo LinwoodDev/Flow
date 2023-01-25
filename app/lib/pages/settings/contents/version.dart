@@ -10,7 +10,7 @@ class VersionSettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       Text(AppLocalizations.of(context).version,
-          style: Theme.of(context).textTheme.headline5),
+          style: Theme.of(context).textTheme.headlineSmall),
       const SizedBox(height: 32),
       ListTile(
         leading: const Icon(Icons.storage_outlined),

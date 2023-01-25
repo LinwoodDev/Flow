@@ -198,7 +198,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                                     date.day.toString(),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline6
+                                        .titleLarge
                                         ?.copyWith(
                                           color: date.isSameDay(DateTime.now())
                                               ? Theme.of(context)

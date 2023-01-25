@@ -25,13 +25,13 @@ class IndicatorDisplay extends StatelessWidget {
           if (title != null)
             Text(
               title!,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           const SizedBox(height: 8),
           if (description != null)
             Text(
               description!,
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           if (onTryAgain != null)
             Padding(

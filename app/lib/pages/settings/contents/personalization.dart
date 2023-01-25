@@ -19,7 +19,7 @@ class PersonalizationSettingsView extends StatelessWidget {
         builder: (context, state) => Column(
               children: [
                 Text(AppLocalizations.of(context).personalization,
-                    style: Theme.of(context).textTheme.headline5),
+                    style: Theme.of(context).textTheme.headlineSmall),
                 const SizedBox(height: 32),
                 ListTile(
                   title: Text(AppLocalizations.of(context).design),
@@ -42,7 +42,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                                   child: Text(
                                     AppLocalizations.of(context).design,
                                     style:
-                                        Theme.of(context).textTheme.headline5,
+                                        Theme.of(context).textTheme.headlineSmall,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -93,7 +93,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                                   child: Text(
                                     AppLocalizations.of(context).theme,
                                     style:
-                                        Theme.of(context).textTheme.headline5,
+                                        Theme.of(context).textTheme.headlineSmall,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
