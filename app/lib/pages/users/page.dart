@@ -40,11 +40,12 @@ class _UsersPageState extends State<UsersPage> {
       final todos = <MapEntry<User, String>>[];
       var isLast = false;
       for (final source in sources) {
-        final fetched = await source.value.user.getUsers(
+        final fetched = await source.value.user?.getUsers(
           offset: pageKey * _pageSize,
           limit: _pageSize,
           groupId: source.key == _filter.source ? _filter.group : null,
         );
+        if (fetched == null) continue;
         todos.addAll(fetched.map((todo) => MapEntry(todo, source.key)));
         if (fetched.length < _pageSize) {
           isLast = true;
@@ -92,7 +93,7 @@ class _UsersPageState extends State<UsersPage> {
                         await _flowCubit
                             .getSource(item.value)
                             .user
-                            .deleteUser(item.key.id);
+                            ?.deleteUser(item.key.id);
                         _pagingController.itemList!.remove(item);
                       },
                       background: Container(
@@ -189,7 +190,7 @@ class UserTile extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               Navigator.of(context).pop();
-              await flowCubit.getSource(source).user.deleteUser(user.id);
+              await flowCubit.getSource(source).user?.deleteUser(user.id);
               pagingController.itemList!.remove(MapEntry(
                 user,
                 source,

@@ -65,7 +65,7 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
     }
     final events = <MapEntry<String, Event>>[];
     for (final source in sources.entries) {
-      final fetched = await source.value.event.getEvents(
+      final fetched = await source.value.event?.getEvents(
         pending: true,
         status: EventStatus.values
             .where((element) => !widget.filter.hiddenStatuses.contains(element))
@@ -78,6 +78,7 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
         placeId:
             source.key == widget.filter.source ? widget.filter.place : null,
       );
+      if (fetched == null) continue;
       events.addAll(fetched.map((event) => MapEntry(source.key, event)));
     }
     return events;

@@ -8,14 +8,14 @@ import '../models/todo/service.dart';
 const apiVersion = 0;
 
 abstract class SourceService {
-  EventService get event;
-  TodoService get todo;
-  PlaceService get place;
-  GroupService get group;
+  EventService? get event => null;
+  TodoService? get todo => null;
+  PlaceService? get place => null;
+  GroupService? get group => null;
+  UserService? get user => null;
 
-  UserService get user;
-
-  List<ModelService> get models => [event, todo, group, user, place];
+  List<ModelService> get models =>
+      [event, todo, group, user, place].whereType<ModelService>().toList();
 }
 
 abstract class ModelService {}

@@ -42,17 +42,18 @@ class _GroupSelectDialogState extends State<GroupSelectDialog> {
           ? cubit.getCurrentServicesMap()
           : {widget.source!: cubit.getSource(widget.source!)};
       final groups = await Future.wait(sources.entries.map((source) async {
-        final groups = await source.value.group.getGroups(
+        final groups = await source.value.group?.getGroups(
           offset: pageKey * _pageSize,
           limit: _pageSize,
           search: _controller.text,
         );
         return groups
-            .map((group) => MapEntry(source.key, group))
-            .where((element) =>
-                element.value.id != widget.ignore ||
-                source.key != widget.source)
-            .toList();
+                ?.map((group) => MapEntry(source.key, group))
+                .where((element) =>
+                    element.value.id != widget.ignore ||
+                    source.key != widget.source)
+                .toList() ??
+            <MapEntry<String, Group>>[];
       }));
       final allGroups = groups.expand((element) => element).toList();
       final isLast = groups.length < _pageSize;

@@ -30,19 +30,27 @@ class CalendarMonthView extends StatefulWidget {
 class _CalendarMonthViewState extends State<CalendarMonthView> {
   late final FlowCubit _cubit;
   int _month = 0, _year = 0;
+  late final DateTime _now;
   late Future<List<List<MapEntry<String, Event>>>> _events;
 
   @override
   void initState() {
+    _now = DateTime.now();
     super.initState();
     _cubit = context.read<FlowCubit>();
     _events = _fetchEvents();
-    final now = DateTime.now();
-    _month = now.month;
-    _year = now.year;
+    _month = _now.month;
+    _year = _now.year;
   }
 
-  DateTime get _date => DateTime(_year, _month, 1);
+  DateTime get _date => DateTime(
+        _year,
+        _month,
+        _now.day,
+        _now.hour,
+        _now.minute,
+        _now.second,
+      );
 
   Future<List<List<MapEntry<String, Event>>>> _fetchEvents() async {
     if (!mounted) return [];
@@ -59,7 +67,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
     ];
     for (final source in sources.entries) {
       for (int i = 0; i < days; i++) {
-        final fetchedDay = await source.value.event.getEvents(
+        final fetchedDay = await source.value.event?.getEvents(
           date: _date.addDays(i),
           status: EventStatus.values
               .where(
@@ -71,6 +79,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
           placeId:
               source.key == widget.filter.source ? widget.filter.place : null,
         );
+        if (fetchedDay == null) continue;
         events[i].addAll(fetchedDay.map((e) => MapEntry(source.key, e)));
       }
     }
@@ -341,7 +350,7 @@ class CalendarDayDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text("Close"),
+          child: Text(AppLocalizations.of(context).close),
         ),
       ],
     );

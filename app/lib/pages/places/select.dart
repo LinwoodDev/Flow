@@ -40,12 +40,14 @@ class _PlaceSelectDialogState extends State<PlaceSelectDialog> {
           ? cubit.getCurrentServicesMap()
           : {widget.source!: cubit.getSource(widget.source!)};
       final places = await Future.wait(sources.entries.map((source) async {
-        final places = await source.value.place.getPlaces(
+        final places = await source.value.place?.getPlaces(
           offset: pageKey * _pageSize,
           limit: _pageSize,
           search: _controller.text,
         );
-        return places.map((place) => MapEntry(source.key, place)).toList();
+        return (places ?? <Place>[])
+            .map((place) => MapEntry(source.key, place))
+            .toList();
       }));
       final allPlaces = places.expand((element) => element).toList();
       final isLast = places.length < _pageSize;

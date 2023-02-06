@@ -90,13 +90,13 @@ class GroupDialog extends StatelessWidget {
                   .read<FlowCubit>()
                   .getSource(currentSource)
                   .group
-                  .createGroup(group);
+                  ?.createGroup(group);
             } else {
               context
                   .read<FlowCubit>()
                   .getSource(source!)
                   .group
-                  .updateGroup(group);
+                  ?.updateGroup(group);
             }
             Navigator.of(context).pop(group);
           },

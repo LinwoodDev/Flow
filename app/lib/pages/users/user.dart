@@ -74,7 +74,7 @@ class UserDialog extends StatelessWidget {
                                   .read<FlowCubit>()
                                   .getSource(source!)
                                   .group
-                                  .getGroup(user.groupId ?? -1)),
+                                  ?.getGroup(user.groupId ?? -1)),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
                                   return Text(snapshot.data!.name);
@@ -128,13 +128,13 @@ class UserDialog extends StatelessWidget {
                   .read<FlowCubit>()
                   .getSource(currentSource)
                   .user
-                  .createUser(user);
+                  ?.createUser(user);
             } else {
               context
                   .read<FlowCubit>()
                   .getSource(source!)
                   .user
-                  .updateUser(user);
+                  ?.updateUser(user);
             }
             Navigator.of(context).pop(user);
           },

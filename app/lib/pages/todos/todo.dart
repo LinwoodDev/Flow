@@ -136,9 +136,9 @@ class _TodoDialogState extends State<TodoDialog> {
             final service =
                 context.read<FlowCubit>().getSource(_newSource).todo;
             if (widget.todo == null) {
-              service.createTodo(_newTodo);
+              service?.createTodo(_newTodo);
             } else {
-              service.updateTodo(_newTodo);
+              service?.updateTodo(_newTodo);
             }
             Navigator.of(context).pop();
           },

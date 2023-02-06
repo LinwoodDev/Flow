@@ -1,4 +1,5 @@
 import 'package:flow/cubits/flow.dart';
+import 'package:flow/pages/calendar/event.dart';
 import 'package:flow/pages/calendar/filter.dart';
 import 'package:flow/pages/calendar/page.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +70,7 @@ class _CalendarListViewState extends State<CalendarListView> {
     }
     final events = <MapEntry<String, Event>>[];
     for (final source in sources.entries) {
-      final fetched = await source.value.event.getEvents(
+      final fetched = await source.value.event?.getEvents(
         date: date,
         status: EventStatus.values
             .where((element) => !widget.filter.hiddenStatuses.contains(element))
@@ -80,6 +81,7 @@ class _CalendarListViewState extends State<CalendarListView> {
         placeId:
             source.key == widget.filter.source ? widget.filter.place : null,
       );
+      if (fetched == null) continue;
       events.addAll(fetched.map((event) => MapEntry(source.key, event)));
     }
     return events;
@@ -113,7 +115,7 @@ class _CalendarListViewState extends State<CalendarListView> {
                 builderDelegate:
                     PagedChildBuilderDelegate<List<MapEntry<String, Event>>>(
                   itemBuilder: (context, item, index) {
-                    var date = DateTime.now().onlyDate();
+                    var date = DateTime.now();
                     if (widget.filter.past) {
                       date = date.subtract(Duration(days: index));
                     } else {
@@ -168,20 +170,31 @@ class _CalendarListViewState extends State<CalendarListView> {
                       alignment: Alignment.topCenter,
                       child: ConstrainedBox(
                           constraints: const BoxConstraints(maxWidth: 1000),
-                          child: isMobile
-                              ? Column(
-                                  children: [
-                                    header,
-                                    list,
-                                  ],
-                                )
-                              : Row(
-                                  children: [
-                                    header,
-                                    const SizedBox(width: 16),
-                                    Expanded(child: list),
-                                  ],
-                                )),
+                          child: GestureDetector(
+                            onTap: () => showDialog<Event>(
+                              context: context,
+                              builder: (context) => EventDialog(
+                                event: Event(
+                                  start: date,
+                                  end: date.add(const Duration(hours: 1)),
+                                ),
+                              ),
+                            ),
+                            child: isMobile
+                                ? Column(
+                                    children: [
+                                      header,
+                                      list,
+                                    ],
+                                  )
+                                : Row(
+                                    children: [
+                                      header,
+                                      const SizedBox(width: 16),
+                                      Expanded(child: list),
+                                    ],
+                                  ),
+                          )),
                     );
                   },
                 ),

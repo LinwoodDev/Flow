@@ -181,7 +181,7 @@ class EventDialog extends StatelessWidget {
                                                   .read<FlowCubit>()
                                                   .getSource(source!)
                                                   .group
-                                                  .getGroup(
+                                                  ?.getGroup(
                                                       currentEvent.groupId ??
                                                           -1)),
                                               builder: (context, snapshot) {
@@ -271,7 +271,7 @@ class EventDialog extends StatelessWidget {
                   .read<FlowCubit>()
                   .getSource(currentSource)
                   .event
-                  .createEvent(currentEvent);
+                  ?.createEvent(currentEvent);
               if (created != null) {
                 currentEvent = created;
               }
@@ -280,7 +280,7 @@ class EventDialog extends StatelessWidget {
                   .read<FlowCubit>()
                   .getSource(source!)
                   .event
-                  .updateEvent(currentEvent);
+                  ?.updateEvent(currentEvent);
             }
             // ignore: use_build_context_synchronously
             Navigator.of(context).pop(currentEvent);
@@ -304,7 +304,7 @@ class _EventTodosTab extends StatefulWidget {
 class _EventTodosTabState extends State<_EventTodosTab> {
   static const _pageSize = 20;
 
-  late final TodoService _todoService;
+  late final TodoService? _todoService;
 
   final PagingController<int, Todo> _pagingController =
       PagingController(firstPageKey: 0);
@@ -320,10 +320,11 @@ class _EventTodosTabState extends State<_EventTodosTab> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await _todoService.getTodos(
+      final newItems = await _todoService?.getTodos(
           eventId: widget.event.id,
           offset: pageKey * _pageSize,
           limit: _pageSize);
+      if (newItems == null) return;
       final isLastPage = newItems.length < _pageSize;
       if (isLastPage) {
         _pagingController.appendLastPage(newItems);
@@ -361,7 +362,7 @@ class _EventTodosTabState extends State<_EventTodosTab> {
                         key: ValueKey(item.id),
                         background: Container(color: Colors.red),
                         onDismissed: (direction) {
-                          _todoService.deleteTodo(item.id);
+                          _todoService?.deleteTodo(item.id);
                           _pagingController.itemList!.remove(item);
                         },
                         child: ListTile(
@@ -382,7 +383,7 @@ class _EventTodosTabState extends State<_EventTodosTab> {
                                 final next =
                                     TodoStatusExtension.fromDone(newState);
                                 _todoService
-                                    .updateTodo(item.copyWith(status: next));
+                                    ?.updateTodo(item.copyWith(status: next));
                                 setState(() => status = next);
                               },
                             ),

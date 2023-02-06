@@ -79,7 +79,7 @@ class GroupTile extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               Navigator.of(context).pop();
-              await flowCubit.getSource(source).group.deleteGroup(group.id);
+              await flowCubit.getSource(source).group?.deleteGroup(group.id);
               pagingController.itemList!.remove(MapEntry(
                 group,
                 source,

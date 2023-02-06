@@ -133,12 +133,13 @@ class _TodosBodyViewState extends State<TodosBodyView> {
       final todos = <MapEntry<Todo, String>>[];
       var isLast = false;
       for (final source in sources) {
-        final fetched = await source.value.todo.getTodos(
+        final fetched = await source.value.todo?.getTodos(
           offset: pageKey * _pageSize,
           limit: _pageSize,
           statuses: _filter.statuses,
           search: widget.search,
         );
+        if (fetched == null) continue;
         todos.addAll(fetched.map((todo) => MapEntry(todo, source.key)));
         if (fetched.length < _pageSize) {
           isLast = true;
@@ -146,7 +147,7 @@ class _TodosBodyViewState extends State<TodosBodyView> {
         for (final todo in fetched) {
           final eventId = todo.eventId;
           if (!_events.containsKey(todo.eventId) && eventId != null) {
-            final event = await source.value.event.getEvent(
+            final event = await source.value.event?.getEvent(
               eventId,
             );
             if (event != null) _events[eventId] = event;

@@ -86,13 +86,13 @@ class PlaceDialog extends StatelessWidget {
                   .read<FlowCubit>()
                   .getSource(currentSource)
                   .place
-                  .createPlace(place);
+                  ?.createPlace(place);
             } else {
               context
                   .read<FlowCubit>()
                   .getSource(source!)
                   .place
-                  .updatePlace(place);
+                  ?.updatePlace(place);
             }
             Navigator.of(context).pop(place);
           },

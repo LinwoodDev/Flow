@@ -35,7 +35,7 @@ class _TodoCardState extends State<TodoCard> {
   late final TextEditingController _descriptionController;
   late Todo _newTodo;
   Event? _event;
-  late final TodoService _todoService;
+  late final TodoService? _todoService;
 
   final FocusNode _nameFocus = FocusNode();
   final FocusNode _descriptionFocus = FocusNode();
@@ -51,7 +51,7 @@ class _TodoCardState extends State<TodoCard> {
         TextEditingController(text: widget.todo.description);
     _newTodo = widget.todo;
     _todoService =
-        context.read<FlowCubit>().getCurrentServicesMap()[widget.source]!.todo;
+        context.read<FlowCubit>().getCurrentServicesMap()[widget.source]?.todo;
 
     _nameFocus.addListener(() {
       if (!_nameFocus.hasFocus) {
@@ -79,7 +79,7 @@ class _TodoCardState extends State<TodoCard> {
 
   Future<void> _updateTodo() async {
     setState(() => _loading = true);
-    await _todoService.updateTodo(
+    await _todoService?.updateTodo(
       _newTodo,
     );
     if (mounted) {
@@ -148,7 +148,7 @@ class _TodoCardState extends State<TodoCard> {
                       Icons.delete_outlined,
                       AppLocalizations.of(context).delete,
                       () async {
-                        await _todoService.deleteTodo(_newTodo.id);
+                        await _todoService?.deleteTodo(_newTodo.id);
                         widget.controller.refresh();
                       }
                     ]
@@ -288,7 +288,7 @@ class _TodoCardState extends State<TodoCard> {
                                       _event = await cubit
                                           .getSource(result.key)
                                           .event
-                                          .getEvent(result.value);
+                                          ?.getEvent(result.value);
                                       _updateTodo();
                                     }
                                   },

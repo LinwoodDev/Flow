@@ -8,7 +8,7 @@ abstract class EventService extends ModelService {
   FutureOr<Event?> getEvent(int id);
   FutureOr<List<Event>> getEvents({
     bool pending = false,
-    List<EventStatus> status,
+    List<EventStatus>? status,
     int? groupId,
     int? placeId,
     int offset = 0,

@@ -117,11 +117,12 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
       final groups = <MapEntry<Group, String>>[];
       var isLast = false;
       for (final source in sources) {
-        final fetched = await source.value.group.getGroups(
+        final fetched = await source.value.group?.getGroups(
           offset: pageKey * _pageSize,
           limit: _pageSize,
           search: widget.search,
         );
+        if (fetched == null) continue;
         groups.addAll(fetched.map((todo) => MapEntry(todo, source.key)));
         if (fetched.length < _pageSize) {
           isLast = true;
@@ -155,7 +156,7 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
                   await _flowCubit
                       .getSource(item.value)
                       .group
-                      .deleteGroup(item.key.id);
+                      ?.deleteGroup(item.key.id);
                   _controller.itemList!.remove(item);
                 },
                 background: Container(

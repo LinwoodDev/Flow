@@ -125,15 +125,16 @@ class PersonalizationSettingsView extends StatelessWidget {
                       buildWhen: (previous, current) =>
                           previous.nativeTitleBar != current.nativeTitleBar,
                       builder: (context, state) {
-                        return CheckboxListTile(
+                        return SwitchListTile(
                           title:
                               Text(AppLocalizations.of(context).nativeTitleBar),
                           value: state.nativeTitleBar,
+                          secondary: const Icon(Icons.title_outlined),
                           onChanged: (value) {
                             context
                                 .read<SettingsCubit>()
-                                .setNativeTitleBar(value ?? false);
-                            windowManager.setTitleBarStyle(value ?? false
+                                .setNativeTitleBar(value);
+                            windowManager.setTitleBarStyle(value
                                 ? TitleBarStyle.normal
                                 : TitleBarStyle.hidden);
                           },

@@ -44,12 +44,12 @@ class _EventSelectDialogState extends State<EventSelectDialog> {
           ? cubit.getCurrentServicesMap()
           : {widget.source!: cubit.getSource(widget.source!)};
       final events = await Future.wait(sources.entries.map((source) async {
-        final events = await source.value.event.getEvents(
+        final events = await source.value.event?.getEvents(
           offset: pageKey * _pageSize,
           limit: _pageSize,
           search: _controller.text,
         );
-        return events
+        return (events ?? <Event>[])
             .map((event) => MapEntry(source.key, event))
             .where((element) =>
                 element.value.id != widget.ignore ||

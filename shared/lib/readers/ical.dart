@@ -23,6 +23,9 @@ class ICalConverter {
           case 'SUMMARY':
             currentEvent = currentEvent.copyWith(name: value);
             break;
+          case 'DESCRIPTION':
+            currentEvent = currentEvent.copyWith(description: value);
+            break;
           case 'END':
             if (value != 'VEVENT') break;
             events.add(currentEvent);

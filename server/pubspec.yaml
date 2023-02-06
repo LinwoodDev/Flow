@@ -9,7 +9,7 @@ environment:
 dependencies:
   args: ^2.3.2
   collection: ^1.17.0
-  dotenv: ^4.0.1
+  dotenv: ^4.1.0
   shelf: ^1.4.0
   shelf_router: ^1.0.0
   sqlite3: ^1.9.1

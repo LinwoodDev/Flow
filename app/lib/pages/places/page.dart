@@ -38,10 +38,11 @@ class _PlacesPageState extends State<PlacesPage> {
       final todos = <MapEntry<Place, String>>[];
       var isLast = false;
       for (final source in sources) {
-        final fetched = await source.value.place.getPlaces(
+        final fetched = await source.value.place?.getPlaces(
           offset: pageKey * _pageSize,
           limit: _pageSize,
         );
+        if (fetched == null) continue;
         todos.addAll(fetched.map((todo) => MapEntry(todo, source.key)));
         if (fetched.length < _pageSize) {
           isLast = true;
@@ -81,7 +82,7 @@ class _PlacesPageState extends State<PlacesPage> {
                   await _flowCubit
                       .getSource(item.value)
                       .place
-                      .deletePlace(item.key.id);
+                      ?.deletePlace(item.key.id);
                   _pagingController.itemList!.remove(item);
                 },
                 background: Container(
@@ -175,7 +176,7 @@ class PlaceTile extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               Navigator.of(context).pop();
-              await flowCubit.getSource(source).place.deletePlace(place.id);
+              await flowCubit.getSource(source).place?.deletePlace(place.id);
               pagingController.itemList!.remove(MapEntry(
                 place,
                 source,
