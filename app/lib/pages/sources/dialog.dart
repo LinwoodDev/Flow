@@ -1,5 +1,10 @@
+import 'dart:convert';
+
+import 'package:file_picker/file_picker.dart';
+import 'package:flow/pages/sources/import.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared/readers/ical.dart';
 import 'package:simple_icons/simple_icons.dart';
 
 class AddSourceDialog extends StatelessWidget {
@@ -45,7 +50,29 @@ class AddSourceDialog extends StatelessWidget {
               subtitle:
                   Text(AppLocalizations.of(context).importFileDescription),
               leading: const Icon(Icons.file_copy_outlined),
-              onTap: () => Navigator.of(context).pop()),
+              onTap: () async {
+                final result = await FilePicker.platform.pickFiles(
+                  type: FileType.custom,
+                  withData: true,
+                  allowedExtensions: ['ics', 'ical', 'icalendar'],
+                );
+                if (result == null) return;
+                final data = result.files.first.bytes;
+                if (data == null) return;
+                final lines = utf8.decode(data).split('\n');
+                final converter = ICalConverter();
+                converter.read(lines);
+                final events = converter.events;
+                if (context.mounted) {
+                  await showDialog(
+                    context: context,
+                    builder: (context) => ImportDialog(events: events),
+                  );
+                }
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                }
+              }),
         ]),
       ),
       scrollable: true,

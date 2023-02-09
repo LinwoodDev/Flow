@@ -41,7 +41,7 @@ class ICalConverter {
             break;
         }
       } else {
-        switch (value) {
+        switch (key) {
           case 'SUMMARY':
             summary = value;
             break;

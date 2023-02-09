@@ -190,5 +190,16 @@
   "removeEvent": "Remove event",
   "event": "Event",
   "nativeTitleBar": "Native title bar",
-  "blocked": "Blocked"
+  "blocked": "Blocked",
+  "countEvents": "{count, plural, =0 {No events} one {1 event} other {{count} events}}",
+  "@countEvents": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "import": "Import",
+  "confirmImport": "Are you sure you want to import it?"
 }

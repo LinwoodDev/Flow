@@ -30,14 +30,14 @@ dependencies:
   intl: ^0.17.0
   animations: ^2.0.7
   http: ^0.13.5
-  url_launcher: ^6.1.8
+  url_launcher: ^6.1.9
   path_provider: ^2.0.11
   shared:
     path: ../shared
-  path: ^1.8.1
-  go_router: ^6.0.3
+  path: ^1.8.2
+  go_router: ^6.0.6
   flex_color_scheme: ^7.0.0-dev.2
-  flutter_bloc: ^8.1.1
+  flutter_bloc: ^8.1.2
   freezed_annotation: ^2.2.0
   json_annotation: ^4.7.0
   shared_preferences: ^2.0.17
