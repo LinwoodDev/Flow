@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flow/cubits/flow.dart';
 import 'package:flow/pages/sources/import.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/readers/ical.dart';
 import 'package:simple_icons/simple_icons.dart';
@@ -51,6 +53,7 @@ class AddSourceDialog extends StatelessWidget {
                   Text(AppLocalizations.of(context).importFileDescription),
               leading: const Icon(Icons.file_copy_outlined),
               onTap: () async {
+                final cubit = context.read<FlowCubit>();
                 final result = await FilePicker.platform.pickFiles(
                   type: FileType.custom,
                   withData: true,
@@ -64,10 +67,14 @@ class AddSourceDialog extends StatelessWidget {
                 converter.read(lines);
                 final events = converter.events;
                 if (context.mounted) {
-                  await showDialog(
+                  final success = await showDialog<bool>(
                     context: context,
                     builder: (context) => ImportDialog(events: events),
                   );
+                  if (success != true) return;
+                  final service = cubit.getCurrentService().event;
+                  await Future.wait(
+                      events.map((event) async => service?.createEvent(event)));
                 }
                 if (context.mounted) {
                   Navigator.of(context).pop();

@@ -7,7 +7,8 @@ class ICalConverter {
   final List<Todo> todos = [];
 
   void read(List<String> lines) {
-    final offset = lines.indexWhere((line) => line == 'BEGIN:VCALENDAR');
+    final offset =
+        lines.indexWhere((element) => element.trim() == 'BEGIN:VCALENDAR');
     if (offset == -1) {
       return;
     }
@@ -16,8 +17,8 @@ class ICalConverter {
     for (int i = offset; i < lines.length; i++) {
       final line = lines[i];
       final parts = line.split(':');
-      final key = parts[0];
-      final value = parts.sublist(1).join(':');
+      final key = parts[0].trim();
+      final value = parts.sublist(1).join(':').trim();
       if (currentEvent != null) {
         switch (key) {
           case 'SUMMARY':
@@ -25,6 +26,16 @@ class ICalConverter {
             break;
           case 'DESCRIPTION':
             currentEvent = currentEvent.copyWith(description: value);
+            break;
+          case 'DTSTART':
+          case 'DTEND;VALUE=DATE':
+            currentEvent = currentEvent.copyWith(
+                start:
+                    DateTime.parse(value).subtract(const Duration(minutes: 1)));
+            break;
+          case 'DTEND':
+          case 'DTSTART;VALUE=DATE':
+            currentEvent = currentEvent.copyWith(end: DateTime.parse(value));
             break;
           case 'END':
             if (value != 'VEVENT') break;
