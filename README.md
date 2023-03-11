@@ -62,7 +62,7 @@ Linwood Flow is a free, opensource time and event management software. You can c
 
 ## Contributing
 
-We are happy to see that you are interested in contributing to Butterfly.
+We are happy to see that you are interested in contributing to Flow.
 To get started, visit [the contributing guide](CONTRIBUTING.md).
 
 ## License

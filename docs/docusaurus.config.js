@@ -1,6 +1,6 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-    title: 'Linwood Flow Docs',
+    title: 'Linwood Flow',
     tagline: 'A feature rich event and time managment system',
     url: 'https://docs.flow.linwood.dev',
     baseUrl: '/',
@@ -10,10 +10,15 @@ module.exports = {
     organizationName: 'LinwoodCloud', // Usually your GitHub org/user name.
     projectName: 'Flow', // Usually your repo name.
     themeConfig: {
+        colorMode: {
+            defaultMode: 'dark',
+            disableSwitch: false,
+            respectPrefersColorScheme: true,
+        },
         navbar: {
-            title: 'Linwood Flow',
+            title: 'Flow',
             logo: {
-                alt: 'Linwood Flow Logo',
+                alt: 'Flow Logo',
                 src: 'img/logo.svg',
             },
             items: [
@@ -27,6 +32,13 @@ module.exports = {
                     to: 'downloads',
                     label: 'Downloads',
                     position: 'left'
+                },
+                {
+                    type: 'doc',
+                    docId: 'community',
+                    docsPluginId: 'community',
+                    position: 'left',
+                    label: 'Community',
                 },
                 {
                     type: 'dropdown',
@@ -43,7 +55,7 @@ module.exports = {
                         },
                         {
                             label: 'GitHub',
-                            href: 'https://github.com/LinwoodCloud/Butterfly',
+                            href: 'https://github.com/LinwoodCloud/Flow',
                         },
                         {
                             label: 'Blog', 
@@ -51,7 +63,7 @@ module.exports = {
                         },
                         {
                             label: 'Crowdin',
-                            href: 'https://go.linwood.dev/butterfly/crowdin'
+                            href: 'https://go.linwood.dev/flow/crowdin'
                         },
                         {
                             label: 'Twitter',
@@ -63,10 +75,15 @@ module.exports = {
                         },
                         {
                             label: 'License',
-                            href: 'https://go.linwood.dev/butterfly/license',
+                            href: 'https://go.linwood.dev/flow/license',
                         }
                     ],
                 },
+                {
+                    type: 'localeDropdown',
+                    position: 'right',
+                    dropdownItemsAfter: [{ to: 'https://translate.linwood.dev/flow', label: 'Help translate' }],
+                }
             ],
         },
         footer: {
@@ -121,7 +138,7 @@ module.exports = {
                         },
                         {
                             label: 'Contribution guide',
-                            href: 'https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md',
+                            href: 'https://github.com/LinwoodCloud/Flow/blob/develop/CONTRIBUTING.md',
                         },
                     ],
                 },
@@ -130,16 +147,25 @@ module.exports = {
                     items: [
                         {
                             label: 'Imprint',
-                            to: 'https://codedoctor.tk/impress',
+                            href: 'https://go.linwood.dev/imprint',
                         },
                         {
-                            label: 'Privacy Policy',
-                            href: 'https://codedoctor.tk/privacy',
+                            label: 'Privacy Policy of the app',
+                            href: '/privacypolicy',
+                        },
+                        {
+                            label: 'Privacy Policy of the website',
+                            href: 'https://go.linwood.dev/privacypolicy',
                         },
                     ],
                 }
             ],
-            // Please do not remove the credits, help to publicize Docusaurus :)
+            logo: {
+                alt: 'Linwood Logo',
+                src: 'https://raw.githubusercontent.com/LinwoodCloud/website/main/public/logos/logo.png',
+                width: 100,
+                href: 'https://linwood.dev',
+            },
             copyright: `Copyright © ${new Date().getFullYear()} LinwoodCloud.`,
         },
     },
@@ -160,4 +186,43 @@ module.exports = {
             },
         ],
     ],
+    plugins: [
+        [
+            '@docusaurus/plugin-content-docs',
+            {
+                id: 'community',
+                path: 'community',
+                routeBasePath: '/',
+                sidebarPath: require.resolve('./sidebarsCommunity.js')
+            },
+        ],
+        [
+            '@docusaurus/plugin-pwa',
+            {
+                offlineModeActivationStrategies: [
+                    'appInstalled',
+                    'standalone',
+                    'queryString',
+                ],
+                pwaHead: [
+                    {
+                        tagName: 'link',
+                        rel: 'icon',
+                        href: '/img/logo.png',
+                    },
+                    {
+                        tagName: 'link',
+                        rel: 'manifest',
+                        href: '/manifest.json', // your PWA manifest
+                    },
+                    {
+                        tagName: 'meta',
+                        name: 'theme-color',
+                        content: '#7c4dff',
+                    },
+                ],
+            },
+        ],
+        // Other tweaks
+    ]
 };

@@ -1,5 +1,5 @@
 FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
-if [ "$BUTTERFLY_NIGHTLY" = "true" ];
+if [ "$FLOW_NIGHTLY" = "true" ];
 then 
     cp -r web_nightly/** web
 fi
@@ -11,7 +11,7 @@ else
     git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION
 fi
 flutter/bin/flutter config --enable-web
-if [ "$BUTTERFLY_NIGHTLY" = "true" ]
+if [ "$FLOW_NIGHTLY" = "true" ]
 then
     flutter/bin/flutter build web --release --web-renderer canvaskit --dart-define=FLUTTER_WEB_USE_SKIA=true --dart-define=FLUTTER_WEB_CANVASKIT_URL=/canvaskit/ --dart-define=flavor=nightly
 else
