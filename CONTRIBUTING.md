@@ -1,32 +1,70 @@
-# Contributing
+# Contribution guide
 
-I do this project in my spare time. It helps me a lot if you can contribute to this project. Please read
-the [Code of Conduct](CODE_OF_CONDUCT.md) first!
+There are many ways to contribute to this project.
+Thanks to everyone who has contributed!
+If you have any questions, please contact me at <contact@linwood.dev>.
 
-## Issues
+There is a matrix server for this project [here](https://linwood.dev/matrix) and a discord server [here](https://discord.linwood.dev).
 
-If you find bugs or have feature request, you can create an issue by
-clicking [here](https://github.com/LinwoodCloud/Flow/issues/new/choose).
+Please follow the [Code of Conduct](https://docs.flow.linwood.dev/code-of-conduct).
 
-## Pull request
+## Give feedback
 
-If you want to help me to code, you can open a pull request. Fork this project and make a pull request. I only accept
-pull request for the *develop* branch.
+The best way to give feedback is to open an issue on GitHub.
+Please report any bug you find [here](https://github.com/LinwoodCloud/Flow/issues/new?assignees=CodeDoctorDE&labels=bug%2Ctriage&template=bug_report.yml&title=%5BBug%5D%3A+).
 
-## Translation
+If you have a feature that you would like to see added, please open an issue [here](https://github.com/LinwoodCloud/Flow/issues/new?assignees=CodeDoctorDE&labels=enhancement%2Ctriage&template=feature_request.yml&title=%5BFeature+request%5D%3A+).
 
-![Locale chart](https://badges.awesome-crowdin.com/translation-200008942-10.png)
+## Test nightly builds
 
-If you can translate well, you can help us by translating the message on [crowdin](https://linwood.crowdin.com/flow).
+Nightly builds are not production ready and need to be tested.
+Please report any bugs in the github issues section.
 
-## Community Server
+Read more about it [here](https://docs.flow.linwood.dev/nightly).
 
-A project without a community isn't a good project. You can [join the discord](https://discord.linwood.dev) and talk to
-each other!
+## Write documentation
 
-## Branches
+Documentation is important for users to understand the program and its features.
+The documentation is written in markdown, a simple markup language. It can be found in the `docs` folder.
 
-| Name    | Support |                                                                                Description |
-| :------ | :-----: | -----------------------------------------------------------------------------------------: |
-| main    |    ✅    | This branch is production ready. It will be updated when a new stable version is released! |
-| develop |    ❌    |    This branch is only for testing and developing. Pull request should only be added here! |
+To start, please install yarn (<https://yarnpkg.com/getting-started/install>).
+
+Get started by running:
+
+```bash
+cd docs
+yarn install
+yarn start
+```
+
+All stable documentation can be found in the `versioned_docs` folder.
+
+Fork the project and create a pull request to add your documentation to the `develop` branch.
+
+## Translate
+
+Crowdin is a service that allows you to translate the documentation and the app.
+Click [here](https://translate.linwood.dev/flow) to see the project and start translating.
+If you have a new language to add, please contact me.
+
+## Code
+
+This project is written in [Dart](https://dart.dev/) and was built with [Flutter](https://flutter.dev/).
+The app source code can be found in the `app` folder.
+
+Please install the dependencies first:
+
+- libsecret-1-dev
+- libjsoncpp-dev
+
+To get started, run:
+
+```bash
+cd app
+flutter pub get
+flutter run
+```
+
+All subdirectories are documented in the `app/README.md` file.
+
+Fork the project and create a pull request to add your code to the `develop` branch.
