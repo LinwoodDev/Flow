@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "Volgende",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Tutorial - Basics": {
+    "message": "Handleiding - Basisprincipes",
+    "description": "The label for category Tutorial - Basics in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Tutorial - Extras": {
+    "message": "Tutorial - Extra's",
+    "description": "The label for category Tutorial - Extras in sidebar tutorialSidebar"
+  }
+}
