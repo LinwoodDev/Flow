@@ -1,80 +1,80 @@
 {
   "dashboard": "Dashboard",
-  "calendar": "Calendar",
-  "places": "Places",
-  "users": "Users",
-  "sources": "Sources",
-  "settings": "Settings",
-  "create": "Create",
-  "information": "Information",
-  "source": "Source",
-  "license": "License",
-  "thirdPartyLicenses": "Third Party Licenses",
-  "documentation": "Documentation",
-  "privacyPolicy": "Privacy Policy",
-  "imprint": "Imprint",
-  "releaseNotes": "Release Notes",
+  "calendar": "Kalender",
+  "places": "Orte",
+  "users": "Benutzer",
+  "sources": "Quellen",
+  "settings": "Einstellungen",
+  "create": "Anlegen",
+  "information": "Informationen",
+  "source": "Quelle",
+  "license": "Lizenz",
+  "thirdPartyLicenses": "Drittlizenzen",
+  "documentation": "Dokumentation",
+  "privacyPolicy": "Datenschutzerklärung",
+  "imprint": "Impressum",
+  "releaseNotes": "Versionshinweise",
   "changelog": "Changelog",
-  "legal": "Legal",
-  "personalization": "Personalization",
+  "legal": "Rechtlich",
+  "personalization": "Personalisierung",
   "design": "Design",
-  "language": "Language",
-  "theme": "Theme",
-  "classic": "Classic",
-  "systemDefault": "System Default",
-  "light": "Light",
-  "dark": "Dark",
-  "createPlace": "Create Place",
-  "cancel": "Cancel",
+  "language": "Sprache",
+  "theme": "Thema",
+  "classic": "Klassisch",
+  "systemDefault": "Systemstandard",
+  "light": "Hell",
+  "dark": "Dunkel",
+  "createPlace": "Ort erstellen",
+  "cancel": "Abbrechen",
   "name": "Name",
-  "description": "Description",
+  "description": "Beschreibung",
   "start": "Start",
-  "next": "Next",
-  "skip": "Skip",
-  "back": "Back",
-  "today": "Today",
-  "groups": "Groups",
-  "createGroup": "Create group",
-  "editGroup": "Edit group",
-  "list": "List",
-  "day": "Day",
-  "week": "Week",
-  "month": "Month",
+  "next": "Nächste",
+  "skip": "Überspringen",
+  "back": "Zurück",
+  "today": "Heute",
+  "groups": "Gruppen",
+  "createGroup": "Gruppe erstellen",
+  "editGroup": "Gruppe bearbeiten",
+  "list": "Liste",
+  "day": "Tag",
+  "week": "Woche",
+  "month": "Monat",
   "version": "Version",
-  "intro": "Intro",
+  "intro": "Einleitung",
   "webdav": "WebDAV",
-  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. You can use it to synchronize your data with other devices or services.",
+  "webdavDescription": "Die WebDAV-Schnittstelle ermöglicht den Zugriff auf Ihre Daten von jedem WebDAV-Server. Sie können damit Ihre Daten mit anderen Geräten oder Diensten synchronisieren.",
   "server": "Server",
-  "serverDescription": "Sync your data with a native Linwood Flow server. This is recommended for users that want to self-host their data.",
-  "googleDescription": "Sync your data with Google. This is recommended for users that want to use their Google account to access their data. Not all features are available with this option.",
-  "microsoftDescription": "Sync your data with Microsoft. This is recommended for users that want to use their Microsoft account to access their data. Not all features are available with this option.",
-  "addSource": "Add source",
-  "local": "Local",
-  "close": "Close",
-  "unknown": "Unknown",
-  "loading": "Loading",
-  "export": "Export",
-  "createEvent": "Create event",
-  "save": "Save",
-  "allSources": "All sources",
-  "editEvent": "Edit event",
-  "end": "End",
-  "location": "Location",
+  "serverDescription": "Synchronisieren Sie Ihre Daten mit einem nativen Linwood Flow Server. Dies wird empfohlen für Benutzer, die ihre Daten selbst hosten möchten.",
+  "googleDescription": "Synchronisieren Sie Ihre Daten mit Google. Dies wird Benutzern empfohlen, die ihr Google-Konto verwenden möchten, um auf ihre Daten zuzugreifen. Nicht alle Funktionen sind mit dieser Option verfügbar.",
+  "microsoftDescription": "Synchronisieren Sie Ihre Daten mit Microsoft. Dies wird Benutzern empfohlen, die ihr Microsoft-Konto verwenden möchten, um auf ihre Daten zuzugreifen. Nicht alle Funktionen sind mit dieser Option verfügbar.",
+  "addSource": "Quelle hinzufügen",
+  "local": "Lokal",
+  "close": "Schließen",
+  "unknown": "Unbekannt",
+  "loading": "Lädt",
+  "export": "Exportieren",
+  "createEvent": "Ereignis erstellen",
+  "save": "Speichern",
+  "allSources": "Alle Quellen",
+  "editEvent": "Ereignis bearbeiten",
+  "end": "Ende",
+  "location": "Standort",
   "status": "Status",
-  "confirmed": "Confirmed",
-  "draft": "Draft",
-  "cancelled": "Cancelled",
-  "general": "General",
+  "confirmed": "Bestätigt",
+  "draft": "Entwurf",
+  "cancelled": "Abgebrochen",
+  "general": "Allgemein",
   "todos": "Todos",
-  "createTodo": "Create todo",
-  "editTodo": "Edit todo",
-  "indicatorEmpty": "No items found",
-  "indicatorEmptyDescription": "The list is currently empty.",
-  "indicatorLoading": "Loading",
-  "indicatorError": "An error occurred",
-  "indicatorErrorDescription": "An error occurred while loading the data.",
-  "tryAgain": "Try again",
-  "eventInfo": "{event} on {date} at {time} in {location} ({status})",
+  "createTodo": "To-Do erstellen",
+  "editTodo": "To-Do bearbeiten",
+  "indicatorEmpty": "Keine Elemente gefunden",
+  "indicatorEmptyDescription": "Die Liste ist derzeit leer.",
+  "indicatorLoading": "Lädt",
+  "indicatorError": "Ein Fehler ist aufgetreten",
+  "indicatorErrorDescription": "Beim Laden der Daten ist ein Fehler aufgetreten.",
+  "tryAgain": "Erneut versuchen",
+  "eventInfo": "{event} am {date} in {time} in {location} ({status})",
   "@eventInfo": {
     "placeholders": {
       "event": {
@@ -99,13 +99,13 @@
       }
     }
   },
-  "filter": "Filter",
-  "done": "Done",
-  "inProgress": "In progress",
+  "filter": "Filtern",
+  "done": "Fertig",
+  "inProgress": "In Bearbeitung",
   "todo": "Todo",
-  "delete": "Delete",
-  "edit": "Edit",
-  "deleteGroup": "Delete group {name}",
+  "delete": "Löschen",
+  "edit": "Bearbeiten",
+  "deleteGroup": "Gruppe {name} löschen",
   "@deleteGroup": {
     "placeholders": {
       "name": {
@@ -114,7 +114,7 @@
       }
     }
   },
-  "deleteGroupDescription": "Are you sure you want to delete the group {name}?",
+  "deleteGroupDescription": "Sind Sie sicher, dass Sie die Gruppe {name} löschen möchten?",
   "@deleteGroupDescription": {
     "placeholders": {
       "name": {
@@ -123,7 +123,7 @@
       }
     }
   },
-  "groupName": "Group {name}",
+  "groupName": "Gruppe {name}",
   "@groupName": {
     "placeholders": {
       "name": {
@@ -132,19 +132,19 @@
       }
     }
   },
-  "noData": "There is no data to display.",
-  "noEvents": "There are no events to display.",
-  "group": "Group",
-  "search": "Search",
-  "events": "Events",
-  "past": "Past",
-  "decentralized": "Decentralized",
-  "decentralizedDescription": "The decentralized interface allows you to access your data from any decentralized server. You can use it to synchronize your data with other devices or services.",
-  "importFile": "Import file",
-  "importFileDescription": "Import a file from your device. You can import a database file from another Linwood Flow instance or a regular calendar file.",
-  "place": "Place",
-  "editPlace": "Edit place",
-  "deletePlace": "Delete place {name}",
+  "noData": "Es sind keine Daten vorhanden.",
+  "noEvents": "Es gibt keine Ereignisse zum Anzeigen.",
+  "group": "Gruppe",
+  "search": "Suchen",
+  "events": "Ereignisse",
+  "past": "Vorher",
+  "decentralized": "Dezentralisiert",
+  "decentralizedDescription": "Die dezentrale Schnittstelle ermöglicht den Zugriff auf Ihre Daten von jedem dezentralen Server. Sie können damit Ihre Daten mit anderen Geräten oder Diensten synchronisieren.",
+  "importFile": "Datei importieren",
+  "importFileDescription": "Importieren Sie eine Datei von Ihrem Gerät. Sie können eine Datenbankdatei aus einer anderen Linwood Flow Instanz oder einer regulären Kalenderdatei importieren.",
+  "place": "Ort",
+  "editPlace": "Ort bearbeiten",
+  "deletePlace": "Ort {name} löschen",
   "@deletePlace": {
     "placeholders": {
       "name": {
@@ -153,7 +153,7 @@
       }
     }
   },
-  "deletePlaceDescription": "Are you sure you want to delete the place {name}?",
+  "deletePlaceDescription": "Sind Sie sicher, dass Sie den Ort {name} löschen möchten?",
   "@deletePlaceDescription": {
     "placeholders": {
       "name": {
@@ -162,11 +162,11 @@
       }
     }
   },
-  "priority": "Priority",
-  "assignEvent": "Assign event",
-  "noEvent": "No event",
-  "parentGroup": "Parent group",
-  "deleteUser": "Delete user {name}",
+  "priority": "Priorität",
+  "assignEvent": "Ereignis zuweisen",
+  "noEvent": "Kein Ereignis",
+  "parentGroup": "Elterngruppe",
+  "deleteUser": "Benutzer {name} löschen",
   "@deleteUser": {
     "placeholders": {
       "name": {
@@ -175,9 +175,9 @@
       }
     }
   },
-  "createUser": "Create user",
-  "editUser": "Edit user",
-  "deleteUserDescription": "Are you sure you want to delete the user {name}?",
+  "createUser": "Benutzer erstellen",
+  "editUser": "Benutzer bearbeiten",
+  "deleteUserDescription": "Sind Sie sicher, dass Sie den Benutzer {name} löschen möchten?",
   "@deleteUserDescription": {
     "placeholders": {
       "name": {
@@ -186,12 +186,12 @@
       }
     }
   },
-  "pending": "Pending",
-  "removeEvent": "Remove event",
-  "event": "Event",
-  "nativeTitleBar": "Native title bar",
-  "blocked": "Blocked",
-  "countEvents": "{count, plural, =0 {No events} one {1 event} other {{count} events}}",
+  "pending": "Ausstehend",
+  "removeEvent": "Ereignis entfernen",
+  "event": "Ereignis",
+  "nativeTitleBar": "Native Titelleiste",
+  "blocked": "Blockiert",
+  "countEvents": "{count, plural, =0 {Keine Ereignisse} one {1 Ereignis} other {{count} Ereignisse}}",
   "@countEvents": {
     "placeholders": {
       "count": {
@@ -200,7 +200,7 @@
       }
     }
   },
-  "import": "Import",
-  "confirmImport": "Are you sure you want to import it?",
-  "welcome": "Welcome"
+  "import": "Importieren",
+  "confirmImport": "Bist du sicher, dass du es importieren möchtest?",
+  "welcome": "Begrüßung"
 }
