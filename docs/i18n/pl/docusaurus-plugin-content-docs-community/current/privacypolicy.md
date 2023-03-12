@@ -1,6 +1,6 @@
 ---
 title: "Polityka prywatności"
-slug: /privacypolicy
+slug: /polityka prywatności
 ---
 
 To jest polityka prywatności aplikacji. Należy uważnie przeczytać ten dokument. Kliknij [tutaj](https://go.linwood.dev/privacypolicy) aby przeczytać politykę prywatności strony.
@@ -9,13 +9,13 @@ CodeDoctor zbudował aplikację Flow jako aplikację Open Source. Usługa ta jes
 
 Ta strona jest używana do informowania odwiedzających o moich zasadach z kolekcją, wykorzystanie i ujawnianie informacji osobowych, jeżeli ktoś zdecydował się skorzystać z mojej usługi.
 
-Jeśli zdecydujesz się korzystać z mojej usługi, zgadzasz się na zbieranie i wykorzystywanie informacji w związku z tą polityką. Osobiste informacje, które gromadzę, są wykorzystywane do świadczenia i doskonalenia usługi . Nie wykorzystam ani nie udostępnię twoich informacji nikomu poza opisem w niniejszej Polityce prywatności.
+Jeśli zdecydujesz się korzystać z mojej usługi, zgadzasz się na zbieranie i wykorzystywanie informacji w związku z tą polityką. Dane osobowe, które gromadzę, są wykorzystywane do świadczenia i poprawy usługi. Nie wykorzystam ani nie udostępnię twoich informacji nikomu poza opisem w niniejszej Polityce prywatności.
 
 Terminy używane w niniejszej Polityce Prywatności mają takie same znaczenie jak w naszym Regulaminie, które są dostępne przy przepływie danych, chyba że określono inaczej w niniejszej polityce prywatności.
 
 **Gromadzenie i wykorzystanie informacji**
 
-Dla lepszego doświadczenia, korzystając z naszego serwisu, mogę wymagać od Państwa dostarczenia pewnych informacji możliwych do identyfikacji osobiście. Informacje, których zażądam, zostaną zachowane na Twoim urządzeniu i nie są zbierane przez mnie w żaden sposób.
+Dla lepszego doświadczenia, korzystając z naszego serwisu, mogę wymagać od Państwa dostarczenia pewnych informacji możliwych do identyfikacji osobiście. Informacje, o które proszę, zostaną zachowane na Twoim urządzeniu i nie będą mnie w żaden sposób gromadzone.
 
 Aplikacja korzysta z usług firm trzecich, które mogą gromadzić informacje używane do identyfikacji Ciebie.
 
@@ -25,9 +25,9 @@ Link do polityki prywatności dostawców usług będących osobami trzecimi uży
 
 **Pliki cookie**
 
-Pliki cookie to pliki z niewielką ilością danych, które są powszechnie używane jako anonimowe niepowtarzalne identyfikatory. Są one wysyłane do Twojej przeglądarki ze stron, które odwiedzasz i są przechowywane w pamięci wewnętrznej urządzenia.
+Pliki cookie to pliki z niewielką ilością danych, które są powszechnie używane jako anonimowe niepowtarzalne identyfikatory. Są one wysyłane do Twojej przeglądarki z witryn, które odwiedzasz i są przechowywane w wewnętrznej pamięci urządzenia.
 
-Ta usługa nie używa tych "ciasteczek" bezpośrednio. Aplikacja może jednak używać kodu firm trzecich i bibliotek, które używają plików cookie do zbierania informacji i ulepszania swoich usług. Masz opcję , aby zaakceptować lub odrzucić te ciasteczka i wiedzieć kiedy ciasteczka są wysyłane na twoje urządzenie. Jeśli zdecydujesz się odrzucić nasze ciasteczka, możesz nie być w stanie użyć części tej usługi.
+Ta usługa nie używa tych "ciasteczek" bezpośrednio. Aplikacja może jednak używać kodu firm trzecich i bibliotek, które używają plików cookie do zbierania informacji i ulepszania swoich usług. Masz możliwość zaakceptowania lub odrzucenia tych ciasteczek i wiedzieć, kiedy ciasteczka są wysyłane na twoje urządzenie. Jeśli zdecydujesz się odrzucić nasze ciasteczka, możesz nie być w stanie użyć części tej usługi.
 
 **Dostawcy usług**
 
@@ -38,7 +38,7 @@ Mogę zatrudniać przedsiębiorstwa i osoby fizyczne z następujących powodów:
 * Do świadczenia usług związanych z usługami; lub
 * Aby pomóc nam przeanalizować sposób korzystania z naszej usługi.
 
-Chcę poinformować użytkowników tej usługi o tym, że te osoby trzecie mają dostęp do Twoich danych osobowych. Powodem jest wykonanie zadań przydzielonych im w naszym imieniu. Są one jednak zobowiązane do nieujawniania lub wykorzystywania informacji do innych celów.
+Chcę poinformować użytkowników tej usługi o tym, że te osoby trzecie mają dostęp do Twoich danych osobowych. Powodem jest wykonanie zadań przydzielonych im w naszym imieniu. Są one jednak zobowiązane do nieujawniania lub wykorzystywania tych informacji w żadnym innym celu.
 
 **Bezpieczeństwo**
 
@@ -50,7 +50,7 @@ Ta usługa może zawierać linki do innych witryn. Jeśli klikniesz na link osob
 
 **Zmiany w polityce prywatności**
 
-Mogę od czasu do czasu aktualizować naszą Politykę prywatności. Zaleca się zatem, aby okresowo przeglądać tę stronę pod kątem jakichkolwiek zmian. Powiadomię Cię o wszelkich zmianach, publikując nową Politykę prywatności na tej stronie .
+Mogę od czasu do czasu aktualizować naszą Politykę prywatności. Zaleca się zatem, aby okresowo przeglądać tę stronę pod kątem jakichkolwiek zmian. Powiadomię Cię o wszelkich zmianach, publikując nową Politykę prywatności na tej stronie.
 
 Polityka ta jest skuteczna od 2021-02-07
 
@@ -58,4 +58,4 @@ Polityka ta jest skuteczna od 2021-02-07
 
 Jeśli masz jakiekolwiek pytania lub sugestie dotyczące mojej polityki prywatności, nie wahaj się skontaktować ze mną pod adresem contact@linwood.dev.
 
-Ta strona polityki prywatności została utworzona w [privacypolicytemplate.net](https://privacypolicytemplate.net) i zmodyfikowana/wygenerowana przez [Generator Polityki prywatności](https://app-privacy-policy-generator.nisrulz.com/)
+Ta strona polityki prywatności została utworzona w [privacypolicytemplate.net](https://privacypolicytemplate.net) i zmodyfikowana/wygenerowana przez [Generator Polityki Prywatności](https://app-privacy-policy-generator.nisrulz.com/)
