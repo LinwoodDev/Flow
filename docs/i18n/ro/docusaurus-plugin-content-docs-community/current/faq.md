@@ -1,8 +1,8 @@
 ---
 id: "faq"
 slug: "/faq"
-title: "Frequently Asked Questions"
-sidebar_label: "FAQ"
+title: "Întrebări frecvente"
+sidebar_label: "Întrebări"
 ---
 
-Here are some frequently asked questions.
+Iată câteva întrebări puse frecvent.
