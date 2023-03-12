@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "Επόμενο",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Tutorial - Basics": {
+    "message": "Εκμάθηση - Βασικά",
+    "description": "The label for category Tutorial - Basics in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Tutorial - Extras": {
+    "message": "Σεμινάριο - Πρόσθετα",
+    "description": "The label for category Tutorial - Extras in sidebar tutorialSidebar"
+  }
+}
