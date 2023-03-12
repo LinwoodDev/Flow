@@ -1,16 +1,16 @@
 ---
-title: "Nightly Builds"
+title: "Νυχτερινά Κτίρια"
 slug: "/nightly"
 ---
 
 :::warning
 
-Do not use the nightly version of Flow for production.
+Μην χρησιμοποιείτε τη νυχτερινή έκδοση της Ροής για την παραγωγή.
 
 :::
 
-Nightly builds are designed to give you the option to test the latest version and get the newest features and give feedback.
+Νυχτερινές εκδόσεις έχουν σχεδιαστεί για να σας δώσει τη δυνατότητα να δοκιμάσετε την τελευταία έκδοση και να πάρετε τα νεότερα χαρακτηριστικά και να δώσει ανατροφοδότηση.
 
-## Get the builds
+## Λήψη των κατασκευών
 
-Go to the download pages of your platform. All nightly builds get also published as pre-release on github.
+Μεταβείτε στις σελίδες λήψης της πλατφόρμας σας. Όλες οι νυχτερινές εκδόσεις δημοσιεύονται επίσης ως προ-κυκλοφορία στο github.
