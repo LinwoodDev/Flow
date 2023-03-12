@@ -1,15 +1,15 @@
 ---
-title: "Construiți-vă propriul"
+title: "Build your own"
 sidebar_position: 1
 ---
 
-1. Instalează git și flutter (beta)
-2. Clonează depozitul
-3. Navigați în directorul de aplicații
-4. Folosiți instrumentul flutter pentru a compila aplicația
-   * `flutter construit apk`
-   * `flutter construit apppachet`
-   * `flutter construit web`
-   * `flutter construit linux`
-   * `flutter construit ferestre`
-5. Fișierele compilate sunt în directorul de construcții
+1. Install git and flutter (beta)
+2. Clone the repository
+3. Navigate to the app directory
+4. Use the flutter tool to compile the application
+   * `flutter build apk`
+   * `flutter build appbundle`
+   * `flutter build web`
+   * `flutter build linux`
+   * `flutter build windows`
+5. The compiled files are in the build directory
