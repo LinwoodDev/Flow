@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "التالي",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Tutorial - Basics": {
+    "message": "البرنامج التعليمي - أساسيات",
+    "description": "The label for category Tutorial - Basics in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Tutorial - Extras": {
+    "message": "البرنامج التعليمي - الإضافات",
+    "description": "The label for category Tutorial - Extras in sidebar tutorialSidebar"
+  }
+}
