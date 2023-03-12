@@ -1,7 +1,7 @@
 ---
-title: Code of conduct
-hide_title: true
-sidebar_label: Code of conduct
+title: Etiske retningslinjer
+hide_title: sann
+sidebar_label: Etiske retningslinjer
 ---
 
 ```mdx-code-block
