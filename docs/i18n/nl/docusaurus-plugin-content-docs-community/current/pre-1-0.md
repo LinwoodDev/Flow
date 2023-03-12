@@ -1,9 +1,9 @@
 ---
-title: "Pre-1.0 versies"
+title: "Pre-1.0 versions"
 ---
 
-Deze versies worden niet meer ondersteund. Nieuwe versies zijn beschikbaar op [versies](versions.md).
+These versions are not supported anymore. New versions are available at [versions](versions.md).
 
-| Versie | Ondersteund |  |
-| ------ | ----------- |  |
-|        |             |  |
+| Version | Supported |  |
+| ------- | --------- |  |
+|         |           |  |
