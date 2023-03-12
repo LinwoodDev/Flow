@@ -1,6 +1,6 @@
 ---
 title: Mudanças
-hide_title: verdadeiro
+hide_title: true
 sidebar_label: Mudanças
 ---
 
