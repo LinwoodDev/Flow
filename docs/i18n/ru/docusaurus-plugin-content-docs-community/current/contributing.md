@@ -1,7 +1,7 @@
 ---
-title: "Вклад"
-hide_title: истина
-sidebar_label: "Вклад"
+title: "Contributing"
+hide_title: true
+sidebar_label: "Contributing"
 ---
 
 ```mdx-code-block
