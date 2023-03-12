@@ -1,7 +1,7 @@
 ---
-title: "Συνεισφορά"
-hide_title: αληθές
-sidebar_label: "Συνεισφορά"
+title: "Contributing"
+hide_title: true
+sidebar_label: "Contributing"
 ---
 
 ```mdx-code-block
