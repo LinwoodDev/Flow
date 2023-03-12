@@ -1,7 +1,7 @@
 ---
-title: Changelog
-hide_title: true
-sidebar_label: Changelog
+title: Wijzigingslogboek
+hide_title: waar
+sidebar_label: Wijzigingslogboek
 ---
 
 ```mdx-code-block
