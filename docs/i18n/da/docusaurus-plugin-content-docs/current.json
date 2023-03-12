@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "Næste",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Tutorial - Basics": {
+    "message": "Vejledning - Grundlæggende",
+    "description": "The label for category Tutorial - Basics in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Tutorial - Extras": {
+    "message": "Vejledning - Ekstra",
+    "description": "The label for category Tutorial - Extras in sidebar tutorialSidebar"
+  }
+}
