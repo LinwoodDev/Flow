@@ -1,7 +1,7 @@
 ---
-title: Code of conduct
-hide_title: true
-sidebar_label: Code of conduct
+title: Codul de conduită
+hide_title: adevărat
+sidebar_label: Codul de conduită
 ---
 
 ```mdx-code-block
