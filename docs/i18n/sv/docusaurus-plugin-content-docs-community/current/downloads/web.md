@@ -1,28 +1,28 @@
 ---
-title: "Webb"
+title: "Web"
 sidebar_position: 5
 ---
 
-![Stabil utgåva](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nattlig utgåva](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-::::note
+:::note
 
-Detta är en progressiv webbapplikation. Du kan installera den på din webbläsare och använda den offline. All data lagras i din webbläsare.
+This is a progressive web application. You can install it on your browser and use it offline. All data is stored in your browser.
 
 :::
 
 
-## Länkar
+## Links
 
 <div className="row margin-bottom--lg padding--sm">
 <a className="button button--outline button--info button--lg margin--sm" href="https://flow.linwood.dev">
   Main
 </a>
 <a className="button button--outline button--danger button--lg margin--sm" href="https://preview.flow.linwood.dev">
-  Förhandsgranska
+  Preview
 </a>
 </div>
 
-## Versioner
+## Versions
 
-Huvudversionerna och förhandsgranskningen (utveckla) av Flow är inte samma som de stabila och nattliga versionerna. De är inte direkt associerade med en release. De uppdateras så snart en ny commit har skjutits till förrådet.
+The main and the preview (develop) versions of Flow are not the same as the stable and nightly versions. They are not directly associated with a release. They are updated as soon as a new commit is pushed to the repository.
