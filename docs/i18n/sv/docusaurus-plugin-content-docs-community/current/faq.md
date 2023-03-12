@@ -1,8 +1,8 @@
 ---
 id: "faq"
 slug: "/faq"
-title: "Frequently Asked Questions"
-sidebar_label: "FAQ"
+title: "Vanliga frågor"
+sidebar_label: "Vanliga frågor"
 ---
 
-Here are some frequently asked questions.
+Här är några vanliga frågor.
