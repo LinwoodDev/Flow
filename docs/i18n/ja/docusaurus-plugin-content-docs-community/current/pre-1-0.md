@@ -1,9 +1,9 @@
 ---
-title: "Pre-1.0 versions"
+title: "1.0より前のバージョン"
 ---
 
-These versions are not supported anymore. New versions are available at [versions](versions.md).
+これらのバージョンはサポートされていません。 新しいバージョンは [バージョン](versions.md) で入手できます。
 
-| Version | Supported |  |
-| ------- | --------- |  |
-|         |           |  |
+| バージョン | サポート |  |
+| ----- | ---- |  |
+|       |      |  |
