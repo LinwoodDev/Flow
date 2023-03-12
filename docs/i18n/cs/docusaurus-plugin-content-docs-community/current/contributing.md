@@ -1,7 +1,7 @@
 ---
-title: "Přispěje"
-hide_title: pravda
-sidebar_label: "Přispěje"
+title: "Contributing"
+hide_title: true
+sidebar_label: "Contributing"
 ---
 
 ```mdx-code-block
