@@ -1,15 +1,15 @@
 ---
-title: "بناء الخاص بك"
+title: "Build your own"
 sidebar_position: 1
 ---
 
-1. تثبيت git و flutter (بيتا)
-2. استنساخ المستودع
-3. انتقل إلى دليل التطبيق
-4. استخدام أداة التردد لتجميع التطبيق
-   * `بناء قماش pk`
-   * `باقة بناء حزمة`
-   * `بناء إنترنت متقطع`
-   * `ترقية بناء لينوكس`
-   * `بناء نوافذ متقطعة`
-5. الملفات المجمعة موجودة في دليل البناء
+1. Install git and flutter (beta)
+2. Clone the repository
+3. Navigate to the app directory
+4. Use the flutter tool to compile the application
+   * `flutter build apk`
+   * `flutter build appbundle`
+   * `flutter build web`
+   * `flutter build linux`
+   * `flutter build windows`
+5. The compiled files are in the build directory
