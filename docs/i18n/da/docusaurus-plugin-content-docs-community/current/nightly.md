@@ -1,16 +1,16 @@
 ---
-title: "Natlige Bygninger"
+title: "Nightly Builds"
 slug: "/nightly"
 ---
 
 :::warning
 
-Brug ikke natlig version af Flow til produktion.
+Do not use the nightly version of Flow for production.
 
 :::
 
-Nightly builds er designet til at give dig mulighed for at teste den nyeste version og få de nyeste funktioner og give feedback.
+Nightly builds are designed to give you the option to test the latest version and get the newest features and give feedback.
 
-## Få bygherrer
+## Get the builds
 
-Gå til download-siderne på din platform. Alle natlige bygger får også offentliggjort som pre-release på github.
+Go to the download pages of your platform. All nightly builds get also published as pre-release on github.
