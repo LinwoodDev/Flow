@@ -1,6 +1,6 @@
 ---
 id: "komunita"
-slug: "/komunita"
+slug: "/community"
 sidebar_label: "Domů"
 sidebar_position: 0
 title: "Komunita"
