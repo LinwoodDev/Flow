@@ -1,13 +1,13 @@
 ---
 title: "المساهمة"
-hide_title: صحيح
+hide_title: true
 sidebar_label: "المساهمة"
 ---
 
 ```mdx-code-block
-استيراد المساهمة، {toc as ContributingTOC} من "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-تصدير toc = ContributingTOC؛
+export const toc = ContributingTOC;
 ```
