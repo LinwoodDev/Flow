@@ -1,11 +1,11 @@
 ---
 title: "Contribuições"
-hide_title: verdadeiro
+hide_title: true
 sidebar_label: "Contribuições"
 ---
 
 ```mdx-code-block
-import Contribuing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
