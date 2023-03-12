@@ -1,61 +1,61 @@
 ---
-title: "Privacy Policy"
+title: "Політика конфіденційності"
 slug: /privacypolicy
 ---
 
-This is the privacy policy of the app. Please read it carefully. Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
+Це політика конфіденційності додатку. Будь ласка, прочитайте це обережно. Натисніть [тут](https://go.linwood.dev/privacypolicy) , щоб прочитати політику конфіденційності сайту.
 
-CodeDoctor built the Flow app as an Open Source app. This SERVICE is provided by CodeDoctor at no cost and is intended for use as is.
+CodeDoctor створив застосунок для потоку як додаток з відкритим вихідним кодом. Цей SERVICE надається CodeDoctor за безцінної вартості і призначений для використання як є.
 
-This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
+Ця сторінка використовується для відправки інформації відвідувачам про мої політики з колекцією, Користуйтесь та розголошуйте особистою інформацією, якщо хто-небудь вирішив використовувати мою Службу.
 
-If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.
+Якщо ви вирішите використовувати мою Послугу, ви погоджуєтесь із колекцією та використанням інформації стосовно цієї політики. Особиста інформація, яку я збираю, використовується для забезпечення та покращення Служби. Я не буду використовувати і не буду ділитися вашою інформацією з будь-ким, крім того, що описано в цій Політиці конфіденційності.
 
-The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at Flow unless otherwise defined in this Privacy Policy.
+Терміни, що використовуються в цій Політиці конфіденційності, мають ті самі значення, що і в наших Загальних умовах, який доступний на потік, якщо інше не визначено в цій Політиці конфіденційності.
 
-**Information Collection and Use**
+**Колекція та використання інформації**
 
-For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and is not collected by me in any way.
+Для кращого досвіду, при користуванні нашою Службою, я можу вимагати від вас надати вам певну особисту інформацію. Інформація, яку мені прохано збережеться на вашому пристрої і , не зібрана мною жодним чином.
 
-The app does use third party services that may collect information used to identify you.
+Додаток використовує сторонні послуги, які можуть збирати інформацію для ідентифікації вас.
 
-Link to privacy policy of third party service providers used by the app
+Посилання на політику конфіденційності сторонніх постачальників послуг, що використовують додаток
 
-* [Google Play Services](https://www.google.com/policies/privacy/)
+* [Служби Google Play](https://www.google.com/policies/privacy/)
 
-**Cookies**
+**Файли Cookies**
 
-Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory.
+Кукі - це файли з невеликою кількістю даних, які зазвичай використовуються як анонімні унікальні ідентифікатори. Надсилаються до браузера з веб-сторінок, які ви відвідуєте, та зберігаються на пристрої внутрішньої пам'яті.
 
-This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
+Ця служба не використовує ці "cookies" явно між собою. Однак додаток може використовувати сторонній код та бібліотеки, які використовують «куки» для збору інформації та покращення їх послуг. У вас є можливість прийняти або відхилити ці файли cookie і знати, коли на ваш пристрій надсилається cookie. Якщо ви вирішите відмовитись від наших куків, ви не зможете використати деякі частини цієї Служби.
 
-**Service Providers**
+**Постачальники послуг**
 
-I may employ third-party companies and individuals due to the following reasons:
+Я можу використовувати сторонні компанії та особи з наступних причин:
 
-* To facilitate our Service;
-* To provide the Service on our behalf;
-* To perform Service-related services; or
-* To assist us in analyzing how our Service is used.
+* Щоб полегшити наш сервіс;
+* Щоб забезпечити послугу від нашого імені;
+* Для виконання служб, пов'язаних з сервісом; або
+* Щоб допомогти нам аналізувати, як використовується наша служба.
 
-I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.
+Я хочу повідомити користувачів цієї служби підтримки, що ці треті сторони мають доступ до вашої персональної інформації. Причина в тому, щоб виконувати завдання, покладені на них від нашого імені. Однак, вони зобов’язані не розголошувати або використовувати інформацію для будь-якої іншої мети.
 
-**Security**
+**Безпека**
 
-I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
+Я ціную свою довіру до того, щоб надати нам свою персональну інформацію, таким чином ми прагнемо використовувати комерційно прийнятні засоби захисту. Але пам'ятайте, що немає методу передачі через інтернет, або метод електронного сховища на 100% безпечний і надійний, і я не можу гарантувати його абсолютну безпеку.
 
-**Links to Other Sites**
+**Посилання на інші сайти**
 
-This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
+Цей сервіс може містити посилання на інші сайти. Якщо натиснути на посилання від третьої сторони, вас буде направлено на цей сайт. Зверніть увагу, що мої зовнішні сайти не працюють. Тому я наполегливо раджу Вам переглянути Політику конфіденційності цих сайтів. Я не контролюю і не беру на себе відповідальності за зміст, політику конфіденційності чи практику будь-яких сторонніх сайтів чи послуг.
 
-**Changes to This Privacy Policy**
+**Зміни в політиці конфіденційності**
 
-I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.
+Я можу оновлювати нашу політику конфіденційності час від часу. Таким чином, вам рекомендується періодично переглядати цю сторінку за будь-які зміни. Я повідомлю вас про будь-які зміни, опубліковавши нову Політику конфіденційності на цій сторінці .
 
-This policy is effective as of 2021-02-07
+Ця політика ефективна при 2021-02-07
 
-**Contact Us**
+**Зв’язатись з нами**
 
-If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at contact@linwood.dev.
+Якщо у вас є які-небудь питання або пропозиції про мою політику конфіденційності, зв’яжіться зі мною по контакту@linwood.dev.
 
-This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
+Ця сторінка політики конфіденційності була створена на [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated [Генератор політики конфіденційності додатків](https://app-privacy-policy-generator.nisrulz.com/)
