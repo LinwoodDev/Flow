@@ -109,6 +109,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = Localizations.localeOf(context).languageCode;
     return LayoutBuilder(
       builder: (context, constraints) => CreateEventScaffold(
         onCreated: (p0) => _refresh,
@@ -147,9 +148,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                     ),
                     GestureDetector(
                       child: Text(
-                        DateFormat.yMMMM(
-                                AppLocalizations.of(context).localeName)
-                            .format(_date),
+                        DateFormat.yMMMM(locale).format(_date),
                         textAlign: TextAlign.center,
                       ),
                       onTap: () async {
@@ -204,11 +203,11 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                           return LayoutBuilder(builder: (context, constraints) {
                             final current =
                                 _date.startOfWeek.addDays(index + 1);
-                            var text = DateFormat.EEEE().format(
+                            var text = DateFormat.EEEE(locale).format(
                               current,
                             );
                             if (constraints.maxWidth < 150) {
-                              text = DateFormat.E().format(
+                              text = DateFormat.E(locale).format(
                                 current,
                               );
                             }
@@ -306,7 +305,8 @@ class CalendarDayDialog extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            DateFormat.yMMMMEEEEd().format(date),
+            DateFormat.yMMMMEEEEd(Localizations.localeOf(context).languageCode)
+                .format(date),
           ),
           const SizedBox(width: 16),
           IconButton(

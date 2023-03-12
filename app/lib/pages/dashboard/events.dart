@@ -32,7 +32,7 @@ class DashboardEventsCard extends StatelessWidget {
             ),
             IconButton(
               icon: const Icon(Icons.open_in_new_outlined),
-              onPressed: () => GoRouter.of(context).go('/events'),
+              onPressed: () => GoRouter.of(context).go('/calendar'),
             )
           ],
         ),

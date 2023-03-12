@@ -3,7 +3,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsDrawer extends StatelessWidget {
   final List<GlobalKey> itemKeys;
-  const SettingsDrawer({super.key, required this.itemKeys});
+  final int selected;
+
+  const SettingsDrawer({super.key, required this.itemKeys, this.selected = -1});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class SettingsDrawer extends StatelessWidget {
       ].asMap().entries.map((e) => ListTile(
           title: Text(e.value[1]),
           leading: Icon(e.value[0]),
+          selected: e.key == selected,
           onTap: scroll(e.key))),
     ]);
   }
