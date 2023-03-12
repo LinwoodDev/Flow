@@ -1,6 +1,6 @@
 ---
 title: "Privat Politik"
-slug: /privatlivspolitik
+slug: /privacypolicy
 ---
 
 Dette er appens privatlivspolitik. Læs den venligst omhyggeligt. Klik [her](https://go.linwood.dev/privacypolicy) for at læse fortrolighedspolitikken for hjemmesiden.
@@ -15,7 +15,7 @@ De vilkår, der anvendes i denne privatlivspolitik har samme betydning som i vor
 
 **Indsamling og anvendelse af oplysninger**
 
-For en bedre oplevelse, mens du bruger vores service, kan jeg kræve, at du giver os visse personligt identificerbare oplysninger. De oplysninger, som jeg anmoder om, vil blive opbevaret på din enhed og indsamles ikke af mig på nogen måde.
+For en bedre oplevelse, mens du bruger vores service, kan jeg kræve, at du giver os visse personligt identificerbare oplysninger. De oplysninger, som jeg anmoder om, vil blive opbevaret på din enhed, og indsamles ikke af mig på nogen måde.
 
 Appen bruger tredjepartstjenester, der kan indsamle oplysninger, der bruges til at identificere dig.
 
@@ -27,7 +27,7 @@ Link til privatlivspolitik for tredjepartstjenesteudbydere, der bruges af appen
 
 Cookies er filer med en lille mængde data, der almindeligvis anvendes som anonyme unikke identifikatorer. Disse sendes til din browser fra de websteder, du besøger, og gemmes på din enheds interne hukommelse.
 
-Denne tjeneste bruger ikke disse “cookies” udtrykkeligt. Appen kan dog bruge tredjepartskode og biblioteker, der bruger “cookies” til at indsamle oplysninger og forbedre deres tjenester. Du har mulighed for enten at acceptere eller afvise disse cookies og vide, hvornår en cookie sendes til din enhed. Hvis du vælger at afvise vores cookies, kan du muligvis ikke bruge nogle dele af denne tjeneste.
+Denne tjeneste bruger ikke disse “cookies” udtrykkeligt. Appen kan dog bruge tredjepartskode og biblioteker, der bruger “cookies” til at indsamle oplysninger og forbedre deres tjenester. Du har mulighed for at acceptere eller afvise disse cookies og vide, hvornår en cookie sendes til din enhed. Hvis du vælger at afvise vores cookies, kan du muligvis ikke bruge nogle dele af denne tjeneste.
 
 **Tjenesteudbydere**
 
@@ -42,15 +42,15 @@ Jeg vil gerne informere brugerne af denne tjeneste om, at disse tredjeparter har
 
 **Sikkerhed**
 
-Jeg værdsætter din tillid til at give os dine personlige oplysninger, så vi stræber efter at bruge kommercielt acceptable midler til at beskytte det. Men husk, at ingen metode til overførsel over internettet, eller metode til elektronisk lagring er 100 % sikker og pålidelig, og jeg kan ikke garantere dens absolutte sikkerhed.
+Jeg værdsætter din tillid til at give os dine personlige oplysninger, så vi stræber efter at bruge kommercielt acceptable midler til at beskytte det. Men husk, at ingen metode til overførsel over internettet, eller metode til elektronisk lagring er 100% sikker og pålidelig, og jeg kan ikke garantere dens absolutte sikkerhed.
 
 **Links til andre websteder**
 
-Denne tjeneste kan indeholde links til andre websteder. Hvis du klikker på et tredjepartslink, vil du blive dirigeret til dette websted. Bemærk, at disse eksterne websteder ikke drives af mig. Derfor, jeg på det kraftigste råde dig til at gennemgå Privacy Policy af disse hjemmesider. Jeg har ingen kontrol over og påtager sig intet ansvar for indholdet, privatlivets fred politikker, eller praksis af nogen tredjeparts websteder eller tjenester.
+Denne tjeneste kan indeholde links til andre websteder. Hvis du klikker på et tredjepartslink, vil du blive dirigeret til dette websted. Bemærk, at disse eksterne websteder ikke drives af mig. Derfor anbefaler jeg på det kraftigste at gennemgå fortrolighedspolitikken på disse hjemmesider. Jeg har ingen kontrol over og påtager sig intet ansvar for indholdet, privatlivets fred politikker, eller praksis af nogen tredjeparts websteder eller tjenester.
 
 **Ændringer til denne privatlivspolitik**
 
-Jeg kan opdatere vores privatlivspolitik fra tid til anden. Derfor rådes du til at gennemgå denne side med jævne mellemrum for eventuelle ændringer. Jeg vil underrette dig om eventuelle ændringer ved at sende den nye Fortrolighedspolitik på denne side.
+Jeg kan opdatere vores privatlivspolitik fra tid til anden. Derfor rådes du til at gennemgå denne side med jævne mellemrum for eventuelle ændringer. Jeg vil give dig besked om eventuelle ændringer ved at sende den nye fortrolighedspolitik på denne side.
 
 Denne politik er effektiv fra 2021-02-07
 
