@@ -1,6 +1,6 @@
 ---
 title: Código de conduta
-hide_title: verdadeiro
+hide_title: true
 sidebar_label: Código de conduta
 ---
 
