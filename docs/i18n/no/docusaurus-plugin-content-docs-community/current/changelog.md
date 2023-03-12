@@ -5,9 +5,9 @@ sidebar_label: Endringslogg
 ---
 
 ```mdx-code-block
-import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
+importere endringslogg, {toc as ChangelogTOC} fra "@site/../CHANGELOG.md"
 
 <Changelog />
 
-export const toc = ChangelogTOC;
+eksporterer til c = ChangelogTOC;
 ```
