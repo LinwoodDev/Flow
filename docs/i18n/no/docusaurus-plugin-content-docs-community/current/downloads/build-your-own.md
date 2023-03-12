@@ -1,15 +1,15 @@
 ---
-title: "Build your own"
+title: "Bygg din egen"
 sidebar_position: 1
 ---
 
-1. Install git and flutter (beta)
-2. Clone the repository
-3. Navigate to the app directory
-4. Use the flutter tool to compile the application
-   * `flutter build apk`
+1. Installere git og flutter (beta)
+2. Klon kodelageret
+3. Naviger til app mappen
+4. Bruk fløderverktøyet for å kompilere applikasjonen
+   * `flutter bygger aper`
    * `flutter build appbundle`
-   * `flutter build web`
-   * `flutter build linux`
-   * `flutter build windows`
-5. The compiled files are in the build directory
+   * `flutter bygget på web`
+   * `linux baserer flutter`
+   * `vinduer for installasjon av flutter`
+5. De kompilerte filene finnes i byggemappen
