@@ -1,6 +1,6 @@
 ---
 title: Changelog
-hide_title: true
+hide_title: wahr
 sidebar_label: Changelog
 ---
 
