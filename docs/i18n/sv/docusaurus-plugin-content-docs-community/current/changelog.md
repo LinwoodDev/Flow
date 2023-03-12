@@ -1,7 +1,7 @@
 ---
-title: Ändringslogg
-hide_title: sant
-sidebar_label: Ändringslogg
+title: Changelog
+hide_title: true
+sidebar_label: Changelog
 ---
 
 ```mdx-code-block
