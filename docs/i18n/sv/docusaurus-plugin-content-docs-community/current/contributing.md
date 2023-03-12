@@ -1,7 +1,7 @@
 ---
-title: "Bidragande"
-hide_title: sant
-sidebar_label: "Bidragande"
+title: "Contributing"
+hide_title: true
+sidebar_label: "Contributing"
 ---
 
 ```mdx-code-block
