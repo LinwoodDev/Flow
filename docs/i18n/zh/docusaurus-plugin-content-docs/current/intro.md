@@ -2,6 +2,6 @@
 sidebar_position: 1
 ---
 
-# 一. 导言
+# Introduction
 
-即将开始
+Coming soon
