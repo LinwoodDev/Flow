@@ -1,6 +1,6 @@
 ---
 title: Κώδικας συμπεριφοράς
-hide_title: αληθές
+hide_title: true
 sidebar_label: Κώδικας συμπεριφοράς
 ---
 
