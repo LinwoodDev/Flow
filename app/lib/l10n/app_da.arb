@@ -1,0 +1,206 @@
+{
+  "dashboard": "Instrumentbræt",
+  "calendar": "Kalender",
+  "places": "Steder",
+  "users": "Brugere",
+  "sources": "Kilder",
+  "settings": "Indstillinger",
+  "create": "Opret",
+  "information": "Information",
+  "source": "Kilde",
+  "license": "Licens",
+  "thirdPartyLicenses": "Tredjeparts Licenser",
+  "documentation": "Dokumentation",
+  "privacyPolicy": "Privat Politik",
+  "imprint": "Imprint",
+  "releaseNotes": "Udgivelsesnoter",
+  "changelog": "Ændringslog",
+  "legal": "Lovlig",
+  "personalization": "Personliggørelse",
+  "design": "Design",
+  "language": "Sprog",
+  "theme": "Tema",
+  "classic": "Klassisk",
+  "systemDefault": "System Standard",
+  "light": "Lys",
+  "dark": "Mørk",
+  "createPlace": "Opret Sted",
+  "cancel": "Annuller",
+  "name": "Navn",
+  "description": "Varebeskrivelse",
+  "start": "Start",
+  "next": "Næste",
+  "skip": "Overspring",
+  "back": "Tilbage",
+  "today": "Idag",
+  "groups": "Grupper",
+  "createGroup": "Opret gruppe",
+  "editGroup": "Rediger gruppe",
+  "list": "Liste",
+  "day": "Dag",
+  "week": "Uge",
+  "month": "Måned",
+  "version": "Version",
+  "intro": "Introduktion",
+  "webdav": "WebDAV",
+  "webdavDescription": "WebDAV interface giver dig mulighed for at få adgang til dine data fra enhver WebDAV server. Du kan bruge den til at synkronisere dine data med andre enheder eller tjenester.",
+  "server": "Server",
+  "serverDescription": "Synkroniser dine data med en indfødt Linwood Flow server. Dette anbefales til brugere, der ønsker at selv-vært deres data.",
+  "googleDescription": "Synkroniser dine data med Google. Dette anbefales til brugere, der ønsker at bruge deres Google-konto til at få adgang til deres data. Ikke alle funktioner er tilgængelige med denne indstilling.",
+  "microsoftDescription": "Synkroniser dine data med Microsoft. Dette anbefales til brugere, der ønsker at bruge deres Microsoft-konto til at få adgang til deres data. Ikke alle funktioner er tilgængelige med denne indstilling.",
+  "addSource": "Tilføj kilde",
+  "local": "Lokal",
+  "close": "Luk",
+  "unknown": "Ukendt",
+  "loading": "Indlæser",
+  "export": "Eksporter",
+  "createEvent": "Opret begivenhed",
+  "save": "Gem",
+  "allSources": "Alle kilder",
+  "editEvent": "Rediger begivenhed",
+  "end": "Slut",
+  "location": "Placering",
+  "status": "Status",
+  "confirmed": "Bekræftet",
+  "draft": "Kladde",
+  "cancelled": "Annulleret",
+  "general": "Generelt",
+  "todos": "Todos",
+  "createTodo": "Opret todo",
+  "editTodo": "Rediger todo",
+  "indicatorEmpty": "Ingen elementer fundet",
+  "indicatorEmptyDescription": "Listen er i øjeblikket tom.",
+  "indicatorLoading": "Indlæser",
+  "indicatorError": "Der opstod en fejl",
+  "indicatorErrorDescription": "Der opstod en fejl under indlæsning af data.",
+  "tryAgain": "Prøv igen",
+  "eventInfo": "{event} {date} kl. {time} i {location} ({status})",
+  "@eventInfo": {
+    "placeholders": {
+      "event": {
+        "type": "String",
+        "example": "Meeting"
+      },
+      "date": {
+        "type": "String",
+        "example": "2021-01-01"
+      },
+      "time": {
+        "type": "String",
+        "example": "12:00"
+      },
+      "location": {
+        "type": "String",
+        "example": "Office"
+      },
+      "status": {
+        "type": "String",
+        "example": "Confirmed"
+      }
+    }
+  },
+  "filter": "Filtrer",
+  "done": "Udført",
+  "inProgress": "I gang",
+  "todo": "Todo",
+  "delete": "Slet",
+  "edit": "Rediger",
+  "deleteGroup": "Slet gruppe {name}",
+  "@deleteGroup": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "deleteGroupDescription": "Er du sikker på, at du vil slette gruppen {name}?",
+  "@deleteGroupDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "groupName": "Gruppe {name}",
+  "@groupName": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "noData": "Der er ingen data at vise.",
+  "noEvents": "Der er ingen begivenheder at vise.",
+  "group": "Gruppe",
+  "search": "Søg",
+  "events": "Begivenheder",
+  "past": "Tidligere",
+  "decentralized": "Decentraliseret",
+  "decentralizedDescription": "Den decentraliserede grænseflade giver dig adgang til dine data fra enhver decentraliseret server. Du kan bruge den til at synkronisere dine data med andre enheder eller tjenester.",
+  "importFile": "Importér fil",
+  "importFileDescription": "Importer en fil fra din enhed. Du kan importere en databasefil fra en anden Linwood Flow instans eller en almindelig kalenderfil.",
+  "place": "Sted",
+  "editPlace": "Rediger sted",
+  "deletePlace": "Slet sted {name}",
+  "@deletePlace": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "deletePlaceDescription": "Er du sikker på du vil slette stedet {name}?",
+  "@deletePlaceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "priority": "Prioritet",
+  "assignEvent": "Tildel begivenhed",
+  "noEvent": "Ingen begivenhed",
+  "parentGroup": "Overordnet gruppe",
+  "deleteUser": "Slet bruger {name}",
+  "@deleteUser": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "createUser": "Opret bruger",
+  "editUser": "Rediger bruger",
+  "deleteUserDescription": "Er du sikker på, at du vil slette brugeren {name}?",
+  "@deleteUserDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "pending": "Afventer",
+  "removeEvent": "Fjern begivenhed",
+  "event": "Begivenhed",
+  "nativeTitleBar": "Lokal titellinje",
+  "blocked": "Blokeret",
+  "countEvents": "{count, plural, =0 {Ingen begivenheder} one {1 begivenhed} other {{count} begivenheder}}",
+  "@countEvents": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "import": "Importér",
+  "confirmImport": "Er du sikker på, at du vil importere den?",
+  "welcome": "Velkommen"
+}
