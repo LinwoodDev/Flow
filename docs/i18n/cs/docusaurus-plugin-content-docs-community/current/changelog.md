@@ -1,7 +1,7 @@
 ---
-title: Changelog
-hide_title: true
-sidebar_label: Changelog
+title: Seznam změn
+hide_title: pravda
+sidebar_label: Seznam změn
 ---
 
 ```mdx-code-block
