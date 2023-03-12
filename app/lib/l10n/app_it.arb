@@ -1,80 +1,80 @@
 {
   "dashboard": "Dashboard",
-  "calendar": "Calendar",
-  "places": "Places",
-  "users": "Users",
-  "sources": "Sources",
-  "settings": "Settings",
-  "create": "Create",
-  "information": "Information",
-  "source": "Source",
-  "license": "License",
-  "thirdPartyLicenses": "Third Party Licenses",
-  "documentation": "Documentation",
-  "privacyPolicy": "Privacy Policy",
+  "calendar": "Calendario",
+  "places": "Luoghi",
+  "users": "Utenti",
+  "sources": "Sorgenti",
+  "settings": "Impostazioni",
+  "create": "Crea",
+  "information": "Informazioni",
+  "source": "Fonte",
+  "license": "Licenza",
+  "thirdPartyLicenses": "Licenze Terze Parti",
+  "documentation": "Documentazione",
+  "privacyPolicy": "Politica Sulla Privacy",
   "imprint": "Imprint",
-  "releaseNotes": "Release Notes",
+  "releaseNotes": "Note Di Rilascio",
   "changelog": "Changelog",
-  "legal": "Legal",
-  "personalization": "Personalization",
+  "legal": "Legale",
+  "personalization": "Personalizzazione",
   "design": "Design",
-  "language": "Language",
-  "theme": "Theme",
-  "classic": "Classic",
-  "systemDefault": "System Default",
-  "light": "Light",
-  "dark": "Dark",
-  "createPlace": "Create Place",
-  "cancel": "Cancel",
-  "name": "Name",
-  "description": "Description",
-  "start": "Start",
-  "next": "Next",
-  "skip": "Skip",
-  "back": "Back",
-  "today": "Today",
-  "groups": "Groups",
-  "createGroup": "Create group",
-  "editGroup": "Edit group",
-  "list": "List",
-  "day": "Day",
-  "week": "Week",
-  "month": "Month",
-  "version": "Version",
-  "intro": "Intro",
+  "language": "Lingua",
+  "theme": "Tema",
+  "classic": "Classico",
+  "systemDefault": "Predefinito Di Sistema",
+  "light": "Chiaro",
+  "dark": "Scuro",
+  "createPlace": "Crea Luogo",
+  "cancel": "Annulla",
+  "name": "Nome",
+  "description": "Descrizione",
+  "start": "Inizia",
+  "next": "Successivo",
+  "skip": "Salta",
+  "back": "Indietro",
+  "today": "Oggi",
+  "groups": "Gruppi",
+  "createGroup": "Crea gruppo",
+  "editGroup": "Modifica gruppo",
+  "list": "Elenco",
+  "day": "Giorno",
+  "week": "Settimana",
+  "month": "Mese",
+  "version": "Versione",
+  "intro": "Introduzione",
   "webdav": "WebDAV",
-  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. You can use it to synchronize your data with other devices or services.",
+  "webdavDescription": "L'interfaccia WebDAV consente di accedere ai dati da qualsiasi server WebDAV. È possibile utilizzarlo per sincronizzare i dati con altri dispositivi o servizi.",
   "server": "Server",
-  "serverDescription": "Sync your data with a native Linwood Flow server. This is recommended for users that want to self-host their data.",
-  "googleDescription": "Sync your data with Google. This is recommended for users that want to use their Google account to access their data. Not all features are available with this option.",
-  "microsoftDescription": "Sync your data with Microsoft. This is recommended for users that want to use their Microsoft account to access their data. Not all features are available with this option.",
-  "addSource": "Add source",
-  "local": "Local",
-  "close": "Close",
-  "unknown": "Unknown",
-  "loading": "Loading",
-  "export": "Export",
-  "createEvent": "Create event",
-  "save": "Save",
-  "allSources": "All sources",
-  "editEvent": "Edit event",
-  "end": "End",
-  "location": "Location",
-  "status": "Status",
-  "confirmed": "Confirmed",
-  "draft": "Draft",
-  "cancelled": "Cancelled",
-  "general": "General",
+  "serverDescription": "Sincronizza i tuoi dati con un server di Linwood Flow nativo. Questo è raccomandato per gli utenti che vogliono auto-ospitare i loro dati.",
+  "googleDescription": "Sincronizza i tuoi dati con Google. Questo è raccomandato per gli utenti che desiderano utilizzare il loro account Google per accedere ai loro dati. Non tutte le funzionalità sono disponibili con questa opzione.",
+  "microsoftDescription": "Sincronizza i tuoi dati con Microsoft. Questo è raccomandato per gli utenti che desiderano utilizzare il loro account Microsoft per accedere ai loro dati. Non tutte le funzionalità sono disponibili con questa opzione.",
+  "addSource": "Aggiungi sorgente",
+  "local": "Locale",
+  "close": "Chiudi",
+  "unknown": "Sconosciuto",
+  "loading": "Caricamento",
+  "export": "Esporta",
+  "createEvent": "Crea evento",
+  "save": "Salva",
+  "allSources": "Tutte le fonti",
+  "editEvent": "Modifica evento",
+  "end": "Fine",
+  "location": "Posizione",
+  "status": "Stato",
+  "confirmed": "Confermato",
+  "draft": "Bozza",
+  "cancelled": "Annullato",
+  "general": "Generale",
   "todos": "Todos",
-  "createTodo": "Create todo",
-  "editTodo": "Edit todo",
-  "indicatorEmpty": "No items found",
-  "indicatorEmptyDescription": "The list is currently empty.",
-  "indicatorLoading": "Loading",
-  "indicatorError": "An error occurred",
-  "indicatorErrorDescription": "An error occurred while loading the data.",
-  "tryAgain": "Try again",
-  "eventInfo": "{event} on {date} at {time} in {location} ({status})",
+  "createTodo": "Crea todo",
+  "editTodo": "Modifica todo",
+  "indicatorEmpty": "Nessun elemento trovato",
+  "indicatorEmptyDescription": "La lista è attualmente vuota.",
+  "indicatorLoading": "Caricamento",
+  "indicatorError": "Si è verificato un errore",
+  "indicatorErrorDescription": "Si è verificato un errore durante il caricamento dei dati.",
+  "tryAgain": "Riprova",
+  "eventInfo": "{event} il {date} alle {time} in {location} ({status})",
   "@eventInfo": {
     "placeholders": {
       "event": {
@@ -99,13 +99,13 @@
       }
     }
   },
-  "filter": "Filter",
-  "done": "Done",
-  "inProgress": "In progress",
+  "filter": "Filtro",
+  "done": "Fatto",
+  "inProgress": "In corso",
   "todo": "Todo",
-  "delete": "Delete",
-  "edit": "Edit",
-  "deleteGroup": "Delete group {name}",
+  "delete": "Elimina",
+  "edit": "Modifica",
+  "deleteGroup": "Elimina gruppo {name}",
   "@deleteGroup": {
     "placeholders": {
       "name": {
@@ -114,7 +114,7 @@
       }
     }
   },
-  "deleteGroupDescription": "Are you sure you want to delete the group {name}?",
+  "deleteGroupDescription": "Sei sicuro di voler eliminare il gruppo {name}?",
   "@deleteGroupDescription": {
     "placeholders": {
       "name": {
@@ -123,7 +123,7 @@
       }
     }
   },
-  "groupName": "Group {name}",
+  "groupName": "Gruppo {name}",
   "@groupName": {
     "placeholders": {
       "name": {
@@ -132,19 +132,19 @@
       }
     }
   },
-  "noData": "There is no data to display.",
-  "noEvents": "There are no events to display.",
-  "group": "Group",
-  "search": "Search",
-  "events": "Events",
-  "past": "Past",
-  "decentralized": "Decentralized",
-  "decentralizedDescription": "The decentralized interface allows you to access your data from any decentralized server. You can use it to synchronize your data with other devices or services.",
-  "importFile": "Import file",
-  "importFileDescription": "Import a file from your device. You can import a database file from another Linwood Flow instance or a regular calendar file.",
-  "place": "Place",
-  "editPlace": "Edit place",
-  "deletePlace": "Delete place {name}",
+  "noData": "Non ci sono dati da visualizzare.",
+  "noEvents": "Non ci sono eventi da visualizzare.",
+  "group": "Gruppo",
+  "search": "Cerca",
+  "events": "Eventi",
+  "past": "Passato",
+  "decentralized": "Decentralizzato",
+  "decentralizedDescription": "L'interfaccia decentralizzata consente di accedere ai dati da qualsiasi server decentralizzato. È possibile utilizzarlo per sincronizzare i dati con altri dispositivi o servizi.",
+  "importFile": "Importa file",
+  "importFileDescription": "Importa un file dal tuo dispositivo. Puoi importare un file di database da un'altra istanza di Linwood Flow o da un normale file di calendario.",
+  "place": "Luogo",
+  "editPlace": "Modifica luogo",
+  "deletePlace": "Elimina posto {name}",
   "@deletePlace": {
     "placeholders": {
       "name": {
@@ -153,7 +153,7 @@
       }
     }
   },
-  "deletePlaceDescription": "Are you sure you want to delete the place {name}?",
+  "deletePlaceDescription": "Sei sicuro di voler eliminare il posto {name}?",
   "@deletePlaceDescription": {
     "placeholders": {
       "name": {
@@ -162,11 +162,11 @@
       }
     }
   },
-  "priority": "Priority",
-  "assignEvent": "Assign event",
-  "noEvent": "No event",
-  "parentGroup": "Parent group",
-  "deleteUser": "Delete user {name}",
+  "priority": "Priorità",
+  "assignEvent": "Assegna evento",
+  "noEvent": "Nessun evento",
+  "parentGroup": "Gruppo genitore",
+  "deleteUser": "Elimina utente {name}",
   "@deleteUser": {
     "placeholders": {
       "name": {
@@ -175,9 +175,9 @@
       }
     }
   },
-  "createUser": "Create user",
-  "editUser": "Edit user",
-  "deleteUserDescription": "Are you sure you want to delete the user {name}?",
+  "createUser": "Crea utente",
+  "editUser": "Modifica utente",
+  "deleteUserDescription": "Sei sicuro di voler eliminare l'utente {name}?",
   "@deleteUserDescription": {
     "placeholders": {
       "name": {
@@ -186,12 +186,12 @@
       }
     }
   },
-  "pending": "Pending",
-  "removeEvent": "Remove event",
-  "event": "Event",
-  "nativeTitleBar": "Native title bar",
-  "blocked": "Blocked",
-  "countEvents": "{count, plural, =0 {No events} one {1 event} other {{count} events}}",
+  "pending": "In Attesa",
+  "removeEvent": "Rimuovi evento",
+  "event": "Evento",
+  "nativeTitleBar": "Barra del titolo nativo",
+  "blocked": "Bloccato",
+  "countEvents": "{count, plural, =0 {Nessun evento} one {1 evento} other {{count} eventi}}",
   "@countEvents": {
     "placeholders": {
       "count": {
@@ -200,7 +200,7 @@
       }
     }
   },
-  "import": "Import",
-  "confirmImport": "Are you sure you want to import it?",
-  "welcome": "Welcome"
+  "import": "Importa",
+  "confirmImport": "Sei sicuro di volerlo importare?",
+  "welcome": "Benvenuto"
 }
