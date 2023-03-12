@@ -1,16 +1,16 @@
 ---
-title: "Ночные сборки"
+title: "Nightly Builds"
 slug: "/nightly"
 ---
 
 :::warning
 
-Не используйте ночную версию Flow для производства.
+Do not use the nightly version of Flow for production.
 
 :::
 
-Ночные сборки предназначены для того, чтобы дать вам возможность протестировать последнюю версию и получить новейшие возможности и оставить отзыв.
+Nightly builds are designed to give you the option to test the latest version and get the newest features and give feedback.
 
-## Получить сборки
+## Get the builds
 
-Перейдите на страницы загрузки вашей платформы. Все ночные сборки также публикуются в качестве предварительного релиза на github.
+Go to the download pages of your platform. All nightly builds get also published as pre-release on github.
