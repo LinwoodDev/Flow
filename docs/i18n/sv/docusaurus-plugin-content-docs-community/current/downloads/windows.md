@@ -1,5 +1,5 @@
 ---
-title: "Fönster"
+title: "Windows"
 sidebar_position: 2
 ---
 
@@ -7,45 +7,45 @@ sidebar_position: 2
 import DownloadButton from '@site/src/components/DownloadButton.tsx';
 ```
 
-![Stabil utgåva](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nattlig utgåva](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-## Minimala systemkrav
+## Minimum system requirements
 
-* Windows 10 eller senare.
+* Windows 10 or higher.
 
-## Binärer
+## Binaries
 
 <div className="row margin-bottom--lg padding--sm">
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--info button--lg">Stabil</button>
+  <button className="button button--outline button--info button--lg">Stable</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodCloud/Flow/releases/download/stable/linwood-flow-windows-setup.exe">
-        Konfiguration
+        Setup
       </DownloadButton>
     </li>
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodCloud/Flow/releases/download/stable/linwood-flow-windows.zip">
-        Bärbar
+        Portable
       </DownloadButton>
     </li>
   </ul>
 </div>
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--danger button--lg">Nattlig</button>
+  <button className="button button--outline button--danger button--lg">Nightly</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodCloud/Flow/releases/download/nightly/linwood-flow-windows-setup.exe">
-        Konfiguration
+        Setup
       </DownloadButton>
     </li>
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodCloud/Flow/releases/download/nightly/linwood-flow-windows.zip">
-        Bärbar
+        Portable
       </DownloadButton>
     </li>
   </ul>
 </div>
 </div>
 
-Läs mer om den nattliga versionen av Flow [här](/nightly).
+Read more about the nightly version of Flow [here](/nightly).
