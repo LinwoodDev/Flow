@@ -1,9 +1,9 @@
 ---
-title: "前 1.0 版本"
+title: "Pre-1.0 versions"
 ---
 
-不再支持这些版本。 新版本在 [版本](versions.md) 上可用。
+These versions are not supported anymore. New versions are available at [versions](versions.md).
 
-| 版本 | 支持的 |  |
-| -- | --- |  |
-|    |     |  |
+| Version | Supported |  |
+| ------- | --------- |  |
+|         |           |  |
