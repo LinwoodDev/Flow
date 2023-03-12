@@ -1,6 +1,6 @@
 ---
 title: "Nattlig bygger"
-slug: "/natt"
+slug: "/nightly"
 ---
 
 :::advarsel
@@ -9,7 +9,7 @@ Ikke bruk den nattlige versjonen av Flow til produksjon.
 
 :::
 
-Nattlig versjoner er utformet for å gi deg muligheten til å teste den nyeste versjonen og få de nyeste funksjonene og gi tilbakemeldinger.
+Nattlige bygg er utformet for å gi deg muligheten til å teste den nyeste versjonen og få de nyeste funksjonene og gi tilbakemeldinger.
 
 ## Få byggene
 
