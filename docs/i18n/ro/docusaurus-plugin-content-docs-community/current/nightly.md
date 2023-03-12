@@ -1,6 +1,6 @@
 ---
 title: "Construire nocturnă"
-slug: "/noapte"
+slug: "/nightly"
 ---
 
 :::Avertisment
@@ -9,7 +9,7 @@ Nu utilizaţi versiunea nocturnă a fluxului pentru producţie.
 
 :::
 
-Construcțiile nocturne sunt concepute pentru a vă oferi opțiunea de a testa cea mai recentă versiune și de a obține cele mai noi caracteristici și de a da feedback.
+Construcțiile nocturne sunt concepute pentru a vă oferi opțiunea de a testa cea mai recentă versiune și de a obține cele mai noi funcționalități și de a da feedback.
 
 ## Obțineți versiunile
 
