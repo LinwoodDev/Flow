@@ -1,6 +1,6 @@
 ---
 title: "Συνεισφορά"
-hide_title: αληθές
+hide_title: true
 sidebar_label: "Συνεισφορά"
 ---
 
