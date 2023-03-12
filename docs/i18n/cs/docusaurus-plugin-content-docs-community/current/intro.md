@@ -1,25 +1,25 @@
 ---
-id: "komunita"
+id: "community"
 slug: "/community"
-sidebar_label: "Domů"
+sidebar_label: "Home"
 sidebar_position: 0
-title: "Komunita"
+title: "Community"
 ---
 
-Vítejte v sekci komunity.
+Welcome to the community section.
 
-## Poděkování
+## Acknowledgements
 
-Zvláštní poděkování patří na:
+A special thanks goes to:
 
-* <https://github.com/flutter/flutter> pro poskytnutí tohoto užitečného crossplatform ui framework
-* <https://github.com/leanflutter/window_manager> pro všechny tyto užitečné funkce desktopového okna
-* <https://github.com/facebook/docusaurus> pro snadno použitelný rámec pro dokumentaci statické reakce
+* <https://github.com/flutter/flutter> for providing this useful crossplatform ui framework
+* <https://github.com/leanflutter/window_manager> for all this useful desktop window features
+* <https://github.com/facebook/docusaurus> for an easy-to-use static react documentation framework
 
-Všechny ostatní licence naleznete v nastavení.
+All other licenses can you found in the settings.
 
-## Užitečné odkazy
+## Useful links
 
 * [GitHub](https://github.com/LinwoodCloud/Flow)
 * [Discord](https://go.linwood.dev/discord)
-* [Matice](https://go.linwood.dev/matrix)
+* [Matrix](https://go.linwood.dev/matrix)
