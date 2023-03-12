@@ -1,16 +1,16 @@
 ---
-title: "Kompilacje Nightly"
+title: "Nightly Builds"
 slug: "/nightly"
 ---
 
-:::Ostrzeżenie
+:::warning
 
-Nie używaj nocnej wersji przepływu do produkcji.
+Do not use the nightly version of Flow for production.
 
 :::
 
-Nocne kompilacje zostały zaprojektowane, aby dać Ci możliwość przetestowania najnowszej wersji i uzyskania najnowszych funkcji i przekazania opinii.
+Nightly builds are designed to give you the option to test the latest version and get the newest features and give feedback.
 
-## Pobierz kompilacje
+## Get the builds
 
-Przejdź do stron pobierania platformy. Wszystkie wersje nocne są również publikowane jako wstępne wydanie na githubie.
+Go to the download pages of your platform. All nightly builds get also published as pre-release on github.
