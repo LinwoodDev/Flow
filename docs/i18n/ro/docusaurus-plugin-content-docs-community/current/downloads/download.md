@@ -1,12 +1,12 @@
 ---
 slug: "/downloads"
 sidebar_position: 0
-title: Descărcări
+title: Downloads
 ---
 
-![Versiune stabilă de lansare](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fflow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Versiune lansare nocturnă](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fflow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fflow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fflow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-## Alege-ți platforma
+## Choose your platform
 
 <div className="grid">
   <a className="grid-button button--panel button--windows" href="/downloads/windows">
@@ -39,9 +39,9 @@ title: Descărcări
   </a>
 </div>
 
-## Link-uri utile
+## Useful links
 
-- [Jurnal modificări](changelog)
-- [Partajări mai vechi](https://github.com/LinwoodCloud/Flow/releases)
-- [Ultima versiune](https://github.com/LinwoodCloud/Flow/releases/latest)
-- [Suport](https://discord.linwood.dev)
+- [Changelog](changelog)
+- [Older releases](https://github.com/LinwoodCloud/Flow/releases)
+- [Latest release](https://github.com/LinwoodCloud/Flow/releases/latest)
+- [Support](https://discord.linwood.dev)
