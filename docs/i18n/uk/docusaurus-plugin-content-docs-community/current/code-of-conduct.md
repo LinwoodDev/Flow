@@ -1,13 +1,13 @@
 ---
 title: Кодекс поведінки
-hide_title: істина
+hide_title: true
 sidebar_label: Кодекс поведінки
 ---
 
 ```mdx-code-block
-імпорт CodeOfConduct, {toc as CodeOfConductTOC} з "@site/../CODE_OF_CONDUCT.md"
+import CodeOfConduct, {toc as CodeOfConductTOC} from "@site/../CODE_OF_CONDUCT.md"
 
 <CodeOfConduct />
 
-експорт консолі = CodeOfConductTOC;
+export const toc = CodeOfConductTOC;
 ```
