@@ -1,0 +1,206 @@
+{
+  "dashboard": "ダッシュボード",
+  "calendar": "カレンダー",
+  "places": "場所",
+  "users": "ユーザー",
+  "sources": "ソース",
+  "settings": "設定",
+  "create": "作成",
+  "information": "情報",
+  "source": "ソース",
+  "license": "ライセンス",
+  "thirdPartyLicenses": "サードパーティライセンス",
+  "documentation": "ドキュメント",
+  "privacyPolicy": "プライバシーポリシー",
+  "imprint": "インプリント",
+  "releaseNotes": "リリースノート",
+  "changelog": "更新履歴",
+  "legal": "Legal",
+  "personalization": "個人設定",
+  "design": "デザイン",
+  "language": "言語",
+  "theme": "テーマ",
+  "classic": "クラシック",
+  "systemDefault": "システムのデフォルト",
+  "light": "ライト",
+  "dark": "ダーク",
+  "createPlace": "場所を作成",
+  "cancel": "キャンセル",
+  "name": "名前",
+  "description": "説明",
+  "start": "開始",
+  "next": "次へ",
+  "skip": "スキップ",
+  "back": "戻る",
+  "today": "今日",
+  "groups": "グループ",
+  "createGroup": "グループを作成",
+  "editGroup": "グループを編集",
+  "list": "リスト",
+  "day": "日",
+  "week": "週",
+  "month": "月",
+  "version": "バージョン",
+  "intro": "はじめに",
+  "webdav": "WebDAV",
+  "webdavDescription": "WebDAV インターフェイスを使用すると、任意の WebDAV サーバーからデータにアクセスできます。 データを他のデバイスやサービスと同期させるために使用できます。",
+  "server": "サーバー",
+  "serverDescription": "データをネイティブの Linwood Flow サーバーと同期します。自身のデータを自己ホストしたい場合には推奨します。",
+  "googleDescription": "Googleとデータを同期します。Googleアカウントを使用してデータにアクセスする場合に推奨されます。 すべての機能がこのオプションで利用できるわけではありません。",
+  "microsoftDescription": "データをMicrosoftと同期させます。Microsoftアカウントを使用してデータにアクセスする場合に推奨されます。 すべての機能がこのオプションで利用できるわけではありません。",
+  "addSource": "ソースを追加",
+  "local": "ローカル",
+  "close": "閉じる",
+  "unknown": "不明",
+  "loading": "読み込み中",
+  "export": "エクスポート",
+  "createEvent": "予定を作成",
+  "save": "保存",
+  "allSources": "すべてのソース",
+  "editEvent": "予定を編集",
+  "end": "終了",
+  "location": "場所",
+  "status": "ステータス",
+  "confirmed": "確認済み",
+  "draft": "ドラフト（下書き）",
+  "cancelled": "キャンセルしました",
+  "general": "全般",
+  "todos": "Todos",
+  "createTodo": "タスクを作成",
+  "editTodo": "タスクを編集",
+  "indicatorEmpty": "アイテムが見つかりません",
+  "indicatorEmptyDescription": "リストは現在空です。",
+  "indicatorLoading": "読み込み中",
+  "indicatorError": "エラーが発生",
+  "indicatorErrorDescription": "データの読み込み中にエラーが発生しました。",
+  "tryAgain": "もう一度やり直してください",
+  "eventInfo": "{event} の {date} に {time} で {location} ({status})",
+  "@eventInfo": {
+    "placeholders": {
+      "event": {
+        "type": "String",
+        "example": "Meeting"
+      },
+      "date": {
+        "type": "String",
+        "example": "2021-01-01"
+      },
+      "time": {
+        "type": "String",
+        "example": "12:00"
+      },
+      "location": {
+        "type": "String",
+        "example": "Office"
+      },
+      "status": {
+        "type": "String",
+        "example": "Confirmed"
+      }
+    }
+  },
+  "filter": "フィルター",
+  "done": "完了",
+  "inProgress": "進行中",
+  "todo": "Todo",
+  "delete": "削除",
+  "edit": "編集",
+  "deleteGroup": "グループ {name} を削除",
+  "@deleteGroup": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "deleteGroupDescription": "グループ {name} を削除してもよろしいですか？",
+  "@deleteGroupDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "groupName": "グループ {name}",
+  "@groupName": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "noData": "表示するデータがありません。",
+  "noEvents": "表示するイベントはありません。",
+  "group": "グループ",
+  "search": "検索",
+  "events": "イベント",
+  "past": "過去",
+  "decentralized": "地方分権化",
+  "decentralizedDescription": "分散型インターフェイスを使用すると、任意の分散型サーバーからデータにアクセスできます。 データを他のデバイスやサービスと同期させるために使用できます。",
+  "importFile": "ファイルをインポート",
+  "importFileDescription": "お使いのデバイスからファイルをインポートします。別のLinwood Flowインスタンスまたは通常のカレンダーファイルからデータベースファイルをインポートできます。",
+  "place": "場所",
+  "editPlace": "場所を編集",
+  "deletePlace": "場所 {name} を削除",
+  "@deletePlace": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "deletePlaceDescription": "{name} を削除してもよろしいですか？",
+  "@deletePlaceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "priority": "優先度",
+  "assignEvent": "イベントを割り当てる",
+  "noEvent": "イベントはありません",
+  "parentGroup": "親グループ",
+  "deleteUser": "ユーザー {name} を削除",
+  "@deleteUser": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "createUser": "ユーザーを作成",
+  "editUser": "ユーザーを編集",
+  "deleteUserDescription": "ユーザー {name} を削除してもよろしいですか？",
+  "@deleteUserDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "pending": "保留中",
+  "removeEvent": "イベントを削除",
+  "event": "イベント",
+  "nativeTitleBar": "ネイティブのタイトルバー",
+  "blocked": "ブロック",
+  "countEvents": "{count, plural, =0 {イベント} one {1 イベント} other {{count} イベント}}",
+  "@countEvents": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "import": "インポート",
+  "confirmImport": "インポートしてもよろしいですか？",
+  "welcome": "ようこそ"
+}
