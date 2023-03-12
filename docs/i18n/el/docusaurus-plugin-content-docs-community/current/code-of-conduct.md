@@ -1,7 +1,7 @@
 ---
-title: Code of conduct
-hide_title: true
-sidebar_label: Code of conduct
+title: Κώδικας συμπεριφοράς
+hide_title: αληθές
+sidebar_label: Κώδικας συμπεριφοράς
 ---
 
 ```mdx-code-block
