@@ -1,6 +1,6 @@
 ---
 title: Changelog
-hide_title: vero
+hide_title: true
 sidebar_label: Changelog
 ---
 
