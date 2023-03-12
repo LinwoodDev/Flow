@@ -1,6 +1,6 @@
 {
   "title": {
-    "message": "Flow",
+    "message": "Strömung",
     "description": "The title in the navbar"
   },
   "item.label.Tutorial": {
@@ -16,7 +16,7 @@
     "description": "Navbar item with label Community"
   },
   "item.label.More": {
-    "message": "More",
+    "message": "Mehr",
     "description": "Navbar item with label More"
   },
   "item.label.Matrix": {
@@ -48,7 +48,7 @@
     "description": "Navbar item with label Mastodon"
   },
   "item.label.License": {
-    "message": "License",
+    "message": "Lizenz",
     "description": "Navbar item with label License"
   }
 }
