@@ -1,6 +1,6 @@
 ---
 id: "κοινότητα"
-slug: "/community"
+slug: "/Κοινότητα"
 sidebar_label: "Αρχική"
 sidebar_position: 0
 title: "Κοινότητα"
