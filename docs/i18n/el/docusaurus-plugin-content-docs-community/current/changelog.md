@@ -1,7 +1,7 @@
 ---
-title: Changelog
-hide_title: true
-sidebar_label: Changelog
+title: Αρχείο Αλλαγών
+hide_title: αληθές
+sidebar_label: Αρχείο Αλλαγών
 ---
 
 ```mdx-code-block
