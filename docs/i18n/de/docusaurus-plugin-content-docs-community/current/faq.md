@@ -1,8 +1,8 @@
 ---
 id: "faq"
 slug: "/faq"
-title: "Frequently Asked Questions"
+title: "Häufig gestellte Fragen"
 sidebar_label: "FAQ"
 ---
 
-Here are some frequently asked questions.
+Hier sind einige häufig gestellte Fragen.
