@@ -1,35 +1,35 @@
 ---
-title: Дякуємо вам за завантаження
-hide_title: істина
-hide_table_of_contents: істина
+title: Thank you for downloading
+hide_title: true
+hide_table_of_contents: true
 slug: "/downloads/post-windows"
 ---
 
 <div className="text-center margin-top--xl">
 
-# Дякуємо за завантаження
+# Thank you for downloading
 
 <div className="row margin-bottom--lg padding--sm flex-center">
 <a className="button button--outline button--warning button--lg margin--sm" href="/contributing">
-  Зробіть внесок до проекту
+  Contribute to the project
 </a>
 <a className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
-  Приєднайтесь до спільноти
+  Join the community
 </a>
 
 </div>
 
-## SmartScreen Windows
+## Windows SmartScreen
 
 
-Користувачі Windows попереджують про встановлення програмного забезпечення без сертифікату.
+Windows warns users when installing software without a certificate.
 
 ![Smart screen](/img/smart-screen.png)
 
-, щоб встановити додаток, необхідно натиснути на "Докладніше".
+To install the app, you need to click on "More info".
 
-![Смарт-екран детальніше](/img/smart-screenen-more-info.png)
+![Smart screen more info](/img/smart-screen-more-info.png)
 
-Потім натисніть "Все одно запустити".
+Then, click on "Run anyway".
 
 </div>
