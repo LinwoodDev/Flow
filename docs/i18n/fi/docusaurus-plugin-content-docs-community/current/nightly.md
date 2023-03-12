@@ -1,16 +1,16 @@
 ---
-title: "Nightly Builds"
+title: "Yölliset Rakennukset"
 slug: "/nightly"
 ---
 
-:::warning
+::varoitus
 
-Do not use the nightly version of Flow for production.
+Älä käytä Flow yöllistä versiota tuotantoa varten.
 
 :::
 
-Nightly builds are designed to give you the option to test the latest version and get the newest features and give feedback.
+Nightly builds on suunniteltu antamaan sinulle mahdollisuuden testata uusinta versiota ja saada uusimmat ominaisuudet ja antaa palautetta.
 
-## Get the builds
+## Hanki rakennukset
 
-Go to the download pages of your platform. All nightly builds get also published as pre-release on github.
+Mene alustasi lataussivujen luo. Kaikki yölliset rakennukset julkaistaan myös githubin esijulkaisuna.
