@@ -1,13 +1,13 @@
 ---
 title: "Bidrag"
-hide_title: sandt
+hide_title: true
 sidebar_label: "Bidrag"
 ---
 
 ```mdx-code-block
-import Bidrag, {toc as ContributingTOC} fra "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-export const toc = ContributingTOC
+export const toc = ContributingTOC;
 ```
