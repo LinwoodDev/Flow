@@ -1,6 +1,6 @@
 ---
 id: "спільноти"
-slug: "/community"
+slug: "/спільнотство"
 sidebar_label: "Домашній екран"
 sidebar_position: 0
 title: "Спільнота"
