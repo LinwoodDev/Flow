@@ -1,6 +1,6 @@
 ---
 id: "gemeinde"
-slug: "/community"
+slug: "/Gemeinschaft"
 sidebar_label: "Zuhause"
 sidebar_position: 0
 title: "Community"
