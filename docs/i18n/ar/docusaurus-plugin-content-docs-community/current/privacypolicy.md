@@ -1,61 +1,61 @@
 ---
-title: "Privacy Policy"
+title: "سياسة الخصوصية"
 slug: /privacypolicy
 ---
 
-This is the privacy policy of the app. Please read it carefully. Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
+هذه هي سياسة الخصوصية في التطبيق. من فضلك قرأته بعناية. انقر هنا [](https://go.linwood.dev/privacypolicy) لقراءة سياسة الخصوصية للموقع.
 
-CodeDoctor built the Flow app as an Open Source app. This SERVICE is provided by CodeDoctor at no cost and is intended for use as is.
+قام CodeDoctor ببناء تطبيق التدفق كتطبيق مفتوح المصدر. وهذا النظام مقدم من مركز الدكتوراه مجانا وهو مخصص للاستخدام كما هو الحال الآن.
 
-This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
+تستخدم هذه الصفحة لإعلام الزوار بشأن سياساتي مع المجموعة، استخدام المعلومات الشخصية والكشف عنها إذا قرر أي شخص استخدام خدمتي.
 
-If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.
+إذا اخترت استخدام خدمتي ، فأنت توافق على جمع واستخدام المعلومات فيما يتعلق بهذه السياسة. يتم استخدام المعلومات الشخصية التي أجمعها لتوفير خدمة وتحسينها. لن أستخدم أو أشارك معلوماتك مع أي شخص إلا على النحو المبين في سياسة الخصوصية هذه.
 
-The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at Flow unless otherwise defined in this Privacy Policy.
+المصطلحات المستخدمة في سياسة الخصوصية هذه لها نفس المعاني كما في الأحكام والشروط، والذي يمكن الوصول إليه عند Flow ما لم يتم تعريفه بشكل غير ذلك في سياسة الخصوصية هذه.
 
-**Information Collection and Use**
+**جمع المعلومات واستخدامها**
 
-For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and is not collected by me in any way.
+للحصول على تجربة أفضل، أثناء استخدام خدماتنا، قد أطلب منك أن تزودنا بمعلومات محددة شخصيا. سيتم الاحتفاظ بالمعلومات التي أطلبها على جهازك و لم يتم جمعها من قبلي بأي شكل من الأشكال.
 
-The app does use third party services that may collect information used to identify you.
+التطبيق يستخدم خدمات الطرف الثالث التي قد تجمع المعلومات المستخدمة للتعرف عليك.
 
-Link to privacy policy of third party service providers used by the app
+رابط لسياسة الخصوصية لموفري خدمة الطرف الثالث المستخدمين من قبل التطبيق
 
-* [Google Play Services](https://www.google.com/policies/privacy/)
+* [خدمات Google Play](https://www.google.com/policies/privacy/)
 
-**Cookies**
+**الكعكات**
 
-Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory.
+ملفات تعريف الارتباط هي ملفات تحتوي على كمية صغيرة من البيانات الشائعة الاستخدام كمعرّفات فريدة مجهولة الهوية. يتم إرسال هذه إلى المتصفح الخاص بك من المواقع التي تزورها ويتم تخزينها على الذاكرة الداخلية لجهازك.
 
-This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
+هذه الخدمة لا تستخدم "ملفات تعريف الارتباط" هذه صراحة. ومع ذلك، قد يستخدم التطبيق رموز طرف ثالث والمكتبات التي تستخدم "ملفات تعريف الارتباط" لجمع المعلومات وتحسين خدماتها. لديك الخيار لقبول أو رفض ملفات تعريف الارتباط هذه ومعرفة متى يتم إرسال ملفات تعريف الارتباط إلى جهازك. إذا اخترت رفض ملفات تعريف الارتباط الخاصة بنا، قد لا تتمكن من استخدام بعض أجزاء هذه الخدمة.
 
-**Service Providers**
+**مزودي الخدمات**
 
-I may employ third-party companies and individuals due to the following reasons:
+ويجوز لي أن أستخدم شركات وأفرادا من أطراف ثالثة للأسباب التالية:
 
-* To facilitate our Service;
-* To provide the Service on our behalf;
-* To perform Service-related services; or
-* To assist us in analyzing how our Service is used.
+* 2 - تيسير خدمتنا؛
+* 2 - توفير الخدمة نيابة عننا؛
+* لأداء الخدمات المتصلة بالخدمات؛ أو
+* لمساعدتنا في تحليل كيفية استخدام خدمتنا.
 
-I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.
+وأود أن أبلغ مستخدمي هذه الدائرة بأن هذه الأطراف الثالثة تستطيع الوصول إلى معلوماتك الشخصية. والسبب في ذلك هو أداء المهام المسندة إليهم بالنيابة عننا. ومع ذلك، فهم ملزمون بعدم الكشف عن المعلومات أو استخدامها لأي غرض آخر.
 
-**Security**
+**أمان**
 
-I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
+وأنا أقدر ثقتكم في تزويدنا بمعلوماتك الشخصية، وبالتالي فإننا نسعى جاهدين لاستخدام وسائل مقبولة تجاريا لحمايتها. لكن تذكروا أنه لا توجد طريقة للانتقال عبر الإنترنت، أو طريقة التخزين الإلكتروني آمنة وموثوق بها بنسبة 100 في المائة، ولا يمكنني ضمان أمنها المطلق.
 
-**Links to Other Sites**
+**روابط لمواقع أخرى**
 
-This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
+قد تحتوي هذه الخدمة على روابط لمواقع أخرى. إذا قمت بالنقر على رابط طرف ثالث، سيتم توجيهك إلى ذلك الموقع. لاحظ أن هذه المواقع الخارجية لا تقوم بتشغيلها. لذلك، أنصحك بشدة بمراجعة سياسة الخصوصية لهذه المواقع. وليس لدي سيطرة على محتوى أو سياسات الخصوصية أو ممارسات أي مواقع أو خدمات تابعة لأطراف ثالثة، ولا أتحمل أي مسؤولية عنها.
 
-**Changes to This Privacy Policy**
+**تغييرات في سياسة الخصوصية هذه**
 
-I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.
+يمكنني تحديث سياسة الخصوصية لدينا من وقت لآخر. لذلك ينصح بك مراجعة هذه الصفحة بشكل دوري لأي تغييرات. سوف أخبرك بأي تغييرات عن طريق نشر سياسة الخصوصية الجديدة على هذه الصفحة .
 
-This policy is effective as of 2021-02-07
+وهذه السياسة فعالة اعتباراً من 2021-02-07
 
-**Contact Us**
+**اتصل بنا**
 
-If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at contact@linwood.dev.
+إذا كان لديك أي أسئلة أو اقتراحات حول سياسة الخصوصية الخاصة بي، فلا تتردد في الاتصال بي على contact@linwood.dev.
 
-This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
+تم إنشاء صفحة سياسة الخصوصية هذه في [privacypolicytemplate.net](https://privacypolicytemplate.net) وتعديل/الذي تم إنشاؤه بواسطة [مولد سياسة الخصوصية للتطبيق](https://app-privacy-policy-generator.nisrulz.com/)
