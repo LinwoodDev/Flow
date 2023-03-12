@@ -1,6 +1,6 @@
 ---
 title: "Νυχτερινά Κτίρια"
-slug: "/βράδυ"
+slug: "/nightly"
 ---
 
 :::warning
