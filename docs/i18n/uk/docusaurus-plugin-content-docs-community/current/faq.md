@@ -1,6 +1,6 @@
 ---
 id: "чапи"
-slug: "/квант"
+slug: "/faq"
 title: "Найчастіші питання"
 sidebar_label: "ЧАП"
 ---
