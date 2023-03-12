@@ -1,8 +1,8 @@
 ---
 id: "faq"
 slug: "/faq"
-title: "Frequently Asked Questions"
-sidebar_label: "FAQ"
+title: "常见问题"
+sidebar_label: "常见问题"
 ---
 
-Here are some frequently asked questions.
+这里有一些常见的问题。

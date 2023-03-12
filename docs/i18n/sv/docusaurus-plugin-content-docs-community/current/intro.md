@@ -1,6 +1,6 @@
 ---
-id: "gemenskap"
-slug: "/gemenskap"
+id: "community"
+slug: "/community"
 sidebar_label: "Hem"
 sidebar_position: 0
 title: "Gemenskap"

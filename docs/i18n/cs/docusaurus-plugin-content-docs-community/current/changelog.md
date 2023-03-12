@@ -1,11 +1,11 @@
 ---
 title: Seznam změn
-hide_title: pravda
+hide_title: true
 sidebar_label: Seznam změn
 ---
 
 ```mdx-code-block
-importovat Changelog, {toc as ChangelogTOC} z "@site/../CHANGELOG.md"
+import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 

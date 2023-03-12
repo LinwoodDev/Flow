@@ -1,11 +1,11 @@
 ---
 title: Kodex chování
-hide_title: pravda
+hide_title: true
 sidebar_label: Kodex chování
 ---
 
 ```mdx-code-block
-import CodeOfConduct, {toc as CodeOfConductTOC} z "@site/../CODE_OF_CONDUCT.md"
+import CodeOfConduct, {toc as CodeOfConductTOC} from "@site/../CODE_OF_CONDUCT.md"
 
 <CodeOfConduct />
 

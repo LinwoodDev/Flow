@@ -1,6 +1,6 @@
 ---
-id: "samfunnet"
-slug: "/samfunn"
+id: "community"
+slug: "/community"
 sidebar_label: "Hjem"
 sidebar_position: 0
 title: "Fellesskap"

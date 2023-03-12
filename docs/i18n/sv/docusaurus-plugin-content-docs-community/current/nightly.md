@@ -1,6 +1,6 @@
 ---
 title: "Nattliga byggnader"
-slug: "/natt"
+slug: "/nightly"
 ---
 
 ::::warning
@@ -9,7 +9,7 @@ Använd inte den nattliga versionen av Flow för produktion.
 
 :::
 
-Nattliga byggen är utformade för att ge dig möjlighet att testa den senaste versionen och få de senaste funktionerna och ge feedback.
+Nattliga byggen är utformade för att ge dig möjlighet att testa den senaste versionen och få de nyaste funktionerna och ge feedback.
 
 ## Hämta byggnationerna
 

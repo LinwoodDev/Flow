@@ -1,8 +1,8 @@
 ---
 title: Vă mulțumim pentru descărcare
-hide_title: adevărat
-hide_table_of_contents: adevărat
-slug: "/descărcări/post-windows"
+hide_title: true
+hide_table_of_contents: true
+slug: "/downloads/post-windows"
 ---
 
 <div className="text-center margin-top--xl">

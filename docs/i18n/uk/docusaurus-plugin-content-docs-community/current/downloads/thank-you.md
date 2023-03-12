@@ -1,8 +1,8 @@
 ---
 title: Дякуємо вам за завантаження
-hide_title: істина
-hide_table_of_contents: істина
-slug: "/downloads/Спасибі"
+hide_title: true
+hide_table_of_contents: true
+slug: "/downloads/thank-you"
 ---
 
 <div className="text-center margin-top--xl">

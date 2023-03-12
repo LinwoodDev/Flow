@@ -1,13 +1,13 @@
 ---
 title: Ændringslog
-hide_title: sandt
+hide_title: true
 sidebar_label: Ændringslog
 ---
 
 ```mdx-code-block
-import Changelog, {toc as ChangelogTOC} fra "@site/../CHANGELOG.md"
+import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 
-export const toc = ChangelogTOC
+export const toc = ChangelogTOC;
 ```

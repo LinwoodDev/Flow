@@ -1,8 +1,8 @@
 ---
 title: شكرا لك على التحميل
-hide_title: صحيح
-hide_table_of_contents: صحيح
-slug: "/تنزيلات/شكراً لك"
+hide_title: true
+hide_table_of_contents: true
+slug: "/downloads/thank-you"
 ---
 
 <div className="text-center margin-top--xl">

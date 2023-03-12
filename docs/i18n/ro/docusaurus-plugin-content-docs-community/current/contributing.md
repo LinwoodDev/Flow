@@ -1,6 +1,6 @@
 ---
 title: "Contribuție"
-hide_title: adevărat
+hide_title: true
 sidebar_label: "Contribuție"
 ---
 

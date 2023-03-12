@@ -1,6 +1,6 @@
 ---
-id: "społeczność"
-slug: "/społeczność"
+id: "community"
+slug: "/community"
 sidebar_label: "Strona główna"
 sidebar_position: 0
 title: "Społeczność"

@@ -1,6 +1,6 @@
 ---
-id: "المجتمع"
-slug: "/مجتمع"
+id: "community"
+slug: "/community"
 sidebar_label: "المنزل"
 sidebar_position: 0
 title: "المجتمع"

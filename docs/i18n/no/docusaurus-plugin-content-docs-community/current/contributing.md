@@ -1,13 +1,13 @@
 ---
 title: "Bidra"
-hide_title: sann
+hide_title: true
 sidebar_label: "Bidra"
 ---
 
 ```mdx-code-block
-importer bidrag, {toc as ContributingTOC} fra "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-export const tilc = ContributingTOC;
+export const toc = ContributingTOC;
 ```

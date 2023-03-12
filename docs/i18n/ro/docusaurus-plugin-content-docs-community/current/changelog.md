@@ -1,6 +1,6 @@
 ---
 title: Jurnal modificări
-hide_title: adevărat
+hide_title: true
 sidebar_label: Jurnal modificări
 ---
 
