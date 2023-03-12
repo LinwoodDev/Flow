@@ -1,61 +1,61 @@
 ---
-title: "Privacy Policy"
+title: "プライバシーポリシー"
 slug: /privacypolicy
 ---
 
-This is the privacy policy of the app. Please read it carefully. Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
+これはアプリのプライバシーポリシーです。 よく読んでください。 [](https://go.linwood.dev/privacypolicy) をクリックして、ウェブサイトのプライバシーポリシーを読んでください。
 
-CodeDoctor built the Flow app as an Open Source app. This SERVICE is provided by CodeDoctor at no cost and is intended for use as is.
+CodeDoctorはオープンソースアプリとしてFlowアプリを構築しました。 本サービスはCodeDoctorが無償で提供し、そのまま使用することを意図しています。
 
-This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
+このページは、私のコレクションに関するポリシーを訪問者に知らせるために使用されます。 個人情報の利用および開示について 当社が本サービスを利用することを決定した場合。
 
-If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.
+お客様が本サービスを利用することを選択した場合、お客様は本ポリシーに関連する情報の収集および使用に同意するものとします。 私が収集した個人情報は、 サービスの提供と改善のために使用されます。 本プライバシーポリシーに記載されている場合を除き、お客様の情報を使用または共有することはありません。
 
-The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at Flow unless otherwise defined in this Privacy Policy.
+本プライバシーポリシーで使用される用語は、当社の利用規約と同じ意味を持ちます。 このプライバシーポリシーに別段の定義がない限り、Flowからアクセスできます。
 
-**Information Collection and Use**
+**情報収集と使用**
 
-For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and is not collected by me in any way.
+より良い経験のために, 私は、当社のサービスを使用している間, 私は、特定の個人を特定できる情報を当社に提供するように要求することがあります. 私がリクエストした情報はお客様のデバイスに保存され、 はいかなる方法でも私が収集するものではありません。
 
-The app does use third party services that may collect information used to identify you.
+本アプリは、お客様を識別するために使用される情報を収集する可能性のある第三者サービスを使用します。
 
-Link to privacy policy of third party service providers used by the app
+アプリが使用するサードパーティのサービスプロバイダーのプライバシーポリシーへのリンク
 
-* [Google Play Services](https://www.google.com/policies/privacy/)
+* [Google Play サービス](https://www.google.com/policies/privacy/)
 
-**Cookies**
+**Cookie**
 
-Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory.
+クッキーは、匿名の固有識別子として一般的に使用される少量のデータを持つファイルです。 これらは、あなたが訪問したウェブサイトからブラウザに送信され、デバイスの 内部メモリに保存されます。
 
-This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
+本サービスはこれらの「クッキー」を明示的に使用しません。 ただし、アプリは情報を収集し、サービスを向上させるために「クッキー」を使用するサードパーティのコードやライブラリを使用することがあります。 これらのクッキーを受け入れるか拒否し、クッキーがいつあなたのデバイスに送信されるかを知るオプションがあります 。 お客様が当社のクッキーを拒否する場合、本サービスの一部を使用することができない場合があります。
 
-**Service Providers**
+**サービス プロバイダー**
 
-I may employ third-party companies and individuals due to the following reasons:
+私は以下の理由により、サードパーティの会社や個人を雇うことがあります:
 
-* To facilitate our Service;
-* To provide the Service on our behalf;
-* To perform Service-related services; or
-* To assist us in analyzing how our Service is used.
+* 私たちのサービスを促進するために;
+* 当社に代わって本サービスを提供するため、
+* サービス関連サービスを実行するには; または
+* 当社のサービスがどのように使用されているかを分析するのに役立ちます。
 
-I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.
+私はこれらの第三者がお客様の個人情報にアクセスできることをユーザーに通知したいと思います。 理由は、私たちに代わって割り当てられたタスクを実行することです。 しかし、それらは他の目的のために情報を開示または使用しない 義務付けられています。
 
-**Security**
+**セキュリティ**
 
-I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
+私はあなたの個人情報を私たちに提供することに対するあなたの信頼を尊重します, 従って私たちは、それを保護する商業的に受け入れられる手段を使用するように努めています. しかし、インターネット上の伝送のない方法を覚えておいてください。 または電子ストレージの方法は100%安全で信頼性があり、絶対的なセキュリティを保証することはできません。
 
-**Links to Other Sites**
+**他のサイトへのリンク**
 
-This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
+このサービスには他のサイトへのリンクが含まれている場合があります。 サードパーティのリンクをクリックすると、そのサイトに誘導されます。 これらの外部サイトは私が運営しているものではありません。 したがって、私は強くこれらのウェブサイトのプライバシーポリシーを確認することをお勧めします 。 私は、いかなるサードパーティのサイトやサービスのコンテンツ、プライバシーポリシー、または慣行についても管理せず、責任を負いません。
 
-**Changes to This Privacy Policy**
+**本プライバシーポリシーの変更**
 
-I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.
+私は時々私達のプライバシーポリシーを更新することができます。 したがって、変更については定期的にこのページを確認することをお勧めします。 私はこの ページに新しいプライバシーポリシーを掲載することにより、変更を通知します。
 
-This policy is effective as of 2021-02-07
+この方針は2021-02-07年の時点で有効です。
 
-**Contact Us**
+**お問い合わせ**
 
-If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at contact@linwood.dev.
+プライバシーポリシーに関するご質問やご提案がございましたら、contact@linwood.devまでお気軽にお問い合わせください。
 
-This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
+このプライバシーポリシーページは [privacypolicytemplate.net](https://privacypolicytemplate.net) で作成され、 [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/) によって修正/生成されました。
