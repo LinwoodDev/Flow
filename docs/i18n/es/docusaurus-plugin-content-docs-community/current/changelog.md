@@ -1,6 +1,6 @@
 ---
 title: Cambios
-hide_title: verdad
+hide_title: true
 sidebar_label: Cambios
 ---
 
