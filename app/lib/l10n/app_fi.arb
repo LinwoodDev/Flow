@@ -1,0 +1,206 @@
+{
+  "dashboard": "Hallintapaneeli",
+  "calendar": "Kalenteri",
+  "places": "Paikat",
+  "users": "Käyttäjät",
+  "sources": "Lähteet",
+  "settings": "Asetukset",
+  "create": "Luo",
+  "information": "Tiedot",
+  "source": "Lähde",
+  "license": "Lisenssi",
+  "thirdPartyLicenses": "Kolmannen Osapuolen Lisenssit",
+  "documentation": "Dokumentaatio",
+  "privacyPolicy": "Yksityisyyden Suoja",
+  "imprint": "Jälki",
+  "releaseNotes": "Julkaise Muistiinpanot",
+  "changelog": "Muutosloki",
+  "legal": "Oikeudellinen",
+  "personalization": "Mukauttaminen",
+  "design": "Ulkoasu",
+  "language": "Kieli",
+  "theme": "Teema",
+  "classic": "Klassinen",
+  "systemDefault": "Järjestelmän Oletus",
+  "light": "Vaalea",
+  "dark": "Tumma",
+  "createPlace": "Luo Paikka",
+  "cancel": "Peruuta",
+  "name": "Nimi",
+  "description": "Kuvaus",
+  "start": "Aloita",
+  "next": "Seuraava",
+  "skip": "Ohita",
+  "back": "Takaisin",
+  "today": "Tänään",
+  "groups": "Ryhmät",
+  "createGroup": "Luo ryhmä",
+  "editGroup": "Muokkaa ryhmää",
+  "list": "Lista",
+  "day": "Päivä",
+  "week": "Viikko",
+  "month": "Kuukausi",
+  "version": "Versio",
+  "intro": "Esittely",
+  "webdav": "WebDAV",
+  "webdavDescription": "WebDAV käyttöliittymän avulla voit käyttää tietoja tahansa WebDAV palvelimella. Voit käyttää sitä synkronoidaksesi tietosi muiden laitteiden tai palveluiden kanssa.",
+  "server": "Palvelin",
+  "serverDescription": "Synkronoi tietosi natiivin Linwood Flow palvelimen kanssa. Tätä suositellaan käyttäjille, jotka haluavat itse isännöidä tietojaan.",
+  "googleDescription": "Synkronoi tietosi Googlen kanssa. Tämä on suositeltavaa käyttäjille, jotka haluavat käyttää Google-tiliään päästäkseen käsiksi tietoihinsa. Kaikki ominaisuudet eivät ole käytettävissä tällä asetuksella.",
+  "microsoftDescription": "Synkronoi tietosi Microsoftin kanssa. Tämä on suositeltavaa käyttäjille, jotka haluavat käyttää Microsoft-tiliään päästäkseen käsiksi tietoihinsa. Kaikki ominaisuudet eivät ole käytettävissä tällä asetuksella.",
+  "addSource": "Lisää lähde",
+  "local": "Paikallinen",
+  "close": "Sulje",
+  "unknown": "Tuntematon",
+  "loading": "Ladataan",
+  "export": "Vie",
+  "createEvent": "Luo tapahtuma",
+  "save": "Tallenna",
+  "allSources": "Kaikki lähteet",
+  "editEvent": "Muokkaa tapahtumaa",
+  "end": "Loppu",
+  "location": "Sijainti",
+  "status": "Tila",
+  "confirmed": "Vahvistettu",
+  "draft": "Luonnos",
+  "cancelled": "Peruutettu",
+  "general": "Yleiset",
+  "todos": "Todos",
+  "createTodo": "Luo todo",
+  "editTodo": "Muokkaa todoa",
+  "indicatorEmpty": "Kohteita ei löytynyt",
+  "indicatorEmptyDescription": "Luettelo on tällä hetkellä tyhjä.",
+  "indicatorLoading": "Ladataan",
+  "indicatorError": "Tapahtui virhe",
+  "indicatorErrorDescription": "Dataa ladattaessa tapahtui virhe.",
+  "tryAgain": "Yritä uudelleen",
+  "eventInfo": "{event} {date} klo {time} {location} ({status})",
+  "@eventInfo": {
+    "placeholders": {
+      "event": {
+        "type": "String",
+        "example": "Meeting"
+      },
+      "date": {
+        "type": "String",
+        "example": "2021-01-01"
+      },
+      "time": {
+        "type": "String",
+        "example": "12:00"
+      },
+      "location": {
+        "type": "String",
+        "example": "Office"
+      },
+      "status": {
+        "type": "String",
+        "example": "Confirmed"
+      }
+    }
+  },
+  "filter": "Suodatin",
+  "done": "Valmis",
+  "inProgress": "Toiminto käynnissä",
+  "todo": "Todo",
+  "delete": "Poista",
+  "edit": "Muokkaa",
+  "deleteGroup": "Poista ryhmä {name}",
+  "@deleteGroup": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "deleteGroupDescription": "Oletko varma, että haluat poistaa ryhmän {name}?",
+  "@deleteGroupDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "groupName": "Ryhmä {name}",
+  "@groupName": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "noData": "Tietoja ei ole näytettäväksi.",
+  "noEvents": "Ei ole mitään näytettäviä tapahtumia.",
+  "group": "Ryhmä",
+  "search": "Etsi",
+  "events": "Tapahtumat",
+  "past": "Menneisyys",
+  "decentralized": "Hajautettu",
+  "decentralizedDescription": "Hajautetun käyttöliittymän avulla voit käyttää tietoja miltä tahansa hajautetulta palvelimelta. Voit käyttää sitä synkronoidaksesi tietosi muiden laitteiden tai palveluiden kanssa.",
+  "importFile": "Tuo tiedosto",
+  "importFileDescription": "Tuo tiedosto laitteestasi. Voit tuoda tietokantatiedoston toisesta Linwood Flow instanssista tai tavallisesta kalenteritiedostosta.",
+  "place": "Paikka",
+  "editPlace": "Muokkaa paikkaa",
+  "deletePlace": "Poista paikka {name}",
+  "@deletePlace": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "deletePlaceDescription": "Oletko varma, että haluat poistaa paikan {name}?",
+  "@deletePlaceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "priority": "Prioriteetti",
+  "assignEvent": "Määritä tapahtuma",
+  "noEvent": "Ei tapahtumaa",
+  "parentGroup": "Ylätason ryhmä",
+  "deleteUser": "Poista käyttäjä {name}",
+  "@deleteUser": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "createUser": "Luo käyttäjä",
+  "editUser": "Muokkaa käyttäjää",
+  "deleteUserDescription": "Oletko varma, että haluat poistaa käyttäjän {name}?",
+  "@deleteUserDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "pending": "Odottaa",
+  "removeEvent": "Poista tapahtuma",
+  "event": "Tapahtuma",
+  "nativeTitleBar": "Alkuperäinen otsikkopalkki",
+  "blocked": "Estetty",
+  "countEvents": "{count, plural, =0 {Ei tapahtumia} one {1 tapahtuma} other {{count} tapahtumia}}",
+  "@countEvents": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "import": "Tuo",
+  "confirmImport": "Oletko varma, että haluat tuoda sen?",
+  "welcome": "Tervetuloa"
+}
