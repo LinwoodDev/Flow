@@ -1,14 +1,14 @@
 {
   "version.label": {
-    "message": "Next",
+    "message": "下一个",
     "description": "The label for version current"
   },
   "sidebar.tutorialSidebar.category.Tutorial - Basics": {
-    "message": "Tutorial - Basics",
+    "message": "教程 - 基础知识",
     "description": "The label for category Tutorial - Basics in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.Tutorial - Extras": {
-    "message": "Tutorial - Extras",
+    "message": "教程 - 额外的",
     "description": "The label for category Tutorial - Extras in sidebar tutorialSidebar"
   }
 }
