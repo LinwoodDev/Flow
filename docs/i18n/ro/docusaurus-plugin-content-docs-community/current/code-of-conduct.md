@@ -1,6 +1,6 @@
 ---
 title: Codul de conduită
-hide_title: adevărat
+hide_title: true
 sidebar_label: Codul de conduită
 ---
 
