@@ -1,7 +1,7 @@
 ---
-title: "Contribuyendo"
-hide_title: verdad
-sidebar_label: "Contribuyendo"
+title: "Contributing"
+hide_title: true
+sidebar_label: "Contributing"
 ---
 
 ```mdx-code-block
