@@ -1,15 +1,15 @@
 ---
-title: "Construa seu próprio"
+title: "Build your own"
 sidebar_position: 1
 ---
 
-1. Instale o git e o flutter (beta)
-2. Clonar o repositório
-3. Navegue até o diretório de aplicativos
-4. Use a ferramenta de aglutro para compilar o aplicativo
-   * `build build flamejante apk`
-   * `pacote de compilação flamejante`
-   * `construir uma teia de agitadores`
-   * `linux de agitação`
-   * `janelas de compilação flamejante`
-5. Os arquivos compilados estão no diretório de compilação
+1. Install git and flutter (beta)
+2. Clone the repository
+3. Navigate to the app directory
+4. Use the flutter tool to compile the application
+   * `flutter build apk`
+   * `flutter build appbundle`
+   * `flutter build web`
+   * `flutter build linux`
+   * `flutter build windows`
+5. The compiled files are in the build directory
