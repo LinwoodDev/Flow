@@ -1,16 +1,16 @@
 ---
-title: "Nightly Builds"
+title: "المباني الليلية"
 slug: "/nightly"
 ---
 
-:::warning
+:::تحذير
 
-Do not use the nightly version of Flow for production.
+لا تستخدم الإصدار الليلي من التدفق للإنتاج.
 
 :::
 
-Nightly builds are designed to give you the option to test the latest version and get the newest features and give feedback.
+تم تصميم الإنشاءات الليلية لإعطائك الخيار لاختبار أحدث إصدار والحصول على أحدث الميزات وإعطاء ردود الفعل.
 
-## Get the builds
+## احصل على المباني
 
-Go to the download pages of your platform. All nightly builds get also published as pre-release on github.
+اذهب إلى صفحات تحميل المنصة الخاصة بك. كل المباني الليلية يتم نشرها أيضا كسابق للإصدار على github.
