@@ -1,6 +1,6 @@
 ---
 title: Codice di condotta
-hide_title: vero
+hide_title: true
 sidebar_label: Codice di condotta
 ---
 
