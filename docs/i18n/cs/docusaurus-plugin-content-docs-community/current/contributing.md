@@ -5,9 +5,9 @@ sidebar_label: "Přispěje"
 ---
 
 ```mdx-code-block
-importovat přispění, {toc as ContributingTOC} z "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-export const toc = Přispění TOC;
+export const toc = ContributingTOC;
 ```
