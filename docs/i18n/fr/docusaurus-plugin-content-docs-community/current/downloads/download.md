@@ -1,12 +1,12 @@
 ---
 slug: "/downloads"
 sidebar_position: 0
-title: Downloads
+title: Téléchargements
 ---
 
-![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fflow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fflow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Version de la version stable](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fflow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Version de la sortie nocturne](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fflow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-## Choose your platform
+## Choisissez votre plateforme
 
 <div className="grid">
   <a className="grid-button button--panel button--windows" href="/downloads/windows">
@@ -39,9 +39,9 @@ title: Downloads
   </a>
 </div>
 
-## Useful links
+## Liens utiles
 
-- [Changelog](changelog)
-- [Older releases](https://github.com/LinwoodCloud/Flow/releases)
-- [Latest release](https://github.com/LinwoodCloud/Flow/releases/latest)
-- [Support](https://discord.linwood.dev)
+- [Historique des modifications](changelog)
+- [Anciennes versions](https://github.com/LinwoodCloud/Flow/releases)
+- [Dernière version](https://github.com/LinwoodCloud/Flow/releases/latest)
+- [Soutien](https://discord.linwood.dev)
