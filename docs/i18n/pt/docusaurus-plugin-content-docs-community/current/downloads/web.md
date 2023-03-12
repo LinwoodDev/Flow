@@ -3,11 +3,11 @@ title: "Web"
 sidebar_position: 5
 ---
 
-![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Versão de lançamento estável](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Versão de lançamento noturna](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-:::note
+:::nota
 
-This is a progressive web application. You can install it on your browser and use it offline. All data is stored in your browser.
+Este é um aplicativo progressivo da web. Você pode instalá-lo no navegador e usá-lo offline. Todos os dados são armazenados no seu navegador.
 
 :::
 
@@ -16,13 +16,13 @@ This is a progressive web application. You can install it on your browser and us
 
 <div className="row margin-bottom--lg padding--sm">
 <a className="button button--outline button--info button--lg margin--sm" href="https://flow.linwood.dev">
-  Main
+  Principais
 </a>
 <a className="button button--outline button--danger button--lg margin--sm" href="https://preview.flow.linwood.dev">
-  Preview
+  Pré-visualização
 </a>
 </div>
 
-## Versions
+## Versões
 
-The main and the preview (develop) versions of Flow are not the same as the stable and nightly versions. They are not directly associated with a release. They are updated as soon as a new commit is pushed to the repository.
+A versão principal e a prévia (desenvolvida) do fluxo não são as mesmas que as versões estáveis e noturnas. Eles não estão diretamente associados a uma libertação. Eles são atualizados assim que um novo commit é enviado para o repositório.
