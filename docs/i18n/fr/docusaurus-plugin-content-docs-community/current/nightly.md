@@ -9,7 +9,7 @@ N'utilisez pas la version nocturne de Flow pour la production.
 
 :::
 
-Les versions de nuit sont conçues pour vous donner la possibilité de tester la dernière version et d'obtenir les dernières fonctionnalités et de donner des commentaires.
+Les versions nocturnes sont conçues pour vous donner la possibilité de tester la dernière version et d'obtenir les dernières fonctionnalités et de donner des commentaires.
 
 ## Obtenir les builds
 
