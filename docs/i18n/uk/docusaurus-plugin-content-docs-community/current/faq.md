@@ -1,8 +1,8 @@
 ---
-id: "faq"
+id: "чапи"
 slug: "/faq"
-title: "Frequently Asked Questions"
-sidebar_label: "FAQ"
+title: "Найчастіші питання"
+sidebar_label: "ЧАП"
 ---
 
-Here are some frequently asked questions.
+Ось кілька питань, що часто ставляться.
