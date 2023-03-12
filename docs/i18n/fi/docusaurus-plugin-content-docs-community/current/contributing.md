@@ -5,9 +5,9 @@ sidebar_label: "Osallistuminen"
 ---
 
 ```mdx-code-block
-import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
+tuonti avustaa, {toc as ContributingTOC} kohteesta "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-export const toc = ContributingTOC;
+vienti const toc = tributingTOC;
 ```
