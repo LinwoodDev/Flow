@@ -1,25 +1,25 @@
 ---
-id: "спільноти"
+id: "community"
 slug: "/community"
-sidebar_label: "Домашній екран"
+sidebar_label: "Home"
 sidebar_position: 0
-title: "Спільнота"
+title: "Community"
 ---
 
-Ласкаво просимо до розділу спільноти.
+Welcome to the community section.
 
-## Подяки
+## Acknowledgements
 
-Особлива подяка:
+A special thanks goes to:
 
-* <https://github.com/flutter/flutter> для забезпечення цього корисного кросплатформеру ui
-* <https://github.com/leanflutter/window_manager> для всіх цих корисних функцій робочого столу
-* <https://github.com/facebook/docusaurus> для просту у використанні файлової документації зі статичним реагуванням
+* <https://github.com/flutter/flutter> for providing this useful crossplatform ui framework
+* <https://github.com/leanflutter/window_manager> for all this useful desktop window features
+* <https://github.com/facebook/docusaurus> for an easy-to-use static react documentation framework
 
-Усі інші ліцензії ви можете знайти в налаштуваннях.
+All other licenses can you found in the settings.
 
-## Корисні посилання
+## Useful links
 
 * [GitHub](https://github.com/LinwoodCloud/Flow)
 * [Discord](https://go.linwood.dev/discord)
-* [Матриця](https://go.linwood.dev/matrix)
+* [Matrix](https://go.linwood.dev/matrix)
