@@ -1,13 +1,13 @@
 ---
 title: Список змін
-hide_title: істина
+hide_title: true
 sidebar_label: Список змін
 ---
 
 ```mdx-code-block
-імпорт змінних, {toc as ChangelogTOC} з "@site/../CHANGELOG.md"
+import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 
-експорт консерву = список змін;
+export const toc = ChangelogTOC;
 ```
