@@ -3,22 +3,22 @@ title: "Selfhosting"
 sidebar_position: 5
 ---
 
-![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Versión estable](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Versión de lanzamiento nocturno](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-It is very easy to host your own flow web server.
+Es muy fácil alojar su propio servidor web de flujo.
 
-## Simple server
+## Servidor simple
 
-Install flutter and build the app using:
+Instala flutter y construye la aplicación utilizando:
 
 ```bash
-cd app
-flutter pub get
-flutter build web
+app cd
+pub flutter get
+web build flutter
 ```
 
-All the files are in the `app/build/web` directory.
+Todos los archivos están en el directorio `app/build/web`.
 
-## Docker
+## Doctor
 
-Clone the repository and build the `Dockerfile` using: `docker build -t linwood-flow`. Start the server using: `docker run -p 8080:8080 -d linwood-flow`.
+Clona el repositorio y construye el `Dockerfile` usando: `docker build -t linwood-flow`. Iniciar el servidor usando: `docker run -p 8080:8080 -d linwood-flow`.
