@@ -1,20 +1,20 @@
 ---
-title: Děkujeme za stažení
-hide_title: pravda
-hide_table_of_contents: pravda
+title: Thank you for downloading
+hide_title: true
+hide_table_of_contents: true
 slug: "/downloads/post-windows"
 ---
 
 <div className="text-center margin-top--xl">
 
-# Děkujeme za stažení
+# Thank you for downloading
 
 <div className="row margin-bottom--lg padding--sm flex-center">
 <a className="button button--outline button--warning button--lg margin--sm" href="/contributing">
-  Přispějte k projektu
+  Contribute to the project
 </a>
 <a className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
-  Připojte se ke komunitě
+  Join the community
 </a>
 
 </div>
@@ -22,14 +22,14 @@ slug: "/downloads/post-windows"
 ## Windows SmartScreen
 
 
-Windows varuje uživatele při instalaci softwaru bez certifikátu.
+Windows warns users when installing software without a certificate.
 
-![Smart Scre](/img/smart-screen.png)
+![Smart screen](/img/smart-screen.png)
 
-Pro instalaci aplikace je třeba kliknout na "Další informace".
+To install the app, you need to click on "More info".
 
-![Inteligentní obrazovka více informací](/img/smart-screen-more-info.png)
+![Smart screen more info](/img/smart-screen-more-info.png)
 
-Poté klikněte na "Spustit nic".
+Then, click on "Run anyway".
 
 </div>
