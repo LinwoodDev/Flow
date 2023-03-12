@@ -1,8 +1,8 @@
 ---
-id: "q"
+id: "faq"
 slug: "/faq"
-title: "Ofte stilte spørsmål"
-sidebar_label: "OSS"
+title: "Frequently Asked Questions"
+sidebar_label: "FAQ"
 ---
 
-Her er noen ofte stilte spørsmål.
+Here are some frequently asked questions.
