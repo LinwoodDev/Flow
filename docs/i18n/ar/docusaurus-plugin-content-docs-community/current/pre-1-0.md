@@ -1,9 +1,9 @@
 ---
-title: "نسخ ما قبل 1.0"
+title: "Pre-1.0 versions"
 ---
 
-هذه الإصدارات غير مدعومة بعد الآن. الإصدارات الجديدة متوفرة في [الإصدارات](versions.md).
+These versions are not supported anymore. New versions are available at [versions](versions.md).
 
-| الإصدار | مدعوم |  |
-| ------- | ----- |  |
-|         |       |  |
+| Version | Supported |  |
+| ------- | --------- |  |
+|         |           |  |
