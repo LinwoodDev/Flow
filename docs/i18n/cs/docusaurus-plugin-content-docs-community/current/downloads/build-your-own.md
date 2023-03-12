@@ -1,15 +1,15 @@
 ---
-title: "Build your own"
+title: "Vytvořte si vlastní"
 sidebar_position: 1
 ---
 
-1. Install git and flutter (beta)
-2. Clone the repository
-3. Navigate to the app directory
-4. Use the flutter tool to compile the application
-   * `flutter build apk`
-   * `flutter build appbundle`
-   * `flutter build web`
+1. Instalovat git a flutter (beta)
+2. Klonovat repozitář
+3. Přejít do adresáře aplikace
+4. Použít nástroj flutter pro kompilaci aplikace
+   * `flutter stavět apk`
+   * `flutter vytvořit balíček aplikací`
+   * `Futter build web`
    * `flutter build linux`
-   * `flutter build windows`
-5. The compiled files are in the build directory
+   * `kruhové stavění oken`
+5. Kompilované soubory jsou v adresáři sestavení
