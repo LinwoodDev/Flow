@@ -2,7 +2,7 @@
 title: Vă mulțumim pentru descărcare
 hide_title: adevărat
 hide_table_of_contents: adevărat
-slug: "/downloads/thank-you"
+slug: "/download/mulțumește-ți"
 ---
 
 <div className="text-center margin-top--xl">
