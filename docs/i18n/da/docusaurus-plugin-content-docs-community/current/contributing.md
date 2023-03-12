@@ -1,7 +1,7 @@
 ---
-title: "Contributing"
-hide_title: true
-sidebar_label: "Contributing"
+title: "Bidrag"
+hide_title: sandt
+sidebar_label: "Bidrag"
 ---
 
 ```mdx-code-block
