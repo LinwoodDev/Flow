@@ -2,6 +2,6 @@
 sidebar_position: 1
 ---
 
-# Introduction
+# はじめに
 
-Coming soon
+近日公開
