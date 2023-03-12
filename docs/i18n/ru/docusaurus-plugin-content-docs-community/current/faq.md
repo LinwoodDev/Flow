@@ -1,8 +1,8 @@
 ---
-id: "фак"
+id: "faq"
 slug: "/faq"
-title: "Часто задаваемые вопросы"
-sidebar_label: "ЧАВО"
+title: "Frequently Asked Questions"
+sidebar_label: "FAQ"
 ---
 
-Вот некоторые часто задаваемые вопросы.
+Here are some frequently asked questions.
