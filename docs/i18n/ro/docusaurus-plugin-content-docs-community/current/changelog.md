@@ -1,7 +1,7 @@
 ---
-title: Jurnal modificări
-hide_title: adevărat
-sidebar_label: Jurnal modificări
+title: Changelog
+hide_title: true
+sidebar_label: Changelog
 ---
 
 ```mdx-code-block
