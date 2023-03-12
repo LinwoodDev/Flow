@@ -1,80 +1,80 @@
 {
-  "dashboard": "Dashboard",
-  "calendar": "Calendar",
-  "places": "Places",
-  "users": "Users",
-  "sources": "Sources",
-  "settings": "Settings",
-  "create": "Create",
-  "information": "Information",
-  "source": "Source",
-  "license": "License",
-  "thirdPartyLicenses": "Third Party Licenses",
-  "documentation": "Documentation",
-  "privacyPolicy": "Privacy Policy",
-  "imprint": "Imprint",
-  "releaseNotes": "Release Notes",
-  "changelog": "Changelog",
-  "legal": "Legal",
-  "personalization": "Personalization",
-  "design": "Design",
-  "language": "Language",
-  "theme": "Theme",
-  "classic": "Classic",
-  "systemDefault": "System Default",
-  "light": "Light",
-  "dark": "Dark",
-  "createPlace": "Create Place",
-  "cancel": "Cancel",
-  "name": "Name",
-  "description": "Description",
-  "start": "Start",
-  "next": "Next",
-  "skip": "Skip",
-  "back": "Back",
-  "today": "Today",
-  "groups": "Groups",
-  "createGroup": "Create group",
-  "editGroup": "Edit group",
-  "list": "List",
-  "day": "Day",
-  "week": "Week",
-  "month": "Month",
-  "version": "Version",
-  "intro": "Intro",
+  "dashboard": "Панель",
+  "calendar": "Календарь",
+  "places": "Места",
+  "users": "Пользователи",
+  "sources": "Источники",
+  "settings": "Настройки",
+  "create": "Создать",
+  "information": "Информация",
+  "source": "Источник",
+  "license": "Лицензия",
+  "thirdPartyLicenses": "Сторонние лицензии",
+  "documentation": "Документация",
+  "privacyPolicy": "Политика конфиденциальности",
+  "imprint": "Отпечаток",
+  "releaseNotes": "Примечания к выпуску",
+  "changelog": "Список изменений",
+  "legal": "Юридическая информация",
+  "personalization": "Персонализация",
+  "design": "Дизайн",
+  "language": "Язык",
+  "theme": "Тема",
+  "classic": "Классика",
+  "systemDefault": "Система по умолчанию",
+  "light": "Светлая",
+  "dark": "Тёмная",
+  "createPlace": "Создать место",
+  "cancel": "Отмена",
+  "name": "Наименование",
+  "description": "Описание",
+  "start": "Начать",
+  "next": "Следующий",
+  "skip": "Пропустить",
+  "back": "Назад",
+  "today": "Сегодня",
+  "groups": "Группы",
+  "createGroup": "Создать группу",
+  "editGroup": "Изменить группу",
+  "list": "Список",
+  "day": "День",
+  "week": "Неделя",
+  "month": "Месяц",
+  "version": "Версии",
+  "intro": "Введение",
   "webdav": "WebDAV",
-  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. You can use it to synchronize your data with other devices or services.",
-  "server": "Server",
-  "serverDescription": "Sync your data with a native Linwood Flow server. This is recommended for users that want to self-host their data.",
-  "googleDescription": "Sync your data with Google. This is recommended for users that want to use their Google account to access their data. Not all features are available with this option.",
-  "microsoftDescription": "Sync your data with Microsoft. This is recommended for users that want to use their Microsoft account to access their data. Not all features are available with this option.",
-  "addSource": "Add source",
-  "local": "Local",
-  "close": "Close",
-  "unknown": "Unknown",
-  "loading": "Loading",
-  "export": "Export",
-  "createEvent": "Create event",
-  "save": "Save",
-  "allSources": "All sources",
-  "editEvent": "Edit event",
-  "end": "End",
-  "location": "Location",
-  "status": "Status",
-  "confirmed": "Confirmed",
-  "draft": "Draft",
-  "cancelled": "Cancelled",
-  "general": "General",
+  "webdavDescription": "Интерфейс WebDAV позволяет получить доступ к вашим данным с любого сервера WebDAV. Вы можете использовать его для синхронизации данных с другими устройствами или службами.",
+  "server": "Сервер",
+  "serverDescription": "Синхронизируйте ваши данные с родным сервером Linwood Flow. Это рекомендуется для пользователей, которые хотят самостоятельно размещать свои данные.",
+  "googleDescription": "Синхронизация данных с Google. Рекомендуется пользователям, которые хотят использовать их аккаунт Google для доступа к своим данным. Не все функции доступны с этой опцией.",
+  "microsoftDescription": "Синхронизируйте ваши данные с Microsoft. Рекомендуется пользователям, которые хотят использовать их учетную запись Майкрософт для доступа к своим данным. Не все функции доступны с этой опцией.",
+  "addSource": "Добавить источник",
+  "local": "Локальный",
+  "close": "Закрыть",
+  "unknown": "Неизвестен",
+  "loading": "Загрузка",
+  "export": "Экспорт",
+  "createEvent": "Создать событие",
+  "save": "Сохранить",
+  "allSources": "Все источники",
+  "editEvent": "Редактировать событие",
+  "end": "Конец",
+  "location": "Местоположение",
+  "status": "Статус",
+  "confirmed": "Подтверждено",
+  "draft": "Черновик",
+  "cancelled": "Отменено",
+  "general": "Общие положения",
   "todos": "Todos",
-  "createTodo": "Create todo",
-  "editTodo": "Edit todo",
-  "indicatorEmpty": "No items found",
-  "indicatorEmptyDescription": "The list is currently empty.",
-  "indicatorLoading": "Loading",
-  "indicatorError": "An error occurred",
-  "indicatorErrorDescription": "An error occurred while loading the data.",
-  "tryAgain": "Try again",
-  "eventInfo": "{event} on {date} at {time} in {location} ({status})",
+  "createTodo": "Создать задачу",
+  "editTodo": "Редактировать задачу",
+  "indicatorEmpty": "Элементов не найдено",
+  "indicatorEmptyDescription": "Список в настоящее время пуст.",
+  "indicatorLoading": "Загрузка",
+  "indicatorError": "Произошла ошибка",
+  "indicatorErrorDescription": "Произошла ошибка при загрузке данных.",
+  "tryAgain": "Попробовать еще раз",
+  "eventInfo": "{event} на {date} в {time} в {location} ({status})",
   "@eventInfo": {
     "placeholders": {
       "event": {
@@ -99,13 +99,13 @@
       }
     }
   },
-  "filter": "Filter",
-  "done": "Done",
-  "inProgress": "In progress",
+  "filter": "Фильтр",
+  "done": "Готово",
+  "inProgress": "В процессе",
   "todo": "Todo",
-  "delete": "Delete",
-  "edit": "Edit",
-  "deleteGroup": "Delete group {name}",
+  "delete": "Удалить",
+  "edit": "Редактирование",
+  "deleteGroup": "Удалить группу {name}",
   "@deleteGroup": {
     "placeholders": {
       "name": {
@@ -114,7 +114,7 @@
       }
     }
   },
-  "deleteGroupDescription": "Are you sure you want to delete the group {name}?",
+  "deleteGroupDescription": "Вы уверены, что хотите удалить группу {name}?",
   "@deleteGroupDescription": {
     "placeholders": {
       "name": {
@@ -123,7 +123,7 @@
       }
     }
   },
-  "groupName": "Group {name}",
+  "groupName": "Группа {name}",
   "@groupName": {
     "placeholders": {
       "name": {
@@ -132,19 +132,19 @@
       }
     }
   },
-  "noData": "There is no data to display.",
-  "noEvents": "There are no events to display.",
-  "group": "Group",
-  "search": "Search",
-  "events": "Events",
-  "past": "Past",
-  "decentralized": "Decentralized",
-  "decentralizedDescription": "The decentralized interface allows you to access your data from any decentralized server. You can use it to synchronize your data with other devices or services.",
-  "importFile": "Import file",
-  "importFileDescription": "Import a file from your device. You can import a database file from another Linwood Flow instance or a regular calendar file.",
-  "place": "Place",
-  "editPlace": "Edit place",
-  "deletePlace": "Delete place {name}",
+  "noData": "Нет данных для отображения.",
+  "noEvents": "Нет событий для отображения.",
+  "group": "Группа",
+  "search": "Искать",
+  "events": "События",
+  "past": "Прошлые",
+  "decentralized": "Децентрализовано",
+  "decentralizedDescription": "Децентрализованный интерфейс позволяет получить доступ к вашим данным с любого децентрализованного сервера. Вы можете использовать его для синхронизации данных с другими устройствами или службами.",
+  "importFile": "Импорт файла",
+  "importFileDescription": "Импорт файла с вашего устройства. Вы можете импортировать файл базы данных из другого экземпляра Linwood Flow или из обычного файла календаря.",
+  "place": "Место",
+  "editPlace": "Изменить место",
+  "deletePlace": "Удалить место {name}",
   "@deletePlace": {
     "placeholders": {
       "name": {
@@ -153,7 +153,7 @@
       }
     }
   },
-  "deletePlaceDescription": "Are you sure you want to delete the place {name}?",
+  "deletePlaceDescription": "Вы уверены, что хотите удалить место {name}?",
   "@deletePlaceDescription": {
     "placeholders": {
       "name": {
@@ -162,11 +162,11 @@
       }
     }
   },
-  "priority": "Priority",
-  "assignEvent": "Assign event",
-  "noEvent": "No event",
-  "parentGroup": "Parent group",
-  "deleteUser": "Delete user {name}",
+  "priority": "Приоритет",
+  "assignEvent": "Назначить событие",
+  "noEvent": "Нет события",
+  "parentGroup": "Родительская группа",
+  "deleteUser": "Удалить пользователя {name}",
   "@deleteUser": {
     "placeholders": {
       "name": {
@@ -175,9 +175,9 @@
       }
     }
   },
-  "createUser": "Create user",
-  "editUser": "Edit user",
-  "deleteUserDescription": "Are you sure you want to delete the user {name}?",
+  "createUser": "Создать пользователя",
+  "editUser": "Изменить пользователя",
+  "deleteUserDescription": "Вы уверены, что хотите удалить пользователя {name}?",
   "@deleteUserDescription": {
     "placeholders": {
       "name": {
@@ -186,12 +186,12 @@
       }
     }
   },
-  "pending": "Pending",
-  "removeEvent": "Remove event",
-  "event": "Event",
-  "nativeTitleBar": "Native title bar",
-  "blocked": "Blocked",
-  "countEvents": "{count, plural, =0 {No events} one {1 event} other {{count} events}}",
+  "pending": "В ожидании",
+  "removeEvent": "Удалить событие",
+  "event": "Событие",
+  "nativeTitleBar": "Родной заголовок",
+  "blocked": "Заблокирован",
+  "countEvents": "{count, plural, =0 {Нет событий} one {1 событие} other {{count} события}}",
   "@countEvents": {
     "placeholders": {
       "count": {
@@ -200,7 +200,7 @@
       }
     }
   },
-  "import": "Import",
-  "confirmImport": "Are you sure you want to import it?",
-  "welcome": "Welcome"
+  "import": "Импорт",
+  "confirmImport": "Вы уверены, что хотите импортировать его?",
+  "welcome": "Добро пожаловать"
 }
