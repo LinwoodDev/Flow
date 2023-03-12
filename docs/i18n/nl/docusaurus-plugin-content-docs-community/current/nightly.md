@@ -1,16 +1,16 @@
 ---
-title: "Nightly Builds"
+title: "Nachtelijke builds"
 slug: "/nightly"
 ---
 
-:::warning
+:::waarschuwing
 
-Do not use the nightly version of Flow for production.
+Gebruik niet de nachtelijke versie van Flow voor productie.
 
 :::
 
-Nightly builds are designed to give you the option to test the latest version and get the newest features and give feedback.
+Nightly builds zijn ontworpen om je de optie te geven om de laatste versie te testen en de nieuwste functies te krijgen en om feedback te geven.
 
-## Get the builds
+## Verkrijg de builds
 
-Go to the download pages of your platform. All nightly builds get also published as pre-release on github.
+Ga naar de downloadpagina's van uw platform. Alle nightly builds worden ook gepubliceerd als pre-release op github.
