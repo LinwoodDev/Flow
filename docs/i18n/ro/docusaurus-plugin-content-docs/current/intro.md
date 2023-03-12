@@ -2,6 +2,6 @@
 sidebar_position: 1
 ---
 
-# Introducere
+# Introduction
 
-În curând
+Coming soon
