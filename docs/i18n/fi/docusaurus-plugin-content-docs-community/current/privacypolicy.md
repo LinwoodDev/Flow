@@ -1,61 +1,61 @@
 ---
-title: "Privacy Policy"
+title: "Yksityisyyden Suoja"
 slug: /privacypolicy
 ---
 
-This is the privacy policy of the app. Please read it carefully. Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
+Tämä on sovelluksen yksityisyyden suojaa koskeva käytäntö. Lue se huolellisesti. Klikkaa [tästä](https://go.linwood.dev/privacypolicy) ja lue sivuston yksityisyyskäytäntö.
 
-CodeDoctor built the Flow app as an Open Source app. This SERVICE is provided by CodeDoctor at no cost and is intended for use as is.
+CodeDoctor rakensi Flow sovelluksen avoimen lähdekoodin sovellukseksi. Tämä SERVICE on CodeDoctor ilman kustannuksia, ja se on tarkoitettu käytettäviksi sellaisenaan.
 
-This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
+Tätä sivua käytetään tiedottamaan kävijöille koskien minun käytäntöjäni kokoelmassa, Henkilötietojen käyttö ja luovuttaminen, jos joku on päättänyt käyttää palveluani.
 
-If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.
+Jos päätät käyttää palveluani, niin suostut keräämään ja käyttämään tähän käytäntöön liittyviä tietoja. Henkilökohtaisia tietoja, joita kerään, käytetään -palvelun tarjoamiseen ja parantamiseen. En käytä tai jaa tietojasi kenenkään kanssa paitsi tässä tietosuojakäytännössä kuvatulla tavalla.
 
-The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at Flow unless otherwise defined in this Privacy Policy.
+Tässä tietosuojakäytännössä käytettävillä termeillä on samat merkitykset kuin käyttöehdoillamme, joka on käytettävissä virtalähteellä, ellei tässä tietosuojakäytännössä toisin määrätä.
 
-**Information Collection and Use**
+**Tietojen kerääminen ja käyttö**
 
-For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and is not collected by me in any way.
+Saadakseni paremman kokemuksen, kun käytät palveluamme, saatan vaatia sinua antamaan meille tiettyjä henkilökohtaisia tietoja. Tiedot, jotka pyydän, säilyvät laitteellesi ja ei ole kerätty minun millään tavalla.
 
-The app does use third party services that may collect information used to identify you.
+Sovellus käyttää kolmannen osapuolen palveluja, jotka voivat kerätä tietoja, joita käytetään tunnistamiseen.
 
-Link to privacy policy of third party service providers used by the app
+Linkki kolmannen osapuolen palveluntarjoajien tietosuojakäytäntöön, jota sovellus käyttää
 
-* [Google Play Services](https://www.google.com/policies/privacy/)
+* [Google Play -palvelut](https://www.google.com/policies/privacy/)
 
-**Cookies**
+**Evästeet**
 
-Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory.
+Evästeet ovat tiedostoja, joissa on pieni määrä tietoja, joita käytetään yleisesti nimettöminä yksilöllisinä tunnisteina. Nämä lähetetään selaimeesi sivustoilta, joilla käyt ja jotka tallennetaan laitteesi sisäiseen muistiin.
 
-This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
+Tämä palvelu ei käytä näitä evästeitä nimenomaisesti. Sovellus voi kuitenkin käyttää kolmannen osapuolen koodia ja kirjastoja, jotka käyttävät evästeitä tietojen keräämiseen ja palveluiden parantamiseen. Sinulla on mahdollisuus joko hyväksyä tai hylätä nämä evästeet ja tietää, milloin eväste lähetetään laitteellesi. Jos päätät kieltäytyä evästeistämme, et ehkä voi käyttää joitakin osia tästä palvelusta.
 
-**Service Providers**
+**Palveluntarjoajat**
 
-I may employ third-party companies and individuals due to the following reasons:
+Voin palkata kolmannen osapuolen yrityksiä ja yksityishenkilöitä seuraavista syistä:
 
-* To facilitate our Service;
-* To provide the Service on our behalf;
-* To perform Service-related services; or
-* To assist us in analyzing how our Service is used.
+* Palvelun helpottaminen
+* Palvelun tarjoaminen meidän puolestamme.
+* Palveluihin liittyvien palvelujen suorittamiseen; tai
+* Auttaaksesi meitä analysoimaan sitä, miten palveluamme käytetään.
 
-I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.
+Haluan ilmoittaa tämän palvelun käyttäjille, että näillä kolmansilla osapuolilla on pääsy henkilökohtaisiin tietoihisi. Syynä tähän on se, että he hoitavat heille osoitetut tehtävät meidän puolestamme. Ne ovat kuitenkin velvollisia olemaan paljastamatta tai käyttämättä tietoja mihinkään muuhun tarkoitukseen.
 
-**Security**
+**Turvallisuus**
 
-I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
+Arvostan luottamustasi tarjota meille henkilökohtaisia tietojasi, joten pyrimme käyttämään kaupallisesti hyväksyttäviä keinoja niiden suojaamiseksi. Mutta muista, että ei ole menetelmää lähetyksen internetissä, tai menetelmä elektronisen tallennustilan on 100% turvallinen ja luotettava, enkä voi taata sen ehdotonta turvallisuutta.
 
-**Links to Other Sites**
+**Linkit muihin sivustoihin**
 
-This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
+Tämä palvelu voi sisältää linkkejä muille sivustoille. Jos klikkaat kolmannen osapuolen linkkiä, sinut ohjataan kyseiselle sivustolle. Huomaa, että nämä ulkoiset sivustot eivät toimi minä. Siksi olen vahvasti neuvoo tarkistamaan Tietosuojakäytäntö näiden verkkosivujen. Minulla ei ole mitään valtaa eikä ota vastuuta minkään kolmannen osapuolen sivustojen tai palvelujen sisällöstä, tietosuojakäytännöistä tai käytännöistä.
 
-**Changes to This Privacy Policy**
+**Muutokset tähän tietosuojakäytäntöön**
 
-I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.
+Voin päivittää tietosuojakäytäntöämme aika ajoin. Näin ollen sinua kehotetaan tarkastelemaan tätä sivua säännöllisin väliajoin. Ilmoitan sinulle kaikista muutoksista lähettämällä uuden Privacy Policy tällä sivulla.
 
-This policy is effective as of 2021-02-07
+Tämä politiikka on tehokas kuin 2021-02-07
 
-**Contact Us**
+**Ota Yhteyttä**
 
-If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at contact@linwood.dev.
+Jos sinulla on kysyttävää tai ehdotuksia tietosuojakäytännöstäni, älä epäröi ottaa minuun yhteyttä osoitteeseen contact@linwood.dev.
 
-This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
+Tämä tietosuojakäytäntö sivu on luotu [privacypolicytemplate.net](https://privacypolicytemplate.net) ja muokattu / luotu [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
