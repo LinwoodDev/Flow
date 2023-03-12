@@ -1,15 +1,15 @@
 ---
-title: "Створіть свій власний"
+title: "Build your own"
 sidebar_position: 1
 ---
 
-1. Встановити git і блимати (бета-версія)
-2. Скопіювати репозиторій
-3. Перейти до каталогу додатків
-4. Використовувати інструмент спалаху для компіляції програми
-   * `додати збірку apk`
-   * `пробка ромба`
-   * `прошивати мережу`
-   * `передач збірки linux`
-   * `блимнути вікна збірки`
-5. Скомпільовані файли в каталозі збірки
+1. Install git and flutter (beta)
+2. Clone the repository
+3. Navigate to the app directory
+4. Use the flutter tool to compile the application
+   * `flutter build apk`
+   * `flutter build appbundle`
+   * `flutter build web`
+   * `flutter build linux`
+   * `flutter build windows`
+5. The compiled files are in the build directory
