@@ -1,0 +1,206 @@
+{
+  "dashboard": "Tableau de bord",
+  "calendar": "Calendrier",
+  "places": "Lieux",
+  "users": "Utilisateurs",
+  "sources": "Sources",
+  "settings": "Réglages",
+  "create": "Créer",
+  "information": "Information",
+  "source": "Source",
+  "license": "Licence",
+  "thirdPartyLicenses": "Licences tierces",
+  "documentation": "Documentation",
+  "privacyPolicy": "Politique de confidentialité",
+  "imprint": "Mentions légales",
+  "releaseNotes": "Notes de version",
+  "changelog": "Historique des modifications",
+  "legal": "Mentions légales",
+  "personalization": "Personnalisation",
+  "design": "Conception",
+  "language": "Langue",
+  "theme": "Thème",
+  "classic": "Classique",
+  "systemDefault": "Par défaut du système",
+  "light": "Lumière",
+  "dark": "Sombre",
+  "createPlace": "Créer un lieu",
+  "cancel": "Abandonner",
+  "name": "Nom",
+  "description": "Libellé",
+  "start": "Début",
+  "next": "Suivant",
+  "skip": "Ignorer",
+  "back": "Précédent",
+  "today": "Aujourd'hui",
+  "groups": "Groupes",
+  "createGroup": "Créer un groupe",
+  "editGroup": "Modifier le groupe",
+  "list": "Liste",
+  "day": "Jour",
+  "week": "Semaine",
+  "month": "Mois",
+  "version": "Version",
+  "intro": "Introduction",
+  "webdav": "WebDAV",
+  "webdavDescription": "L'interface WebDAV vous permet d'accéder à vos données depuis n'importe quel serveur WebDAV. Vous pouvez l'utiliser pour synchroniser vos données avec d'autres appareils ou services.",
+  "server": "Serveur",
+  "serverDescription": "Synchronisez vos données avec un serveur Linwood Flow natif. Ceci est recommandé pour les utilisateurs qui souhaitent héberger leurs données.",
+  "googleDescription": "Synchronisez vos données avec Google. Ceci est recommandé aux utilisateurs qui souhaitent utiliser leur compte Google pour accéder à leurs données. Toutes les fonctionnalités ne sont pas disponibles avec cette option.",
+  "microsoftDescription": "Synchronisez vos données avec Microsoft. Ceci est recommandé aux utilisateurs qui souhaitent utiliser leur compte Microsoft pour accéder à leurs données. Toutes les fonctionnalités ne sont pas disponibles avec cette option.",
+  "addSource": "Ajouter une source",
+  "local": "Locale",
+  "close": "Fermer",
+  "unknown": "Inconnu",
+  "loading": "En cours de chargement",
+  "export": "Exportation",
+  "createEvent": "Créer un événement",
+  "save": "Enregistrer",
+  "allSources": "Toutes les sources",
+  "editEvent": "Modifier l'événement",
+  "end": "Fin",
+  "location": "Localisation",
+  "status": "Statut",
+  "confirmed": "Confirmé",
+  "draft": "Brouillon",
+  "cancelled": "Annulé",
+  "general": "Généraux",
+  "todos": "Todos",
+  "createTodo": "Créer une tâche",
+  "editTodo": "Modifier la tâche",
+  "indicatorEmpty": "Aucun élément trouvé",
+  "indicatorEmptyDescription": "La liste est actuellement vide.",
+  "indicatorLoading": "En cours de chargement",
+  "indicatorError": "Une erreur s'est produite",
+  "indicatorErrorDescription": "Une erreur s'est produite lors du chargement des données.",
+  "tryAgain": "Réessayez",
+  "eventInfo": "{event} le {date} à {time} à {location} ({status})",
+  "@eventInfo": {
+    "placeholders": {
+      "event": {
+        "type": "String",
+        "example": "Meeting"
+      },
+      "date": {
+        "type": "String",
+        "example": "2021-01-01"
+      },
+      "time": {
+        "type": "String",
+        "example": "12:00"
+      },
+      "location": {
+        "type": "String",
+        "example": "Office"
+      },
+      "status": {
+        "type": "String",
+        "example": "Confirmed"
+      }
+    }
+  },
+  "filter": "Filtre",
+  "done": "Fait",
+  "inProgress": "En cours",
+  "todo": "Todo",
+  "delete": "Supprimez",
+  "edit": "Editer",
+  "deleteGroup": "Supprimer le groupe {name}",
+  "@deleteGroup": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "deleteGroupDescription": "Êtes-vous sûr de vouloir supprimer le groupe {name}?",
+  "@deleteGroupDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "groupName": "Groupe {name}",
+  "@groupName": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "noData": "Il n'y a pas de données à afficher.",
+  "noEvents": "Il n'y a aucun événement à afficher.",
+  "group": "Groupes",
+  "search": "Chercher",
+  "events": "Évènements",
+  "past": "Passé",
+  "decentralized": "Décentralisé",
+  "decentralizedDescription": "L'interface décentralisée vous permet d'accéder à vos données depuis n'importe quel serveur décentralisé. Vous pouvez l'utiliser pour synchroniser vos données avec d'autres appareils ou services.",
+  "importFile": "Importer un fichier",
+  "importFileDescription": "Importez un fichier depuis votre appareil. Vous pouvez importer un fichier de base de données depuis une autre instance Linwood Flow ou un fichier calendrier normal.",
+  "place": "Lieu",
+  "editPlace": "Modifier le lieu",
+  "deletePlace": "Supprimer le lieu {name}",
+  "@deletePlace": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "deletePlaceDescription": "Êtes-vous sûr de vouloir supprimer le lieu {name}?",
+  "@deletePlaceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "priority": "Priorité",
+  "assignEvent": "Assigner un événement",
+  "noEvent": "Aucun événement",
+  "parentGroup": "Groupe parent",
+  "deleteUser": "Supprimer l'utilisateur {name}",
+  "@deleteUser": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "createUser": "Créer un utilisateur",
+  "editUser": "Modifier l'utilisateur",
+  "deleteUserDescription": "Êtes-vous sûr de vouloir supprimer l'utilisateur {name}?",
+  "@deleteUserDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "pending": "En attente",
+  "removeEvent": "Supprimer l'événement",
+  "event": "Evénement",
+  "nativeTitleBar": "Barre de titre native",
+  "blocked": "Bloqué",
+  "countEvents": "{count, plural, =0 {Aucun événement} one {1 événement} other {{count} événements}}",
+  "@countEvents": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "import": "Importation",
+  "confirmImport": "Êtes-vous sûr de vouloir l'importer ?",
+  "welcome": "Bienvenue"
+}

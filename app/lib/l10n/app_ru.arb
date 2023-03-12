@@ -1,0 +1,206 @@
+{
+  "dashboard": "Панель",
+  "calendar": "Календарь",
+  "places": "Места",
+  "users": "Пользователи",
+  "sources": "Источники",
+  "settings": "Настройки",
+  "create": "Создать",
+  "information": "Информация",
+  "source": "Источник",
+  "license": "Лицензия",
+  "thirdPartyLicenses": "Сторонние лицензии",
+  "documentation": "Документация",
+  "privacyPolicy": "Политика конфиденциальности",
+  "imprint": "Отпечаток",
+  "releaseNotes": "Примечания к выпуску",
+  "changelog": "Список изменений",
+  "legal": "Юридическая информация",
+  "personalization": "Персонализация",
+  "design": "Дизайн",
+  "language": "Язык",
+  "theme": "Тема",
+  "classic": "Классика",
+  "systemDefault": "Система по умолчанию",
+  "light": "Светлая",
+  "dark": "Тёмная",
+  "createPlace": "Создать место",
+  "cancel": "Отмена",
+  "name": "Наименование",
+  "description": "Описание",
+  "start": "Начать",
+  "next": "Следующий",
+  "skip": "Пропустить",
+  "back": "Назад",
+  "today": "Сегодня",
+  "groups": "Группы",
+  "createGroup": "Создать группу",
+  "editGroup": "Изменить группу",
+  "list": "Список",
+  "day": "День",
+  "week": "Неделя",
+  "month": "Месяц",
+  "version": "Версии",
+  "intro": "Введение",
+  "webdav": "WebDAV",
+  "webdavDescription": "Интерфейс WebDAV позволяет получить доступ к вашим данным с любого сервера WebDAV. Вы можете использовать его для синхронизации данных с другими устройствами или службами.",
+  "server": "Сервер",
+  "serverDescription": "Синхронизируйте ваши данные с родным сервером Linwood Flow. Это рекомендуется для пользователей, которые хотят самостоятельно размещать свои данные.",
+  "googleDescription": "Синхронизация данных с Google. Рекомендуется пользователям, которые хотят использовать их аккаунт Google для доступа к своим данным. Не все функции доступны с этой опцией.",
+  "microsoftDescription": "Синхронизируйте ваши данные с Microsoft. Рекомендуется пользователям, которые хотят использовать их учетную запись Майкрософт для доступа к своим данным. Не все функции доступны с этой опцией.",
+  "addSource": "Добавить источник",
+  "local": "Локальный",
+  "close": "Закрыть",
+  "unknown": "Неизвестен",
+  "loading": "Загрузка",
+  "export": "Экспорт",
+  "createEvent": "Создать событие",
+  "save": "Сохранить",
+  "allSources": "Все источники",
+  "editEvent": "Редактировать событие",
+  "end": "Конец",
+  "location": "Местоположение",
+  "status": "Статус",
+  "confirmed": "Подтверждено",
+  "draft": "Черновик",
+  "cancelled": "Отменено",
+  "general": "Общие положения",
+  "todos": "Todos",
+  "createTodo": "Создать задачу",
+  "editTodo": "Редактировать задачу",
+  "indicatorEmpty": "Элементов не найдено",
+  "indicatorEmptyDescription": "Список в настоящее время пуст.",
+  "indicatorLoading": "Загрузка",
+  "indicatorError": "Произошла ошибка",
+  "indicatorErrorDescription": "Произошла ошибка при загрузке данных.",
+  "tryAgain": "Попробовать еще раз",
+  "eventInfo": "{event} на {date} в {time} в {location} ({status})",
+  "@eventInfo": {
+    "placeholders": {
+      "event": {
+        "type": "String",
+        "example": "Meeting"
+      },
+      "date": {
+        "type": "String",
+        "example": "2021-01-01"
+      },
+      "time": {
+        "type": "String",
+        "example": "12:00"
+      },
+      "location": {
+        "type": "String",
+        "example": "Office"
+      },
+      "status": {
+        "type": "String",
+        "example": "Confirmed"
+      }
+    }
+  },
+  "filter": "Фильтр",
+  "done": "Готово",
+  "inProgress": "В процессе",
+  "todo": "Todo",
+  "delete": "Удалить",
+  "edit": "Редактирование",
+  "deleteGroup": "Удалить группу {name}",
+  "@deleteGroup": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "deleteGroupDescription": "Вы уверены, что хотите удалить группу {name}?",
+  "@deleteGroupDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "groupName": "Группа {name}",
+  "@groupName": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "noData": "Нет данных для отображения.",
+  "noEvents": "Нет событий для отображения.",
+  "group": "Группа",
+  "search": "Искать",
+  "events": "События",
+  "past": "Прошлые",
+  "decentralized": "Децентрализовано",
+  "decentralizedDescription": "Децентрализованный интерфейс позволяет получить доступ к вашим данным с любого децентрализованного сервера. Вы можете использовать его для синхронизации данных с другими устройствами или службами.",
+  "importFile": "Импорт файла",
+  "importFileDescription": "Импорт файла с вашего устройства. Вы можете импортировать файл базы данных из другого экземпляра Linwood Flow или из обычного файла календаря.",
+  "place": "Место",
+  "editPlace": "Изменить место",
+  "deletePlace": "Удалить место {name}",
+  "@deletePlace": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "deletePlaceDescription": "Вы уверены, что хотите удалить место {name}?",
+  "@deletePlaceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "priority": "Приоритет",
+  "assignEvent": "Назначить событие",
+  "noEvent": "Нет события",
+  "parentGroup": "Родительская группа",
+  "deleteUser": "Удалить пользователя {name}",
+  "@deleteUser": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "createUser": "Создать пользователя",
+  "editUser": "Изменить пользователя",
+  "deleteUserDescription": "Вы уверены, что хотите удалить пользователя {name}?",
+  "@deleteUserDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "pending": "В ожидании",
+  "removeEvent": "Удалить событие",
+  "event": "Событие",
+  "nativeTitleBar": "Родной заголовок",
+  "blocked": "Заблокирован",
+  "countEvents": "{count, plural, =0 {Нет событий} one {1 событие} other {{count} события}}",
+  "@countEvents": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "import": "Импорт",
+  "confirmImport": "Вы уверены, что хотите импортировать его?",
+  "welcome": "Добро пожаловать"
+}
