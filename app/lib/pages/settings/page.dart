@@ -14,25 +14,34 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final List<GlobalKey> _itemKeys = List.generate(4, (index) => GlobalKey());
-  final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController(
+    keepScrollOffset: true,
+  );
+  final GlobalKey _scrollViewKey = GlobalKey();
   int selected = -1;
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_updateSelected);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _updateSelected());
   }
 
   void _updateSelected() {
     final scrollOffset = _scrollController.offset;
-    final index = _itemKeys.lastIndexWhere((key) {
-      final context = key.currentContext;
-      if (context == null) return false;
-      final box = context.findRenderObject() as RenderBox;
-      final offset = box.localToGlobal(Offset.zero);
-      return offset.dy <= scrollOffset;
+    final scrollView =
+        _scrollViewKey.currentContext!.findRenderObject() as RenderBox;
+    final scrollViewTop = scrollView.localToGlobal(Offset.zero).dy;
+    final index = _itemKeys.indexWhere((key) {
+      final item = key.currentContext!.findRenderObject() as RenderBox;
+      final itemTop = item.localToGlobal(Offset.zero).dy;
+      return itemTop - scrollViewTop >= scrollOffset;
     });
-    if (index != selected) setState(() => selected = index);
+    if (index != selected) {
+      setState(() {
+        selected = index;
+      });
+    }
   }
 
   @override
@@ -48,6 +57,15 @@ class _SettingsPageState extends State<SettingsPage> {
       endDrawer: SettingsDrawer(
         itemKeys: _itemKeys,
         selected: selected,
+        onChanged: (index) async {
+          await Scrollable.ensureVisible(
+            _itemKeys[index].currentContext!,
+            duration: const Duration(milliseconds: 500),
+          );
+          setState(() {
+            selected = index;
+          });
+        },
       ),
       body: SingleChildScrollView(
         controller: _scrollController,
@@ -55,6 +73,7 @@ class _SettingsPageState extends State<SettingsPage> {
           alignment: Alignment.topCenter,
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 600),
+            key: _scrollViewKey,
             child: SettingsContent(itemKeys: _itemKeys),
           ),
         ),
