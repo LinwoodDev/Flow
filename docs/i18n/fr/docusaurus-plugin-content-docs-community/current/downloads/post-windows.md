@@ -2,7 +2,7 @@
 title: Merci d'avoir téléchargé
 hide_title: true
 hide_table_of_contents: true
-slug: "/downloads/post-windows"
+slug: "/fr/downloads/post-windows"
 ---
 
 <div className="text-center margin-top--xl">
