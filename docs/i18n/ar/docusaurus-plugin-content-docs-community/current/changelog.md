@@ -1,13 +1,13 @@
 ---
 title: تغيير
-hide_title: صحيح
+hide_title: true
 sidebar_label: تغيير
 ---
 
 ```mdx-code-block
-استيراد التغيير، {toc as ChangelogTOC} من "@site/../CHANGELOG.md"
+import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 
-تصدير toc = ChangelogTOC؛
+export const toc = ChangelogTOC;
 ```
