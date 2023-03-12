@@ -1,20 +1,20 @@
 ---
-title: Thank you for downloading
-hide_title: true
-hide_table_of_contents: true
+title: Tack för att du laddade ner
+hide_title: sant
+hide_table_of_contents: sant
 slug: "/downloads/thank-you"
 ---
 
 <div className="text-center margin-top--xl">
 
-# Thank you for downloading
+# Tack för nedladdning
 
 <div className="row margin-bottom--lg padding--sm flex-center">
 <a className="button button--outline button--warning button--lg margin--sm" href="/contributing">
-  Contribute to the project
+  Bidra till projektet
 </a>
 <a className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
-  Join the community
+  Gå med i communityn
 </a>
 
 </div>
