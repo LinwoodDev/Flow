@@ -1,6 +1,6 @@
 ---
 title: "Kompilacje Nightly"
-slug: "/nightly"
+slug: "/noc"
 ---
 
 :::Ostrzeżenie
@@ -9,7 +9,7 @@ Nie używaj nocnej wersji przepływu do produkcji.
 
 :::
 
-Nocne kompilacje zostały zaprojektowane, aby dać Ci możliwość przetestowania najnowszej wersji i uzyskania najnowszych funkcji i przekazania opinii.
+Nocne kompilacje zostały zaprojektowane, aby dać Ci możliwość przetestowania najnowszej wersji i uzyskania najnowszych funkcji i przekazywania opinii.
 
 ## Pobierz kompilacje
 
