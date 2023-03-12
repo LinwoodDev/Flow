@@ -1,8 +1,8 @@
 ---
-id: "faq"
+id: "فاك"
 slug: "/faq"
-title: "Frequently Asked Questions"
-sidebar_label: "FAQ"
+title: "الأسئلة المتكررة"
+sidebar_label: "أسئلة متكررة"
 ---
 
-Here are some frequently asked questions.
+فيما يلي بعض الأسئلة المتكررة.
