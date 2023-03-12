@@ -1,6 +1,6 @@
 ---
 title: Список изменений
-hide_title: истина
+hide_title: true
 sidebar_label: Список изменений
 ---
 
