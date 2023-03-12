@@ -4,9 +4,9 @@ sidebar_position: 0
 title: Downloads
 ---
 
-![Stabil version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fflow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fflow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fflow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fflow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-## Vælg din platform
+## Choose your platform
 
 <div className="grid">
   <a className="grid-button button--panel button--windows" href="/downloads/windows">
@@ -39,9 +39,9 @@ title: Downloads
   </a>
 </div>
 
-## Nyttige links
+## Useful links
 
-- [Ændringslog](changelog)
-- [Ældre udgivelser](https://github.com/LinwoodCloud/Flow/releases)
-- [Seneste udgivelse](https://github.com/LinwoodCloud/Flow/releases/latest)
+- [Changelog](changelog)
+- [Older releases](https://github.com/LinwoodCloud/Flow/releases)
+- [Latest release](https://github.com/LinwoodCloud/Flow/releases/latest)
 - [Support](https://discord.linwood.dev)
