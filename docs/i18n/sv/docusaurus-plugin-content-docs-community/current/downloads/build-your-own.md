@@ -1,15 +1,15 @@
 ---
-title: "Bygg din egen"
+title: "Build your own"
 sidebar_position: 1
 ---
 
-1. Installera git och fladder (beta)
-2. Klona förrådet
-3. Navigera till app-katalogen
-4. Använd fladderverktyget för att sammanställa applikationen
-   * `fladder bygga apk`
-   * `fladder bygga äppelbunt`
-   * `fladder bygga webb`
-   * `fladder bygga linux`
-   * `fladder bygga fönster`
-5. De kompilerade filerna finns i kompileringskatalogen
+1. Install git and flutter (beta)
+2. Clone the repository
+3. Navigate to the app directory
+4. Use the flutter tool to compile the application
+   * `flutter build apk`
+   * `flutter build appbundle`
+   * `flutter build web`
+   * `flutter build linux`
+   * `flutter build windows`
+5. The compiled files are in the build directory
