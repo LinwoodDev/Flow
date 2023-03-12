@@ -1,15 +1,15 @@
 ---
-title: "Build your own"
+title: "自分で作ってください"
 sidebar_position: 1
 ---
 
-1. Install git and flutter (beta)
-2. Clone the repository
-3. Navigate to the app directory
-4. Use the flutter tool to compile the application
-   * `flutter build apk`
+1. git とフラッタをインストール (ベータ版)
+2. リポジトリを複製
+3. アプリのディレクトリに移動します
+4. フラッターツールを使用してアプリケーションをコンパイルする
+   * `Flutter build apk`
    * `flutter build appbundle`
    * `flutter build web`
    * `flutter build linux`
-   * `flutter build windows`
-5. The compiled files are in the build directory
+   * `フラッタビルドウィンドウ`
+5. コンパイルされたファイルはビルドディレクトリにあります
