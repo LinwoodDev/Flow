@@ -1,8 +1,8 @@
 ---
 id: "faq"
 slug: "/faq"
-title: "Frequently Asked Questions"
-sidebar_label: "FAQ"
+title: "Συχνές Ερωτήσεις"
+sidebar_label: "Συχνές"
 ---
 
-Here are some frequently asked questions.
+Ακολουθούν μερικές συχνές ερωτήσεις.
