@@ -1,61 +1,61 @@
 ---
-title: "Politica Sulla Privacy"
+title: "Privacy Policy"
 slug: /privacypolicy
 ---
 
-Questa è l'informativa sulla privacy dell'app. Per piacere, la legga attentamente. Clicca [qui](https://go.linwood.dev/privacypolicy) per leggere la privacy policy del sito.
+This is the privacy policy of the app. Please read it carefully. Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
 
-CodeDoctor ha costruito l'app Flow come app Open Source. Questo SERVIZIO è fornito da CodeDoctor senza costi ed è destinato all'uso come è.
+CodeDoctor built the Flow app as an Open Source app. This SERVICE is provided by CodeDoctor at no cost and is intended for use as is.
 
-Questa pagina è utilizzata per informare i visitatori sulle mie politiche con la collezione, uso e divulgazione dei Dati Personali se qualcuno ha deciso di utilizzare il mio Servizio.
+This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
 
-Se scegliete di utilizzare il mio servizio, accettate la raccolta e l'uso di informazioni in relazione a questa politica. I Dati Personali che raccolgo vengono utilizzati per fornire e migliorare il Servizio . Non userò o condividerò le tue informazioni con nessuno se non come descritto nella presente Informativa sulla privacy.
+If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.
 
-I termini utilizzati nella presente Informativa sulla privacy hanno lo stesso significato dei nostri Termini e Condizioni, che è accessibile a Flow se non diversamente definito nella presente Informativa sulla privacy.
+The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at Flow unless otherwise defined in this Privacy Policy.
 
-**Raccolta e utilizzo delle informazioni**
+**Information Collection and Use**
 
-Per una migliore esperienza, durante l'utilizzo del nostro Servizio, posso richiederti di fornirci alcune informazioni personali identificabili. Le informazioni che richiedo verranno conservate sul tuo dispositivo e non vengono raccolte da me in alcun modo.
+For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and is not collected by me in any way.
 
-L'app utilizza servizi di terze parti che potrebbero raccogliere informazioni utilizzate per identificarti.
+The app does use third party services that may collect information used to identify you.
 
-Link all'informativa sulla privacy dei fornitori di servizi terzi utilizzati dall'app
+Link to privacy policy of third party service providers used by the app
 
 * [Google Play Services](https://www.google.com/policies/privacy/)
 
-**Cookie**
+**Cookies**
 
-I cookie sono file con una piccola quantità di dati comunemente utilizzati come identificatori unici anonimi. Questi vengono inviati al tuo browser dai siti web che visiti e vengono memorizzati sulla memoria interna del tuo dispositivo.
+Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory.
 
-Questo Servizio non utilizza questi “cookie” esplicitamente. Tuttavia, l'app può utilizzare codici di terze parti e librerie che utilizzano “cookie” per raccogliere informazioni e migliorare i loro servizi. Hai la possibilità di accettare o rifiutare questi cookie e di sapere quando viene inviato un cookie al tuo dispositivo. Se scegli di rifiutare i nostri cookie, potresti non essere in grado di utilizzare alcune porzioni di questo Servizio.
+This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
 
-**Fornitori Di Servizi**
+**Service Providers**
 
-Posso impiegare società e individui terzi per i seguenti motivi:
+I may employ third-party companies and individuals due to the following reasons:
 
-* Per facilitare il nostro Servizio;
-* Fornire il Servizio per nostro conto;
-* Per eseguire servizi connessi al servizio; o
-* Per aiutarci ad analizzare come viene utilizzato il nostro Servizio.
+* To facilitate our Service;
+* To provide the Service on our behalf;
+* To perform Service-related services; or
+* To assist us in analyzing how our Service is used.
 
-Voglio informare gli utenti di questo Servizio che queste terze parti hanno accesso alle tue Informazioni Personali. Il motivo è quello di svolgere i compiti loro assegnati per nostro conto. Essi sono tuttavia obbligati a non divulgare o utilizzare le informazioni per altri scopi.
+I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.
 
-**Sicurezza**
+**Security**
 
-Apprezzo la vostra fiducia nel fornirci le vostre informazioni personali, così ci sforziamo di utilizzare mezzi commercialmente accettabili per proteggerle. Ma ricordate che nessun metodo di trasmissione su internet, o metodo di archiviazione elettronica è 100% sicuro e affidabile, e non posso garantire la sua assoluta sicurezza.
+I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
 
-**Collegamenti ad altri siti**
+**Links to Other Sites**
 
-Questo servizio può contenere collegamenti ad altri siti. Se clicchi su un link di terze parti, verrai indirizzato a quel sito. Nota che questi siti esterni non sono gestiti da me. Pertanto, vi consiglio vivamente di rivedere la Privacy Policy di questi siti web. Non ho alcun controllo e non assumo alcuna responsabilità per i contenuti, le politiche sulla privacy o le pratiche di siti o servizi di terze parti.
+This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
 
-**Modifiche alla presente informativa sulla privacy**
+**Changes to This Privacy Policy**
 
-Potrei aggiornare di tanto in tanto la nostra Informativa sulla privacy. Pertanto, si consiglia di rivedere questa pagina periodicamente per eventuali modifiche. Ti informerò di eventuali modifiche pubblicando la nuova Informativa sulla privacy su questa pagina .
+I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.
 
-Questa politica è efficace a partire dal 2021-02-07
+This policy is effective as of 2021-02-07
 
-**Contattaci**
+**Contact Us**
 
-Se avete domande o suggerimenti sulla mia Informativa sulla privacy, non esitate a contattarmi a contact@linwood.dev.
+If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at contact@linwood.dev.
 
-Questa pagina di privacy policy è stata creata su [privacypolicytemplate.net](https://privacypolicytemplate.net) e modificata/generata da [Generatore di App Privacy Policy](https://app-privacy-policy-generator.nisrulz.com/)
+This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
