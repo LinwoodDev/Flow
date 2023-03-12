@@ -1,20 +1,20 @@
 ---
-title: Thank you for downloading
-hide_title: true
-hide_table_of_contents: true
+title: Tack för att du laddade ner
+hide_title: sant
+hide_table_of_contents: sant
 slug: "/downloads/post-windows"
 ---
 
 <div className="text-center margin-top--xl">
 
-# Thank you for downloading
+# Tack för nedladdning
 
 <div className="row margin-bottom--lg padding--sm flex-center">
 <a className="button button--outline button--warning button--lg margin--sm" href="/contributing">
-  Contribute to the project
+  Bidra till projektet
 </a>
 <a className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
-  Join the community
+  Gå med i communityn
 </a>
 
 </div>
@@ -22,14 +22,14 @@ slug: "/downloads/post-windows"
 ## Windows SmartScreen
 
 
-Windows warns users when installing software without a certificate.
+Windows varnar användare vid installation av programvara utan certifikat.
 
-![Smart screen](/img/smart-screen.png)
+![Smart skärm](/img/smart-screen.png)
 
-To install the app, you need to click on "More info".
+För att installera appen måste du klicka på "Mer info".
 
-![Smart screen more info](/img/smart-screen-more-info.png)
+![Smart skärm mer info](/img/smart-screen-more-info.png)
 
-Then, click on "Run anyway".
+Klicka sedan på "Kör ändå".
 
 </div>
