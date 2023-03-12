@@ -5,9 +5,9 @@ sidebar_label: Wijzigingslogboek
 ---
 
 ```mdx-code-block
-importeer Changelog, {toc as ChangelogTOC} van "@site/../CHANGELOG.md"
+import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 
-exporteer const toc = ChangelogTOC;
+export const toc = ChangelogTOC;
 ```
