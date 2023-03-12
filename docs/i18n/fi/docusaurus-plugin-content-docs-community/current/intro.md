@@ -1,6 +1,6 @@
 ---
 id: "yhteisö"
-slug: "/community"
+slug: "/yhteisö"
 sidebar_label: "Koti"
 sidebar_position: 0
 title: "Yhteisö"
