@@ -3,22 +3,22 @@ title: "Selfhosting"
 sidebar_position: 5
 ---
 
-![Versiune stabilă de lansare](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Versiune lansare nocturnă](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-Este foarte ușor să îți găzduiești propriul server de flux.
+It is very easy to host your own flow web server.
 
-## Server simplu
+## Simple server
 
-Instalați flutter și construiți aplicația folosind:
+Install flutter and build the app using:
 
 ```bash
 cd app
-flutter pub obţine
+flutter pub get
 flutter build web
 ```
 
-Toate fișierele sunt în directorul `app/build/web`.
+All the files are in the `app/build/web` directory.
 
-## Doctor
+## Docker
 
-Clonează depozitul și construiește fișierul `Dockerfile` folosind: `docker construiește -t linwood-flow`. Pornește serverul folosind: `docker run -p 8080:8080 -d linwood-flow`.
+Clone the repository and build the `Dockerfile` using: `docker build -t linwood-flow`. Start the server using: `docker run -p 8080:8080 -d linwood-flow`.
