@@ -1,6 +1,6 @@
 ---
 id: "q"
-slug: "/faq"
+slug: "/no_NO/"
 title: "Ofte stilte spørsmål"
 sidebar_label: "OSS"
 ---
