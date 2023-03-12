@@ -1,35 +1,35 @@
 ---
-title: Thank you for downloading
-hide_title: true
-hide_table_of_contents: true
+title: Vă mulțumim pentru descărcare
+hide_title: adevărat
+hide_table_of_contents: adevărat
 slug: "/downloads/post-windows"
 ---
 
 <div className="text-center margin-top--xl">
 
-# Thank you for downloading
+# Vă mulțumim pentru descărcare
 
 <div className="row margin-bottom--lg padding--sm flex-center">
 <a className="button button--outline button--warning button--lg margin--sm" href="/contributing">
-  Contribute to the project
+  Contribuie la proiect
 </a>
 <a className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
-  Join the community
+  Alătură-te comunității
 </a>
 
 </div>
 
-## Windows SmartScreen
+## SmartScreen
 
 
-Windows warns users when installing software without a certificate.
+Windows avertizează utilizatorii când instalează software-ul fără certificat.
 
-![Smart screen](/img/smart-screen.png)
+![Ecran inteligent](/img/smart-screen.png)
 
-To install the app, you need to click on "More info".
+Pentru a instala aplicația, trebuie să faceți clic pe "Mai multe informații".
 
-![Smart screen more info](/img/smart-screen-more-info.png)
+![Mai multe informații despre ecranul inteligent](/img/smart-screen-more-info.png)
 
-Then, click on "Run anyway".
+Apoi, apasă pe "Rulează oricum".
 
 </div>
