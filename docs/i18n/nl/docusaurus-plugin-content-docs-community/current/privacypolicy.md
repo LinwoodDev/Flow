@@ -1,61 +1,61 @@
 ---
-title: "Privacy Beleid"
+title: "Privacy Policy"
 slug: /privacypolicy
 ---
 
-Dit is het privacybeleid van de app. Leest u het alstublieft zorgvuldig. Klik [hier](https://go.linwood.dev/privacypolicy) om het privacybeleid van de website te lezen.
+This is the privacy policy of the app. Please read it carefully. Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
 
-CodeDoctor heeft de Flow app gebouwd als een Open Source app. Deze SERVICE wordt geleverd door CodeDoctor zonder kosten en is bedoeld voor gebruik zoals dat is.
+CodeDoctor built the Flow app as an Open Source app. This SERVICE is provided by CodeDoctor at no cost and is intended for use as is.
 
-Deze pagina wordt gebruikt om bezoekers te informeren over mijn beleid met de verzameling, gebruik en openbaarmaking van persoonlijke informatie als iemand heeft besloten om mijn dienst te gebruiken.
+This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
 
-Als je mijn dienst gebruikt, ga je akkoord met het verzamelen en gebruiken van informatie met betrekking tot dit beleid. De persoonlijke informatie die ik verzamel, wordt gebruikt om de service te verstrekken en te verbeteren. Ik zal uw informatie niet gebruiken of met iemand delen behalve zoals beschreven in dit Privacybeleid.
+If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.
 
-De gebruikte voorwaarden in dit privacybeleid hebben dezelfde betekenis als in onze Algemene Voorwaarden, die toegankelijk is in Flow tenzij anders gedefinieerd in dit privacybeleid.
+The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at Flow unless otherwise defined in this Privacy Policy.
 
-**Informatie verzamelen en gebruiken**
+**Information Collection and Use**
 
-Voor een betere ervaring, kan het zijn dat ik je nodig heb om ons bepaalde persoonlijk identificeerbare informatie te verstrekken. De informatie die ik verzoek wordt bewaard op uw apparaat en wordt op geen enkele manier door mij verzameld.
+For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and is not collected by me in any way.
 
-De app maakt wel gebruik van diensten van derden die informatie kunnen verzamelen om u te identificeren.
+The app does use third party services that may collect information used to identify you.
 
-Link naar privacybeleid van externe serviceproviders gebruikt door de app
+Link to privacy policy of third party service providers used by the app
 
 * [Google Play Services](https://www.google.com/policies/privacy/)
 
-**Koekjes**
+**Cookies**
 
-Cookies zijn bestanden met een kleine hoeveelheid gegevens die vaak worden gebruikt als anonieme unieke ID's. Deze worden verzonden naar uw browser van de websites die u bezoekt en worden opgeslagen in het interne geheugen van uw apparaat.
+Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory.
 
-Deze dienst gebruikt deze "cookies" niet expliciet. De app kan echter wel de code van derden en bibliotheken gebruiken die "cookies" gebruiken om informatie te verzamelen en hun diensten te verbeteren. U heeft de optie om deze cookies te accepteren of te weigeren en te weten wanneer een cookie wordt verzonden naar uw apparaat. Als u onze cookies wenst te weigeren, kunt u sommige delen van deze service niet gebruiken.
+This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
 
-**Service providers**
+**Service Providers**
 
-Ik kan bedrijven en personen uit derde landen in dienst nemen om de volgende redenen:
+I may employ third-party companies and individuals due to the following reasons:
 
-* Om onze service te faciliteren;
-* Om de dienst namens ons te leveren;
-* Service-gerelateerde diensten uitvoeren; of
-* Om ons te helpen bij het analyseren van hoe onze Service wordt gebruikt.
+* To facilitate our Service;
+* To provide the Service on our behalf;
+* To perform Service-related services; or
+* To assist us in analyzing how our Service is used.
 
-Ik wil de gebruikers van deze dienst informeren dat deze derden toegang hebben tot uw persoonlijke informatie. De reden is om de taken die hun namens ons zijn toegewezen uit te voeren. Ze zijn echter verplicht om de informatie niet voor enig ander doel openbaar te maken of te gebruiken.
+I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.
 
-**Beveiliging**
+**Security**
 
-Ik stel het op prijs dat u ons op de hoogte stelt van uw persoonlijke informatie, en wij proberen dus commercieel aanvaardbare middelen te gebruiken om deze te beschermen. Maar vergeet niet dat er geen methode is voor overdracht via het internet of elektronische opslag is 100% veilig en betrouwbaar, en ik kan de absolute veiligheid ervan niet garanderen.
+I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
 
-**Links naar andere sites**
+**Links to Other Sites**
 
-Deze dienst kan links naar andere websites bevatten. Als u op een link van derden klikt, wordt u doorverwezen naar die site. Merk op dat deze externe sites niet door mij worden beheerd. Daarom raad ik u sterk aan om het privacybeleid van deze websites te herzien. Ik heb geen controle over en neem geen verantwoordelijkheid op mij voor de inhoud, het privacybeleid of de praktijken van websites of diensten van derden.
+This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
 
-**Wijzigingen in dit privacybeleid**
+**Changes to This Privacy Policy**
 
-Ik kan ons privacybeleid van tijd tot tijd updaten. U wordt dus aangeraden om deze pagina periodiek te bekijken voor eventuele wijzigingen. Ik zal u op de hoogte brengen van eventuele wijzigingen door het nieuwe privacybeleid op deze pagina te plaatsen.
+I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.
 
-Dit beleid is van kracht vanaf 2021-02-07
+This policy is effective as of 2021-02-07
 
-**Contacteer ons**
+**Contact Us**
 
-Als u vragen of suggesties hebt over mijn privacybeleid, aarzel dan niet om contact met mij op te nemen via contact@linwood.dev.
+If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at contact@linwood.dev.
 
-Deze pagina over privacybeleid is gemaakt op [privacytemplate.net](https://privacypolicytemplate.net) en bewerkt / gegenereerd door [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
+This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
