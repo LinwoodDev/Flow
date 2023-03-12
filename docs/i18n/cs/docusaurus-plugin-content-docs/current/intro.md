@@ -2,6 +2,6 @@
 sidebar_position: 1
 ---
 
-# Úvod
+# Introduction
 
-Již brzy
+Coming soon
