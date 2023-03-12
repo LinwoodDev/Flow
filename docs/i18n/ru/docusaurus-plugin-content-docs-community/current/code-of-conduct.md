@@ -1,6 +1,6 @@
 ---
 title: Кодекс поведения
-hide_title: истина
+hide_title: true
 sidebar_label: Кодекс поведения
 ---
 
