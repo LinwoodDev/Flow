@@ -1,15 +1,15 @@
 ---
-title: "Build your own"
+title: "Bouw je eigen"
 sidebar_position: 1
 ---
 
-1. Install git and flutter (beta)
-2. Clone the repository
-3. Navigate to the app directory
-4. Use the flutter tool to compile the application
+1. Installeer git en flutter (bèta)
+2. Kloon de repository
+3. Navigeer naar de app directory
+4. Gebruik het flutter gereedschap om de applicatie te compileren
    * `flutter build apk`
-   * `flutter build appbundle`
+   * `flutter build appbundel`
    * `flutter build web`
    * `flutter build linux`
-   * `flutter build windows`
-5. The compiled files are in the build directory
+   * `flutter build vensters`
+5. De gecompileerde bestanden zijn in de build-map
