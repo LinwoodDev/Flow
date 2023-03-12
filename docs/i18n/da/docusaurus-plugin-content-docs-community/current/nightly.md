@@ -1,6 +1,6 @@
 ---
 title: "Natlige Bygninger"
-slug: "/nightly"
+slug: "/nat"
 ---
 
 :::warning
