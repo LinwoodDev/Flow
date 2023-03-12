@@ -1,9 +1,9 @@
 ---
-title: "Pre-1.0 εκδόσεις"
+title: "Pre-1.0 versions"
 ---
 
-Αυτές οι εκδόσεις δεν υποστηρίζονται πλέον. Νέες εκδόσεις είναι διαθέσιμες στις [εκδόσεις](versions.md).
+These versions are not supported anymore. New versions are available at [versions](versions.md).
 
-| Έκδοση | Υποστηριζόμενο |  |
-| ------ | -------------- |  |
-|        |                |  |
+| Version | Supported |  |
+| ------- | --------- |  |
+|         |           |  |
