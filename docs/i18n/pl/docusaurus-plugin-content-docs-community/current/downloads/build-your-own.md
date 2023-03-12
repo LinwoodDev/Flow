@@ -1,15 +1,15 @@
 ---
-title: "Zbuduj swój własny"
+title: "Build your own"
 sidebar_position: 1
 ---
 
-1. Zainstaluj git i flutter (beta)
-2. Sklonuj repozytorium
-3. Przejdź do katalogu aplikacji
-4. Użyj narzędzia do kompilacji aplikacji
-   * `apk kompilacji trzepotów`
-   * `paczka aplikacji do budowy trzepotów`
-   * `kompilacja trzepotów`
-   * `kompilacja flutter linuks`
-   * `okno budowy trzepotów`
-5. Skompilowane pliki są w katalogu kompilacji
+1. Install git and flutter (beta)
+2. Clone the repository
+3. Navigate to the app directory
+4. Use the flutter tool to compile the application
+   * `flutter build apk`
+   * `flutter build appbundle`
+   * `flutter build web`
+   * `flutter build linux`
+   * `flutter build windows`
+5. The compiled files are in the build directory
