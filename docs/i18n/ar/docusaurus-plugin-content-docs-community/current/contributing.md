@@ -1,7 +1,7 @@
 ---
-title: "Contributing"
-hide_title: true
-sidebar_label: "Contributing"
+title: "المساهمة"
+hide_title: صحيح
+sidebar_label: "المساهمة"
 ---
 
 ```mdx-code-block
