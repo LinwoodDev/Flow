@@ -5,7 +5,7 @@ sidebar_label: Seznam změn
 ---
 
 ```mdx-code-block
-import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
+importovat Changelog, {toc as ChangelogTOC} z "@site/../CHANGELOG.md"
 
 <Changelog />
 
