@@ -1,6 +1,6 @@
 ---
 id: "fællesskab"
-slug: "/community"
+slug: "/fællesskab"
 sidebar_label: "Hjem"
 sidebar_position: 0
 title: "Fællesskab"
