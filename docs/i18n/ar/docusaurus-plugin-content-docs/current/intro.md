@@ -2,6 +2,6 @@
 sidebar_position: 1
 ---
 
-# Introduction
+# مقدمة
 
-Coming soon
+قريباً
