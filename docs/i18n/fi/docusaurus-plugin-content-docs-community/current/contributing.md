@@ -1,13 +1,13 @@
 ---
 title: "Osallistuminen"
-hide_title: tosi
+hide_title: true
 sidebar_label: "Osallistuminen"
 ---
 
 ```mdx-code-block
-tuonti avustaa, {toc as ContributingTOC} kohteesta "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-vienti const toc = tributingTOC;
+export const toc = ContributingTOC;
 ```
