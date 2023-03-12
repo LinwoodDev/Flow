@@ -1,7 +1,7 @@
 ---
-title: Adfærdskodeks
-hide_title: sandt
-sidebar_label: Adfærdskodeks
+title: Code of conduct
+hide_title: true
+sidebar_label: Code of conduct
 ---
 
 ```mdx-code-block
