@@ -1,7 +1,7 @@
 ---
-title: "Contribuire"
-hide_title: vero
-sidebar_label: "Contribuire"
+title: "Contributing"
+hide_title: true
+sidebar_label: "Contributing"
 ---
 
 ```mdx-code-block
