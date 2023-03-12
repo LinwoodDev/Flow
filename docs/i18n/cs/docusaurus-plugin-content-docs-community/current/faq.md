@@ -1,8 +1,8 @@
 ---
 id: "faq"
 slug: "/faq"
-title: "Frequently Asked Questions"
-sidebar_label: "FAQ"
+title: "Často kladené otázky"
+sidebar_label: "Nejčastější dotazy"
 ---
 
-Here are some frequently asked questions.
+Zde jsou některé často kladené otázky.
