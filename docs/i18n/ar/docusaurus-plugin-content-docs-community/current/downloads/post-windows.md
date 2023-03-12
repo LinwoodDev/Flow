@@ -2,7 +2,7 @@
 title: شكرا لك على التحميل
 hide_title: true
 hide_table_of_contents: true
-slug: "/downloads/post-windows"
+slug: "/تنزيلات/ما بعد النوافذ"
 ---
 
 <div className="text-center margin-top--xl">
