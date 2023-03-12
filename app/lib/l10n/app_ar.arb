@@ -1,0 +1,206 @@
+{
+  "dashboard": "لوحة التحكم",
+  "calendar": "التقويم",
+  "places": "الأماكن",
+  "users": "المستخدمون",
+  "sources": "المصادر",
+  "settings": "الإعدادات",
+  "create": "إنشاء",
+  "information": "معلومات",
+  "source": "المصدر",
+  "license": "الترخيص",
+  "thirdPartyLicenses": "تراخيص الطرف الثالث",
+  "documentation": "الوثائق",
+  "privacyPolicy": "سياسة الخصوصية",
+  "imprint": "بصمة",
+  "releaseNotes": "ملاحظات الإصدار",
+  "changelog": "تغيير",
+  "legal": "قانوني",
+  "personalization": "التخصيص",
+  "design": "تصميم",
+  "language": "اللغة",
+  "theme": "السمة",
+  "classic": "كلاسيكي",
+  "systemDefault": "النظام الافتراضي",
+  "light": "فاتح",
+  "dark": "داكن",
+  "createPlace": "إنشاء مكان",
+  "cancel": "إلغاء",
+  "name": "الاسم",
+  "description": "الوصف",
+  "start": "ابدأ",
+  "next": "التالي",
+  "skip": "تخطي",
+  "back": "الرجوع",
+  "today": "اليوم",
+  "groups": "المجموعات",
+  "createGroup": "إنشاء مجموعة",
+  "editGroup": "تحرير المجموعة",
+  "list": "قائمة",
+  "day": "يوم",
+  "week": "أسبوع",
+  "month": "شهر",
+  "version": "الإصدار",
+  "intro": "مقدمة",
+  "webdav": "WebDAV",
+  "webdavDescription": "تتيح لك واجهة WebDAV الوصول إلى بياناتك من أي خادم WebDAV. يمكنك استخدامه لمزامنة بياناتك مع الأجهزة أو الخدمات الأخرى.",
+  "server": "خادم",
+  "serverDescription": "مزامنة بياناتك مع خادم لينود الأصلي. ينصح هذا للمستخدمين الذين يريدون استضافة بياناتهم ذاتيا.",
+  "googleDescription": "قم بمزامنة بياناتك مع جوجل. وهذا ينصح للمستخدمين الذين يريدون استخدام حساب جوجل للوصول إلى بياناتهم. ليست كل الميزات متوفرة مع هذا الخيار.",
+  "microsoftDescription": "قم بمزامنة بياناتك مع مايكروسوفت. ينصح هذا للمستخدمين الذين يريدون استخدام حساب مايكروسوفت للوصول إلى بياناتهم. ليست كل الميزات متوفرة مع هذا الخيار.",
+  "addSource": "إضافة مصدر",
+  "local": "محلي",
+  "close": "أغلق",
+  "unknown": "غير معروف",
+  "loading": "جاري التحميل",
+  "export": "تصدير",
+  "createEvent": "إنشاء حدث",
+  "save": "حفظ",
+  "allSources": "جميع المصادر",
+  "editEvent": "تحرير الحدث",
+  "end": "نهاية",
+  "location": "الموقع",
+  "status": "الحالة",
+  "confirmed": "مؤكد",
+  "draft": "مسودة",
+  "cancelled": "ملغاة",
+  "general": "عام",
+  "todos": "Todos",
+  "createTodo": "إنشاء مهمة",
+  "editTodo": "تحرير المهمة",
+  "indicatorEmpty": "لم يتم العثور على عناصر",
+  "indicatorEmptyDescription": "القائمة فارغة حاليا.",
+  "indicatorLoading": "جاري التحميل",
+  "indicatorError": "حدث خطأ",
+  "indicatorErrorDescription": "حدث خطأ أثناء تحميل البيانات.",
+  "tryAgain": "حاول مرة أخرى",
+  "eventInfo": "{event} في {date} في {time} في {location} ({status})",
+  "@eventInfo": {
+    "placeholders": {
+      "event": {
+        "type": "String",
+        "example": "Meeting"
+      },
+      "date": {
+        "type": "String",
+        "example": "2021-01-01"
+      },
+      "time": {
+        "type": "String",
+        "example": "12:00"
+      },
+      "location": {
+        "type": "String",
+        "example": "Office"
+      },
+      "status": {
+        "type": "String",
+        "example": "Confirmed"
+      }
+    }
+  },
+  "filter": "تصفية",
+  "done": "تم",
+  "inProgress": "قيد التقدم",
+  "todo": "Todo",
+  "delete": "حذف",
+  "edit": "تحرير",
+  "deleteGroup": "حذف المجموعة {name}",
+  "@deleteGroup": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "deleteGroupDescription": "هل أنت متأكد من أنك تريد حذف المجموعة {name}؟",
+  "@deleteGroupDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "groupName": "مجموعة {name}",
+  "@groupName": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "noData": "لا توجد بيانات لعرضها.",
+  "noEvents": "لا توجد أحداث لعرضها.",
+  "group": "مجموعة",
+  "search": "البحث",
+  "events": "الأحداث",
+  "past": "الماضي",
+  "decentralized": "لامركزية",
+  "decentralizedDescription": "تتيح لك الواجهة اللامركزية الوصول إلى بياناتك من أي خادم لامركزي. يمكنك استخدامه لمزامنة بياناتك مع الأجهزة أو الخدمات الأخرى.",
+  "importFile": "استيراد ملف",
+  "importFileDescription": "استيراد ملف من جهازك. يمكنك استيراد ملف قاعدة بيانات من نموذج لينود آخر أو ملف تقويم عادي.",
+  "place": "مكان",
+  "editPlace": "تعديل المكان",
+  "deletePlace": "حذف المكان {name}",
+  "@deletePlace": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "deletePlaceDescription": "هل أنت متأكد من أنك تريد حذف المكان {name}؟",
+  "@deletePlaceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "priority": "الأولوية",
+  "assignEvent": "تعيين الحدث",
+  "noEvent": "لا يوجد حدث",
+  "parentGroup": "المجموعة الأصل",
+  "deleteUser": "حذف المستخدم {name}",
+  "@deleteUser": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "createUser": "إنشاء مستخدم",
+  "editUser": "تحرير المستخدم",
+  "deleteUserDescription": "هل أنت متأكد من أنك تريد حذف المستخدم {name}؟",
+  "@deleteUserDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "pending": "معلق",
+  "removeEvent": "إزالة الحدث",
+  "event": "الحدث",
+  "nativeTitleBar": "شريط العنوان الأصلي",
+  "blocked": "محظور",
+  "countEvents": "{count, plural, =0 {لا أحداث} one {حدث واحد} other {{count} أحداث}}",
+  "@countEvents": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "import": "استيراد",
+  "confirmImport": "هل أنت متأكد من أنك تريد استيرادها؟",
+  "welcome": "مرحبا بك"
+}
