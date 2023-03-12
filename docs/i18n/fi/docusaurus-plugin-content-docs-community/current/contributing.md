@@ -1,7 +1,7 @@
 ---
-title: "Contributing"
-hide_title: true
-sidebar_label: "Contributing"
+title: "Osallistuminen"
+hide_title: tosi
+sidebar_label: "Osallistuminen"
 ---
 
 ```mdx-code-block
