@@ -2,6 +2,6 @@
 sidebar_position: 1
 ---
 
-# Johdanto
+# Introduction
 
-Tulossa pian
+Coming soon
