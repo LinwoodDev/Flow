@@ -201,5 +201,6 @@
     }
   },
   "import": "Import",
-  "confirmImport": "Are you sure you want to import it?"
+  "confirmImport": "Are you sure you want to import it?",
+  "welcome": "Welcome"
 }

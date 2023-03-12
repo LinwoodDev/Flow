@@ -11,7 +11,12 @@ class ImportDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(AppLocalizations.of(context).confirmImport),
-      content: Text(AppLocalizations.of(context).countEvents(events.length)),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(AppLocalizations.of(context).countEvents(events.length)),
+        ],
+      ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
