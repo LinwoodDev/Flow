@@ -2,6 +2,6 @@
 sidebar_position: 1
 ---
 
-# Introduction
+# Introductie
 
-Coming soon
+Binnenkort beschikbaar
