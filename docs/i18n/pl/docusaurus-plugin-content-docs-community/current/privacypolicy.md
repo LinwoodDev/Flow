@@ -1,61 +1,61 @@
 ---
-title: "Privacy Policy"
+title: "Polityka prywatności"
 slug: /privacypolicy
 ---
 
-This is the privacy policy of the app. Please read it carefully. Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
+To jest polityka prywatności aplikacji. Należy uważnie przeczytać ten dokument. Kliknij [tutaj](https://go.linwood.dev/privacypolicy) aby przeczytać politykę prywatności strony.
 
-CodeDoctor built the Flow app as an Open Source app. This SERVICE is provided by CodeDoctor at no cost and is intended for use as is.
+CodeDoctor zbudował aplikację Flow jako aplikację Open Source. Usługa ta jest świadczona przez CodeDoctor za wszelką cenę i jest przeznaczona do użytku.
 
-This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
+Ta strona jest używana do informowania odwiedzających o moich zasadach z kolekcją, wykorzystanie i ujawnianie informacji osobowych, jeżeli ktoś zdecydował się skorzystać z mojej usługi.
 
-If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.
+Jeśli zdecydujesz się korzystać z mojej usługi, zgadzasz się na zbieranie i wykorzystywanie informacji w związku z tą polityką. Osobiste informacje, które gromadzę, są wykorzystywane do świadczenia i doskonalenia usługi . Nie wykorzystam ani nie udostępnię twoich informacji nikomu poza opisem w niniejszej Polityce prywatności.
 
-The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at Flow unless otherwise defined in this Privacy Policy.
+Terminy używane w niniejszej Polityce Prywatności mają takie same znaczenie jak w naszym Regulaminie, które są dostępne przy przepływie danych, chyba że określono inaczej w niniejszej polityce prywatności.
 
-**Information Collection and Use**
+**Gromadzenie i wykorzystanie informacji**
 
-For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and is not collected by me in any way.
+Dla lepszego doświadczenia, korzystając z naszego serwisu, mogę wymagać od Państwa dostarczenia pewnych informacji możliwych do identyfikacji osobiście. Informacje, których zażądam, zostaną zachowane na Twoim urządzeniu i nie są zbierane przez mnie w żaden sposób.
 
-The app does use third party services that may collect information used to identify you.
+Aplikacja korzysta z usług firm trzecich, które mogą gromadzić informacje używane do identyfikacji Ciebie.
 
-Link to privacy policy of third party service providers used by the app
+Link do polityki prywatności dostawców usług będących osobami trzecimi używanych przez aplikację
 
-* [Google Play Services](https://www.google.com/policies/privacy/)
+* [Usługi Google Play](https://www.google.com/policies/privacy/)
 
-**Cookies**
+**Pliki cookie**
 
-Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory.
+Pliki cookie to pliki z niewielką ilością danych, które są powszechnie używane jako anonimowe niepowtarzalne identyfikatory. Są one wysyłane do Twojej przeglądarki ze stron, które odwiedzasz i są przechowywane w pamięci wewnętrznej urządzenia.
 
-This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
+Ta usługa nie używa tych "ciasteczek" bezpośrednio. Aplikacja może jednak używać kodu firm trzecich i bibliotek, które używają plików cookie do zbierania informacji i ulepszania swoich usług. Masz opcję , aby zaakceptować lub odrzucić te ciasteczka i wiedzieć kiedy ciasteczka są wysyłane na twoje urządzenie. Jeśli zdecydujesz się odrzucić nasze ciasteczka, możesz nie być w stanie użyć części tej usługi.
 
-**Service Providers**
+**Dostawcy usług**
 
-I may employ third-party companies and individuals due to the following reasons:
+Mogę zatrudniać przedsiębiorstwa i osoby fizyczne z następujących powodów:
 
-* To facilitate our Service;
-* To provide the Service on our behalf;
-* To perform Service-related services; or
-* To assist us in analyzing how our Service is used.
+* Ułatwić korzystanie z naszych usług;
+* świadczyć usługę w naszym imieniu;
+* Do świadczenia usług związanych z usługami; lub
+* Aby pomóc nam przeanalizować sposób korzystania z naszej usługi.
 
-I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.
+Chcę poinformować użytkowników tej usługi o tym, że te osoby trzecie mają dostęp do Twoich danych osobowych. Powodem jest wykonanie zadań przydzielonych im w naszym imieniu. Są one jednak zobowiązane do nieujawniania lub wykorzystywania informacji do innych celów.
 
-**Security**
+**Bezpieczeństwo**
 
-I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
+Doceniam wasze zaufanie do dostarczania nam Twoich danych osobowych, dlatego staramy się wykorzystać akceptowalne z handlowego punktu widzenia sposoby ich ochrony. Należy jednak pamiętać, że nie ma żadnej metody transmisji przez Internet, lub metoda przechowywania elektronicznego jest w 100% bezpieczna i niezawodna i nie mogę zagwarantować jej absolutnego bezpieczeństwa.
 
-**Links to Other Sites**
+**Linki do innych witryn**
 
-This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
+Ta usługa może zawierać linki do innych witryn. Jeśli klikniesz na link osoby trzeciej, zostaniesz przekierowany na tę stronę. Pamiętaj, że te zewnętrzne strony nie są obsługiwane przeze mnie. Dlatego też zdecydowanie zalecam zapoznanie się z Polityką Prywatności tych stron. Nie mam kontroli nad treścią, polityką ochrony prywatności ani praktykami stron internetowych lub usług osób trzecich.
 
-**Changes to This Privacy Policy**
+**Zmiany w polityce prywatności**
 
-I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.
+Mogę od czasu do czasu aktualizować naszą Politykę prywatności. Zaleca się zatem, aby okresowo przeglądać tę stronę pod kątem jakichkolwiek zmian. Powiadomię Cię o wszelkich zmianach, publikując nową Politykę prywatności na tej stronie .
 
-This policy is effective as of 2021-02-07
+Polityka ta jest skuteczna od 2021-02-07
 
-**Contact Us**
+**Skontaktuj się z nami**
 
-If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at contact@linwood.dev.
+Jeśli masz jakiekolwiek pytania lub sugestie dotyczące mojej polityki prywatności, nie wahaj się skontaktować ze mną pod adresem contact@linwood.dev.
 
-This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
+Ta strona polityki prywatności została utworzona w [privacypolicytemplate.net](https://privacypolicytemplate.net) i zmodyfikowana/wygenerowana przez [Generator Polityki prywatności](https://app-privacy-policy-generator.nisrulz.com/)
