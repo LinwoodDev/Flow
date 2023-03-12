@@ -1,6 +1,6 @@
 ---
 id: "FAQ"
-slug: "/faq"
+slug: "/veelgestelde vragen"
 title: "Veelgestelde vragen (FAQ's)"
 sidebar_label: "FAQ"
 ---
