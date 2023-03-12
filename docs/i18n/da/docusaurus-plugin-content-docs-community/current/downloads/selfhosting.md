@@ -3,22 +3,22 @@ title: "Selfhosting"
 sidebar_position: 5
 ---
 
-![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stabil version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-It is very easy to host your own flow web server.
+Det er meget nemt at være vært for din egen flow webserver.
 
-## Simple server
+## Simpel server
 
-Install flutter and build the app using:
+Installér flutter og opbyg app'en med:
 
 ```bash
 cd app
-flutter pub get
+flutter pub få
 flutter build web
 ```
 
-All the files are in the `app/build/web` directory.
+Alle filerne er i mappen `app/build/web`.
 
 ## Docker
 
-Clone the repository and build the `Dockerfile` using: `docker build -t linwood-flow`. Start the server using: `docker run -p 8080:8080 -d linwood-flow`.
+Klon lageret og opbyg `Dockerfilen` vha. `docker build -t linwood-flow`. Start serveren med: `docker run -p 8080:8080 -d linwood-flow`.
