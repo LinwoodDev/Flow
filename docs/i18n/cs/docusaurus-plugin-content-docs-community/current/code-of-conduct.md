@@ -1,7 +1,7 @@
 ---
-title: Code of conduct
-hide_title: true
-sidebar_label: Code of conduct
+title: Kodex chování
+hide_title: pravda
+sidebar_label: Kodex chování
 ---
 
 ```mdx-code-block
