@@ -1,15 +1,15 @@
 ---
-title: "Build your own"
+title: "Rakenna oma"
 sidebar_position: 1
 ---
 
-1. Install git and flutter (beta)
-2. Clone the repository
-3. Navigate to the app directory
-4. Use the flutter tool to compile the application
+1. Asenna git ja leikkuri (beta)
+2. Monista tietovarasto
+3. Siirry sovelluksen hakemistoon
+4. Käytä leikkuri työkalua sovelluksen kokoamiseen
    * `flutter build apk`
-   * `flutter build appbundle`
-   * `flutter build web`
-   * `flutter build linux`
-   * `flutter build windows`
-5. The compiled files are in the build directory
+   * `letter build appbundle`
+   * `leikkuri rakentaa web`
+   * `leikkuri rakentaa linux`
+   * `leikkurien rakennusikkunat`
+5. Käännetyt tiedostot ovat koostamishakemistossa
