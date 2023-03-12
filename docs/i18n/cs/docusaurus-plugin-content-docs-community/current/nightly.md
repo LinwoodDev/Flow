@@ -1,16 +1,16 @@
 ---
-title: "Nightly Builds"
+title: "Noční sestavení"
 slug: "/nightly"
 ---
 
-:::warning
+:::::varování
 
-Do not use the nightly version of Flow for production.
+Nepoužívejte noční verzi toku pro produkci.
 
 :::
 
-Nightly builds are designed to give you the option to test the latest version and get the newest features and give feedback.
+Noční sestavení jsou navržena tak, aby vám dala možnost otestovat nejnovější verzi a získat nejnovější funkce a poskytnout zpětnou vazbu.
 
-## Get the builds
+## Získat sestavení
 
-Go to the download pages of your platform. All nightly builds get also published as pre-release on github.
+Přejděte na stránky pro stahování vaší platformy. Všechny noční sestavení jsou také publikovány jako předběžný vydání na githubu.
