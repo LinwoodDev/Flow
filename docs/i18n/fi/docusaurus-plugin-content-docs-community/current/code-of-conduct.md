@@ -1,7 +1,7 @@
 ---
-title: Käytännesäännöt ja -säännöt
-hide_title: tosi
-sidebar_label: Käytännesäännöt ja -säännöt
+title: Code of conduct
+hide_title: true
+sidebar_label: Code of conduct
 ---
 
 ```mdx-code-block
