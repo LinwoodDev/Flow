@@ -5,9 +5,9 @@ sidebar_label: "Вклад"
 ---
 
 ```mdx-code-block
-импортировать вклад {toc as ContributingTOC} из "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-экспорт const toc = ContributingTOC;
+export const toc = ContributingTOC;
 ```
