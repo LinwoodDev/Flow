@@ -5,9 +5,9 @@ sidebar_label: Muutosloki
 ---
 
 ```mdx-code-block
-tuonti Changelog, {toc as ChangelogTOC} lähteestä "@site/../CHANGELOG.md"
+import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 
-vienti const toc = MuutosogTOC;
+export const toc = ChangelogTOC;
 ```
