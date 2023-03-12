@@ -1,6 +1,6 @@
 ---
 title: "Construcciones nocturnas"
-slug: "/nightly"
+slug: "/nocturno"
 ---
 
 :::advertencia
@@ -9,7 +9,7 @@ No utilice la versión nocturna de Flow para la producción.
 
 :::
 
-Las compilaciones nocturnas están diseñadas para darle la opción de probar la última versión y obtener las características más recientes y dar comentarios.
+Las versiones nocturnas están diseñadas para darle la opción de probar la última versión y obtener las características más recientes y dar comentarios.
 
 ## Obtener las construcciones
 
