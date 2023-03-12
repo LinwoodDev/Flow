@@ -5,9 +5,9 @@ sidebar_label: "المساهمة"
 ---
 
 ```mdx-code-block
-import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
+استيراد المساهمة، {toc as ContributingTOC} من "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-export const toc = ContributingTOC;
+تصدير toc = ContributingTOC؛
 ```

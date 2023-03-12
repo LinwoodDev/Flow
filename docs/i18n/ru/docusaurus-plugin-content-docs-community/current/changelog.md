@@ -5,9 +5,9 @@ sidebar_label: Список изменений
 ---
 
 ```mdx-code-block
-import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
+импортировать список изменений, {toc as ChangelogTOC} из "@site/../CHANGELOG.md"
 
 <Changelog />
 
-export const toc = ChangelogTOC;
+экспорт const toc = ChangelogTOC;
 ```

@@ -1,6 +1,6 @@
 ---
 id: "gemeenschap"
-slug: "/community"
+slug: "/gemeenschap"
 sidebar_label: "Startpagina"
 sidebar_position: 0
 title: "Gemeenschap"
