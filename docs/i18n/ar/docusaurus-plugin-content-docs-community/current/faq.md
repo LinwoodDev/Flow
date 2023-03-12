@@ -1,6 +1,6 @@
 ---
 id: "فاك"
-slug: "/Fq"
+slug: "/faq"
 title: "الأسئلة المتكررة"
 sidebar_label: "أسئلة متكررة"
 ---
