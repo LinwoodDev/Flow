@@ -1,7 +1,7 @@
 ---
-title: Endringslogg
-hide_title: sann
-sidebar_label: Endringslogg
+title: Changelog
+hide_title: true
+sidebar_label: Changelog
 ---
 
 ```mdx-code-block
