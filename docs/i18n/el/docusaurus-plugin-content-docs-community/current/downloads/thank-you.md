@@ -1,20 +1,20 @@
 ---
-title: Thank you for downloading
-hide_title: true
-hide_table_of_contents: true
+title: Σας ευχαριστούμε για τη λήψη
+hide_title: αληθές
+hide_table_of_contents: αληθές
 slug: "/downloads/thank-you"
 ---
 
 <div className="text-center margin-top--xl">
 
-# Thank you for downloading
+# Σας ευχαριστούμε για τη λήψη
 
 <div className="row margin-bottom--lg padding--sm flex-center">
 <a className="button button--outline button--warning button--lg margin--sm" href="/contributing">
-  Contribute to the project
+  Συνεισφέρετε στο έργο
 </a>
 <a className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
-  Join the community
+  Εγγραφείτε στην κοινότητα
 </a>
 
 </div>
