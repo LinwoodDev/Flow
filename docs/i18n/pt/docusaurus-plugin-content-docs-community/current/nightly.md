@@ -1,16 +1,16 @@
 ---
-title: "Nightly Builds"
+title: "Builds Noturnas"
 slug: "/nightly"
 ---
 
 :::warning
 
-Do not use the nightly version of Flow for production.
+Não use a versão noturna do Flow para produção.
 
 :::
 
-Nightly builds are designed to give you the option to test the latest version and get the newest features and give feedback.
+Builds Noturnas são projetadas para lhe dar a opção de testar a versão mais recente e obter os recursos mais recentes e dar feedback.
 
-## Get the builds
+## Obter as compilações
 
-Go to the download pages of your platform. All nightly builds get also published as pre-release on github.
+Vá para as páginas de download da sua plataforma. Todas as compilações noturnas também são publicadas como pré-lançamento no github.
