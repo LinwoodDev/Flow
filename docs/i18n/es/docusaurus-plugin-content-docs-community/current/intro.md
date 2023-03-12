@@ -1,25 +1,25 @@
 ---
-id: "community"
+id: "comunidad"
 slug: "/community"
-sidebar_label: "Home"
+sidebar_label: "Inicio"
 sidebar_position: 0
-title: "Community"
+title: "Comunidad"
 ---
 
-Welcome to the community section.
+Bienvenido a la sección de la comunidad.
 
-## Acknowledgements
+## Agradecimientos
 
-A special thanks goes to:
+Un agradecimiento especial es:
 
-* <https://github.com/flutter/flutter> for providing this useful crossplatform ui framework
-* <https://github.com/leanflutter/window_manager> for all this useful desktop window features
-* <https://github.com/facebook/docusaurus> for an easy-to-use static react documentation framework
+* <https://github.com/flutter/flutter> por proporcionar este útil framework multiplataforma ui
+* <https://github.com/leanflutter/window_manager> para todas estas útiles características de ventana de escritorio
+* <https://github.com/facebook/docusaurus> para un framework de documentación de reacción estática fácil de usar
 
-All other licenses can you found in the settings.
+Todas las demás licencias se pueden encontrar en los ajustes.
 
-## Useful links
+## Enlaces útiles
 
 * [GitHub](https://github.com/LinwoodCloud/Flow)
-* [Discord](https://go.linwood.dev/discord)
-* [Matrix](https://go.linwood.dev/matrix)
+* [Discordia](https://go.linwood.dev/discord)
+* [Matriz](https://go.linwood.dev/matrix)
