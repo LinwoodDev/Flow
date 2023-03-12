@@ -1,16 +1,16 @@
 ---
-title: "Nightly Builds"
+title: "Construire nocturnă"
 slug: "/nightly"
 ---
 
-:::warning
+:::Avertisment
 
-Do not use the nightly version of Flow for production.
+Nu utilizaţi versiunea nocturnă a fluxului pentru producţie.
 
 :::
 
-Nightly builds are designed to give you the option to test the latest version and get the newest features and give feedback.
+Construcțiile nocturne sunt concepute pentru a vă oferi opțiunea de a testa cea mai recentă versiune și de a obține cele mai noi funcționalități și de a da feedback.
 
-## Get the builds
+## Obțineți versiunile
 
-Go to the download pages of your platform. All nightly builds get also published as pre-release on github.
+Mergeți la paginile de descărcare ale platformei dvs. Toate construcțiile nocturne sunt publicate și ca versiune pre-lansată pe github.
