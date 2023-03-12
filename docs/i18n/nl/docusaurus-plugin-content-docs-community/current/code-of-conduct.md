@@ -5,9 +5,9 @@ sidebar_label: Gedragscode
 ---
 
 ```mdx-code-block
-import CodeOfConduct, {toc as CodeOfConductTOC} from "@site/../CODE_OF_CONDUCT.md"
+importeer CodeOfConduct, {toc as CodeOfConductTOC} van "@site/../CODE_OF_CONDUCT.md"
 
 <CodeOfConduct />
 
-export const toc = CodeOfConductTOC;
+exporteer const toc = CodeOfConductTOC;
 ```
