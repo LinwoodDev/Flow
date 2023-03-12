@@ -1,35 +1,35 @@
 ---
-title: Thank you for downloading
-hide_title: true
-hide_table_of_contents: true
+title: شكرا لك على التحميل
+hide_title: صحيح
+hide_table_of_contents: صحيح
 slug: "/downloads/post-windows"
 ---
 
 <div className="text-center margin-top--xl">
 
-# Thank you for downloading
+# شكرا لك على التحميل
 
 <div className="row margin-bottom--lg padding--sm flex-center">
 <a className="button button--outline button--warning button--lg margin--sm" href="/contributing">
-  Contribute to the project
+  ساهم في المشروع
 </a>
 <a className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
-  Join the community
+  انضم إلى المجتمع
 </a>
 
 </div>
 
-## Windows SmartScreen
+## # Windows SmartSscreen
 
 
-Windows warns users when installing software without a certificate.
+يحذر مستخدمي ويندوز عند تثبيت البرنامج بدون شهادة.
 
 ![Smart screen](/img/smart-screen.png)
 
-To install the app, you need to click on "More info".
+لتثبيت التطبيق، تحتاج إلى النقر على "المزيد من المعلومات".
 
-![Smart screen more info](/img/smart-screen-more-info.png)
+![الشاشة الذكية المزيد من المعلومات](/img/smart-screen-more-info.png)
 
-Then, click on "Run anyway".
+ثم انقر على "تشغيل على أي حال".
 
 </div>
