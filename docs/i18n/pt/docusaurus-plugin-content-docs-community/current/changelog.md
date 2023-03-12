@@ -1,7 +1,7 @@
 ---
-title: Mudanças
-hide_title: verdadeiro
-sidebar_label: Mudanças
+title: Changelog
+hide_title: true
+sidebar_label: Changelog
 ---
 
 ```mdx-code-block
