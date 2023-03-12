@@ -2,7 +2,7 @@
 title: Спасибо за загрузку
 hide_title: истина
 hide_table_of_contents: истина
-slug: "/downloads/thank-you"
+slug: "/downloads/ank-you"
 ---
 
 <div className="text-center margin-top--xl">
