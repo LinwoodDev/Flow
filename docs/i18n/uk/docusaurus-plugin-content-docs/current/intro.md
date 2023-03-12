@@ -2,6 +2,6 @@
 sidebar_position: 1
 ---
 
-# Вступ
+# Introduction
 
-Чекайте вже скоро
+Coming soon
