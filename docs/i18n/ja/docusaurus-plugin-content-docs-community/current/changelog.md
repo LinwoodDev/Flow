@@ -1,7 +1,7 @@
 ---
-title: 更新履歴
+title: Changelog
 hide_title: true
-sidebar_label: 更新履歴
+sidebar_label: Changelog
 ---
 
 ```mdx-code-block
