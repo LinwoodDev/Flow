@@ -1,6 +1,6 @@
 ---
 id: "сообщество"
-slug: "/community"
+slug: "/сообщество"
 sidebar_label: "Домашний"
 sidebar_position: 0
 title: "Сообщество"
