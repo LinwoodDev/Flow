@@ -1,0 +1,206 @@
+{
+  "dashboard": "Pulpit",
+  "calendar": "Kalendarz",
+  "places": "Miejsca",
+  "users": "Użytkownicy",
+  "sources": "Źródła",
+  "settings": "Ustawienia",
+  "create": "Utwórz",
+  "information": "Informacje",
+  "source": "Źródło",
+  "license": "Licencja",
+  "thirdPartyLicenses": "Licencje osób trzecich",
+  "documentation": "Dokumentacja",
+  "privacyPolicy": "Polityka prywatności",
+  "imprint": "Nadruk",
+  "releaseNotes": "Informacje o wydaniu",
+  "changelog": "Lista zmian",
+  "legal": "Prawne",
+  "personalization": "Personalizacja",
+  "design": "Projekt",
+  "language": "Język",
+  "theme": "Motyw",
+  "classic": "Klasyczny",
+  "systemDefault": "Domyślne systemowe",
+  "light": "Światło",
+  "dark": "Ciemny",
+  "createPlace": "Utwórz miejsce",
+  "cancel": "Anuluj",
+  "name": "Nazwisko",
+  "description": "Opis",
+  "start": "Rozpocznij",
+  "next": "Następny",
+  "skip": "Pomiń",
+  "back": "Powrót",
+  "today": "Dziś",
+  "groups": "Grupy",
+  "createGroup": "Utwórz grupę",
+  "editGroup": "Edytuj grupę",
+  "list": "Lista",
+  "day": "Dzień",
+  "week": "Tydzień",
+  "month": "Miesiąc",
+  "version": "Wersja",
+  "intro": "Wprowadzenie",
+  "webdav": "WebDAV",
+  "webdavDescription": "Interfejs WebDAV umożliwia dostęp do danych z dowolnego serwera WebDAV. Możesz go użyć do synchronizacji swoich danych z innymi urządzeniami lub usługami.",
+  "server": "Serwer",
+  "serverDescription": "Synchronizuj swoje dane z natywnym serwerem Linwood Flow. Jest to zalecane dla użytkowników, którzy chcą samodzielnie hostować swoje dane.",
+  "googleDescription": "Synchronizuj swoje dane z Google. Jest to zalecane dla użytkowników, którzy chcą używać swojego konta Google, aby uzyskać dostęp do swoich danych. Nie wszystkie funkcje są dostępne w tej opcji.",
+  "microsoftDescription": "Synchronizuj swoje dane z Microsoft. Jest to zalecane dla użytkowników, którzy chcą używać swojego konta Microsoft, aby uzyskać dostęp do swoich danych. Nie wszystkie funkcje są dostępne w tej opcji.",
+  "addSource": "Dodaj źródło",
+  "local": "Lokalny",
+  "close": "Zamknij",
+  "unknown": "Nieznane",
+  "loading": "Ładowanie",
+  "export": "Eksportuj",
+  "createEvent": "Utwórz wydarzenie",
+  "save": "Zapisz",
+  "allSources": "Wszystkie źródła",
+  "editEvent": "Edytuj wydarzenie",
+  "end": "Koniec",
+  "location": "Lokalizacja",
+  "status": "Status",
+  "confirmed": "Potwierdzone",
+  "draft": "Szkic",
+  "cancelled": "Anulowane",
+  "general": "Ogólny",
+  "todos": "Todos",
+  "createTodo": "Utwórz zadanie",
+  "editTodo": "Edytuj zadanie",
+  "indicatorEmpty": "Nie znaleziono elementów",
+  "indicatorEmptyDescription": "Lista jest obecnie pusta.",
+  "indicatorLoading": "Ładowanie",
+  "indicatorError": "Wystąpił błąd",
+  "indicatorErrorDescription": "Wystąpił błąd podczas ładowania danych.",
+  "tryAgain": "Spróbuj ponownie",
+  "eventInfo": "{event} dnia {date} o {time} w {location} ({status})",
+  "@eventInfo": {
+    "placeholders": {
+      "event": {
+        "type": "String",
+        "example": "Meeting"
+      },
+      "date": {
+        "type": "String",
+        "example": "2021-01-01"
+      },
+      "time": {
+        "type": "String",
+        "example": "12:00"
+      },
+      "location": {
+        "type": "String",
+        "example": "Office"
+      },
+      "status": {
+        "type": "String",
+        "example": "Confirmed"
+      }
+    }
+  },
+  "filter": "Filtr",
+  "done": "Gotowe",
+  "inProgress": "W toku",
+  "todo": "Todo",
+  "delete": "Usuń",
+  "edit": "Edytuj",
+  "deleteGroup": "Usuń grupę {name}",
+  "@deleteGroup": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "deleteGroupDescription": "Czy na pewno chcesz usunąć grupę {name}?",
+  "@deleteGroupDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "groupName": "Grupa {name}",
+  "@groupName": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "noData": "Brak danych do wyświetlenia.",
+  "noEvents": "Brak wydarzeń do wyświetlenia.",
+  "group": "Grupa",
+  "search": "Szukaj",
+  "events": "Wydarzenia",
+  "past": "W przeszłości",
+  "decentralized": "Zdecentralizowany",
+  "decentralizedDescription": "Interfejs zdecentralizowany umożliwia dostęp do danych z dowolnego zdecentralizowanego serwera. Możesz go użyć do synchronizacji swoich danych z innymi urządzeniami lub usługami.",
+  "importFile": "Importuj plik",
+  "importFileDescription": "Importuj plik z urządzenia. Możesz zaimportować plik bazy danych z innej instancji Linwood Flow lub zwykłego pliku kalendarza.",
+  "place": "Umiejscowienie",
+  "editPlace": "Edytuj miejsce",
+  "deletePlace": "Usuń miejsce {name}",
+  "@deletePlace": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "deletePlaceDescription": "Czy na pewno chcesz usunąć miejsce {name}?",
+  "@deletePlaceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "priority": "Priorytet",
+  "assignEvent": "Przypisz wydarzenie",
+  "noEvent": "Brak wydarzenia",
+  "parentGroup": "Grupa nadrzędna",
+  "deleteUser": "Usuń użytkownika {name}",
+  "@deleteUser": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "createUser": "Utwórz użytkownika",
+  "editUser": "Edytuj użytkownika",
+  "deleteUserDescription": "Czy na pewno chcesz usunąć użytkownika {name}?",
+  "@deleteUserDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "pending": "Oczekujące",
+  "removeEvent": "Usuń wydarzenie",
+  "event": "Wydarzenie",
+  "nativeTitleBar": "Natywny pasek tytułu",
+  "blocked": "Zablokowane",
+  "countEvents": "{count, plural, =0 {Brak wydarzeń} one {1 wydarzenie} other {{count} wydarzenia}}",
+  "@countEvents": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "import": "Importuj",
+  "confirmImport": "Czy na pewno chcesz go zaimportować?",
+  "welcome": "Witaj"
+}

@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "Următoarea",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Tutorial - Basics": {
+    "message": "Tutorial - Principal",
+    "description": "The label for category Tutorial - Basics in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Tutorial - Extras": {
+    "message": "Tutorial - Extra",
+    "description": "The label for category Tutorial - Extras in sidebar tutorialSidebar"
+  }
+}

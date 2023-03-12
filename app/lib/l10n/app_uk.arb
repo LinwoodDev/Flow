@@ -1,0 +1,206 @@
+{
+  "dashboard": "Приладна дошка",
+  "calendar": "Календар",
+  "places": "Місця",
+  "users": "Спільноти",
+  "sources": "Джерела",
+  "settings": "Налаштування",
+  "create": "Створити",
+  "information": "Інформація про нас",
+  "source": "Джерело",
+  "license": "Ліцензія",
+  "thirdPartyLicenses": "Ліцензії третіх сторін",
+  "documentation": "Документація",
+  "privacyPolicy": "Політика конфіденційності",
+  "imprint": "Відомості",
+  "releaseNotes": "Примітки до релізу",
+  "changelog": "Список змін",
+  "legal": "Юридичні",
+  "personalization": "Персоналізація",
+  "design": "Дизайн",
+  "language": "Мова:",
+  "theme": "Тема",
+  "classic": "Класичний",
+  "systemDefault": "Системна по замовчуванню",
+  "light": "Світла",
+  "dark": "Темна",
+  "createPlace": "Створити місце",
+  "cancel": "Скасувати",
+  "name": "Ім'я",
+  "description": "Опис",
+  "start": "Старт",
+  "next": "Уперед",
+  "skip": "Пропустити",
+  "back": "Відмінити",
+  "today": "Сьогодні",
+  "groups": "Групи",
+  "createGroup": "Створити групу",
+  "editGroup": "Редагувати групу",
+  "list": "Список",
+  "day": "День",
+  "week": "Тижні",
+  "month": "Місяць",
+  "version": "Версія",
+  "intro": "Вступ",
+  "webdav": "WebDAV",
+  "webdavDescription": "Інтерфейс WebDAV дозволяє отримати доступ до ваших даних з будь-якого сервера WebDAV. Ви можете використовувати його для синхронізації ваших даних з іншими пристроями або сервісами.",
+  "server": "Сервер",
+  "serverDescription": "Синхронізація даних з рідним сервером Linwood Flow. Рекомендується для користувачів, які хочуть самотужки їх дані.",
+  "googleDescription": "Синхронізуйте ваші дані з Google. Це рекомендується для користувачів, які хочуть використовувати свій обліковий запис Google, щоб отримати доступ до їх даних. Не всі функції доступні для цієї опції.",
+  "microsoftDescription": "Синхронізуйте свої дані з Microsoft. Рекомендується для користувачів, які хочуть використовувати свій обліковий запис Microsoft, щоб отримати доступ до їх даних. Не всі функції доступні для цієї опції.",
+  "addSource": "Додати джерело",
+  "local": "Місцевий",
+  "close": "Закрити",
+  "unknown": "Не вказано",
+  "loading": "Завантаження",
+  "export": "Експорт",
+  "createEvent": "Створити подію",
+  "save": "Зберегти",
+  "allSources": "Всі джерела",
+  "editEvent": "Редагувати подію",
+  "end": "Кінець",
+  "location": "Місцезнаходження",
+  "status": "Статус",
+  "confirmed": "Підтверджений",
+  "draft": "Креслення",
+  "cancelled": "Скасовано",
+  "general": "Загальні налаштування",
+  "todos": "Todos",
+  "createTodo": "Створити todo",
+  "editTodo": "Редагувати todo",
+  "indicatorEmpty": "Нічого не знайдено",
+  "indicatorEmptyDescription": "Список наразі порожній.",
+  "indicatorLoading": "Завантаження",
+  "indicatorError": "Виникла помилка",
+  "indicatorErrorDescription": "Сталася помилка під час завантаження даних.",
+  "tryAgain": "Спробуйте ще раз",
+  "eventInfo": "{event} {date} о {time} в {location} ({status})",
+  "@eventInfo": {
+    "placeholders": {
+      "event": {
+        "type": "String",
+        "example": "Meeting"
+      },
+      "date": {
+        "type": "String",
+        "example": "2021-01-01"
+      },
+      "time": {
+        "type": "String",
+        "example": "12:00"
+      },
+      "location": {
+        "type": "String",
+        "example": "Office"
+      },
+      "status": {
+        "type": "String",
+        "example": "Confirmed"
+      }
+    }
+  },
+  "filter": "Фільтр",
+  "done": "Виконано",
+  "inProgress": "Обробка",
+  "todo": "Todo",
+  "delete": "Видалити",
+  "edit": "Редагувати",
+  "deleteGroup": "Видалити групу {name}",
+  "@deleteGroup": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "deleteGroupDescription": "Ви дійсно бажаєте видалити групу {name}?",
+  "@deleteGroupDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "groupName": "Група {name}",
+  "@groupName": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "noData": "Немає даних для відображення.",
+  "noEvents": "Немає подій для відображення.",
+  "group": "Група",
+  "search": "Пошук",
+  "events": "Події",
+  "past": "Минуле",
+  "decentralized": "Децентралізовано",
+  "decentralizedDescription": "Децентралізований інтерфейс дозволяє отримати доступ до ваших даних з будь-якого децентралізованого сервера. Ви можете використовувати його для синхронізації ваших даних з іншими пристроями або сервісами.",
+  "importFile": "Імпортувати файл",
+  "importFileDescription": "Імпортуйте файл з вашого пристрою. Ви можете імпортувати файл бази даних з іншого файлу Linwood Flow екземпляра або звичний файл календаря.",
+  "place": "Місце",
+  "editPlace": "Редагувати місце",
+  "deletePlace": "Видалити місце {name}",
+  "@deletePlace": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "deletePlaceDescription": "Ви дійсно бажаєте видалити місце {name}?",
+  "@deletePlaceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "priority": "Пріоритет",
+  "assignEvent": "Призначити подію",
+  "noEvent": "Немає подій",
+  "parentGroup": "Батьківська група",
+  "deleteUser": "Видалити користувача {name}",
+  "@deleteUser": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "createUser": "Створити користувача",
+  "editUser": "Редагувати користувача",
+  "deleteUserDescription": "Ви дійсно бажаєте видалити користувача {name}?",
+  "@deleteUserDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "pending": "Очікує підтвердження",
+  "removeEvent": "Видалити подію",
+  "event": "Подія",
+  "nativeTitleBar": "Область заголовка",
+  "blocked": "Заблоковано",
+  "countEvents": "{count, plural, =0 {Немає подій} one {1 подія} other {{count} події}}",
+  "@countEvents": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "import": "Імпорт",
+  "confirmImport": "Ви впевнені, що хочете імпортувати його?",
+  "welcome": "Вітаємо"
+}

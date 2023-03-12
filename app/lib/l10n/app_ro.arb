@@ -1,0 +1,206 @@
+{
+  "dashboard": "Panou",
+  "calendar": "Calendar",
+  "places": "Locuri",
+  "users": "Utilizatori",
+  "sources": "Surse",
+  "settings": "Setări",
+  "create": "Crează",
+  "information": "Informare",
+  "source": "Sursa",
+  "license": "Licenta",
+  "thirdPartyLicenses": "Licențe terțe",
+  "documentation": "Documentație",
+  "privacyPolicy": "Politica de confidenţialitate",
+  "imprint": "Amprentă",
+  "releaseNotes": "Note de lansare",
+  "changelog": "Jurnal modificări",
+  "legal": "Juridic",
+  "personalization": "Personalizare",
+  "design": "Proiectare",
+  "language": "Limba",
+  "theme": "Tema",
+  "classic": "Clasic",
+  "systemDefault": "Implicit sistem",
+  "light": "Lumină",
+  "dark": "Întunecat",
+  "createPlace": "Creează un loc",
+  "cancel": "Anulează",
+  "name": "Nume",
+  "description": "Descriere",
+  "start": "Pornire",
+  "next": "Următoarea",
+  "skip": "Omitere",
+  "back": "Înapoi",
+  "today": "Astăzi",
+  "groups": "Grupuri",
+  "createGroup": "Creare grup",
+  "editGroup": "Editează grup",
+  "list": "Listă",
+  "day": "Zi",
+  "week": "Saptamana",
+  "month": "Lună",
+  "version": "Versiune",
+  "intro": "Introducere",
+  "webdav": "WebDAV",
+  "webdavDescription": "Interfaţa WebDAV vă permite să accesaţi datele de pe orice server WebDAV. Îl puteți folosi pentru a vă sincroniza datele cu alte dispozitive sau servicii.",
+  "server": "Server",
+  "serverDescription": "Sincronizați-vă datele cu un server nativ Linwood Flow server. Acest lucru este recomandat utilizatorilor care doresc să își găzduiască datele.",
+  "googleDescription": "Sincronizați-vă datele cu Google. Acest lucru este recomandat pentru utilizatorii care doresc să utilizeze contul lor Google pentru a le accesa datele. Nu sunt disponibile toate caracteristicile cu această opțiune.",
+  "microsoftDescription": "Sincronizează-ți datele cu Microsoft. Acest lucru este recomandat utilizatorilor care doresc să își folosească contul Microsoft pentru a-și accesa datele. Nu sunt disponibile toate caracteristicile cu această opțiune.",
+  "addSource": "Adaugă sursă",
+  "local": "Local",
+  "close": "Inchide",
+  "unknown": "Necunoscut",
+  "loading": "Încărcare",
+  "export": "Exportă",
+  "createEvent": "Crează eveniment",
+  "save": "Salvează",
+  "allSources": "Toate sursele",
+  "editEvent": "Editare eveniment",
+  "end": "Sfârșit",
+  "location": "Locaţie",
+  "status": "Status",
+  "confirmed": "Confirmare",
+  "draft": "Schiță",
+  "cancelled": "Anulat",
+  "general": "Generalități",
+  "todos": "Todos",
+  "createTodo": "Creare todo",
+  "editTodo": "Editare todo",
+  "indicatorEmpty": "Niciun element găsit",
+  "indicatorEmptyDescription": "Lista este în prezent goală.",
+  "indicatorLoading": "Încărcare",
+  "indicatorError": "A aparut o eroare",
+  "indicatorErrorDescription": "A apărut o eroare la încărcarea datelor.",
+  "tryAgain": "Încercați din nou",
+  "eventInfo": "{event} pe {date} la {time} în {location} ({status})",
+  "@eventInfo": {
+    "placeholders": {
+      "event": {
+        "type": "String",
+        "example": "Meeting"
+      },
+      "date": {
+        "type": "String",
+        "example": "2021-01-01"
+      },
+      "time": {
+        "type": "String",
+        "example": "12:00"
+      },
+      "location": {
+        "type": "String",
+        "example": "Office"
+      },
+      "status": {
+        "type": "String",
+        "example": "Confirmed"
+      }
+    }
+  },
+  "filter": "Filtrare",
+  "done": "Terminat",
+  "inProgress": "În curs",
+  "todo": "Todo",
+  "delete": "Ștergere",
+  "edit": "Editare",
+  "deleteGroup": "Șterge grupul {name}",
+  "@deleteGroup": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "deleteGroupDescription": "Ești sigur că vrei să ștergi grupul {name}?",
+  "@deleteGroupDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "groupName": "Grup {name}",
+  "@groupName": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "noData": "Nu există date de afișat.",
+  "noEvents": "Nu sunt evenimente de afișat.",
+  "group": "Grup",
+  "search": "Caută",
+  "events": "Evenimente",
+  "past": "Trecute",
+  "decentralized": "Descentralizat",
+  "decentralizedDescription": "Interfața descentralizată îți permite să accesezi datele tale de la orice server descentralizat. Îl puteți folosi pentru a vă sincroniza datele cu alte dispozitive sau servicii.",
+  "importFile": "Importă fișier",
+  "importFileDescription": "Importă un fișier de pe dispozitivul tău. Poți importa un fișier de bază de date dintr-o altă instanță de flori Linwood sau un fișier calendar obișnuit.",
+  "place": "Locul",
+  "editPlace": "Editează locul",
+  "deletePlace": "Șterge locul {name}",
+  "@deletePlace": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "deletePlaceDescription": "Ești sigur că vrei să ștergi locul {name}?",
+  "@deletePlaceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "priority": "Prioritate",
+  "assignEvent": "Atribuire eveniment",
+  "noEvent": "Niciun eveniment",
+  "parentGroup": "Grup părinte",
+  "deleteUser": "Ștergere utilizator {name}",
+  "@deleteUser": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "createUser": "Creare utilizator",
+  "editUser": "Editare utilizator",
+  "deleteUserDescription": "Ești sigur că vrei să ștergi utilizatorul {name}?",
+  "@deleteUserDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "pending": "In asteptare",
+  "removeEvent": "Elimină eveniment",
+  "event": "Eveniment",
+  "nativeTitleBar": "Bară titlu nativ",
+  "blocked": "Blocat",
+  "countEvents": "{count, plural, =0 {Niciun eveniment} one {1 eveniment} other {{count} evenimente}}",
+  "@countEvents": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "import": "Importă",
+  "confirmImport": "Sunteţi sigur că doriţi să importați?",
+  "welcome": "Bun venit"
+}

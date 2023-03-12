@@ -1,0 +1,206 @@
+{
+  "dashboard": "Nástěnka",
+  "calendar": "Kalendář",
+  "places": "Místa",
+  "users": "Uživatelé",
+  "sources": "Zdroje",
+  "settings": "Nastavení",
+  "create": "Vytvořit",
+  "information": "Informace",
+  "source": "Zdroj",
+  "license": "Licence",
+  "thirdPartyLicenses": "Licence třetích stran",
+  "documentation": "Dokumentace",
+  "privacyPolicy": "Ochrana osobních údajů",
+  "imprint": "Tisk",
+  "releaseNotes": "Poznámky k vydání",
+  "changelog": "Seznam změn",
+  "legal": "Právní předpisy",
+  "personalization": "Přizpůsobení",
+  "design": "Vzhled",
+  "language": "Jazyk",
+  "theme": "Téma",
+  "classic": "Klasický",
+  "systemDefault": "Výchozí nastavení systému",
+  "light": "Světlý",
+  "dark": "Tmavý",
+  "createPlace": "Vytvořit místo",
+  "cancel": "Zrušit",
+  "name": "Název",
+  "description": "L 343, 22.12.2009, s. 1).",
+  "start": "Začít",
+  "next": "Další",
+  "skip": "Přeskočit",
+  "back": "Zpět",
+  "today": "Dnes",
+  "groups": "Skupiny",
+  "createGroup": "Vytvořit skupinu",
+  "editGroup": "Upravit skupinu",
+  "list": "Seznam",
+  "day": "Den",
+  "week": "Týden",
+  "month": "Měsíc",
+  "version": "Verze",
+  "intro": "Úvod",
+  "webdav": "WebDAV",
+  "webdavDescription": "WebDAV rozhraní umožňuje přístup k vašim datům z jakéhokoliv WebDAV serveru. Můžete ji použít k synchronizaci dat s jinými zařízeními nebo službami.",
+  "server": "Server",
+  "serverDescription": "Synchronizujte svá data s nativním Linwood Flow serverem. To je doporučeno pro uživatele, kteří chtějí hostit svá data.",
+  "googleDescription": "Synchronizujte svá data s Googlem. To je doporučeno uživatelům, kteří chtějí použít svůj účet Google pro přístup ke svým datům. Ne všechny funkce jsou dostupné s touto možností.",
+  "microsoftDescription": "Synchronizujte svá data s Microsoftem. To je doporučeno pro uživatele, kteří chtějí použít svůj účet Microsoft pro přístup ke svým datům. Ne všechny funkce jsou dostupné s touto možností.",
+  "addSource": "Přidat zdroj",
+  "local": "Místní",
+  "close": "Zavřít",
+  "unknown": "Neznámý",
+  "loading": "Načítání",
+  "export": "Exportovat",
+  "createEvent": "Vytvořit událost",
+  "save": "Uložit",
+  "allSources": "Všechny zdroje",
+  "editEvent": "Upravit událost",
+  "end": "Ukončit",
+  "location": "Poloha",
+  "status": "Stav",
+  "confirmed": "Potvrzeno",
+  "draft": "Koncept",
+  "cancelled": "Zrušeno",
+  "general": "Obecná ustanovení",
+  "todos": "Todos",
+  "createTodo": "Vytvořit úkol",
+  "editTodo": "Upravit úkol",
+  "indicatorEmpty": "Nebyly nalezeny žádné položky",
+  "indicatorEmptyDescription": "Seznam je momentálně prázdný.",
+  "indicatorLoading": "Načítání",
+  "indicatorError": "Došlo k chybě",
+  "indicatorErrorDescription": "Při načítání dat došlo k chybě.",
+  "tryAgain": "Zkuste to znovu",
+  "eventInfo": "{event} dne {date} v {time} v {location} ({status})",
+  "@eventInfo": {
+    "placeholders": {
+      "event": {
+        "type": "String",
+        "example": "Meeting"
+      },
+      "date": {
+        "type": "String",
+        "example": "2021-01-01"
+      },
+      "time": {
+        "type": "String",
+        "example": "12:00"
+      },
+      "location": {
+        "type": "String",
+        "example": "Office"
+      },
+      "status": {
+        "type": "String",
+        "example": "Confirmed"
+      }
+    }
+  },
+  "filter": "Filtr",
+  "done": "Hotovo",
+  "inProgress": "Probíhá",
+  "todo": "Todo",
+  "delete": "Vymazat",
+  "edit": "Upravit",
+  "deleteGroup": "Odstranit skupinu {name}",
+  "@deleteGroup": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "deleteGroupDescription": "Jste si jisti, že chcete odstranit skupinu {name}?",
+  "@deleteGroupDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "groupName": "Skupina {name}",
+  "@groupName": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "noData": "Žádná data k zobrazení.",
+  "noEvents": "Nebyly nalezeny žádné události k zobrazení.",
+  "group": "Skupina",
+  "search": "Hledat",
+  "events": "Události",
+  "past": "Minulé",
+  "decentralized": "Decentralizováno",
+  "decentralizedDescription": "decentralizované rozhraní umožňuje přístup k vašim datům z libovolného decentralizovaného serveru. Můžete ji použít k synchronizaci dat s jinými zařízeními nebo službami.",
+  "importFile": "Importovat soubor",
+  "importFileDescription": "Importujte soubor z vašeho zařízení. Můžete importovat databázový soubor z jiné instance toku linwood nebo z běžného souboru kalendáře.",
+  "place": "Umístění",
+  "editPlace": "Upravit místo",
+  "deletePlace": "Odstranit místo {name}",
+  "@deletePlace": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "deletePlaceDescription": "Jste si jisti, že chcete odstranit místo {name}?",
+  "@deletePlaceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "priority": "Priorita",
+  "assignEvent": "Přiřadit událost",
+  "noEvent": "Žádná událost",
+  "parentGroup": "Nadřazená skupina",
+  "deleteUser": "Odstranit uživatele {name}",
+  "@deleteUser": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "createUser": "Vytvořit uživatele",
+  "editUser": "Upravit uživatele",
+  "deleteUserDescription": "Jste si jisti, že chcete odstranit uživatele {name}?",
+  "@deleteUserDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "pending": "Nevyřízeno",
+  "removeEvent": "Odstranit událost",
+  "event": "Událost",
+  "nativeTitleBar": "Nativní titulek",
+  "blocked": "Blokované",
+  "countEvents": "{count, plural, =0 {Žádné události} one {1 události} other {{count} události}}",
+  "@countEvents": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "import": "Importovat",
+  "confirmImport": "Jste si jisti, že ho chcete importovat?",
+  "welcome": "Vítejte"
+}

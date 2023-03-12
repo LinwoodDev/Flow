@@ -1,0 +1,206 @@
+{
+  "dashboard": "Instrumentpanel",
+  "calendar": "Kalender",
+  "places": "Platser",
+  "users": "Användare",
+  "sources": "Källor",
+  "settings": "Inställningar",
+  "create": "Skapa",
+  "information": "Information",
+  "source": "Källa",
+  "license": "Licens",
+  "thirdPartyLicenses": "Licenser för tredje part",
+  "documentation": "Dokumentation",
+  "privacyPolicy": "Integritetspolicy",
+  "imprint": "Avtryck",
+  "releaseNotes": "Kommentarer till utgåvan",
+  "changelog": "Ändringslogg",
+  "legal": "Juridisk",
+  "personalization": "Personalisering",
+  "design": "Design",
+  "language": "Språk",
+  "theme": "Tema",
+  "classic": "Klassisk",
+  "systemDefault": "Systemets standard",
+  "light": "Ljus",
+  "dark": "Mörk",
+  "createPlace": "Skapa plats",
+  "cancel": "Avbryt",
+  "name": "Namn",
+  "description": "Beskrivning",
+  "start": "Starta",
+  "next": "Nästa",
+  "skip": "Hoppa",
+  "back": "Tillbaka",
+  "today": "Idag",
+  "groups": "Grupper",
+  "createGroup": "Skapa grupp",
+  "editGroup": "Redigera grupp",
+  "list": "Lista",
+  "day": "Dag",
+  "week": "Vecka",
+  "month": "Månad",
+  "version": "Version",
+  "intro": "Introduktion",
+  "webdav": "WebDAV",
+  "webdavDescription": "Med WebDAV-gränssnittet kan du komma åt dina data från vilken WebDAV-server som helst. Du kan använda den för att synkronisera dina data med andra enheter eller tjänster.",
+  "server": "Server",
+  "serverDescription": "Synkronisera dina data med en infödd Linwood Flow-server. Detta rekommenderas för användare som själv vill vara värd för sina data.",
+  "googleDescription": "Synkronisera dina data med Google. Detta rekommenderas för användare som vill använda sitt Google-konto för att komma åt sina data. Alla funktioner är inte tillgängliga med det här alternativet.",
+  "microsoftDescription": "Synkronisera dina data med Microsoft. Detta rekommenderas för användare som vill använda sitt Microsoft-konto för att komma åt sina data. Alla funktioner är inte tillgängliga med det här alternativet.",
+  "addSource": "Lägg till källa",
+  "local": "Lokal",
+  "close": "Stäng",
+  "unknown": "Okänd",
+  "loading": "Laddar",
+  "export": "Exportera",
+  "createEvent": "Skapa händelse",
+  "save": "Spara",
+  "allSources": "Alla källor",
+  "editEvent": "Redigera händelse",
+  "end": "Slut",
+  "location": "Plats",
+  "status": "Status",
+  "confirmed": "Bekräftad",
+  "draft": "Utkast",
+  "cancelled": "Avbruten",
+  "general": "Allmänt",
+  "todos": "Todos",
+  "createTodo": "Skapa att göra",
+  "editTodo": "Redigera todo",
+  "indicatorEmpty": "Inga objekt hittades",
+  "indicatorEmptyDescription": "Listan är för närvarande tom.",
+  "indicatorLoading": "Laddar",
+  "indicatorError": "Ett fel uppstod",
+  "indicatorErrorDescription": "Ett fel inträffade vid inläsning av data.",
+  "tryAgain": "Försök igen",
+  "eventInfo": "{event} den {date} kl. {time} i {location} ({status})",
+  "@eventInfo": {
+    "placeholders": {
+      "event": {
+        "type": "String",
+        "example": "Meeting"
+      },
+      "date": {
+        "type": "String",
+        "example": "2021-01-01"
+      },
+      "time": {
+        "type": "String",
+        "example": "12:00"
+      },
+      "location": {
+        "type": "String",
+        "example": "Office"
+      },
+      "status": {
+        "type": "String",
+        "example": "Confirmed"
+      }
+    }
+  },
+  "filter": "Filtrera",
+  "done": "Klar",
+  "inProgress": "pågår",
+  "todo": "Todo",
+  "delete": "Radera",
+  "edit": "Redigera",
+  "deleteGroup": "Ta bort grupp {name}",
+  "@deleteGroup": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "deleteGroupDescription": "Är du säker på att du vill ta bort gruppen {name}?",
+  "@deleteGroupDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "groupName": "Grupp {name}",
+  "@groupName": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "noData": "Det finns inga data att visa.",
+  "noEvents": "Det finns inga händelser att visa.",
+  "group": "Grupp",
+  "search": "Sök",
+  "events": "Händelser",
+  "past": "Tidigare",
+  "decentralized": "Decentraliserad",
+  "decentralizedDescription": "Det decentraliserade gränssnittet ger dig tillgång till dina data från alla decentraliserade servrar. Du kan använda den för att synkronisera dina data med andra enheter eller tjänster.",
+  "importFile": "Importera fil",
+  "importFileDescription": "Importera en fil från din enhet. Du kan importera en databasfil från en annan Linwood Flow-instans eller en vanlig kalenderfil.",
+  "place": "Plats",
+  "editPlace": "Redigera plats",
+  "deletePlace": "Ta bort plats {name}",
+  "@deletePlace": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "deletePlaceDescription": "Är du säker på att du vill ta bort platsen {name}?",
+  "@deletePlaceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "priority": "Prioritet",
+  "assignEvent": "Tilldela händelse",
+  "noEvent": "Ingen händelse",
+  "parentGroup": "Överordnad grupp",
+  "deleteUser": "Ta bort användare {name}",
+  "@deleteUser": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "createUser": "Skapa användare",
+  "editUser": "Redigera användare",
+  "deleteUserDescription": "Är du säker på att du vill ta bort användaren {name}?",
+  "@deleteUserDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "pending": "Väntande",
+  "removeEvent": "Ta bort händelse",
+  "event": "Händelse",
+  "nativeTitleBar": "Namnfält med ursprungsbeteckning",
+  "blocked": "Blockerad",
+  "countEvents": "{count, plural, =0 {Inga händelser} one {1 händelse} other {{count} händelser}}",
+  "@countEvents": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "import": "Importera",
+  "confirmImport": "Är du säker du vill importera den?",
+  "welcome": "Välkommen"
+}

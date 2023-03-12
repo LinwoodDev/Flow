@@ -1,0 +1,206 @@
+{
+  "dashboard": "Ταμπλό",
+  "calendar": "Ημερολόγιο",
+  "places": "Τοποθεσίες",
+  "users": "Χρήστες",
+  "sources": "Πηγές",
+  "settings": "Ρυθμίσεις",
+  "create": "Δημιουργία",
+  "information": "Πληροφορίες",
+  "source": "Πηγή",
+  "license": "Άδεια",
+  "thirdPartyLicenses": "Άδειες Τρίτων Μερών",
+  "documentation": "Τεκμηρίωση",
+  "privacyPolicy": "Πολιτική Απορρήτου",
+  "imprint": "Αποτύπωμα",
+  "releaseNotes": "Σημειώσεις Έκδοσης",
+  "changelog": "Αρχείο Αλλαγών",
+  "legal": "Νομικά",
+  "personalization": "Εξατομικοποίηση",
+  "design": "Σχεδιασμός",
+  "language": "Γλώσσα",
+  "theme": "Θέμα",
+  "classic": "Κλασικό",
+  "systemDefault": "Προεπιλογή Συστήματος",
+  "light": "Φωτεινό",
+  "dark": "Σκοτεινό",
+  "createPlace": "Δημιουργία Χώρου",
+  "cancel": "Ακύρωση",
+  "name": "Όνομα",
+  "description": "Περιγραφή",
+  "start": "Έναρξη",
+  "next": "Επόμενο",
+  "skip": "Παράλειψη",
+  "back": "Πίσω",
+  "today": "Σήμερα",
+  "groups": "Ομάδες",
+  "createGroup": "Δημιουργία ομάδας",
+  "editGroup": "Επεξεργασία ομάδας",
+  "list": "Λίστα",
+  "day": "Ημέρα",
+  "week": "Εβδομάδα",
+  "month": "Μήνας",
+  "version": "Έκδοση",
+  "intro": "Εισαγωγή",
+  "webdav": "WebDAV",
+  "webdavDescription": "Η διεπαφή WebDAV σας επιτρέπει να έχετε πρόσβαση στα δεδομένα σας από οποιονδήποτε διακομιστή WebDAV. Μπορείτε να το χρησιμοποιήσετε για να συγχρονίσετε τα δεδομένα σας με άλλες συσκευές ή υπηρεσίες.",
+  "server": "Διακομιστής",
+  "serverDescription": "Συγχρονίστε τα δεδομένα σας με έναν native διακομιστή Linwood Flow. Αυτό συνιστάται για χρήστες που θέλουν να φιλοξενήσουν τα δεδομένα τους.",
+  "googleDescription": "Συγχρονίστε τα δεδομένα σας με την Google. Αυτό συνιστάται για χρήστες που θέλουν να χρησιμοποιήσουν τον λογαριασμό Google τους για να έχουν πρόσβαση στα δεδομένα τους. Δεν είναι διαθέσιμες όλες οι δυνατότητες με αυτήν την επιλογή.",
+  "microsoftDescription": "Συγχρονίστε τα δεδομένα σας με τη Microsoft. Αυτό συνιστάται για χρήστες που θέλουν να χρησιμοποιήσουν τον λογαριασμό Microsoft για να έχουν πρόσβαση στα δεδομένα τους. Δεν είναι διαθέσιμες όλες οι δυνατότητες με αυτήν την επιλογή.",
+  "addSource": "Προσθήκη πηγής",
+  "local": "Τοπικό",
+  "close": "Κλείσιμο",
+  "unknown": "Άγνωστο",
+  "loading": "Φόρτωση",
+  "export": "Εξαγωγή",
+  "createEvent": "Δημιουργία συμβάντος",
+  "save": "Αποθήκευση",
+  "allSources": "Όλες οι πηγές",
+  "editEvent": "Επεξεργασία συμβάντος",
+  "end": "Τέλος",
+  "location": "Τοποθεσία",
+  "status": "Κατάσταση",
+  "confirmed": "Επιβεβαιωμένο",
+  "draft": "Πρόχειρο",
+  "cancelled": "Ακυρώθηκε",
+  "general": "Γενικά",
+  "todos": "Todos",
+  "createTodo": "Δημιουργία todo",
+  "editTodo": "Επεξεργασία todo",
+  "indicatorEmpty": "Δεν βρέθηκαν στοιχεία",
+  "indicatorEmptyDescription": "Η λίστα είναι κενή.",
+  "indicatorLoading": "Φόρτωση",
+  "indicatorError": "Παρουσιάστηκε ένα σφάλμα",
+  "indicatorErrorDescription": "Παρουσιάστηκε σφάλμα κατά τη φόρτωση των δεδομένων.",
+  "tryAgain": "Προσπαθήστε ξανά",
+  "eventInfo": "{event} στο {date} στο {time} στο {location} ({status})",
+  "@eventInfo": {
+    "placeholders": {
+      "event": {
+        "type": "String",
+        "example": "Meeting"
+      },
+      "date": {
+        "type": "String",
+        "example": "2021-01-01"
+      },
+      "time": {
+        "type": "String",
+        "example": "12:00"
+      },
+      "location": {
+        "type": "String",
+        "example": "Office"
+      },
+      "status": {
+        "type": "String",
+        "example": "Confirmed"
+      }
+    }
+  },
+  "filter": "Φίλτρο",
+  "done": "Ολοκληρώθηκε",
+  "inProgress": "Σε εξέλιξη",
+  "todo": "Todo",
+  "delete": "Διαγραφή",
+  "edit": "Επεξεργασία",
+  "deleteGroup": "Διαγραφή ομάδας {name}",
+  "@deleteGroup": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "deleteGroupDescription": "Είστε βέβαιοι ότι θέλετε να διαγράψετε την ομάδα {name}?",
+  "@deleteGroupDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "groupName": "Ομάδα {name}",
+  "@groupName": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "noData": "Δεν υπάρχουν δεδομένα για εμφάνιση.",
+  "noEvents": "Δεν υπάρχουν γεγονότα για εμφάνιση.",
+  "group": "Ομάδα",
+  "search": "Αναζήτηση",
+  "events": "Συμβάντα",
+  "past": "Παρελθόν",
+  "decentralized": "Αποκεντρωμένη",
+  "decentralizedDescription": "Η αποκεντρωμένη διεπαφή σας επιτρέπει να έχετε πρόσβαση στα δεδομένα σας από οποιονδήποτε αποκεντρωμένο διακομιστή. Μπορείτε να το χρησιμοποιήσετε για να συγχρονίσετε τα δεδομένα σας με άλλες συσκευές ή υπηρεσίες.",
+  "importFile": "Εισαγωγή αρχείου",
+  "importFileDescription": "Εισαγωγή ενός αρχείου από τη συσκευή σας. Μπορείτε να εισαγάγετε ένα αρχείο βάσης δεδομένων από άλλο παράδειγμα Linwood Flow ή ένα κανονικό αρχείο ημερολογίου.",
+  "place": "Τόπος",
+  "editPlace": "Επεξεργασία τόπου",
+  "deletePlace": "Διαγραφή τόπου {name}",
+  "@deletePlace": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "deletePlaceDescription": "Είστε βέβαιοι ότι θέλετε να διαγράψετε το μέρος {name}?",
+  "@deletePlaceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "priority": "Προτεραιότητα",
+  "assignEvent": "Ανάθεση συμβάντος",
+  "noEvent": "Δεν υπάρχει συμβάν",
+  "parentGroup": "Γονική ομάδα",
+  "deleteUser": "Διαγραφή χρήστη {name}",
+  "@deleteUser": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "createUser": "Δημιουργία χρήστη",
+  "editUser": "Επεξεργασία χρήστη",
+  "deleteUserDescription": "Είστε βέβαιοι ότι θέλετε να διαγράψετε το χρήστη {name}?",
+  "@deleteUserDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "pending": "Εκκρεμεί",
+  "removeEvent": "Αφαίρεση συμβάντος",
+  "event": "Γεγονός",
+  "nativeTitleBar": "Εγγενής γραμμή τίτλου",
+  "blocked": "Αποκλεισμένος",
+  "countEvents": "{count, plural, =0 {Δεν υπάρχουν γεγονότα} one {1 εκδήλωση} other {{count} γεγονότα}}",
+  "@countEvents": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "import": "Εισαγωγή",
+  "confirmImport": "Είστε σίγουροι ότι θέλετε να το εισαγάγετε?",
+  "welcome": "Καλωσόρισμα"
+}
