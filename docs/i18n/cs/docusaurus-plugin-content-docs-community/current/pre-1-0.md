@@ -1,9 +1,9 @@
 ---
-title: "Pre1.0 verze"
+title: "Pre-1.0 versions"
 ---
 
-Tyto verze již nejsou podporovány. Nové verze jsou k dispozici na [verzích](versions.md).
+These versions are not supported anymore. New versions are available at [versions](versions.md).
 
-| Verze | Podporováno |  |
-| ----- | ----------- |  |
-|       |             |  |
+| Version | Supported |  |
+| ------- | --------- |  |
+|         |           |  |
