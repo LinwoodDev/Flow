@@ -5,9 +5,9 @@ sidebar_label: مدونة قواعد السلوك
 ---
 
 ```mdx-code-block
-استيراد CodeOfConduct, {toc as CodeOfConductTOC} من "@site/../CODE_OF_CONDUCT.md"
+import CodeOfConduct, {toc as CodeOfConductTOC} from "@site/../CODE_OF_CONDUCT.md"
 
 <CodeOfConduct />
 
-تصدير toc = CodeOfConductTOC؛
+export const toc = CodeOfConductTOC;
 ```
