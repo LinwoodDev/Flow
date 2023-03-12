@@ -1,0 +1,206 @@
+{
+  "dashboard": "Dashboard",
+  "calendar": "Kalender",
+  "places": "Plaatsen",
+  "users": "Gebruikers",
+  "sources": "Bronnen",
+  "settings": "Instellingen",
+  "create": "Aanmaken",
+  "information": "Informatie",
+  "source": "Bron",
+  "license": "Licentie",
+  "thirdPartyLicenses": "Licenties van derden",
+  "documentation": "Documentatie",
+  "privacyPolicy": "Privacy Beleid",
+  "imprint": "Impressum",
+  "releaseNotes": "Release opmerkingen",
+  "changelog": "Wijzigingslogboek",
+  "legal": "Juridisch",
+  "personalization": "Personalisatie",
+  "design": "Ontwerp",
+  "language": "Taal",
+  "theme": "Thema",
+  "classic": "Klassiek",
+  "systemDefault": "Standaard systeeminstelling",
+  "light": "Licht",
+  "dark": "Donker",
+  "createPlace": "Plaats aanmaken",
+  "cancel": "annuleren",
+  "name": "naam",
+  "description": "Beschrijving",
+  "start": "Beginnen",
+  "next": "Volgende",
+  "skip": "Overslaan",
+  "back": "Achterzijde",
+  "today": "vandaag",
+  "groups": "Groepen",
+  "createGroup": "Groep aanmaken",
+  "editGroup": "Groep bewerken",
+  "list": "Klantenlijst",
+  "day": "dag",
+  "week": "week",
+  "month": "maand",
+  "version": "Versie",
+  "intro": "Introductie",
+  "webdav": "WebDAV",
+  "webdavDescription": "De WebDAV interface geeft u toegang tot uw gegevens vanaf elke WebDAV server. U kunt het gebruiken om uw gegevens te synchroniseren met andere apparaten of diensten.",
+  "server": "Server",
+  "serverDescription": "Synchroniseer je gegevens met een native Linwood Flow server. Dit is aanbevolen voor gebruikers die hun gegevens zelf willen organiseren.",
+  "googleDescription": "Synchroniseer uw gegevens met Google. Dit wordt aanbevolen voor gebruikers die hun Google-account willen gebruiken om toegang te krijgen tot hun gegevens. Niet alle functies zijn beschikbaar met deze optie.",
+  "microsoftDescription": "Synchroniseer je gegevens met Microsoft. Dit wordt aanbevolen voor gebruikers die hun Microsoft account willen gebruiken om toegang te krijgen tot hun gegevens. Niet alle functies zijn beschikbaar met deze optie.",
+  "addSource": "Bron toevoegen",
+  "local": "lokaal",
+  "close": "Afsluiten",
+  "unknown": "onbekend",
+  "loading": "Laden...",
+  "export": "Exporteren",
+  "createEvent": "Creëer evenement",
+  "save": "Opslaan",
+  "allSources": "Alle bronnen",
+  "editEvent": "Afspraak bewerken",
+  "end": "Beëindigen",
+  "location": "Locatie",
+  "status": "status",
+  "confirmed": "Bevestigd",
+  "draft": "Kladversie",
+  "cancelled": "Geannuleerd",
+  "general": "Algemeen",
+  "todos": "Todos",
+  "createTodo": "Todo aanmaken",
+  "editTodo": "Todo bewerken",
+  "indicatorEmpty": "Geen items gevonden",
+  "indicatorEmptyDescription": "De lijst is momenteel leeg.",
+  "indicatorLoading": "Laden...",
+  "indicatorError": "Er is een fout opgetreden",
+  "indicatorErrorDescription": "Er is een fout opgetreden tijdens het laden van de gegevens.",
+  "tryAgain": "Opnieuw proberen",
+  "eventInfo": "{event} op {date} om {time} in {location} ({status})",
+  "@eventInfo": {
+    "placeholders": {
+      "event": {
+        "type": "String",
+        "example": "Meeting"
+      },
+      "date": {
+        "type": "String",
+        "example": "2021-01-01"
+      },
+      "time": {
+        "type": "String",
+        "example": "12:00"
+      },
+      "location": {
+        "type": "String",
+        "example": "Office"
+      },
+      "status": {
+        "type": "String",
+        "example": "Confirmed"
+      }
+    }
+  },
+  "filter": "Filteren",
+  "done": "Voltooid",
+  "inProgress": "In behandeling",
+  "todo": "Todo",
+  "delete": "Verwijderen",
+  "edit": "Bewerken",
+  "deleteGroup": "Verwijder groep {name}",
+  "@deleteGroup": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "deleteGroupDescription": "Weet u zeker dat u de groep {name} wilt verwijderen?",
+  "@deleteGroupDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "groupName": "Groep {name}",
+  "@groupName": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "noData": "Er zijn geen gegevens om weer te geven.",
+  "noEvents": "Er zijn geen evenementen om weer te geven.",
+  "group": "Groeperen",
+  "search": "Zoeken",
+  "events": "Evenementen",
+  "past": "Verleden",
+  "decentralized": "Ongecentraliseerd",
+  "decentralizedDescription": "Het gedecentraliseerde scherm geeft u toegang tot uw gegevens van elke gedecentraliseerde server. U kunt het gebruiken om uw gegevens te synchroniseren met andere apparaten of diensten.",
+  "importFile": "Bestand importeren",
+  "importFileDescription": "Importeer een bestand vanaf uw apparaat. U kunt een databasebestand importeren uit een ander Linwood Flow exemplaar of een normaal kalenderbestand.",
+  "place": "Plaats",
+  "editPlace": "Bewerk plaats",
+  "deletePlace": "Verwijder plaats {name}",
+  "@deletePlace": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "deletePlaceDescription": "Weet u zeker dat u de plaats {name} wilt verwijderen?",
+  "@deletePlaceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "priority": "Prioriteit",
+  "assignEvent": "Afspraak toewijzen",
+  "noEvent": "Geen gebeurtenis",
+  "parentGroup": "Bovenliggende groep",
+  "deleteUser": "Verwijder gebruiker {name}",
+  "@deleteUser": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "createUser": "Gebruiker aanmaken",
+  "editUser": "Gebruiker bewerken",
+  "deleteUserDescription": "Weet u zeker dat u gebruiker {name} wilt verwijderen?",
+  "@deleteUserDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "pending": "Lopende",
+  "removeEvent": "Gebeurtenis verwijderen",
+  "event": "Gebeurtenis",
+  "nativeTitleBar": "Oorspronkelijke titelbalk",
+  "blocked": "Geblokkeerd",
+  "countEvents": "{count, plural, =0 {No events} one {1 event} other {{count} events}}",
+  "@countEvents": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "import": "Importeren",
+  "confirmImport": "Weet u zeker dat u deze wilt importeren?",
+  "welcome": "Verwelkoming"
+}
