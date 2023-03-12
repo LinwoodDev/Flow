@@ -1,9 +1,9 @@
 ---
-title: "Pre-1.0 versions"
+title: "Esi- 1.0 versiot"
 ---
 
-These versions are not supported anymore. New versions are available at [versions](versions.md).
+Näitä versioita ei tueta enää. Uudet versiot ovat saatavilla [versioissa](versions.md).
 
-| Version | Supported |  |
-| ------- | --------- |  |
-|         |           |  |
+| Versio | Tuettu |  |
+| ------ | ------ |  |
+|        |        |  |
