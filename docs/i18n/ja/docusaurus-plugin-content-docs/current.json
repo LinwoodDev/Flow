@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "次へ",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Tutorial - Basics": {
+    "message": "チュートリアル - 基本",
+    "description": "The label for category Tutorial - Basics in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Tutorial - Extras": {
+    "message": "チュートリアル - 追加情報",
+    "description": "The label for category Tutorial - Extras in sidebar tutorialSidebar"
+  }
+}
