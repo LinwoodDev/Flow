@@ -1,7 +1,7 @@
 ---
-title: Muutosloki
-hide_title: tosi
-sidebar_label: Muutosloki
+title: Changelog
+hide_title: true
+sidebar_label: Changelog
 ---
 
 ```mdx-code-block
