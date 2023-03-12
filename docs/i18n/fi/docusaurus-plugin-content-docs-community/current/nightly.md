@@ -1,6 +1,6 @@
 ---
 title: "Yölliset Rakennukset"
-slug: "/vrk"
+slug: "/nightly"
 ---
 
 ::varoitus
