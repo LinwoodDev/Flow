@@ -1,0 +1,206 @@
+{
+  "dashboard": "Kontrollpanel",
+  "calendar": "Kalender",
+  "places": "Steder",
+  "users": "Brukere",
+  "sources": "Kilder",
+  "settings": "Innstillinger",
+  "create": "Opprett",
+  "information": "Informasjon",
+  "source": "Kilde",
+  "license": "Lisens",
+  "thirdPartyLicenses": "Tredje part lisens",
+  "documentation": "Dokumentasjon",
+  "privacyPolicy": "Retningslinjer for personvern",
+  "imprint": "Avtrykk",
+  "releaseNotes": "Utgivelsesnotater",
+  "changelog": "Endringslogg",
+  "legal": "Juridisk",
+  "personalization": "Personalisering",
+  "design": "Utforming",
+  "language": "Språk",
+  "theme": "Tema",
+  "classic": "Klassisk",
+  "systemDefault": "Standard system",
+  "light": "Lys",
+  "dark": "Mørk",
+  "createPlace": "Opprett sted",
+  "cancel": "Avbryt",
+  "name": "Navn",
+  "description": "Beskrivelse",
+  "start": "Begynn",
+  "next": "Neste",
+  "skip": "Hopp",
+  "back": "Tilbake",
+  "today": "Idag",
+  "groups": "Grupper",
+  "createGroup": "Opprett gruppe",
+  "editGroup": "Rediger gruppe",
+  "list": "Liste",
+  "day": "Dag",
+  "week": "Uke",
+  "month": "Måned",
+  "version": "Versjon",
+  "intro": "Introduksjon",
+  "webdav": "WebDAV",
+  "webdavDescription": "WebDAV-grensesnittet gir deg tilgang til data fra en hvilken som helst WebDAV-server. Du kan bruke den for å synkronisere dataene med andre enheter eller tjenester.",
+  "server": "Tjener",
+  "serverDescription": "Synkroniser dataene dine med en naturlig Linewood Flow server. Dette er anbefalt for brukere som vil selv-arrangere dataene.",
+  "googleDescription": "Synkroniser dataene dine med Google. Dette anbefales for brukere som vil bruke Google-kontoen sin for å få tilgang til dataene. Ikke alle funksjoner er tilgjengelige med dette alternativet.",
+  "microsoftDescription": "Synkroniser data med Microsoft. Dette anbefales for brukere som vil bruke Microsoft-kontoen for å få tilgang til dataene sine. Ikke alle funksjoner er tilgjengelige med dette alternativet.",
+  "addSource": "Legg til kilde",
+  "local": "Lokal",
+  "close": "Lukk",
+  "unknown": "Ukjent",
+  "loading": "Laster",
+  "export": "Eksporter",
+  "createEvent": "Opprett hendelse",
+  "save": "Lagre",
+  "allSources": "Alle kilder",
+  "editEvent": "Rediger hendelse",
+  "end": "Slutt",
+  "location": "Sted",
+  "status": "Status:",
+  "confirmed": "Bekreftet",
+  "draft": "Utkast",
+  "cancelled": "Avbrutt",
+  "general": "Generelt",
+  "todos": "Todos",
+  "createTodo": "Opprett gjøremål",
+  "editTodo": "Rediger ToDo",
+  "indicatorEmpty": "Ingen produkter funnet",
+  "indicatorEmptyDescription": "Listen er for øyeblikket tom.",
+  "indicatorLoading": "Laster",
+  "indicatorError": "En feil oppstod",
+  "indicatorErrorDescription": "Det oppstod en feil under lasting av data.",
+  "tryAgain": "Prøv igjen",
+  "eventInfo": "{event} på {date} klokken {time} i {location} ({status})",
+  "@eventInfo": {
+    "placeholders": {
+      "event": {
+        "type": "String",
+        "example": "Meeting"
+      },
+      "date": {
+        "type": "String",
+        "example": "2021-01-01"
+      },
+      "time": {
+        "type": "String",
+        "example": "12:00"
+      },
+      "location": {
+        "type": "String",
+        "example": "Office"
+      },
+      "status": {
+        "type": "String",
+        "example": "Confirmed"
+      }
+    }
+  },
+  "filter": "Filtrer",
+  "done": "Ferdig",
+  "inProgress": "Under arbeid",
+  "todo": "Todo",
+  "delete": "Slett",
+  "edit": "Rediger",
+  "deleteGroup": "Slett gruppen {name}",
+  "@deleteGroup": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "deleteGroupDescription": "Er du sikker på at du vil slette gruppen {name}?",
+  "@deleteGroupDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "groupName": "Gruppe {name}",
+  "@groupName": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Group name"
+      }
+    }
+  },
+  "noData": "Det er ingen data å vise.",
+  "noEvents": "Det er ingen hendelser å vise.",
+  "group": "Gruppe",
+  "search": "Søk",
+  "events": "Hendelser",
+  "past": "Tidligere",
+  "decentralized": "Desentralisert",
+  "decentralizedDescription": "Det desentraliserte grensesnittet gir deg tilgang til dine data fra en desentralisert server. Du kan bruke den for å synkronisere dataene med andre enheter eller tjenester.",
+  "importFile": "Importer fil",
+  "importFileDescription": "Importer en fil fra enheten. Du kan importere en databasefil fra en annen Linwood Flow forekomst eller en vanlig kalenderfil.",
+  "place": "Sted",
+  "editPlace": "Rediger sted",
+  "deletePlace": "Slett stedet {name}",
+  "@deletePlace": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "deletePlaceDescription": "Er du sikker på at du vil slette stedet {name}?",
+  "@deletePlaceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Place name"
+      }
+    }
+  },
+  "priority": "Prioritet",
+  "assignEvent": "Tilordne hendelse",
+  "noEvent": "Ingen hendelse",
+  "parentGroup": "Overordnet gruppe",
+  "deleteUser": "Slett brukeren {name}",
+  "@deleteUser": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "createUser": "Opprett bruker",
+  "editUser": "Rediger bruker",
+  "deleteUserDescription": "Er du sikker på at du vil slette bruker {name}?",
+  "@deleteUserDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "User name"
+      }
+    }
+  },
+  "pending": "Ventende",
+  "removeEvent": "Fjern hendelse",
+  "event": "Hendelse",
+  "nativeTitleBar": "Native tittellinjen",
+  "blocked": "Blokkert",
+  "countEvents": "{count, plural, =0 {Ingen hendelser} one {1 hendelse} other {{count} eventer}}",
+  "@countEvents": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "import": "Importer",
+  "confirmImport": "Er du sikker på at du vil importere den?",
+  "welcome": "Velkommen"
+}
