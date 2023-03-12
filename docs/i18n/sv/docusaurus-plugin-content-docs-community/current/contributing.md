@@ -5,7 +5,7 @@ sidebar_label: "Bidragande"
 ---
 
 ```mdx-code-block
-importera Bidrag, {toc as ContributingTOC} från "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
