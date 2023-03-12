@@ -14,6 +14,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:shared/services/database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 
 import 'cubits/settings.dart';
 import 'pages/calendar/page.dart';
@@ -86,6 +87,10 @@ class FlowApp extends StatelessWidget {
 
   Widget _buildApp(ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
     return BlocBuilder<SettingsCubit, FlowSettings>(
+        buildWhen: (previous, current) =>
+            previous.design != current.design ||
+            previous.themeMode != current.themeMode ||
+            previous.locale != current.locale,
         builder: (context, state) => MaterialApp.router(
               debugShowCheckedModeBanner: false,
               routerConfig: _router,
@@ -95,16 +100,15 @@ class FlowApp extends StatelessWidget {
               // Same definition for the dark theme, but using FlexThemeData.dark().
               darkTheme: getThemeData(state.design, true, darkDynamic),
               themeMode: state.themeMode,
+              locale: state.locale.isEmpty ? null : Locale(state.locale),
               localizationsDelegates: const [
                 AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
+                LocaleNamesLocalizationsDelegate(),
               ],
-              supportedLocales: const [
-                Locale('en', ''), // English, no country code
-                // Locale('de', ''), // German, no country code
-              ],
+              supportedLocales: AppLocalizations.supportedLocales,
             ));
   }
 

@@ -54,6 +54,7 @@ dependencies:
   sqlite3: ^1.9.3
   dynamic_color: ^1.6.2
   simple_icons: ^7.10.0
+  flutter_localized_locales: ^2.0.4
 dev_dependencies:
   build_runner: ^2.3.3
   flutter_lints: ^2.0.1

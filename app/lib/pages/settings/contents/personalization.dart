@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flow/cubits/settings.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:shared/helpers/string.dart';
 import 'package:flow/helpers/theme_mode.dart';
 import 'package:flow/theme.dart';
@@ -12,6 +13,11 @@ import 'package:window_manager/window_manager.dart';
 
 class PersonalizationSettingsView extends StatelessWidget {
   const PersonalizationSettingsView({super.key});
+
+  String _getLocalizedName(BuildContext context, String name) {
+    return LocaleNames.of(context)?.nameOf(name) ??
+        AppLocalizations.of(context).systemDefault;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +37,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                     final cubit = context.read<SettingsCubit>();
                     final design = await showModalBottomSheet<String>(
                         context: context,
+                        constraints: const BoxConstraints(maxWidth: 640),
                         builder: (context) => Container(
                             margin: const EdgeInsets.only(bottom: 20),
                             child: ListView(
@@ -83,6 +90,7 @@ class PersonalizationSettingsView extends StatelessWidget {
 
                     final theme = await showModalBottomSheet<ThemeMode>(
                         context: context,
+                        constraints: const BoxConstraints(maxWidth: 640),
                         builder: (context) => Container(
                             margin: const EdgeInsets.only(bottom: 20),
                             child: ListView(
@@ -115,7 +123,50 @@ class PersonalizationSettingsView extends StatelessWidget {
                 ListTile(
                   title: Text(AppLocalizations.of(context).language),
                   leading: const Icon(Icons.translate_outlined),
-                  onTap: () {},
+                  subtitle: Text(_getLocalizedName(context, state.locale)),
+                  onTap: () async {
+                    final cubit = context.read<SettingsCubit>();
+
+                    final locale = await showModalBottomSheet<String>(
+                        context: context,
+                        constraints: const BoxConstraints(maxWidth: 640),
+                        builder: (context) => Container(
+                            margin: const EdgeInsets.only(bottom: 20),
+                            child: ListView(
+                              shrinkWrap: true,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 20),
+                                  child: Text(
+                                    AppLocalizations.of(context).theme,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                ListTile(
+                                  title: Text(_getLocalizedName(context, '')),
+                                  selected: state.locale.isEmpty,
+                                  onTap: () {
+                                    Navigator.of(context).pop('');
+                                  },
+                                ),
+                                ...AppLocalizations.supportedLocales
+                                    .map((e) => e.toString())
+                                    .map((e) => ListTile(
+                                          title: Text(
+                                              _getLocalizedName(context, e)),
+                                          selected: state.locale == e,
+                                          onTap: () {
+                                            Navigator.of(context).pop(e);
+                                          },
+                                        )),
+                              ],
+                            )));
+                    if (locale != null) cubit.setLocale(locale);
+                  },
                 ),
                 if (!kIsWeb &&
                     (Platform.isWindows ||

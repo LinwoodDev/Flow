@@ -9,6 +9,10 @@ module.exports = {
     favicon: 'img/favicon.ico',
     organizationName: 'LinwoodCloud', // Usually your GitHub org/user name.
     projectName: 'Flow', // Usually your repo name.
+    i18n: {
+        defaultLocale: 'en',
+        locales: ['en', 'de', 'fr', 'es', 'it', 'ru'],
+    },
     themeConfig: {
         colorMode: {
             defaultMode: 'dark',

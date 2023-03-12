@@ -10,6 +10,7 @@ class FlowSettings with _$FlowSettings {
   const FlowSettings._();
 
   const factory FlowSettings({
+    @Default('') String locale,
     @Default(ThemeMode.system) ThemeMode themeMode,
     @Default(false) bool nativeTitleBar,
     @Default('') String design,
@@ -20,6 +21,7 @@ class FlowSettings with _$FlowSettings {
             ThemeMode.values.byName(prefs.getString('themeMode') ?? 'system'),
         design: prefs.getString('design') ?? '',
         nativeTitleBar: prefs.getBool('nativeTitleBar') ?? false,
+        locale: prefs.getString('locale') ?? '',
       );
 
   Future<void> save() async {
@@ -27,6 +29,7 @@ class FlowSettings with _$FlowSettings {
     prefs.setString('themeMode', themeMode.name);
     prefs.setString('design', design);
     prefs.setBool('nativeTitleBar', nativeTitleBar);
+    prefs.setString('locale', locale);
   }
 }
 
@@ -45,6 +48,11 @@ class SettingsCubit extends Cubit<FlowSettings> {
 
   Future<void> setNativeTitleBar(bool nativeTitleBar) {
     emit(state.copyWith(nativeTitleBar: nativeTitleBar));
+    return state.save();
+  }
+
+  Future<void> setLocale(String locale) {
+    emit(state.copyWith(locale: locale));
     return state.save();
   }
 }

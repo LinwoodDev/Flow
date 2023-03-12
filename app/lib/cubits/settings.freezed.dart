@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$FlowSettings {
+  String get locale => throw _privateConstructorUsedError;
   ThemeMode get themeMode => throw _privateConstructorUsedError;
   bool get nativeTitleBar => throw _privateConstructorUsedError;
   String get design => throw _privateConstructorUsedError;
@@ -31,7 +32,8 @@ abstract class $FlowSettingsCopyWith<$Res> {
           FlowSettings value, $Res Function(FlowSettings) then) =
       _$FlowSettingsCopyWithImpl<$Res, FlowSettings>;
   @useResult
-  $Res call({ThemeMode themeMode, bool nativeTitleBar, String design});
+  $Res call(
+      {String locale, ThemeMode themeMode, bool nativeTitleBar, String design});
 }
 
 /// @nodoc
@@ -47,11 +49,16 @@ class _$FlowSettingsCopyWithImpl<$Res, $Val extends FlowSettings>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? locale = null,
     Object? themeMode = null,
     Object? nativeTitleBar = null,
     Object? design = null,
   }) {
     return _then(_value.copyWith(
+      locale: null == locale
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as String,
       themeMode: null == themeMode
           ? _value.themeMode
           : themeMode // ignore: cast_nullable_to_non_nullable
@@ -76,7 +83,8 @@ abstract class _$$_FlowSettingsCopyWith<$Res>
       __$$_FlowSettingsCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ThemeMode themeMode, bool nativeTitleBar, String design});
+  $Res call(
+      {String locale, ThemeMode themeMode, bool nativeTitleBar, String design});
 }
 
 /// @nodoc
@@ -90,11 +98,16 @@ class __$$_FlowSettingsCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? locale = null,
     Object? themeMode = null,
     Object? nativeTitleBar = null,
     Object? design = null,
   }) {
     return _then(_$_FlowSettings(
+      locale: null == locale
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as String,
       themeMode: null == themeMode
           ? _value.themeMode
           : themeMode // ignore: cast_nullable_to_non_nullable
@@ -115,11 +128,15 @@ class __$$_FlowSettingsCopyWithImpl<$Res>
 
 class _$_FlowSettings extends _FlowSettings {
   const _$_FlowSettings(
-      {this.themeMode = ThemeMode.system,
+      {this.locale = '',
+      this.themeMode = ThemeMode.system,
       this.nativeTitleBar = false,
       this.design = ''})
       : super._();
 
+  @override
+  @JsonKey()
+  final String locale;
   @override
   @JsonKey()
   final ThemeMode themeMode;
@@ -132,7 +149,7 @@ class _$_FlowSettings extends _FlowSettings {
 
   @override
   String toString() {
-    return 'FlowSettings(themeMode: $themeMode, nativeTitleBar: $nativeTitleBar, design: $design)';
+    return 'FlowSettings(locale: $locale, themeMode: $themeMode, nativeTitleBar: $nativeTitleBar, design: $design)';
   }
 
   @override
@@ -140,6 +157,7 @@ class _$_FlowSettings extends _FlowSettings {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_FlowSettings &&
+            (identical(other.locale, locale) || other.locale == locale) &&
             (identical(other.themeMode, themeMode) ||
                 other.themeMode == themeMode) &&
             (identical(other.nativeTitleBar, nativeTitleBar) ||
@@ -149,7 +167,7 @@ class _$_FlowSettings extends _FlowSettings {
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, themeMode, nativeTitleBar, design);
+      Object.hash(runtimeType, locale, themeMode, nativeTitleBar, design);
 
   @JsonKey(ignore: true)
   @override
@@ -160,11 +178,14 @@ class _$_FlowSettings extends _FlowSettings {
 
 abstract class _FlowSettings extends FlowSettings {
   const factory _FlowSettings(
-      {final ThemeMode themeMode,
+      {final String locale,
+      final ThemeMode themeMode,
       final bool nativeTitleBar,
       final String design}) = _$_FlowSettings;
   const _FlowSettings._() : super._();
 
+  @override
+  String get locale;
   @override
   ThemeMode get themeMode;
   @override
