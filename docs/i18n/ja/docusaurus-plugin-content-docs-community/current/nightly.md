@@ -1,16 +1,16 @@
 ---
-title: "Nightly Builds"
+title: "夜のビルド"
 slug: "/nightly"
 ---
 
 :::warning
 
-Do not use the nightly version of Flow for production.
+Flow の毎晩のバージョンを本番用に使用しないでください。
 
 :::
 
-Nightly builds are designed to give you the option to test the latest version and get the newest features and give feedback.
+Nightlyビルドは、最新バージョンをテストして最新の機能を取得し、 フィードバックを与えるオプションを提供するように設計されています。
 
-## Get the builds
+## ビルドを取得する
 
-Go to the download pages of your platform. All nightly builds get also published as pre-release on github.
+プラットフォームのダウンロードページに移動します。 すべてのナイトリービルドもgithubのプレリリースとして公開されます。
