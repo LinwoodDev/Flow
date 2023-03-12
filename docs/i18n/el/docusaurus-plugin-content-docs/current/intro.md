@@ -2,6 +2,6 @@
 sidebar_position: 1
 ---
 
-# Εισαγωγή
+# Introduction
 
-Έρχεται σύντομα
+Coming soon
