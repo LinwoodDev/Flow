@@ -1,13 +1,13 @@
 ---
-title: "Contributing"
+title: "贡献中"
 hide_title: true
-sidebar_label: "Contributing"
+sidebar_label: "贡献中"
 ---
 
 ```mdx-code-block
-import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
+从 "@site/../CORIBUTING.md" 导入贡献, {toc as ContributingTOC}
 
 <Contributing />
 
-export const toc = ContributingTOC;
+导出const toc = 贡献TOC;
 ```
