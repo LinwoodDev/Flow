@@ -1,7 +1,7 @@
 ---
-title: "Зробити внесок"
-hide_title: істина
-sidebar_label: "Зробити внесок"
+title: "Contributing"
+hide_title: true
+sidebar_label: "Contributing"
 ---
 
 ```mdx-code-block
