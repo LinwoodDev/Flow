@@ -9,7 +9,7 @@ Non utilizzare la versione notturna di Flow per la produzione.
 
 :::
 
-Le build di notte sono progettate per darvi la possibilità di testare l'ultima versione e ottenere le funzionalità più recenti e dare un feedback.
+Le build di notte sono progettate per darti la possibilità di testare l'ultima versione e ottenere le funzionalità più recenti e dare un feedback.
 
 ## Ottieni le build
 
