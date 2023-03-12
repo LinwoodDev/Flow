@@ -1,8 +1,8 @@
 ---
 id: "faq"
 slug: "/faq"
-title: "Usein Kysytyt Kysymykset"
-sidebar_label: "UKK"
+title: "Frequently Asked Questions"
+sidebar_label: "FAQ"
 ---
 
-Tässä muutamia usein kysyttyjä kysymyksiä.
+Here are some frequently asked questions.
