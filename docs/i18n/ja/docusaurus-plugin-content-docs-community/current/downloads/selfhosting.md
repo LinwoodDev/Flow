@@ -3,13 +3,13 @@ title: "Selfhosting"
 sidebar_position: 5
 ---
 
-![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![安定版のリリース](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightlyリリースバージョン](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2FFlow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-It is very easy to host your own flow web server.
+独自のフローWebサーバーをホストすることは非常に簡単です。
 
-## Simple server
+## シンプルなサーバー
 
-Install flutter and build the app using:
+Flutterをインストールし、アプリをビルドします。
 
 ```bash
 cd app
@@ -17,8 +17,8 @@ flutter pub get
 flutter build web
 ```
 
-All the files are in the `app/build/web` directory.
+全てのファイルは `app/build/web` ディレクトリにあります。
 
 ## Docker
 
-Clone the repository and build the `Dockerfile` using: `docker build -t linwood-flow`. Start the server using: `docker run -p 8080:8080 -d linwood-flow`.
+リポジトリをクローンし、 `Dockerfile` を使用してビルドします。 `docker build -t linwood-flow`. `docker run -p 8080:8080 -d linwood-flow`.
