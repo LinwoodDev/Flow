@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "Уперед",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Tutorial - Basics": {
+    "message": "Підручник - основи",
+    "description": "The label for category Tutorial - Basics in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Tutorial - Extras": {
+    "message": "Підручник - додатково",
+    "description": "The label for category Tutorial - Extras in sidebar tutorialSidebar"
+  }
+}
