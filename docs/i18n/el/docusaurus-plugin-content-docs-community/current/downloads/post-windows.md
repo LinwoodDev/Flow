@@ -1,20 +1,20 @@
 ---
-title: Thank you for downloading
-hide_title: true
-hide_table_of_contents: true
+title: Σας ευχαριστούμε για τη λήψη
+hide_title: αληθές
+hide_table_of_contents: αληθές
 slug: "/downloads/post-windows"
 ---
 
 <div className="text-center margin-top--xl">
 
-# Thank you for downloading
+# Σας ευχαριστούμε για τη λήψη
 
 <div className="row margin-bottom--lg padding--sm flex-center">
 <a className="button button--outline button--warning button--lg margin--sm" href="/contributing">
-  Contribute to the project
+  Συνεισφέρετε στο έργο
 </a>
 <a className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
-  Join the community
+  Εγγραφείτε στην κοινότητα
 </a>
 
 </div>
@@ -22,14 +22,14 @@ slug: "/downloads/post-windows"
 ## Windows SmartScreen
 
 
-Windows warns users when installing software without a certificate.
+Τα Windows προειδοποιούν τους χρήστες κατά την εγκατάσταση λογισμικού χωρίς πιστοποιητικό.
 
-![Smart screen](/img/smart-screen.png)
+![Έξυπνη οθόνη](/img/smart-screen.png)
 
-To install the app, you need to click on "More info".
+Για να εγκαταστήσετε την εφαρμογή, πρέπει να κάνετε κλικ στο "Περισσότερες πληροφορίες".
 
-![Smart screen more info](/img/smart-screen-more-info.png)
+![Έξυπνες πληροφορίες οθόνης](/img/smart-screen-more-info.png)
 
-Then, click on "Run anyway".
+Στη συνέχεια, κάντε κλικ στο "Εκτέλεση ούτως ή άλλως".
 
 </div>
