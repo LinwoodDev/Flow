@@ -1,7 +1,7 @@
 ---
-title: "Bijdragen"
-hide_title: waar
-sidebar_label: "Bijdragen"
+title: "Contributing"
+hide_title: true
+sidebar_label: "Contributing"
 ---
 
 ```mdx-code-block
