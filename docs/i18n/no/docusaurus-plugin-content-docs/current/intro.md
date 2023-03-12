@@ -2,6 +2,6 @@
 sidebar_position: 1
 ---
 
-# Introduksjon
+# Introduction
 
-Kommer snart
+Coming soon
