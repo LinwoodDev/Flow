@@ -1,25 +1,25 @@
 ---
-id: "المجتمع"
+id: "community"
 slug: "/community"
-sidebar_label: "المنزل"
+sidebar_label: "Home"
 sidebar_position: 0
-title: "المجتمع"
+title: "Community"
 ---
 
-مرحبا بكم في قسم المجتمع.
+Welcome to the community section.
 
-## الإشادة
+## Acknowledgements
 
-ويوجه الشكر الخاص إلى:
+A special thanks goes to:
 
-* <https://github.com/flutter/flutter> لتوفير إطار مفترق المنصة المفيد هذا
-* [https://github.com/leanflutter/window_Manager](https://github.com/leanflutter/window_manager) لجميع ميزات نافذة سطح المكتب المفيدة هذه
-* <https://github.com/facebook/docusaurus> لإطار توثيق رد الفعل الثابت السهل الاستخدام
+* <https://github.com/flutter/flutter> for providing this useful crossplatform ui framework
+* <https://github.com/leanflutter/window_manager> for all this useful desktop window features
+* <https://github.com/facebook/docusaurus> for an easy-to-use static react documentation framework
 
-يمكن العثور على جميع التراخيص الأخرى في الإعدادات.
+All other licenses can you found in the settings.
 
-## روابط مفيدة
+## Useful links
 
 * [GitHub](https://github.com/LinwoodCloud/Flow)
-* [ديسكورد](https://go.linwood.dev/discord)
-* [مصفوفة](https://go.linwood.dev/matrix)
+* [Discord](https://go.linwood.dev/discord)
+* [Matrix](https://go.linwood.dev/matrix)
