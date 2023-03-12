@@ -1,16 +1,16 @@
 ---
-title: "Nightly Builds"
-slug: "/nightly"
+title: "每晚生成"
+slug: "/每晚的"
 ---
 
-:::warning
+:::警告
 
-Do not use the nightly version of Flow for production.
+不要使用流的夜间版本进行生产。
 
 :::
 
-Nightly builds are designed to give you the option to test the latest version and get the newest features and give feedback.
+每晚构建是为了让您可以选择测试最新版本，获得最新功能并提供反馈。
 
-## Get the builds
+## 获取版本
 
-Go to the download pages of your platform. All nightly builds get also published as pre-release on github.
+转到您平台的下载页面。 所有夜间构建也会在Github上发布预发布版本。
