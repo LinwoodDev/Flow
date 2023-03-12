@@ -1,8 +1,8 @@
 ---
 id: "faq"
 slug: "/faq"
-title: "Frequently Asked Questions"
+title: "よく寄せられる質問"
 sidebar_label: "FAQ"
 ---
 
-Here are some frequently asked questions.
+よくある質問をいくつか紹介します。
