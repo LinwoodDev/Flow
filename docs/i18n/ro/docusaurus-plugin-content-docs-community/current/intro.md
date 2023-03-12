@@ -1,6 +1,6 @@
 ---
 id: "comunitate"
-slug: "/comunitate"
+slug: "/community"
 sidebar_label: "Acasă"
 sidebar_position: 0
 title: "Comunitate"
