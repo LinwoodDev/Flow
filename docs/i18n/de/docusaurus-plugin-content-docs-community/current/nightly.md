@@ -1,6 +1,6 @@
 ---
 title: "Nachts Builds"
-slug: "/nightly"
+slug: "/nachts"
 ---
 
 :::Warnung
@@ -9,7 +9,7 @@ Verwenden Sie nicht die nächtliche Version von Flow für die Produktion.
 
 :::
 
-Die nächtlichen Builds sind so konzipiert, dass sie dir die Möglichkeit geben, die neueste Version zu testen und die neuesten Funktionen zu erhalten und Feedback zu geben.
+Nightly builds sind so konzipiert, dass Sie die Möglichkeit haben, die neueste Version zu testen und die neuesten Funktionen zu erhalten und Feedback zu geben.
 
 ## Erhalte die Builds
 
