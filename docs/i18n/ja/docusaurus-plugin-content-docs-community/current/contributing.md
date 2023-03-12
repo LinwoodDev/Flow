@@ -1,7 +1,7 @@
 ---
-title: "Contributing"
+title: "コントリビューション"
 hide_title: true
-sidebar_label: "Contributing"
+sidebar_label: "コントリビューション"
 ---
 
 ```mdx-code-block
