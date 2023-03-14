@@ -233,25 +233,28 @@ class SingleDayList extends StatelessWidget {
             );
 
             await showDialog(
-                context: context,
-                builder: (context) => EventDialog(
-                      event: Event(
-                        start: dateTime,
-                        end: dateTime.add(const Duration(hours: 1)),
-                      ),
-                    ));
+              context: context,
+              builder: (context) => EventDialog(
+                event: Event(
+                  time: EventTime.fixed(
+                    start: dateTime,
+                    end: dateTime.add(const Duration(hours: 1)),
+                  ),
+                ),
+              ),
+            );
             onChanged();
           }),
           for (final position in positions)
             Builder(builder: (context) {
               double top = 0, height;
-              if (position.event.start?.isSameDay(current) ?? false) {
-                top = (position.event.start?.hour ?? 0) * _hourHeight +
-                    (position.event.start?.minute ?? 0) / 60 * _hourHeight;
+              if (position.event.time.start?.isSameDay(current) ?? false) {
+                top = (position.event.time.start?.hour ?? 0) * _hourHeight +
+                    (position.event.time.start?.minute ?? 0) / 60 * _hourHeight;
               }
-              if (position.event.end?.isSameDay(current) ?? false) {
-                height = (position.event.end?.hour ?? 23) * _hourHeight +
-                    (position.event.end?.minute ?? 59) / 60 * _hourHeight -
+              if (position.event.time.end?.isSameDay(current) ?? false) {
+                height = (position.event.time.end?.hour ?? 23) * _hourHeight +
+                    (position.event.time.end?.minute ?? 59) / 60 * _hourHeight -
                     top;
               } else {
                 height = 24 * _hourHeight - top;

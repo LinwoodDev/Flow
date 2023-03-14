@@ -29,13 +29,13 @@ class ICalConverter {
             break;
           case 'DTSTART':
           case 'DTEND;VALUE=DATE':
-            currentEvent = currentEvent.copyWith(
+            currentEvent = currentEvent.copyWith.time(
                 start:
                     DateTime.parse(value).subtract(const Duration(minutes: 1)));
             break;
           case 'DTEND':
           case 'DTSTART;VALUE=DATE':
-            currentEvent = currentEvent.copyWith(end: DateTime.parse(value));
+            currentEvent = currentEvent.copyWith.time(end: DateTime.parse(value));
             break;
           case 'END':
             if (value != 'VEVENT') break;

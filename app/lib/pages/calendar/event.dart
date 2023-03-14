@@ -227,21 +227,22 @@ class EventDialog extends StatelessWidget {
                           const SizedBox(height: 16),
                           DateTimeField(
                             label: AppLocalizations.of(context).start,
-                            initialValue: currentEvent.start,
+                            initialValue: currentEvent.time.start,
                             icon: const Icon(Icons.calendar_today_outlined),
                             onChanged: (value) {
                               currentEvent =
-                                  currentEvent.copyWith(start: value);
+                                  currentEvent.copyWith.time(start: value);
                             },
                             canBeEmpty: true,
                           ),
                           const SizedBox(height: 8),
                           DateTimeField(
                             label: AppLocalizations.of(context).end,
-                            initialValue: currentEvent.end,
+                            initialValue: currentEvent.time.end,
                             icon: const Icon(Icons.calendar_today_outlined),
                             onChanged: (value) {
-                              currentEvent = currentEvent.copyWith(end: value);
+                              currentEvent =
+                                  currentEvent.copyWith.time(end: value);
                             },
                             canBeEmpty: true,
                           ),

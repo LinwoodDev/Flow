@@ -175,8 +175,10 @@ class _CalendarListViewState extends State<CalendarListView> {
                               context: context,
                               builder: (context) => EventDialog(
                                 event: Event(
-                                  start: date,
-                                  end: date.add(const Duration(hours: 1)),
+                                  time: EventTime.fixed(
+                                    start: date,
+                                    end: date.add(const Duration(hours: 1)),
+                                  ),
                                 ),
                               ),
                             ),

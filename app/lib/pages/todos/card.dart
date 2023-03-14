@@ -209,12 +209,14 @@ class _TodoCardState extends State<TodoCard> {
                               child: Text(
                                 AppLocalizations.of(context).eventInfo(
                                   _event!.name,
-                                  _event?.start == null
+                                  _event?.time.start == null
                                       ? '-'
-                                      : dateFormatter.format(_event!.start!),
-                                  _event?.start == null
+                                      : dateFormatter
+                                          .format(_event!.time.start!),
+                                  _event?.time.start == null
                                       ? '-'
-                                      : timeFormatter.format(_event!.start!),
+                                      : timeFormatter
+                                          .format(_event!.time.start!),
                                   _event!.location.isEmpty
                                       ? '-'
                                       : _event!.location,

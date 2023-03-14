@@ -17,17 +17,49 @@ class Event with _$Event {
     @Default('') String name,
     @Default('') String description,
     @Default('') String location,
-    @DateTimeConverter() DateTime? start,
-    @DateTimeConverter() DateTime? end,
+    @Default(EventTime.fixed()) EventTime time,
     @Default(EventStatus.confirmed) EventStatus status,
   }) = _Event;
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
 
   bool collidesWith(Event event) {
-    return (event.end == null || (start?.isBefore(event.end!) ?? true)) &&
-        (event.start == null || (end?.isAfter(event.start!) ?? true));
+    return (event.time.end == null ||
+            (time.start?.isBefore(event.time.end!) ?? true)) &&
+        (event.time.start == null ||
+            (time.end?.isAfter(event.time.start!) ?? true));
   }
+}
+
+@freezed
+class EventTime with _$EventTime {
+  const factory EventTime.fixed({
+    @DateTimeConverter() DateTime? start,
+    @DateTimeConverter() DateTime? end,
+  }) = FixedEventTime;
+
+  const factory EventTime.repeating({
+    @DateTimeConverter() DateTime? start,
+    @DateTimeConverter() DateTime? end,
+    @Default(-1) int id,
+    @Default(RepeatType.daily) RepeatType type,
+    @Default(1) int interval,
+    @Default(0) int variation,
+    @Default(0) int count,
+    @DateTimeConverter() DateTime? until,
+    @Default([]) List<int> exceptions,
+  }) = RepeatingEventTime;
+
+  const factory EventTime.auto({
+    @Default(-1) int groupId,
+    @DateTimeConverter() DateTime? searchStart,
+    @Default(60) int duration,
+    @DateTimeConverter() DateTime? start,
+    @DateTimeConverter() DateTime? end,
+  }) = AutoEventTime;
+
+  factory EventTime.fromJson(Map<String, dynamic> json) =>
+      _$EventTimeFromJson(json);
 }
 
 enum EventStatus {
@@ -41,19 +73,4 @@ enum RepeatType {
   weekly,
   monthly,
   yearly,
-}
-
-@freezed
-class Repetition with _$Repetition {
-  const factory Repetition({
-    @Default(-1) int id,
-    @Default(RepeatType.daily) RepeatType type,
-    @Default(1) int interval,
-    @Default(0) int variation,
-    @Default(0) int count,
-    @DateTimeConverter() DateTime? until,
-  }) = _Repetition;
-
-  factory Repetition.fromJson(Map<String, dynamic> json) =>
-      _$RepetitionFromJson(json);
 }

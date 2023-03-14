@@ -107,12 +107,12 @@ class _EventSelectDialogState extends State<EventSelectDialog> {
                           widget.selected?.key == item.key,
                       title: Text(AppLocalizations.of(context).eventInfo(
                         event.name,
-                        event.start == null
+                        event.time.start == null
                             ? '-'
-                            : dateFormatter.format(event.start!),
-                        event.start == null
+                            : dateFormatter.format(event.time.start!),
+                        event.time.start == null
                             ? '-'
-                            : timeFormatter.format(event.start!),
+                            : timeFormatter.format(event.time.start!),
                         event.location.isEmpty ? '-' : event.location,
                         event.status.getLocalizedName(context),
                       )),

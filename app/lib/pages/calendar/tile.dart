@@ -26,11 +26,12 @@ class CalendarListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = Localizations.localeOf(context).languageCode;
     final timeFormatter = DateFormat.Hm(locale);
-    final start = event.start?.onlyDate() == date && event.start != null
-        ? timeFormatter.format(event.start!)
-        : '';
-    final end = event.end?.onlyDate() == date && event.end != null
-        ? timeFormatter.format(event.end!)
+    final start =
+        event.time.start?.onlyDate() == date && event.time.start != null
+            ? timeFormatter.format(event.time.start!)
+            : '';
+    final end = event.time.end?.onlyDate() == date && event.time.end != null
+        ? timeFormatter.format(event.time.end!)
         : '';
     String range;
     if (start == '' && end == '') {
