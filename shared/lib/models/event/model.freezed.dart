@@ -382,7 +382,6 @@ mixin _$EventTime {
     required TResult Function(
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int id,
             RepeatType type,
             int interval,
             int variation,
@@ -391,9 +390,9 @@ mixin _$EventTime {
             List<int> exceptions)
         repeating,
     required TResult Function(
-            int groupId,
+            int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
-            int duration,
+            int autoDuration,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
         auto,
@@ -407,7 +406,6 @@ mixin _$EventTime {
     TResult? Function(
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int id,
             RepeatType type,
             int interval,
             int variation,
@@ -416,9 +414,9 @@ mixin _$EventTime {
             List<int> exceptions)?
         repeating,
     TResult? Function(
-            int groupId,
+            int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
-            int duration,
+            int autoDuration,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         auto,
@@ -432,7 +430,6 @@ mixin _$EventTime {
     TResult Function(
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int id,
             RepeatType type,
             int interval,
             int variation,
@@ -441,9 +438,9 @@ mixin _$EventTime {
             List<int> exceptions)?
         repeating,
     TResult Function(
-            int groupId,
+            int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
-            int duration,
+            int autoDuration,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         auto,
@@ -612,7 +609,6 @@ class _$FixedEventTime implements FixedEventTime {
     required TResult Function(
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int id,
             RepeatType type,
             int interval,
             int variation,
@@ -621,9 +617,9 @@ class _$FixedEventTime implements FixedEventTime {
             List<int> exceptions)
         repeating,
     required TResult Function(
-            int groupId,
+            int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
-            int duration,
+            int autoDuration,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
         auto,
@@ -640,7 +636,6 @@ class _$FixedEventTime implements FixedEventTime {
     TResult? Function(
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int id,
             RepeatType type,
             int interval,
             int variation,
@@ -649,9 +644,9 @@ class _$FixedEventTime implements FixedEventTime {
             List<int> exceptions)?
         repeating,
     TResult? Function(
-            int groupId,
+            int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
-            int duration,
+            int autoDuration,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         auto,
@@ -668,7 +663,6 @@ class _$FixedEventTime implements FixedEventTime {
     TResult Function(
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int id,
             RepeatType type,
             int interval,
             int variation,
@@ -677,9 +671,9 @@ class _$FixedEventTime implements FixedEventTime {
             List<int> exceptions)?
         repeating,
     TResult Function(
-            int groupId,
+            int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
-            int duration,
+            int autoDuration,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         auto,
@@ -764,7 +758,6 @@ abstract class _$$RepeatingEventTimeCopyWith<$Res>
   $Res call(
       {@DateTimeConverter() DateTime? start,
       @DateTimeConverter() DateTime? end,
-      int id,
       RepeatType type,
       int interval,
       int variation,
@@ -786,7 +779,6 @@ class __$$RepeatingEventTimeCopyWithImpl<$Res>
   $Res call({
     Object? start = freezed,
     Object? end = freezed,
-    Object? id = null,
     Object? type = null,
     Object? interval = null,
     Object? variation = null,
@@ -803,10 +795,6 @@ class __$$RepeatingEventTimeCopyWithImpl<$Res>
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -841,7 +829,6 @@ class _$RepeatingEventTime implements RepeatingEventTime {
   const _$RepeatingEventTime(
       {@DateTimeConverter() this.start,
       @DateTimeConverter() this.end,
-      this.id = -1,
       this.type = RepeatType.daily,
       this.interval = 1,
       this.variation = 0,
@@ -861,9 +848,6 @@ class _$RepeatingEventTime implements RepeatingEventTime {
   @override
   @DateTimeConverter()
   final DateTime? end;
-  @override
-  @JsonKey()
-  final int id;
   @override
   @JsonKey()
   final RepeatType type;
@@ -893,7 +877,7 @@ class _$RepeatingEventTime implements RepeatingEventTime {
 
   @override
   String toString() {
-    return 'EventTime.repeating(start: $start, end: $end, id: $id, type: $type, interval: $interval, variation: $variation, count: $count, until: $until, exceptions: $exceptions)';
+    return 'EventTime.repeating(start: $start, end: $end, type: $type, interval: $interval, variation: $variation, count: $count, until: $until, exceptions: $exceptions)';
   }
 
   @override
@@ -903,7 +887,6 @@ class _$RepeatingEventTime implements RepeatingEventTime {
             other is _$RepeatingEventTime &&
             (identical(other.start, start) || other.start == start) &&
             (identical(other.end, end) || other.end == end) &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.interval, interval) ||
                 other.interval == interval) &&
@@ -921,7 +904,6 @@ class _$RepeatingEventTime implements RepeatingEventTime {
       runtimeType,
       start,
       end,
-      id,
       type,
       interval,
       variation,
@@ -945,7 +927,6 @@ class _$RepeatingEventTime implements RepeatingEventTime {
     required TResult Function(
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int id,
             RepeatType type,
             int interval,
             int variation,
@@ -954,15 +935,15 @@ class _$RepeatingEventTime implements RepeatingEventTime {
             List<int> exceptions)
         repeating,
     required TResult Function(
-            int groupId,
+            int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
-            int duration,
+            int autoDuration,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
         auto,
   }) {
     return repeating(
-        start, end, id, type, interval, variation, count, until, exceptions);
+        start, end, type, interval, variation, count, until, exceptions);
   }
 
   @override
@@ -974,7 +955,6 @@ class _$RepeatingEventTime implements RepeatingEventTime {
     TResult? Function(
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int id,
             RepeatType type,
             int interval,
             int variation,
@@ -983,15 +963,15 @@ class _$RepeatingEventTime implements RepeatingEventTime {
             List<int> exceptions)?
         repeating,
     TResult? Function(
-            int groupId,
+            int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
-            int duration,
+            int autoDuration,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         auto,
   }) {
     return repeating?.call(
-        start, end, id, type, interval, variation, count, until, exceptions);
+        start, end, type, interval, variation, count, until, exceptions);
   }
 
   @override
@@ -1003,7 +983,6 @@ class _$RepeatingEventTime implements RepeatingEventTime {
     TResult Function(
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int id,
             RepeatType type,
             int interval,
             int variation,
@@ -1012,9 +991,9 @@ class _$RepeatingEventTime implements RepeatingEventTime {
             List<int> exceptions)?
         repeating,
     TResult Function(
-            int groupId,
+            int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
-            int duration,
+            int autoDuration,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         auto,
@@ -1022,7 +1001,7 @@ class _$RepeatingEventTime implements RepeatingEventTime {
   }) {
     if (repeating != null) {
       return repeating(
-          start, end, id, type, interval, variation, count, until, exceptions);
+          start, end, type, interval, variation, count, until, exceptions);
     }
     return orElse();
   }
@@ -1073,7 +1052,6 @@ abstract class RepeatingEventTime implements EventTime {
   const factory RepeatingEventTime(
       {@DateTimeConverter() final DateTime? start,
       @DateTimeConverter() final DateTime? end,
-      final int id,
       final RepeatType type,
       final int interval,
       final int variation,
@@ -1090,7 +1068,6 @@ abstract class RepeatingEventTime implements EventTime {
   @override
   @DateTimeConverter()
   DateTime? get end;
-  int get id;
   RepeatType get type;
   int get interval;
   int get variation;
@@ -1113,9 +1090,9 @@ abstract class _$$AutoEventTimeCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int groupId,
+      {int autoGroupId,
       @DateTimeConverter() DateTime? searchStart,
-      int duration,
+      int autoDuration,
       @DateTimeConverter() DateTime? start,
       @DateTimeConverter() DateTime? end});
 }
@@ -1131,24 +1108,24 @@ class __$$AutoEventTimeCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? groupId = null,
+    Object? autoGroupId = null,
     Object? searchStart = freezed,
-    Object? duration = null,
+    Object? autoDuration = null,
     Object? start = freezed,
     Object? end = freezed,
   }) {
     return _then(_$AutoEventTime(
-      groupId: null == groupId
-          ? _value.groupId
-          : groupId // ignore: cast_nullable_to_non_nullable
+      autoGroupId: null == autoGroupId
+          ? _value.autoGroupId
+          : autoGroupId // ignore: cast_nullable_to_non_nullable
               as int,
       searchStart: freezed == searchStart
           ? _value.searchStart
           : searchStart // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      duration: null == duration
-          ? _value.duration
-          : duration // ignore: cast_nullable_to_non_nullable
+      autoDuration: null == autoDuration
+          ? _value.autoDuration
+          : autoDuration // ignore: cast_nullable_to_non_nullable
               as int,
       start: freezed == start
           ? _value.start
@@ -1166,9 +1143,9 @@ class __$$AutoEventTimeCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AutoEventTime implements AutoEventTime {
   const _$AutoEventTime(
-      {this.groupId = -1,
+      {this.autoGroupId = -1,
       @DateTimeConverter() this.searchStart,
-      this.duration = 60,
+      this.autoDuration = 60,
       @DateTimeConverter() this.start,
       @DateTimeConverter() this.end,
       final String? $type})
@@ -1179,13 +1156,13 @@ class _$AutoEventTime implements AutoEventTime {
 
   @override
   @JsonKey()
-  final int groupId;
+  final int autoGroupId;
   @override
   @DateTimeConverter()
   final DateTime? searchStart;
   @override
   @JsonKey()
-  final int duration;
+  final int autoDuration;
   @override
   @DateTimeConverter()
   final DateTime? start;
@@ -1198,7 +1175,7 @@ class _$AutoEventTime implements AutoEventTime {
 
   @override
   String toString() {
-    return 'EventTime.auto(groupId: $groupId, searchStart: $searchStart, duration: $duration, start: $start, end: $end)';
+    return 'EventTime.auto(autoGroupId: $autoGroupId, searchStart: $searchStart, autoDuration: $autoDuration, start: $start, end: $end)';
   }
 
   @override
@@ -1206,19 +1183,20 @@ class _$AutoEventTime implements AutoEventTime {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AutoEventTime &&
-            (identical(other.groupId, groupId) || other.groupId == groupId) &&
+            (identical(other.autoGroupId, autoGroupId) ||
+                other.autoGroupId == autoGroupId) &&
             (identical(other.searchStart, searchStart) ||
                 other.searchStart == searchStart) &&
-            (identical(other.duration, duration) ||
-                other.duration == duration) &&
+            (identical(other.autoDuration, autoDuration) ||
+                other.autoDuration == autoDuration) &&
             (identical(other.start, start) || other.start == start) &&
             (identical(other.end, end) || other.end == end));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, groupId, searchStart, duration, start, end);
+  int get hashCode => Object.hash(
+      runtimeType, autoGroupId, searchStart, autoDuration, start, end);
 
   @JsonKey(ignore: true)
   @override
@@ -1235,7 +1213,6 @@ class _$AutoEventTime implements AutoEventTime {
     required TResult Function(
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int id,
             RepeatType type,
             int interval,
             int variation,
@@ -1244,14 +1221,14 @@ class _$AutoEventTime implements AutoEventTime {
             List<int> exceptions)
         repeating,
     required TResult Function(
-            int groupId,
+            int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
-            int duration,
+            int autoDuration,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
         auto,
   }) {
-    return auto(groupId, searchStart, duration, start, end);
+    return auto(autoGroupId, searchStart, autoDuration, start, end);
   }
 
   @override
@@ -1263,7 +1240,6 @@ class _$AutoEventTime implements AutoEventTime {
     TResult? Function(
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int id,
             RepeatType type,
             int interval,
             int variation,
@@ -1272,14 +1248,14 @@ class _$AutoEventTime implements AutoEventTime {
             List<int> exceptions)?
         repeating,
     TResult? Function(
-            int groupId,
+            int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
-            int duration,
+            int autoDuration,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         auto,
   }) {
-    return auto?.call(groupId, searchStart, duration, start, end);
+    return auto?.call(autoGroupId, searchStart, autoDuration, start, end);
   }
 
   @override
@@ -1291,7 +1267,6 @@ class _$AutoEventTime implements AutoEventTime {
     TResult Function(
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int id,
             RepeatType type,
             int interval,
             int variation,
@@ -1300,16 +1275,16 @@ class _$AutoEventTime implements AutoEventTime {
             List<int> exceptions)?
         repeating,
     TResult Function(
-            int groupId,
+            int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
-            int duration,
+            int autoDuration,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         auto,
     required TResult orElse(),
   }) {
     if (auto != null) {
-      return auto(groupId, searchStart, duration, start, end);
+      return auto(autoGroupId, searchStart, autoDuration, start, end);
     }
     return orElse();
   }
@@ -1358,19 +1333,19 @@ class _$AutoEventTime implements AutoEventTime {
 
 abstract class AutoEventTime implements EventTime {
   const factory AutoEventTime(
-      {final int groupId,
+      {final int autoGroupId,
       @DateTimeConverter() final DateTime? searchStart,
-      final int duration,
+      final int autoDuration,
       @DateTimeConverter() final DateTime? start,
       @DateTimeConverter() final DateTime? end}) = _$AutoEventTime;
 
   factory AutoEventTime.fromJson(Map<String, dynamic> json) =
       _$AutoEventTime.fromJson;
 
-  int get groupId;
+  int get autoGroupId;
   @DateTimeConverter()
   DateTime? get searchStart;
-  int get duration;
+  int get autoDuration;
   @override
   @DateTimeConverter()
   DateTime? get start;

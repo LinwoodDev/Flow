@@ -19,7 +19,8 @@ class ICalConverter {
     for (int i = offset; i < lines.length; i++) {
       final line = lines[i];
       final parts = line.split(':');
-      final key = parts[0].trim();
+      final name = parts[0].trim().split(';');
+      final key = name.first;
       final value = parts.sublist(1).join(':').trim();
       if (currentEvent != null) {
         switch (key) {
@@ -30,13 +31,11 @@ class ICalConverter {
             currentEvent = currentEvent.copyWith(description: value);
             break;
           case 'DTSTART':
-          case 'DTEND;VALUE=DATE':
             currentEvent = currentEvent.copyWith.time(
                 start:
                     DateTime.parse(value).subtract(const Duration(minutes: 1)));
             break;
           case 'DTEND':
-          case 'DTSTART;VALUE=DATE':
             currentEvent =
                 currentEvent.copyWith.time(end: DateTime.parse(value));
             break;
@@ -68,15 +67,15 @@ class ICalConverter {
             continue;
           case 'END':
             if (value == 'VCALENDAR') {
+              data = CachedData(
+                events: events,
+                todos: todos,
+              );
               return;
             }
             continue;
         }
       }
     }
-    data = CachedData(
-      events: events,
-      todos: todos,
-    );
   }
 }

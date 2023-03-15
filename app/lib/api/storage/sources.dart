@@ -6,6 +6,7 @@ import 'package:flow/cubits/settings.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared/services/database.dart';
+import 'package:shared/services/source.dart';
 
 class SourcesService {
   final SettingsCubit settingsCubit;
@@ -88,5 +89,14 @@ class SourcesService {
     remotes
         .removeWhere((element) => element.remoteStorage.toFilename() == name);
     await synchronize();
+  }
+
+  List<String> getRemotes() =>
+      settingsCubit.state.remotes.map((e) => e.toDisplayString()).toList();
+
+  SourceService getSource(String source) {
+    if (source.isEmpty) return local;
+    return remotes.firstWhere(
+        (element) => element.remoteStorage.toDisplayString() == source);
   }
 }

@@ -24,6 +24,16 @@ class EventDatabaseService extends EventService with TableService {
         placeId INTEGER,
         start INTEGER,
         end INTEGER,
+        timeType VARCHAR(20) NOT NULL DEFAULT 'fixed',
+        repeatType VARCHAR(20) NOT NULL DEFAULT 'daily',
+        interval INTEGER NOT NULL DEFAULT 1,
+        variation INTEGER NOT NULL DEFAULT 0,
+        count INTEGER NOT NULL DEFAULT 0,
+        until INTEGER,
+        exceptions TEXT,
+        autoGroupId INTEGER NOT NULL DEFAULT -1,
+        searchStart INTEGER,
+        autoDuration INTEGER NOT NULL DEFAULT 60,
         status TEXT
       )
     """);
@@ -112,20 +122,36 @@ class EventDatabaseService extends EventService with TableService {
 
     final result = await db?.query('events',
         where: where, whereArgs: whereArgs, offset: offset, limit: limit);
-    return result
-            ?.map((row) => Event.fromJson(
-                Map.from(row)..['blocked'] = row['blocked'] == 1))
-            .toList() ??
-        [];
+    return result?.map(_decode).toList() ?? [];
+  }
+
+  Event _decode(Map<String, dynamic> row) {
+    EventTime time = EventTime.fromJson({
+      ...row,
+      'runtimeType': row['timeType'],
+    });
+    return Event.fromJson({
+      ...row,
+      'time': time.toJson(),
+      'blocked': row['blocked'] == 1,
+    });
+  }
+
+  Map<String, dynamic> _encode(Event event) {
+    final time = event.time.toJson();
+    return {
+      ...time,
+      'timeType': time['runtimeType'],
+      ...event.toJson(),
+      'blocked': event.blocked ? 1 : 0,
+    }
+      ..remove('time')
+      ..remove('runtimeType');
   }
 
   @override
   Future<Event?> createEvent(Event event) async {
-    final id = await db?.insert(
-        'events',
-        event.toJson()
-          ..remove('id')
-          ..['blocked'] = event.blocked ? 1 : 0);
+    final id = await db?.insert('events', _encode(event)..remove('id'));
     if (id == null) return null;
     return event.copyWith(id: id);
   }
@@ -134,7 +160,7 @@ class EventDatabaseService extends EventService with TableService {
   Future<bool> updateEvent(Event event) async {
     return await db?.update(
           'events',
-          event.toJson()..['blocked'] = event.blocked ? 1 : 0,
+          _encode(event),
           where: 'id = ?',
           whereArgs: [event.id],
         ) ==
@@ -158,9 +184,11 @@ class EventDatabaseService extends EventService with TableService {
       where: 'id = ?',
       whereArgs: [id],
     );
-    return result
-        ?.map((row) =>
-            Event.fromJson(Map.from(row)..['blocked'] = row['blocked'] == 1))
-        .first;
+    return result?.map(_decode).first;
+  }
+
+  @override
+  Future<void> clear() async {
+    await db?.delete('events');
   }
 }

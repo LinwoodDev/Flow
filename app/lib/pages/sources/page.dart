@@ -1,3 +1,4 @@
+import 'package:flow/api/storage/remote/model.dart';
 import 'package:flow/cubits/settings.dart';
 import 'package:flow/pages/sources/dialog.dart';
 import 'package:flow/visualizer/sync.dart';
@@ -42,24 +43,30 @@ class SourcesPage extends StatelessWidget {
                 ),
                 BlocBuilder<SettingsCubit, FlowSettings>(
                     builder: (context, state) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: state.remotes.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      final remote = state.remotes[index];
-                      return Dismissible(
-                        key: ValueKey(remote),
-                        onDismissed: (_) => context
-                            .read<SourcesService>()
-                            .removeRemote(remote.toFilename()),
-                        child: ListTile(
-                          title: Text(remote.toDisplayString()),
-                          leading: Icon(
-                              remote.map(calDav: (_) => Icons.web_outlined)),
-                        ),
-                      );
-                    },
+                  final remotes = List<RemoteStorage>.from(state.remotes);
+                  return StatefulBuilder(
+                    builder: (context, setState) => ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: remotes.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final remote = remotes[index];
+                        return Dismissible(
+                          key: ValueKey(remote),
+                          onDismissed: (_) {
+                            setState(() => remotes.removeAt(index));
+                            context
+                                .read<SourcesService>()
+                                .removeRemote(remote.toFilename());
+                          },
+                          child: ListTile(
+                            title: Text(remote.toDisplayString()),
+                            leading: Icon(
+                                remote.map(calDav: (_) => Icons.web_outlined)),
+                          ),
+                        );
+                      },
+                    ),
                   );
                 }),
               ]),

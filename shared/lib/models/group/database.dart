@@ -76,4 +76,9 @@ class GroupDatabaseService extends GroupService with TableService {
         ) ==
         1;
   }
+
+  @override
+  Future<void> clear() async {
+    await db?.delete('groups');
+  }
 }

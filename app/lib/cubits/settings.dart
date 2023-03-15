@@ -88,8 +88,7 @@ class SettingsCubit extends Cubit<FlowSettings> {
 
   Future<void> removeStorage(String name) {
     emit(state.copyWith(
-        remotes:
-            state.remotes.where((e) => e.toDisplayString() != name).toList()));
+        remotes: state.remotes.where((e) => e.toFilename() != name).toList()));
     return state.save();
   }
 }

@@ -118,4 +118,9 @@ class TodoDatabaseService extends TodoService with TableService {
         ) ==
         1;
   }
+
+  @override
+  Future<void> clear() async {
+    await db?.delete('todos');
+  }
 }

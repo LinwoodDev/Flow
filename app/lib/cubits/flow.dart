@@ -23,7 +23,7 @@ class FlowCubit extends Cubit<FlowState> {
   }
 
   List<String> getCurrentSources() {
-    return ['']
+    return ['', ...sourcesService.getRemotes()]
         .whereNot((source) => state.disabledSources.contains(source))
         .toList();
   }
@@ -56,7 +56,7 @@ class FlowCubit extends Cubit<FlowState> {
   }
 
   SourceService getSource(String source) {
-    return sourcesService.local;
+    return sourcesService.getSource(source);
   }
 
   Map<String, SourceService> getCurrentServicesMap() {

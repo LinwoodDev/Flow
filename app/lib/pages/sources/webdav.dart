@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class WebDavSourceDialog extends StatelessWidget {
+class CalDavSourceDialog extends StatelessWidget {
   final TextEditingController _urlController = TextEditingController(),
       _usernameController = TextEditingController(),
       _passwordController = TextEditingController();
-  WebDavSourceDialog({super.key});
+  CalDavSourceDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(AppLocalizations.of(context).webdav),
+      title: Text(AppLocalizations.of(context).caldav),
       content: SizedBox(
         width: 400,
         child: Column(

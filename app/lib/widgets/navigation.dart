@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flow/cubits/flow.dart';
+import 'package:flow/cubits/settings.dart';
 import 'package:flow/widgets/window_buttons.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -266,6 +267,7 @@ class _FlowDrawer extends StatelessWidget {
     final sources = [''];
     final currents =
         List<String>.from(context.read<FlowCubit>().getCurrentSources());
+    final remotes = context.read<SettingsCubit>().state.remotes;
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -274,7 +276,7 @@ class _FlowDrawer extends StatelessWidget {
         content: StatefulBuilder(
           builder: (context, setState) {
             bool? allSources;
-            if (currents.length == sources.length) {
+            if (currents.length >= sources.length) {
               allSources = true;
             } else if (currents.isEmpty) {
               allSources = false;
@@ -303,6 +305,15 @@ class _FlowDrawer extends StatelessWidget {
                       ? currents.add("")
                       : currents.remove("")),
                 ),
+                ...remotes.map((e) => e.toDisplayString()).map(
+                      (e) => CheckboxListTile(
+                        title: Text(e),
+                        value: currents.contains(e),
+                        onChanged: (value) => setState(() => (value ?? false)
+                            ? currents.add(e)
+                            : currents.remove(e)),
+                      ),
+                    ),
               ],
             );
           },

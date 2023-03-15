@@ -24,14 +24,14 @@ class AddSourceDialog extends StatelessWidget {
           width: 500,
           child: Column(mainAxisSize: MainAxisSize.min, children: [
             ListTile(
-                title: Text(AppLocalizations.of(context).webdav),
-                subtitle: Text(AppLocalizations.of(context).webdavDescription),
+                title: Text(AppLocalizations.of(context).caldav),
+                subtitle: Text(AppLocalizations.of(context).caldavDescription),
                 leading: const Icon(Icons.web_outlined),
                 onTap: () {
                   Navigator.of(context).pop();
                   showDialog(
                     context: context,
-                    builder: (context) => WebDavSourceDialog(),
+                    builder: (context) => CalDavSourceDialog(),
                   );
                 }),
             ListTile(

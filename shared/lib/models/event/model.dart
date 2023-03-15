@@ -41,7 +41,6 @@ class EventTime with _$EventTime {
   const factory EventTime.repeating({
     @DateTimeConverter() DateTime? start,
     @DateTimeConverter() DateTime? end,
-    @Default(-1) int id,
     @Default(RepeatType.daily) RepeatType type,
     @Default(1) int interval,
     @Default(0) int variation,
@@ -51,9 +50,9 @@ class EventTime with _$EventTime {
   }) = RepeatingEventTime;
 
   const factory EventTime.auto({
-    @Default(-1) int groupId,
+    @Default(-1) int autoGroupId,
     @DateTimeConverter() DateTime? searchStart,
-    @Default(60) int duration,
+    @Default(60) int autoDuration,
     @DateTimeConverter() DateTime? start,
     @DateTimeConverter() DateTime? end,
   }) = AutoEventTime;

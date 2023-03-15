@@ -59,7 +59,6 @@ _$RepeatingEventTime _$$RepeatingEventTimeFromJson(Map<String, dynamic> json) =>
     _$RepeatingEventTime(
       start: const DateTimeConverter().fromJson(json['start'] as int?),
       end: const DateTimeConverter().fromJson(json['end'] as int?),
-      id: json['id'] as int? ?? -1,
       type: $enumDecodeNullable(_$RepeatTypeEnumMap, json['type']) ??
           RepeatType.daily,
       interval: json['interval'] as int? ?? 1,
@@ -78,7 +77,6 @@ Map<String, dynamic> _$$RepeatingEventTimeToJson(
     <String, dynamic>{
       'start': const DateTimeConverter().toJson(instance.start),
       'end': const DateTimeConverter().toJson(instance.end),
-      'id': instance.id,
       'type': _$RepeatTypeEnumMap[instance.type]!,
       'interval': instance.interval,
       'variation': instance.variation,
@@ -97,10 +95,10 @@ const _$RepeatTypeEnumMap = {
 
 _$AutoEventTime _$$AutoEventTimeFromJson(Map<String, dynamic> json) =>
     _$AutoEventTime(
-      groupId: json['groupId'] as int? ?? -1,
+      autoGroupId: json['autoGroupId'] as int? ?? -1,
       searchStart:
           const DateTimeConverter().fromJson(json['searchStart'] as int?),
-      duration: json['duration'] as int? ?? 60,
+      autoDuration: json['autoDuration'] as int? ?? 60,
       start: const DateTimeConverter().fromJson(json['start'] as int?),
       end: const DateTimeConverter().fromJson(json['end'] as int?),
       $type: json['runtimeType'] as String?,
@@ -108,9 +106,9 @@ _$AutoEventTime _$$AutoEventTimeFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$AutoEventTimeToJson(_$AutoEventTime instance) =>
     <String, dynamic>{
-      'groupId': instance.groupId,
+      'autoGroupId': instance.autoGroupId,
       'searchStart': const DateTimeConverter().toJson(instance.searchStart),
-      'duration': instance.duration,
+      'autoDuration': instance.autoDuration,
       'start': const DateTimeConverter().toJson(instance.start),
       'end': const DateTimeConverter().toJson(instance.end),
       'runtimeType': instance.$type,

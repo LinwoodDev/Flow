@@ -90,4 +90,6 @@ mixin TableService {
   FutureOr<void> opened(Database db) {
     this.db = db;
   }
+
+  Future<void> clear();
 }

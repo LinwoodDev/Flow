@@ -18,14 +18,18 @@ abstract class SourceService {
   List<ModelService> get models =>
       [event, todo, group, user, place].whereType<ModelService>().toList();
 
-  Future<void> import(CachedData data) async {
+  Future<void> import(CachedData data, [bool clear = true]) async {
+    event?.clear();
     for (final current in data.events) {
       await event?.createEvent(current);
     }
+    todo?.clear();
     for (final current in data.todos) {
       await todo?.createTodo(current);
     }
   }
 }
 
-abstract class ModelService {}
+abstract class ModelService {
+  Future<void> clear();
+}
