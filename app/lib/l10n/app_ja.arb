@@ -202,5 +202,17 @@
   },
   "import": "インポート",
   "confirmImport": "インポートしてもよろしいですか？",
-  "welcome": "ようこそ"
+  "welcome": "ようこそ",
+  "url": "URL",
+  "username": "Username",
+  "password": "Password",
+  "connect": "Connect",
+  "data": "Data",
+  "syncing": "Syncing",
+  "synced": "Synced",
+  "error": "Error",
+  "always": "Always",
+  "noMobile": "No mobile",
+  "manual": "Manual",
+  "syncMode": "Sync mode"
 }
