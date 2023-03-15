@@ -202,5 +202,17 @@
   },
   "import": "Tuo",
   "confirmImport": "Oletko varma, että haluat tuoda sen?",
-  "welcome": "Tervetuloa"
+  "welcome": "Tervetuloa",
+  "url": "URL",
+  "username": "Username",
+  "password": "Password",
+  "connect": "Connect",
+  "data": "Data",
+  "syncing": "Syncing",
+  "synced": "Synced",
+  "error": "Error",
+  "always": "Always",
+  "noMobile": "No mobile",
+  "manual": "Manual",
+  "syncMode": "Sync mode"
 }
