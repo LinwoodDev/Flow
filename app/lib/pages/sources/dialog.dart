@@ -9,7 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/readers/ical.dart';
 import 'package:simple_icons/simple_icons.dart';
 
-import 'webdav.dart';
+import 'caldav.dart';
 
 class AddSourceDialog extends StatelessWidget {
   const AddSourceDialog({super.key});

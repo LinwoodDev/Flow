@@ -17,10 +17,10 @@ Future<Database> openDatabase({
 }) {
   if (kIsWeb || Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     return desktop.openDatabase(
-        onUpgrade: onUpgrade, onCreate: onCreate, version: version);
+        name: name, onUpgrade: onUpgrade, onCreate: onCreate, version: version);
   } else {
     return mobile.openDatabase(
-        onUpgrade: onUpgrade, onCreate: onCreate, version: version);
+        name: name, onUpgrade: onUpgrade, onCreate: onCreate, version: version);
   }
 }
 

@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flow/api/storage/db/database.dart';
 import 'package:flow/api/storage/remote/model.dart';
@@ -96,7 +97,8 @@ class SourcesService {
 
   SourceService getSource(String source) {
     if (source.isEmpty) return local;
-    return remotes.firstWhere(
-        (element) => element.remoteStorage.toDisplayString() == source);
+    return remotes.firstWhereOrNull(
+            (element) => element.remoteStorage.toDisplayString() == source) ??
+        local;
   }
 }
