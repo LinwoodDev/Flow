@@ -202,5 +202,17 @@
   },
   "import": "Importeren",
   "confirmImport": "Weet u zeker dat u deze wilt importeren?",
-  "welcome": "Verwelkoming"
+  "welcome": "Verwelkoming",
+  "url": "URL",
+  "username": "Username",
+  "password": "Password",
+  "connect": "Connect",
+  "data": "Data",
+  "syncing": "Syncing",
+  "synced": "Synced",
+  "error": "Error",
+  "always": "Always",
+  "noMobile": "No mobile",
+  "manual": "Manual",
+  "syncMode": "Sync mode"
 }
