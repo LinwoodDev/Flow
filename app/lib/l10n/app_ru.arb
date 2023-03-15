@@ -202,5 +202,17 @@
   },
   "import": "Импорт",
   "confirmImport": "Вы уверены, что хотите импортировать его?",
-  "welcome": "Добро пожаловать"
+  "welcome": "Добро пожаловать",
+  "url": "URL",
+  "username": "Username",
+  "password": "Password",
+  "connect": "Connect",
+  "data": "Data",
+  "syncing": "Syncing",
+  "synced": "Synced",
+  "error": "Error",
+  "always": "Always",
+  "noMobile": "No mobile",
+  "manual": "Manual",
+  "syncMode": "Sync mode"
 }
