@@ -202,5 +202,17 @@
   },
   "import": "Importér",
   "confirmImport": "Er du sikker på, at du vil importere den?",
-  "welcome": "Velkommen"
+  "welcome": "Velkommen",
+  "url": "URL",
+  "username": "Username",
+  "password": "Password",
+  "connect": "Connect",
+  "data": "Data",
+  "syncing": "Syncing",
+  "synced": "Synced",
+  "error": "Error",
+  "always": "Always",
+  "noMobile": "No mobile",
+  "manual": "Manual",
+  "syncMode": "Sync mode"
 }
