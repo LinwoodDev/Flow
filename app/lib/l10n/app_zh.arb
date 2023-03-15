@@ -202,5 +202,17 @@
   },
   "import": "导入",
   "confirmImport": "您确定要导入它吗？",
-  "welcome": "欢迎使用"
+  "welcome": "欢迎使用",
+  "url": "URL",
+  "username": "Username",
+  "password": "Password",
+  "connect": "Connect",
+  "data": "Data",
+  "syncing": "Syncing",
+  "synced": "Synced",
+  "error": "Error",
+  "always": "Always",
+  "noMobile": "No mobile",
+  "manual": "Manual",
+  "syncMode": "Sync mode"
 }
