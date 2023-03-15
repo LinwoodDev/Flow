@@ -202,5 +202,17 @@
   },
   "import": "Εισαγωγή",
   "confirmImport": "Είστε σίγουροι ότι θέλετε να το εισαγάγετε?",
-  "welcome": "Καλωσόρισμα"
+  "welcome": "Καλωσόρισμα",
+  "url": "URL",
+  "username": "Username",
+  "password": "Password",
+  "connect": "Connect",
+  "data": "Data",
+  "syncing": "Syncing",
+  "synced": "Synced",
+  "error": "Error",
+  "always": "Always",
+  "noMobile": "No mobile",
+  "manual": "Manual",
+  "syncMode": "Sync mode"
 }
