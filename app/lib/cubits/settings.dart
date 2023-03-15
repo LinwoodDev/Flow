@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../api/storage/remote/model.dart';
 
 part 'settings.freezed.dart';
 
@@ -14,6 +18,8 @@ class FlowSettings with _$FlowSettings {
     @Default(ThemeMode.system) ThemeMode themeMode,
     @Default(false) bool nativeTitleBar,
     @Default('') String design,
+    @Default(SyncMode.noMobile) SyncMode syncMode,
+    @Default([]) List<RemoteStorage> remotes,
   }) = _FlowSettings;
 
   factory FlowSettings.fromPrefs(SharedPreferences prefs) => FlowSettings(
@@ -22,6 +28,13 @@ class FlowSettings with _$FlowSettings {
         design: prefs.getString('design') ?? '',
         nativeTitleBar: prefs.getBool('nativeTitleBar') ?? false,
         locale: prefs.getString('locale') ?? '',
+        syncMode:
+            SyncMode.values.byName(prefs.getString('syncMode') ?? 'noMobile'),
+        remotes: prefs
+                .getStringList('remotes')
+                ?.map((e) => RemoteStorage.fromJson(json.decode(e)))
+                .toList() ??
+            [],
       );
 
   Future<void> save() async {
@@ -30,8 +43,15 @@ class FlowSettings with _$FlowSettings {
     prefs.setString('design', design);
     prefs.setBool('nativeTitleBar', nativeTitleBar);
     prefs.setString('locale', locale);
+    prefs.setString('syncMode', syncMode.name);
+    prefs.setStringList(
+        'remotes', remotes.map((e) => json.encode(e.toJson())).toList());
   }
 }
+
+enum SyncMode { always, noMobile, manual }
+
+enum SyncStatus { synced, syncing, error }
 
 class SettingsCubit extends Cubit<FlowSettings> {
   SettingsCubit(SharedPreferences prefs) : super(FlowSettings.fromPrefs(prefs));
@@ -53,6 +73,23 @@ class SettingsCubit extends Cubit<FlowSettings> {
 
   Future<void> setLocale(String locale) {
     emit(state.copyWith(locale: locale));
+    return state.save();
+  }
+
+  Future<void> setSyncMode(SyncMode syncMode) {
+    emit(state.copyWith(syncMode: syncMode));
+    return state.save();
+  }
+
+  Future<void> addStorage(RemoteStorage remoteStorage) {
+    emit(state.copyWith(remotes: [...state.remotes, remoteStorage]));
+    return state.save();
+  }
+
+  Future<void> removeStorage(String name) {
+    emit(state.copyWith(
+        remotes:
+            state.remotes.where((e) => e.toDisplayString() != name).toList()));
     return state.save();
   }
 }

@@ -10,6 +10,7 @@ import '../models/group/database.dart';
 import '../models/todo/database.dart';
 
 typedef DatabaseFactory = Future<Database> Function({
+  String name,
   int? version,
   FutureOr<void> Function(Database, int, int)? onUpgrade,
   FutureOr<void> Function(Database, int)? onCreate,
@@ -35,7 +36,7 @@ class DatabaseService extends SourceService {
 
   DatabaseService(this.databaseFactory);
 
-  Future<void> setup() async {
+  Future<void> setup(String name) async {
     event = EventDatabaseService();
     todo = TodoDatabaseService();
     place = PlaceDatabaseService();
@@ -44,7 +45,10 @@ class DatabaseService extends SourceService {
     user = UserDatabaseService();
 
     db = await databaseFactory(
-        version: databaseVersion, onUpgrade: _onUpgrade, onCreate: _onCreate);
+        name: name,
+        version: databaseVersion,
+        onUpgrade: _onUpgrade,
+        onCreate: _onCreate);
     db.execute("PRAGMA foreign_keys = ON");
     for (final table in tables) {
       table.opened(db);

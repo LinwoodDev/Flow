@@ -1,10 +1,10 @@
+import 'package:shared/models/cached.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/todo/model.dart';
 
 class ICalConverter {
   String summary = '';
-  final List<Event> events = [];
-  final List<Todo> todos = [];
+  CachedData? data;
 
   void read(List<String> lines) {
     final offset =
@@ -14,6 +14,8 @@ class ICalConverter {
     }
     Event? currentEvent;
     Todo? currentTodo;
+    final events = List<Event>.from(data?.events ?? []);
+    final todos = List<Todo>.from(data?.todos ?? []);
     for (int i = offset; i < lines.length; i++) {
       final line = lines[i];
       final parts = line.split(':');
@@ -35,7 +37,8 @@ class ICalConverter {
             break;
           case 'DTEND':
           case 'DTSTART;VALUE=DATE':
-            currentEvent = currentEvent.copyWith.time(end: DateTime.parse(value));
+            currentEvent =
+                currentEvent.copyWith.time(end: DateTime.parse(value));
             break;
           case 'END':
             if (value != 'VEVENT') break;
@@ -71,5 +74,9 @@ class ICalConverter {
         }
       }
     }
+    data = CachedData(
+      events: events,
+      todos: todos,
+    );
   }
 }

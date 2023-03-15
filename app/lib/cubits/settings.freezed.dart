@@ -20,6 +20,8 @@ mixin _$FlowSettings {
   ThemeMode get themeMode => throw _privateConstructorUsedError;
   bool get nativeTitleBar => throw _privateConstructorUsedError;
   String get design => throw _privateConstructorUsedError;
+  SyncMode get syncMode => throw _privateConstructorUsedError;
+  List<RemoteStorage> get remotes => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FlowSettingsCopyWith<FlowSettings> get copyWith =>
@@ -33,7 +35,12 @@ abstract class $FlowSettingsCopyWith<$Res> {
       _$FlowSettingsCopyWithImpl<$Res, FlowSettings>;
   @useResult
   $Res call(
-      {String locale, ThemeMode themeMode, bool nativeTitleBar, String design});
+      {String locale,
+      ThemeMode themeMode,
+      bool nativeTitleBar,
+      String design,
+      SyncMode syncMode,
+      List<RemoteStorage> remotes});
 }
 
 /// @nodoc
@@ -53,6 +60,8 @@ class _$FlowSettingsCopyWithImpl<$Res, $Val extends FlowSettings>
     Object? themeMode = null,
     Object? nativeTitleBar = null,
     Object? design = null,
+    Object? syncMode = null,
+    Object? remotes = null,
   }) {
     return _then(_value.copyWith(
       locale: null == locale
@@ -71,6 +80,14 @@ class _$FlowSettingsCopyWithImpl<$Res, $Val extends FlowSettings>
           ? _value.design
           : design // ignore: cast_nullable_to_non_nullable
               as String,
+      syncMode: null == syncMode
+          ? _value.syncMode
+          : syncMode // ignore: cast_nullable_to_non_nullable
+              as SyncMode,
+      remotes: null == remotes
+          ? _value.remotes
+          : remotes // ignore: cast_nullable_to_non_nullable
+              as List<RemoteStorage>,
     ) as $Val);
   }
 }
@@ -84,7 +101,12 @@ abstract class _$$_FlowSettingsCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String locale, ThemeMode themeMode, bool nativeTitleBar, String design});
+      {String locale,
+      ThemeMode themeMode,
+      bool nativeTitleBar,
+      String design,
+      SyncMode syncMode,
+      List<RemoteStorage> remotes});
 }
 
 /// @nodoc
@@ -102,6 +124,8 @@ class __$$_FlowSettingsCopyWithImpl<$Res>
     Object? themeMode = null,
     Object? nativeTitleBar = null,
     Object? design = null,
+    Object? syncMode = null,
+    Object? remotes = null,
   }) {
     return _then(_$_FlowSettings(
       locale: null == locale
@@ -120,6 +144,14 @@ class __$$_FlowSettingsCopyWithImpl<$Res>
           ? _value.design
           : design // ignore: cast_nullable_to_non_nullable
               as String,
+      syncMode: null == syncMode
+          ? _value.syncMode
+          : syncMode // ignore: cast_nullable_to_non_nullable
+              as SyncMode,
+      remotes: null == remotes
+          ? _value._remotes
+          : remotes // ignore: cast_nullable_to_non_nullable
+              as List<RemoteStorage>,
     ));
   }
 }
@@ -131,8 +163,11 @@ class _$_FlowSettings extends _FlowSettings {
       {this.locale = '',
       this.themeMode = ThemeMode.system,
       this.nativeTitleBar = false,
-      this.design = ''})
-      : super._();
+      this.design = '',
+      this.syncMode = SyncMode.noMobile,
+      final List<RemoteStorage> remotes = const []})
+      : _remotes = remotes,
+        super._();
 
   @override
   @JsonKey()
@@ -146,10 +181,21 @@ class _$_FlowSettings extends _FlowSettings {
   @override
   @JsonKey()
   final String design;
+  @override
+  @JsonKey()
+  final SyncMode syncMode;
+  final List<RemoteStorage> _remotes;
+  @override
+  @JsonKey()
+  List<RemoteStorage> get remotes {
+    if (_remotes is EqualUnmodifiableListView) return _remotes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_remotes);
+  }
 
   @override
   String toString() {
-    return 'FlowSettings(locale: $locale, themeMode: $themeMode, nativeTitleBar: $nativeTitleBar, design: $design)';
+    return 'FlowSettings(locale: $locale, themeMode: $themeMode, nativeTitleBar: $nativeTitleBar, design: $design, syncMode: $syncMode, remotes: $remotes)';
   }
 
   @override
@@ -162,12 +208,21 @@ class _$_FlowSettings extends _FlowSettings {
                 other.themeMode == themeMode) &&
             (identical(other.nativeTitleBar, nativeTitleBar) ||
                 other.nativeTitleBar == nativeTitleBar) &&
-            (identical(other.design, design) || other.design == design));
+            (identical(other.design, design) || other.design == design) &&
+            (identical(other.syncMode, syncMode) ||
+                other.syncMode == syncMode) &&
+            const DeepCollectionEquality().equals(other._remotes, _remotes));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, locale, themeMode, nativeTitleBar, design);
+  int get hashCode => Object.hash(
+      runtimeType,
+      locale,
+      themeMode,
+      nativeTitleBar,
+      design,
+      syncMode,
+      const DeepCollectionEquality().hash(_remotes));
 
   @JsonKey(ignore: true)
   @override
@@ -181,7 +236,9 @@ abstract class _FlowSettings extends FlowSettings {
       {final String locale,
       final ThemeMode themeMode,
       final bool nativeTitleBar,
-      final String design}) = _$_FlowSettings;
+      final String design,
+      final SyncMode syncMode,
+      final List<RemoteStorage> remotes}) = _$_FlowSettings;
   const _FlowSettings._() : super._();
 
   @override
@@ -192,6 +249,10 @@ abstract class _FlowSettings extends FlowSettings {
   bool get nativeTitleBar;
   @override
   String get design;
+  @override
+  SyncMode get syncMode;
+  @override
+  List<RemoteStorage> get remotes;
   @override
   @JsonKey(ignore: true)
   _$$_FlowSettingsCopyWith<_$_FlowSettings> get copyWith =>

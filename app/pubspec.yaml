@@ -55,6 +55,10 @@ dependencies:
   dynamic_color: ^1.6.2
   simple_icons: ^7.10.0
   flutter_localized_locales: ^2.0.4
+  xml: ^6.2.2
+  connectivity_plus: ^3.0.3
+  rxdart: ^0.27.7
+  flutter_secure_storage: ^8.0.0
 dev_dependencies:
   build_runner: ^2.3.3
   flutter_lints: ^2.0.1
@@ -66,6 +70,7 @@ dependency_overrides:
   test_api: ^0.4.16
   collection: 1.17.1
   path: 1.8.3
+  meta: 1.9.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

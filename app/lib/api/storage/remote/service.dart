@@ -1,68 +1,38 @@
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
+import 'package:flow/api/storage/remote/caldav.dart';
+import 'package:flow/api/storage/remote/model.dart';
+import 'package:shared/models/event/service.dart';
+import 'package:shared/models/group/service.dart';
+import 'package:shared/models/place/service.dart';
+import 'package:shared/models/todo/service.dart';
+import 'package:shared/models/user/service.dart';
+import 'package:shared/services/database.dart';
 import 'package:shared/services/source.dart';
 
-abstract class RemoteService extends SourceService {
-  final String baseUrl;
-  String get version;
+abstract class RemoteService<T extends RemoteStorage> extends SourceService {
+  final DatabaseService local;
+  final T remoteStorage;
+  final String? password;
 
-  RemoteService(this.baseUrl);
+  RemoteService(this.remoteStorage, this.local, this.password);
 
-  Uri _buildUri(String path, {Map<String, String>? queryParameters}) {
-    var uri = Uri.parse('$baseUrl/v$apiVersion/$path');
-    if (queryParameters != null) {
-      uri = uri.replace(
-          queryParameters: Map.from(uri.queryParameters)
-            ..addAll(queryParameters));
-    }
-    return uri;
+  factory RemoteService.fromStorage(
+      T storage, DatabaseService local, String? password) {
+    return storage.map(
+      calDav: (value) =>
+          CalDavRemoteService(value, local, password) as RemoteService<T>,
+    );
   }
 
-  // ignore: unused_element
-  Future<dynamic> _get(String path, dynamic body,
-      {Map<String, String>? queryParameters,
-      Map<String, String>? headers}) async {
-    var uri = _buildUri(path, queryParameters: queryParameters);
-    var response = await http.get(uri, headers: headers);
-    return _handleResponse(response);
-  }
+  @override
+  EventService? get event => local.event;
+  @override
+  TodoService? get todo => local.todo;
+  @override
+  PlaceService? get place => local.place;
+  @override
+  GroupService? get group => local.group;
+  @override
+  UserService? get user => local.user;
 
-  // ignore: unused_element
-  Future<dynamic> _post(String path, dynamic body,
-      {Map<String, String>? queryParameters,
-      Map<String, String>? headers}) async {
-    var uri = _buildUri(path, queryParameters: queryParameters);
-    final bodyString = body != null ? jsonEncode(body) : null;
-    var response = await http.post(uri, body: bodyString, headers: headers);
-    return _handleResponse(response);
-  }
-
-  // ignore: unused_element
-  Future<dynamic> _put(String path, dynamic body,
-      {Map<String, String>? queryParameters,
-      Map<String, String>? headers}) async {
-    var uri = _buildUri(path, queryParameters: queryParameters);
-    final bodyString = body != null ? jsonEncode(body) : null;
-    var response = await http.put(uri, body: bodyString, headers: headers);
-    return _handleResponse(response);
-  }
-
-  // ignore: unused_element
-  Future<dynamic> _delete(String path, dynamic body,
-      {Map<String, String>? queryParameters,
-      Map<String, String>? headers}) async {
-    var uri = _buildUri(path, queryParameters: queryParameters);
-    final bodyString = body != null ? jsonEncode(body) : null;
-    var response = await http.delete(uri, body: bodyString, headers: headers);
-    return _handleResponse(response);
-  }
-
-  dynamic _handleResponse(http.Response response) {
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      throw Exception('Failed to load data');
-    }
-  }
+  Future<void> sync();
 }

@@ -1,6 +1,5 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flow/cubits/flow.dart';
-import 'package:flow/api/storage/db/database.dart';
 import 'package:flow/api/storage/sources.dart';
 import 'package:flow/pages/calendar/filter.dart';
 import 'package:flow/theme.dart';
@@ -12,7 +11,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
-import 'package:shared/services/database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 
@@ -38,16 +36,15 @@ Future<void> main() async {
   final prefs = await SharedPreferences.getInstance();
   final settingsCubit = SettingsCubit(prefs);
 
-  final database = DatabaseService(openDatabase);
-  await database.setup();
+  final sourcesService = SourcesService(settingsCubit);
+  await sourcesService.setup();
 
   await setup(settingsCubit);
   runApp(
     BlocProvider.value(
       value: settingsCubit,
-      child: RepositoryProvider(
-        create: (context) =>
-            SourcesService(context.read<SettingsCubit>(), database),
+      child: RepositoryProvider.value(
+        value: sourcesService,
         child: BlocProvider(
             create: (context) => FlowCubit(context.read<SourcesService>()),
             child: FlowApp()),

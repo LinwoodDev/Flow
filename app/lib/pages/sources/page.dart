@@ -1,8 +1,12 @@
+import 'package:flow/cubits/settings.dart';
 import 'package:flow/pages/sources/dialog.dart';
+import 'package:flow/visualizer/sync.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../api/storage/sources.dart';
 import 'local.dart';
 
 class SourcesPage extends StatelessWidget {
@@ -12,6 +16,17 @@ class SourcesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlowNavigation(
       title: AppLocalizations.of(context).sources,
+      actions: [
+        StreamBuilder<SyncStatus>(
+            stream: context.read<SourcesService>().syncStatus,
+            builder: (context, snapshot) {
+              return IconButton(
+                icon: Icon(snapshot.data.getIcon()),
+                onPressed: () =>
+                    context.read<SourcesService>().synchronize(true),
+              );
+            }),
+      ],
       body: SingleChildScrollView(
         child: Align(
             alignment: Alignment.topCenter,
@@ -24,7 +39,29 @@ class SourcesPage extends StatelessWidget {
                   onTap: () => showDialog(
                       context: context,
                       builder: (context) => const LocalSourceDialog()),
-                )
+                ),
+                BlocBuilder<SettingsCubit, FlowSettings>(
+                    builder: (context, state) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: state.remotes.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      final remote = state.remotes[index];
+                      return Dismissible(
+                        key: ValueKey(remote),
+                        onDismissed: (_) => context
+                            .read<SourcesService>()
+                            .removeRemote(remote.toFilename()),
+                        child: ListTile(
+                          title: Text(remote.toDisplayString()),
+                          leading: Icon(
+                              remote.map(calDav: (_) => Icons.web_outlined)),
+                        ),
+                      );
+                    },
+                  );
+                }),
               ]),
             )),
       ),

@@ -9,6 +9,7 @@ import 'package:sqlite3/wasm.dart' show IndexedDbFileSystem;
 const indexedDbName = 'sqflite_databases';
 
 Future<Database> openDatabase({
+  String name = 'flow',
   int? version,
   FutureOr<void> Function(Database, int, int)? onUpgrade,
   FutureOr<void> Function(Database, int)? onCreate,
@@ -18,7 +19,7 @@ Future<Database> openDatabase({
     indexedDbName: indexedDbName,
   ));
   var db = await factory.openDatabase(
-    'flow.db',
+    '$name.db',
     options: OpenDatabaseOptions(
       version: version,
       onUpgrade: onUpgrade,
