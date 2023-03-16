@@ -7,7 +7,7 @@ import '../models/event/database.dart';
 import '../models/place/database.dart';
 import '../models/user/database.dart';
 import '../models/group/database.dart';
-import '../models/todo/database.dart';
+import '../models/note/database.dart';
 
 typedef DatabaseFactory = Future<Database> Function({
   String name,
@@ -23,7 +23,7 @@ class DatabaseService extends SourceService {
   @override
   late final EventDatabaseService event;
   @override
-  late final TodoDatabaseService todo;
+  late final NoteDatabaseService note;
   @override
   late final GroupDatabaseService group;
 
@@ -38,7 +38,7 @@ class DatabaseService extends SourceService {
 
   Future<void> setup(String name) async {
     event = EventDatabaseService();
-    todo = TodoDatabaseService();
+    note = NoteDatabaseService();
     place = PlaceDatabaseService();
     group = GroupDatabaseService();
 

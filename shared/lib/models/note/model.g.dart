@@ -6,29 +6,28 @@ part of 'model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Todo _$$_TodoFromJson(Map<String, dynamic> json) => _$_Todo(
+_$_Note _$$_NoteFromJson(Map<String, dynamic> json) => _$_Note(
       id: json['id'] as int? ?? -1,
       parentId: json['parentId'] as int?,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      status: $enumDecodeNullable(_$TodoStatusEnumMap, json['status']) ??
-          TodoStatus.todo,
+      status: $enumDecodeNullable(_$NoteStatusEnumMap, json['status']),
       priority: json['priority'] as int? ?? 0,
       eventId: json['eventId'] as int?,
     );
 
-Map<String, dynamic> _$$_TodoToJson(_$_Todo instance) => <String, dynamic>{
+Map<String, dynamic> _$$_NoteToJson(_$_Note instance) => <String, dynamic>{
       'id': instance.id,
       'parentId': instance.parentId,
       'name': instance.name,
       'description': instance.description,
-      'status': _$TodoStatusEnumMap[instance.status]!,
+      'status': _$NoteStatusEnumMap[instance.status],
       'priority': instance.priority,
       'eventId': instance.eventId,
     };
 
-const _$TodoStatusEnumMap = {
-  TodoStatus.todo: 'todo',
-  TodoStatus.inProgress: 'inProgress',
-  TodoStatus.done: 'done',
+const _$NoteStatusEnumMap = {
+  NoteStatus.note: 'note',
+  NoteStatus.inProgress: 'inProgress',
+  NoteStatus.done: 'done',
 };

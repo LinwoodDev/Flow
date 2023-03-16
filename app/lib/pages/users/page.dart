@@ -37,7 +37,7 @@ class _UsersPageState extends State<UsersPage> {
   Future<void> _fetchPage(int pageKey) async {
     try {
       final sources = _flowCubit.getCurrentServicesMap().entries;
-      final todos = <MapEntry<User, String>>[];
+      final notes = <MapEntry<User, String>>[];
       var isLast = false;
       for (final source in sources) {
         final fetched = await source.value.user?.getUsers(
@@ -46,16 +46,16 @@ class _UsersPageState extends State<UsersPage> {
           groupId: source.key == _filter.source ? _filter.group : null,
         );
         if (fetched == null) continue;
-        todos.addAll(fetched.map((todo) => MapEntry(todo, source.key)));
+        notes.addAll(fetched.map((note) => MapEntry(note, source.key)));
         if (fetched.length < _pageSize) {
           isLast = true;
         }
       }
       if (isLast) {
-        _pagingController.appendLastPage(todos);
+        _pagingController.appendLastPage(notes);
       } else {
         final nextPageKey = pageKey + 1;
-        _pagingController.appendPage(todos, nextPageKey);
+        _pagingController.appendPage(notes, nextPageKey);
       }
     } catch (error) {
       _pagingController.error = error;

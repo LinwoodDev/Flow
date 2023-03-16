@@ -3,7 +3,7 @@ import 'package:flow/api/storage/remote/model.dart';
 import 'package:shared/models/event/service.dart';
 import 'package:shared/models/group/service.dart';
 import 'package:shared/models/place/service.dart';
-import 'package:shared/models/todo/service.dart';
+import 'package:shared/models/note/service.dart';
 import 'package:shared/models/user/service.dart';
 import 'package:shared/services/database.dart';
 import 'package:shared/services/source.dart';
@@ -26,7 +26,7 @@ abstract class RemoteService<T extends RemoteStorage> extends SourceService {
   @override
   EventService? get event => local.event;
   @override
-  TodoService? get todo => local.todo;
+  NoteService? get note => local.note;
   @override
   PlaceService? get place => local.place;
   @override

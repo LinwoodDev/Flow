@@ -23,7 +23,7 @@ import 'pages/groups/page.dart';
 import 'pages/settings/page.dart';
 import 'pages/users/page.dart';
 
-import 'pages/todos/page.dart';
+import 'pages/notes/page.dart';
 import 'setup.dart'
     if (dart.library.html) 'setup_web.dart'
     if (dart.library.io) 'setup_io.dart';
@@ -92,9 +92,7 @@ class FlowApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               routerConfig: _router,
               title: isNightly ? 'Linwood Flow Nightly' : 'Linwood Flow',
-              // Use a predefined FlexThemeData.light() theme for the light theme.
               theme: getThemeData(state.design, false, lightDynamic),
-              // Same definition for the dark theme, but using FlexThemeData.dark().
               darkTheme: getThemeData(state.design, true, darkDynamic),
               themeMode: state.themeMode,
               locale: state.locale.isEmpty ? null : Locale(state.locale),
@@ -136,9 +134,9 @@ class FlowApp extends StatelessWidget {
               ),
             ),
             GoRoute(
-              path: '/todos',
+              path: '/notes',
               pageBuilder: _fadeTransitionBuilder(
-                (context, state) => const TodosPage(),
+                (context, state) => const NotesPage(),
               ),
             ),
             GoRoute(

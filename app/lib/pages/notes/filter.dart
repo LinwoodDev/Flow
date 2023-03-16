@@ -1,45 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shared/models/todo/model.dart';
+import 'package:shared/models/note/model.dart';
 
 part 'filter.freezed.dart';
 
 @freezed
-class TodoFilter with _$TodoFilter {
-  const factory TodoFilter({
+class NoteFilter with _$NoteFilter {
+  const factory NoteFilter({
     @Default(true) bool showDone,
     @Default(true) bool showInProgress,
-    @Default(true) bool showTodo,
-  }) = _TodoFilter;
+    @Default(true) bool showNote,
+  }) = _NoteFilter;
 
-  const TodoFilter._();
+  const NoteFilter._();
 
-  Set<TodoStatus> get statuses {
-    final statuses = <TodoStatus>{};
-    if (showDone) statuses.add(TodoStatus.done);
-    if (showInProgress) statuses.add(TodoStatus.inProgress);
-    if (showTodo) statuses.add(TodoStatus.todo);
+  Set<NoteStatus> get statuses {
+    final statuses = <NoteStatus>{};
+    if (showDone) statuses.add(NoteStatus.done);
+    if (showInProgress) statuses.add(NoteStatus.inProgress);
+    if (showNote) statuses.add(NoteStatus.note);
     return statuses;
   }
 }
 
-class TodoFilterView extends StatefulWidget {
-  final TodoFilter? initialFilter;
-  final ValueChanged<TodoFilter> onChanged;
-  const TodoFilterView(
+class NoteFilterView extends StatefulWidget {
+  final NoteFilter? initialFilter;
+  final ValueChanged<NoteFilter> onChanged;
+  const NoteFilterView(
       {super.key, this.initialFilter, required this.onChanged});
 
   @override
-  State<TodoFilterView> createState() => _TodoFilterViewState();
+  State<NoteFilterView> createState() => _NoteFilterViewState();
 }
 
-class _TodoFilterViewState extends State<TodoFilterView> {
-  late TodoFilter _filter;
+class _NoteFilterViewState extends State<NoteFilterView> {
+  late NoteFilter _filter;
 
   @override
   void initState() {
-    _filter = widget.initialFilter ?? const TodoFilter();
+    _filter = widget.initialFilter ?? const NoteFilter();
     super.initState();
   }
 
@@ -91,21 +91,21 @@ class _TodoFilterViewState extends State<TodoFilterView> {
             },
           ),
           InputChip(
-            label: Text(AppLocalizations.of(context).todo),
+            label: Text(AppLocalizations.of(context).note),
             avatar: Icon(Icons.check_box_outline_blank_outlined,
-                color: _filter.showTodo
+                color: _filter.showNote
                     ? Theme.of(context).colorScheme.onPrimaryContainer
                     : Theme.of(context).iconTheme.color),
-            selected: _filter.showTodo,
+            selected: _filter.showNote,
             selectedColor: Theme.of(context).colorScheme.primaryContainer,
             labelStyle: TextStyle(
-                color: _filter.showTodo
+                color: _filter.showNote
                     ? Theme.of(context).colorScheme.onPrimaryContainer
                     : null),
             showCheckmark: false,
             onSelected: (value) {
               setState(() {
-                _filter = _filter.copyWith(showTodo: value);
+                _filter = _filter.copyWith(showNote: value);
                 widget.onChanged(_filter);
               });
             },

@@ -15,29 +15,29 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$TodoFilter {
+mixin _$NoteFilter {
   bool get showDone => throw _privateConstructorUsedError;
   bool get showInProgress => throw _privateConstructorUsedError;
-  bool get showTodo => throw _privateConstructorUsedError;
+  bool get showNote => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $TodoFilterCopyWith<TodoFilter> get copyWith =>
+  $NoteFilterCopyWith<NoteFilter> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TodoFilterCopyWith<$Res> {
-  factory $TodoFilterCopyWith(
-          TodoFilter value, $Res Function(TodoFilter) then) =
-      _$TodoFilterCopyWithImpl<$Res, TodoFilter>;
+abstract class $NoteFilterCopyWith<$Res> {
+  factory $NoteFilterCopyWith(
+          NoteFilter value, $Res Function(NoteFilter) then) =
+      _$NoteFilterCopyWithImpl<$Res, NoteFilter>;
   @useResult
-  $Res call({bool showDone, bool showInProgress, bool showTodo});
+  $Res call({bool showDone, bool showInProgress, bool showNote});
 }
 
 /// @nodoc
-class _$TodoFilterCopyWithImpl<$Res, $Val extends TodoFilter>
-    implements $TodoFilterCopyWith<$Res> {
-  _$TodoFilterCopyWithImpl(this._value, this._then);
+class _$NoteFilterCopyWithImpl<$Res, $Val extends NoteFilter>
+    implements $NoteFilterCopyWith<$Res> {
+  _$NoteFilterCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -49,7 +49,7 @@ class _$TodoFilterCopyWithImpl<$Res, $Val extends TodoFilter>
   $Res call({
     Object? showDone = null,
     Object? showInProgress = null,
-    Object? showTodo = null,
+    Object? showNote = null,
   }) {
     return _then(_value.copyWith(
       showDone: null == showDone
@@ -60,31 +60,31 @@ class _$TodoFilterCopyWithImpl<$Res, $Val extends TodoFilter>
           ? _value.showInProgress
           : showInProgress // ignore: cast_nullable_to_non_nullable
               as bool,
-      showTodo: null == showTodo
-          ? _value.showTodo
-          : showTodo // ignore: cast_nullable_to_non_nullable
+      showNote: null == showNote
+          ? _value.showNote
+          : showNote // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_TodoFilterCopyWith<$Res>
-    implements $TodoFilterCopyWith<$Res> {
-  factory _$$_TodoFilterCopyWith(
-          _$_TodoFilter value, $Res Function(_$_TodoFilter) then) =
-      __$$_TodoFilterCopyWithImpl<$Res>;
+abstract class _$$_NoteFilterCopyWith<$Res>
+    implements $NoteFilterCopyWith<$Res> {
+  factory _$$_NoteFilterCopyWith(
+          _$_NoteFilter value, $Res Function(_$_NoteFilter) then) =
+      __$$_NoteFilterCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool showDone, bool showInProgress, bool showTodo});
+  $Res call({bool showDone, bool showInProgress, bool showNote});
 }
 
 /// @nodoc
-class __$$_TodoFilterCopyWithImpl<$Res>
-    extends _$TodoFilterCopyWithImpl<$Res, _$_TodoFilter>
-    implements _$$_TodoFilterCopyWith<$Res> {
-  __$$_TodoFilterCopyWithImpl(
-      _$_TodoFilter _value, $Res Function(_$_TodoFilter) _then)
+class __$$_NoteFilterCopyWithImpl<$Res>
+    extends _$NoteFilterCopyWithImpl<$Res, _$_NoteFilter>
+    implements _$$_NoteFilterCopyWith<$Res> {
+  __$$_NoteFilterCopyWithImpl(
+      _$_NoteFilter _value, $Res Function(_$_NoteFilter) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,9 +92,9 @@ class __$$_TodoFilterCopyWithImpl<$Res>
   $Res call({
     Object? showDone = null,
     Object? showInProgress = null,
-    Object? showTodo = null,
+    Object? showNote = null,
   }) {
-    return _then(_$_TodoFilter(
+    return _then(_$_NoteFilter(
       showDone: null == showDone
           ? _value.showDone
           : showDone // ignore: cast_nullable_to_non_nullable
@@ -103,9 +103,9 @@ class __$$_TodoFilterCopyWithImpl<$Res>
           ? _value.showInProgress
           : showInProgress // ignore: cast_nullable_to_non_nullable
               as bool,
-      showTodo: null == showTodo
-          ? _value.showTodo
-          : showTodo // ignore: cast_nullable_to_non_nullable
+      showNote: null == showNote
+          ? _value.showNote
+          : showNote // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -113,9 +113,9 @@ class __$$_TodoFilterCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TodoFilter extends _TodoFilter {
-  const _$_TodoFilter(
-      {this.showDone = true, this.showInProgress = true, this.showTodo = true})
+class _$_NoteFilter extends _NoteFilter {
+  const _$_NoteFilter(
+      {this.showDone = true, this.showInProgress = true, this.showNote = true})
       : super._();
 
   @override
@@ -126,52 +126,52 @@ class _$_TodoFilter extends _TodoFilter {
   final bool showInProgress;
   @override
   @JsonKey()
-  final bool showTodo;
+  final bool showNote;
 
   @override
   String toString() {
-    return 'TodoFilter(showDone: $showDone, showInProgress: $showInProgress, showTodo: $showTodo)';
+    return 'NoteFilter(showDone: $showDone, showInProgress: $showInProgress, showNote: $showNote)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TodoFilter &&
+            other is _$_NoteFilter &&
             (identical(other.showDone, showDone) ||
                 other.showDone == showDone) &&
             (identical(other.showInProgress, showInProgress) ||
                 other.showInProgress == showInProgress) &&
-            (identical(other.showTodo, showTodo) ||
-                other.showTodo == showTodo));
+            (identical(other.showNote, showNote) ||
+                other.showNote == showNote));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, showDone, showInProgress, showTodo);
+      Object.hash(runtimeType, showDone, showInProgress, showNote);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TodoFilterCopyWith<_$_TodoFilter> get copyWith =>
-      __$$_TodoFilterCopyWithImpl<_$_TodoFilter>(this, _$identity);
+  _$$_NoteFilterCopyWith<_$_NoteFilter> get copyWith =>
+      __$$_NoteFilterCopyWithImpl<_$_NoteFilter>(this, _$identity);
 }
 
-abstract class _TodoFilter extends TodoFilter {
-  const factory _TodoFilter(
+abstract class _NoteFilter extends NoteFilter {
+  const factory _NoteFilter(
       {final bool showDone,
       final bool showInProgress,
-      final bool showTodo}) = _$_TodoFilter;
-  const _TodoFilter._() : super._();
+      final bool showNote}) = _$_NoteFilter;
+  const _NoteFilter._() : super._();
 
   @override
   bool get showDone;
   @override
   bool get showInProgress;
   @override
-  bool get showTodo;
+  bool get showNote;
   @override
   @JsonKey(ignore: true)
-  _$$_TodoFilterCopyWith<_$_TodoFilter> get copyWith =>
+  _$$_NoteFilterCopyWith<_$_NoteFilter> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,25 +1,25 @@
-import 'package:flow/pages/todos/todo.dart';
-import 'package:flow/pages/todos/filter.dart';
+import 'package:flow/pages/notes/note.dart';
+import 'package:flow/pages/notes/filter.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/event/model.dart';
-import 'package:shared/models/todo/model.dart';
+import 'package:shared/models/note/model.dart';
 
 import '../../cubits/flow.dart';
 import 'card.dart';
 
-class TodosPage extends StatefulWidget {
-  const TodosPage({Key? key}) : super(key: key);
+class NotesPage extends StatefulWidget {
+  const NotesPage({Key? key}) : super(key: key);
 
   @override
-  _TodosPageState createState() => _TodosPageState();
+  _NotesPageState createState() => _NotesPageState();
 }
 
-class _TodosPageState extends State<TodosPage> {
-  final PagingController<int, MapEntry<Todo, String>> _pagingController =
+class _NotesPageState extends State<NotesPage> {
+  final PagingController<int, MapEntry<Note, String>> _pagingController =
       PagingController(firstPageKey: 0);
   @override
   void dispose() {
@@ -30,21 +30,21 @@ class _TodosPageState extends State<TodosPage> {
   @override
   Widget build(BuildContext context) {
     return FlowNavigation(
-      title: AppLocalizations.of(context).todos,
+      title: AppLocalizations.of(context).notes,
       actions: [
         IconButton(
           icon: const Icon(Icons.search_outlined),
           onPressed: () =>
-              showSearch(context: context, delegate: _TodosSearchDelegate()),
+              showSearch(context: context, delegate: _NotesSearchDelegate()),
         ),
       ],
-      body: TodosBodyView(
+      body: NotesBodyView(
         pagingController: _pagingController,
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
           context: context,
-          builder: (context) => const TodoDialog(),
+          builder: (context) => const NoteDialog(),
         ).then((value) => _pagingController.refresh()),
         label: Text(AppLocalizations.of(context).create),
         icon: const Icon(Icons.add_outlined),
@@ -53,8 +53,8 @@ class _TodosPageState extends State<TodosPage> {
   }
 }
 
-class _TodosSearchDelegate extends SearchDelegate {
-  final PagingController<int, MapEntry<Todo, String>> _pagingController =
+class _NotesSearchDelegate extends SearchDelegate {
+  final PagingController<int, MapEntry<Note, String>> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
@@ -82,7 +82,7 @@ class _TodosSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     _pagingController.refresh();
-    return TodosBodyView(
+    return NotesBodyView(
       pagingController: _pagingController,
       search: query,
     );
@@ -94,25 +94,25 @@ class _TodosSearchDelegate extends SearchDelegate {
   }
 }
 
-class TodosBodyView extends StatefulWidget {
+class NotesBodyView extends StatefulWidget {
   final String search;
-  final PagingController<int, MapEntry<Todo, String>> pagingController;
+  final PagingController<int, MapEntry<Note, String>> pagingController;
 
-  const TodosBodyView({
+  const NotesBodyView({
     super.key,
     this.search = '',
     required this.pagingController,
   });
 
   @override
-  State<TodosBodyView> createState() => _TodosBodyViewState();
+  State<NotesBodyView> createState() => _NotesBodyViewState();
 }
 
-class _TodosBodyViewState extends State<TodosBodyView> {
+class _NotesBodyViewState extends State<NotesBodyView> {
   static const _pageSize = 20;
   late final FlowCubit _flowCubit;
   final Map<int, Event> _events = {};
-  TodoFilter _filter = const TodoFilter();
+  NoteFilter _filter = const NoteFilter();
 
   @override
   void initState() {
@@ -130,23 +130,23 @@ class _TodosBodyViewState extends State<TodosBodyView> {
   Future<void> _fetchPage(int pageKey) async {
     try {
       final sources = _flowCubit.getCurrentServicesMap().entries;
-      final todos = <MapEntry<Todo, String>>[];
+      final notes = <MapEntry<Note, String>>[];
       var isLast = false;
       for (final source in sources) {
-        final fetched = await source.value.todo?.getTodos(
+        final fetched = await source.value.note?.getNotes(
           offset: pageKey * _pageSize,
           limit: _pageSize,
           statuses: _filter.statuses,
           search: widget.search,
         );
         if (fetched == null) continue;
-        todos.addAll(fetched.map((todo) => MapEntry(todo, source.key)));
+        notes.addAll(fetched.map((note) => MapEntry(note, source.key)));
         if (fetched.length < _pageSize) {
           isLast = true;
         }
-        for (final todo in fetched) {
-          final eventId = todo.eventId;
-          if (!_events.containsKey(todo.eventId) && eventId != null) {
+        for (final note in fetched) {
+          final eventId = note.eventId;
+          if (!_events.containsKey(note.eventId) && eventId != null) {
             final event = await source.value.event?.getEvent(
               eventId,
             );
@@ -155,10 +155,10 @@ class _TodosBodyViewState extends State<TodosBodyView> {
         }
       }
       if (isLast) {
-        widget.pagingController.appendLastPage(todos);
+        widget.pagingController.appendLastPage(notes);
       } else {
         final nextPageKey = pageKey + 1;
-        widget.pagingController.appendPage(todos, nextPageKey);
+        widget.pagingController.appendPage(notes, nextPageKey);
       }
     } catch (error) {
       widget.pagingController.error = error;
@@ -166,7 +166,7 @@ class _TodosBodyViewState extends State<TodosBodyView> {
   }
 
   @override
-  void didUpdateWidget(covariant TodosBodyView oldWidget) {
+  void didUpdateWidget(covariant NotesBodyView oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.search != widget.search) {
@@ -178,7 +178,7 @@ class _TodosBodyViewState extends State<TodosBodyView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TodoFilterView(
+        NoteFilterView(
           initialFilter: _filter,
           onChanged: (filter) {
             setState(() {
@@ -191,14 +191,14 @@ class _TodosBodyViewState extends State<TodosBodyView> {
         Flexible(
           child: PagedListView(
             pagingController: widget.pagingController,
-            builderDelegate: PagedChildBuilderDelegate<MapEntry<Todo, String>>(
+            builderDelegate: PagedChildBuilderDelegate<MapEntry<Note, String>>(
               itemBuilder: (context, item, index) => Align(
                 alignment: Alignment.topCenter,
                 child: Container(
                     constraints: const BoxConstraints(maxWidth: 800),
-                    child: TodoCard(
+                    child: NoteCard(
                       event: _events[item.key.eventId],
-                      todo: item.key,
+                      note: item.key,
                       source: item.value,
                       controller: widget.pagingController,
                       key: ValueKey('${item.key.id}@${item.value}'),

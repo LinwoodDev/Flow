@@ -1,21 +1,21 @@
 import 'dart:async';
 
-import 'package:shared/models/todo/service.dart';
+import 'package:shared/models/note/service.dart';
 import 'package:shared/services/database.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
 import 'model.dart';
 
-class TodoDatabaseService extends TodoService with TableService {
+class NoteDatabaseService extends NoteService with TableService {
   @override
   Future<void> create(Database db) {
     return db.execute("""
-      CREATE TABLE IF NOT EXISTS todos (
+      CREATE TABLE IF NOT EXISTS notes (
         id INTEGER PRIMARY KEY,
         eventId INTEGER,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT,
-        status VARCHAR(20) NOT NULL DEFAULT 'todo',
+        status VARCHAR(20),
         priority INTEGER NOT NULL DEFAULT 0,
         parentId INTEGER
       )
@@ -23,16 +23,16 @@ class TodoDatabaseService extends TodoService with TableService {
   }
 
   @override
-  Future<Todo?> createTodo(Todo todo) async {
-    final id = await db?.insert('todos', todo.toJson()..remove('id'));
+  Future<Note?> createNote(Note note) async {
+    final id = await db?.insert('notes', note.toJson()..remove('id'));
     if (id == null) return null;
-    return todo.copyWith(id: id);
+    return note.copyWith(id: id);
   }
 
   @override
-  Future<bool> deleteTodo(int id) async {
+  Future<bool> deleteNote(int id) async {
     return await db?.delete(
-          'todos',
+          'notes',
           where: 'id = ?',
           whereArgs: [id],
         ) ==
@@ -40,14 +40,14 @@ class TodoDatabaseService extends TodoService with TableService {
   }
 
   @override
-  Future<List<Todo>> getTodos({
+  Future<List<Note>> getNotes({
     int? eventId,
     int offset = 0,
     int limit = 50,
-    Set<TodoStatus> statuses = const {
-      TodoStatus.todo,
-      TodoStatus.inProgress,
-      TodoStatus.done
+    Set<NoteStatus> statuses = const {
+      NoteStatus.note,
+      NoteStatus.inProgress,
+      NoteStatus.done
     },
     String search = '',
   }) async {
@@ -73,7 +73,7 @@ class TodoDatabaseService extends TodoService with TableService {
       where = statusStatement;
     }
     final result = await db?.query(
-      'todos',
+      'notes',
       where: where,
       whereArgs: whereArgs,
       offset: offset,
@@ -82,19 +82,19 @@ class TodoDatabaseService extends TodoService with TableService {
     );
     return result
             ?.map((row) =>
-                Todo.fromJson(Map.from(row)..['done'] = row['done'] == 1))
+                Note.fromJson(Map.from(row)..['done'] = row['done'] == 1))
             .toList() ??
         [];
   }
 
   @override
-  Future<bool?> todosDone(int eventId) async {
+  Future<bool?> notesDone(int eventId) async {
     final result = await db?.rawQuery(
-        'SELECT COUNT(*) AS count FROM todos WHERE eventId = ? AND status = ?',
-        [eventId, TodoStatus.done.name]);
+        'SELECT COUNT(*) AS count FROM notes WHERE eventId = ? AND status = ?',
+        [eventId, NoteStatus.done.name]);
     final resultCount = result?.first['count'] as int? ?? 0;
     final all = await db?.rawQuery(
-        'SELECT COUNT(*) AS count FROM todos WHERE eventId = ?', [eventId]);
+        'SELECT COUNT(*) AS count FROM notes WHERE eventId = ?', [eventId]);
     final allCount = all?.first['count'] as int? ?? 0;
     if (resultCount == allCount && allCount > 0) {
       return true;
@@ -109,18 +109,18 @@ class TodoDatabaseService extends TodoService with TableService {
   FutureOr<void> migrate(Database db, int version) {}
 
   @override
-  FutureOr<bool> updateTodo(Todo todo) async {
+  FutureOr<bool> updateNote(Note note) async {
     return await db?.update(
-          'todos',
-          todo.toJson()..remove('id'),
+          'notes',
+          note.toJson()..remove('id'),
           where: 'id = ?',
-          whereArgs: [todo.id],
+          whereArgs: [note.id],
         ) ==
         1;
   }
 
   @override
   Future<void> clear() async {
-    await db?.delete('todos');
+    await db?.delete('notes');
   }
 }

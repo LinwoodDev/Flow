@@ -23,9 +23,9 @@
     "message": "Twitter",
     "description": "The label of footer link with label=Twitter linking to https://twitter.com/LinwoodCloud"
   },
-  "link.item.label.Mastodon": {
-    "message": "Mastodon",
-    "description": "The label of footer link with label=Mastodon linking to https://floss.social/@linwood"
+  "link.item.label.Masnoten": {
+    "message": "Masnoten",
+    "description": "The label of footer link with label=Masnoten linking to https://floss.social/@linwood"
   },
   "link.item.label.App": {
     "message": "Aplicație",

@@ -14,44 +14,44 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Todo _$TodoFromJson(Map<String, dynamic> json) {
-  return _Todo.fromJson(json);
+Note _$NoteFromJson(Map<String, dynamic> json) {
+  return _Note.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Todo {
+mixin _$Note {
   int get id => throw _privateConstructorUsedError;
   int? get parentId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  TodoStatus get status => throw _privateConstructorUsedError;
+  NoteStatus? get status => throw _privateConstructorUsedError;
   int get priority => throw _privateConstructorUsedError;
   int? get eventId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TodoCopyWith<Todo> get copyWith => throw _privateConstructorUsedError;
+  $NoteCopyWith<Note> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TodoCopyWith<$Res> {
-  factory $TodoCopyWith(Todo value, $Res Function(Todo) then) =
-      _$TodoCopyWithImpl<$Res, Todo>;
+abstract class $NoteCopyWith<$Res> {
+  factory $NoteCopyWith(Note value, $Res Function(Note) then) =
+      _$NoteCopyWithImpl<$Res, Note>;
   @useResult
   $Res call(
       {int id,
       int? parentId,
       String name,
       String description,
-      TodoStatus status,
+      NoteStatus? status,
       int priority,
       int? eventId});
 }
 
 /// @nodoc
-class _$TodoCopyWithImpl<$Res, $Val extends Todo>
-    implements $TodoCopyWith<$Res> {
-  _$TodoCopyWithImpl(this._value, this._then);
+class _$NoteCopyWithImpl<$Res, $Val extends Note>
+    implements $NoteCopyWith<$Res> {
+  _$NoteCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -65,7 +65,7 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
     Object? parentId = freezed,
     Object? name = null,
     Object? description = null,
-    Object? status = null,
+    Object? status = freezed,
     Object? priority = null,
     Object? eventId = freezed,
   }) {
@@ -86,10 +86,10 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      status: null == status
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as TodoStatus,
+              as NoteStatus?,
       priority: null == priority
           ? _value.priority
           : priority // ignore: cast_nullable_to_non_nullable
@@ -103,9 +103,9 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
 }
 
 /// @nodoc
-abstract class _$$_TodoCopyWith<$Res> implements $TodoCopyWith<$Res> {
-  factory _$$_TodoCopyWith(_$_Todo value, $Res Function(_$_Todo) then) =
-      __$$_TodoCopyWithImpl<$Res>;
+abstract class _$$_NoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
+  factory _$$_NoteCopyWith(_$_Note value, $Res Function(_$_Note) then) =
+      __$$_NoteCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -113,15 +113,15 @@ abstract class _$$_TodoCopyWith<$Res> implements $TodoCopyWith<$Res> {
       int? parentId,
       String name,
       String description,
-      TodoStatus status,
+      NoteStatus? status,
       int priority,
       int? eventId});
 }
 
 /// @nodoc
-class __$$_TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$_Todo>
-    implements _$$_TodoCopyWith<$Res> {
-  __$$_TodoCopyWithImpl(_$_Todo _value, $Res Function(_$_Todo) _then)
+class __$$_NoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res, _$_Note>
+    implements _$$_NoteCopyWith<$Res> {
+  __$$_NoteCopyWithImpl(_$_Note _value, $Res Function(_$_Note) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -131,11 +131,11 @@ class __$$_TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$_Todo>
     Object? parentId = freezed,
     Object? name = null,
     Object? description = null,
-    Object? status = null,
+    Object? status = freezed,
     Object? priority = null,
     Object? eventId = freezed,
   }) {
-    return _then(_$_Todo(
+    return _then(_$_Note(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -152,10 +152,10 @@ class __$$_TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$_Todo>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      status: null == status
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as TodoStatus,
+              as NoteStatus?,
       priority: null == priority
           ? _value.priority
           : priority // ignore: cast_nullable_to_non_nullable
@@ -170,17 +170,17 @@ class __$$_TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$_Todo>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Todo implements _Todo {
-  const _$_Todo(
+class _$_Note implements _Note {
+  const _$_Note(
       {this.id = -1,
       this.parentId,
       this.name = '',
       this.description = '',
-      this.status = TodoStatus.todo,
+      this.status,
       this.priority = 0,
       this.eventId});
 
-  factory _$_Todo.fromJson(Map<String, dynamic> json) => _$$_TodoFromJson(json);
+  factory _$_Note.fromJson(Map<String, dynamic> json) => _$$_NoteFromJson(json);
 
   @override
   @JsonKey()
@@ -194,8 +194,7 @@ class _$_Todo implements _Todo {
   @JsonKey()
   final String description;
   @override
-  @JsonKey()
-  final TodoStatus status;
+  final NoteStatus? status;
   @override
   @JsonKey()
   final int priority;
@@ -204,14 +203,14 @@ class _$_Todo implements _Todo {
 
   @override
   String toString() {
-    return 'Todo(id: $id, parentId: $parentId, name: $name, description: $description, status: $status, priority: $priority, eventId: $eventId)';
+    return 'Note(id: $id, parentId: $parentId, name: $name, description: $description, status: $status, priority: $priority, eventId: $eventId)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Todo &&
+            other is _$_Note &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.parentId, parentId) ||
                 other.parentId == parentId) &&
@@ -232,28 +231,28 @@ class _$_Todo implements _Todo {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TodoCopyWith<_$_Todo> get copyWith =>
-      __$$_TodoCopyWithImpl<_$_Todo>(this, _$identity);
+  _$$_NoteCopyWith<_$_Note> get copyWith =>
+      __$$_NoteCopyWithImpl<_$_Note>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TodoToJson(
+    return _$$_NoteToJson(
       this,
     );
   }
 }
 
-abstract class _Todo implements Todo {
-  const factory _Todo(
+abstract class _Note implements Note {
+  const factory _Note(
       {final int id,
       final int? parentId,
       final String name,
       final String description,
-      final TodoStatus status,
+      final NoteStatus? status,
       final int priority,
-      final int? eventId}) = _$_Todo;
+      final int? eventId}) = _$_Note;
 
-  factory _Todo.fromJson(Map<String, dynamic> json) = _$_Todo.fromJson;
+  factory _Note.fromJson(Map<String, dynamic> json) = _$_Note.fromJson;
 
   @override
   int get id;
@@ -264,12 +263,12 @@ abstract class _Todo implements Todo {
   @override
   String get description;
   @override
-  TodoStatus get status;
+  NoteStatus? get status;
   @override
   int get priority;
   @override
   int? get eventId;
   @override
   @JsonKey(ignore: true)
-  _$$_TodoCopyWith<_$_Todo> get copyWith => throw _privateConstructorUsedError;
+  _$$_NoteCopyWith<_$_Note> get copyWith => throw _privateConstructorUsedError;
 }

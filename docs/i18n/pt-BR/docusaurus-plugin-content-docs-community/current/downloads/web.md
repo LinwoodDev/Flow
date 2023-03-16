@@ -7,7 +7,7 @@ sidebar_position: 5
 
 :::nota
 
-Este é um aplicativo progressivo da web. Você pode instalá-lo no navegador e usá-lo offline. Todos os dados são armazenados no seu navegador.
+Este é um aplicativo progressivo da web. Você pode instalá-lo no navegador e usá-lo offline. Notes os dados são armazenados no seu navegador.
 
 :::
 

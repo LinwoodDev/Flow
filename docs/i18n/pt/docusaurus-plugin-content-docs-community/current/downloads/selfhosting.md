@@ -17,7 +17,7 @@ lutador pub obter
 compilação web
 ```
 
-Todos os arquivos estão no diretório `app/build/web`.
+Notes os arquivos estão no diretório `app/build/web`.
 
 ## Atracador
 

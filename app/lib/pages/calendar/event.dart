@@ -9,11 +9,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/group/model.dart';
-import 'package:shared/models/todo/model.dart';
-import 'package:shared/models/todo/service.dart';
+import 'package:shared/models/note/model.dart';
+import 'package:shared/models/note/service.dart';
 
 import '../../widgets/date_time_field.dart';
-import '../todos/todo.dart';
+import '../notes/note.dart';
 
 class EventDialog extends StatelessWidget {
   final String? source;
@@ -47,7 +47,7 @@ class EventDialog extends StatelessWidget {
                   [Icons.tune_outlined, AppLocalizations.of(context).general],
                   [
                     Icons.check_circle_outline_outlined,
-                    AppLocalizations.of(context).todos
+                    AppLocalizations.of(context).notes
                   ],
                 ]
                         .map((e) => Tab(
@@ -250,7 +250,7 @@ class EventDialog extends StatelessWidget {
                       ),
                     ),
                     if (source != null)
-                      _EventTodosTab(event: currentEvent, source: source!),
+                      _EventNotesTab(event: currentEvent, source: source!),
                   ],
                 ),
               ),
@@ -293,26 +293,26 @@ class EventDialog extends StatelessWidget {
   }
 }
 
-class _EventTodosTab extends StatefulWidget {
+class _EventNotesTab extends StatefulWidget {
   final Event event;
   final String source;
-  const _EventTodosTab({required this.event, required this.source});
+  const _EventNotesTab({required this.event, required this.source});
 
   @override
-  State<_EventTodosTab> createState() => _EventTodosTabState();
+  State<_EventNotesTab> createState() => _EventNotesTabState();
 }
 
-class _EventTodosTabState extends State<_EventTodosTab> {
+class _EventNotesTabState extends State<_EventNotesTab> {
   static const _pageSize = 20;
 
-  late final TodoService? _todoService;
+  late final NoteService? _noteService;
 
-  final PagingController<int, Todo> _pagingController =
+  final PagingController<int, Note> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
   void initState() {
-    _todoService = context.read<FlowCubit>().getSource(widget.source).todo;
+    _noteService = context.read<FlowCubit>().getSource(widget.source).note;
     _pagingController.addPageRequestListener((pageKey) {
       _fetchPage(pageKey);
     });
@@ -321,7 +321,7 @@ class _EventTodosTabState extends State<_EventTodosTab> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await _todoService?.getTodos(
+      final newItems = await _noteService?.getNotes(
           eventId: widget.event.id,
           offset: pageKey * _pageSize,
           limit: _pageSize);
@@ -348,9 +348,9 @@ class _EventTodosTabState extends State<_EventTodosTab> {
           Column(
             children: [
               Flexible(
-                child: PagedListView<int, Todo>(
+                child: PagedListView<int, Note>(
                   pagingController: _pagingController,
-                  builderDelegate: PagedChildBuilderDelegate<Todo>(
+                  builderDelegate: PagedChildBuilderDelegate<Note>(
                     noItemsFoundIndicatorBuilder: (context) =>
                         const EmptyIndicatorDisplay(),
                     firstPageErrorIndicatorBuilder: (context) =>
@@ -363,39 +363,41 @@ class _EventTodosTabState extends State<_EventTodosTab> {
                         key: ValueKey(item.id),
                         background: Container(color: Colors.red),
                         onDismissed: (direction) {
-                          _todoService?.deleteTodo(item.id);
+                          _noteService?.deleteNote(item.id);
                           _pagingController.itemList!.remove(item);
                         },
                         child: ListTile(
                           title: Text(item.name),
-                          leading: StatefulBuilder(
-                            builder: (context, setState) => Checkbox(
-                              value: status.done,
-                              tristate: true,
-                              onChanged: (_) async {
-                                bool? newState;
-                                if (status.done == null) {
-                                  newState = true;
-                                } else if (status.done == true) {
-                                  newState = false;
-                                } else {
-                                  newState = null;
-                                }
-                                final next =
-                                    TodoStatusExtension.fromDone(newState);
-                                _todoService
-                                    ?.updateTodo(item.copyWith(status: next));
-                                setState(() => status = next);
-                              },
-                            ),
-                          ),
+                          leading: status == null
+                              ? null
+                              : StatefulBuilder(
+                                  builder: (context, setState) => Checkbox(
+                                    value: status?.done,
+                                    tristate: true,
+                                    onChanged: (_) async {
+                                      bool? newState;
+                                      if (status?.done == null) {
+                                        newState = true;
+                                      } else if (status?.done == true) {
+                                        newState = false;
+                                      } else {
+                                        newState = null;
+                                      }
+                                      final next = NoteStatusExtension.fromDone(
+                                          newState);
+                                      _noteService?.updateNote(
+                                          item.copyWith(status: next));
+                                      setState(() => status = next);
+                                    },
+                                  ),
+                                ),
                           onTap: () async {
-                            await showDialog<Todo>(
+                            await showDialog<Note>(
                               context: context,
-                              builder: (context) => TodoDialog(
+                              builder: (context) => NoteDialog(
                                 source: widget.source,
                                 event: widget.event,
-                                todo: item,
+                                note: item,
                               ),
                             );
                             _pagingController.refresh();
@@ -417,9 +419,9 @@ class _EventTodosTabState extends State<_EventTodosTab> {
                 label: Text(AppLocalizations.of(context).create),
                 icon: const Icon(Icons.add_outlined),
                 onPressed: () async {
-                  await showDialog<Todo>(
+                  await showDialog<Note>(
                     context: context,
-                    builder: (context) => TodoDialog(
+                    builder: (context) => NoteDialog(
                       event: widget.event,
                       source: widget.source,
                     ),

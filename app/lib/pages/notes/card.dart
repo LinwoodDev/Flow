@@ -6,36 +6,36 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
 import 'package:shared/models/event/model.dart';
-import 'package:shared/models/todo/model.dart';
-import 'package:shared/models/todo/service.dart';
+import 'package:shared/models/note/model.dart';
+import 'package:shared/models/note/service.dart';
 
 import '../../cubits/flow.dart';
 import '../calendar/event.dart';
 
-class TodoCard extends StatefulWidget {
+class NoteCard extends StatefulWidget {
   final String source;
   final Event? event;
-  final Todo todo;
-  final PagingController<int, MapEntry<Todo, String>> controller;
+  final Note note;
+  final PagingController<int, MapEntry<Note, String>> controller;
 
-  const TodoCard({
+  const NoteCard({
     super.key,
     required this.source,
     required this.event,
-    required this.todo,
+    required this.note,
     required this.controller,
   });
 
   @override
-  State<TodoCard> createState() => _TodoCardState();
+  State<NoteCard> createState() => _NoteCardState();
 }
 
-class _TodoCardState extends State<TodoCard> {
+class _NoteCardState extends State<NoteCard> {
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
-  late Todo _newTodo;
+  late Note _newNote;
   Event? _event;
-  late final TodoService? _todoService;
+  late final NoteService? _noteService;
 
   final FocusNode _nameFocus = FocusNode();
   final FocusNode _descriptionFocus = FocusNode();
@@ -46,41 +46,41 @@ class _TodoCardState extends State<TodoCard> {
   void initState() {
     super.initState();
     _event = widget.event;
-    _nameController = TextEditingController(text: widget.todo.name);
+    _nameController = TextEditingController(text: widget.note.name);
     _descriptionController =
-        TextEditingController(text: widget.todo.description);
-    _newTodo = widget.todo;
-    _todoService =
-        context.read<FlowCubit>().getCurrentServicesMap()[widget.source]?.todo;
+        TextEditingController(text: widget.note.description);
+    _newNote = widget.note;
+    _noteService =
+        context.read<FlowCubit>().getCurrentServicesMap()[widget.source]?.note;
 
     _nameFocus.addListener(() {
       if (!_nameFocus.hasFocus) {
-        _newTodo = _newTodo.copyWith(name: _nameController.text);
-        _updateTodo();
+        _newNote = _newNote.copyWith(name: _nameController.text);
+        _updateNote();
       }
     });
     _descriptionFocus.addListener(() {
       if (!_descriptionFocus.hasFocus) {
-        _newTodo = _newTodo.copyWith(description: _descriptionController.text);
-        _updateTodo();
+        _newNote = _newNote.copyWith(description: _descriptionController.text);
+        _updateNote();
       }
     });
   }
 
   @override
-  void didUpdateWidget(covariant TodoCard oldWidget) {
+  void didUpdateWidget(covariant NoteCard oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.todo != widget.todo) {
-      _nameController.text = widget.todo.name;
-      _descriptionController.text = widget.todo.description;
-      _newTodo = widget.todo;
+    if (oldWidget.note != widget.note) {
+      _nameController.text = widget.note.name;
+      _descriptionController.text = widget.note.description;
+      _newNote = widget.note;
     }
   }
 
-  Future<void> _updateTodo() async {
+  Future<void> _updateNote() async {
     setState(() => _loading = true);
-    await _todoService?.updateTodo(
-      _newTodo,
+    await _noteService?.updateNote(
+      _newNote,
     );
     if (mounted) {
       setState(() => _loading = false);
@@ -101,27 +101,28 @@ class _TodoCardState extends State<TodoCard> {
           children: [
             Row(
               children: [
-                StatefulBuilder(builder: (context, setState) {
-                  return Checkbox(
-                    value: _newTodo.status.done,
-                    tristate: true,
-                    onChanged: (_) {
-                      bool? newState;
-                      if (_newTodo.status.done == null) {
-                        newState = true;
-                      } else if (_newTodo.status.done == true) {
-                        newState = false;
-                      } else {
-                        newState = null;
-                      }
-                      setState(() {
-                        _newTodo = _newTodo.copyWith(
-                            status: TodoStatusExtension.fromDone(newState));
-                        _updateTodo();
-                      });
-                    },
-                  );
-                }),
+                if (_newNote.status != null)
+                  StatefulBuilder(builder: (context, setState) {
+                    return Checkbox(
+                      value: _newNote.status?.done,
+                      tristate: true,
+                      onChanged: (_) {
+                        bool? newState;
+                        if (_newNote.status?.done == null) {
+                          newState = true;
+                        } else if (_newNote.status?.done == true) {
+                          newState = false;
+                        } else {
+                          newState = null;
+                        }
+                        setState(() {
+                          _newNote = _newNote.copyWith(
+                              status: NoteStatusExtension.fromDone(newState));
+                          _updateNote();
+                        });
+                      },
+                    );
+                  }),
                 const SizedBox(width: 8),
                 Flexible(
                     child: TextFormField(
@@ -133,12 +134,12 @@ class _TodoCardState extends State<TodoCard> {
                   ),
                   focusNode: _nameFocus,
                   onEditingComplete: () {
-                    _newTodo = _newTodo.copyWith(name: _nameController.text);
-                    _updateTodo();
+                    _newNote = _newNote.copyWith(name: _nameController.text);
+                    _updateNote();
                   },
                   onFieldSubmitted: (value) {
-                    _newTodo = _newTodo.copyWith(name: value);
-                    _updateTodo();
+                    _newNote = _newNote.copyWith(name: value);
+                    _updateNote();
                   },
                 )),
                 const SizedBox(width: 8),
@@ -148,7 +149,7 @@ class _TodoCardState extends State<TodoCard> {
                       Icons.delete_outlined,
                       AppLocalizations.of(context).delete,
                       () async {
-                        await _todoService?.deleteTodo(_newTodo.id);
+                        await _noteService?.deleteNote(_newNote.id);
                         widget.controller.refresh();
                       }
                     ]
@@ -175,12 +176,12 @@ class _TodoCardState extends State<TodoCard> {
                     floatingLabelAlignment: FloatingLabelAlignment.center,
                   ),
                   textAlign: TextAlign.center,
-                  initialValue: _newTodo.priority.toString(),
+                  initialValue: _newNote.priority.toString(),
                   keyboardType: TextInputType.number,
                   onChanged: (value) {
-                    _newTodo = _newTodo.copyWith(
-                        priority: int.tryParse(value) ?? _newTodo.priority);
-                    _updateTodo();
+                    _newNote = _newNote.copyWith(
+                        priority: int.tryParse(value) ?? _newNote.priority);
+                    _updateNote();
                   },
                 ),
               ),
@@ -235,9 +236,9 @@ class _TodoCardState extends State<TodoCard> {
                             ] else ...[
                               IconButton(
                                 onPressed: () async {
-                                  _newTodo = _newTodo.copyWith(eventId: null);
+                                  _newNote = _newNote.copyWith(eventId: null);
                                   _event = null;
-                                  _updateTodo();
+                                  _updateNote();
                                 },
                                 icon: const Icon(Icons.delete_outlined),
                                 tooltip:
@@ -264,10 +265,10 @@ class _TodoCardState extends State<TodoCard> {
                                       builder: (context) => const EventDialog(),
                                     );
                                     if (event != null) {
-                                      _newTodo =
-                                          _newTodo.copyWith(eventId: event.id);
+                                      _newNote =
+                                          _newNote.copyWith(eventId: event.id);
                                       _event = event;
-                                      _updateTodo();
+                                      _updateNote();
                                     }
                                   },
                                   icon: const Icon(Icons.add),
@@ -285,13 +286,13 @@ class _TodoCardState extends State<TodoCard> {
                                       ),
                                     );
                                     if (result != null) {
-                                      _newTodo = _newTodo.copyWith(
+                                      _newNote = _newNote.copyWith(
                                           eventId: result.value);
                                       _event = await cubit
                                           .getSource(result.key)
                                           .event
                                           ?.getEvent(result.value);
-                                      _updateTodo();
+                                      _updateNote();
                                     }
                                   },
                                   icon:
@@ -320,18 +321,18 @@ class _TodoCardState extends State<TodoCard> {
               minLines: 3,
               maxLines: 5,
               onEditingComplete: () {
-                _newTodo =
-                    _newTodo.copyWith(description: _descriptionController.text);
-                _updateTodo();
+                _newNote =
+                    _newNote.copyWith(description: _descriptionController.text);
+                _updateNote();
               },
               onSaved: (value) {
                 if (value == null) return;
-                _newTodo = _newTodo.copyWith(description: value);
-                _updateTodo();
+                _newNote = _newNote.copyWith(description: value);
+                _updateNote();
               },
               onFieldSubmitted: (value) {
-                _newTodo = _newTodo.copyWith(description: value);
-                _updateTodo();
+                _newNote = _newNote.copyWith(description: value);
+                _updateNote();
               },
             ),
           ],

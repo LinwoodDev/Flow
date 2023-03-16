@@ -55,8 +55,8 @@ class CalendarListTile extends StatelessWidget {
         future: Future.value(context
             .read<FlowCubit>()
             .getSource(source)
-            .todo
-            ?.todosDone(event.id)),
+            .note
+            ?.notesDone(event.id)),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Icon(

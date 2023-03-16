@@ -1,6 +1,6 @@
 import 'package:shared/models/cached.dart';
 import 'package:shared/models/event/model.dart';
-import 'package:shared/models/todo/model.dart';
+import 'package:shared/models/note/model.dart';
 
 class ICalConverter {
   String summary = '';
@@ -13,9 +13,9 @@ class ICalConverter {
       return;
     }
     Event? currentEvent;
-    Todo? currentTodo;
+    Note? currentNote;
     final events = List<Event>.from(data?.events ?? []);
-    final todos = List<Todo>.from(data?.todos ?? []);
+    final notes = List<Note>.from(data?.notes ?? []);
     for (int i = offset; i < lines.length; i++) {
       final line = lines[i];
       final parts = line.split(':');
@@ -45,12 +45,12 @@ class ICalConverter {
             currentEvent = null;
             break;
         }
-      } else if (currentTodo != null) {
+      } else if (currentNote != null) {
         switch (key) {
           case 'END':
             if (value != 'VTODO') break;
-            todos.add(currentTodo);
-            currentTodo = null;
+            notes.add(currentNote);
+            currentNote = null;
             break;
         }
       } else {
@@ -62,14 +62,14 @@ class ICalConverter {
             if (value == 'VEVENT') {
               currentEvent = Event();
             } else if (value == 'VTODO') {
-              currentTodo = Todo();
+              currentNote = Note();
             }
             continue;
           case 'END':
             if (value == 'VCALENDAR') {
               data = CachedData(
                 events: events,
-                todos: todos,
+                notes: notes,
               );
               return;
             }

@@ -43,9 +43,9 @@
     "message": "Twitter",
     "description": "Navbar item with label Twitter"
   },
-  "item.label.Mastodon": {
-    "message": "Mastodon",
-    "description": "Navbar item with label Mastodon"
+  "item.label.Masnoten": {
+    "message": "Masnoten",
+    "description": "Navbar item with label Masnoten"
   },
   "item.label.License": {
     "message": "License",

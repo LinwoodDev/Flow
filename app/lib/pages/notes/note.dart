@@ -3,27 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared/models/todo/model.dart';
+import 'package:shared/models/note/model.dart';
 
-class TodoDialog extends StatefulWidget {
+class NoteDialog extends StatefulWidget {
   final String? source;
   final Event? event;
-  final Todo? todo;
-  const TodoDialog({super.key, this.source, this.event, this.todo});
+  final Note? note;
+  const NoteDialog({super.key, this.source, this.event, this.note});
 
   @override
-  State<TodoDialog> createState() => _TodoDialogState();
+  State<NoteDialog> createState() => _NoteDialogState();
 }
 
-class _TodoDialogState extends State<TodoDialog> {
-  late Todo _newTodo;
+class _NoteDialogState extends State<NoteDialog> {
+  late Note _newNote;
   late String _newSource;
 
   @override
   void initState() {
     super.initState();
 
-    _newTodo = widget.todo ?? Todo(eventId: widget.event?.id);
+    _newNote = widget.note ?? Note(eventId: widget.event?.id);
     _newSource = widget.source ?? '';
   }
 
@@ -34,21 +34,22 @@ class _TodoDialogState extends State<TodoDialog> {
         children: [
           Expanded(
             child: Text(
-              widget.todo == null
-                  ? AppLocalizations.of(context).createTodo
-                  : AppLocalizations.of(context).editTodo,
+              widget.note == null
+                  ? AppLocalizations.of(context).createNote
+                  : AppLocalizations.of(context).editNote,
             ),
           ),
-          Checkbox(
-            value: _newTodo.status.done,
-            tristate: true,
-            onChanged: (value) {
-              setState(() {
-                _newTodo = _newTodo.copyWith(
-                    status: TodoStatusExtension.fromDone(value));
-              });
-            },
-          ),
+          if (_newNote.status != null)
+            Checkbox(
+              value: _newNote.status?.done,
+              tristate: true,
+              onChanged: (value) {
+                setState(() {
+                  _newNote = _newNote.copyWith(
+                      status: NoteStatusExtension.fromDone(value));
+                });
+              },
+            ),
         ],
       ),
       scrollable: true,
@@ -88,9 +89,9 @@ class _TodoDialogState extends State<TodoDialog> {
                 icon: const Icon(Icons.title_outlined),
                 filled: true,
               ),
-              initialValue: _newTodo.name,
+              initialValue: _newNote.name,
               onChanged: (value) {
-                _newTodo = _newTodo.copyWith(name: value);
+                _newNote = _newNote.copyWith(name: value);
               },
             ),
             const SizedBox(height: 16),
@@ -100,11 +101,11 @@ class _TodoDialogState extends State<TodoDialog> {
                 icon: const Icon(Icons.priority_high_outlined),
                 border: const OutlineInputBorder(),
               ),
-              initialValue: _newTodo.priority.toString(),
+              initialValue: _newNote.priority.toString(),
               keyboardType: TextInputType.number,
               onChanged: (value) {
-                _newTodo = _newTodo.copyWith(
-                    priority: int.tryParse(value) ?? _newTodo.priority);
+                _newNote = _newNote.copyWith(
+                    priority: int.tryParse(value) ?? _newNote.priority);
               },
             ),
             const SizedBox(height: 16),
@@ -114,11 +115,11 @@ class _TodoDialogState extends State<TodoDialog> {
                 icon: const Icon(Icons.description_outlined),
                 border: const OutlineInputBorder(),
               ),
-              initialValue: _newTodo.description,
+              initialValue: _newNote.description,
               minLines: 3,
               maxLines: 5,
               onChanged: (value) {
-                _newTodo = _newTodo.copyWith(description: value);
+                _newNote = _newNote.copyWith(description: value);
               },
             ),
           ],
@@ -134,15 +135,15 @@ class _TodoDialogState extends State<TodoDialog> {
         ElevatedButton(
           onPressed: () {
             final service =
-                context.read<FlowCubit>().getSource(_newSource).todo;
-            if (widget.todo == null) {
-              service?.createTodo(_newTodo);
+                context.read<FlowCubit>().getSource(_newSource).note;
+            if (widget.note == null) {
+              service?.createNote(_newNote);
             } else {
-              service?.updateTodo(_newTodo);
+              service?.updateNote(_newNote);
             }
             Navigator.of(context).pop();
           },
-          child: Text(widget.todo == null
+          child: Text(widget.note == null
               ? AppLocalizations.of(context).create
               : AppLocalizations.of(context).save),
         ),

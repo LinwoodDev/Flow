@@ -17,7 +17,7 @@ pub flutter get
 web build flutter
 ```
 
-Todos los archivos están en el directorio `app/build/web`.
+Notes los archivos están en el directorio `app/build/web`.
 
 ## Doctor
 

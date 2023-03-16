@@ -7,7 +7,7 @@ sidebar_position: 5
 
 :::note
 
-Esta es una aplicación web progresiva. Puedes instalarlo en tu navegador y usarlo sin conexión. Todos los datos se almacenan en su navegador.
+Esta es una aplicación web progresiva. Puedes instalarlo en tu navegador y usarlo sin conexión. Notes los datos se almacenan en su navegador.
 
 :::
 

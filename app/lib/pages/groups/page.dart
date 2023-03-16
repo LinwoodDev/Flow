@@ -123,7 +123,7 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
           search: widget.search,
         );
         if (fetched == null) continue;
-        groups.addAll(fetched.map((todo) => MapEntry(todo, source.key)));
+        groups.addAll(fetched.map((note) => MapEntry(note, source.key)));
         if (fetched.length < _pageSize) {
           isLast = true;
         }

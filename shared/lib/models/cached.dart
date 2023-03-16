@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'event/model.dart';
-import 'todo/model.dart';
+import 'note/model.dart';
 
 part 'cached.freezed.dart';
 part 'cached.g.dart';
@@ -11,7 +11,7 @@ class CachedData with _$CachedData {
   factory CachedData({
     DateTime? lastUpdated,
     @Default([]) List<Event> events,
-    @Default([]) List<Todo> todos,
+    @Default([]) List<Note> notes,
   }) = _CachedData;
 
   factory CachedData.fromJson(Map<String, dynamic> json) =>
