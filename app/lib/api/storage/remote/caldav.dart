@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared/models/user/service.dart';
 import 'package:shared/models/place/service.dart';
 import 'package:shared/models/group/service.dart';
-import 'package:shared/readers/ical.dart';
+import 'package:shared/converters/ical.dart';
 import 'package:xml/xml.dart';
 
 import 'model.dart';

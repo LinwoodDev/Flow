@@ -32,4 +32,6 @@ abstract class SourceService {
 
 abstract class ModelService {
   Future<void> clear();
+
+  bool get isEditable => true;
 }
