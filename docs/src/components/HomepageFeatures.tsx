@@ -42,7 +42,7 @@ const FeatureList = [
     Svg: require('../../static/img/undraw_sweet_home_dkhr.svg').default,
     description: (
       <Translate description="Features local description">
-          You can choose to store your data locally or in your favorite cloud (webdav).
+          You can choose to store your data locally or in your favorite cloud (caldav).
           You can also export your data to a file and import it again.
       </Translate>
     ),

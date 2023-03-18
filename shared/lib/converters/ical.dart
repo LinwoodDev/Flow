@@ -47,6 +47,9 @@ class ICalConverter {
         }
       } else if (currentNote != null) {
         switch (key) {
+          case 'SUMMARY':
+            currentTodo = currentTodo.copyWith(name: value);
+            break;
           case 'END':
             if (value != 'VTODO') break;
             notes.add(currentNote);
@@ -77,5 +80,26 @@ class ICalConverter {
         }
       }
     }
+  }
+
+  List<String> write() {
+    final lines = <String>[];
+    lines.add('BEGIN:VCALENDAR');
+    lines.add('VERSION:2.0');
+    for (final event in data?.events ?? []) {
+      lines.add('BEGIN:VEVENT');
+      lines.add('SUMMARY:${event.name}');
+      lines.add('DESCRIPTION:${event.description}');
+      lines.add('DTSTART:${event.start.toUtc().toIso8601String()}');
+      lines.add('DTEND:${event.end.toUtc().toIso8601String()}');
+      lines.add('END:VEVENT');
+    }
+    for (final todo in data?.todos ?? []) {
+      lines.add('BEGIN:VTODO');
+      lines.add('SUMMARY:${todo.name}');
+      lines.add('END:VTODO');
+    }
+    lines.add('END:VCALENDAR');
+    return lines;
   }
 }
