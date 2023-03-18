@@ -45,7 +45,7 @@ class NoteDatabaseService extends NoteService with TableService {
     int offset = 0,
     int limit = 50,
     Set<NoteStatus> statuses = const {
-      NoteStatus.note,
+      NoteStatus.todo,
       NoteStatus.inProgress,
       NoteStatus.done
     },

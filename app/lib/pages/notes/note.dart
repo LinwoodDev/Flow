@@ -122,6 +122,15 @@ class _NoteDialogState extends State<NoteDialog> {
                 _newNote = _newNote.copyWith(description: value);
               },
             ),
+            const SizedBox(height: 16),
+            CheckboxListTile(
+              title: Text(AppLocalizations.of(context).todo),
+              value: _newNote.status != null,
+              onChanged: (value) {
+                setState(() => _newNote = _newNote.copyWith(
+                    status: value == true ? NoteStatus.todo : null));
+              },
+            ),
           ],
         ),
       ),

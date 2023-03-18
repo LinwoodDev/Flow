@@ -19,7 +19,7 @@ class NoteFilter with _$NoteFilter {
     final statuses = <NoteStatus>{};
     if (showDone) statuses.add(NoteStatus.done);
     if (showInProgress) statuses.add(NoteStatus.inProgress);
-    if (showNote) statuses.add(NoteStatus.note);
+    if (showNote) statuses.add(NoteStatus.todo);
     return statuses;
   }
 }

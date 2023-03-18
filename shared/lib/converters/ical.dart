@@ -48,7 +48,7 @@ class ICalConverter {
       } else if (currentNote != null) {
         switch (key) {
           case 'SUMMARY':
-            currentTodo = currentTodo.copyWith(name: value);
+            currentNote = currentNote.copyWith(name: value);
             break;
           case 'END':
             if (value != 'VTODO') break;
@@ -94,9 +94,9 @@ class ICalConverter {
       lines.add('DTEND:${event.end.toUtc().toIso8601String()}');
       lines.add('END:VEVENT');
     }
-    for (final todo in data?.todos ?? []) {
+    for (final note in data?.notes ?? []) {
       lines.add('BEGIN:VTODO');
-      lines.add('SUMMARY:${todo.name}');
+      lines.add('SUMMARY:${note.name}');
       lines.add('END:VTODO');
     }
     lines.add('END:VCALENDAR');

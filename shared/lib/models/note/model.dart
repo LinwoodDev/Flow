@@ -19,7 +19,7 @@ class Note with _$Note {
 }
 
 enum NoteStatus {
-  note,
+  todo,
   inProgress,
   done,
 }
@@ -27,7 +27,7 @@ enum NoteStatus {
 extension NoteStatusExtension on NoteStatus {
   bool? get done {
     switch (this) {
-      case NoteStatus.note:
+      case NoteStatus.todo:
         return false;
       case NoteStatus.inProgress:
         return null;
@@ -39,6 +39,6 @@ extension NoteStatusExtension on NoteStatus {
   static NoteStatus fromDone(bool? done) {
     if (done == null) return NoteStatus.inProgress;
     if (done) return NoteStatus.done;
-    return NoteStatus.note;
+    return NoteStatus.todo;
   }
 }
