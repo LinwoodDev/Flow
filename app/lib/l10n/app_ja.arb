@@ -214,5 +214,6 @@
   "always": "常に表示",
   "noMobile": "携帯電話がありません",
   "manual": "マニュアル",
-  "syncMode": "同期モード"
+  "syncMode": "同期モード",
+  "todo": "Todo"
 }
