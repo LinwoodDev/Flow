@@ -214,5 +214,6 @@
   "always": "Zawsze",
   "noMobile": "Brak mobilnych",
   "manual": "Ręcznie",
-  "syncMode": "Tryb synchronizacji"
+  "syncMode": "Tryb synchronizacji",
+  "todo": "Todo"
 }
