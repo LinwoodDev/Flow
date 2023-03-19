@@ -214,5 +214,6 @@
   "always": "Altid",
   "noMobile": "Ingen mobil",
   "manual": "Manuelt",
-  "syncMode": "Synkroniser tilstand"
+  "syncMode": "Synkroniser tilstand",
+  "todo": "Todo"
 }
