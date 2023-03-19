@@ -214,5 +214,6 @@
   "always": "دائما",
   "noMobile": "لا يوجد هاتف",
   "manual": "دليل",
-  "syncMode": "وضع المزامنة"
+  "syncMode": "وضع المزامنة",
+  "todo": "Todo"
 }
