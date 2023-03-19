@@ -214,5 +214,6 @@
   "always": "总是显示",
   "noMobile": "无手机",
   "manual": "手动模式",
-  "syncMode": "同步模式"
+  "syncMode": "同步模式",
+  "todo": "Todo"
 }
