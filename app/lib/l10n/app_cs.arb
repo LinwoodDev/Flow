@@ -214,5 +214,6 @@
   "always": "Vždy",
   "noMobile": "Žádný mobil",
   "manual": "Ruční",
-  "syncMode": "Režim synchronizace"
+  "syncMode": "Režim synchronizace",
+  "todo": "Todo"
 }
