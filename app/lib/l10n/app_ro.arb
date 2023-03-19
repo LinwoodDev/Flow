@@ -214,5 +214,6 @@
   "always": "Întotdeauna",
   "noMobile": "Niciun mobil",
   "manual": "Manual",
-  "syncMode": "Mod sincronizare"
+  "syncMode": "Mod sincronizare",
+  "todo": "Todo"
 }
