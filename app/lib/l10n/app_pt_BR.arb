@@ -214,5 +214,6 @@
   "always": "sempre",
   "noMobile": "Sem celular",
   "manual": "Manualmente",
-  "syncMode": "Modo de sincronização"
+  "syncMode": "Modo de sincronização",
+  "todo": "Todo"
 }
