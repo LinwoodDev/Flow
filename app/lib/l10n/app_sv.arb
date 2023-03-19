@@ -214,5 +214,6 @@
   "always": "Alltid",
   "noMobile": "Ingen mobil",
   "manual": "Manuell",
-  "syncMode": "Synkronisera läge"
+  "syncMode": "Synkronisera läge",
+  "todo": "Todo"
 }
