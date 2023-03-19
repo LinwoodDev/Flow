@@ -214,5 +214,6 @@
   "always": "Aina",
   "noMobile": "Ei matkapuhelinta",
   "manual": "Manuaalinen",
-  "syncMode": "Synkronoinnin tila"
+  "syncMode": "Synkronoinnin tila",
+  "todo": "Todo"
 }
