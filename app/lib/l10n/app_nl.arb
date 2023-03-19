@@ -214,5 +214,6 @@
   "always": "altijd",
   "noMobile": "Geen mobiel",
   "manual": "Handleiding",
-  "syncMode": "Synchronisatie modus"
+  "syncMode": "Synchronisatie modus",
+  "todo": "Todo"
 }
