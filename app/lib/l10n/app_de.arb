@@ -214,5 +214,6 @@
   "always": "Immer",
   "noMobile": "Kein Handy",
   "manual": "Manuell",
-  "syncMode": "Sync-Modus"
+  "syncMode": "Sync-Modus",
+  "todo": "Todo"
 }
