@@ -215,5 +215,7 @@
   "noMobile": "携帯電話がありません",
   "manual": "マニュアル",
   "syncMode": "同期モード",
-  "todo": "Todo"
+  "todo": "Todo",
+  "appointment": "Appointment",
+  "moment": "Moment"
 }
