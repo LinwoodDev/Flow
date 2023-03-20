@@ -215,5 +215,7 @@
   "noMobile": "Geen mobiel",
   "manual": "Handleiding",
   "syncMode": "Synchronisatie modus",
-  "todo": "Todo"
+  "todo": "Todo",
+  "appointment": "Appointment",
+  "moment": "Moment"
 }
