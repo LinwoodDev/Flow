@@ -2,12 +2,14 @@ import 'dart:typed_data';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared/helpers/converter.dart';
+import 'package:shared/models/model.dart';
 
 part 'model.freezed.dart';
 part 'model.g.dart';
 
 @freezed
 class User with _$User {
+  @Implements<DescriptiveModel>()
   const factory User({
     @Default(-1) int id,
     int? groupId,

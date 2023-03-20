@@ -1,15 +1,13 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared/models/event/model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/note/model.dart';
 
 class NoteDialog extends StatefulWidget {
   final String? source;
-  final Event? event;
   final Note? note;
-  const NoteDialog({super.key, this.source, this.event, this.note});
+  const NoteDialog({super.key, this.source, this.note});
 
   @override
   State<NoteDialog> createState() => _NoteDialogState();
@@ -23,7 +21,7 @@ class _NoteDialogState extends State<NoteDialog> {
   void initState() {
     super.initState();
 
-    _newNote = widget.note ?? Note(eventId: widget.event?.id);
+    _newNote = widget.note ?? const Note();
     _newSource = widget.source ?? '';
   }
 

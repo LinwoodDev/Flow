@@ -9,13 +9,15 @@ import '../../cubits/flow.dart';
 class DashboardEventsCard extends StatelessWidget {
   const DashboardEventsCard({Key? key}) : super(key: key);
 
-  Future<List<Event>> _getEvents(BuildContext context) async {
+  Future<List<Appointment>> _getAppointment(BuildContext context) async {
     final sources = context.read<FlowCubit>().getCurrentServices();
-    final events = <Event>[];
+    final appointments = <Appointment>[];
     for (final source in sources) {
-      events.addAll(await source.event?.getEvents(date: DateTime.now()) ?? []);
+      appointments.addAll(
+          await source.appointment?.getAppointments(date: DateTime.now()) ??
+              []);
     }
-    return events;
+    return appointments;
   }
 
   @override
@@ -37,8 +39,8 @@ class DashboardEventsCard extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 20),
-        FutureBuilder<List<Event>>(
-            future: _getEvents(context),
+        FutureBuilder<List<Appointment>>(
+            future: _getAppointment(context),
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
                 return const Center(child: CircularProgressIndicator());
@@ -46,9 +48,9 @@ class DashboardEventsCard extends StatelessWidget {
               if (snapshot.hasError) {
                 return Text(snapshot.error.toString());
               }
-              final events = snapshot.data!;
+              final appointments = snapshot.data!;
               return Column(
-                children: events
+                children: appointments
                     .map((e) => ListTile(
                           title: Text(e.name),
                           subtitle: Text(e.description),

@@ -309,10 +309,10 @@ packages:
     dependency: "direct main"
     description:
       name: sqlite3
-      sha256: "0a9f8fe561aad15b94549c98d55dee6825a401efec83bf92956e337e35e68ae5"
+      sha256: "822d321a008e194d7929357e5b58d2e4a04ab670d137182f9759152aa33180ff"
       url: "https://pub.dev"
     source: hosted
-    version: "1.9.3"
+    version: "1.10.1"
   stack_trace:
     dependency: transitive
     description:

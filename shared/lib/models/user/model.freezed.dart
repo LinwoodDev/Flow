@@ -243,7 +243,7 @@ class _$_User implements _User {
   }
 }
 
-abstract class _User implements User {
+abstract class _User implements User, DescriptiveModel {
   const factory _User(
       {final int id,
       final int? groupId,

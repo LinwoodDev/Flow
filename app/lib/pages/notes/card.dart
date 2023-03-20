@@ -1,5 +1,4 @@
 import 'package:flow/helpers/event.dart';
-import 'package:flow/pages/calendar/select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,18 +9,17 @@ import 'package:shared/models/note/model.dart';
 import 'package:shared/models/note/service.dart';
 
 import '../../cubits/flow.dart';
-import '../calendar/event.dart';
 
 class NoteCard extends StatefulWidget {
   final String source;
-  final Event? event;
+  final Appointment? appointment;
   final Note note;
   final PagingController<int, MapEntry<Note, String>> controller;
 
   const NoteCard({
     super.key,
     required this.source,
-    required this.event,
+    required this.appointment,
     required this.note,
     required this.controller,
   });
@@ -34,7 +32,7 @@ class _NoteCardState extends State<NoteCard> {
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
   late Note _newNote;
-  Event? _event;
+  Appointment? _appointment;
   late final NoteService? _noteService;
 
   final FocusNode _nameFocus = FocusNode();
@@ -45,7 +43,7 @@ class _NoteCardState extends State<NoteCard> {
   @override
   void initState() {
     super.initState();
-    _event = widget.event;
+    _appointment = widget.appointment;
     _nameController = TextEditingController(text: widget.note.name);
     _descriptionController =
         TextEditingController(text: widget.note.description);
@@ -192,7 +190,7 @@ class _NoteCardState extends State<NoteCard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      if (_event != null) ...[
+                      if (_appointment != null) ...[
                         if (widget.source.isNotEmpty)
                           Text(
                             widget.source,
@@ -202,26 +200,27 @@ class _NoteCardState extends State<NoteCard> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Icon(
-                              _event!.status.getIcon(),
-                              color: _event!.status.getColor(),
+                              _appointment!.status.getIcon(),
+                              color: _appointment!.status.getColor(),
                             ),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
                                 AppLocalizations.of(context).eventInfo(
-                                  _event!.name,
-                                  _event?.time.start == null
+                                  _appointment!.name,
+                                  _appointment?.start == null
                                       ? '-'
                                       : dateFormatter
-                                          .format(_event!.time.start!),
-                                  _event?.time.start == null
+                                          .format(_appointment!.start!),
+                                  _appointment?.start == null
                                       ? '-'
                                       : timeFormatter
-                                          .format(_event!.time.start!),
-                                  _event!.location.isEmpty
+                                          .format(_appointment!.start!),
+                                  _appointment!.location.isEmpty
                                       ? '-'
-                                      : _event!.location,
-                                  _event!.status.getLocalizedName(context),
+                                      : _appointment!.location,
+                                  _appointment!.status
+                                      .getLocalizedName(context),
                                 ),
                                 style: Theme.of(context).textTheme.bodySmall,
                               ),
@@ -237,7 +236,7 @@ class _NoteCardState extends State<NoteCard> {
                               IconButton(
                                 onPressed: () async {
                                   _newNote = _newNote.copyWith(eventId: null);
-                                  _event = null;
+                                  _appointment = null;
                                   _updateNote();
                                 },
                                 icon: const Icon(Icons.delete_outlined),
@@ -255,52 +254,6 @@ class _NoteCardState extends State<NoteCard> {
                             Text(
                               AppLocalizations.of(context).noEvent,
                               style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                            Wrap(
-                              children: [
-                                TextButton.icon(
-                                  onPressed: () async {
-                                    final event = await showDialog<Event>(
-                                      context: context,
-                                      builder: (context) => const EventDialog(),
-                                    );
-                                    if (event != null) {
-                                      _newNote =
-                                          _newNote.copyWith(eventId: event.id);
-                                      _event = event;
-                                      _updateNote();
-                                    }
-                                  },
-                                  icon: const Icon(Icons.add),
-                                  label: Text(
-                                      AppLocalizations.of(context).createEvent),
-                                ),
-                                TextButton.icon(
-                                  onPressed: () async {
-                                    final cubit = context.read<FlowCubit>();
-                                    final result =
-                                        await showDialog<MapEntry<String, int>>(
-                                      context: context,
-                                      builder: (context) => EventSelectDialog(
-                                        source: widget.source,
-                                      ),
-                                    );
-                                    if (result != null) {
-                                      _newNote = _newNote.copyWith(
-                                          eventId: result.value);
-                                      _event = await cubit
-                                          .getSource(result.key)
-                                          .event
-                                          ?.getEvent(result.value);
-                                      _updateNote();
-                                    }
-                                  },
-                                  icon:
-                                      const Icon(Icons.calendar_month_outlined),
-                                  label: Text(
-                                      AppLocalizations.of(context).assignEvent),
-                                ),
-                              ],
                             ),
                           ],
                         ),

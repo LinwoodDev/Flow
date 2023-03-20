@@ -15,11 +15,6 @@ _$_Event _$$_EventFromJson(Map<String, dynamic> json) => _$_Event(
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       location: json['location'] as String? ?? '',
-      time: json['time'] == null
-          ? const EventTime.fixed()
-          : EventTime.fromJson(json['time'] as Map<String, dynamic>),
-      status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
-          EventStatus.confirmed,
     );
 
 Map<String, dynamic> _$$_EventToJson(_$_Event instance) => <String, dynamic>{
@@ -31,8 +26,33 @@ Map<String, dynamic> _$$_EventToJson(_$_Event instance) => <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
       'location': instance.location,
-      'time': instance.time,
+    };
+
+_$FixedAppointment _$$FixedAppointmentFromJson(Map<String, dynamic> json) =>
+    _$FixedAppointment(
+      id: json['id'] as int? ?? -1,
+      name: json['name'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      location: json['location'] as String? ?? '',
+      eventId: json['eventId'] as int,
+      status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
+          EventStatus.confirmed,
+      start: const DateTimeConverter().fromJson(json['start'] as int?),
+      end: const DateTimeConverter().fromJson(json['end'] as int?),
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$FixedAppointmentToJson(_$FixedAppointment instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'description': instance.description,
+      'location': instance.location,
+      'eventId': instance.eventId,
       'status': _$EventStatusEnumMap[instance.status]!,
+      'start': const DateTimeConverter().toJson(instance.start),
+      'end': const DateTimeConverter().toJson(instance.end),
+      'runtimeType': instance.$type,
     };
 
 const _$EventStatusEnumMap = {
@@ -41,26 +61,21 @@ const _$EventStatusEnumMap = {
   EventStatus.cancelled: 'cancelled',
 };
 
-_$FixedEventTime _$$FixedEventTimeFromJson(Map<String, dynamic> json) =>
-    _$FixedEventTime(
+_$RepeatingAppointment _$$RepeatingAppointmentFromJson(
+        Map<String, dynamic> json) =>
+    _$RepeatingAppointment(
+      id: json['id'] as int? ?? -1,
+      name: json['name'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      location: json['location'] as String? ?? '',
+      eventId: json['eventId'] as int?,
+      status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
+          EventStatus.confirmed,
       start: const DateTimeConverter().fromJson(json['start'] as int?),
       end: const DateTimeConverter().fromJson(json['end'] as int?),
-      $type: json['runtimeType'] as String?,
-    );
-
-Map<String, dynamic> _$$FixedEventTimeToJson(_$FixedEventTime instance) =>
-    <String, dynamic>{
-      'start': const DateTimeConverter().toJson(instance.start),
-      'end': const DateTimeConverter().toJson(instance.end),
-      'runtimeType': instance.$type,
-    };
-
-_$RepeatingEventTime _$$RepeatingEventTimeFromJson(Map<String, dynamic> json) =>
-    _$RepeatingEventTime(
-      start: const DateTimeConverter().fromJson(json['start'] as int?),
-      end: const DateTimeConverter().fromJson(json['end'] as int?),
-      type: $enumDecodeNullable(_$RepeatTypeEnumMap, json['type']) ??
-          RepeatType.daily,
+      repeatType:
+          $enumDecodeNullable(_$RepeatTypeEnumMap, json['repeatType']) ??
+              RepeatType.daily,
       interval: json['interval'] as int? ?? 1,
       variation: json['variation'] as int? ?? 0,
       count: json['count'] as int? ?? 0,
@@ -72,12 +87,18 @@ _$RepeatingEventTime _$$RepeatingEventTimeFromJson(Map<String, dynamic> json) =>
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$RepeatingEventTimeToJson(
-        _$RepeatingEventTime instance) =>
+Map<String, dynamic> _$$RepeatingAppointmentToJson(
+        _$RepeatingAppointment instance) =>
     <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'description': instance.description,
+      'location': instance.location,
+      'eventId': instance.eventId,
+      'status': _$EventStatusEnumMap[instance.status]!,
       'start': const DateTimeConverter().toJson(instance.start),
       'end': const DateTimeConverter().toJson(instance.end),
-      'type': _$RepeatTypeEnumMap[instance.type]!,
+      'repeatType': _$RepeatTypeEnumMap[instance.repeatType]!,
       'interval': instance.interval,
       'variation': instance.variation,
       'count': instance.count,
@@ -93,8 +114,15 @@ const _$RepeatTypeEnumMap = {
   RepeatType.yearly: 'yearly',
 };
 
-_$AutoEventTime _$$AutoEventTimeFromJson(Map<String, dynamic> json) =>
-    _$AutoEventTime(
+_$AutoAppointment _$$AutoAppointmentFromJson(Map<String, dynamic> json) =>
+    _$AutoAppointment(
+      id: json['id'] as int? ?? -1,
+      name: json['name'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      location: json['location'] as String? ?? '',
+      eventId: json['eventId'] as int?,
+      status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
+          EventStatus.confirmed,
       autoGroupId: json['autoGroupId'] as int? ?? -1,
       searchStart:
           const DateTimeConverter().fromJson(json['searchStart'] as int?),
@@ -104,12 +132,39 @@ _$AutoEventTime _$$AutoEventTimeFromJson(Map<String, dynamic> json) =>
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$AutoEventTimeToJson(_$AutoEventTime instance) =>
+Map<String, dynamic> _$$AutoAppointmentToJson(_$AutoAppointment instance) =>
     <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'description': instance.description,
+      'location': instance.location,
+      'eventId': instance.eventId,
+      'status': _$EventStatusEnumMap[instance.status]!,
       'autoGroupId': instance.autoGroupId,
       'searchStart': const DateTimeConverter().toJson(instance.searchStart),
       'autoDuration': instance.autoDuration,
       'start': const DateTimeConverter().toJson(instance.start),
       'end': const DateTimeConverter().toJson(instance.end),
       'runtimeType': instance.$type,
+    };
+
+_$_Moment _$$_MomentFromJson(Map<String, dynamic> json) => _$_Moment(
+      id: json['id'] as int? ?? -1,
+      name: json['name'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      location: json['location'] as String? ?? '',
+      eventId: json['eventId'] as int?,
+      status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
+          EventStatus.confirmed,
+      time: const DateTimeConverter().fromJson(json['time'] as int?),
+    );
+
+Map<String, dynamic> _$$_MomentToJson(_$_Moment instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'description': instance.description,
+      'location': instance.location,
+      'eventId': instance.eventId,
+      'status': _$EventStatusEnumMap[instance.status]!,
+      'time': const DateTimeConverter().toJson(instance.time),
     };

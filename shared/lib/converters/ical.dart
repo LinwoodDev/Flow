@@ -12,8 +12,9 @@ class ICalConverter {
     if (offset == -1) {
       return;
     }
-    Event? currentEvent;
+    Appointment? currentAppointment;
     Note? currentNote;
+    final appointments = List<Appointment>.from(data?.appointments ?? []);
     final events = List<Event>.from(data?.events ?? []);
     final notes = List<Note>.from(data?.notes ?? []);
     for (int i = offset; i < lines.length; i++) {
@@ -22,27 +23,28 @@ class ICalConverter {
       final name = parts[0].trim().split(';');
       final key = name.first;
       final value = parts.sublist(1).join(':').trim();
-      if (currentEvent != null) {
+      if (currentAppointment != null) {
         switch (key) {
           case 'SUMMARY':
-            currentEvent = currentEvent.copyWith(name: value);
+            currentAppointment = currentAppointment.copyWith(name: value);
             break;
           case 'DESCRIPTION':
-            currentEvent = currentEvent.copyWith(description: value);
+            currentAppointment =
+                currentAppointment.copyWith(description: value);
             break;
           case 'DTSTART':
-            currentEvent = currentEvent.copyWith.time(
+            currentAppointment = currentAppointment.copyWith(
                 start:
                     DateTime.parse(value).subtract(const Duration(minutes: 1)));
             break;
           case 'DTEND':
-            currentEvent =
-                currentEvent.copyWith.time(end: DateTime.parse(value));
+            currentAppointment =
+                currentAppointment.copyWith(end: DateTime.parse(value));
             break;
           case 'END':
             if (value != 'VEVENT') break;
-            events.add(currentEvent);
-            currentEvent = null;
+            appointments.add(currentAppointment);
+            currentAppointment = null;
             break;
         }
       } else if (currentNote != null) {
@@ -63,7 +65,12 @@ class ICalConverter {
             break;
           case 'BEGIN':
             if (value == 'VEVENT') {
-              currentEvent = Event();
+              final event = Event(id: events.length + 1);
+              events.add(event);
+              currentAppointment = Appointment.fixed(
+                id: appointments.length + 1,
+                eventId: event.id,
+              );
             } else if (value == 'VTODO') {
               currentNote = Note();
             }
@@ -86,12 +93,16 @@ class ICalConverter {
     final lines = <String>[];
     lines.add('BEGIN:VCALENDAR');
     lines.add('VERSION:2.0');
-    for (final event in data?.events ?? []) {
+    for (final event in data?.appointments ?? <Appointment>[]) {
       lines.add('BEGIN:VEVENT');
       lines.add('SUMMARY:${event.name}');
       lines.add('DESCRIPTION:${event.description}');
-      lines.add('DTSTART:${event.start.toUtc().toIso8601String()}');
-      lines.add('DTEND:${event.end.toUtc().toIso8601String()}');
+      if (event.start != null) {
+        lines.add('DTSTART:${event.start!.toUtc().toIso8601String()}');
+      }
+      if (event.end != null) {
+        lines.add('DTEND:${event.end!.toUtc().toIso8601String()}');
+      }
       lines.add('END:VEVENT');
     }
     for (final note in data?.notes ?? []) {

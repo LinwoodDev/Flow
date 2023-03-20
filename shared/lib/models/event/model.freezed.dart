@@ -28,8 +28,6 @@ mixin _$Event {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
-  EventTime get time => throw _privateConstructorUsedError;
-  EventStatus get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,11 +47,7 @@ abstract class $EventCopyWith<$Res> {
       bool blocked,
       String name,
       String description,
-      String location,
-      EventTime time,
-      EventStatus status});
-
-  $EventTimeCopyWith<$Res> get time;
+      String location});
 }
 
 /// @nodoc
@@ -77,8 +71,6 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
     Object? name = null,
     Object? description = null,
     Object? location = null,
-    Object? time = null,
-    Object? status = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -113,23 +105,7 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
-      time: null == time
-          ? _value.time
-          : time // ignore: cast_nullable_to_non_nullable
-              as EventTime,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as EventStatus,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $EventTimeCopyWith<$Res> get time {
-    return $EventTimeCopyWith<$Res>(_value.time, (value) {
-      return _then(_value.copyWith(time: value) as $Val);
-    });
   }
 }
 
@@ -147,12 +123,7 @@ abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
       bool blocked,
       String name,
       String description,
-      String location,
-      EventTime time,
-      EventStatus status});
-
-  @override
-  $EventTimeCopyWith<$Res> get time;
+      String location});
 }
 
 /// @nodoc
@@ -172,8 +143,6 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
     Object? name = null,
     Object? description = null,
     Object? location = null,
-    Object? time = null,
-    Object? status = null,
   }) {
     return _then(_$_Event(
       id: null == id
@@ -208,14 +177,6 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
-      time: null == time
-          ? _value.time
-          : time // ignore: cast_nullable_to_non_nullable
-              as EventTime,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as EventStatus,
     ));
   }
 }
@@ -231,9 +192,7 @@ class _$_Event extends _Event {
       this.blocked = true,
       this.name = '',
       this.description = '',
-      this.location = '',
-      this.time = const EventTime.fixed(),
-      this.status = EventStatus.confirmed})
+      this.location = ''})
       : super._();
 
   factory _$_Event.fromJson(Map<String, dynamic> json) =>
@@ -260,16 +219,10 @@ class _$_Event extends _Event {
   @override
   @JsonKey()
   final String location;
-  @override
-  @JsonKey()
-  final EventTime time;
-  @override
-  @JsonKey()
-  final EventStatus status;
 
   @override
   String toString() {
-    return 'Event(id: $id, parentId: $parentId, groupId: $groupId, placeId: $placeId, blocked: $blocked, name: $name, description: $description, location: $location, time: $time, status: $status)';
+    return 'Event(id: $id, parentId: $parentId, groupId: $groupId, placeId: $placeId, blocked: $blocked, name: $name, description: $description, location: $location)';
   }
 
   @override
@@ -287,15 +240,13 @@ class _$_Event extends _Event {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.location, location) ||
-                other.location == location) &&
-            (identical(other.time, time) || other.time == time) &&
-            (identical(other.status, status) || other.status == status));
+                other.location == location));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, parentId, groupId, placeId,
-      blocked, name, description, location, time, status);
+      blocked, name, description, location);
 
   @JsonKey(ignore: true)
   @override
@@ -311,7 +262,7 @@ class _$_Event extends _Event {
   }
 }
 
-abstract class _Event extends Event {
+abstract class _Event extends Event implements DescriptiveModel {
   const factory _Event(
       {final int id,
       final int? parentId,
@@ -320,9 +271,7 @@ abstract class _Event extends Event {
       final bool blocked,
       final String name,
       final String description,
-      final String location,
-      final EventTime time,
-      final EventStatus status}) = _$_Event;
+      final String location}) = _$_Event;
   const _Event._() : super._();
 
   factory _Event.fromJson(Map<String, dynamic> json) = _$_Event.fromJson;
@@ -344,45 +293,60 @@ abstract class _Event extends Event {
   @override
   String get location;
   @override
-  EventTime get time;
-  @override
-  EventStatus get status;
-  @override
   @JsonKey(ignore: true)
   _$$_EventCopyWith<_$_Event> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-EventTime _$EventTimeFromJson(Map<String, dynamic> json) {
+Appointment _$AppointmentFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType']) {
     case 'fixed':
-      return FixedEventTime.fromJson(json);
+      return FixedAppointment.fromJson(json);
     case 'repeating':
-      return RepeatingEventTime.fromJson(json);
+      return RepeatingAppointment.fromJson(json);
     case 'auto':
-      return AutoEventTime.fromJson(json);
+      return AutoAppointment.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'EventTime',
+      throw CheckedFromJsonException(json, 'runtimeType', 'Appointment',
           'Invalid union type "${json['runtimeType']}"!');
   }
 }
 
 /// @nodoc
-mixin _$EventTime {
+mixin _$Appointment {
+  int get id => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  String get location => throw _privateConstructorUsedError;
+  int? get eventId => throw _privateConstructorUsedError;
+  EventStatus get status => throw _privateConstructorUsedError;
   @DateTimeConverter()
   DateTime? get start => throw _privateConstructorUsedError;
   @DateTimeConverter()
   DateTime? get end => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@DateTimeConverter() DateTime? start,
+    required TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int eventId,
+            EventStatus status,
+            @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
         fixed,
     required TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            RepeatType type,
+            RepeatType repeatType,
             int interval,
             int variation,
             int count,
@@ -390,6 +354,12 @@ mixin _$EventTime {
             List<int> exceptions)
         repeating,
     required TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration,
@@ -400,13 +370,26 @@ mixin _$EventTime {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(@DateTimeConverter() DateTime? start,
+    TResult? Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int eventId,
+            EventStatus status,
+            @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult? Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            RepeatType type,
+            RepeatType repeatType,
             int interval,
             int variation,
             int count,
@@ -414,6 +397,12 @@ mixin _$EventTime {
             List<int> exceptions)?
         repeating,
     TResult? Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration,
@@ -424,13 +413,26 @@ mixin _$EventTime {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@DateTimeConverter() DateTime? start,
+    TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int eventId,
+            EventStatus status,
+            @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            RepeatType type,
+            RepeatType repeatType,
             int interval,
             int variation,
             int count,
@@ -438,6 +440,12 @@ mixin _$EventTime {
             List<int> exceptions)?
         repeating,
     TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration,
@@ -449,46 +457,53 @@ mixin _$EventTime {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(FixedEventTime value) fixed,
-    required TResult Function(RepeatingEventTime value) repeating,
-    required TResult Function(AutoEventTime value) auto,
+    required TResult Function(FixedAppointment value) fixed,
+    required TResult Function(RepeatingAppointment value) repeating,
+    required TResult Function(AutoAppointment value) auto,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(FixedEventTime value)? fixed,
-    TResult? Function(RepeatingEventTime value)? repeating,
-    TResult? Function(AutoEventTime value)? auto,
+    TResult? Function(FixedAppointment value)? fixed,
+    TResult? Function(RepeatingAppointment value)? repeating,
+    TResult? Function(AutoAppointment value)? auto,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(FixedEventTime value)? fixed,
-    TResult Function(RepeatingEventTime value)? repeating,
-    TResult Function(AutoEventTime value)? auto,
+    TResult Function(FixedAppointment value)? fixed,
+    TResult Function(RepeatingAppointment value)? repeating,
+    TResult Function(AutoAppointment value)? auto,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $EventTimeCopyWith<EventTime> get copyWith =>
+  $AppointmentCopyWith<Appointment> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $EventTimeCopyWith<$Res> {
-  factory $EventTimeCopyWith(EventTime value, $Res Function(EventTime) then) =
-      _$EventTimeCopyWithImpl<$Res, EventTime>;
+abstract class $AppointmentCopyWith<$Res> {
+  factory $AppointmentCopyWith(
+          Appointment value, $Res Function(Appointment) then) =
+      _$AppointmentCopyWithImpl<$Res, Appointment>;
   @useResult
   $Res call(
-      {@DateTimeConverter() DateTime? start,
+      {int id,
+      String name,
+      String description,
+      String location,
+      int eventId,
+      EventStatus status,
+      @DateTimeConverter() DateTime? start,
       @DateTimeConverter() DateTime? end});
 }
 
 /// @nodoc
-class _$EventTimeCopyWithImpl<$Res, $Val extends EventTime>
-    implements $EventTimeCopyWith<$Res> {
-  _$EventTimeCopyWithImpl(this._value, this._then);
+class _$AppointmentCopyWithImpl<$Res, $Val extends Appointment>
+    implements $AppointmentCopyWith<$Res> {
+  _$AppointmentCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -498,10 +513,40 @@ class _$EventTimeCopyWithImpl<$Res, $Val extends EventTime>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
+    Object? location = null,
+    Object? eventId = null,
+    Object? status = null,
     Object? start = freezed,
     Object? end = freezed,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventId: null == eventId
+          ? _value.eventId!
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as int,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as EventStatus,
       start: freezed == start
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
@@ -515,33 +560,69 @@ class _$EventTimeCopyWithImpl<$Res, $Val extends EventTime>
 }
 
 /// @nodoc
-abstract class _$$FixedEventTimeCopyWith<$Res>
-    implements $EventTimeCopyWith<$Res> {
-  factory _$$FixedEventTimeCopyWith(
-          _$FixedEventTime value, $Res Function(_$FixedEventTime) then) =
-      __$$FixedEventTimeCopyWithImpl<$Res>;
+abstract class _$$FixedAppointmentCopyWith<$Res>
+    implements $AppointmentCopyWith<$Res> {
+  factory _$$FixedAppointmentCopyWith(
+          _$FixedAppointment value, $Res Function(_$FixedAppointment) then) =
+      __$$FixedAppointmentCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {@DateTimeConverter() DateTime? start,
+      {int id,
+      String name,
+      String description,
+      String location,
+      int eventId,
+      EventStatus status,
+      @DateTimeConverter() DateTime? start,
       @DateTimeConverter() DateTime? end});
 }
 
 /// @nodoc
-class __$$FixedEventTimeCopyWithImpl<$Res>
-    extends _$EventTimeCopyWithImpl<$Res, _$FixedEventTime>
-    implements _$$FixedEventTimeCopyWith<$Res> {
-  __$$FixedEventTimeCopyWithImpl(
-      _$FixedEventTime _value, $Res Function(_$FixedEventTime) _then)
+class __$$FixedAppointmentCopyWithImpl<$Res>
+    extends _$AppointmentCopyWithImpl<$Res, _$FixedAppointment>
+    implements _$$FixedAppointmentCopyWith<$Res> {
+  __$$FixedAppointmentCopyWithImpl(
+      _$FixedAppointment _value, $Res Function(_$FixedAppointment) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
+    Object? location = null,
+    Object? eventId = null,
+    Object? status = null,
     Object? start = freezed,
     Object? end = freezed,
   }) {
-    return _then(_$FixedEventTime(
+    return _then(_$FixedAppointment(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventId: null == eventId
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as int,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as EventStatus,
       start: freezed == start
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
@@ -556,16 +637,40 @@ class __$$FixedEventTimeCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$FixedEventTime implements FixedEventTime {
-  const _$FixedEventTime(
-      {@DateTimeConverter() this.start,
+class _$FixedAppointment extends FixedAppointment {
+  const _$FixedAppointment(
+      {this.id = -1,
+      this.name = '',
+      this.description = '',
+      this.location = '',
+      required this.eventId,
+      this.status = EventStatus.confirmed,
+      @DateTimeConverter() this.start,
       @DateTimeConverter() this.end,
       final String? $type})
-      : $type = $type ?? 'fixed';
+      : $type = $type ?? 'fixed',
+        super._();
 
-  factory _$FixedEventTime.fromJson(Map<String, dynamic> json) =>
-      _$$FixedEventTimeFromJson(json);
+  factory _$FixedAppointment.fromJson(Map<String, dynamic> json) =>
+      _$$FixedAppointmentFromJson(json);
 
+  @override
+  @JsonKey()
+  final int id;
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String description;
+  @override
+  @JsonKey()
+  final String location;
+  @override
+  final int eventId;
+  @override
+  @JsonKey()
+  final EventStatus status;
   @override
   @DateTimeConverter()
   final DateTime? start;
@@ -578,38 +683,60 @@ class _$FixedEventTime implements FixedEventTime {
 
   @override
   String toString() {
-    return 'EventTime.fixed(start: $start, end: $end)';
+    return 'Appointment.fixed(id: $id, name: $name, description: $description, location: $location, eventId: $eventId, status: $status, start: $start, end: $end)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$FixedEventTime &&
+            other is _$FixedAppointment &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            (identical(other.eventId, eventId) || other.eventId == eventId) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.start, start) || other.start == start) &&
             (identical(other.end, end) || other.end == end));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, start, end);
+  int get hashCode => Object.hash(runtimeType, id, name, description, location,
+      eventId, status, start, end);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$FixedEventTimeCopyWith<_$FixedEventTime> get copyWith =>
-      __$$FixedEventTimeCopyWithImpl<_$FixedEventTime>(this, _$identity);
+  _$$FixedAppointmentCopyWith<_$FixedAppointment> get copyWith =>
+      __$$FixedAppointmentCopyWithImpl<_$FixedAppointment>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@DateTimeConverter() DateTime? start,
+    required TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int eventId,
+            EventStatus status,
+            @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
         fixed,
     required TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            RepeatType type,
+            RepeatType repeatType,
             int interval,
             int variation,
             int count,
@@ -617,6 +744,12 @@ class _$FixedEventTime implements FixedEventTime {
             List<int> exceptions)
         repeating,
     required TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration,
@@ -624,19 +757,32 @@ class _$FixedEventTime implements FixedEventTime {
             @DateTimeConverter() DateTime? end)
         auto,
   }) {
-    return fixed(start, end);
+    return fixed(id, name, description, location, eventId, status, start, end);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(@DateTimeConverter() DateTime? start,
+    TResult? Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int eventId,
+            EventStatus status,
+            @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult? Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            RepeatType type,
+            RepeatType repeatType,
             int interval,
             int variation,
             int count,
@@ -644,6 +790,12 @@ class _$FixedEventTime implements FixedEventTime {
             List<int> exceptions)?
         repeating,
     TResult? Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration,
@@ -651,19 +803,33 @@ class _$FixedEventTime implements FixedEventTime {
             @DateTimeConverter() DateTime? end)?
         auto,
   }) {
-    return fixed?.call(start, end);
+    return fixed?.call(
+        id, name, description, location, eventId, status, start, end);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@DateTimeConverter() DateTime? start,
+    TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int eventId,
+            EventStatus status,
+            @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            RepeatType type,
+            RepeatType repeatType,
             int interval,
             int variation,
             int count,
@@ -671,6 +837,12 @@ class _$FixedEventTime implements FixedEventTime {
             List<int> exceptions)?
         repeating,
     TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration,
@@ -680,7 +852,8 @@ class _$FixedEventTime implements FixedEventTime {
     required TResult orElse(),
   }) {
     if (fixed != null) {
-      return fixed(start, end);
+      return fixed(
+          id, name, description, location, eventId, status, start, end);
     }
     return orElse();
   }
@@ -688,9 +861,9 @@ class _$FixedEventTime implements FixedEventTime {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(FixedEventTime value) fixed,
-    required TResult Function(RepeatingEventTime value) repeating,
-    required TResult Function(AutoEventTime value) auto,
+    required TResult Function(FixedAppointment value) fixed,
+    required TResult Function(RepeatingAppointment value) repeating,
+    required TResult Function(AutoAppointment value) auto,
   }) {
     return fixed(this);
   }
@@ -698,9 +871,9 @@ class _$FixedEventTime implements FixedEventTime {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(FixedEventTime value)? fixed,
-    TResult? Function(RepeatingEventTime value)? repeating,
-    TResult? Function(AutoEventTime value)? auto,
+    TResult? Function(FixedAppointment value)? fixed,
+    TResult? Function(RepeatingAppointment value)? repeating,
+    TResult? Function(AutoAppointment value)? auto,
   }) {
     return fixed?.call(this);
   }
@@ -708,9 +881,9 @@ class _$FixedEventTime implements FixedEventTime {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(FixedEventTime value)? fixed,
-    TResult Function(RepeatingEventTime value)? repeating,
-    TResult Function(AutoEventTime value)? auto,
+    TResult Function(FixedAppointment value)? fixed,
+    TResult Function(RepeatingAppointment value)? repeating,
+    TResult Function(AutoAppointment value)? auto,
     required TResult orElse(),
   }) {
     if (fixed != null) {
@@ -721,20 +894,40 @@ class _$FixedEventTime implements FixedEventTime {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$FixedEventTimeToJson(
+    return _$$FixedAppointmentToJson(
       this,
     );
   }
 }
 
-abstract class FixedEventTime implements EventTime {
-  const factory FixedEventTime(
-      {@DateTimeConverter() final DateTime? start,
-      @DateTimeConverter() final DateTime? end}) = _$FixedEventTime;
+abstract class FixedAppointment extends Appointment
+    implements DescriptiveModel {
+  const factory FixedAppointment(
+      {final int id,
+      final String name,
+      final String description,
+      final String location,
+      required final int eventId,
+      final EventStatus status,
+      @DateTimeConverter() final DateTime? start,
+      @DateTimeConverter() final DateTime? end}) = _$FixedAppointment;
+  const FixedAppointment._() : super._();
 
-  factory FixedEventTime.fromJson(Map<String, dynamic> json) =
-      _$FixedEventTime.fromJson;
+  factory FixedAppointment.fromJson(Map<String, dynamic> json) =
+      _$FixedAppointment.fromJson;
 
+  @override
+  int get id;
+  @override
+  String get name;
+  @override
+  String get description;
+  @override
+  String get location;
+  @override
+  int get eventId;
+  @override
+  EventStatus get status;
   @override
   @DateTimeConverter()
   DateTime? get start;
@@ -743,22 +936,28 @@ abstract class FixedEventTime implements EventTime {
   DateTime? get end;
   @override
   @JsonKey(ignore: true)
-  _$$FixedEventTimeCopyWith<_$FixedEventTime> get copyWith =>
+  _$$FixedAppointmentCopyWith<_$FixedAppointment> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$RepeatingEventTimeCopyWith<$Res>
-    implements $EventTimeCopyWith<$Res> {
-  factory _$$RepeatingEventTimeCopyWith(_$RepeatingEventTime value,
-          $Res Function(_$RepeatingEventTime) then) =
-      __$$RepeatingEventTimeCopyWithImpl<$Res>;
+abstract class _$$RepeatingAppointmentCopyWith<$Res>
+    implements $AppointmentCopyWith<$Res> {
+  factory _$$RepeatingAppointmentCopyWith(_$RepeatingAppointment value,
+          $Res Function(_$RepeatingAppointment) then) =
+      __$$RepeatingAppointmentCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {@DateTimeConverter() DateTime? start,
+      {int id,
+      String name,
+      String description,
+      String location,
+      int? eventId,
+      EventStatus status,
+      @DateTimeConverter() DateTime? start,
       @DateTimeConverter() DateTime? end,
-      RepeatType type,
+      RepeatType repeatType,
       int interval,
       int variation,
       int count,
@@ -767,26 +966,56 @@ abstract class _$$RepeatingEventTimeCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$RepeatingEventTimeCopyWithImpl<$Res>
-    extends _$EventTimeCopyWithImpl<$Res, _$RepeatingEventTime>
-    implements _$$RepeatingEventTimeCopyWith<$Res> {
-  __$$RepeatingEventTimeCopyWithImpl(
-      _$RepeatingEventTime _value, $Res Function(_$RepeatingEventTime) _then)
+class __$$RepeatingAppointmentCopyWithImpl<$Res>
+    extends _$AppointmentCopyWithImpl<$Res, _$RepeatingAppointment>
+    implements _$$RepeatingAppointmentCopyWith<$Res> {
+  __$$RepeatingAppointmentCopyWithImpl(_$RepeatingAppointment _value,
+      $Res Function(_$RepeatingAppointment) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
+    Object? location = null,
+    Object? eventId = freezed,
+    Object? status = null,
     Object? start = freezed,
     Object? end = freezed,
-    Object? type = null,
+    Object? repeatType = null,
     Object? interval = null,
     Object? variation = null,
     Object? count = null,
     Object? until = freezed,
     Object? exceptions = null,
   }) {
-    return _then(_$RepeatingEventTime(
+    return _then(_$RepeatingAppointment(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventId: freezed == eventId
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as EventStatus,
       start: freezed == start
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
@@ -795,9 +1024,9 @@ class __$$RepeatingEventTimeCopyWithImpl<$Res>
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
+      repeatType: null == repeatType
+          ? _value.repeatType
+          : repeatType // ignore: cast_nullable_to_non_nullable
               as RepeatType,
       interval: null == interval
           ? _value.interval
@@ -825,11 +1054,17 @@ class __$$RepeatingEventTimeCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$RepeatingEventTime implements RepeatingEventTime {
-  const _$RepeatingEventTime(
-      {@DateTimeConverter() this.start,
+class _$RepeatingAppointment extends RepeatingAppointment {
+  const _$RepeatingAppointment(
+      {this.id = -1,
+      this.name = '',
+      this.description = '',
+      this.location = '',
+      this.eventId,
+      this.status = EventStatus.confirmed,
+      @DateTimeConverter() this.start,
       @DateTimeConverter() this.end,
-      this.type = RepeatType.daily,
+      this.repeatType = RepeatType.daily,
       this.interval = 1,
       this.variation = 0,
       this.count = 0,
@@ -837,11 +1072,29 @@ class _$RepeatingEventTime implements RepeatingEventTime {
       final List<int> exceptions = const [],
       final String? $type})
       : _exceptions = exceptions,
-        $type = $type ?? 'repeating';
+        $type = $type ?? 'repeating',
+        super._();
 
-  factory _$RepeatingEventTime.fromJson(Map<String, dynamic> json) =>
-      _$$RepeatingEventTimeFromJson(json);
+  factory _$RepeatingAppointment.fromJson(Map<String, dynamic> json) =>
+      _$$RepeatingAppointmentFromJson(json);
 
+  @override
+  @JsonKey()
+  final int id;
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String description;
+  @override
+  @JsonKey()
+  final String location;
+  @override
+  final int? eventId;
+  @override
+  @JsonKey()
+  final EventStatus status;
   @override
   @DateTimeConverter()
   final DateTime? start;
@@ -850,7 +1103,7 @@ class _$RepeatingEventTime implements RepeatingEventTime {
   final DateTime? end;
   @override
   @JsonKey()
-  final RepeatType type;
+  final RepeatType repeatType;
   @override
   @JsonKey()
   final int interval;
@@ -877,17 +1130,26 @@ class _$RepeatingEventTime implements RepeatingEventTime {
 
   @override
   String toString() {
-    return 'EventTime.repeating(start: $start, end: $end, type: $type, interval: $interval, variation: $variation, count: $count, until: $until, exceptions: $exceptions)';
+    return 'Appointment.repeating(id: $id, name: $name, description: $description, location: $location, eventId: $eventId, status: $status, start: $start, end: $end, repeatType: $repeatType, interval: $interval, variation: $variation, count: $count, until: $until, exceptions: $exceptions)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RepeatingEventTime &&
+            other is _$RepeatingAppointment &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            (identical(other.eventId, eventId) || other.eventId == eventId) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.start, start) || other.start == start) &&
             (identical(other.end, end) || other.end == end) &&
-            (identical(other.type, type) || other.type == type) &&
+            (identical(other.repeatType, repeatType) ||
+                other.repeatType == repeatType) &&
             (identical(other.interval, interval) ||
                 other.interval == interval) &&
             (identical(other.variation, variation) ||
@@ -902,9 +1164,15 @@ class _$RepeatingEventTime implements RepeatingEventTime {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      id,
+      name,
+      description,
+      location,
+      eventId,
+      status,
       start,
       end,
-      type,
+      repeatType,
       interval,
       variation,
       count,
@@ -914,20 +1182,33 @@ class _$RepeatingEventTime implements RepeatingEventTime {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$RepeatingEventTimeCopyWith<_$RepeatingEventTime> get copyWith =>
-      __$$RepeatingEventTimeCopyWithImpl<_$RepeatingEventTime>(
+  _$$RepeatingAppointmentCopyWith<_$RepeatingAppointment> get copyWith =>
+      __$$RepeatingAppointmentCopyWithImpl<_$RepeatingAppointment>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@DateTimeConverter() DateTime? start,
+    required TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int eventId,
+            EventStatus status,
+            @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
         fixed,
     required TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            RepeatType type,
+            RepeatType repeatType,
             int interval,
             int variation,
             int count,
@@ -935,6 +1216,12 @@ class _$RepeatingEventTime implements RepeatingEventTime {
             List<int> exceptions)
         repeating,
     required TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration,
@@ -942,20 +1229,33 @@ class _$RepeatingEventTime implements RepeatingEventTime {
             @DateTimeConverter() DateTime? end)
         auto,
   }) {
-    return repeating(
-        start, end, type, interval, variation, count, until, exceptions);
+    return repeating(id, name, description, location, eventId, status, start,
+        end, repeatType, interval, variation, count, until, exceptions);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(@DateTimeConverter() DateTime? start,
+    TResult? Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int eventId,
+            EventStatus status,
+            @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult? Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            RepeatType type,
+            RepeatType repeatType,
             int interval,
             int variation,
             int count,
@@ -963,6 +1263,12 @@ class _$RepeatingEventTime implements RepeatingEventTime {
             List<int> exceptions)?
         repeating,
     TResult? Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration,
@@ -970,20 +1276,33 @@ class _$RepeatingEventTime implements RepeatingEventTime {
             @DateTimeConverter() DateTime? end)?
         auto,
   }) {
-    return repeating?.call(
-        start, end, type, interval, variation, count, until, exceptions);
+    return repeating?.call(id, name, description, location, eventId, status,
+        start, end, repeatType, interval, variation, count, until, exceptions);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@DateTimeConverter() DateTime? start,
+    TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int eventId,
+            EventStatus status,
+            @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            RepeatType type,
+            RepeatType repeatType,
             int interval,
             int variation,
             int count,
@@ -991,6 +1310,12 @@ class _$RepeatingEventTime implements RepeatingEventTime {
             List<int> exceptions)?
         repeating,
     TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration,
@@ -1000,8 +1325,8 @@ class _$RepeatingEventTime implements RepeatingEventTime {
     required TResult orElse(),
   }) {
     if (repeating != null) {
-      return repeating(
-          start, end, type, interval, variation, count, until, exceptions);
+      return repeating(id, name, description, location, eventId, status, start,
+          end, repeatType, interval, variation, count, until, exceptions);
     }
     return orElse();
   }
@@ -1009,9 +1334,9 @@ class _$RepeatingEventTime implements RepeatingEventTime {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(FixedEventTime value) fixed,
-    required TResult Function(RepeatingEventTime value) repeating,
-    required TResult Function(AutoEventTime value) auto,
+    required TResult Function(FixedAppointment value) fixed,
+    required TResult Function(RepeatingAppointment value) repeating,
+    required TResult Function(AutoAppointment value) auto,
   }) {
     return repeating(this);
   }
@@ -1019,9 +1344,9 @@ class _$RepeatingEventTime implements RepeatingEventTime {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(FixedEventTime value)? fixed,
-    TResult? Function(RepeatingEventTime value)? repeating,
-    TResult? Function(AutoEventTime value)? auto,
+    TResult? Function(FixedAppointment value)? fixed,
+    TResult? Function(RepeatingAppointment value)? repeating,
+    TResult? Function(AutoAppointment value)? auto,
   }) {
     return repeating?.call(this);
   }
@@ -1029,9 +1354,9 @@ class _$RepeatingEventTime implements RepeatingEventTime {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(FixedEventTime value)? fixed,
-    TResult Function(RepeatingEventTime value)? repeating,
-    TResult Function(AutoEventTime value)? auto,
+    TResult Function(FixedAppointment value)? fixed,
+    TResult Function(RepeatingAppointment value)? repeating,
+    TResult Function(AutoAppointment value)? auto,
     required TResult orElse(),
   }) {
     if (repeating != null) {
@@ -1042,33 +1367,53 @@ class _$RepeatingEventTime implements RepeatingEventTime {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$RepeatingEventTimeToJson(
+    return _$$RepeatingAppointmentToJson(
       this,
     );
   }
 }
 
-abstract class RepeatingEventTime implements EventTime {
-  const factory RepeatingEventTime(
-      {@DateTimeConverter() final DateTime? start,
+abstract class RepeatingAppointment extends Appointment
+    implements DescriptiveModel {
+  const factory RepeatingAppointment(
+      {final int id,
+      final String name,
+      final String description,
+      final String location,
+      final int? eventId,
+      final EventStatus status,
+      @DateTimeConverter() final DateTime? start,
       @DateTimeConverter() final DateTime? end,
-      final RepeatType type,
+      final RepeatType repeatType,
       final int interval,
       final int variation,
       final int count,
       @DateTimeConverter() final DateTime? until,
-      final List<int> exceptions}) = _$RepeatingEventTime;
+      final List<int> exceptions}) = _$RepeatingAppointment;
+  const RepeatingAppointment._() : super._();
 
-  factory RepeatingEventTime.fromJson(Map<String, dynamic> json) =
-      _$RepeatingEventTime.fromJson;
+  factory RepeatingAppointment.fromJson(Map<String, dynamic> json) =
+      _$RepeatingAppointment.fromJson;
 
+  @override
+  int get id;
+  @override
+  String get name;
+  @override
+  String get description;
+  @override
+  String get location;
+  @override
+  int? get eventId;
+  @override
+  EventStatus get status;
   @override
   @DateTimeConverter()
   DateTime? get start;
   @override
   @DateTimeConverter()
   DateTime? get end;
-  RepeatType get type;
+  RepeatType get repeatType;
   int get interval;
   int get variation;
   int get count;
@@ -1077,20 +1422,26 @@ abstract class RepeatingEventTime implements EventTime {
   List<int> get exceptions;
   @override
   @JsonKey(ignore: true)
-  _$$RepeatingEventTimeCopyWith<_$RepeatingEventTime> get copyWith =>
+  _$$RepeatingAppointmentCopyWith<_$RepeatingAppointment> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AutoEventTimeCopyWith<$Res>
-    implements $EventTimeCopyWith<$Res> {
-  factory _$$AutoEventTimeCopyWith(
-          _$AutoEventTime value, $Res Function(_$AutoEventTime) then) =
-      __$$AutoEventTimeCopyWithImpl<$Res>;
+abstract class _$$AutoAppointmentCopyWith<$Res>
+    implements $AppointmentCopyWith<$Res> {
+  factory _$$AutoAppointmentCopyWith(
+          _$AutoAppointment value, $Res Function(_$AutoAppointment) then) =
+      __$$AutoAppointmentCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {int autoGroupId,
+      {int id,
+      String name,
+      String description,
+      String location,
+      int? eventId,
+      EventStatus status,
+      int autoGroupId,
       @DateTimeConverter() DateTime? searchStart,
       int autoDuration,
       @DateTimeConverter() DateTime? start,
@@ -1098,23 +1449,53 @@ abstract class _$$AutoEventTimeCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$AutoEventTimeCopyWithImpl<$Res>
-    extends _$EventTimeCopyWithImpl<$Res, _$AutoEventTime>
-    implements _$$AutoEventTimeCopyWith<$Res> {
-  __$$AutoEventTimeCopyWithImpl(
-      _$AutoEventTime _value, $Res Function(_$AutoEventTime) _then)
+class __$$AutoAppointmentCopyWithImpl<$Res>
+    extends _$AppointmentCopyWithImpl<$Res, _$AutoAppointment>
+    implements _$$AutoAppointmentCopyWith<$Res> {
+  __$$AutoAppointmentCopyWithImpl(
+      _$AutoAppointment _value, $Res Function(_$AutoAppointment) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
+    Object? location = null,
+    Object? eventId = freezed,
+    Object? status = null,
     Object? autoGroupId = null,
     Object? searchStart = freezed,
     Object? autoDuration = null,
     Object? start = freezed,
     Object? end = freezed,
   }) {
-    return _then(_$AutoEventTime(
+    return _then(_$AutoAppointment(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventId: freezed == eventId
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as EventStatus,
       autoGroupId: null == autoGroupId
           ? _value.autoGroupId
           : autoGroupId // ignore: cast_nullable_to_non_nullable
@@ -1141,19 +1522,43 @@ class __$$AutoEventTimeCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AutoEventTime implements AutoEventTime {
-  const _$AutoEventTime(
-      {this.autoGroupId = -1,
+class _$AutoAppointment extends AutoAppointment {
+  const _$AutoAppointment(
+      {this.id = -1,
+      this.name = '',
+      this.description = '',
+      this.location = '',
+      this.eventId,
+      this.status = EventStatus.confirmed,
+      this.autoGroupId = -1,
       @DateTimeConverter() this.searchStart,
       this.autoDuration = 60,
       @DateTimeConverter() this.start,
       @DateTimeConverter() this.end,
       final String? $type})
-      : $type = $type ?? 'auto';
+      : $type = $type ?? 'auto',
+        super._();
 
-  factory _$AutoEventTime.fromJson(Map<String, dynamic> json) =>
-      _$$AutoEventTimeFromJson(json);
+  factory _$AutoAppointment.fromJson(Map<String, dynamic> json) =>
+      _$$AutoAppointmentFromJson(json);
 
+  @override
+  @JsonKey()
+  final int id;
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String description;
+  @override
+  @JsonKey()
+  final String location;
+  @override
+  final int? eventId;
+  @override
+  @JsonKey()
+  final EventStatus status;
   @override
   @JsonKey()
   final int autoGroupId;
@@ -1175,14 +1580,22 @@ class _$AutoEventTime implements AutoEventTime {
 
   @override
   String toString() {
-    return 'EventTime.auto(autoGroupId: $autoGroupId, searchStart: $searchStart, autoDuration: $autoDuration, start: $start, end: $end)';
+    return 'Appointment.auto(id: $id, name: $name, description: $description, location: $location, eventId: $eventId, status: $status, autoGroupId: $autoGroupId, searchStart: $searchStart, autoDuration: $autoDuration, start: $start, end: $end)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AutoEventTime &&
+            other is _$AutoAppointment &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            (identical(other.eventId, eventId) || other.eventId == eventId) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.autoGroupId, autoGroupId) ||
                 other.autoGroupId == autoGroupId) &&
             (identical(other.searchStart, searchStart) ||
@@ -1195,25 +1608,38 @@ class _$AutoEventTime implements AutoEventTime {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, autoGroupId, searchStart, autoDuration, start, end);
+  int get hashCode => Object.hash(runtimeType, id, name, description, location,
+      eventId, status, autoGroupId, searchStart, autoDuration, start, end);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AutoEventTimeCopyWith<_$AutoEventTime> get copyWith =>
-      __$$AutoEventTimeCopyWithImpl<_$AutoEventTime>(this, _$identity);
+  _$$AutoAppointmentCopyWith<_$AutoAppointment> get copyWith =>
+      __$$AutoAppointmentCopyWithImpl<_$AutoAppointment>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@DateTimeConverter() DateTime? start,
+    required TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int eventId,
+            EventStatus status,
+            @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
         fixed,
     required TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            RepeatType type,
+            RepeatType repeatType,
             int interval,
             int variation,
             int count,
@@ -1221,6 +1647,12 @@ class _$AutoEventTime implements AutoEventTime {
             List<int> exceptions)
         repeating,
     required TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration,
@@ -1228,19 +1660,33 @@ class _$AutoEventTime implements AutoEventTime {
             @DateTimeConverter() DateTime? end)
         auto,
   }) {
-    return auto(autoGroupId, searchStart, autoDuration, start, end);
+    return auto(id, name, description, location, eventId, status, autoGroupId,
+        searchStart, autoDuration, start, end);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(@DateTimeConverter() DateTime? start,
+    TResult? Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int eventId,
+            EventStatus status,
+            @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult? Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            RepeatType type,
+            RepeatType repeatType,
             int interval,
             int variation,
             int count,
@@ -1248,6 +1694,12 @@ class _$AutoEventTime implements AutoEventTime {
             List<int> exceptions)?
         repeating,
     TResult? Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration,
@@ -1255,19 +1707,33 @@ class _$AutoEventTime implements AutoEventTime {
             @DateTimeConverter() DateTime? end)?
         auto,
   }) {
-    return auto?.call(autoGroupId, searchStart, autoDuration, start, end);
+    return auto?.call(id, name, description, location, eventId, status,
+        autoGroupId, searchStart, autoDuration, start, end);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@DateTimeConverter() DateTime? start,
+    TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int eventId,
+            EventStatus status,
+            @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            RepeatType type,
+            RepeatType repeatType,
             int interval,
             int variation,
             int count,
@@ -1275,6 +1741,12 @@ class _$AutoEventTime implements AutoEventTime {
             List<int> exceptions)?
         repeating,
     TResult Function(
+            int id,
+            String name,
+            String description,
+            String location,
+            int? eventId,
+            EventStatus status,
             int autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration,
@@ -1284,7 +1756,8 @@ class _$AutoEventTime implements AutoEventTime {
     required TResult orElse(),
   }) {
     if (auto != null) {
-      return auto(autoGroupId, searchStart, autoDuration, start, end);
+      return auto(id, name, description, location, eventId, status, autoGroupId,
+          searchStart, autoDuration, start, end);
     }
     return orElse();
   }
@@ -1292,9 +1765,9 @@ class _$AutoEventTime implements AutoEventTime {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(FixedEventTime value) fixed,
-    required TResult Function(RepeatingEventTime value) repeating,
-    required TResult Function(AutoEventTime value) auto,
+    required TResult Function(FixedAppointment value) fixed,
+    required TResult Function(RepeatingAppointment value) repeating,
+    required TResult Function(AutoAppointment value) auto,
   }) {
     return auto(this);
   }
@@ -1302,9 +1775,9 @@ class _$AutoEventTime implements AutoEventTime {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(FixedEventTime value)? fixed,
-    TResult? Function(RepeatingEventTime value)? repeating,
-    TResult? Function(AutoEventTime value)? auto,
+    TResult? Function(FixedAppointment value)? fixed,
+    TResult? Function(RepeatingAppointment value)? repeating,
+    TResult? Function(AutoAppointment value)? auto,
   }) {
     return auto?.call(this);
   }
@@ -1312,9 +1785,9 @@ class _$AutoEventTime implements AutoEventTime {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(FixedEventTime value)? fixed,
-    TResult Function(RepeatingEventTime value)? repeating,
-    TResult Function(AutoEventTime value)? auto,
+    TResult Function(FixedAppointment value)? fixed,
+    TResult Function(RepeatingAppointment value)? repeating,
+    TResult Function(AutoAppointment value)? auto,
     required TResult orElse(),
   }) {
     if (auto != null) {
@@ -1325,23 +1798,42 @@ class _$AutoEventTime implements AutoEventTime {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AutoEventTimeToJson(
+    return _$$AutoAppointmentToJson(
       this,
     );
   }
 }
 
-abstract class AutoEventTime implements EventTime {
-  const factory AutoEventTime(
-      {final int autoGroupId,
+abstract class AutoAppointment extends Appointment implements DescriptiveModel {
+  const factory AutoAppointment(
+      {final int id,
+      final String name,
+      final String description,
+      final String location,
+      final int? eventId,
+      final EventStatus status,
+      final int autoGroupId,
       @DateTimeConverter() final DateTime? searchStart,
       final int autoDuration,
       @DateTimeConverter() final DateTime? start,
-      @DateTimeConverter() final DateTime? end}) = _$AutoEventTime;
+      @DateTimeConverter() final DateTime? end}) = _$AutoAppointment;
+  const AutoAppointment._() : super._();
 
-  factory AutoEventTime.fromJson(Map<String, dynamic> json) =
-      _$AutoEventTime.fromJson;
+  factory AutoAppointment.fromJson(Map<String, dynamic> json) =
+      _$AutoAppointment.fromJson;
 
+  @override
+  int get id;
+  @override
+  String get name;
+  @override
+  String get description;
+  @override
+  String get location;
+  @override
+  int? get eventId;
+  @override
+  EventStatus get status;
   int get autoGroupId;
   @DateTimeConverter()
   DateTime? get searchStart;
@@ -1354,6 +1846,273 @@ abstract class AutoEventTime implements EventTime {
   DateTime? get end;
   @override
   @JsonKey(ignore: true)
-  _$$AutoEventTimeCopyWith<_$AutoEventTime> get copyWith =>
+  _$$AutoAppointmentCopyWith<_$AutoAppointment> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Moment _$MomentFromJson(Map<String, dynamic> json) {
+  return _Moment.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Moment {
+  int get id => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  String get location => throw _privateConstructorUsedError;
+  int? get eventId => throw _privateConstructorUsedError;
+  EventStatus get status => throw _privateConstructorUsedError;
+  @DateTimeConverter()
+  DateTime? get time => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $MomentCopyWith<Moment> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MomentCopyWith<$Res> {
+  factory $MomentCopyWith(Moment value, $Res Function(Moment) then) =
+      _$MomentCopyWithImpl<$Res, Moment>;
+  @useResult
+  $Res call(
+      {int id,
+      String name,
+      String description,
+      String location,
+      int? eventId,
+      EventStatus status,
+      @DateTimeConverter() DateTime? time});
+}
+
+/// @nodoc
+class _$MomentCopyWithImpl<$Res, $Val extends Moment>
+    implements $MomentCopyWith<$Res> {
+  _$MomentCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
+    Object? location = null,
+    Object? eventId = freezed,
+    Object? status = null,
+    Object? time = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventId: freezed == eventId
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as EventStatus,
+      time: freezed == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_MomentCopyWith<$Res> implements $MomentCopyWith<$Res> {
+  factory _$$_MomentCopyWith(_$_Moment value, $Res Function(_$_Moment) then) =
+      __$$_MomentCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int id,
+      String name,
+      String description,
+      String location,
+      int? eventId,
+      EventStatus status,
+      @DateTimeConverter() DateTime? time});
+}
+
+/// @nodoc
+class __$$_MomentCopyWithImpl<$Res>
+    extends _$MomentCopyWithImpl<$Res, _$_Moment>
+    implements _$$_MomentCopyWith<$Res> {
+  __$$_MomentCopyWithImpl(_$_Moment _value, $Res Function(_$_Moment) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
+    Object? location = null,
+    Object? eventId = freezed,
+    Object? status = null,
+    Object? time = freezed,
+  }) {
+    return _then(_$_Moment(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventId: freezed == eventId
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as EventStatus,
+      time: freezed == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_Moment extends _Moment {
+  const _$_Moment(
+      {this.id = -1,
+      this.name = '',
+      this.description = '',
+      this.location = '',
+      this.eventId,
+      this.status = EventStatus.confirmed,
+      @DateTimeConverter() this.time})
+      : super._();
+
+  factory _$_Moment.fromJson(Map<String, dynamic> json) =>
+      _$$_MomentFromJson(json);
+
+  @override
+  @JsonKey()
+  final int id;
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String description;
+  @override
+  @JsonKey()
+  final String location;
+  @override
+  final int? eventId;
+  @override
+  @JsonKey()
+  final EventStatus status;
+  @override
+  @DateTimeConverter()
+  final DateTime? time;
+
+  @override
+  String toString() {
+    return 'Moment(id: $id, name: $name, description: $description, location: $location, eventId: $eventId, status: $status, time: $time)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Moment &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            (identical(other.eventId, eventId) || other.eventId == eventId) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.time, time) || other.time == time));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, id, name, description, location, eventId, status, time);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_MomentCopyWith<_$_Moment> get copyWith =>
+      __$$_MomentCopyWithImpl<_$_Moment>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_MomentToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Moment extends Moment implements DescriptiveModel {
+  const factory _Moment(
+      {final int id,
+      final String name,
+      final String description,
+      final String location,
+      final int? eventId,
+      final EventStatus status,
+      @DateTimeConverter() final DateTime? time}) = _$_Moment;
+  const _Moment._() : super._();
+
+  factory _Moment.fromJson(Map<String, dynamic> json) = _$_Moment.fromJson;
+
+  @override
+  int get id;
+  @override
+  String get name;
+  @override
+  String get description;
+  @override
+  String get location;
+  @override
+  int? get eventId;
+  @override
+  EventStatus get status;
+  @override
+  @DateTimeConverter()
+  DateTime? get time;
+  @override
+  @JsonKey(ignore: true)
+  _$$_MomentCopyWith<_$_Moment> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -178,7 +178,7 @@ class _$_Place implements _Place {
   }
 }
 
-abstract class _Place implements Place {
+abstract class _Place implements Place, DescriptiveModel {
   const factory _Place(
       {final int id,
       final String name,

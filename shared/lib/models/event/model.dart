@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared/helpers/converter.dart';
 
+import '../model.dart';
+
 part 'model.freezed.dart';
 part 'model.g.dart';
 
@@ -8,6 +10,7 @@ part 'model.g.dart';
 class Event with _$Event {
   const Event._();
 
+  @Implements<DescriptiveModel>()
   const factory Event({
     @Default(-1) int id,
     int? parentId,
@@ -17,48 +20,67 @@ class Event with _$Event {
     @Default('') String name,
     @Default('') String description,
     @Default('') String location,
-    @Default(EventTime.fixed()) EventTime time,
-    @Default(EventStatus.confirmed) EventStatus status,
   }) = _Event;
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
-
-  bool collidesWith(Event event) {
-    return (event.time.end == null ||
-            (time.start?.isBefore(event.time.end!) ?? true)) &&
-        (event.time.start == null ||
-            (time.end?.isAfter(event.time.start!) ?? true));
-  }
 }
 
 @freezed
-class EventTime with _$EventTime {
-  const factory EventTime.fixed({
-    @DateTimeConverter() DateTime? start,
-    @DateTimeConverter() DateTime? end,
-  }) = FixedEventTime;
+class Appointment with _$Appointment {
+  const Appointment._();
 
-  const factory EventTime.repeating({
+  @Implements<DescriptiveModel>()
+  const factory Appointment.fixed({
+    @Default(-1) int id,
+    @Default('') String name,
+    @Default('') String description,
+    @Default('') String location,
+    required int eventId,
+    @Default(EventStatus.confirmed) EventStatus status,
     @DateTimeConverter() DateTime? start,
     @DateTimeConverter() DateTime? end,
-    @Default(RepeatType.daily) RepeatType type,
+  }) = FixedAppointment;
+
+  @Implements<DescriptiveModel>()
+  const factory Appointment.repeating({
+    @Default(-1) int id,
+    @Default('') String name,
+    @Default('') String description,
+    @Default('') String location,
+    int? eventId,
+    @Default(EventStatus.confirmed) EventStatus status,
+    @DateTimeConverter() DateTime? start,
+    @DateTimeConverter() DateTime? end,
+    @Default(RepeatType.daily) RepeatType repeatType,
     @Default(1) int interval,
     @Default(0) int variation,
     @Default(0) int count,
     @DateTimeConverter() DateTime? until,
     @Default([]) List<int> exceptions,
-  }) = RepeatingEventTime;
+  }) = RepeatingAppointment;
 
-  const factory EventTime.auto({
+  @Implements<DescriptiveModel>()
+  const factory Appointment.auto({
+    @Default(-1) int id,
+    @Default('') String name,
+    @Default('') String description,
+    @Default('') String location,
+    int? eventId,
+    @Default(EventStatus.confirmed) EventStatus status,
     @Default(-1) int autoGroupId,
     @DateTimeConverter() DateTime? searchStart,
     @Default(60) int autoDuration,
     @DateTimeConverter() DateTime? start,
     @DateTimeConverter() DateTime? end,
-  }) = AutoEventTime;
+  }) = AutoAppointment;
 
-  factory EventTime.fromJson(Map<String, dynamic> json) =>
-      _$EventTimeFromJson(json);
+  factory Appointment.fromJson(Map<String, dynamic> json) =>
+      _$AppointmentFromJson(json);
+
+  bool collidesWith(Appointment date) {
+    return (date.end == null || (date.start?.isBefore(date.end!) ?? true)) &&
+        (date.start == null || (date.end?.isAfter(date.start!) ?? true));
+  }
 }
 
 enum EventStatus {
@@ -72,4 +94,22 @@ enum RepeatType {
   weekly,
   monthly,
   yearly,
+}
+
+@freezed
+class Moment with _$Moment {
+  const Moment._();
+
+  @Implements<DescriptiveModel>()
+  const factory Moment({
+    @Default(-1) int id,
+    @Default('') String name,
+    @Default('') String description,
+    @Default('') String location,
+    int? eventId,
+    @Default(EventStatus.confirmed) EventStatus status,
+    @DateTimeConverter() DateTime? time,
+  }) = _Moment;
+
+  factory Moment.fromJson(Map<String, dynamic> json) => _$MomentFromJson(json);
 }

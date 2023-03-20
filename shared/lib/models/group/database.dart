@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:shared/services/database.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
@@ -52,7 +53,7 @@ class GroupDatabaseService extends GroupService with TableService {
       whereArgs: whereArgs,
     );
     if (result == null) return [];
-    return result.map((row) => Group.fromJson(row)).toList();
+    return result.map(Group.fromJson).toList();
   }
 
   @override
@@ -62,8 +63,7 @@ class GroupDatabaseService extends GroupService with TableService {
       where: 'id = ?',
       whereArgs: [id],
     );
-    if (result == null) return null;
-    return result.map((row) => Group.fromJson(row)).first;
+    return result?.map(Group.fromJson).firstOrNull;
   }
 
   @override

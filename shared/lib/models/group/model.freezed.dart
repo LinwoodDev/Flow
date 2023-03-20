@@ -178,7 +178,7 @@ class _$_Group implements _Group {
   }
 }
 
-abstract class _Group implements Group {
+abstract class _Group implements Group, DescriptiveModel {
   const factory _Group(
       {final int id,
       final String name,

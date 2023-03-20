@@ -27,7 +27,7 @@ class CalendarWeekView extends StatefulWidget {
 class _CalendarWeekViewState extends State<CalendarWeekView> {
   late final FlowCubit _cubit;
   int _week = 0, _year = 0;
-  late Future<List<List<MapEntry<String, Event>>>> _events;
+  late Future<List<List<MapEntry<String, Appointment>>>> _appointments;
   final _columnScrollController = ScrollController(),
       _rowScrollController = ScrollController();
 
@@ -35,7 +35,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
   void initState() {
     super.initState();
     _cubit = context.read<FlowCubit>();
-    _events = _fetchEvents();
+    _appointments = _fetchAppointments();
     final now = DateTime.now();
     _week = now.week;
     _year = now.year;
@@ -43,7 +43,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
 
   DateTime get _date => DateTime(_year, 1, 1).addDays((_week - 1) * 7);
 
-  Future<List<List<MapEntry<String, Event>>>> _fetchEvents() async {
+  Future<List<List<MapEntry<String, Appointment>>>> _fetchAppointments() async {
     if (!mounted) return [];
 
     var sources = _cubit.getCurrentServicesMap();
@@ -52,12 +52,12 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
         widget.filter.source!: _cubit.getSource(widget.filter.source!)
       };
     }
-    final events = <List<MapEntry<String, Event>>>[
+    final appointments = <List<MapEntry<String, Appointment>>>[
       for (int i = 0; i < 7; i++) []
     ];
     for (final source in sources.entries) {
       for (int i = 0; i < 7; i++) {
-        final fetchedDay = await source.value.event?.getEvents(
+        final fetchedDay = await source.value.appointment?.getAppointments(
           date: _date.addDays(i),
           status: EventStatus.values
               .where(
@@ -70,10 +70,10 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
               source.key == widget.filter.source ? widget.filter.place : null,
         );
         if (fetchedDay == null) continue;
-        events[i].addAll(fetchedDay.map((e) => MapEntry(source.key, e)));
+        appointments[i].addAll(fetchedDay.map((e) => MapEntry(source.key, e)));
       }
     }
-    return events;
+    return appointments;
   }
 
   void _addWeek(int add) {
@@ -81,12 +81,12 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
       final dateTime = DateTime(_year - 1, 12, 31).addDays((_week + add) * 7);
       _week = dateTime.week;
       _year = dateTime.year;
-      _events = _fetchEvents();
+      _appointments = _fetchAppointments();
     });
   }
 
   void _refresh() => setState(() {
-        _events = _fetchEvents();
+        _appointments = _fetchAppointments();
       });
 
   @override
@@ -131,7 +131,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                           final now = DateTime.now();
                           _week = now.week;
                           _year = now.year;
-                          _events = _fetchEvents();
+                          _appointments = _fetchAppointments();
                         });
                       },
                     ),
@@ -151,7 +151,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                           setState(() {
                             _week = date.week;
                             _year = date.year;
-                            _events = _fetchEvents();
+                            _appointments = _fetchAppointments();
                           });
                         }
                       },
@@ -177,8 +177,9 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                   child: SingleChildScrollView(
                     controller: _rowScrollController,
                     scrollDirection: Axis.horizontal,
-                    child: FutureBuilder<List<List<MapEntry<String, Event>>>>(
-                        future: _events,
+                    child: FutureBuilder<
+                            List<List<MapEntry<String, Appointment>>>>(
+                        future: _appointments,
                         builder: (context, snapshot) {
                           if (snapshot.hasError) {
                             return Text(snapshot.error.toString());
@@ -211,7 +212,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                                   const SizedBox(height: 8),
                                   SingleDayList(
                                     current: date,
-                                    events: entry.value,
+                                    appointments: entry.value,
                                     onChanged: _refresh,
                                     maxWidth: constraints.maxWidth / 7,
                                   ),

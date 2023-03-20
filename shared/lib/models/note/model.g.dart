@@ -13,7 +13,6 @@ _$_Note _$$_NoteFromJson(Map<String, dynamic> json) => _$_Note(
       description: json['description'] as String? ?? '',
       status: $enumDecodeNullable(_$NoteStatusEnumMap, json['status']),
       priority: json['priority'] as int? ?? 0,
-      eventId: json['eventId'] as int?,
     );
 
 Map<String, dynamic> _$$_NoteToJson(_$_Note instance) => <String, dynamic>{
@@ -23,11 +22,10 @@ Map<String, dynamic> _$$_NoteToJson(_$_Note instance) => <String, dynamic>{
       'description': instance.description,
       'status': _$NoteStatusEnumMap[instance.status],
       'priority': instance.priority,
-      'eventId': instance.eventId,
     };
 
 const _$NoteStatusEnumMap = {
-  NoteStatus.note: 'note',
+  NoteStatus.todo: 'todo',
   NoteStatus.inProgress: 'inProgress',
   NoteStatus.done: 'done',
 };

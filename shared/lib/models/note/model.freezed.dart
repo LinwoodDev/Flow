@@ -26,7 +26,6 @@ mixin _$Note {
   String get description => throw _privateConstructorUsedError;
   NoteStatus? get status => throw _privateConstructorUsedError;
   int get priority => throw _privateConstructorUsedError;
-  int? get eventId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,8 +43,7 @@ abstract class $NoteCopyWith<$Res> {
       String name,
       String description,
       NoteStatus? status,
-      int priority,
-      int? eventId});
+      int priority});
 }
 
 /// @nodoc
@@ -67,7 +65,6 @@ class _$NoteCopyWithImpl<$Res, $Val extends Note>
     Object? description = null,
     Object? status = freezed,
     Object? priority = null,
-    Object? eventId = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -94,10 +91,6 @@ class _$NoteCopyWithImpl<$Res, $Val extends Note>
           ? _value.priority
           : priority // ignore: cast_nullable_to_non_nullable
               as int,
-      eventId: freezed == eventId
-          ? _value.eventId
-          : eventId // ignore: cast_nullable_to_non_nullable
-              as int?,
     ) as $Val);
   }
 }
@@ -114,8 +107,7 @@ abstract class _$$_NoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
       String name,
       String description,
       NoteStatus? status,
-      int priority,
-      int? eventId});
+      int priority});
 }
 
 /// @nodoc
@@ -133,7 +125,6 @@ class __$$_NoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res, _$_Note>
     Object? description = null,
     Object? status = freezed,
     Object? priority = null,
-    Object? eventId = freezed,
   }) {
     return _then(_$_Note(
       id: null == id
@@ -160,10 +151,6 @@ class __$$_NoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res, _$_Note>
           ? _value.priority
           : priority // ignore: cast_nullable_to_non_nullable
               as int,
-      eventId: freezed == eventId
-          ? _value.eventId
-          : eventId // ignore: cast_nullable_to_non_nullable
-              as int?,
     ));
   }
 }
@@ -177,8 +164,7 @@ class _$_Note implements _Note {
       this.name = '',
       this.description = '',
       this.status,
-      this.priority = 0,
-      this.eventId});
+      this.priority = 0});
 
   factory _$_Note.fromJson(Map<String, dynamic> json) => _$$_NoteFromJson(json);
 
@@ -198,12 +184,10 @@ class _$_Note implements _Note {
   @override
   @JsonKey()
   final int priority;
-  @override
-  final int? eventId;
 
   @override
   String toString() {
-    return 'Note(id: $id, parentId: $parentId, name: $name, description: $description, status: $status, priority: $priority, eventId: $eventId)';
+    return 'Note(id: $id, parentId: $parentId, name: $name, description: $description, status: $status, priority: $priority)';
   }
 
   @override
@@ -219,14 +203,13 @@ class _$_Note implements _Note {
                 other.description == description) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.priority, priority) ||
-                other.priority == priority) &&
-            (identical(other.eventId, eventId) || other.eventId == eventId));
+                other.priority == priority));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, parentId, name, description, status, priority, eventId);
+      runtimeType, id, parentId, name, description, status, priority);
 
   @JsonKey(ignore: true)
   @override
@@ -242,15 +225,14 @@ class _$_Note implements _Note {
   }
 }
 
-abstract class _Note implements Note {
+abstract class _Note implements Note, DescriptiveModel {
   const factory _Note(
       {final int id,
       final int? parentId,
       final String name,
       final String description,
       final NoteStatus? status,
-      final int priority,
-      final int? eventId}) = _$_Note;
+      final int priority}) = _$_Note;
 
   factory _Note.fromJson(Map<String, dynamic> json) = _$_Note.fromJson;
 
@@ -266,8 +248,6 @@ abstract class _Note implements Note {
   NoteStatus? get status;
   @override
   int get priority;
-  @override
-  int? get eventId;
   @override
   @JsonKey(ignore: true)
   _$$_NoteCopyWith<_$_Note> get copyWith => throw _privateConstructorUsedError;

@@ -31,16 +31,16 @@ class CalendarDayView extends StatefulWidget {
 class _CalendarDayViewState extends State<CalendarDayView> {
   late final FlowCubit _cubit;
   DateTime _date = DateTime.now();
-  late Future<List<MapEntry<String, Event>>> _events;
+  late Future<List<MapEntry<String, Appointment>>> _dates;
 
   @override
   void initState() {
     super.initState();
     _cubit = context.read<FlowCubit>();
-    _events = _fetchEvents();
+    _dates = _fetchDates();
   }
 
-  Future<List<MapEntry<String, Event>>> _fetchEvents() async {
+  Future<List<MapEntry<String, Appointment>>> _fetchDates() async {
     if (!mounted) return [];
 
     var sources = _cubit.getCurrentServicesMap();
@@ -49,9 +49,9 @@ class _CalendarDayViewState extends State<CalendarDayView> {
         widget.filter.source!: _cubit.getSource(widget.filter.source!)
       };
     }
-    final events = <MapEntry<String, Event>>[];
+    final dates = <MapEntry<String, Appointment>>[];
     for (final source in sources.entries) {
-      final fetched = await source.value.event?.getEvents(
+      final fetched = await source.value.appointment?.getAppointments(
         date: _date,
         status: EventStatus.values
             .where((element) => !widget.filter.hiddenStatuses.contains(element))
@@ -63,20 +63,20 @@ class _CalendarDayViewState extends State<CalendarDayView> {
             source.key == widget.filter.source ? widget.filter.place : null,
       );
       if (fetched == null) continue;
-      events.addAll(fetched.map((event) => MapEntry(source.key, event)));
+      dates.addAll(fetched.map((date) => MapEntry(source.key, date)));
     }
-    return events;
+    return dates;
   }
 
   void _addDay(int add) {
     setState(() {
       _date = _date.add(Duration(days: add));
-      _events = _fetchEvents();
+      _dates = _fetchDates();
     });
   }
 
   void _refresh() => setState(() {
-        _events = _fetchEvents();
+        _dates = _fetchDates();
       });
 
   @override
@@ -120,7 +120,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
                           onPressed: () {
                             setState(() {
                               _date = DateTime.now();
-                              _events = _fetchEvents();
+                              _dates = _fetchDates();
                             });
                           },
                         ),
@@ -141,7 +141,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
                             if (date != null) {
                               setState(() {
                                 _date = date;
-                                _events = _fetchEvents();
+                                _dates = _fetchDates();
                               });
                             }
                           },
@@ -155,8 +155,8 @@ class _CalendarDayViewState extends State<CalendarDayView> {
                   ],
                 ),
                 const Divider(),
-                FutureBuilder<List<MapEntry<String, Event>>>(
-                    future: _events,
+                FutureBuilder<List<MapEntry<String, Appointment>>>(
+                    future: _dates,
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
                         return Text(snapshot.error.toString());
@@ -167,7 +167,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
                       return SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: SingleDayList(
-                          events: snapshot.data!,
+                          appointments: snapshot.data!,
                           onChanged: _refresh,
                           current: _date,
                           maxWidth: constraints.maxWidth,
@@ -181,14 +181,14 @@ class _CalendarDayViewState extends State<CalendarDayView> {
 
 class _EventListPosition {
   final String source;
-  final Event event;
+  final Appointment appointment;
   final int position;
 
-  _EventListPosition(this.event, this.source, this.position);
+  _EventListPosition(this.appointment, this.source, this.position);
 }
 
 class SingleDayList extends StatelessWidget {
-  final List<MapEntry<String, Event>> events;
+  final List<MapEntry<String, Appointment>> appointments;
   final VoidCallback onChanged;
   final DateTime current;
   final double maxWidth;
@@ -199,7 +199,7 @@ class SingleDayList extends StatelessWidget {
 
   const SingleDayList({
     super.key,
-    required this.events,
+    required this.appointments,
     required this.onChanged,
     required this.current,
     required this.maxWidth,
@@ -207,7 +207,7 @@ class SingleDayList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final positions = _getEventListPositions(events);
+    final positions = _getEventListPositions(appointments);
     final maxPosition =
         positions.isEmpty ? 0 : positions.map((e) => e.position).reduce(max);
     var currentPosWidth = max(maxWidth / (maxPosition + 2), _positionWidth);
@@ -235,11 +235,9 @@ class SingleDayList extends StatelessWidget {
             await showDialog(
               context: context,
               builder: (context) => EventDialog(
-                event: Event(
-                  time: EventTime.fixed(
-                    start: dateTime,
-                    end: dateTime.add(const Duration(hours: 1)),
-                  ),
+                date: Appointment.fixed(
+                  start: dateTime,
+                  end: dateTime.add(const Duration(hours: 1)),
                 ),
               ),
             );
@@ -248,13 +246,17 @@ class SingleDayList extends StatelessWidget {
           for (final position in positions)
             Builder(builder: (context) {
               double top = 0, height;
-              if (position.event.time.start?.isSameDay(current) ?? false) {
-                top = (position.event.time.start?.hour ?? 0) * _hourHeight +
-                    (position.event.time.start?.minute ?? 0) / 60 * _hourHeight;
+              if (position.appointment.start?.isSameDay(current) ?? false) {
+                top = (position.appointment.start?.hour ?? 0) * _hourHeight +
+                    (position.appointment.start?.minute ?? 0) /
+                        60 *
+                        _hourHeight;
               }
-              if (position.event.time.end?.isSameDay(current) ?? false) {
-                height = (position.event.time.end?.hour ?? 23) * _hourHeight +
-                    (position.event.time.end?.minute ?? 59) / 60 * _hourHeight -
+              if (position.appointment.end?.isSameDay(current) ?? false) {
+                height = (position.appointment.end?.hour ?? 23) * _hourHeight +
+                    (position.appointment.end?.minute ?? 59) /
+                        60 *
+                        _hourHeight -
                     top;
               } else {
                 height = 24 * _hourHeight - top;
@@ -266,14 +268,14 @@ class SingleDayList extends StatelessWidget {
                 width: currentPosWidth,
                 child: Card(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
-                  color: position.event.status.getColor().withAlpha(
-                        position.event.blocked ? 220 : 120,
+                  color: position.appointment.status.getColor().withAlpha(
+                        position.appointment.eventId != null ? 220 : 120,
                       ),
                   child: InkWell(
                     onTap: () => showDialog(
                       context: context,
                       builder: (context) => EventDialog(
-                        event: position.event,
+                        date: position.appointment,
                         source: position.source,
                       ),
                     ).then((value) => onChanged()),
@@ -283,11 +285,11 @@ class SingleDayList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            position.event.name,
+                            position.appointment.name,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            position.event.description,
+                            position.appointment.description,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -321,11 +323,11 @@ class SingleDayList extends StatelessWidget {
   }
 
   List<_EventListPosition> _getEventListPositions(
-      List<MapEntry<String, Event>> events) {
+      List<MapEntry<String, Appointment>> dates) {
     final positions = <_EventListPosition>[];
-    for (final event in events) {
+    for (final event in dates) {
       final collide = positions.reversed.firstWhereOrNull(
-          (element) => element.event.collidesWith(event.value));
+          (element) => element.appointment.collidesWith(event.value));
       var position = collide == null ? 0 : (collide.position + 1);
       positions.add(_EventListPosition(event.value, event.key, position));
     }

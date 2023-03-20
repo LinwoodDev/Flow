@@ -11,6 +11,7 @@ class CachedData with _$CachedData {
   factory CachedData({
     DateTime? lastUpdated,
     @Default([]) List<Event> events,
+    @Default([]) List<Appointment> appointments,
     @Default([]) List<Note> notes,
   }) = _CachedData;
 

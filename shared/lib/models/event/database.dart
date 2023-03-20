@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:shared/helpers/date_time.dart';
 import 'package:shared/services/database.dart';
 import 'package:sqflite_common/sqlite_api.dart';
@@ -8,22 +9,113 @@ import 'model.dart';
 import 'service.dart';
 
 class EventDatabaseService extends EventService with TableService {
-  EventDatabaseService();
+  @override
+  Future<void> clear() async {
+    await db?.delete('events');
+  }
 
   @override
-  Future<void> create(Database db) async {
+  FutureOr<void> create(Database db) async {
     await db.execute("""
       CREATE TABLE IF NOT EXISTS events (
         id INTEGER PRIMARY KEY,
         parentId INTEGER,
         groupId INTEGER,
+        placeId INTEGER,
         blocked INTEGER NOT NULL DEFAULT 1,
         name VARCHAR(100) NOT NULL DEFAULT '',
-        description TEXT,
-        location TEXT,
-        placeId INTEGER,
+        description TEXT NOT NULL DEFAULT '',
+        location TEXT NOT NULL DEFAULT '',
+        placeId INTEGER
+      )
+    """);
+  }
+
+  @override
+  Future<Event?> createEvent(Event event) async {
+    final id = await db?.insert('events', _encode(event)..remove('id'));
+    if (id == null) return null;
+    return event.copyWith(id: id);
+  }
+
+  @override
+  Future<bool> deleteEvent(int id) async {
+    return await db?.delete('events', where: 'id = ?', whereArgs: [id]) == 1;
+  }
+
+  @override
+  Future<Event?> getEvent(int id) async {
+    final result = await db?.query(
+      'events',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    return result?.map(_decode).firstOrNull;
+  }
+
+  @override
+  Future<List<Event>> getEvents(
+      {int? groupId,
+      int? placeId,
+      int offset = 0,
+      int limit = 50,
+      String search = ''}) async {
+    final where = search.isEmpty ? null : 'name LIKE ?';
+    final whereArgs = search.isEmpty ? null : ['%$search%'];
+    final result = await db?.query(
+      'groups',
+      limit: limit,
+      offset: offset,
+      where: where,
+      whereArgs: whereArgs,
+    );
+    if (result == null) return [];
+    return result.map(_decode).toList();
+  }
+
+  @override
+  FutureOr<void> migrate(Database db, int version) {}
+
+  @override
+  FutureOr<bool> updateEvent(Event event) async {
+    return await db?.update(
+          'events',
+          _encode(event),
+          where: 'id = ?',
+          whereArgs: [event.id],
+        ) ==
+        1;
+  }
+
+  Event _decode(Map<String, dynamic> row) {
+    return Event.fromJson({
+      ...row,
+      'blocked': row['blocked'] == 1,
+    });
+  }
+
+  Map<String, dynamic> _encode(Event event) {
+    return {
+      ...event.toJson(),
+      'blocked': event.blocked ? 1 : 0,
+    };
+  }
+}
+
+class AppointmentDatabaseService extends AppointmentService with TableService {
+  AppointmentDatabaseService();
+
+  @override
+  Future<void> create(Database db) async {
+    await db.execute("""
+      CREATE TABLE IF NOT EXISTS eventAppointments (
+        id INTEGER PRIMARY KEY,
+        name VARCHAR(100) NOT NULL DEFAULT '',
+        description TEXT NOT NULL DEFAULT '',
+        eventId INTEGER,
         start INTEGER,
         end INTEGER,
+        status VARCHAR(20) NOT NULL DEFAULT 'confirmed',
         timeType VARCHAR(20) NOT NULL DEFAULT 'fixed',
         repeatType VARCHAR(20) NOT NULL DEFAULT 'daily',
         interval INTEGER NOT NULL DEFAULT 1,
@@ -33,8 +125,7 @@ class EventDatabaseService extends EventService with TableService {
         exceptions TEXT,
         autoGroupId INTEGER NOT NULL DEFAULT -1,
         searchStart INTEGER,
-        autoDuration INTEGER NOT NULL DEFAULT 60,
-        status TEXT
+        autoDuration INTEGER NOT NULL DEFAULT 60
       )
     """);
   }
@@ -43,7 +134,7 @@ class EventDatabaseService extends EventService with TableService {
   FutureOr<void> migrate(Database db, int version) {}
 
   @override
-  Future<List<Event>> getEvents(
+  Future<List<Appointment>> getAppointments(
       {List<EventStatus>? status,
       bool pending = false,
       int? groupId,
@@ -81,29 +172,29 @@ class EventDatabaseService extends EventService with TableService {
           : [...whereArgs, end.secondsSinceEpoch];
     }
     if (date != null) {
-      var startDate = date.onlyDate();
-      var endDate =
-          startDate.add(Duration(hours: 23, minutes: 59, seconds: 59));
+      var startAppointment = date.onlyDate();
+      var endAppointment =
+          startAppointment.add(Duration(hours: 23, minutes: 59, seconds: 59));
       where = where == null
           ? '(start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))'
           : '$where AND (start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))';
       whereArgs = whereArgs == null
           ? [
-              startDate.secondsSinceEpoch,
-              endDate.secondsSinceEpoch,
-              startDate.secondsSinceEpoch,
-              endDate.secondsSinceEpoch,
-              startDate.secondsSinceEpoch,
-              endDate.secondsSinceEpoch,
+              startAppointment.secondsSinceEpoch,
+              endAppointment.secondsSinceEpoch,
+              startAppointment.secondsSinceEpoch,
+              endAppointment.secondsSinceEpoch,
+              startAppointment.secondsSinceEpoch,
+              endAppointment.secondsSinceEpoch,
             ]
           : [
               ...whereArgs,
-              startDate.secondsSinceEpoch,
-              endDate.secondsSinceEpoch,
-              startDate.secondsSinceEpoch,
-              endDate.secondsSinceEpoch,
-              startDate.secondsSinceEpoch,
-              endDate.secondsSinceEpoch,
+              startAppointment.secondsSinceEpoch,
+              endAppointment.secondsSinceEpoch,
+              startAppointment.secondsSinceEpoch,
+              endAppointment.secondsSinceEpoch,
+              startAppointment.secondsSinceEpoch,
+              endAppointment.secondsSinceEpoch,
             ];
     }
     if (search.isNotEmpty) {
@@ -120,57 +211,34 @@ class EventDatabaseService extends EventService with TableService {
           : '$where AND start IS NULL AND end IS NULL';
     }
 
-    final result = await db?.query('events',
+    final result = await db?.query('eventAppointments',
         where: where, whereArgs: whereArgs, offset: offset, limit: limit);
-    return result?.map(_decode).toList() ?? [];
-  }
-
-  Event _decode(Map<String, dynamic> row) {
-    EventTime time = EventTime.fromJson({
-      ...row,
-      'runtimeType': row['timeType'],
-    });
-    return Event.fromJson({
-      ...row,
-      'time': time.toJson(),
-      'blocked': row['blocked'] == 1,
-    });
-  }
-
-  Map<String, dynamic> _encode(Event event) {
-    final time = event.time.toJson();
-    return {
-      ...time,
-      'timeType': time['runtimeType'],
-      ...event.toJson(),
-      'blocked': event.blocked ? 1 : 0,
-    }
-      ..remove('time')
-      ..remove('runtimeType');
+    return result?.map(Appointment.fromJson).toList() ?? [];
   }
 
   @override
-  Future<Event?> createEvent(Event event) async {
-    final id = await db?.insert('events', _encode(event)..remove('id'));
+  Future<Appointment?> createAppointment(Appointment appointment) async {
+    final id = await db?.insert(
+        'eventAppointments', appointment.toJson()..remove('id'));
     if (id == null) return null;
-    return event.copyWith(id: id);
+    return appointment.copyWith(id: id);
   }
 
   @override
-  Future<bool> updateEvent(Event event) async {
+  Future<bool> updateAppointment(Appointment appointment) async {
     return await db?.update(
-          'events',
-          _encode(event),
+          'eventAppointments',
+          appointment.toJson(),
           where: 'id = ?',
-          whereArgs: [event.id],
+          whereArgs: [appointment.id],
         ) ==
         1;
   }
 
   @override
-  Future<bool> deleteEvent(int id) async {
+  Future<bool> deleteAppointment(int id) async {
     return await db?.delete(
-          'events',
+          'eventAppointments',
           where: 'id = ?',
           whereArgs: [id],
         ) ==
@@ -178,17 +246,17 @@ class EventDatabaseService extends EventService with TableService {
   }
 
   @override
-  FutureOr<Event?> getEvent(int id) async {
+  FutureOr<Appointment?> getAppointment(int id) async {
     final result = await db?.query(
-      'events',
+      'eventAppointments',
       where: 'id = ?',
       whereArgs: [id],
     );
-    return result?.map(_decode).first;
+    return result?.map(Appointment.fromJson).first;
   }
 
   @override
   Future<void> clear() async {
-    await db?.delete('events');
+    await db?.delete('eventAppointments');
   }
 }

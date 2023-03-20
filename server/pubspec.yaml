@@ -12,7 +12,7 @@ dependencies:
   dotenv: ^4.1.0
   shelf: ^1.4.0
   shelf_router: ^1.0.0
-  sqlite3: ^1.9.3
+  sqlite3: ^1.10.1
 
 dev_dependencies:
   http: ^0.13.0

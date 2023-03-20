@@ -1,10 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../model.dart';
+
 part 'model.freezed.dart';
 part 'model.g.dart';
 
 @freezed
 class Place with _$Place {
+  @Implements<DescriptiveModel>()
   const factory Place({
     @Default(-1) int id,
     @Default('') String name,

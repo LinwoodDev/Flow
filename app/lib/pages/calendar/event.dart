@@ -17,19 +17,19 @@ import '../notes/note.dart';
 
 class EventDialog extends StatelessWidget {
   final String? source;
-  final Event? event;
+  final Appointment? appointment;
 
-  const EventDialog({super.key, this.event, this.source});
+  const EventDialog({super.key, this.appointment, this.source});
 
   @override
   Widget build(BuildContext context) {
-    var currentEvent = event ?? const Event();
+    var currentAppointment = appointment ?? const Appointment.fixed();
     var currentSource = source ?? '';
-    final nameController = TextEditingController(text: currentEvent.name);
+    final nameController = TextEditingController(text: currentAppointment.name);
     final descriptionController =
-        TextEditingController(text: currentEvent.description);
+        TextEditingController(text: currentAppointment.description);
     final locationController =
-        TextEditingController(text: currentEvent.location);
+        TextEditingController(text: currentAppointment.location);
     return AlertDialog(
       title: Text(source == null
           ? AppLocalizations.of(context).createEvent
@@ -95,7 +95,7 @@ class EventDialog extends StatelessWidget {
                             const SizedBox(height: 16),
                           ],
                           DropdownButtonFormField<EventStatus>(
-                            value: currentEvent.status,
+                            value: currentAppointment.status,
                             items: EventStatus.values
                                 .map<DropdownMenuItem<EventStatus>>((value) {
                               return DropdownMenuItem<EventStatus>(
@@ -111,8 +111,8 @@ class EventDialog extends StatelessWidget {
                               );
                             }).toList(),
                             onChanged: (EventStatus? value) {
-                              currentEvent = currentEvent.copyWith(
-                                  status: value ?? currentEvent.status);
+                              currentAppointment = currentAppointment.copyWith(
+                                  status: value ?? currentAppointment.status);
                             },
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context).status,
@@ -127,8 +127,8 @@ class EventDialog extends StatelessWidget {
                               labelText: AppLocalizations.of(context).name,
                               icon: const Icon(Icons.folder_outlined),
                             ),
-                            onChanged: (value) => currentEvent =
-                                currentEvent.copyWith(name: value),
+                            onChanged: (value) => currentAppointment =
+                                currentAppointment.copyWith(name: value),
                           ),
                           const SizedBox(height: 16),
                           TextField(
@@ -141,8 +141,8 @@ class EventDialog extends StatelessWidget {
                             minLines: 3,
                             maxLines: 5,
                             controller: descriptionController,
-                            onChanged: (value) => currentEvent =
-                                currentEvent.copyWith(description: value),
+                            onChanged: (value) => currentAppointment =
+                                currentAppointment.copyWith(description: value),
                           ),
                           if (source != null) ...[
                             const SizedBox(height: 16),
@@ -159,31 +159,35 @@ class EventDialog extends StatelessWidget {
                                           builder: (context) =>
                                               GroupSelectDialog(
                                             selected:
-                                                currentEvent.groupId == null
+                                                currentAppointment.groupId ==
+                                                        null
                                                     ? null
-                                                    : MapEntry(source!,
-                                                        currentEvent.groupId!),
+                                                    : MapEntry(
+                                                        source!,
+                                                        currentAppointment
+                                                            .groupId!),
                                             source: source!,
                                           ),
                                         );
                                         if (groupId != null) {
                                           setState(() {
-                                            currentEvent =
-                                                currentEvent.copyWith(
+                                            currentAppointment =
+                                                currentAppointment.copyWith(
                                                     groupId: groupId.value);
                                           });
                                         }
                                       },
-                                      subtitle: currentEvent.groupId == null
+                                      subtitle: currentAppointment.groupId ==
+                                              null
                                           ? null
                                           : FutureBuilder<Group?>(
                                               future: Future.value(context
                                                   .read<FlowCubit>()
                                                   .getSource(source!)
                                                   .group
-                                                  ?.getGroup(
-                                                      currentEvent.groupId ??
-                                                          -1)),
+                                                  ?.getGroup(currentAppointment
+                                                          .groupId ??
+                                                      -1)),
                                               builder: (context, snapshot) {
                                                 if (snapshot.hasData) {
                                                   return Text(
@@ -203,12 +207,12 @@ class EventDialog extends StatelessWidget {
                               builder: (context, setState) => CheckboxListTile(
                                     title: Text(
                                         AppLocalizations.of(context).blocked),
-                                    value: currentEvent.blocked,
+                                    value: currentAppointment.blocked,
                                     onChanged: (value) => setState(
-                                      () => currentEvent =
-                                          currentEvent.copyWith(
+                                      () => currentAppointment =
+                                          currentAppointment.copyWith(
                                               blocked: value ??
-                                                  currentEvent.blocked),
+                                                  currentAppointment.blocked),
                                     ),
                                   )),
                           const SizedBox(height: 8),
@@ -221,28 +225,28 @@ class EventDialog extends StatelessWidget {
                             minLines: 1,
                             maxLines: 2,
                             controller: locationController,
-                            onChanged: (value) => currentEvent =
-                                currentEvent.copyWith(location: value),
+                            onChanged: (value) => currentAppointment =
+                                currentAppointment.copyWith(location: value),
                           ),
                           const SizedBox(height: 16),
                           DateTimeField(
                             label: AppLocalizations.of(context).start,
-                            initialValue: currentEvent.time.start,
+                            initialValue: currentAppointment.time.start,
                             icon: const Icon(Icons.calendar_today_outlined),
                             onChanged: (value) {
-                              currentEvent =
-                                  currentEvent.copyWith.time(start: value);
+                              currentAppointment = currentAppointment.copyWith
+                                  .time(start: value);
                             },
                             canBeEmpty: true,
                           ),
                           const SizedBox(height: 8),
                           DateTimeField(
                             label: AppLocalizations.of(context).end,
-                            initialValue: currentEvent.time.end,
+                            initialValue: currentAppointment.time.end,
                             icon: const Icon(Icons.calendar_today_outlined),
                             onChanged: (value) {
-                              currentEvent =
-                                  currentEvent.copyWith.time(end: value);
+                              currentAppointment =
+                                  currentAppointment.copyWith.time(end: value);
                             },
                             canBeEmpty: true,
                           ),
@@ -250,7 +254,8 @@ class EventDialog extends StatelessWidget {
                       ),
                     ),
                     if (source != null)
-                      _EventNotesTab(event: currentEvent, source: source!),
+                      _EventNotesTab(
+                          event: currentAppointment, source: source!),
                   ],
                 ),
               ),
@@ -272,19 +277,19 @@ class EventDialog extends StatelessWidget {
                   .read<FlowCubit>()
                   .getSource(currentSource)
                   .event
-                  ?.createEvent(currentEvent);
+                  ?.createEvent(currentAppointment);
               if (created != null) {
-                currentEvent = created;
+                currentAppointment = created;
               }
             } else {
               context
                   .read<FlowCubit>()
                   .getSource(source!)
                   .event
-                  ?.updateEvent(currentEvent);
+                  ?.updateEvent(currentAppointment);
             }
             // ignore: use_build_context_synchronously
-            Navigator.of(context).pop(currentEvent);
+            Navigator.of(context).pop(currentAppointment);
           },
           child: Text(AppLocalizations.of(context).save),
         ),

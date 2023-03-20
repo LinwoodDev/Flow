@@ -22,6 +22,7 @@ CachedData _$CachedDataFromJson(Map<String, dynamic> json) {
 mixin _$CachedData {
   DateTime? get lastUpdated => throw _privateConstructorUsedError;
   List<Event> get events => throw _privateConstructorUsedError;
+  List<Appointment> get appointments => throw _privateConstructorUsedError;
   List<Note> get notes => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +37,11 @@ abstract class $CachedDataCopyWith<$Res> {
           CachedData value, $Res Function(CachedData) then) =
       _$CachedDataCopyWithImpl<$Res, CachedData>;
   @useResult
-  $Res call({DateTime? lastUpdated, List<Event> events, List<Note> notes});
+  $Res call(
+      {DateTime? lastUpdated,
+      List<Event> events,
+      List<Appointment> appointments,
+      List<Note> notes});
 }
 
 /// @nodoc
@@ -54,6 +59,7 @@ class _$CachedDataCopyWithImpl<$Res, $Val extends CachedData>
   $Res call({
     Object? lastUpdated = freezed,
     Object? events = null,
+    Object? appointments = null,
     Object? notes = null,
   }) {
     return _then(_value.copyWith(
@@ -65,6 +71,10 @@ class _$CachedDataCopyWithImpl<$Res, $Val extends CachedData>
           ? _value.events
           : events // ignore: cast_nullable_to_non_nullable
               as List<Event>,
+      appointments: null == appointments
+          ? _value.appointments
+          : appointments // ignore: cast_nullable_to_non_nullable
+              as List<Appointment>,
       notes: null == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
@@ -81,7 +91,11 @@ abstract class _$$_CachedDataCopyWith<$Res>
       __$$_CachedDataCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DateTime? lastUpdated, List<Event> events, List<Note> notes});
+  $Res call(
+      {DateTime? lastUpdated,
+      List<Event> events,
+      List<Appointment> appointments,
+      List<Note> notes});
 }
 
 /// @nodoc
@@ -97,6 +111,7 @@ class __$$_CachedDataCopyWithImpl<$Res>
   $Res call({
     Object? lastUpdated = freezed,
     Object? events = null,
+    Object? appointments = null,
     Object? notes = null,
   }) {
     return _then(_$_CachedData(
@@ -108,6 +123,10 @@ class __$$_CachedDataCopyWithImpl<$Res>
           ? _value._events
           : events // ignore: cast_nullable_to_non_nullable
               as List<Event>,
+      appointments: null == appointments
+          ? _value._appointments
+          : appointments // ignore: cast_nullable_to_non_nullable
+              as List<Appointment>,
       notes: null == notes
           ? _value._notes
           : notes // ignore: cast_nullable_to_non_nullable
@@ -122,8 +141,10 @@ class _$_CachedData implements _CachedData {
   _$_CachedData(
       {this.lastUpdated,
       final List<Event> events = const [],
+      final List<Appointment> appointments = const [],
       final List<Note> notes = const []})
       : _events = events,
+        _appointments = appointments,
         _notes = notes;
 
   factory _$_CachedData.fromJson(Map<String, dynamic> json) =>
@@ -140,6 +161,15 @@ class _$_CachedData implements _CachedData {
     return EqualUnmodifiableListView(_events);
   }
 
+  final List<Appointment> _appointments;
+  @override
+  @JsonKey()
+  List<Appointment> get appointments {
+    if (_appointments is EqualUnmodifiableListView) return _appointments;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_appointments);
+  }
+
   final List<Note> _notes;
   @override
   @JsonKey()
@@ -151,7 +181,7 @@ class _$_CachedData implements _CachedData {
 
   @override
   String toString() {
-    return 'CachedData(lastUpdated: $lastUpdated, events: $events, notes: $notes)';
+    return 'CachedData(lastUpdated: $lastUpdated, events: $events, appointments: $appointments, notes: $notes)';
   }
 
   @override
@@ -162,6 +192,8 @@ class _$_CachedData implements _CachedData {
             (identical(other.lastUpdated, lastUpdated) ||
                 other.lastUpdated == lastUpdated) &&
             const DeepCollectionEquality().equals(other._events, _events) &&
+            const DeepCollectionEquality()
+                .equals(other._appointments, _appointments) &&
             const DeepCollectionEquality().equals(other._notes, _notes));
   }
 
@@ -171,6 +203,7 @@ class _$_CachedData implements _CachedData {
       runtimeType,
       lastUpdated,
       const DeepCollectionEquality().hash(_events),
+      const DeepCollectionEquality().hash(_appointments),
       const DeepCollectionEquality().hash(_notes));
 
   @JsonKey(ignore: true)
@@ -191,6 +224,7 @@ abstract class _CachedData implements CachedData {
   factory _CachedData(
       {final DateTime? lastUpdated,
       final List<Event> events,
+      final List<Appointment> appointments,
       final List<Note> notes}) = _$_CachedData;
 
   factory _CachedData.fromJson(Map<String, dynamic> json) =
@@ -200,6 +234,8 @@ abstract class _CachedData implements CachedData {
   DateTime? get lastUpdated;
   @override
   List<Event> get events;
+  @override
+  List<Appointment> get appointments;
   @override
   List<Note> get notes;
   @override

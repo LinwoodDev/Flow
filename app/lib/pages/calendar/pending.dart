@@ -1,4 +1,3 @@
-import 'package:flow/pages/calendar/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -6,6 +5,7 @@ import 'package:shared/models/event/model.dart';
 
 import '../../cubits/flow.dart';
 import 'filter.dart';
+import 'page.dart';
 import 'tile.dart';
 
 class CalendarPendingView extends StatefulWidget {
@@ -27,7 +27,7 @@ class CalendarPendingView extends StatefulWidget {
 class _CalendarPendingViewState extends State<CalendarPendingView> {
   static const _pageSize = 50;
   late FlowCubit _cubit;
-  final PagingController<int, List<MapEntry<String, Event>>> _controller =
+  final PagingController<int, List<MapEntry<String, Appointment>>> _controller =
       PagingController(firstPageKey: 0);
 
   @override
@@ -44,17 +44,18 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
   }
 
   Future<void> _requestPage(int key) async {
-    final events = await _fetchEvents(key);
+    final appointments = await _fetchAppointments(key);
     if (mounted) {
-      if (events.length < _pageSize) {
-        _controller.appendLastPage([events]);
+      if (appointments.length < _pageSize) {
+        _controller.appendLastPage([appointments]);
       } else {
-        _controller.appendPage([events], key + 1);
+        _controller.appendPage([appointments], key + 1);
       }
     }
   }
 
-  Future<List<MapEntry<String, Event>>> _fetchEvents(int key) async {
+  Future<List<MapEntry<String, Appointment>>> _fetchAppointments(
+      int key) async {
     if (!mounted) return [];
 
     var sources = _cubit.getCurrentServicesMap();
@@ -63,9 +64,9 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
         widget.filter.source!: _cubit.getSource(widget.filter.source!)
       };
     }
-    final events = <MapEntry<String, Event>>[];
+    final appointments = <MapEntry<String, Appointment>>[];
     for (final source in sources.entries) {
-      final fetched = await source.value.event?.getEvents(
+      final fetched = await source.value.appointment?.getAppointments(
         pending: true,
         status: EventStatus.values
             .where((element) => !widget.filter.hiddenStatuses.contains(element))
@@ -79,9 +80,10 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
             source.key == widget.filter.source ? widget.filter.place : null,
       );
       if (fetched == null) continue;
-      events.addAll(fetched.map((event) => MapEntry(source.key, event)));
+      appointments.addAll(
+          fetched.map((appointment) => MapEntry(source.key, appointment)));
     }
-    return events;
+    return appointments;
   }
 
   @override
@@ -108,8 +110,8 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
             child: LayoutBuilder(
               builder: (context, constraints) => PagedListView(
                 pagingController: _controller,
-                builderDelegate:
-                    PagedChildBuilderDelegate<List<MapEntry<String, Event>>>(
+                builderDelegate: PagedChildBuilderDelegate<
+                    List<MapEntry<String, Appointment>>>(
                   itemBuilder: (context, item, index) {
                     return Column(
                       children: item
@@ -118,7 +120,7 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
                               constraints: const BoxConstraints(maxWidth: 1000),
                               child: CalendarListTile(
                                 key: ValueKey('${e.key}@${e.value.id}'),
-                                event: e.value,
+                                appointment: e.value,
                                 source: e.key,
                                 onRefresh: _controller.refresh,
                               ),

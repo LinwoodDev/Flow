@@ -9,14 +9,14 @@ import '../../cubits/flow.dart';
 import 'event.dart';
 
 class CalendarListTile extends StatelessWidget {
-  final Event event;
+  final Appointment appointment;
   final String source;
   final DateTime? date;
   final VoidCallback onRefresh;
 
   const CalendarListTile({
     super.key,
-    required this.event,
+    required this.appointment,
     required this.source,
     this.date,
     required this.onRefresh,
@@ -27,11 +27,11 @@ class CalendarListTile extends StatelessWidget {
     final locale = Localizations.localeOf(context).languageCode;
     final timeFormatter = DateFormat.Hm(locale);
     final start =
-        event.time.start?.onlyDate() == date && event.time.start != null
-            ? timeFormatter.format(event.time.start!)
+        appointment.start?.onlyDate() == date && appointment.start != null
+            ? timeFormatter.format(appointment.start!)
             : '';
-    final end = event.time.end?.onlyDate() == date && event.time.end != null
-        ? timeFormatter.format(event.time.end!)
+    final end = appointment.end?.onlyDate() == date && appointment.end != null
+        ? timeFormatter.format(appointment.end!)
         : '';
     String range;
     if (start == '' && end == '') {
@@ -44,9 +44,10 @@ class CalendarListTile extends StatelessWidget {
       range = '$start - $end';
     }
     return ListTile(
-      title: Text(event.name),
+      title: Text(appointment.name),
       subtitle: Text(range),
-      leading: Icon(event.status.getIcon(), color: event.status.getColor()),
+      leading: Icon(appointment.status.getIcon(),
+          color: appointment.status.getColor()),
       onTap: () => showDialog(
               context: context,
               builder: (context) => EventDialog(event: event, source: source))

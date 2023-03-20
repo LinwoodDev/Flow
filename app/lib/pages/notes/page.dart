@@ -111,7 +111,7 @@ class NotesBodyView extends StatefulWidget {
 class _NotesBodyViewState extends State<NotesBodyView> {
   static const _pageSize = 20;
   late final FlowCubit _flowCubit;
-  final Map<int, Event> _events = {};
+  final Map<int, Appointment> _appointments = {};
   NoteFilter _filter = const NoteFilter();
 
   @override
@@ -145,12 +145,13 @@ class _NotesBodyViewState extends State<NotesBodyView> {
           isLast = true;
         }
         for (final note in fetched) {
-          final eventId = note.eventId;
-          if (!_events.containsKey(note.eventId) && eventId != null) {
-            final event = await source.value.event?.getEvent(
-              eventId,
+          final appointmentId = note.eventId;
+          if (!_appointments.containsKey(note.eventId) &&
+              appointmentId != null) {
+            final event = await source.value.appointment?.getAppointment(
+              appointmentId,
             );
-            if (event != null) _events[eventId] = event;
+            if (event != null) _appointments[appointmentId] = event;
           }
         }
       }
@@ -197,7 +198,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
                 child: Container(
                     constraints: const BoxConstraints(maxWidth: 800),
                     child: NoteCard(
-                      event: _events[item.key.eventId],
+                      appointment: _appointments[item.key.eventId],
                       note: item.key,
                       source: item.value,
                       controller: widget.pagingController,

@@ -1,10 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../model.dart';
+
 part 'model.freezed.dart';
 part 'model.g.dart';
 
 @freezed
 class Note with _$Note {
+  @Implements<DescriptiveModel>()
   const factory Note({
     @Default(-1) int id,
     int? parentId,
@@ -12,7 +15,6 @@ class Note with _$Note {
     @Default('') String description,
     NoteStatus? status,
     @Default(0) int priority,
-    int? eventId,
   }) = _Note;
 
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
