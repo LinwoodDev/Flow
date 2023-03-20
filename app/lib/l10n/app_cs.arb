@@ -215,5 +215,7 @@
   "noMobile": "Žádný mobil",
   "manual": "Ruční",
   "syncMode": "Režim synchronizace",
-  "todo": "Todo"
+  "todo": "Todo",
+  "appointment": "Appointment",
+  "moment": "Moment"
 }
