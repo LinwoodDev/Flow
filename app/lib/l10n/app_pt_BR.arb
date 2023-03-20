@@ -215,5 +215,7 @@
   "noMobile": "Sem celular",
   "manual": "Manualmente",
   "syncMode": "Modo de sincronização",
-  "todo": "Todo"
+  "todo": "Todo",
+  "appointment": "Appointment",
+  "moment": "Moment"
 }
