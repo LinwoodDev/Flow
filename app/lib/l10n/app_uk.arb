@@ -215,5 +215,7 @@
   "noMobile": "Немає мобільного телефону",
   "manual": "Вручну",
   "syncMode": "Режим синхронізації",
-  "todo": "Todo"
+  "todo": "Todo",
+  "appointment": "Appointment",
+  "moment": "Moment"
 }
