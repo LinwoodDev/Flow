@@ -215,5 +215,7 @@
   "noMobile": "Brak mobilnych",
   "manual": "Ręcznie",
   "syncMode": "Tryb synchronizacji",
-  "todo": "Todo"
+  "todo": "Todo",
+  "appointment": "Appointment",
+  "moment": "Moment"
 }
