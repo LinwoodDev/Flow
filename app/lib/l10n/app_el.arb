@@ -215,5 +215,7 @@
   "noMobile": "Χωρίς κινητό",
   "manual": "Χειροκίνητα",
   "syncMode": "Λειτουργία συγχρονισμού",
-  "todo": "Todo"
+  "todo": "Todo",
+  "appointment": "Appointment",
+  "moment": "Moment"
 }
