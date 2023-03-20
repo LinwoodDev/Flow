@@ -2,6 +2,7 @@ import 'package:flow/cubits/flow.dart';
 import 'package:flow/pages/calendar/filter.dart';
 import 'package:flow/pages/calendar/list.dart';
 import 'package:flow/pages/calendar/pending.dart';
+import 'package:flow/widgets/material_bottom_sheet.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -237,15 +238,60 @@ class CreateEventScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void create(Event? event) {
+      onCreated(event);
+      if (event == null) return;
+      showMaterialBottomSheet(
+        context: context,
+        title: AppLocalizations.of(context).create,
+        childrenBuilder: (ctx) => [
+          ListTile(
+            title: Text(AppLocalizations.of(context).appointment),
+            leading: const Icon(Icons.event_outlined),
+          ),
+          ListTile(
+            title: Text(AppLocalizations.of(context).moment),
+            leading: const Icon(Icons.mood_outlined),
+          ),
+        ],
+      );
+    }
+
     return Scaffold(
       body: child,
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog<Event>(
-            context: context,
-            builder: (context) => const EventDialog()).then(onCreated),
+        onPressed: () =>
+            showEventModalBottomSheet(context: context).then(create),
         label: Text(AppLocalizations.of(context).create),
         icon: const Icon(Icons.add_outlined),
       ),
     );
   }
+}
+
+Future<Event?> showEventModalBottomSheet(
+    {required BuildContext context, Event? event}) async {
+  Event? event;
+  final shouldCreate = await showMaterialBottomSheet<bool>(
+    context: context,
+    title: AppLocalizations.of(context).events,
+    actionsBuilder: (ctx) => [
+      TextButton.icon(
+        icon: const Icon(Icons.add_circle_outline_outlined),
+        label: Text(AppLocalizations.of(context).create),
+        onPressed: () {
+          Navigator.of(ctx).pop(true);
+        },
+      ),
+    ],
+  );
+  if (shouldCreate == true && context.mounted) {
+    event = await showDialog(
+      context: context,
+      builder: (ctx) => EventDialog(
+        event: event,
+      ),
+    );
+  }
+  return event;
 }
