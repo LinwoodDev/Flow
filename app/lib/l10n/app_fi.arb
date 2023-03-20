@@ -215,5 +215,7 @@
   "noMobile": "Ei matkapuhelinta",
   "manual": "Manuaalinen",
   "syncMode": "Synkronoinnin tila",
-  "todo": "Todo"
+  "todo": "Todo",
+  "appointment": "Appointment",
+  "moment": "Moment"
 }
