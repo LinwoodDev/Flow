@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:shared/models/event/model.dart';
 import 'package:shared/models/note/model.dart';
 
 import '../../cubits/flow.dart';
@@ -111,7 +110,6 @@ class NotesBodyView extends StatefulWidget {
 class _NotesBodyViewState extends State<NotesBodyView> {
   static const _pageSize = 20;
   late final FlowCubit _flowCubit;
-  final Map<int, Appointment> _appointments = {};
   NoteFilter _filter = const NoteFilter();
 
   @override
@@ -143,16 +141,6 @@ class _NotesBodyViewState extends State<NotesBodyView> {
         notes.addAll(fetched.map((note) => MapEntry(note, source.key)));
         if (fetched.length < _pageSize) {
           isLast = true;
-        }
-        for (final note in fetched) {
-          final appointmentId = note.eventId;
-          if (!_appointments.containsKey(note.eventId) &&
-              appointmentId != null) {
-            final event = await source.value.appointment?.getAppointment(
-              appointmentId,
-            );
-            if (event != null) _appointments[appointmentId] = event;
-          }
         }
       }
       if (isLast) {
@@ -198,7 +186,6 @@ class _NotesBodyViewState extends State<NotesBodyView> {
                 child: Container(
                     constraints: const BoxConstraints(maxWidth: 800),
                     child: NoteCard(
-                      appointment: _appointments[item.key.eventId],
                       note: item.key,
                       source: item.value,
                       controller: widget.pagingController,

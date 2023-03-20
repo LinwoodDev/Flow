@@ -2,13 +2,14 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:flow/cubits/flow.dart';
-import 'package:flow/pages/calendar/event.dart';
+import 'package:flow/pages/calendar/appointment.dart';
 import 'package:flow/pages/calendar/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:shared/models/event/model.dart';
 
+import 'event.dart';
 import 'filter.dart';
 import '../../helpers/event.dart';
 
@@ -181,10 +182,11 @@ class _CalendarDayViewState extends State<CalendarDayView> {
 
 class _EventListPosition {
   final String source;
+  final Event event;
   final Appointment appointment;
   final int position;
 
-  _EventListPosition(this.appointment, this.source, this.position);
+  _EventListPosition(this.appointment, this.source, this.event, this.position);
 }
 
 class SingleDayList extends StatelessWidget {
@@ -235,10 +237,7 @@ class SingleDayList extends StatelessWidget {
             await showDialog(
               context: context,
               builder: (context) => EventDialog(
-                date: Appointment.fixed(
-                  start: dateTime,
-                  end: dateTime.add(const Duration(hours: 1)),
-                ),
+                time: dateTime,
               ),
             );
             onChanged();
@@ -274,9 +273,10 @@ class SingleDayList extends StatelessWidget {
                   child: InkWell(
                     onTap: () => showDialog(
                       context: context,
-                      builder: (context) => EventDialog(
-                        date: position.appointment,
+                      builder: (context) => AppointmentDialog(
+                        appointment: position.appointment,
                         source: position.source,
+                        event: position.event,
                       ),
                     ).then((value) => onChanged()),
                     child: Padding(
@@ -329,7 +329,8 @@ class SingleDayList extends StatelessWidget {
       final collide = positions.reversed.firstWhereOrNull(
           (element) => element.appointment.collidesWith(event.value));
       var position = collide == null ? 0 : (collide.position + 1);
-      positions.add(_EventListPosition(event.value, event.key, position));
+      positions.add(
+          _EventListPosition(event.value, event.key, const Event(), position));
     }
     return positions;
   }

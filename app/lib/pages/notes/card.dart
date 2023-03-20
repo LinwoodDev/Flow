@@ -1,10 +1,7 @@
-import 'package:flow/helpers/event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:intl/intl.dart';
-import 'package:shared/models/event/model.dart';
 import 'package:shared/models/note/model.dart';
 import 'package:shared/models/note/service.dart';
 
@@ -12,14 +9,12 @@ import '../../cubits/flow.dart';
 
 class NoteCard extends StatefulWidget {
   final String source;
-  final Appointment? appointment;
   final Note note;
   final PagingController<int, MapEntry<Note, String>> controller;
 
   const NoteCard({
     super.key,
     required this.source,
-    required this.appointment,
     required this.note,
     required this.controller,
   });
@@ -32,7 +27,6 @@ class _NoteCardState extends State<NoteCard> {
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
   late Note _newNote;
-  Appointment? _appointment;
   late final NoteService? _noteService;
 
   final FocusNode _nameFocus = FocusNode();
@@ -43,7 +37,6 @@ class _NoteCardState extends State<NoteCard> {
   @override
   void initState() {
     super.initState();
-    _appointment = widget.appointment;
     _nameController = TextEditingController(text: widget.note.name);
     _descriptionController =
         TextEditingController(text: widget.note.description);
@@ -87,10 +80,6 @@ class _NoteCardState extends State<NoteCard> {
 
   @override
   Widget build(BuildContext context) {
-    final locale = Localizations.localeOf(context).languageCode;
-    final dateFormatter = DateFormat.yMMMMd(locale);
-    final timeFormatter = DateFormat.Hm(locale);
-
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -190,72 +179,12 @@ class _NoteCardState extends State<NoteCard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      if (_appointment != null) ...[
-                        if (widget.source.isNotEmpty)
-                          Text(
-                            widget.source,
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(
-                              _appointment!.status.getIcon(),
-                              color: _appointment!.status.getColor(),
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Text(
-                                AppLocalizations.of(context).eventInfo(
-                                  _appointment!.name,
-                                  _appointment?.start == null
-                                      ? '-'
-                                      : dateFormatter
-                                          .format(_appointment!.start!),
-                                  _appointment?.start == null
-                                      ? '-'
-                                      : timeFormatter
-                                          .format(_appointment!.start!),
-                                  _appointment!.location.isEmpty
-                                      ? '-'
-                                      : _appointment!.location,
-                                  _appointment!.status
-                                      .getLocalizedName(context),
-                                ),
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                            ),
-                            if (_loading) ...[
-                              const SizedBox(width: 8),
-                              const SizedBox(
-                                height: 16,
-                                width: 16,
-                                child: CircularProgressIndicator(),
-                              ),
-                            ] else ...[
-                              IconButton(
-                                onPressed: () async {
-                                  _newNote = _newNote.copyWith(eventId: null);
-                                  _appointment = null;
-                                  _updateNote();
-                                },
-                                icon: const Icon(Icons.delete_outlined),
-                                tooltip:
-                                    AppLocalizations.of(context).removeEvent,
-                              ),
-                            ]
-                          ],
-                        ),
-                      ] else ...[
-                        Wrap(
-                          alignment: WrapAlignment.spaceBetween,
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          children: [
-                            Text(
-                              AppLocalizations.of(context).noEvent,
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                          ],
+                      if (_loading) ...[
+                        const SizedBox(width: 8),
+                        const SizedBox(
+                          height: 16,
+                          width: 16,
+                          child: CircularProgressIndicator(),
                         ),
                       ]
                     ],

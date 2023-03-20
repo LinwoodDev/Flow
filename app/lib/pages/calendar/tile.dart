@@ -6,7 +6,7 @@ import 'package:shared/models/event/model.dart';
 import 'package:shared/helpers/date_time.dart';
 
 import '../../cubits/flow.dart';
-import 'event.dart';
+import 'appointment.dart';
 
 class CalendarListTile extends StatelessWidget {
   final Appointment appointment;
@@ -49,15 +49,17 @@ class CalendarListTile extends StatelessWidget {
       leading: Icon(appointment.status.getIcon(),
           color: appointment.status.getColor()),
       onTap: () => showDialog(
-              context: context,
-              builder: (context) => EventDialog(event: event, source: source))
-          .then((_) => onRefresh()),
+          context: context,
+          builder: (context) => AppointmentDialog(
+              appointment: appointment,
+              event: const Event(),
+              source: source)).then((_) => onRefresh()),
       trailing: FutureBuilder<bool?>(
         future: Future.value(context
             .read<FlowCubit>()
             .getSource(source)
             .note
-            ?.notesDone(event.id)),
+            ?.notesDone(appointment.id)),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Icon(

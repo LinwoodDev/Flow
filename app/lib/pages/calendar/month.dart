@@ -178,7 +178,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
             const Divider(),
           ]),
           Expanded(
-            child: FutureBuilder<List<List<MapEntry<String, Event>>>>(
+            child: FutureBuilder<List<List<MapEntry<String, Appointment>>>>(
                 future: _appointments,
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
@@ -187,13 +187,13 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                   if (!snapshot.hasData) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  final events = snapshot.data!;
+                  final appointments = snapshot.data!;
                   final emptyPadding = _date.weekday - 1;
                   return SingleChildScrollView(
                     child: GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: events.length + emptyPadding + 7,
+                      itemCount: appointments.length + emptyPadding + 7,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 7,
                         childAspectRatio: constraints.maxWidth / 7 / 100,
@@ -238,7 +238,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                               context: context,
                               builder: (context) => CalendarDayDialog(
                                 date: day,
-                                events: events[current],
+                                appointments: appointments[current],
                               ),
                             );
                             _refresh();
@@ -259,7 +259,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                                     ),
                               ),
                               const SizedBox(height: 4),
-                              if (events[current].isNotEmpty)
+                              if (appointments[current].isNotEmpty)
                                 Container(
                                   height: 16,
                                   width: 16,
@@ -285,12 +285,12 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
 
 class CalendarDayDialog extends StatelessWidget {
   final DateTime date;
-  final List<MapEntry<String, Event>> events;
+  final List<MapEntry<String, Appointment>> appointments;
 
   const CalendarDayDialog({
     super.key,
     required this.date,
-    required this.events,
+    required this.appointments,
   });
 
   @override
@@ -317,12 +317,7 @@ class CalendarDayDialog extends StatelessWidget {
               await showDialog(
                 context: context,
                 builder: (context) => EventDialog(
-                  event: Event(
-                    time: EventTime.fixed(
-                      start: date,
-                      end: date.add(const Duration(hours: 1)),
-                    ),
-                  ),
+                  time: date,
                 ),
               );
             },
@@ -333,15 +328,15 @@ class CalendarDayDialog extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (events.isEmpty)
+          if (appointments.isEmpty)
             Center(
               child: Text(AppLocalizations.of(context).noEvents),
             )
           else
-            ...events.map(
+            ...appointments.map(
               (e) => CalendarListTile(
                 key: ValueKey('${e.key}@${e.value.id}'),
-                event: e.value,
+                appointment: e.value,
                 source: e.key,
                 date: date,
                 onRefresh: () => Navigator.of(context).pop(),

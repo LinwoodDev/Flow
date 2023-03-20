@@ -1,5 +1,4 @@
 import 'package:flow/cubits/flow.dart';
-import 'package:flow/pages/calendar/event.dart';
 import 'package:flow/pages/calendar/filter.dart';
 import 'package:flow/pages/calendar/page.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,7 @@ import 'package:shared/models/event/model.dart';
 import 'package:shared/helpers/date_time.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'event.dart';
 import 'tile.dart';
 
 class CalendarListView extends StatefulWidget {
@@ -30,7 +30,7 @@ class CalendarListView extends StatefulWidget {
 
 class _CalendarListViewState extends State<CalendarListView> {
   late FlowCubit _cubit;
-  final PagingController<int, List<MapEntry<String, Event>>> _controller =
+  final PagingController<int, List<MapEntry<String, Appointment>>> _controller =
       PagingController(firstPageKey: 0);
 
   @override
@@ -47,11 +47,12 @@ class _CalendarListViewState extends State<CalendarListView> {
   }
 
   Future<void> _requestPage(int key) async {
-    final events = await _fetchEvents(key);
-    if (mounted) _controller.appendPage([events], key + 1);
+    final appointments = await _fetchAppointments(key);
+    if (mounted) _controller.appendPage([appointments], key + 1);
   }
 
-  Future<List<MapEntry<String, Event>>> _fetchEvents(int day) async {
+  Future<List<MapEntry<String, Appointment>>> _fetchAppointments(
+      int day) async {
     if (!mounted) return [];
     var date = DateTime.now().onlyDate();
     if (widget.filter.past) {
@@ -68,9 +69,9 @@ class _CalendarListViewState extends State<CalendarListView> {
         widget.filter.source!: _cubit.getSource(widget.filter.source!)
       };
     }
-    final events = <MapEntry<String, Event>>[];
+    final appointments = <MapEntry<String, Appointment>>[];
     for (final source in sources.entries) {
-      final fetched = await source.value.event?.getEvents(
+      final fetched = await source.value.appointment?.getAppointments(
         date: date,
         status: EventStatus.values
             .where((element) => !widget.filter.hiddenStatuses.contains(element))
@@ -82,9 +83,9 @@ class _CalendarListViewState extends State<CalendarListView> {
             source.key == widget.filter.source ? widget.filter.place : null,
       );
       if (fetched == null) continue;
-      events.addAll(fetched.map((event) => MapEntry(source.key, event)));
+      appointments.addAll(fetched.map((event) => MapEntry(source.key, event)));
     }
-    return events;
+    return appointments;
   }
 
   @override
@@ -112,8 +113,8 @@ class _CalendarListViewState extends State<CalendarListView> {
             child: LayoutBuilder(
               builder: (context, constraints) => PagedListView(
                 pagingController: _controller,
-                builderDelegate:
-                    PagedChildBuilderDelegate<List<MapEntry<String, Event>>>(
+                builderDelegate: PagedChildBuilderDelegate<
+                    List<MapEntry<String, Appointment>>>(
                   itemBuilder: (context, item, index) {
                     var date = DateTime.now();
                     if (widget.filter.past) {
@@ -157,7 +158,7 @@ class _CalendarListViewState extends State<CalendarListView> {
                         ...item.map((event) {
                           return CalendarListTile(
                             key: ValueKey('${event.key}@${event.value.id}'),
-                            event: event.value,
+                            appointment: event.value,
                             source: event.key,
                             date: date,
                             onRefresh: _controller.refresh,
@@ -174,12 +175,7 @@ class _CalendarListViewState extends State<CalendarListView> {
                             onTap: () => showDialog<Event>(
                               context: context,
                               builder: (context) => EventDialog(
-                                event: Event(
-                                  time: EventTime.fixed(
-                                    start: date,
-                                    end: date.add(const Duration(hours: 1)),
-                                  ),
-                                ),
+                                time: date,
                               ),
                             ),
                             child: isMobile
