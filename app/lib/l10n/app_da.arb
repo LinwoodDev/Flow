@@ -217,5 +217,6 @@
   "syncMode": "Synkroniser tilstand",
   "todo": "Todo",
   "appointment": "Appointment",
-  "moment": "Moment"
+  "moment": "Moment",
+  "time": "Time"
 }
