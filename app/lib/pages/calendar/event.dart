@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/group/model.dart';
+import 'package:shared/models/model.dart';
 
 class EventDialog extends StatelessWidget {
   final String? source;
@@ -124,8 +125,8 @@ class EventDialog extends StatelessWidget {
                                       title: Text(
                                           AppLocalizations.of(context).group),
                                       onTap: () async {
-                                        final groupId = await showDialog<
-                                            MapEntry<String, int>>(
+                                        final sourceGroup = await showDialog<
+                                            SourcedModel<Group>>(
                                           context: context,
                                           builder: (context) =>
                                               GroupSelectDialog(
@@ -137,11 +138,12 @@ class EventDialog extends StatelessWidget {
                                             source: source!,
                                           ),
                                         );
-                                        if (groupId != null) {
+                                        if (sourceGroup != null) {
                                           setState(() {
                                             currentEvent =
                                                 currentEvent.copyWith(
-                                                    groupId: groupId.value);
+                                                    groupId:
+                                                        sourceGroup.model.id);
                                           });
                                         }
                                       },

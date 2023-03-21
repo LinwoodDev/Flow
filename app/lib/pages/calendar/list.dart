@@ -1,6 +1,7 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/pages/calendar/filter.dart';
 import 'package:flow/pages/calendar/page.dart';
+import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -113,9 +114,10 @@ class _CalendarListViewState extends State<CalendarListView> {
             child: LayoutBuilder(
               builder: (context, constraints) => PagedListView(
                 pagingController: _controller,
-                builderDelegate: PagedChildBuilderDelegate<
+                builderDelegate: buildMaterialPagedDelegate<
                     List<MapEntry<String, Appointment>>>(
-                  itemBuilder: (context, item, index) {
+                  _controller,
+                  (context, item, index) {
                     var date = DateTime.now();
                     if (widget.filter.past) {
                       date = date.subtract(Duration(days: index));

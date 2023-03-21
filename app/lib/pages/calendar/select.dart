@@ -1,5 +1,6 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/event.dart';
+import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -100,9 +101,9 @@ class _AppointmentSelectDialogState extends State<AppointmentSelectDialog> {
             Expanded(
               child: PagedListView<int, MapEntry<String, Appointment>>(
                 pagingController: _pagingController,
-                builderDelegate:
-                    PagedChildBuilderDelegate<MapEntry<String, Appointment>>(
-                  itemBuilder: (context, item, index) {
+                builderDelegate: buildMaterialPagedDelegate(
+                  _pagingController,
+                  (context, item, index) {
                     final appointment = item.value;
                     return ListTile(
                       subtitle: Text(item.key),

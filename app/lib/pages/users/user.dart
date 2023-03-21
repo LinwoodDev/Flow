@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/group/model.dart';
+import 'package:shared/models/model.dart';
 import 'package:shared/models/user/model.dart';
 
 import '../../cubits/flow.dart';
@@ -52,7 +53,8 @@ class UserDialog extends StatelessWidget {
                       leading: const Icon(Icons.folder_outlined),
                       title: Text(AppLocalizations.of(context).group),
                       onTap: () async {
-                        final groupId = await showDialog<MapEntry<String, int>>(
+                        final sourceGroup =
+                            await showDialog<SourcedModel<Group>>(
                           context: context,
                           builder: (context) => GroupSelectDialog(
                             selected: user.groupId == null
@@ -61,9 +63,9 @@ class UserDialog extends StatelessWidget {
                             source: source!,
                           ),
                         );
-                        if (groupId != null) {
+                        if (sourceGroup != null) {
                           setState(() {
-                            user = user.copyWith(groupId: groupId.value);
+                            user = user.copyWith(groupId: sourceGroup.model.id);
                           });
                         }
                       },

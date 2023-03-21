@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared/models/group/model.dart';
+import 'package:shared/models/model.dart';
 
 import '../groups/select.dart';
 
@@ -63,7 +65,7 @@ class _UserFilterViewState extends State<UserFilterView> {
                     widget.onChanged(_filter);
                   },
             onSelected: (value) async {
-              final groupId = await showDialog<MapEntry<String, int>>(
+              final groupId = await showDialog<SourcedModel<Group>>(
                 context: context,
                 builder: (context) => GroupSelectDialog(
                   selected: _filter.source != null && _filter.group != null
@@ -74,7 +76,7 @@ class _UserFilterViewState extends State<UserFilterView> {
               if (groupId != null) {
                 setState(() {
                   _filter = _filter.copyWith(
-                      group: groupId.value, source: groupId.key);
+                      group: groupId.model.id, source: groupId.source);
                 });
                 widget.onChanged(_filter);
               }

@@ -3,6 +3,7 @@ import 'package:flow/pages/calendar/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared/models/event/model.dart';
+import 'package:shared/models/model.dart';
 
 import 'day.dart';
 import 'filter.dart';
@@ -27,7 +28,7 @@ class CalendarWeekView extends StatefulWidget {
 class _CalendarWeekViewState extends State<CalendarWeekView> {
   late final FlowCubit _cubit;
   int _week = 0, _year = 0;
-  late Future<List<List<MapEntry<String, Appointment>>>> _appointments;
+  late Future<List<List<SourcedModel<Appointment>>>> _appointments;
   final _columnScrollController = ScrollController(),
       _rowScrollController = ScrollController();
 
@@ -43,7 +44,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
 
   DateTime get _date => DateTime(_year, 1, 1).addDays((_week - 1) * 7);
 
-  Future<List<List<MapEntry<String, Appointment>>>> _fetchAppointments() async {
+  Future<List<List<SourcedModel<Appointment>>>> _fetchAppointments() async {
     if (!mounted) return [];
 
     var sources = _cubit.getCurrentServicesMap();
@@ -52,7 +53,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
         widget.filter.source!: _cubit.getSource(widget.filter.source!)
       };
     }
-    final appointments = <List<MapEntry<String, Appointment>>>[
+    final appointments = <List<SourcedModel<Appointment>>>[
       for (int i = 0; i < 7; i++) []
     ];
     for (final source in sources.entries) {
@@ -70,7 +71,8 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
               source.key == widget.filter.source ? widget.filter.place : null,
         );
         if (fetchedDay == null) continue;
-        appointments[i].addAll(fetchedDay.map((e) => MapEntry(source.key, e)));
+        appointments[i]
+            .addAll(fetchedDay.map((e) => SourcedModel(source.key, e)));
       }
     }
     return appointments;
@@ -177,8 +179,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                   child: SingleChildScrollView(
                     controller: _rowScrollController,
                     scrollDirection: Axis.horizontal,
-                    child: FutureBuilder<
-                            List<List<MapEntry<String, Appointment>>>>(
+                    child: FutureBuilder<List<List<SourcedModel<Appointment>>>>(
                         future: _appointments,
                         builder: (context, snapshot) {
                           if (snapshot.hasError) {

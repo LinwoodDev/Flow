@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/group/model.dart';
+import 'package:shared/models/model.dart';
 
 import '../../cubits/flow.dart';
 import '../calendar/filter.dart';
@@ -20,7 +21,7 @@ class GroupTile extends StatelessWidget {
   final FlowCubit flowCubit;
   final Group group;
   final String source;
-  final PagingController<int, MapEntry<Group, String>> pagingController;
+  final PagingController<int, SourcedModel<Group>> pagingController;
 
   @override
   Widget build(BuildContext context) {
@@ -80,9 +81,9 @@ class GroupTile extends StatelessWidget {
             onPressed: () async {
               Navigator.of(context).pop();
               await flowCubit.getSource(source).group?.deleteGroup(group.id);
-              pagingController.itemList!.remove(MapEntry(
-                group,
+              pagingController.itemList!.remove(SourcedModel(
                 source,
+                group,
               ));
               pagingController.refresh();
             },

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared/models/group/model.dart';
+import 'package:shared/models/model.dart';
 
 part 'filter.freezed.dart';
 
@@ -112,7 +114,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                     widget.onChanged(_filter);
                   },
             onSelected: (value) async {
-              final groupId = await showDialog<MapEntry<String, int>>(
+              final sourceGroup = await showDialog<SourcedModel<Group>>(
                 context: context,
                 builder: (context) => GroupSelectDialog(
                   selected: _filter.source != null && _filter.group != null
@@ -120,10 +122,10 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                       : null,
                 ),
               );
-              if (groupId != null) {
+              if (sourceGroup != null) {
                 setState(() {
                   _filter = _filter.copyWith(
-                      group: groupId.value, source: groupId.key);
+                      group: sourceGroup.model.id, source: sourceGroup.source);
                 });
                 widget.onChanged(_filter);
               }

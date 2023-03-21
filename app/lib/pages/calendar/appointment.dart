@@ -1,7 +1,6 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/event.dart';
-import 'package:flow/widgets/indicators/empty.dart';
-import 'package:flow/widgets/indicators/error.dart';
+import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -291,14 +290,9 @@ class _AppointmentNotesTabState extends State<_AppointmentNotesTab> {
               Flexible(
                 child: PagedListView<int, Note>(
                   pagingController: _pagingController,
-                  builderDelegate: PagedChildBuilderDelegate<Note>(
-                    noItemsFoundIndicatorBuilder: (context) =>
-                        const EmptyIndicatorDisplay(),
-                    firstPageErrorIndicatorBuilder: (context) =>
-                        ErrorIndicatorDisplay(
-                      onTryAgain: _pagingController.refresh,
-                    ),
-                    itemBuilder: (context, item, index) {
+                  builderDelegate: buildMaterialPagedDelegate<Note>(
+                    _pagingController,
+                    (context, item, index) {
                       var status = item.status;
                       return Dismissible(
                         key: ValueKey(item.id),

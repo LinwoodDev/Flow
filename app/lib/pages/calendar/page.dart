@@ -7,8 +7,10 @@ import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/event/model.dart';
 
+import '../../widgets/builder_delegate.dart';
 import 'day.dart';
 import 'event.dart';
 import 'month.dart';
@@ -272,19 +274,39 @@ class CreateEventScaffold extends StatelessWidget {
 Future<Event?> showEventModalBottomSheet(
     {required BuildContext context, Event? event}) async {
   Event? event;
-  final shouldCreate = await showMaterialBottomSheet<bool>(
-    context: context,
-    title: AppLocalizations.of(context).events,
-    actionsBuilder: (ctx) => [
-      TextButton.icon(
-        icon: const Icon(Icons.add_circle_outline_outlined),
-        label: Text(AppLocalizations.of(context).create),
-        onPressed: () {
-          Navigator.of(ctx).pop(true);
-        },
-      ),
-    ],
+  final pagingController = PagingController<int, Event>(
+    firstPageKey: 0,
   );
+  final shouldCreate = await showMaterialBottomSheet<bool>(
+      context: context,
+      title: AppLocalizations.of(context).events,
+      actionsBuilder: (ctx) => [
+            TextButton.icon(
+              icon: const Icon(Icons.add_circle_outline_outlined),
+              label: Text(AppLocalizations.of(context).create),
+              onPressed: () {
+                Navigator.of(ctx).pop(true);
+              },
+            ),
+          ],
+      childrenBuilder: (ctx) => [
+            PagedListView(
+                shrinkWrap: true,
+                pagingController: pagingController,
+                builderDelegate: buildMaterialPagedDelegate<Event>(
+                  pagingController,
+                  (ctx, item, index) {
+                    return ListTile(
+                      title: Text(item.name),
+                      leading: const Icon(Icons.event_outlined),
+                      onTap: () {
+                        event = item;
+                        Navigator.of(ctx).pop();
+                      },
+                    );
+                  },
+                )),
+          ]);
   if (shouldCreate == true && context.mounted) {
     event = await showDialog(
       context: context,

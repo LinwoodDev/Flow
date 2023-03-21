@@ -4,6 +4,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/event/model.dart';
 
 import '../../cubits/flow.dart';
+import '../../widgets/builder_delegate.dart';
 import 'filter.dart';
 import 'page.dart';
 import 'tile.dart';
@@ -110,9 +111,10 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
             child: LayoutBuilder(
               builder: (context, constraints) => PagedListView(
                 pagingController: _controller,
-                builderDelegate: PagedChildBuilderDelegate<
+                builderDelegate: buildMaterialPagedDelegate<
                     List<MapEntry<String, Appointment>>>(
-                  itemBuilder: (context, item, index) {
+                  _controller,
+                  (context, item, index) {
                     return Column(
                       children: item
                           .map(

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:shared/models/event/model.dart';
+import 'package:shared/models/model.dart';
 
 import 'event.dart';
 import 'filter.dart';
@@ -32,7 +33,7 @@ class CalendarDayView extends StatefulWidget {
 class _CalendarDayViewState extends State<CalendarDayView> {
   late final FlowCubit _cubit;
   DateTime _date = DateTime.now();
-  late Future<List<MapEntry<String, Appointment>>> _dates;
+  late Future<List<SourcedModel<Appointment>>> _dates;
 
   @override
   void initState() {
@@ -41,7 +42,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
     _dates = _fetchDates();
   }
 
-  Future<List<MapEntry<String, Appointment>>> _fetchDates() async {
+  Future<List<SourcedModel<Appointment>>> _fetchDates() async {
     if (!mounted) return [];
 
     var sources = _cubit.getCurrentServicesMap();
@@ -50,7 +51,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
         widget.filter.source!: _cubit.getSource(widget.filter.source!)
       };
     }
-    final dates = <MapEntry<String, Appointment>>[];
+    final dates = <SourcedModel<Appointment>>[];
     for (final source in sources.entries) {
       final fetched = await source.value.appointment?.getAppointments(
         date: _date,
@@ -64,7 +65,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
             source.key == widget.filter.source ? widget.filter.place : null,
       );
       if (fetched == null) continue;
-      dates.addAll(fetched.map((date) => MapEntry(source.key, date)));
+      dates.addAll(fetched.map((date) => SourcedModel(source.key, date)));
     }
     return dates;
   }
@@ -156,7 +157,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
                   ],
                 ),
                 const Divider(),
-                FutureBuilder<List<MapEntry<String, Appointment>>>(
+                FutureBuilder<List<SourcedModel<Appointment>>>(
                     future: _dates,
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
@@ -190,7 +191,7 @@ class _EventListPosition {
 }
 
 class SingleDayList extends StatelessWidget {
-  final List<MapEntry<String, Appointment>> appointments;
+  final List<SourcedModel<Appointment>> appointments;
   final VoidCallback onChanged;
   final DateTime current;
   final double maxWidth;
@@ -323,14 +324,14 @@ class SingleDayList extends StatelessWidget {
   }
 
   List<_EventListPosition> _getEventListPositions(
-      List<MapEntry<String, Appointment>> dates) {
+      List<SourcedModel<Appointment>> dates) {
     final positions = <_EventListPosition>[];
     for (final event in dates) {
       final collide = positions.reversed.firstWhereOrNull(
-          (element) => element.appointment.collidesWith(event.value));
+          (element) => element.appointment.collidesWith(event.model));
       var position = collide == null ? 0 : (collide.position + 1);
-      positions.add(
-          _EventListPosition(event.value, event.key, const Event(), position));
+      positions.add(_EventListPosition(
+          event.model, event.source, const Event(), position));
     }
     return positions;
   }

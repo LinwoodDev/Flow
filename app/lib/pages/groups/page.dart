@@ -1,10 +1,12 @@
 import 'package:flow/pages/groups/group.dart';
+import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/group/model.dart';
+import 'package:shared/models/model.dart';
 
 import '../../cubits/flow.dart';
 import 'tile.dart';
@@ -86,7 +88,7 @@ class GroupsBodyView extends StatefulWidget {
 class _GroupsBodyViewState extends State<GroupsBodyView> {
   static const _pageSize = 20;
   late final FlowCubit _flowCubit;
-  final PagingController<int, MapEntry<Group, String>> _controller =
+  final PagingController<int, SourcedModel<Group>> _controller =
       PagingController(firstPageKey: 0);
 
   @override
@@ -114,7 +116,7 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
   Future<void> _fetchPage(int pageKey) async {
     try {
       final sources = _flowCubit.getCurrentServicesMap().entries;
-      final groups = <MapEntry<Group, String>>[];
+      final groups = <SourcedModel<Group>>[];
       var isLast = false;
       for (final source in sources) {
         final fetched = await source.value.group?.getGroups(
@@ -123,7 +125,7 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
           search: widget.search,
         );
         if (fetched == null) continue;
-        groups.addAll(fetched.map((note) => MapEntry(note, source.key)));
+        groups.addAll(fetched.map((note) => SourcedModel(source.key, note)));
         if (fetched.length < _pageSize) {
           isLast = true;
         }
@@ -144,19 +146,19 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
     return Scaffold(
       body: PagedListView(
         pagingController: _controller,
-        builderDelegate: PagedChildBuilderDelegate<MapEntry<Group, String>>(
-          itemBuilder: (ctx, item, index) => Align(
-            key: ValueKey('${item.key.id}@${item.value}'),
+        builderDelegate: buildMaterialPagedDelegate<SourcedModel<Group>>(
+          _controller,
+          (ctx, item, index) => Align(
             alignment: Alignment.topCenter,
             child: Container(
               constraints: const BoxConstraints(maxWidth: 800),
               child: Dismissible(
-                key: ValueKey(item.key.id),
+                key: ValueKey('${item.model.id}@${item.source}'),
                 onDismissed: (direction) async {
                   await _flowCubit
-                      .getSource(item.value)
+                      .getSource(item.source)
                       .group
-                      ?.deleteGroup(item.key.id);
+                      ?.deleteGroup(item.model.id);
                   _controller.itemList!.remove(item);
                 },
                 background: Container(
@@ -165,8 +167,8 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
                 child: GroupTile(
                   flowCubit: _flowCubit,
                   pagingController: _controller,
-                  source: item.value,
-                  group: item.key,
+                  source: item.source,
+                  group: item.model,
                 ),
               ),
             ),
