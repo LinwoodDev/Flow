@@ -1,4 +1,5 @@
 import 'package:flow/cubits/flow.dart';
+import 'package:flow/helpers/sourced_paging_controller.dart';
 import 'package:flow/pages/calendar/filter.dart';
 import 'package:flow/pages/calendar/list.dart';
 import 'package:flow/pages/calendar/pending.dart';
@@ -274,9 +275,10 @@ class CreateEventScaffold extends StatelessWidget {
 Future<Event?> showEventModalBottomSheet(
     {required BuildContext context, Event? event}) async {
   Event? event;
-  final pagingController = PagingController<int, Event>(
-    firstPageKey: 0,
-  );
+  final cubit = context.read<FlowCubit>();
+  final pagingController = SourcedPagingController<Event>(cubit);
+  pagingController.addFetchListener((source, service, offset, limit) =>
+      cubit.getSource(source).event?.getEvents(offset: offset, limit: limit));
   final shouldCreate = await showMaterialBottomSheet<bool>(
       context: context,
       title: AppLocalizations.of(context).events,
@@ -307,6 +309,7 @@ Future<Event?> showEventModalBottomSheet(
                   },
                 )),
           ]);
+  pagingController.dispose();
   if (shouldCreate == true && context.mounted) {
     event = await showDialog(
       context: context,

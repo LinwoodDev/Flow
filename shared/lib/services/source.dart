@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:shared/models/event/service.dart';
 import 'package:shared/models/group/service.dart';
 import 'package:shared/models/place/service.dart';
@@ -11,13 +12,21 @@ const apiVersion = 0;
 abstract class SourceService {
   EventService? get event => null;
   AppointmentService? get appointment => null;
+  MomentService? get moment => null;
   NoteService? get note => null;
   PlaceService? get place => null;
   GroupService? get group => null;
   UserService? get user => null;
 
-  List<ModelService> get models =>
-      [event, note, group, user, place].whereType<ModelService>().toList();
+  List<ModelService> get models => <ModelService?>[
+        event,
+        appointment,
+        moment,
+        note,
+        group,
+        user,
+        place
+      ].whereNotNull().toList();
 
   Future<void> import(CachedData data, [bool clear = true]) async {
     event?.clear();
@@ -27,6 +36,10 @@ abstract class SourceService {
     note?.clear();
     for (final current in data.notes) {
       await note?.createNote(current);
+    }
+    appointment?.clear();
+    for (final current in data.appointments) {
+      await appointment?.createAppointment(current);
     }
   }
 }
