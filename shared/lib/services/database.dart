@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:shared/services/source.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
+import '../models/event/appointment/database.dart';
 import '../models/event/database.dart';
 import '../models/place/database.dart';
 import '../models/user/database.dart';
@@ -23,6 +24,10 @@ class DatabaseService extends SourceService {
   @override
   late final EventDatabaseService event;
   @override
+  late final AppointmentDatabaseService appointment;
+  @override
+  late final AppointmentEventDatabaseConnector appointmentEvent;
+  @override
   late final NoteDatabaseService note;
   @override
   late final GroupDatabaseService group;
@@ -38,6 +43,8 @@ class DatabaseService extends SourceService {
 
   Future<void> setup(String name) async {
     event = EventDatabaseService();
+    appointment = AppointmentDatabaseService();
+    appointmentEvent = AppointmentEventDatabaseConnector();
     note = NoteDatabaseService();
     place = PlaceDatabaseService();
     group = GroupDatabaseService();
@@ -85,11 +92,11 @@ class DatabaseService extends SourceService {
 mixin TableService {
   Database? db;
 
-  FutureOr<void> create(Database db);
-  FutureOr<void> migrate(Database db, int version);
+  FutureOr<void> create(Database db) {}
+  FutureOr<void> migrate(Database db, int version) {}
   FutureOr<void> opened(Database db) {
     this.db = db;
   }
 
-  Future<void> clear();
+  FutureOr<void> clear() {}
 }

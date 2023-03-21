@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import '../../../services/source.dart';
-import '../../event/model.dart';
+import '../../event/appointment/model.dart';
 import '../model.dart';
 
 abstract class AppointmentNoteService extends ModelService {

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
+import 'package:shared/models/event/appointment/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/helpers/date_time.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -78,10 +79,6 @@ class _CalendarListViewState extends State<CalendarListView> {
             .where((element) => !widget.filter.hiddenStatuses.contains(element))
             .toList(),
         search: widget.search,
-        groupId:
-            source.key == widget.filter.source ? widget.filter.group : null,
-        placeId:
-            source.key == widget.filter.source ? widget.filter.place : null,
       );
       if (fetched == null) continue;
       appointments.addAll(fetched.map((event) => MapEntry(source.key, event)));

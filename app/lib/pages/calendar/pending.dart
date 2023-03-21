@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:shared/models/event/appointment/model.dart';
 import 'package:shared/models/event/model.dart';
 
 import '../../cubits/flow.dart';
@@ -68,17 +69,12 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
     final appointments = <MapEntry<String, Appointment>>[];
     for (final source in sources.entries) {
       final fetched = await source.value.appointment?.getAppointments(
-        pending: true,
         status: EventStatus.values
             .where((element) => !widget.filter.hiddenStatuses.contains(element))
             .toList(),
         search: widget.search,
         offset: _pageSize * key,
         limit: _pageSize,
-        groupId:
-            source.key == widget.filter.source ? widget.filter.group : null,
-        placeId:
-            source.key == widget.filter.source ? widget.filter.place : null,
       );
       if (fetched == null) continue;
       appointments.addAll(

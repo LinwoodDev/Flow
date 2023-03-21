@@ -1,3 +1,4 @@
+import 'package:flow/widgets/indicators/empty.dart';
 import 'package:flow/widgets/indicators/error.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
@@ -18,4 +19,5 @@ PagedChildBuilderDelegate<T> buildMaterialPagedDelegate<T>(
       ),
       newPageProgressIndicatorBuilder: (context) =>
           const LoadingIndicatorDisplay(),
+      noItemsFoundIndicatorBuilder: (context) => const EmptyIndicatorDisplay(),
     );

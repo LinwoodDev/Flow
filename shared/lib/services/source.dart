@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:shared/models/event/service.dart';
 import 'package:shared/models/group/service.dart';
@@ -5,6 +7,7 @@ import 'package:shared/models/place/service.dart';
 import 'package:shared/models/user/service.dart';
 
 import '../models/cached.dart';
+import '../models/event/appointment/service.dart';
 import '../models/note/service.dart';
 
 const apiVersion = 0;
@@ -12,7 +15,9 @@ const apiVersion = 0;
 abstract class SourceService {
   EventService? get event => null;
   AppointmentService? get appointment => null;
+  AppointmentEventConnector? get appointmentEvent => null;
   MomentService? get moment => null;
+
   NoteService? get note => null;
   PlaceService? get place => null;
   GroupService? get group => null;
@@ -45,7 +50,7 @@ abstract class SourceService {
 }
 
 abstract class ModelService {
-  Future<void> clear();
+  FutureOr<void> clear();
 
   bool get isEditable => true;
 }

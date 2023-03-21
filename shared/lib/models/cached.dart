@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'event/appointment/model.dart';
 import 'event/model.dart';
 import 'note/model.dart';
 

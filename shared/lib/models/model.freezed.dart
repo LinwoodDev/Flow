@@ -15,28 +15,29 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$SourcedModel<T> {
-  String get source => throw _privateConstructorUsedError;
-  T get model => throw _privateConstructorUsedError;
+mixin _$ConnectedModel<A, B> {
+  A get source => throw _privateConstructorUsedError;
+  B get model => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $SourcedModelCopyWith<T, SourcedModel<T>> get copyWith =>
+  $ConnectedModelCopyWith<A, B, ConnectedModel<A, B>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SourcedModelCopyWith<T, $Res> {
-  factory $SourcedModelCopyWith(
-          SourcedModel<T> value, $Res Function(SourcedModel<T>) then) =
-      _$SourcedModelCopyWithImpl<T, $Res, SourcedModel<T>>;
+abstract class $ConnectedModelCopyWith<A, B, $Res> {
+  factory $ConnectedModelCopyWith(ConnectedModel<A, B> value,
+          $Res Function(ConnectedModel<A, B>) then) =
+      _$ConnectedModelCopyWithImpl<A, B, $Res, ConnectedModel<A, B>>;
   @useResult
-  $Res call({String source, T model});
+  $Res call({A source, B model});
 }
 
 /// @nodoc
-class _$SourcedModelCopyWithImpl<T, $Res, $Val extends SourcedModel<T>>
-    implements $SourcedModelCopyWith<T, $Res> {
-  _$SourcedModelCopyWithImpl(this._value, this._then);
+class _$ConnectedModelCopyWithImpl<A, B, $Res,
+        $Val extends ConnectedModel<A, B>>
+    implements $ConnectedModelCopyWith<A, B, $Res> {
+  _$ConnectedModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -46,106 +47,109 @@ class _$SourcedModelCopyWithImpl<T, $Res, $Val extends SourcedModel<T>>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? source = null,
+    Object? source = freezed,
     Object? model = freezed,
   }) {
     return _then(_value.copyWith(
-      source: null == source
+      source: freezed == source
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
-              as String,
+              as A,
       model: freezed == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
-              as T,
+              as B,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_SourcedModelCopyWith<T, $Res>
-    implements $SourcedModelCopyWith<T, $Res> {
-  factory _$$_SourcedModelCopyWith(
-          _$_SourcedModel<T> value, $Res Function(_$_SourcedModel<T>) then) =
-      __$$_SourcedModelCopyWithImpl<T, $Res>;
+abstract class _$$_ConnectedModelCopyWith<A, B, $Res>
+    implements $ConnectedModelCopyWith<A, B, $Res> {
+  factory _$$_ConnectedModelCopyWith(_$_ConnectedModel<A, B> value,
+          $Res Function(_$_ConnectedModel<A, B>) then) =
+      __$$_ConnectedModelCopyWithImpl<A, B, $Res>;
   @override
   @useResult
-  $Res call({String source, T model});
+  $Res call({A source, B model});
 }
 
 /// @nodoc
-class __$$_SourcedModelCopyWithImpl<T, $Res>
-    extends _$SourcedModelCopyWithImpl<T, $Res, _$_SourcedModel<T>>
-    implements _$$_SourcedModelCopyWith<T, $Res> {
-  __$$_SourcedModelCopyWithImpl(
-      _$_SourcedModel<T> _value, $Res Function(_$_SourcedModel<T>) _then)
+class __$$_ConnectedModelCopyWithImpl<A, B, $Res>
+    extends _$ConnectedModelCopyWithImpl<A, B, $Res, _$_ConnectedModel<A, B>>
+    implements _$$_ConnectedModelCopyWith<A, B, $Res> {
+  __$$_ConnectedModelCopyWithImpl(_$_ConnectedModel<A, B> _value,
+      $Res Function(_$_ConnectedModel<A, B>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? source = null,
+    Object? source = freezed,
     Object? model = freezed,
   }) {
-    return _then(_$_SourcedModel<T>(
-      null == source
+    return _then(_$_ConnectedModel<A, B>(
+      freezed == source
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
-              as String,
+              as A,
       freezed == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
-              as T,
+              as B,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_SourcedModel<T> extends _SourcedModel<T> {
-  const _$_SourcedModel(this.source, this.model) : super._();
+class _$_ConnectedModel<A, B> extends _ConnectedModel<A, B> {
+  const _$_ConnectedModel(this.source, this.model) : super._();
 
   @override
-  final String source;
+  final A source;
   @override
-  final T model;
+  final B model;
 
   @override
   String toString() {
-    return 'SourcedModel<$T>(source: $source, model: $model)';
+    return 'ConnectedModel<$A, $B>(source: $source, model: $model)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SourcedModel<T> &&
-            (identical(other.source, source) || other.source == source) &&
+            other is _$_ConnectedModel<A, B> &&
+            const DeepCollectionEquality().equals(other.source, source) &&
             const DeepCollectionEquality().equals(other.model, model));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, source, const DeepCollectionEquality().hash(model));
+      runtimeType,
+      const DeepCollectionEquality().hash(source),
+      const DeepCollectionEquality().hash(model));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SourcedModelCopyWith<T, _$_SourcedModel<T>> get copyWith =>
-      __$$_SourcedModelCopyWithImpl<T, _$_SourcedModel<T>>(this, _$identity);
+  _$$_ConnectedModelCopyWith<A, B, _$_ConnectedModel<A, B>> get copyWith =>
+      __$$_ConnectedModelCopyWithImpl<A, B, _$_ConnectedModel<A, B>>(
+          this, _$identity);
 }
 
-abstract class _SourcedModel<T> extends SourcedModel<T> {
-  const factory _SourcedModel(final String source, final T model) =
-      _$_SourcedModel<T>;
-  const _SourcedModel._() : super._();
+abstract class _ConnectedModel<A, B> extends ConnectedModel<A, B> {
+  const factory _ConnectedModel(final A source, final B model) =
+      _$_ConnectedModel<A, B>;
+  const _ConnectedModel._() : super._();
 
   @override
-  String get source;
+  A get source;
   @override
-  T get model;
+  B get model;
   @override
   @JsonKey(ignore: true)
-  _$$_SourcedModelCopyWith<T, _$_SourcedModel<T>> get copyWith =>
+  _$$_ConnectedModelCopyWith<A, B, _$_ConnectedModel<A, B>> get copyWith =>
       throw _privateConstructorUsedError;
 }

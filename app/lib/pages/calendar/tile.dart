@@ -2,6 +2,7 @@ import 'package:flow/helpers/event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:shared/models/event/appointment/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/helpers/date_time.dart';
 

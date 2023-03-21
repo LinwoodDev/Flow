@@ -7,6 +7,7 @@ import 'package:flow/pages/calendar/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:shared/models/event/appointment/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
 
@@ -53,7 +54,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
     }
     final dates = <SourcedModel<Appointment>>[];
     for (final source in sources.entries) {
-      final fetched = await source.value.appointment?.getAppointments(
+      final fetched = await source.value.appointmentEvent?.getAppointments(
         date: _date,
         status: EventStatus.values
             .where((element) => !widget.filter.hiddenStatuses.contains(element))
@@ -269,7 +270,7 @@ class SingleDayList extends StatelessWidget {
                 child: Card(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   color: position.appointment.status.getColor().withAlpha(
-                        position.appointment.eventId != null ? 220 : 120,
+                        220,
                       ),
                   child: InkWell(
                     onTap: () => showDialog(

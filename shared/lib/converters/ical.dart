@@ -2,6 +2,8 @@ import 'package:shared/models/cached.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/note/model.dart';
 
+import '../models/event/appointment/model.dart';
+
 class ICalConverter {
   String summary = '';
   CachedData? data;

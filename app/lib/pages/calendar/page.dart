@@ -277,8 +277,8 @@ Future<Event?> showEventModalBottomSheet(
   Event? event;
   final cubit = context.read<FlowCubit>();
   final pagingController = SourcedPagingController<Event>(cubit);
-  pagingController.addFetchListener((source, service, offset, limit) =>
-      cubit.getSource(source).event?.getEvents(offset: offset, limit: limit));
+  pagingController.addFetchListener((source, service, offset, limit) async =>
+      service.event?.getEvents(offset: offset, limit: limit));
   final shouldCreate = await showMaterialBottomSheet<bool>(
       context: context,
       title: AppLocalizations.of(context).events,

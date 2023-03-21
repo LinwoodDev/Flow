@@ -9,14 +9,16 @@ abstract class DescriptiveModel {
 }
 
 @freezed
-class SourcedModel<T> with _$SourcedModel<T> {
-  const SourcedModel._();
+class ConnectedModel<A, B> with _$ConnectedModel<A, B> {
+  const ConnectedModel._();
 
-  const factory SourcedModel(
-    String source,
-    T model,
-  ) = _SourcedModel<T>;
+  const factory ConnectedModel(
+    A source,
+    B model,
+  ) = _ConnectedModel<A, B>;
 
-  factory SourcedModel.fromEntry(MapEntry<String, T> entry) =>
-      SourcedModel(entry.key, entry.value);
+  factory ConnectedModel.fromEntry(MapEntry<A, B> entry) =>
+      ConnectedModel(entry.key, entry.value);
 }
+
+typedef SourcedModel<T> = ConnectedModel<String, T>;

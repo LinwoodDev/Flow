@@ -2,6 +2,7 @@ import 'package:flow/cubits/flow.dart';
 import 'package:flow/pages/calendar/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared/models/event/appointment/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
 
@@ -65,10 +66,6 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                   (element) => !widget.filter.hiddenStatuses.contains(element))
               .toList(),
           search: widget.search,
-          groupId:
-              source.key == widget.filter.source ? widget.filter.group : null,
-          placeId:
-              source.key == widget.filter.source ? widget.filter.place : null,
         );
         if (fetchedDay == null) continue;
         appointments[i]

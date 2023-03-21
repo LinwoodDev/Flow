@@ -16,7 +16,7 @@ class SourcedPagingController<T>
       : super(firstPageKey: const SourcedModel("", -1));
 
   PageRequestListener<SourcedModel<int>> addFetchListener(
-      FutureOr<List<T>?> Function(String, SourceService, int, int) fetch) {
+      Future<List<T>?> Function(String, SourceService, int, int) fetch) {
     FutureOr<void> listener(SourcedModel<int> pageKey) async {
       final fetched = await fetch(
               pageKey.source,
