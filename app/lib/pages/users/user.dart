@@ -6,6 +6,7 @@ import 'package:shared/models/model.dart';
 import 'package:shared/models/user/model.dart';
 
 import '../../cubits/flow.dart';
+import '../../widgets/source_dropdown.dart';
 import '../groups/select.dart';
 
 class UserDialog extends StatelessWidget {
@@ -25,27 +26,11 @@ class UserDialog extends StatelessWidget {
         width: 500,
         child: Column(children: [
           if (source == null) ...[
-            DropdownButtonFormField<String>(
-              value: source,
-              items: context
-                  .read<FlowCubit>()
-                  .getCurrentSources()
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value.isEmpty
-                      ? AppLocalizations.of(context).local
-                      : value),
-                );
-              }).toList(),
+            SourceDropdown(
+              value: currentSource,
               onChanged: (String? value) {
                 currentSource = value ?? '';
               },
-              decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).source,
-                icon: const Icon(Icons.storage_outlined),
-                border: const OutlineInputBorder(),
-              ),
             ),
           ] else ...[
             StatefulBuilder(

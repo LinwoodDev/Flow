@@ -71,8 +71,8 @@ class SourcesService {
   }
 
   Future<void> addRemote(RemoteStorage remoteStorage, String password) async {
-    if (settingsCubit.state.remotes.any((element) =>
-        element.toDisplayString() == remoteStorage.toDisplayString())) {
+    if (settingsCubit.state.remotes
+        .any((element) => element.identifier == remoteStorage.identifier)) {
       return;
     }
     final key = 'remote ${remoteStorage.toFilename()}';
@@ -92,13 +92,12 @@ class SourcesService {
     await synchronize();
   }
 
-  List<String> getRemotes() =>
-      settingsCubit.state.remotes.map((e) => e.toDisplayString()).toList();
+  List<RemoteStorage> getRemotes() => settingsCubit.state.remotes;
 
   SourceService getSource(String source) {
     if (source.isEmpty) return local;
     return remotes.firstWhereOrNull(
-            (element) => element.remoteStorage.toDisplayString() == source) ??
+            (element) => element.remoteStorage.identifier == source) ??
         local;
   }
 }

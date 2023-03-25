@@ -10,6 +10,7 @@ import 'package:shared/models/note/model.dart';
 import 'package:shared/models/note/service.dart';
 
 import '../../widgets/date_time_field.dart';
+import '../../widgets/source_dropdown.dart';
 import '../notes/note.dart';
 
 class MomentDialog extends StatelessWidget {
@@ -75,28 +76,11 @@ class MomentDialog extends StatelessWidget {
                         children: [
                           const SizedBox(height: 16),
                           if (source == null) ...[
-                            DropdownButtonFormField<String>(
-                              value: source,
-                              items: context
-                                  .read<FlowCubit>()
-                                  .getCurrentSources()
-                                  .map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value.isEmpty
-                                      ? AppLocalizations.of(context).local
-                                      : value),
-                                );
-                              }).toList(),
+                            SourceDropdown(
+                              value: currentSource,
                               onChanged: (String? value) {
                                 currentSource = value ?? '';
                               },
-                              decoration: InputDecoration(
-                                labelText: AppLocalizations.of(context).source,
-                                icon: const Icon(Icons.storage_outlined),
-                                border: const OutlineInputBorder(),
-                              ),
                             ),
                             const SizedBox(height: 16),
                           ],

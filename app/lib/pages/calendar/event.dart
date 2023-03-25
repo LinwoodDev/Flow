@@ -7,6 +7,8 @@ import 'package:shared/models/event/model.dart';
 import 'package:shared/models/group/model.dart';
 import 'package:shared/models/model.dart';
 
+import '../../widgets/source_dropdown.dart';
+
 class EventDialog extends StatelessWidget {
   final String? source;
   final Event? event;
@@ -67,28 +69,11 @@ class EventDialog extends StatelessWidget {
                         children: [
                           const SizedBox(height: 16),
                           if (source == null) ...[
-                            DropdownButtonFormField<String>(
-                              value: source,
-                              items: context
-                                  .read<FlowCubit>()
-                                  .getCurrentSources()
-                                  .map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value.isEmpty
-                                      ? AppLocalizations.of(context).local
-                                      : value),
-                                );
-                              }).toList(),
+                            SourceDropdown(
+                              value: currentSource,
                               onChanged: (String? value) {
                                 currentSource = value ?? '';
                               },
-                              decoration: InputDecoration(
-                                labelText: AppLocalizations.of(context).source,
-                                icon: const Icon(Icons.storage_outlined),
-                                border: const OutlineInputBorder(),
-                              ),
                             ),
                             const SizedBox(height: 16),
                           ],

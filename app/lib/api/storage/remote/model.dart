@@ -16,6 +16,9 @@ class RemoteStorage with _$RemoteStorage {
   factory RemoteStorage.fromJson(Map<String, dynamic> json) =>
       _$RemoteStorageFromJson(json);
 
-  String toDisplayString() => '$username@$url';
-  String toFilename() => base64UrlEncode(utf8.encode(toDisplayString()));
+  Uri get uri => Uri.parse(url);
+
+  String get identifier => '$username@$url';
+  String toFilename() => base64UrlEncode(utf8.encode(identifier));
+  String get displayName => '$username@${uri.host}';
 }

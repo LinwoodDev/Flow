@@ -60,7 +60,7 @@ class SourcesPage extends StatelessWidget {
                                 .removeRemote(remote.toFilename());
                           },
                           child: ListTile(
-                            title: Text(remote.toDisplayString()),
+                            title: Text(remote.displayName),
                             leading: Icon(
                                 remote.map(calDav: (_) => Icons.web_outlined)),
                           ),

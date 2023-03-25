@@ -1,3 +1,4 @@
+import 'package:flow/api/storage/remote/model.dart';
 import 'package:flow/api/storage/sources.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -23,8 +24,16 @@ class FlowCubit extends Cubit<FlowState> {
   }
 
   List<String> getCurrentSources() {
-    return ['', ...sourcesService.getRemotes()]
+    return ['', ...sourcesService.getRemotes().map((e) => e.identifier)]
         .whereNot((source) => state.disabledSources.contains(source))
+        .toList();
+  }
+
+  List<RemoteStorage> getCurrentRemotes() {
+    final currentSources = getCurrentSources();
+    return sourcesService
+        .getRemotes()
+        .where((e) => currentSources.contains(e.identifier))
         .toList();
   }
 

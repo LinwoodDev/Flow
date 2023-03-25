@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/note/model.dart';
 
+import '../../widgets/source_dropdown.dart';
+
 class NoteDialog extends StatefulWidget {
   final String? source;
   final Note? note;
@@ -57,27 +59,11 @@ class _NoteDialogState extends State<NoteDialog> {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (widget.source == null) ...[
-              DropdownButtonFormField<String>(
+              SourceDropdown(
                 value: _newSource,
-                items: context
-                    .read<FlowCubit>()
-                    .getCurrentSources()
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value.isEmpty
-                        ? AppLocalizations.of(context).local
-                        : value),
-                  );
-                }).toList(),
                 onChanged: (String? value) {
                   _newSource = value ?? '';
                 },
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context).source,
-                  icon: const Icon(Icons.storage_outlined),
-                  border: const OutlineInputBorder(),
-                ),
               ),
               const SizedBox(height: 16),
             ],

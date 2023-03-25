@@ -305,15 +305,15 @@ class _FlowDrawer extends StatelessWidget {
                       ? currents.add("")
                       : currents.remove("")),
                 ),
-                ...remotes.map((e) => e.toDisplayString()).map(
-                      (e) => CheckboxListTile(
-                        title: Text(e),
-                        value: currents.contains(e),
-                        onChanged: (value) => setState(() => (value ?? false)
-                            ? currents.add(e)
-                            : currents.remove(e)),
-                      ),
-                    ),
+                ...remotes.map(
+                  (e) => CheckboxListTile(
+                    title: Text(e.displayName),
+                    value: currents.contains(e.identifier),
+                    onChanged: (value) => setState(() => (value ?? false)
+                        ? currents.add(e.identifier)
+                        : currents.remove(e.identifier)),
+                  ),
+                ),
               ],
             );
           },
