@@ -3,7 +3,6 @@ import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared/models/event/model.dart';
 
 import 'day.dart';
 import '../events/page.dart';
@@ -227,7 +226,7 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
 }
 
 class CreateEventScaffold extends StatelessWidget {
-  final void Function(Event?) onCreated;
+  final VoidCallback onCreated;
   final Widget child;
   const CreateEventScaffold({
     super.key,
@@ -237,17 +236,11 @@ class CreateEventScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void create(Event? event) {
-      onCreated(event);
-      if (event == null) return;
-      showCalendarCreate(context: context);
-    }
-
     return Scaffold(
       body: child,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () =>
-            showEventModalBottomSheet(context: context).then(create),
+            showCalendarCreate(context: context).then((_) => onCreated()),
         label: Text(AppLocalizations.of(context).create),
         icon: const Icon(Icons.add_outlined),
       ),

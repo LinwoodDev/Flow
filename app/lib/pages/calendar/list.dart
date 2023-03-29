@@ -10,6 +10,7 @@ import 'package:shared/models/event/appointment/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/helpers/date_time.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared/models/model.dart';
 
 import '../events/page.dart';
 import 'tile.dart';
@@ -32,8 +33,8 @@ class CalendarListView extends StatefulWidget {
 
 class _CalendarListViewState extends State<CalendarListView> {
   late FlowCubit _cubit;
-  final PagingController<int, List<MapEntry<String, Appointment>>> _controller =
-      PagingController(firstPageKey: 0);
+  final PagingController<int, List<SourcedConnectedModel<Appointment, Event>>>
+      _controller = PagingController(firstPageKey: 0);
 
   @override
   void initState() {
@@ -53,7 +54,7 @@ class _CalendarListViewState extends State<CalendarListView> {
     if (mounted) _controller.appendPage([appointments], key + 1);
   }
 
-  Future<List<MapEntry<String, Appointment>>> _fetchAppointments(
+  Future<List<SourcedConnectedModel<Appointment, Event>>> _fetchAppointments(
       int day) async {
     if (!mounted) return [];
     var date = DateTime.now().onlyDate();
@@ -71,9 +72,9 @@ class _CalendarListViewState extends State<CalendarListView> {
         widget.filter.source!: _cubit.getSource(widget.filter.source!)
       };
     }
-    final appointments = <MapEntry<String, Appointment>>[];
+    final appointments = <SourcedConnectedModel<Appointment, Event>>[];
     for (final source in sources.entries) {
-      final fetched = await source.value.appointment?.getAppointments(
+      final fetched = await source.value.appointmentEvent?.getAppointments(
         date: date,
         status: EventStatus.values
             .where((element) => !widget.filter.hiddenStatuses.contains(element))
@@ -81,7 +82,8 @@ class _CalendarListViewState extends State<CalendarListView> {
         search: widget.search,
       );
       if (fetched == null) continue;
-      appointments.addAll(fetched.map((event) => MapEntry(source.key, event)));
+      appointments
+          .addAll(fetched.map((event) => SourcedModel(source.key, event)));
     }
     return appointments;
   }
@@ -99,7 +101,7 @@ class _CalendarListViewState extends State<CalendarListView> {
     final locale = Localizations.localeOf(context).languageCode;
     final dateFormatter = DateFormat.yMMMMd(locale);
     return CreateEventScaffold(
-      onCreated: (p0) => _controller.refresh(),
+      onCreated: _controller.refresh,
       child: Column(
         children: [
           CalendarFilterView(
@@ -112,7 +114,7 @@ class _CalendarListViewState extends State<CalendarListView> {
               builder: (context, constraints) => PagedListView(
                 pagingController: _controller,
                 builderDelegate: buildMaterialPagedDelegate<
-                    List<MapEntry<String, Appointment>>>(
+                    List<SourcedConnectedModel<Appointment, Event>>>(
                   _controller,
                   (context, item, index) {
                     var date = DateTime.now();
@@ -156,9 +158,8 @@ class _CalendarListViewState extends State<CalendarListView> {
                           ),
                         ...item.map((event) {
                           return CalendarListTile(
-                            key: ValueKey('${event.key}@${event.value.id}'),
-                            appointment: event.value,
-                            source: event.key,
+                            key: ValueKey('${event.source}@${event.main.id}'),
+                            appointment: event,
                             date: date,
                             onRefresh: _controller.refresh,
                           );
@@ -171,7 +172,7 @@ class _CalendarListViewState extends State<CalendarListView> {
                       child: ConstrainedBox(
                           constraints: const BoxConstraints(maxWidth: 1000),
                           child: GestureDetector(
-                            onTap: () => showEventModalBottomSheet(
+                            onTap: () => showCalendarCreate(
                               context: context,
                               time: date,
                             ).then((value) => _controller.refresh()),

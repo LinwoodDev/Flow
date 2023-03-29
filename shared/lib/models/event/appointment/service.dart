@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import '../../../services/source.dart';
+import '../../model.dart';
 import '../model.dart';
 import 'model.dart';
 
@@ -25,7 +26,7 @@ abstract class AppointmentService extends ModelService {
 }
 
 abstract class AppointmentEventConnector {
-  FutureOr<List<Appointment>> getAppointments({
+  FutureOr<List<ConnectedModel<Appointment, Event>>> getAppointments({
     List<EventStatus>? status,
     int offset = 0,
     int limit = 50,

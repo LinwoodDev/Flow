@@ -5,20 +5,19 @@ import 'package:intl/intl.dart';
 import 'package:shared/models/event/appointment/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/helpers/date_time.dart';
+import 'package:shared/models/model.dart';
 
 import '../../cubits/flow.dart';
-import 'appointment.dart';
+import '../events/appointment.dart';
 
 class CalendarListTile extends StatelessWidget {
-  final Appointment appointment;
-  final String source;
+  final SourcedConnectedModel<Appointment, Event> appointment;
   final DateTime? date;
   final VoidCallback onRefresh;
 
   const CalendarListTile({
     super.key,
     required this.appointment,
-    required this.source,
     this.date,
     required this.onRefresh,
   });
@@ -27,12 +26,12 @@ class CalendarListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = Localizations.localeOf(context).languageCode;
     final timeFormatter = DateFormat.Hm(locale);
-    final start =
-        appointment.start?.onlyDate() == date && appointment.start != null
-            ? timeFormatter.format(appointment.start!)
-            : '';
-    final end = appointment.end?.onlyDate() == date && appointment.end != null
-        ? timeFormatter.format(appointment.end!)
+    final model = appointment.main;
+    final start = model.start?.onlyDate() == date && model.start != null
+        ? timeFormatter.format(model.start!)
+        : '';
+    final end = model.end?.onlyDate() == date && model.end != null
+        ? timeFormatter.format(model.end!)
         : '';
     String range;
     if (start == '' && end == '') {
@@ -45,22 +44,21 @@ class CalendarListTile extends StatelessWidget {
       range = '$start - $end';
     }
     return ListTile(
-      title: Text(appointment.name),
+      title: Text(model.name),
       subtitle: Text(range),
-      leading: Icon(appointment.status.getIcon(),
-          color: appointment.status.getColor()),
+      leading: Icon(model.status.getIcon(), color: model.status.getColor()),
       onTap: () => showDialog(
           context: context,
           builder: (context) => AppointmentDialog(
-              appointment: appointment,
-              event: const Event(),
-              source: source)).then((_) => onRefresh()),
+                appointment: appointment.main,
+                event: appointment.subSourced,
+              )).then((_) => onRefresh()),
       trailing: FutureBuilder<bool?>(
         future: Future.value(context
             .read<FlowCubit>()
-            .getSource(source)
+            .getSource(appointment.source)
             .note
-            ?.notesDone(appointment.id)),
+            ?.notesDone(appointment.sub.id)),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Icon(

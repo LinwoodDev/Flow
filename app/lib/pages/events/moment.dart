@@ -39,8 +39,8 @@ class MomentDialog extends StatelessWidget {
         TextEditingController(text: currentMoment.location);
     return AlertDialog(
       title: Text(source == null
-          ? AppLocalizations.of(context).createEvent
-          : AppLocalizations.of(context).editEvent),
+          ? AppLocalizations.of(context).createMoment
+          : AppLocalizations.of(context).editMoment),
       content: SizedBox(
         width: 500,
         height: 500,
@@ -234,7 +234,7 @@ class _MomentNotesTabState extends State<_MomentNotesTab> {
   Future<void> _fetchPage(int pageKey) async {
     try {
       final newItems = await _noteService?.getNotes(
-          eventId: widget.moment.id,
+          //eventId: widget.moment.id,
           offset: pageKey * _pageSize,
           limit: _pageSize);
       if (newItems == null) return;

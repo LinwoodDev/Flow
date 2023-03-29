@@ -4,6 +4,7 @@ import 'package:shared/helpers/date_time.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
 import '../../../services/database.dart';
+import '../../model.dart';
 import '../model.dart';
 import 'model.dart';
 import 'service.dart';
@@ -159,7 +160,7 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
 class AppointmentEventDatabaseConnector extends AppointmentEventConnector
     with TableService {
   @override
-  Future<List<Appointment>> getAppointments(
+  Future<List<ConnectedModel<Appointment, Event>>> getAppointments(
       {List<EventStatus>? status,
       int offset = 0,
       int limit = 50,
@@ -233,6 +234,12 @@ class AppointmentEventDatabaseConnector extends AppointmentEventConnector
       "SELECT * FROM appointments INNER JOIN events ON events.id = appointments.eventId WHERE $where",
       whereArgs,
     );
-    return result?.map(Appointment.fromJson).toList() ?? [];
+    return result?.map((e) {
+          return ConnectedModel<Appointment, Event>(
+            Appointment.fromJson(e),
+            Event.fromJson(e),
+          );
+        }).toList() ??
+        [];
   }
 }

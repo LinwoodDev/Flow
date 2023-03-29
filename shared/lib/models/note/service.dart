@@ -6,7 +6,6 @@ import 'model.dart';
 
 abstract class NoteService extends ModelService {
   FutureOr<List<Note>> getNotes({
-    int? eventId,
     int offset = 0,
     int limit = 50,
     Set<NoteStatus> statuses = const {

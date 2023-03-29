@@ -6,7 +6,7 @@ import 'package:shared/models/model.dart';
 import 'package:shared/services/source.dart';
 
 class SourcedPagingController<T>
-    extends PagingController<SourcedModel<int>, T> {
+    extends PagingController<SourcedModel<int>, SourcedModel<T>> {
   final FlowCubit cubit;
   final int pageSize;
 
@@ -18,12 +18,14 @@ class SourcedPagingController<T>
   PageRequestListener<SourcedModel<int>> addFetchListener(
       Future<List<T>?> Function(String, SourceService, int, int) fetch) {
     FutureOr<void> listener(SourcedModel<int> pageKey) async {
-      final fetched = await fetch(
-              pageKey.source,
-              cubit.getSource(pageKey.source),
-              pageKey.model * pageSize,
-              pageSize) ??
-          <T>[];
+      final fetched = (await fetch(
+                  pageKey.source,
+                  cubit.getSource(pageKey.source),
+                  pageKey.model * pageSize,
+                  pageSize) ??
+              <T>[])
+          .map((e) => SourcedModel(pageKey.source, e))
+          .toList();
       final index = sources.indexOf(pageKey.source);
       final isFirstPage = pageKey.model < 0;
       final currentSource = isFirstPage ? sources.first : pageKey.source;

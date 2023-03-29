@@ -22,3 +22,14 @@ class ConnectedModel<A, B> with _$ConnectedModel<A, B> {
 }
 
 typedef SourcedModel<T> = ConnectedModel<String, T>;
+
+typedef SourcedConnectedModel<A, B>
+    = ConnectedModel<String, ConnectedModel<A, B>>;
+
+extension SourcedConnectedModelExtension<A, B> on SourcedConnectedModel<A, B> {
+  A get main => model.source;
+  B get sub => model.model;
+
+  SourcedModel<A> get mainSourced => SourcedModel(source, main);
+  SourcedModel<B> get subSourced => SourcedModel(source, sub);
+}

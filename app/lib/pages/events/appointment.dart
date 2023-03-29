@@ -7,49 +7,49 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/event/appointment/model.dart';
 import 'package:shared/models/event/model.dart';
+import 'package:shared/models/model.dart';
 import 'package:shared/models/note/model.dart';
 import 'package:shared/models/note/service.dart';
 
 import '../../widgets/date_time_field.dart';
-import '../../widgets/source_dropdown.dart';
 import '../notes/note.dart';
 
 class AppointmentDialog extends StatelessWidget {
-  final String? source;
+  final bool edit;
   final Appointment? appointment;
-  final Event event;
+  final SourcedModel<Event> event;
 
   const AppointmentDialog({
     super.key,
     this.appointment,
-    this.source,
+    this.edit = false,
     required this.event,
   });
 
   @override
   Widget build(BuildContext context) {
+    var edit = this.edit && appointment != null;
     var currentAppointment = appointment ??
         Appointment.fixed(
-          eventId: event.id,
+          eventId: event.model.id,
         );
-    var currentSource = source ?? '';
     final nameController = TextEditingController(text: currentAppointment.name);
     final descriptionController =
         TextEditingController(text: currentAppointment.description);
     final locationController =
         TextEditingController(text: currentAppointment.location);
     return AlertDialog(
-      title: Text(source == null
-          ? AppLocalizations.of(context).createEvent
-          : AppLocalizations.of(context).editEvent),
+      title: Text(!edit
+          ? AppLocalizations.of(context).createAppointment
+          : AppLocalizations.of(context).editAppointment),
       content: SizedBox(
         width: 500,
         height: 500,
         child: DefaultTabController(
-          length: source == null ? 1 : 2,
+          length: edit ? 1 : 2,
           child: Column(
             children: [
-              if (source != null)
+              if (edit)
                 TabBar(
                     tabs: <dynamic>[
                   [Icons.tune_outlined, AppLocalizations.of(context).general],
@@ -76,15 +76,6 @@ class AppointmentDialog extends StatelessWidget {
                         shrinkWrap: true,
                         children: [
                           const SizedBox(height: 16),
-                          if (source == null) ...[
-                            SourceDropdown(
-                              value: currentSource,
-                              onChanged: (String? value) {
-                                currentSource = value ?? '';
-                              },
-                            ),
-                            const SizedBox(height: 16),
-                          ],
                           DropdownButtonFormField<EventStatus>(
                             value: currentAppointment.status,
                             items: EventStatus.values
@@ -173,9 +164,12 @@ class AppointmentDialog extends StatelessWidget {
                         ],
                       ),
                     ),
-                    if (source != null)
+                    if (edit)
                       _AppointmentNotesTab(
-                          appointment: currentAppointment, source: source!),
+                        appointment: appointment!,
+                        event: event.model,
+                        source: event.source,
+                      ),
                   ],
                 ),
               ),
@@ -192,10 +186,10 @@ class AppointmentDialog extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () async {
-            if (source == null) {
+            if (!edit) {
               final created = await context
                   .read<FlowCubit>()
-                  .getSource(currentSource)
+                  .getSource(event.source)
                   .appointment
                   ?.createAppointment(currentAppointment);
               if (created != null) {
@@ -204,7 +198,7 @@ class AppointmentDialog extends StatelessWidget {
             } else {
               context
                   .read<FlowCubit>()
-                  .getSource(source!)
+                  .getSource(event.source)
                   .appointment
                   ?.updateAppointment(currentAppointment);
             }
@@ -219,9 +213,11 @@ class AppointmentDialog extends StatelessWidget {
 }
 
 class _AppointmentNotesTab extends StatefulWidget {
+  final Event event;
   final Appointment appointment;
   final String source;
-  const _AppointmentNotesTab({required this.appointment, required this.source});
+  const _AppointmentNotesTab(
+      {required this.appointment, required this.source, required this.event});
 
   @override
   State<_AppointmentNotesTab> createState() => _AppointmentNotesTabState();
@@ -247,7 +243,7 @@ class _AppointmentNotesTabState extends State<_AppointmentNotesTab> {
   Future<void> _fetchPage(int pageKey) async {
     try {
       final newItems = await _noteService?.getNotes(
-          eventId: widget.appointment.id,
+          //eventId: widget.appointment.id,
           offset: pageKey * _pageSize,
           limit: _pageSize);
       if (newItems == null) return;

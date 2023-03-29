@@ -2,8 +2,6 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:flow/cubits/flow.dart';
-import 'package:flow/pages/calendar/appointment.dart';
-import 'package:flow/pages/calendar/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -11,9 +9,11 @@ import 'package:shared/models/event/appointment/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
 
+import '../events/appointment.dart';
 import '../events/page.dart';
 import 'filter.dart';
 import '../../helpers/event.dart';
+import 'page.dart';
 
 class CalendarDayView extends StatefulWidget {
   final CalendarFilter filter;
@@ -34,7 +34,7 @@ class CalendarDayView extends StatefulWidget {
 class _CalendarDayViewState extends State<CalendarDayView> {
   late final FlowCubit _cubit;
   DateTime _date = DateTime.now();
-  late Future<List<SourcedModel<Appointment>>> _dates;
+  late Future<List<SourcedConnectedModel<Appointment, Event>>> _dates;
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
     _dates = _fetchDates();
   }
 
-  Future<List<SourcedModel<Appointment>>> _fetchDates() async {
+  Future<List<SourcedConnectedModel<Appointment, Event>>> _fetchDates() async {
     if (!mounted) return [];
 
     var sources = _cubit.getCurrentServicesMap();
@@ -52,7 +52,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
         widget.filter.source!: _cubit.getSource(widget.filter.source!)
       };
     }
-    final dates = <SourcedModel<Appointment>>[];
+    final dates = <SourcedConnectedModel<Appointment, Event>>[];
     for (final source in sources.entries) {
       final fetched = await source.value.appointmentEvent?.getAppointments(
         date: _date,
@@ -93,7 +93,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
   @override
   Widget build(BuildContext context) {
     return CreateEventScaffold(
-      onCreated: (p0) => _refresh,
+      onCreated: _refresh,
       child: LayoutBuilder(
           builder: (context, constraints) => ListView(children: [
                 Align(
@@ -158,7 +158,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
                   ],
                 ),
                 const Divider(),
-                FutureBuilder<List<SourcedModel<Appointment>>>(
+                FutureBuilder<List<SourcedConnectedModel<Appointment, Event>>>(
                     future: _dates,
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
@@ -183,16 +183,14 @@ class _CalendarDayViewState extends State<CalendarDayView> {
 }
 
 class _EventListPosition {
-  final String source;
-  final Event event;
-  final Appointment appointment;
+  final SourcedConnectedModel<Appointment, Event> appointment;
   final int position;
 
-  _EventListPosition(this.appointment, this.source, this.event, this.position);
+  _EventListPosition(this.appointment, this.position);
 }
 
 class SingleDayList extends StatelessWidget {
-  final List<SourcedModel<Appointment>> appointments;
+  final List<SourcedConnectedModel<Appointment, Event>> appointments;
   final VoidCallback onChanged;
   final DateTime current;
   final double maxWidth;
@@ -242,17 +240,14 @@ class SingleDayList extends StatelessWidget {
           for (final position in positions)
             Builder(builder: (context) {
               double top = 0, height;
-              if (position.appointment.start?.isSameDay(current) ?? false) {
-                top = (position.appointment.start?.hour ?? 0) * _hourHeight +
-                    (position.appointment.start?.minute ?? 0) /
-                        60 *
-                        _hourHeight;
+              final appointment = position.appointment.main;
+              if (appointment.start?.isSameDay(current) ?? false) {
+                top = (appointment.start?.hour ?? 0) * _hourHeight +
+                    (appointment.start?.minute ?? 0) / 60 * _hourHeight;
               }
-              if (position.appointment.end?.isSameDay(current) ?? false) {
-                height = (position.appointment.end?.hour ?? 23) * _hourHeight +
-                    (position.appointment.end?.minute ?? 59) /
-                        60 *
-                        _hourHeight -
+              if (appointment.end?.isSameDay(current) ?? false) {
+                height = (appointment.end?.hour ?? 23) * _hourHeight +
+                    (appointment.end?.minute ?? 59) / 60 * _hourHeight -
                     top;
               } else {
                 height = 24 * _hourHeight - top;
@@ -264,16 +259,16 @@ class SingleDayList extends StatelessWidget {
                 width: currentPosWidth,
                 child: Card(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
-                  color: position.appointment.status.getColor().withAlpha(
+                  color: appointment.status.getColor().withAlpha(
                         220,
                       ),
                   child: InkWell(
                     onTap: () => showDialog(
                       context: context,
                       builder: (context) => AppointmentDialog(
-                        appointment: position.appointment,
-                        source: position.source,
-                        event: position.event,
+                        appointment: appointment,
+                        event: SourcedModel(position.appointment.source,
+                            position.appointment.sub),
                       ),
                     ).then((value) => onChanged()),
                     child: Padding(
@@ -282,11 +277,11 @@ class SingleDayList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            position.appointment.name,
+                            appointment.name,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            position.appointment.description,
+                            appointment.description,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -320,14 +315,13 @@ class SingleDayList extends StatelessWidget {
   }
 
   List<_EventListPosition> _getEventListPositions(
-      List<SourcedModel<Appointment>> dates) {
+      List<SourcedConnectedModel<Appointment, Event>> dates) {
     final positions = <_EventListPosition>[];
-    for (final event in dates) {
+    for (final date in dates) {
       final collide = positions.reversed.firstWhereOrNull(
-          (element) => element.appointment.collidesWith(event.model));
+          (element) => element.appointment.main.collidesWith(date.main));
       var position = collide == null ? 0 : (collide.position + 1);
-      positions.add(_EventListPosition(
-          event.model, event.source, const Event(), position));
+      positions.add(_EventListPosition(date, position));
     }
     return positions;
   }

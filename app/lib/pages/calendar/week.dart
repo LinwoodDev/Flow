@@ -29,7 +29,8 @@ class CalendarWeekView extends StatefulWidget {
 class _CalendarWeekViewState extends State<CalendarWeekView> {
   late final FlowCubit _cubit;
   int _week = 0, _year = 0;
-  late Future<List<List<SourcedModel<Appointment>>>> _appointments;
+  late Future<List<List<SourcedConnectedModel<Appointment, Event>>>>
+      _appointments;
   final _columnScrollController = ScrollController(),
       _rowScrollController = ScrollController();
 
@@ -45,7 +46,8 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
 
   DateTime get _date => DateTime(_year, 1, 1).addDays((_week - 1) * 7);
 
-  Future<List<List<SourcedModel<Appointment>>>> _fetchAppointments() async {
+  Future<List<List<SourcedConnectedModel<Appointment, Event>>>>
+      _fetchAppointments() async {
     if (!mounted) return [];
 
     var sources = _cubit.getCurrentServicesMap();
@@ -54,12 +56,12 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
         widget.filter.source!: _cubit.getSource(widget.filter.source!)
       };
     }
-    final appointments = <List<SourcedModel<Appointment>>>[
+    final appointments = <List<SourcedConnectedModel<Appointment, Event>>>[
       for (int i = 0; i < 7; i++) []
     ];
     for (final source in sources.entries) {
       for (int i = 0; i < 7; i++) {
-        final fetchedDay = await source.value.appointment?.getAppointments(
+        final fetchedDay = await source.value.appointmentEvent?.getAppointments(
           date: _date.addDays(i),
           status: EventStatus.values
               .where(
@@ -100,7 +102,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) => CreateEventScaffold(
-        onCreated: (p0) => _refresh,
+        onCreated: _refresh,
         child: Column(children: [
           Column(mainAxisSize: MainAxisSize.min, children: [
             CalendarFilterView(
@@ -176,7 +178,11 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                   child: SingleChildScrollView(
                     controller: _rowScrollController,
                     scrollDirection: Axis.horizontal,
-                    child: FutureBuilder<List<List<SourcedModel<Appointment>>>>(
+                    child: FutureBuilder<
+                            List<
+                                List<
+                                    SourcedConnectedModel<Appointment,
+                                        Event>>>>(
                         future: _appointments,
                         builder: (context, snapshot) {
                           if (snapshot.hasError) {

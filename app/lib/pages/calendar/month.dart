@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:shared/models/event/appointment/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared/models/model.dart';
 
 import '../events/page.dart';
 import 'filter.dart';
@@ -32,7 +33,8 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
   late final FlowCubit _cubit;
   int _month = 0, _year = 0;
   late final DateTime _now;
-  late Future<List<List<MapEntry<String, Appointment>>>> _appointments;
+  late Future<List<List<SourcedConnectedModel<Appointment, Event>>>>
+      _appointments;
 
   @override
   void initState() {
@@ -53,7 +55,8 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
         _now.second,
       );
 
-  Future<List<List<MapEntry<String, Appointment>>>> _fetchAppointments() async {
+  Future<List<List<SourcedConnectedModel<Appointment, Event>>>>
+      _fetchAppointments() async {
     if (!mounted) return [];
 
     var sources = _cubit.getCurrentServicesMap();
@@ -63,12 +66,12 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
       };
     }
     final days = _date.getDaysInMonth();
-    final appointments = <List<MapEntry<String, Appointment>>>[
+    final appointments = <List<SourcedConnectedModel<Appointment, Event>>>[
       for (int i = 0; i < days; i++) []
     ];
     for (final source in sources.entries) {
       for (int i = 0; i < days; i++) {
-        final fetchedDay = await source.value.appointment?.getAppointments(
+        final fetchedDay = await source.value.appointmentEvent?.getAppointments(
           date: _date.addDays(i),
           status: EventStatus.values
               .where(
@@ -77,7 +80,8 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
           search: widget.search,
         );
         if (fetchedDay == null) continue;
-        appointments[i].addAll(fetchedDay.map((e) => MapEntry(source.key, e)));
+        appointments[i]
+            .addAll(fetchedDay.map((e) => SourcedModel(source.key, e)));
       }
     }
     return appointments;
@@ -109,7 +113,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
     final locale = Localizations.localeOf(context).languageCode;
     return LayoutBuilder(
       builder: (context, constraints) => CreateEventScaffold(
-        onCreated: (p0) => _refresh,
+        onCreated: _refresh,
         child: Column(children: [
           Column(mainAxisSize: MainAxisSize.min, children: [
             CalendarFilterView(
@@ -175,7 +179,8 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
             const Divider(),
           ]),
           Expanded(
-            child: FutureBuilder<List<List<MapEntry<String, Appointment>>>>(
+            child: FutureBuilder<
+                    List<List<SourcedConnectedModel<Appointment, Event>>>>(
                 future: _appointments,
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
@@ -282,7 +287,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
 
 class CalendarDayDialog extends StatelessWidget {
   final DateTime date;
-  final List<MapEntry<String, Appointment>> appointments;
+  final List<SourcedConnectedModel<Appointment, Event>> appointments;
 
   const CalendarDayDialog({
     super.key,
@@ -327,9 +332,8 @@ class CalendarDayDialog extends StatelessWidget {
           else
             ...appointments.map(
               (e) => CalendarListTile(
-                key: ValueKey('${e.key}@${e.value.id}'),
-                appointment: e.value,
-                source: e.key,
+                key: ValueKey('${e.source}@${e.main.id}'),
+                appointment: e,
                 date: date,
                 onRefresh: () => Navigator.of(context).pop(),
               ),

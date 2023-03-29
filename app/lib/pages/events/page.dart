@@ -4,13 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/event/model.dart';
+import 'package:shared/models/model.dart';
 
 import '../../cubits/flow.dart';
 import '../../helpers/sourced_paging_controller.dart';
 import '../../widgets/builder_delegate.dart';
 import '../../widgets/material_bottom_sheet.dart';
+import 'appointment.dart';
 import 'event.dart';
 import 'filter.dart';
+import 'moment.dart';
 
 class EventsPage extends StatefulWidget {
   const EventsPage({
@@ -213,9 +216,9 @@ class EventTile extends StatelessWidget {
   }
 }
 
-Future<Event?> showEventModalBottomSheet(
+Future<SourcedModel<Event>?> showEventModalBottomSheet(
     {required BuildContext context, Event? event, DateTime? time}) async {
-  Event? event;
+  SourcedModel<Event>? event;
   final cubit = context.read<FlowCubit>();
   final pagingController = SourcedPagingController<Event>(cubit);
   pagingController.addFetchListener((source, service, offset, limit) async =>
@@ -236,11 +239,12 @@ Future<Event?> showEventModalBottomSheet(
             PagedListView(
                 shrinkWrap: true,
                 pagingController: pagingController,
-                builderDelegate: buildMaterialPagedDelegate<Event>(
+                builderDelegate:
+                    buildMaterialPagedDelegate<SourcedModel<Event>>(
                   pagingController,
                   (ctx, item, index) {
                     return ListTile(
-                      title: Text(item.name),
+                      title: Text(item.model.name),
                       leading: const Icon(Icons.event_outlined),
                       onTap: () {
                         event = item;
@@ -255,7 +259,8 @@ Future<Event?> showEventModalBottomSheet(
     event = await showDialog(
       context: context,
       builder: (ctx) => EventDialog(
-        event: event,
+        event: event?.model,
+        source: event?.source,
       ),
     );
   }
@@ -263,10 +268,12 @@ Future<Event?> showEventModalBottomSheet(
 }
 
 Future<void> showCalendarCreate(
-    {required BuildContext context, Event? event, DateTime? time}) async {
-  final result = await showEventModalBottomSheet(
-      context: context, event: event, time: time);
-  if (result == null) return;
+    {required BuildContext context,
+    SourcedModel<Event>? event,
+    DateTime? time}) async {
+  final eventResult =
+      event ?? await showEventModalBottomSheet(context: context, time: time);
+  if (eventResult == null) return;
   if (context.mounted) {
     showMaterialBottomSheet(
       context: context,
@@ -275,10 +282,29 @@ Future<void> showCalendarCreate(
         ListTile(
           title: Text(AppLocalizations.of(context).appointment),
           leading: const Icon(Icons.event_outlined),
+          onTap: () {
+            Navigator.of(ctx).pop();
+            showDialog(
+              context: context,
+              builder: (context) => AppointmentDialog(
+                event: eventResult,
+              ),
+            );
+          },
         ),
         ListTile(
           title: Text(AppLocalizations.of(context).moment),
           leading: const Icon(Icons.mood_outlined),
+          onTap: () {
+            Navigator.of(ctx).pop();
+            showDialog(
+              context: context,
+              builder: (context) => MomentDialog(
+                event: eventResult.model,
+                source: eventResult.source,
+              ),
+            );
+          },
         ),
       ],
     );
