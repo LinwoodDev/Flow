@@ -236,5 +236,9 @@
         "example": "Event name"
       }
     }
-  }
+  },
+  "createAppointment": "Create appointment",
+  "editAppointment": "Edit appointment",
+  "createMoment": "Create moment",
+  "editMoment": "Edit moment"
 }
