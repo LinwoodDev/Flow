@@ -9,31 +9,20 @@ import '../model.dart';
 import 'model.dart';
 import 'service.dart';
 
-class AppointmentDatabaseService extends AppointmentService with TableService {
-  AppointmentDatabaseService();
+class MomentDatabaseService extends MomentService with TableService {
+  MomentDatabaseService();
 
   @override
   Future<void> create(Database db) async {
     await db.execute("""
-      CREATE TABLE IF NOT EXISTS appointments (
-        runtimeType VARCHAR(20) NOT NULL DEFAULT 'fixed',
+      CREATE TABLE IF NOT EXISTS moments (
         id INTEGER PRIMARY KEY,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT NOT NULL DEFAULT '',
         location VARCHAR(100) NOT NULL DEFAULT '',
         eventId INTEGER NOT NULL,
-        start INTEGER,
-        end INTEGER,
         status VARCHAR(20) NOT NULL DEFAULT 'confirmed',
-        repeatType VARCHAR(20) NOT NULL DEFAULT 'daily',
-        interval INTEGER NOT NULL DEFAULT 1,
-        variation INTEGER NOT NULL DEFAULT 0,
-        count INTEGER NOT NULL DEFAULT 0,
-        until INTEGER,
-        exceptions TEXT,
-        autoGroupId INTEGER NOT NULL DEFAULT -1,
-        searchStart INTEGER,
-        autoDuration INTEGER NOT NULL DEFAULT 60
+        time INTEGER
       )
     """);
   }
@@ -42,7 +31,7 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
   FutureOr<void> migrate(Database db, int version) {}
 
   @override
-  Future<List<Appointment>> getAppointments(
+  Future<List<Moment>> getMoments(
       {List<EventStatus>? status,
       int? eventId,
       int offset = 0,
@@ -62,41 +51,41 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
       whereArgs = whereArgs == null ? [eventId] : [...whereArgs, eventId];
     }
     if (start != null) {
-      where = where == null ? 'start >= ?' : '$where AND start >= ?';
+      where = where == null ? 'time >= ?' : '$where AND time >= ?';
       whereArgs = whereArgs == null
           ? [start.secondsSinceEpoch]
           : [...whereArgs, start.secondsSinceEpoch];
     }
     if (end != null) {
-      where = where == null ? 'end <= ?' : '$where AND end <= ?';
+      where = where == null ? 'time <= ?' : '$where AND time <= ?';
       whereArgs = whereArgs == null
           ? [end.secondsSinceEpoch]
           : [...whereArgs, end.secondsSinceEpoch];
     }
     if (date != null) {
-      var startAppointment = date.onlyDate();
-      var endAppointment =
-          startAppointment.add(Duration(hours: 23, minutes: 59, seconds: 59));
+      var startMoment = date.onlyDate();
+      var endMoment =
+          startMoment.add(Duration(hours: 23, minutes: 59, seconds: 59));
       where = where == null
-          ? '(start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))'
-          : '$where AND (start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))';
+          ? '(time BETWEEN ? AND ? OR (time <= ? AND time >= ?))'
+          : '$where AND (time BETWEEN ? AND ? OR (time <= ? AND time >= ?))';
       whereArgs = whereArgs == null
           ? [
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
+              startMoment.secondsSinceEpoch,
+              endMoment.secondsSinceEpoch,
+              startMoment.secondsSinceEpoch,
+              endMoment.secondsSinceEpoch,
+              startMoment.secondsSinceEpoch,
+              endMoment.secondsSinceEpoch,
             ]
           : [
               ...whereArgs,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
+              startMoment.secondsSinceEpoch,
+              endMoment.secondsSinceEpoch,
+              startMoment.secondsSinceEpoch,
+              endMoment.secondsSinceEpoch,
+              startMoment.secondsSinceEpoch,
+              endMoment.secondsSinceEpoch,
             ];
     }
     if (search.isNotEmpty) {
@@ -108,34 +97,33 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
           : [...whereArgs, '%$search%', '%$search%'];
     }
 
-    final result = await db?.query('appointments',
+    final result = await db?.query('moments',
         where: where, whereArgs: whereArgs, offset: offset, limit: limit);
-    return result?.map(Appointment.fromJson).toList() ?? [];
+    return result?.map(Moment.fromJson).toList() ?? [];
   }
 
   @override
-  Future<Appointment?> createAppointment(Appointment appointment) async {
-    final id =
-        await db?.insert('appointments', appointment.toJson()..remove('id'));
+  Future<Moment?> createMoment(Moment moment) async {
+    final id = await db?.insert('moments', moment.toJson()..remove('id'));
     if (id == null) return null;
-    return appointment.copyWith(id: id);
+    return moment.copyWith(id: id);
   }
 
   @override
-  Future<bool> updateAppointment(Appointment appointment) async {
+  Future<bool> updateMoment(Moment moment) async {
     return await db?.update(
-          'appointments',
-          appointment.toJson(),
+          'moments',
+          moment.toJson(),
           where: 'id = ?',
-          whereArgs: [appointment.id],
+          whereArgs: [moment.id],
         ) ==
         1;
   }
 
   @override
-  Future<bool> deleteAppointment(int id) async {
+  Future<bool> deleteMoment(int id) async {
     return await db?.delete(
-          'appointments',
+          'moments',
           where: 'id = ?',
           whereArgs: [id],
         ) ==
@@ -143,25 +131,25 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
   }
 
   @override
-  FutureOr<Appointment?> getAppointment(int id) async {
+  FutureOr<Moment?> getMoment(int id) async {
     final result = await db?.query(
-      'appointments',
+      'moments',
       where: 'id = ?',
       whereArgs: [id],
     );
-    return result?.map(Appointment.fromJson).first;
+    return result?.map(Moment.fromJson).first;
   }
 
   @override
   Future<void> clear() async {
-    await db?.delete('appointments');
+    await db?.delete('moments');
   }
 }
 
-class AppointmentEventDatabaseConnector extends AppointmentEventConnector
+class MomentEventDatabaseConnector extends MomentEventConnector
     with TableService {
   @override
-  Future<List<ConnectedModel<Appointment, Event>>> getAppointments(
+  Future<List<ConnectedModel<Moment, Event>>> getMoments(
       {List<EventStatus>? status,
       int offset = 0,
       int limit = 50,
@@ -178,41 +166,41 @@ class AppointmentEventDatabaseConnector extends AppointmentEventConnector
       whereArgs = status.map((e) => e.name).toList();
     }
     if (start != null) {
-      where = where == null ? 'start >= ?' : '$where AND start >= ?';
+      where = where == null ? 'time >= ?' : '$where AND time >= ?';
       whereArgs = whereArgs == null
           ? [start.secondsSinceEpoch]
           : [...whereArgs, start.secondsSinceEpoch];
     }
     if (end != null) {
-      where = where == null ? 'end <= ?' : '$where AND end <= ?';
+      where = where == null ? 'time <= ?' : '$where AND time <= ?';
       whereArgs = whereArgs == null
           ? [end.secondsSinceEpoch]
           : [...whereArgs, end.secondsSinceEpoch];
     }
     if (date != null) {
-      var startAppointment = date.onlyDate();
-      var endAppointment =
-          startAppointment.add(Duration(hours: 23, minutes: 59, seconds: 59));
+      var startMoment = date.onlyDate();
+      var endMoment =
+          startMoment.add(Duration(hours: 23, minutes: 59, seconds: 59));
       where = where == null
-          ? '(start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))'
-          : '$where AND (start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))';
+          ? '(time BETWEEN ? AND ? OR (time <= ? AND time >= ?))'
+          : '$where AND (time BETWEEN ? AND ? OR (time <= ? AND time >= ?))';
       whereArgs = whereArgs == null
           ? [
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
+              startMoment.secondsSinceEpoch,
+              endMoment.secondsSinceEpoch,
+              startMoment.secondsSinceEpoch,
+              endMoment.secondsSinceEpoch,
+              startMoment.secondsSinceEpoch,
+              endMoment.secondsSinceEpoch,
             ]
           : [
               ...whereArgs,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
+              startMoment.secondsSinceEpoch,
+              endMoment.secondsSinceEpoch,
+              startMoment.secondsSinceEpoch,
+              endMoment.secondsSinceEpoch,
+              startMoment.secondsSinceEpoch,
+              endMoment.secondsSinceEpoch,
             ];
     }
     if (search.isNotEmpty) {
@@ -232,12 +220,12 @@ class AppointmentEventDatabaseConnector extends AppointmentEventConnector
       whereArgs = whereArgs == null ? [placeId] : [...whereArgs, placeId];
     }
     final result = await db?.rawQuery(
-      "SELECT * FROM appointments INNER JOIN events ON events.id = appointments.eventId WHERE $where",
+      "SELECT * FROM moments INNER JOIN events ON events.id = moments.eventId WHERE $where",
       whereArgs,
     );
     return result?.map((e) {
-          return ConnectedModel<Appointment, Event>(
-            Appointment.fromJson(e),
+          return ConnectedModel<Moment, Event>(
+            Moment.fromJson(e),
             Event.fromDatabase(e),
           );
         }).toList() ??

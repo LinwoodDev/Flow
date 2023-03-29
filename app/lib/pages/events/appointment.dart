@@ -39,14 +39,14 @@ class AppointmentDialog extends StatelessWidget {
     final locationController =
         TextEditingController(text: currentAppointment.location);
     return AlertDialog(
-      title: Text(!edit
-          ? AppLocalizations.of(context).createAppointment
-          : AppLocalizations.of(context).editAppointment),
+      title: Text(edit
+          ? AppLocalizations.of(context).editAppointment
+          : AppLocalizations.of(context).createAppointment),
       content: SizedBox(
         width: 500,
         height: 500,
         child: DefaultTabController(
-          length: edit ? 1 : 2,
+          length: edit ? 2 : 1,
           child: Column(
             children: [
               if (edit)

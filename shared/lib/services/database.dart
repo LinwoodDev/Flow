@@ -62,7 +62,10 @@ class DatabaseService extends SourceService {
     }
   }
 
-  List<TableService> get tables => models.cast<TableService>();
+  List<TableService> get tables => [
+        ...models.cast<TableService>(),
+        appointmentEvent,
+      ];
 
   FutureOr<void> _onCreate(Database db, int version) async {
     for (var table in tables) {

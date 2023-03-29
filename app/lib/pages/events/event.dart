@@ -170,7 +170,8 @@ class EventDialog extends StatelessWidget {
                   ?.updateEvent(currentEvent);
             }
             // ignore: use_build_context_synchronously
-            Navigator.of(context).pop(currentEvent);
+            Navigator.of(context)
+                .pop(SourcedModel(currentSource, currentEvent));
           },
           child: Text(AppLocalizations.of(context).save),
         ),

@@ -31,7 +31,7 @@ class EventDatabaseService extends EventService with TableService {
 
   @override
   Future<Event?> createEvent(Event event) async {
-    final id = await db?.insert('events', _encode(event)..remove('id'));
+    final id = await db?.insert('events', event.toDatabase()..remove('id'));
     if (id == null) return null;
     return event.copyWith(id: id);
   }
@@ -48,7 +48,7 @@ class EventDatabaseService extends EventService with TableService {
       where: 'id = ?',
       whereArgs: [id],
     );
-    return result?.map(_decode).firstOrNull;
+    return result?.map(Event.fromDatabase).firstOrNull;
   }
 
   @override
@@ -68,7 +68,7 @@ class EventDatabaseService extends EventService with TableService {
       whereArgs: whereArgs,
     );
     if (result == null) return [];
-    return result.map(_decode).toList();
+    return result.map(Event.fromDatabase).toList();
   }
 
   @override
@@ -78,24 +78,10 @@ class EventDatabaseService extends EventService with TableService {
   FutureOr<bool> updateEvent(Event event) async {
     return await db?.update(
           'events',
-          _encode(event),
+          event.toDatabase(),
           where: 'id = ?',
           whereArgs: [event.id],
         ) ==
         1;
-  }
-
-  Event _decode(Map<String, dynamic> row) {
-    return Event.fromJson({
-      ...row,
-      'blocked': row['blocked'] == 1,
-    });
-  }
-
-  Map<String, dynamic> _encode(Event event) {
-    return {
-      ...event.toJson(),
-      'blocked': event.blocked ? 1 : 0,
-    };
   }
 }

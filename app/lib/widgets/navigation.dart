@@ -134,9 +134,15 @@ class FlowNavigation extends StatelessWidget {
 
       if (!kIsWeb &&
           (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
+        final child = appBar;
         appBar = PreferredSize(
             preferredSize: appBar.preferredSize,
-            child: DragToMoveArea(child: appBar));
+            child: BlocBuilder<SettingsCubit, FlowSettings>(
+                buildWhen: (previous, current) =>
+                    previous.nativeTitleBar != current.nativeTitleBar,
+                builder: (context, state) => state.nativeTitleBar
+                    ? child
+                    : DragToMoveArea(child: child)));
       }
 
       return Row(

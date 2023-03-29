@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import '../../../services/source.dart';
-import '../../event/model.dart';
+import '../../event/moment/model.dart';
 import '../model.dart';
 
 abstract class MomentNoteService extends ModelService {

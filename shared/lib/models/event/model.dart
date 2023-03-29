@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shared/helpers/converter.dart';
 
 import '../model.dart';
 
@@ -23,6 +22,20 @@ class Event with _$Event {
   }) = _Event;
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
+
+  factory Event.fromDatabase(Map<String, dynamic> row) {
+    return Event.fromJson({
+      ...row,
+      'blocked': row['blocked'] == 1,
+    });
+  }
+
+  Map<String, dynamic> toDatabase() {
+    return {
+      ...toJson(),
+      'blocked': blocked ? 1 : 0,
+    };
+  }
 }
 
 enum EventStatus {
@@ -36,22 +49,4 @@ enum RepeatType {
   weekly,
   monthly,
   yearly,
-}
-
-@freezed
-class Moment with _$Moment {
-  const Moment._();
-
-  @Implements<DescriptiveModel>()
-  const factory Moment({
-    @Default(-1) int id,
-    @Default('') String name,
-    @Default('') String description,
-    @Default('') String location,
-    int? eventId,
-    @Default(EventStatus.confirmed) EventStatus status,
-    @DateTimeConverter() DateTime? time,
-  }) = _Moment;
-
-  factory Moment.fromJson(Map<String, dynamic> json) => _$MomentFromJson(json);
 }

@@ -8,6 +8,7 @@ import 'package:shared/models/user/service.dart';
 
 import '../models/cached.dart';
 import '../models/event/appointment/service.dart';
+import '../models/event/moment/service.dart';
 import '../models/note/service.dart';
 
 const apiVersion = 0;
