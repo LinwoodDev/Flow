@@ -11,7 +11,7 @@ import 'package:shared/models/event/model.dart';
 import 'package:shared/helpers/date_time.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'event.dart';
+import '../events/page.dart';
 import 'tile.dart';
 
 class CalendarListView extends StatefulWidget {
@@ -171,12 +171,10 @@ class _CalendarListViewState extends State<CalendarListView> {
                       child: ConstrainedBox(
                           constraints: const BoxConstraints(maxWidth: 1000),
                           child: GestureDetector(
-                            onTap: () => showDialog<Event>(
+                            onTap: () => showEventModalBottomSheet(
                               context: context,
-                              builder: (context) => EventDialog(
-                                time: date,
-                              ),
-                            ),
+                              time: date,
+                            ).then((value) => _controller.refresh()),
                             child: isMobile
                                 ? Column(
                                     children: [

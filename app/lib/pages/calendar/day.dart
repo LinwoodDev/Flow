@@ -11,7 +11,7 @@ import 'package:shared/models/event/appointment/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
 
-import 'event.dart';
+import '../events/page.dart';
 import 'filter.dart';
 import '../../helpers/event.dart';
 
@@ -236,12 +236,7 @@ class SingleDayList extends StatelessWidget {
               minutes,
             );
 
-            await showDialog(
-              context: context,
-              builder: (context) => EventDialog(
-                time: dateTime,
-              ),
-            );
+            await showCalendarCreate(context: context, time: dateTime);
             onChanged();
           }),
           for (final position in positions)

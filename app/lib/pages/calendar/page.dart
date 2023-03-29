@@ -1,20 +1,16 @@
 import 'package:flow/cubits/flow.dart';
-import 'package:flow/helpers/sourced_paging_controller.dart';
-import 'package:flow/pages/calendar/filter.dart';
-import 'package:flow/pages/calendar/list.dart';
-import 'package:flow/pages/calendar/pending.dart';
-import 'package:flow/widgets/material_bottom_sheet.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/event/model.dart';
 
-import '../../widgets/builder_delegate.dart';
 import 'day.dart';
-import 'event.dart';
+import '../events/page.dart';
+import 'filter.dart';
+import 'list.dart';
 import 'month.dart';
+import 'pending.dart';
 import 'week.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -244,20 +240,7 @@ class CreateEventScaffold extends StatelessWidget {
     void create(Event? event) {
       onCreated(event);
       if (event == null) return;
-      showMaterialBottomSheet(
-        context: context,
-        title: AppLocalizations.of(context).create,
-        childrenBuilder: (ctx) => [
-          ListTile(
-            title: Text(AppLocalizations.of(context).appointment),
-            leading: const Icon(Icons.event_outlined),
-          ),
-          ListTile(
-            title: Text(AppLocalizations.of(context).moment),
-            leading: const Icon(Icons.mood_outlined),
-          ),
-        ],
-      );
+      showCalendarCreate(context: context);
     }
 
     return Scaffold(
@@ -270,53 +253,4 @@ class CreateEventScaffold extends StatelessWidget {
       ),
     );
   }
-}
-
-Future<Event?> showEventModalBottomSheet(
-    {required BuildContext context, Event? event}) async {
-  Event? event;
-  final cubit = context.read<FlowCubit>();
-  final pagingController = SourcedPagingController<Event>(cubit);
-  pagingController.addFetchListener((source, service, offset, limit) async =>
-      service.event?.getEvents(offset: offset, limit: limit));
-  final shouldCreate = await showMaterialBottomSheet<bool>(
-      context: context,
-      title: AppLocalizations.of(context).events,
-      actionsBuilder: (ctx) => [
-            TextButton.icon(
-              icon: const Icon(Icons.add_circle_outline_outlined),
-              label: Text(AppLocalizations.of(context).create),
-              onPressed: () {
-                Navigator.of(ctx).pop(true);
-              },
-            ),
-          ],
-      childrenBuilder: (ctx) => [
-            PagedListView(
-                shrinkWrap: true,
-                pagingController: pagingController,
-                builderDelegate: buildMaterialPagedDelegate<Event>(
-                  pagingController,
-                  (ctx, item, index) {
-                    return ListTile(
-                      title: Text(item.name),
-                      leading: const Icon(Icons.event_outlined),
-                      onTap: () {
-                        event = item;
-                        Navigator.of(ctx).pop();
-                      },
-                    );
-                  },
-                )),
-          ]);
-  pagingController.dispose();
-  if (shouldCreate == true && context.mounted) {
-    event = await showDialog(
-      context: context,
-      builder: (ctx) => EventDialog(
-        event: event,
-      ),
-    );
-  }
-  return event;
 }

@@ -35,7 +35,7 @@ class _PlacesPageState extends State<PlacesPage> {
   Future<void> _fetchPage(int pageKey) async {
     try {
       final sources = _flowCubit.getCurrentServicesMap().entries;
-      final notes = <MapEntry<Place, String>>[];
+      final places = <MapEntry<Place, String>>[];
       var isLast = false;
       for (final source in sources) {
         final fetched = await source.value.place?.getPlaces(
@@ -43,16 +43,16 @@ class _PlacesPageState extends State<PlacesPage> {
           limit: _pageSize,
         );
         if (fetched == null) continue;
-        notes.addAll(fetched.map((note) => MapEntry(note, source.key)));
+        places.addAll(fetched.map((place) => MapEntry(place, source.key)));
         if (fetched.length < _pageSize) {
           isLast = true;
         }
       }
       if (isLast) {
-        _pagingController.appendLastPage(notes);
+        _pagingController.appendLastPage(places);
       } else {
         final nextPageKey = pageKey + 1;
-        _pagingController.appendPage(notes, nextPageKey);
+        _pagingController.appendPage(places, nextPageKey);
       }
     } catch (error) {
       _pagingController.error = error;

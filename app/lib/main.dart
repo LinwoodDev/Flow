@@ -15,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 
 import 'cubits/settings.dart';
+import 'pages/events/page.dart';
 import 'pages/calendar/page.dart';
 import 'pages/dashboard/page.dart';
 import 'pages/sources/page.dart';
@@ -125,6 +126,12 @@ class FlowApp extends StatelessWidget {
                       ? state.extra as CalendarFilter
                       : const CalendarFilter(),
                 ),
+              ),
+            ),
+            GoRoute(
+              path: '/events',
+              pageBuilder: _fadeTransitionBuilder(
+                (context, state) => const EventsPage(),
               ),
             ),
             GoRoute(

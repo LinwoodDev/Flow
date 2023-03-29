@@ -7,7 +7,7 @@ import 'package:shared/models/event/appointment/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'event.dart';
+import '../events/page.dart';
 import 'filter.dart';
 import '../../helpers/event.dart';
 import 'tile.dart';
@@ -311,12 +311,7 @@ class CalendarDayDialog extends StatelessWidget {
             tooltip: AppLocalizations.of(context).createEvent,
             onPressed: () async {
               Navigator.of(context).pop();
-              await showDialog(
-                context: context,
-                builder: (context) => EventDialog(
-                  time: date,
-                ),
-              );
+              await showCalendarCreate(context: context);
             },
           ),
         ],
