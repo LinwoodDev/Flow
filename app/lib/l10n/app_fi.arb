@@ -218,5 +218,23 @@
   "todo": "Todo",
   "appointment": "Appointment",
   "moment": "Moment",
-  "time": "Time"
+  "time": "Time",
+  "deleteEvent": "Delete event {name}",
+  "@deleteEvent": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "deleteEventDescription": "Are you sure you want to delete the event {name}?",
+  "@deleteEventDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  }
 }
