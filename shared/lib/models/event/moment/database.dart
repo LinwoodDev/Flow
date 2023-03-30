@@ -219,13 +219,27 @@ class MomentEventDatabaseConnector extends MomentEventConnector
       where = where == null ? 'placeId = ?' : '$where AND placeId = ?';
       whereArgs = whereArgs == null ? [placeId] : [...whereArgs, placeId];
     }
-    final result = await db?.rawQuery(
-      "SELECT * FROM moments INNER JOIN events ON events.id = moments.eventId WHERE $where",
-      whereArgs,
+    final result = await db?.query(
+      "moments INNER JOIN events ON events.id = moments.eventId",
+      columns: [
+        "events.*",
+        "moments.id AS momentId",
+        "moments.name AS momentName",
+        "moments.description AS momentDescription",
+        "moments.location AS momentLocation",
+        "moments.eventId AS momentEventId",
+        "moments.status AS momentStatus",
+        "moments.time AS momentTime",
+      ],
+      where: where,
+      whereArgs: whereArgs,
     );
     return result?.map((e) {
           return ConnectedModel<Moment, Event>(
-            Moment.fromJson(e),
+            Moment.fromJson(Map.fromEntries(e.entries
+                .where((element) => element.key.startsWith('moment'))
+                .map((e) =>
+                    MapEntry(e.key.substring('moment'.length), e.value)))),
             Event.fromDatabase(e),
           );
         }).toList() ??

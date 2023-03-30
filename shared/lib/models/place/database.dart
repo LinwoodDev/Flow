@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:shared/services/database.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
@@ -53,6 +54,16 @@ class PlaceDatabaseService extends PlaceService with TableService {
     );
     if (result == null) return [];
     return result.map((row) => Place.fromJson(row)).toList();
+  }
+
+  @override
+  FutureOr<Place?> getPlace(int id) async {
+    final result = await db?.query(
+      'places',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    return result?.map(Place.fromJson).firstOrNull;
   }
 
   @override

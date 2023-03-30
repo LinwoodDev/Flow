@@ -6,8 +6,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/group/model.dart';
 import 'package:shared/models/model.dart';
+import 'package:shared/models/place/model.dart';
 
 import '../../widgets/source_dropdown.dart';
+import '../places/select.dart';
 
 class EventDialog extends StatelessWidget {
   final String? source;
@@ -105,6 +107,49 @@ class EventDialog extends StatelessWidget {
                                       .getSource(source!)
                                       .group
                                       ?.getGroup(currentEvent.groupId ?? -1)),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      return Text(snapshot.data!.name);
+                                    } else if (snapshot.hasError) {
+                                      return Text(snapshot.error.toString());
+                                    } else {
+                                      return const CircularProgressIndicator();
+                                    }
+                                  },
+                                ),
+                        )),
+                const SizedBox(height: 16),
+                StatefulBuilder(
+                    builder: (context, setState) => ListTile(
+                          leading: const Icon(Icons.location_on_outlined),
+                          title: Text(AppLocalizations.of(context).place),
+                          onTap: () async {
+                            final sourcePlace =
+                                await showDialog<SourcedModel<Place>>(
+                              context: context,
+                              builder: (context) => PlaceSelectDialog(
+                                selected: currentEvent.placeId == null
+                                    ? null
+                                    : SourcedModel(
+                                        source!, currentEvent.placeId!),
+                                source: source!,
+                              ),
+                            );
+                            if (sourcePlace != null) {
+                              setState(() {
+                                currentEvent = currentEvent.copyWith(
+                                    placeId: sourcePlace.model.id);
+                              });
+                            }
+                          },
+                          subtitle: currentEvent.placeId == null
+                              ? null
+                              : FutureBuilder<Place?>(
+                                  future: Future.value(context
+                                      .read<FlowCubit>()
+                                      .getSource(source!)
+                                      .place
+                                      ?.getPlace(currentEvent.placeId ?? -1)),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
                                       return Text(snapshot.data!.name);

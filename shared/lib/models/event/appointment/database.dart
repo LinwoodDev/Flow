@@ -231,13 +231,38 @@ class AppointmentEventDatabaseConnector extends AppointmentEventConnector
       where = where == null ? 'placeId = ?' : '$where AND placeId = ?';
       whereArgs = whereArgs == null ? [placeId] : [...whereArgs, placeId];
     }
-    final result = await db?.rawQuery(
-      "SELECT * FROM appointments INNER JOIN events ON events.id = appointments.eventId WHERE $where",
-      whereArgs,
+    final result = await db?.query(
+      "appointments INNER JOIN events ON events.id = appointments.eventId",
+      columns: [
+        "events.*",
+        "appointments.runtimeType AS appointmentruntimeType",
+        "appointments.id AS appointmentid",
+        "appointments.name AS appointmentname",
+        "appointments.description AS appointmentdescription",
+        "appointments.location AS appointmentlocation",
+        "appointments.eventId AS appointmenteventId",
+        "appointments.start AS appointmentstart",
+        "appointments.end AS appointmentend",
+        "appointments.status AS appointmentstatus",
+        "appointments.repeatType AS appointmentrepeatType",
+        "appointments.interval AS appointmentinterval",
+        "appointments.variation AS appointmentvariation",
+        "appointments.count AS appointmentcount",
+        "appointments.until AS appointmentuntil",
+        "appointments.exceptions AS appointmentexceptions",
+        "appointments.autoGroupId AS appointmentautoGroupId",
+        "appointments.searchStart AS appointmentsearchStart",
+        "appointments.autoDuration AS appointmentautoDuration",
+      ],
+      where: where,
+      whereArgs: whereArgs,
     );
     return result?.map((e) {
           return ConnectedModel<Appointment, Event>(
-            Appointment.fromJson(e),
+            Appointment.fromJson(Map.fromEntries(e.entries
+                .where((element) => element.key.startsWith('appointment'))
+                .map((e) =>
+                    MapEntry(e.key.substring("appointment".length), e.value)))),
             Event.fromDatabase(e),
           );
         }).toList() ??

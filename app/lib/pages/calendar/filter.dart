@@ -7,6 +7,7 @@ import 'package:shared/models/event/model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/group/model.dart';
 import 'package:shared/models/model.dart';
+import 'package:shared/models/place/model.dart';
 
 part 'filter.freezed.dart';
 
@@ -154,18 +155,18 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                     widget.onChanged(_filter);
                   },
             onSelected: (value) async {
-              final placeId = await showDialog<MapEntry<String, int>>(
+              final place = await showDialog<SourcedModel<Place>>(
                 context: context,
                 builder: (context) => PlaceSelectDialog(
-                  selected: _filter.place != null
-                      ? MapEntry(_filter.source!, _filter.group!)
+                  selected: _filter.place != null && _filter.source != null
+                      ? SourcedModel(_filter.source!, _filter.place!)
                       : null,
                 ),
               );
-              if (placeId != null) {
+              if (place != null) {
                 setState(() {
                   _filter = _filter.copyWith(
-                      place: placeId.value, source: placeId.key);
+                      place: place.model.id, source: place.source);
                 });
                 widget.onChanged(_filter);
               }
