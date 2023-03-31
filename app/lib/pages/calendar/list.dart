@@ -206,7 +206,7 @@ class _CalendarListViewState extends State<CalendarListView> {
                     List<SourcedConnectedModel<EventItem, Event>>>(
                   _controller,
                   (context, item, index) {
-                    var date = DateTime.now();
+                    var date = DateTime.now().onlyDate();
                     if (widget.filter.past) {
                       date = date.subtract(Duration(days: index));
                     } else {

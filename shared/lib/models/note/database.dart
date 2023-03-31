@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:shared/models/note/service.dart';
 import 'package:shared/services/database.dart';
 import 'package:sqflite_common/sqlite_api.dart';
@@ -12,7 +13,6 @@ class NoteDatabaseService extends NoteService with TableService {
     return db.execute("""
       CREATE TABLE IF NOT EXISTS notes (
         id INTEGER PRIMARY KEY,
-        eventId INTEGER,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT,
         status VARCHAR(20),
@@ -41,22 +41,18 @@ class NoteDatabaseService extends NoteService with TableService {
 
   @override
   Future<List<Note>> getNotes({
-    int? eventId,
     int offset = 0,
     int limit = 50,
-    Set<NoteStatus> statuses = const {
+    Set<NoteStatus?> statuses = const {
       NoteStatus.todo,
       NoteStatus.inProgress,
-      NoteStatus.done
+      NoteStatus.done,
+      null
     },
     String search = '',
   }) async {
     String? where;
     List<Object>? whereArgs;
-    if (eventId != null) {
-      where = 'eventId = ?';
-      whereArgs = [eventId];
-    }
     if (search.isNotEmpty) {
       where = where == null
           ? '(name LIKE ? OR description LIKE ?)'
@@ -65,13 +61,12 @@ class NoteDatabaseService extends NoteService with TableService {
           ? ['%$search%', '%$search%']
           : [...whereArgs, '%$search%', '%$search%'];
     }
-    final statusStatement =
-        "status IN (${statuses.map((e) => "'${e.name}'").join(',')})";
-    if (where != null) {
-      where += ' AND $statusStatement';
-    } else {
-      where = statusStatement;
+    var statusStatement =
+        "status IN (${statuses.whereNotNull().map((e) => "'${e.name}'").join(',')})";
+    if (statuses.contains(null)) {
+      statusStatement = "$statusStatement OR status IS NULL";
     }
+    where = where == null ? statusStatement : '$where AND $statusStatement';
     final result = await db?.query(
       'notes',
       where: where,

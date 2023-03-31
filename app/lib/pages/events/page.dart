@@ -283,29 +283,29 @@ Future<void> showCalendarCreate(
         ListTile(
           title: Text(AppLocalizations.of(context).appointment),
           leading: const Icon(Icons.event_outlined),
-          onTap: () {
-            showDialog(
+          onTap: () async {
+            await showDialog(
               context: context,
               builder: (context) => AppointmentDialog(
                 event: eventResult,
                 create: true,
               ),
             );
-            Navigator.of(ctx).pop();
+            if (context.mounted) Navigator.of(ctx).pop();
           },
         ),
         ListTile(
           title: Text(AppLocalizations.of(context).moment),
           leading: const Icon(Icons.mood_outlined),
-          onTap: () {
-            showDialog(
+          onTap: () async {
+            await showDialog(
               context: context,
               builder: (context) => MomentDialog(
                 event: eventResult,
                 create: true,
               ),
             );
-            Navigator.of(ctx).pop();
+            if (context.mounted) Navigator.of(ctx).pop();
           },
         ),
       ],

@@ -12,6 +12,7 @@ abstract class AppointmentService extends ModelService {
     int? eventId,
     int? groupId,
     int? placeId,
+    bool pending = false,
     int offset = 0,
     int limit = 50,
     DateTime? start,

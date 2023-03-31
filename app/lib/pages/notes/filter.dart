@@ -10,17 +10,19 @@ class NoteFilter with _$NoteFilter {
   const factory NoteFilter({
     @Default(true) bool showDone,
     @Default(true) bool showInProgress,
+    @Default(true) bool showTodo,
     @Default(true) bool showNote,
   }) = _NoteFilter;
 
   const NoteFilter._();
 
-  Set<NoteStatus> get statuses {
-    final statuses = <NoteStatus>{};
-    if (showDone) statuses.add(NoteStatus.done);
-    if (showInProgress) statuses.add(NoteStatus.inProgress);
-    if (showNote) statuses.add(NoteStatus.todo);
-    return statuses;
+  Set<NoteStatus?> get statuses {
+    return {
+      if (showDone) NoteStatus.done,
+      if (showInProgress) NoteStatus.inProgress,
+      if (showNote) NoteStatus.todo,
+      if (showNote) null,
+    };
   }
 }
 
@@ -91,8 +93,28 @@ class _NoteFilterViewState extends State<NoteFilterView> {
             },
           ),
           InputChip(
-            label: Text(AppLocalizations.of(context).note),
+            label: Text(AppLocalizations.of(context).todo),
             avatar: Icon(Icons.check_box_outline_blank_outlined,
+                color: _filter.showTodo
+                    ? Theme.of(context).colorScheme.onPrimaryContainer
+                    : Theme.of(context).iconTheme.color),
+            selected: _filter.showTodo,
+            selectedColor: Theme.of(context).colorScheme.primaryContainer,
+            labelStyle: TextStyle(
+                color: _filter.showTodo
+                    ? Theme.of(context).colorScheme.onPrimaryContainer
+                    : null),
+            showCheckmark: false,
+            onSelected: (value) {
+              setState(() {
+                _filter = _filter.copyWith(showTodo: value);
+                widget.onChanged(_filter);
+              });
+            },
+          ),
+          InputChip(
+            label: Text(AppLocalizations.of(context).note),
+            avatar: Icon(Icons.notes_outlined,
                 color: _filter.showNote
                     ? Theme.of(context).colorScheme.onPrimaryContainer
                     : Theme.of(context).iconTheme.color),

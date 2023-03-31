@@ -29,33 +29,42 @@ class CalendarListTile extends StatelessWidget {
     final locale = Localizations.localeOf(context).languageCode;
     final timeFormatter = DateFormat.Hm(locale);
     final model = eventItem.main;
-    String start = '', end = '';
+    final eventName = eventItem.sub.name;
+    final name = model.name.isEmpty ? eventName : model.name;
+    String range = '';
     if (model is Appointment) {
-      start = model.start?.onlyDate() == date && model.start != null
+      final start = model.start?.onlyDate() == date && model.start != null
           ? timeFormatter.format(model.start!)
           : '';
-      end = model.end?.onlyDate() == date && model.end != null
+      final end = model.end?.onlyDate() == date && model.end != null
           ? timeFormatter.format(model.end!)
           : '';
+      if (start == '' && end == '') {
+        range = '';
+      } else if (start == '') {
+        range = ' - $end';
+      } else if (end == '') {
+        range = '$start -';
+      } else {
+        range = '$start - $end';
+      }
     } else if (model is Moment) {
-      start = model.time?.onlyDate() == date && model.time != null
+      range = model.time?.onlyDate() == date && model.time != null
           ? timeFormatter.format(model.time!)
           : '';
     }
-    String range;
-    if (start == '' && end == '') {
-      range = '';
-    } else if (start == '') {
-      range = ' - $end';
-    } else if (end == '') {
-      range = '$start -';
-    } else {
-      range = '$start - $end';
-    }
     final main = eventItem.main;
     return ListTile(
-      title: Text(model.name),
-      subtitle: Text(range),
+      title: Text(name),
+      subtitle: Wrap(
+        spacing: 16,
+        children: [
+          if (range.isNotEmpty) ...[
+            Text(range),
+          ],
+          if (eventName != name) Text(eventItem.sub.name),
+        ],
+      ),
       leading: Tooltip(
         message: model.status.getLocalizedName(context),
         child: Icon(

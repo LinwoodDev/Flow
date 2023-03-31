@@ -8,10 +8,11 @@ abstract class NoteService extends ModelService {
   FutureOr<List<Note>> getNotes({
     int offset = 0,
     int limit = 50,
-    Set<NoteStatus> statuses = const {
+    Set<NoteStatus?> statuses = const {
       NoteStatus.todo,
       NoteStatus.inProgress,
-      NoteStatus.done
+      NoteStatus.done,
+      null,
     },
     String search = '',
   });

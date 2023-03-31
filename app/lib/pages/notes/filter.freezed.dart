@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$NoteFilter {
   bool get showDone => throw _privateConstructorUsedError;
   bool get showInProgress => throw _privateConstructorUsedError;
+  bool get showTodo => throw _privateConstructorUsedError;
   bool get showNote => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,7 +32,7 @@ abstract class $NoteFilterCopyWith<$Res> {
           NoteFilter value, $Res Function(NoteFilter) then) =
       _$NoteFilterCopyWithImpl<$Res, NoteFilter>;
   @useResult
-  $Res call({bool showDone, bool showInProgress, bool showNote});
+  $Res call({bool showDone, bool showInProgress, bool showTodo, bool showNote});
 }
 
 /// @nodoc
@@ -49,6 +50,7 @@ class _$NoteFilterCopyWithImpl<$Res, $Val extends NoteFilter>
   $Res call({
     Object? showDone = null,
     Object? showInProgress = null,
+    Object? showTodo = null,
     Object? showNote = null,
   }) {
     return _then(_value.copyWith(
@@ -59,6 +61,10 @@ class _$NoteFilterCopyWithImpl<$Res, $Val extends NoteFilter>
       showInProgress: null == showInProgress
           ? _value.showInProgress
           : showInProgress // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showTodo: null == showTodo
+          ? _value.showTodo
+          : showTodo // ignore: cast_nullable_to_non_nullable
               as bool,
       showNote: null == showNote
           ? _value.showNote
@@ -76,7 +82,7 @@ abstract class _$$_NoteFilterCopyWith<$Res>
       __$$_NoteFilterCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool showDone, bool showInProgress, bool showNote});
+  $Res call({bool showDone, bool showInProgress, bool showTodo, bool showNote});
 }
 
 /// @nodoc
@@ -92,6 +98,7 @@ class __$$_NoteFilterCopyWithImpl<$Res>
   $Res call({
     Object? showDone = null,
     Object? showInProgress = null,
+    Object? showTodo = null,
     Object? showNote = null,
   }) {
     return _then(_$_NoteFilter(
@@ -102,6 +109,10 @@ class __$$_NoteFilterCopyWithImpl<$Res>
       showInProgress: null == showInProgress
           ? _value.showInProgress
           : showInProgress // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showTodo: null == showTodo
+          ? _value.showTodo
+          : showTodo // ignore: cast_nullable_to_non_nullable
               as bool,
       showNote: null == showNote
           ? _value.showNote
@@ -115,7 +126,10 @@ class __$$_NoteFilterCopyWithImpl<$Res>
 
 class _$_NoteFilter extends _NoteFilter {
   const _$_NoteFilter(
-      {this.showDone = true, this.showInProgress = true, this.showNote = true})
+      {this.showDone = true,
+      this.showInProgress = true,
+      this.showTodo = true,
+      this.showNote = true})
       : super._();
 
   @override
@@ -126,11 +140,14 @@ class _$_NoteFilter extends _NoteFilter {
   final bool showInProgress;
   @override
   @JsonKey()
+  final bool showTodo;
+  @override
+  @JsonKey()
   final bool showNote;
 
   @override
   String toString() {
-    return 'NoteFilter(showDone: $showDone, showInProgress: $showInProgress, showNote: $showNote)';
+    return 'NoteFilter(showDone: $showDone, showInProgress: $showInProgress, showTodo: $showTodo, showNote: $showNote)';
   }
 
   @override
@@ -142,13 +159,15 @@ class _$_NoteFilter extends _NoteFilter {
                 other.showDone == showDone) &&
             (identical(other.showInProgress, showInProgress) ||
                 other.showInProgress == showInProgress) &&
+            (identical(other.showTodo, showTodo) ||
+                other.showTodo == showTodo) &&
             (identical(other.showNote, showNote) ||
                 other.showNote == showNote));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, showDone, showInProgress, showNote);
+      Object.hash(runtimeType, showDone, showInProgress, showTodo, showNote);
 
   @JsonKey(ignore: true)
   @override
@@ -161,6 +180,7 @@ abstract class _NoteFilter extends NoteFilter {
   const factory _NoteFilter(
       {final bool showDone,
       final bool showInProgress,
+      final bool showTodo,
       final bool showNote}) = _$_NoteFilter;
   const _NoteFilter._() : super._();
 
@@ -168,6 +188,8 @@ abstract class _NoteFilter extends NoteFilter {
   bool get showDone;
   @override
   bool get showInProgress;
+  @override
+  bool get showTodo;
   @override
   bool get showNote;
   @override

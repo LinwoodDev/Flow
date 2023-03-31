@@ -47,6 +47,7 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
       int? eventId,
       int? groupId,
       int? placeId,
+      bool pending = false,
       int offset = 0,
       int limit = 50,
       DateTime? start,
@@ -96,6 +97,11 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
               startAppointment.secondsSinceEpoch,
               endAppointment.secondsSinceEpoch,
             ];
+    }
+    if (pending) {
+      where = where == null
+          ? '(start IS NULL AND end IS NULL)'
+          : '$where AND (start IS NULL AND end IS NULL)';
     }
     if (search.isNotEmpty) {
       where = where == null

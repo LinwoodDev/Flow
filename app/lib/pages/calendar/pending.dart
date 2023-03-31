@@ -74,6 +74,7 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
             .where((element) => !widget.filter.hiddenStatuses.contains(element))
             .toList(),
         search: widget.search,
+        pending: true,
         offset: _pageSize * key,
         limit: _pageSize,
       );
