@@ -5,10 +5,9 @@ import 'package:shared/models/note/model.dart';
 import '../models/event/appointment/model.dart';
 
 class ICalConverter {
-  String summary = '';
   CachedData? data;
 
-  void read(List<String> lines) {
+  void read(List<String> lines, [String name = '']) {
     final offset =
         lines.indexWhere((element) => element.trim() == 'BEGIN:VCALENDAR');
     if (offset == -1) {
@@ -17,7 +16,7 @@ class ICalConverter {
     Appointment? currentAppointment;
     Note? currentNote;
     final appointments = List<Appointment>.from(data?.appointments ?? []);
-    final events = List<Event>.from(data?.events ?? []);
+    var currentEvent = Event(name: name);
     final notes = List<Note>.from(data?.notes ?? []);
     for (int i = offset; i < lines.length; i++) {
       final line = lines[i];
@@ -63,15 +62,14 @@ class ICalConverter {
       } else {
         switch (key) {
           case 'SUMMARY':
-            summary = value;
+          case 'X-WR-CALNAME':
+            currentEvent = currentEvent.copyWith(name: value);
             break;
           case 'BEGIN':
             if (value == 'VEVENT') {
-              final event = Event(id: events.length + 1);
-              events.add(event);
               currentAppointment = Appointment.fixed(
                 id: appointments.length + 1,
-                eventId: event.id,
+                eventId: currentEvent.id,
               );
             } else if (value == 'VTODO') {
               currentNote = Note();
@@ -80,7 +78,7 @@ class ICalConverter {
           case 'END':
             if (value == 'VCALENDAR') {
               data = CachedData(
-                events: events,
+                events: [currentEvent],
                 notes: notes,
               );
               return;

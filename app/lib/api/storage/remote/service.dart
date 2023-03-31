@@ -1,5 +1,6 @@
 import 'package:flow/api/storage/remote/caldav.dart';
 import 'package:flow/api/storage/remote/model.dart';
+import 'package:flow/api/storage/remote/sia.dart';
 import 'package:shared/models/event/service.dart';
 import 'package:shared/models/group/service.dart';
 import 'package:shared/models/place/service.dart';
@@ -20,6 +21,9 @@ abstract class RemoteService<T extends RemoteStorage> extends SourceService {
     return storage.map(
       calDav: (value) =>
           CalDavRemoteService(value, local, password) as RemoteService<T>,
+      webDav: (value) => throw UnimplementedError(),
+      sia: (value) =>
+          SiaRemoteService(value, local, password) as RemoteService<T>,
     );
   }
 

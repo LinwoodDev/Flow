@@ -11,8 +11,8 @@ import 'package:xml/xml.dart';
 import 'model.dart';
 import 'service.dart';
 
-class CalDavRemoteService extends RemoteService<CalDavStorage> {
-  CalDavRemoteService(super.remoteStorage, super.local, super.password);
+class SiaRemoteService extends RemoteService<SiaStorage> {
+  SiaRemoteService(super.remoteStorage, super.local, super.password);
 
   @override
   PlaceService? get place => null;
@@ -60,7 +60,7 @@ class CalDavRemoteService extends RemoteService<CalDavStorage> {
     final converter = ICalConverter();
     for (var element in data) {
       final text = element.innerText;
-      converter.read(text.split('\n'), remoteStorage.identifier);
+      converter.read(text.split('\n'));
     }
     if (converter.data != null) import(converter.data!);
   }

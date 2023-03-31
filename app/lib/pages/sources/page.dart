@@ -1,6 +1,7 @@
 import 'package:flow/api/storage/remote/model.dart';
 import 'package:flow/cubits/settings.dart';
 import 'package:flow/pages/sources/dialog.dart';
+import 'package:flow/visualizer/storage.dart';
 import 'package:flow/visualizer/sync.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
@@ -61,8 +62,7 @@ class SourcesPage extends StatelessWidget {
                           },
                           child: ListTile(
                             title: Text(remote.displayName),
-                            leading: Icon(
-                                remote.map(calDav: (_) => Icons.web_outlined)),
+                            leading: Icon(remote.getIcon()),
                           ),
                         );
                       },

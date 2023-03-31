@@ -8,10 +8,19 @@ part 'model.g.dart';
 @freezed
 class RemoteStorage with _$RemoteStorage {
   const RemoteStorage._();
+
   const factory RemoteStorage.calDav({
     required String url,
     required String username,
   }) = CalDavStorage;
+  const factory RemoteStorage.webDav({
+    required String url,
+    required String username,
+  }) = WebDavStorage;
+  const factory RemoteStorage.sia({
+    required String url,
+    required String username,
+  }) = SiaStorage;
 
   factory RemoteStorage.fromJson(Map<String, dynamic> json) =>
       _$RemoteStorageFromJson(json);

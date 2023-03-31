@@ -13,7 +13,7 @@ class CalDavSourceDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(AppLocalizations.of(context).caldav),
+      title: const Text("CalDAV"),
       content: SizedBox(
         width: 400,
         child: Column(
