@@ -42,8 +42,8 @@
   "month": "Måned",
   "version": "Versjon",
   "intro": "Introduksjon",
-  "caldav": "CalDAV",
-  "caldavDescription": "CalDAV-grensesnittet gir deg tilgang til dine data fra hvilken som helst CalDAV-server. Du kan bruke den for å synkronisere dataene med andre enheter eller tjenester.",
+  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
+  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
   "server": "Tjener",
   "serverDescription": "Synkroniser dataene dine med en naturlig Linewood Flow server. Dette er anbefalt for brukere som vil selv-arrangere dataene.",
   "googleDescription": "Synkroniser dataene dine med Google. Dette anbefales for brukere som vil bruke Google-kontoen sin for å få tilgang til dataene. Ikke alle funksjoner er tilgjengelige med dette alternativet.",
@@ -243,5 +243,6 @@
   "editMoment": "Edit moment",
   "convertToNote": "Convert to note",
   "convertToTodo": "Convert to todo",
-  "open": "Open"
+  "open": "Open",
+  "limited": "Limited"
 }
