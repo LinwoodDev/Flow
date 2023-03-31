@@ -69,7 +69,7 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
     }
     final appointments = <SourcedConnectedModel<Appointment, Event>>[];
     for (final source in sources.entries) {
-      final fetched = await source.value.appointmentEvent?.getAppointments(
+      final fetched = await source.value.appointment?.getAppointments(
         status: EventStatus.values
             .where((element) => !widget.filter.hiddenStatuses.contains(element))
             .toList(),

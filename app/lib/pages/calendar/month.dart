@@ -71,7 +71,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
     ];
     for (final source in sources.entries) {
       for (int i = 0; i < days; i++) {
-        final fetchedDay = await source.value.appointmentEvent?.getAppointments(
+        final fetchedDay = await source.value.appointment?.getAppointments(
           date: _date.addDays(i),
           status: EventStatus.values
               .where(

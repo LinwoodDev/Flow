@@ -3,19 +3,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared/models/event/appointment/model.dart';
+import 'package:shared/models/event/model.dart';
+import 'package:shared/models/model.dart';
 
 import '../../cubits/flow.dart';
 
 class DashboardEventsCard extends StatelessWidget {
   const DashboardEventsCard({Key? key}) : super(key: key);
 
-  Future<List<Appointment>> _getAppointment(BuildContext context) async {
-    final sources = context.read<FlowCubit>().getCurrentServices();
-    final appointments = <Appointment>[];
-    for (final source in sources) {
-      appointments.addAll(
-          await source.appointment?.getAppointments(date: DateTime.now()) ??
-              []);
+  Future<List<SourcedConnectedModel<Appointment, Event>>> _getAppointment(
+      BuildContext context) async {
+    final sources = context.read<FlowCubit>().getCurrentServicesMap();
+    final appointments = <SourcedConnectedModel<Appointment, Event>>[];
+    for (final source in sources.entries) {
+      appointments.addAll((await source.value.appointment
+                  ?.getAppointments(date: DateTime.now()) ??
+              [])
+          .map((e) => SourcedModel(source.key, e)));
     }
     return appointments;
   }
@@ -39,7 +43,7 @@ class DashboardEventsCard extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 20),
-        FutureBuilder<List<Appointment>>(
+        FutureBuilder<List<SourcedConnectedModel<Appointment, Event>>>(
             future: _getAppointment(context),
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
@@ -52,8 +56,8 @@ class DashboardEventsCard extends StatelessWidget {
               return Column(
                 children: appointments
                     .map((e) => ListTile(
-                          title: Text(e.name),
-                          subtitle: Text(e.description),
+                          title: Text(e.main.name),
+                          subtitle: Text(e.main.description),
                         ))
                     .toList(),
               );

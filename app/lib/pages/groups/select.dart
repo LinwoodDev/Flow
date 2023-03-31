@@ -7,6 +7,8 @@ import 'package:shared/models/group/model.dart';
 import 'package:shared/models/model.dart';
 import 'package:shared/services/source.dart';
 
+import '../../widgets/builder_delegate.dart';
+
 class GroupSelectDialog extends StatefulWidget {
   final String? source;
   final MapEntry<String, int>? selected;
@@ -93,8 +95,10 @@ class _GroupSelectDialogState extends State<GroupSelectDialog> {
             Expanded(
               child: PagedListView<int, SourcedModel<Group>>(
                 pagingController: _pagingController,
-                builderDelegate: PagedChildBuilderDelegate<SourcedModel<Group>>(
-                  itemBuilder: (context, item, index) => ListTile(
+                builderDelegate:
+                    buildMaterialPagedDelegate<SourcedModel<Group>>(
+                  _pagingController,
+                  (context, item, index) => ListTile(
                     title: Text(item.model.name),
                     selected: widget.selected?.value == item.model.id &&
                         widget.selected?.key == item.source,

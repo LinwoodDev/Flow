@@ -8,6 +8,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/note/model.dart';
 
 import '../../cubits/flow.dart';
+import '../../widgets/builder_delegate.dart';
 import 'card.dart';
 
 class NotesPage extends StatefulWidget {
@@ -180,8 +181,9 @@ class _NotesBodyViewState extends State<NotesBodyView> {
         Flexible(
           child: PagedListView(
             pagingController: widget.pagingController,
-            builderDelegate: PagedChildBuilderDelegate<MapEntry<Note, String>>(
-              itemBuilder: (context, item, index) => Align(
+            builderDelegate: buildMaterialPagedDelegate<MapEntry<Note, String>>(
+              widget.pagingController,
+              (context, item, index) => Align(
                 alignment: Alignment.topCenter,
                 child: Container(
                     constraints: const BoxConstraints(maxWidth: 800),

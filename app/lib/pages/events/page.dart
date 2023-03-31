@@ -90,8 +90,9 @@ class _EventsPageState extends State<EventsPage> {
                 child: PagedListView(
                   pagingController: _pagingController,
                   builderDelegate:
-                      PagedChildBuilderDelegate<MapEntry<Event, String>>(
-                    itemBuilder: (ctx, item, index) => Dismissible(
+                      buildMaterialPagedDelegate<MapEntry<Event, String>>(
+                    _pagingController,
+                    (ctx, item, index) => Dismissible(
                       key: ValueKey(item.key.id),
                       onDismissed: (direction) async {
                         await _flowCubit
@@ -275,7 +276,7 @@ Future<void> showCalendarCreate(
       event ?? await showEventModalBottomSheet(context: context, time: time);
   if (eventResult == null) return;
   if (context.mounted) {
-    showMaterialBottomSheet(
+    await showMaterialBottomSheet(
       context: context,
       title: AppLocalizations.of(context).create,
       childrenBuilder: (ctx) => [
@@ -283,7 +284,6 @@ Future<void> showCalendarCreate(
           title: Text(AppLocalizations.of(context).appointment),
           leading: const Icon(Icons.event_outlined),
           onTap: () {
-            Navigator.of(ctx).pop();
             showDialog(
               context: context,
               builder: (context) => AppointmentDialog(
@@ -291,13 +291,13 @@ Future<void> showCalendarCreate(
                 create: true,
               ),
             );
+            Navigator.of(ctx).pop();
           },
         ),
         ListTile(
           title: Text(AppLocalizations.of(context).moment),
           leading: const Icon(Icons.mood_outlined),
           onTap: () {
-            Navigator.of(ctx).pop();
             showDialog(
               context: context,
               builder: (context) => MomentDialog(
@@ -305,6 +305,7 @@ Future<void> showCalendarCreate(
                 create: true,
               ),
             );
+            Navigator.of(ctx).pop();
           },
         ),
       ],

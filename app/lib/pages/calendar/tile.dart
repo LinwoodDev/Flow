@@ -56,8 +56,13 @@ class CalendarListTile extends StatelessWidget {
     return ListTile(
       title: Text(model.name),
       subtitle: Text(range),
-      leading: Icon(model.status.getIcon(main is Appointment),
-          color: model.status.getColor()),
+      leading: Tooltip(
+        message: model.status.getLocalizedName(context),
+        child: Icon(
+          model.status.getIcon(main is Appointment),
+          color: model.status.getColor(),
+        ),
+      ),
       onTap: () {
         if (main is Appointment) {
           showDialog(

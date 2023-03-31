@@ -16,9 +16,7 @@ const apiVersion = 0;
 abstract class SourceService {
   EventService? get event => null;
   AppointmentService? get appointment => null;
-  AppointmentEventConnector? get appointmentEvent => null;
   MomentService? get moment => null;
-  MomentEventConnector? get momentEvent => null;
 
   NoteService? get note => null;
   PlaceService? get place => null;

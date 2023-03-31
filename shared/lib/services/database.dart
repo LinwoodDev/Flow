@@ -27,11 +27,7 @@ class DatabaseService extends SourceService {
   @override
   late final AppointmentDatabaseService appointment;
   @override
-  late final AppointmentEventDatabaseConnector appointmentEvent;
-  @override
   late final MomentDatabaseService moment;
-  @override
-  late final MomentEventDatabaseConnector momentEvent;
   @override
   late final NoteDatabaseService note;
   @override
@@ -49,9 +45,7 @@ class DatabaseService extends SourceService {
   Future<void> setup(String name) async {
     event = EventDatabaseService();
     appointment = AppointmentDatabaseService();
-    appointmentEvent = AppointmentEventDatabaseConnector();
     moment = MomentDatabaseService();
-    momentEvent = MomentEventDatabaseConnector();
     note = NoteDatabaseService();
     place = PlaceDatabaseService();
     group = GroupDatabaseService();
@@ -69,8 +63,7 @@ class DatabaseService extends SourceService {
     }
   }
 
-  List<TableService> get tables =>
-      [...models.cast<TableService>(), appointmentEvent, momentEvent];
+  List<TableService> get tables => [...models.cast<TableService>()];
 
   FutureOr<void> _onCreate(Database db, int version) async {
     for (var table in tables) {

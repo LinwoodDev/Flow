@@ -7,6 +7,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
 import 'package:shared/models/event/appointment/model.dart';
+import 'package:shared/models/event/model.dart';
+import 'package:shared/models/model.dart';
 import 'package:shared/services/source.dart';
 
 class AppointmentSelectDialog extends StatefulWidget {
@@ -29,8 +31,8 @@ class AppointmentSelectDialog extends StatefulWidget {
 class _AppointmentSelectDialogState extends State<AppointmentSelectDialog> {
   static const _pageSize = 20;
   final TextEditingController _controller = TextEditingController();
-  final PagingController<int, MapEntry<String, Appointment>> _pagingController =
-      PagingController(firstPageKey: 0);
+  final PagingController<int, SourcedConnectedModel<Appointment, Event>>
+      _pagingController = PagingController(firstPageKey: 0);
 
   @override
   void initState() {
@@ -52,11 +54,10 @@ class _AppointmentSelectDialogState extends State<AppointmentSelectDialog> {
           limit: _pageSize,
           search: _controller.text,
         );
-        return (appointments ?? <Appointment>[])
-            .map((event) => MapEntry(source.key, event))
+        return (appointments ?? <ConnectedModel<Appointment, Event>>[])
+            .map((event) => SourcedModel(source.key, event))
             .where((element) =>
-                element.value.id != widget.ignore ||
-                source.key != widget.source)
+                element.sub.id != widget.ignore || source.key != widget.source)
             .toList();
       }));
       final allAppointments =
@@ -99,16 +100,17 @@ class _AppointmentSelectDialogState extends State<AppointmentSelectDialog> {
             const Divider(),
             const SizedBox(height: 8),
             Expanded(
-              child: PagedListView<int, MapEntry<String, Appointment>>(
+              child:
+                  PagedListView<int, SourcedConnectedModel<Appointment, Event>>(
                 pagingController: _pagingController,
                 builderDelegate: buildMaterialPagedDelegate(
                   _pagingController,
                   (context, item, index) {
-                    final appointment = item.value;
+                    final appointment = item.main;
                     return ListTile(
-                      subtitle: Text(item.key),
-                      selected: widget.selected?.value == item.value.id &&
-                          widget.selected?.key == item.key,
+                      subtitle: Text(appointment.name),
+                      selected: widget.selected?.value == appointment.id &&
+                          widget.selected?.key == item.source,
                       title: Text(AppLocalizations.of(context).eventInfo(
                         appointment.name,
                         appointment.start == null
@@ -123,8 +125,7 @@ class _AppointmentSelectDialogState extends State<AppointmentSelectDialog> {
                         appointment.status.getLocalizedName(context),
                       )),
                       onTap: () {
-                        Navigator.of(context)
-                            .pop(MapEntry(item.key, item.value.id));
+                        Navigator.of(context).pop(item);
                       },
                     );
                   },

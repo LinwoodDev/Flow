@@ -7,6 +7,8 @@ import 'package:shared/models/model.dart';
 import 'package:shared/models/place/model.dart';
 import 'package:shared/services/source.dart';
 
+import '../../widgets/builder_delegate.dart';
+
 class PlaceSelectDialog extends StatefulWidget {
   final String? source;
   final SourcedModel<int>? selected;
@@ -88,8 +90,10 @@ class _PlaceSelectDialogState extends State<PlaceSelectDialog> {
             Expanded(
               child: PagedListView<int, SourcedModel<Place>>(
                 pagingController: _pagingController,
-                builderDelegate: PagedChildBuilderDelegate<SourcedModel<Place>>(
-                  itemBuilder: (context, item, index) => ListTile(
+                builderDelegate:
+                    buildMaterialPagedDelegate<SourcedModel<Place>>(
+                  _pagingController,
+                  (context, item, index) => ListTile(
                     title: Text(item.model.name),
                     selected: widget.selected?.model == item.model.id &&
                         widget.selected?.source == item.source,

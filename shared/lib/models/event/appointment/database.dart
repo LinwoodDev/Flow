@@ -42,135 +42,17 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
   FutureOr<void> migrate(Database db, int version) {}
 
   @override
-  Future<List<Appointment>> getAppointments(
+  Future<List<ConnectedModel<Appointment, Event>>> getAppointments(
       {List<EventStatus>? status,
       int? eventId,
+      int? groupId,
+      int? placeId,
       int offset = 0,
       int limit = 50,
       DateTime? start,
       DateTime? end,
       DateTime? date,
       String search = ''}) async {
-    String? where;
-    List<Object?>? whereArgs;
-    if (status != null) {
-      where = 'status IN (${status.map((e) => '?').join(', ')})';
-      whereArgs = status.map((e) => e.name).toList();
-    }
-    if (eventId != null) {
-      where = where == null ? 'eventId = ?' : '$where AND eventId = ?';
-      whereArgs = whereArgs == null ? [eventId] : [...whereArgs, eventId];
-    }
-    if (start != null) {
-      where = where == null ? 'start >= ?' : '$where AND start >= ?';
-      whereArgs = whereArgs == null
-          ? [start.secondsSinceEpoch]
-          : [...whereArgs, start.secondsSinceEpoch];
-    }
-    if (end != null) {
-      where = where == null ? 'end <= ?' : '$where AND end <= ?';
-      whereArgs = whereArgs == null
-          ? [end.secondsSinceEpoch]
-          : [...whereArgs, end.secondsSinceEpoch];
-    }
-    if (date != null) {
-      var startAppointment = date.onlyDate();
-      var endAppointment =
-          startAppointment.add(Duration(hours: 23, minutes: 59, seconds: 59));
-      where = where == null
-          ? '(start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))'
-          : '$where AND (start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))';
-      whereArgs = whereArgs == null
-          ? [
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
-            ]
-          : [
-              ...whereArgs,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
-            ];
-    }
-    if (search.isNotEmpty) {
-      where = where == null
-          ? '(name LIKE ? OR description LIKE ?)'
-          : '$where AND (name LIKE ? OR description LIKE ?)';
-      whereArgs = whereArgs == null
-          ? ['%$search%', '%$search%']
-          : [...whereArgs, '%$search%', '%$search%'];
-    }
-
-    final result = await db?.query('appointments',
-        where: where, whereArgs: whereArgs, offset: offset, limit: limit);
-    return result?.map(Appointment.fromJson).toList() ?? [];
-  }
-
-  @override
-  Future<Appointment?> createAppointment(Appointment appointment) async {
-    final id =
-        await db?.insert('appointments', appointment.toJson()..remove('id'));
-    if (id == null) return null;
-    return appointment.copyWith(id: id);
-  }
-
-  @override
-  Future<bool> updateAppointment(Appointment appointment) async {
-    return await db?.update(
-          'appointments',
-          appointment.toJson(),
-          where: 'id = ?',
-          whereArgs: [appointment.id],
-        ) ==
-        1;
-  }
-
-  @override
-  Future<bool> deleteAppointment(int id) async {
-    return await db?.delete(
-          'appointments',
-          where: 'id = ?',
-          whereArgs: [id],
-        ) ==
-        1;
-  }
-
-  @override
-  FutureOr<Appointment?> getAppointment(int id) async {
-    final result = await db?.query(
-      'appointments',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-    return result?.map(Appointment.fromJson).first;
-  }
-
-  @override
-  Future<void> clear() async {
-    await db?.delete('appointments');
-  }
-}
-
-class AppointmentEventDatabaseConnector extends AppointmentEventConnector
-    with TableService {
-  @override
-  Future<List<ConnectedModel<Appointment, Event>>> getAppointments(
-      {List<EventStatus>? status,
-      int offset = 0,
-      int limit = 50,
-      DateTime? start,
-      DateTime? end,
-      DateTime? date,
-      String search = '',
-      int? groupId,
-      int? placeId}) async {
     String? where;
     List<Object?>? whereArgs;
     if (status != null) {
@@ -267,5 +149,49 @@ class AppointmentEventDatabaseConnector extends AppointmentEventConnector
           );
         }).toList() ??
         [];
+  }
+
+  @override
+  Future<Appointment?> createAppointment(Appointment appointment) async {
+    final id =
+        await db?.insert('appointments', appointment.toJson()..remove('id'));
+    if (id == null) return null;
+    return appointment.copyWith(id: id);
+  }
+
+  @override
+  Future<bool> updateAppointment(Appointment appointment) async {
+    return await db?.update(
+          'appointments',
+          appointment.toJson(),
+          where: 'id = ?',
+          whereArgs: [appointment.id],
+        ) ==
+        1;
+  }
+
+  @override
+  Future<bool> deleteAppointment(int id) async {
+    return await db?.delete(
+          'appointments',
+          where: 'id = ?',
+          whereArgs: [id],
+        ) ==
+        1;
+  }
+
+  @override
+  FutureOr<Appointment?> getAppointment(int id) async {
+    final result = await db?.query(
+      'appointments',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    return result?.map(Appointment.fromJson).first;
+  }
+
+  @override
+  Future<void> clear() async {
+    await db?.delete('appointments');
   }
 }

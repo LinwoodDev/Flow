@@ -61,7 +61,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
     ];
     for (final source in sources.entries) {
       for (int i = 0; i < 7; i++) {
-        final fetchedDay = await source.value.appointmentEvent?.getAppointments(
+        final fetchedDay = await source.value.appointment?.getAppointments(
           date: _date.addDays(i),
           status: EventStatus.values
               .where(

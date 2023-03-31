@@ -9,6 +9,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/place/model.dart';
 
 import '../../cubits/flow.dart';
+import '../../widgets/builder_delegate.dart';
 
 class PlacesPage extends StatefulWidget {
   const PlacesPage({
@@ -75,8 +76,10 @@ class _PlacesPageState extends State<PlacesPage> {
           constraints: const BoxConstraints(maxWidth: 800),
           child: PagedListView(
             pagingController: _pagingController,
-            builderDelegate: PagedChildBuilderDelegate<MapEntry<Place, String>>(
-              itemBuilder: (ctx, item, index) => Dismissible(
+            builderDelegate:
+                buildMaterialPagedDelegate<MapEntry<Place, String>>(
+              _pagingController,
+              (ctx, item, index) => Dismissible(
                 key: ValueKey(item.key.id),
                 onDismissed: (direction) async {
                   await _flowCubit

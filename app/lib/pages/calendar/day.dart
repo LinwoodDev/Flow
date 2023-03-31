@@ -54,7 +54,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
     }
     final dates = <SourcedConnectedModel<Appointment, Event>>[];
     for (final source in sources.entries) {
-      final fetched = await source.value.appointmentEvent?.getAppointments(
+      final fetched = await source.value.appointment?.getAppointments(
         date: _date,
         status: EventStatus.values
             .where((element) => !widget.filter.hiddenStatuses.contains(element))

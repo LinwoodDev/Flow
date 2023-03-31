@@ -112,7 +112,7 @@ class _CalendarListViewState extends State<CalendarListView> {
     for (final source in sources.entries) {
       final fetched = await _cubit
           .getService(source.key)
-          .appointmentEvent
+          .appointment
           ?.getAppointments(
             date: date,
             status: EventStatus.values
@@ -154,10 +154,7 @@ class _CalendarListViewState extends State<CalendarListView> {
     final moments = <SourcedConnectedModel<Moment, Event>>[];
     final nextSources = <String>[];
     for (final source in sources.entries) {
-      final fetched = await _cubit
-          .getService(source.key)
-          .momentEvent
-          ?.getMoments(
+      final fetched = await _cubit.getService(source.key).moment?.getMoments(
             date: date,
             status: EventStatus.values
                 .where((element) =>
