@@ -42,8 +42,8 @@
   "month": "Месяц",
   "version": "Версии",
   "intro": "Введение",
-  "caldav": "CalDAV",
-  "caldavDescription": "Интерфейс CalDAV позволяет получить доступ к данным с любого сервера CalDAV. Вы можете использовать его для синхронизации данных с другими устройствами или службами.",
+  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
+  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
   "server": "Сервер",
   "serverDescription": "Синхронизируйте ваши данные с родным сервером Linwood Flow. Это рекомендуется для пользователей, которые хотят самостоятельно размещать свои данные.",
   "googleDescription": "Синхронизация данных с Google. Рекомендуется пользователям, которые хотят использовать их аккаунт Google для доступа к своим данным. Не все функции доступны с этой опцией.",
@@ -243,5 +243,6 @@
   "editMoment": "Edit moment",
   "convertToNote": "Convert to note",
   "convertToTodo": "Convert to todo",
-  "open": "Open"
+  "open": "Open",
+  "limited": "Limited"
 }
