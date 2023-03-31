@@ -156,7 +156,7 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
                 key: ValueKey('${item.model.id}@${item.source}'),
                 onDismissed: (direction) async {
                   await _flowCubit
-                      .getSource(item.source)
+                      .getService(item.source)
                       .group
                       ?.deleteGroup(item.model.id);
                   _controller.itemList!.remove(item);

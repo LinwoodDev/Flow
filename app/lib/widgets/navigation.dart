@@ -223,7 +223,8 @@ class _FlowDrawer extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Builder(builder: (context) {
+                BlocBuilder<SettingsCubit, FlowSettings>(
+                    builder: (context, state) {
                   final widget = AppBar(
                     leading: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
@@ -250,7 +251,8 @@ class _FlowDrawer extends StatelessWidget {
                   if (!kIsWeb &&
                       (Platform.isWindows ||
                           Platform.isLinux ||
-                          Platform.isMacOS)) {
+                          Platform.isMacOS) &&
+                      !state.nativeTitleBar) {
                     return DragToMoveArea(child: widget);
                   }
                   return widget;
@@ -318,7 +320,8 @@ class _FlowDrawer extends StatelessWidget {
                 ),
                 ...remotes.map(
                   (e) => CheckboxListTile(
-                    title: Text(e.displayName),
+                    title: Text(e.uri.host),
+                    subtitle: Text(e.username),
                     value: currents.contains(e.identifier),
                     onChanged: (value) => setState(() => (value ?? false)
                         ? currents.add(e.identifier)

@@ -5,51 +5,52 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:shared/models/event/model.dart';
 import 'package:shared/models/event/moment/model.dart';
+import 'package:shared/models/event/model.dart';
+import 'package:shared/models/model.dart';
 import 'package:shared/models/note/model.dart';
 import 'package:shared/models/note/service.dart';
 
 import '../../widgets/date_time_field.dart';
-import '../../widgets/source_dropdown.dart';
 import '../notes/note.dart';
+import 'event.dart';
 
 class MomentDialog extends StatelessWidget {
-  final String? source;
+  final bool create;
   final Moment? moment;
-  final Event event;
+  final SourcedModel<Event> event;
 
   const MomentDialog({
     super.key,
     this.moment,
-    this.source,
+    this.create = false,
     required this.event,
   });
 
   @override
   Widget build(BuildContext context) {
+    var create = this.create || moment == null;
     var currentMoment = moment ??
         Moment(
-          eventId: event.id,
+          eventId: event.model.id,
         );
-    var currentSource = source ?? '';
     final nameController = TextEditingController(text: currentMoment.name);
     final descriptionController =
         TextEditingController(text: currentMoment.description);
     final locationController =
         TextEditingController(text: currentMoment.location);
     return AlertDialog(
-      title: Text(source == null
+      title: Text(create
           ? AppLocalizations.of(context).createMoment
           : AppLocalizations.of(context).editMoment),
       content: SizedBox(
         width: 500,
         height: 500,
         child: DefaultTabController(
-          length: source == null ? 1 : 2,
+          length: create ? 1 : 2,
           child: Column(
             children: [
-              if (source != null)
+              if (!create)
                 TabBar(
                     tabs: <dynamic>[
                   [Icons.tune_outlined, AppLocalizations.of(context).general],
@@ -76,15 +77,20 @@ class MomentDialog extends StatelessWidget {
                         shrinkWrap: true,
                         children: [
                           const SizedBox(height: 16),
-                          if (source == null) ...[
-                            SourceDropdown(
-                              value: currentSource,
-                              onChanged: (String? value) {
-                                currentSource = value ?? '';
-                              },
-                            ),
-                            const SizedBox(height: 16),
-                          ],
+                          ListTile(
+                            title: Text(AppLocalizations.of(context).event),
+                            subtitle: Text(event.model.name),
+                            leading: const Icon(Icons.event_outlined),
+                            onTap: () {
+                              Navigator.of(context).pop();
+                              showDialog(
+                                context: context,
+                                builder: (context) => EventDialog(
+                                    event: event.model, source: event.source),
+                              );
+                            },
+                          ),
+                          const SizedBox(height: 16),
                           DropdownButtonFormField<EventStatus>(
                             value: currentMoment.status,
                             items: EventStatus.values
@@ -162,8 +168,12 @@ class MomentDialog extends StatelessWidget {
                         ],
                       ),
                     ),
-                    if (source != null)
-                      _MomentNotesTab(moment: currentMoment, source: source!),
+                    if (!create)
+                      _MomentNotesTab(
+                        moment: moment!,
+                        event: event.model,
+                        source: event.source,
+                      ),
                   ],
                 ),
               ),
@@ -180,10 +190,10 @@ class MomentDialog extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () async {
-            if (source == null) {
+            if (create) {
               final created = await context
                   .read<FlowCubit>()
-                  .getSource(currentSource)
+                  .getService(event.source)
                   .moment
                   ?.createMoment(currentMoment);
               if (created != null) {
@@ -192,7 +202,7 @@ class MomentDialog extends StatelessWidget {
             } else {
               context
                   .read<FlowCubit>()
-                  .getSource(source!)
+                  .getService(event.source)
                   .moment
                   ?.updateMoment(currentMoment);
             }
@@ -207,9 +217,11 @@ class MomentDialog extends StatelessWidget {
 }
 
 class _MomentNotesTab extends StatefulWidget {
+  final Event event;
   final Moment moment;
   final String source;
-  const _MomentNotesTab({required this.moment, required this.source});
+  const _MomentNotesTab(
+      {required this.moment, required this.source, required this.event});
 
   @override
   State<_MomentNotesTab> createState() => _MomentNotesTabState();
@@ -225,7 +237,7 @@ class _MomentNotesTabState extends State<_MomentNotesTab> {
 
   @override
   void initState() {
-    _noteService = context.read<FlowCubit>().getSource(widget.source).note;
+    _noteService = context.read<FlowCubit>().getService(widget.source).note;
     _pagingController.addPageRequestListener((pageKey) {
       _fetchPage(pageKey);
     });

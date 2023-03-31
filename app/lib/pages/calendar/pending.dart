@@ -64,7 +64,7 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
     var sources = _cubit.getCurrentServicesMap();
     if (widget.filter.source != null) {
       sources = {
-        widget.filter.source!: _cubit.getSource(widget.filter.source!)
+        widget.filter.source!: _cubit.getService(widget.filter.source!)
       };
     }
     final appointments = <SourcedConnectedModel<Appointment, Event>>[];
@@ -119,7 +119,7 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
                               constraints: const BoxConstraints(maxWidth: 1000),
                               child: CalendarListTile(
                                 key: ValueKey('${e.source}@${e.main.id}'),
-                                appointment: e,
+                                eventItem: e,
                                 onRefresh: _controller.refresh,
                               ),
                             ),

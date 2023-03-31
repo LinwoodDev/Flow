@@ -38,6 +38,11 @@ class Event with _$Event {
   }
 }
 
+abstract class EventItem extends DescriptiveModel {
+  int? get eventId;
+  EventStatus get status;
+}
+
 enum EventStatus {
   confirmed,
   draft,

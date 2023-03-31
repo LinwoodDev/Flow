@@ -5,19 +5,21 @@ import 'package:intl/intl.dart';
 import 'package:shared/models/event/appointment/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/helpers/date_time.dart';
+import 'package:shared/models/event/moment/model.dart';
 import 'package:shared/models/model.dart';
 
 import '../../cubits/flow.dart';
 import '../events/appointment.dart';
+import '../events/moment.dart';
 
 class CalendarListTile extends StatelessWidget {
-  final SourcedConnectedModel<Appointment, Event> appointment;
+  final SourcedConnectedModel<EventItem, Event> eventItem;
   final DateTime? date;
   final VoidCallback onRefresh;
 
   const CalendarListTile({
     super.key,
-    required this.appointment,
+    required this.eventItem,
     this.date,
     required this.onRefresh,
   });
@@ -26,13 +28,20 @@ class CalendarListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = Localizations.localeOf(context).languageCode;
     final timeFormatter = DateFormat.Hm(locale);
-    final model = appointment.main;
-    final start = model.start?.onlyDate() == date && model.start != null
-        ? timeFormatter.format(model.start!)
-        : '';
-    final end = model.end?.onlyDate() == date && model.end != null
-        ? timeFormatter.format(model.end!)
-        : '';
+    final model = eventItem.main;
+    String start = '', end = '';
+    if (model is Appointment) {
+      start = model.start?.onlyDate() == date && model.start != null
+          ? timeFormatter.format(model.start!)
+          : '';
+      end = model.end?.onlyDate() == date && model.end != null
+          ? timeFormatter.format(model.end!)
+          : '';
+    } else if (model is Moment) {
+      start = model.time?.onlyDate() == date && model.time != null
+          ? timeFormatter.format(model.time!)
+          : '';
+    }
     String range;
     if (start == '' && end == '') {
       range = '';
@@ -47,18 +56,31 @@ class CalendarListTile extends StatelessWidget {
       title: Text(model.name),
       subtitle: Text(range),
       leading: Icon(model.status.getIcon(), color: model.status.getColor()),
-      onTap: () => showDialog(
-          context: context,
-          builder: (context) => AppointmentDialog(
-                appointment: appointment.main,
-                event: appointment.subSourced,
-              )).then((_) => onRefresh()),
+      onTap: () {
+        final main = eventItem.main;
+        if (main is Appointment) {
+          showDialog(
+              context: context,
+              builder: (context) => AppointmentDialog(
+                    appointment: main,
+                    event: eventItem.subSourced,
+                  )).then((_) => onRefresh());
+        }
+        if (main is Moment) {
+          showDialog(
+              context: context,
+              builder: (context) => MomentDialog(
+                    moment: main,
+                    event: eventItem.subSourced,
+                  )).then((_) => onRefresh());
+        }
+      },
       trailing: FutureBuilder<bool?>(
         future: Future.value(context
             .read<FlowCubit>()
-            .getSource(appointment.source)
+            .getService(eventItem.source)
             .note
-            ?.notesDone(appointment.sub.id)),
+            ?.notesDone(eventItem.sub.id)),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Icon(

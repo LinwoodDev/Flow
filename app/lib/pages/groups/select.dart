@@ -41,7 +41,7 @@ class _GroupSelectDialogState extends State<GroupSelectDialog> {
       final cubit = context.read<FlowCubit>();
       Map<String, SourceService> sources = widget.source == null
           ? cubit.getCurrentServicesMap()
-          : {widget.source!: cubit.getSource(widget.source!)};
+          : {widget.source!: cubit.getService(widget.source!)};
       final groups = await Future.wait(sources.entries.map((source) async {
         return (await source.value.group?.getGroups(
               offset: pageKey * _pageSize,

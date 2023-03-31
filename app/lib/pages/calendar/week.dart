@@ -53,7 +53,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
     var sources = _cubit.getCurrentServicesMap();
     if (widget.filter.source != null) {
       sources = {
-        widget.filter.source!: _cubit.getSource(widget.filter.source!)
+        widget.filter.source!: _cubit.getService(widget.filter.source!)
       };
     }
     final appointments = <List<SourcedConnectedModel<Appointment, Event>>>[

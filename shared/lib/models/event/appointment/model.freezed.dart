@@ -616,8 +616,7 @@ class _$FixedAppointment extends FixedAppointment {
   }
 }
 
-abstract class FixedAppointment extends Appointment
-    implements DescriptiveModel {
+abstract class FixedAppointment extends Appointment {
   const factory FixedAppointment(
       {final int id,
       final String name,
@@ -1089,8 +1088,7 @@ class _$RepeatingAppointment extends RepeatingAppointment {
   }
 }
 
-abstract class RepeatingAppointment extends Appointment
-    implements DescriptiveModel {
+abstract class RepeatingAppointment extends Appointment {
   const factory RepeatingAppointment(
       {final int id,
       final String name,
@@ -1520,7 +1518,7 @@ class _$AutoAppointment extends AutoAppointment {
   }
 }
 
-abstract class AutoAppointment extends Appointment implements DescriptiveModel {
+abstract class AutoAppointment extends Appointment {
   const factory AutoAppointment(
       {final int id,
       final String name,

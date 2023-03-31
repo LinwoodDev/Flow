@@ -5,6 +5,7 @@ import 'package:sqflite_common/sqlite_api.dart';
 
 import '../models/event/appointment/database.dart';
 import '../models/event/database.dart';
+import '../models/event/moment/database.dart';
 import '../models/place/database.dart';
 import '../models/user/database.dart';
 import '../models/group/database.dart';
@@ -28,6 +29,10 @@ class DatabaseService extends SourceService {
   @override
   late final AppointmentEventDatabaseConnector appointmentEvent;
   @override
+  late final MomentDatabaseService moment;
+  @override
+  late final MomentEventDatabaseConnector momentEvent;
+  @override
   late final NoteDatabaseService note;
   @override
   late final GroupDatabaseService group;
@@ -45,6 +50,8 @@ class DatabaseService extends SourceService {
     event = EventDatabaseService();
     appointment = AppointmentDatabaseService();
     appointmentEvent = AppointmentEventDatabaseConnector();
+    moment = MomentDatabaseService();
+    momentEvent = MomentEventDatabaseConnector();
     note = NoteDatabaseService();
     place = PlaceDatabaseService();
     group = GroupDatabaseService();
@@ -62,10 +69,8 @@ class DatabaseService extends SourceService {
     }
   }
 
-  List<TableService> get tables => [
-        ...models.cast<TableService>(),
-        appointmentEvent,
-      ];
+  List<TableService> get tables =>
+      [...models.cast<TableService>(), appointmentEvent, momentEvent];
 
   FutureOr<void> _onCreate(Database db, int version) async {
     for (var table in tables) {

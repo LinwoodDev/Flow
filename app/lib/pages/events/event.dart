@@ -104,7 +104,7 @@ class EventDialog extends StatelessWidget {
                               : FutureBuilder<Group?>(
                                   future: Future.value(context
                                       .read<FlowCubit>()
-                                      .getSource(source!)
+                                      .getService(source!)
                                       .group
                                       ?.getGroup(currentEvent.groupId ?? -1)),
                                   builder: (context, snapshot) {
@@ -147,7 +147,7 @@ class EventDialog extends StatelessWidget {
                               : FutureBuilder<Place?>(
                                   future: Future.value(context
                                       .read<FlowCubit>()
-                                      .getSource(source!)
+                                      .getService(source!)
                                       .place
                                       ?.getPlace(currentEvent.placeId ?? -1)),
                                   builder: (context, snapshot) {
@@ -201,7 +201,7 @@ class EventDialog extends StatelessWidget {
             if (source == null) {
               final created = await context
                   .read<FlowCubit>()
-                  .getSource(currentSource)
+                  .getService(currentSource)
                   .event
                   ?.createEvent(currentEvent);
               if (created != null) {
@@ -210,7 +210,7 @@ class EventDialog extends StatelessWidget {
             } else {
               context
                   .read<FlowCubit>()
-                  .getSource(source!)
+                  .getService(source!)
                   .event
                   ?.updateEvent(currentEvent);
             }

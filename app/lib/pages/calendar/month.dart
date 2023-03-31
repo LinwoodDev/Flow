@@ -62,7 +62,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
     var sources = _cubit.getCurrentServicesMap();
     if (widget.filter.source != null) {
       sources = {
-        widget.filter.source!: _cubit.getSource(widget.filter.source!)
+        widget.filter.source!: _cubit.getService(widget.filter.source!)
       };
     }
     final days = _date.getDaysInMonth();
@@ -333,7 +333,7 @@ class CalendarDayDialog extends StatelessWidget {
             ...appointments.map(
               (e) => CalendarListTile(
                 key: ValueKey('${e.source}@${e.main.id}'),
-                appointment: e,
+                eventItem: e,
                 date: date,
                 onRefresh: () => Navigator.of(context).pop(),
               ),

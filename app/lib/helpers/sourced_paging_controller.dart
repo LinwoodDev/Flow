@@ -20,7 +20,7 @@ class SourcedPagingController<T>
     FutureOr<void> listener(SourcedModel<int> pageKey) async {
       final fetched = (await fetch(
                   pageKey.source,
-                  cubit.getSource(pageKey.source),
+                  cubit.getService(pageKey.source),
                   pageKey.model * pageSize,
                   pageSize) ??
               <T>[])

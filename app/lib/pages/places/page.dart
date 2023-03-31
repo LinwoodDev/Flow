@@ -80,7 +80,7 @@ class _PlacesPageState extends State<PlacesPage> {
                 key: ValueKey(item.key.id),
                 onDismissed: (direction) async {
                   await _flowCubit
-                      .getSource(item.value)
+                      .getService(item.value)
                       .place
                       ?.deletePlace(item.key.id);
                   _pagingController.itemList!.remove(item);
@@ -176,7 +176,7 @@ class PlaceTile extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               Navigator.of(context).pop();
-              await flowCubit.getSource(source).place?.deletePlace(place.id);
+              await flowCubit.getService(source).place?.deletePlace(place.id);
               pagingController.itemList!.remove(MapEntry(
                 place,
                 source,

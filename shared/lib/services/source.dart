@@ -18,6 +18,7 @@ abstract class SourceService {
   AppointmentService? get appointment => null;
   AppointmentEventConnector? get appointmentEvent => null;
   MomentService? get moment => null;
+  MomentEventConnector? get momentEvent => null;
 
   NoteService? get note => null;
   PlaceService? get place => null;

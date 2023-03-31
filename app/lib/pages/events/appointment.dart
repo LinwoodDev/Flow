@@ -13,22 +13,23 @@ import 'package:shared/models/note/service.dart';
 
 import '../../widgets/date_time_field.dart';
 import '../notes/note.dart';
+import 'event.dart';
 
 class AppointmentDialog extends StatelessWidget {
-  final bool edit;
+  final bool create;
   final Appointment? appointment;
   final SourcedModel<Event> event;
 
   const AppointmentDialog({
     super.key,
     this.appointment,
-    this.edit = false,
+    this.create = false,
     required this.event,
   });
 
   @override
   Widget build(BuildContext context) {
-    var edit = this.edit && appointment != null;
+    var create = this.create || appointment == null;
     var currentAppointment = appointment ??
         Appointment.fixed(
           eventId: event.model.id,
@@ -39,17 +40,17 @@ class AppointmentDialog extends StatelessWidget {
     final locationController =
         TextEditingController(text: currentAppointment.location);
     return AlertDialog(
-      title: Text(edit
-          ? AppLocalizations.of(context).editAppointment
-          : AppLocalizations.of(context).createAppointment),
+      title: Text(create
+          ? AppLocalizations.of(context).createAppointment
+          : AppLocalizations.of(context).editAppointment),
       content: SizedBox(
         width: 500,
         height: 500,
         child: DefaultTabController(
-          length: edit ? 2 : 1,
+          length: create ? 1 : 2,
           child: Column(
             children: [
-              if (edit)
+              if (!create)
                 TabBar(
                     tabs: <dynamic>[
                   [Icons.tune_outlined, AppLocalizations.of(context).general],
@@ -75,6 +76,20 @@ class AppointmentDialog extends StatelessWidget {
                       child: ListView(
                         shrinkWrap: true,
                         children: [
+                          const SizedBox(height: 16),
+                          ListTile(
+                            title: Text(AppLocalizations.of(context).event),
+                            subtitle: Text(event.model.name),
+                            leading: const Icon(Icons.event_outlined),
+                            onTap: () {
+                              Navigator.of(context).pop();
+                              showDialog(
+                                context: context,
+                                builder: (context) => EventDialog(
+                                    event: event.model, source: event.source),
+                              );
+                            },
+                          ),
                           const SizedBox(height: 16),
                           DropdownButtonFormField<EventStatus>(
                             value: currentAppointment.status,
@@ -164,7 +179,7 @@ class AppointmentDialog extends StatelessWidget {
                         ],
                       ),
                     ),
-                    if (edit)
+                    if (!create)
                       _AppointmentNotesTab(
                         appointment: appointment!,
                         event: event.model,
@@ -186,10 +201,10 @@ class AppointmentDialog extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () async {
-            if (!edit) {
+            if (create) {
               final created = await context
                   .read<FlowCubit>()
-                  .getSource(event.source)
+                  .getService(event.source)
                   .appointment
                   ?.createAppointment(currentAppointment);
               if (created != null) {
@@ -198,7 +213,7 @@ class AppointmentDialog extends StatelessWidget {
             } else {
               context
                   .read<FlowCubit>()
-                  .getSource(event.source)
+                  .getService(event.source)
                   .appointment
                   ?.updateAppointment(currentAppointment);
             }
@@ -233,7 +248,7 @@ class _AppointmentNotesTabState extends State<_AppointmentNotesTab> {
 
   @override
   void initState() {
-    _noteService = context.read<FlowCubit>().getSource(widget.source).note;
+    _noteService = context.read<FlowCubit>().getService(widget.source).note;
     _pagingController.addPageRequestListener((pageKey) {
       _fetchPage(pageKey);
     });

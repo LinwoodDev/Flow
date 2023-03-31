@@ -39,7 +39,7 @@ class _PlaceSelectDialogState extends State<PlaceSelectDialog> {
       final cubit = context.read<FlowCubit>();
       Map<String, SourceService> sources = widget.source == null
           ? cubit.getCurrentServicesMap()
-          : {widget.source!: cubit.getSource(widget.source!)};
+          : {widget.source!: cubit.getService(widget.source!)};
       final places = await Future.wait(sources.entries.map((source) async {
         final places = await source.value.place?.getPlaces(
           offset: pageKey * _pageSize,

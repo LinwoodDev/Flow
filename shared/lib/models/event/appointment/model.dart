@@ -1,17 +1,15 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../helpers/converter.dart';
-import '../../model.dart';
 import '../model.dart';
 
 part 'model.freezed.dart';
 part 'model.g.dart';
 
 @freezed
-class Appointment with _$Appointment {
+class Appointment with _$Appointment implements EventItem {
   const Appointment._();
 
-  @Implements<DescriptiveModel>()
   const factory Appointment.fixed({
     @Default(-1) int id,
     @Default('') String name,
@@ -23,7 +21,6 @@ class Appointment with _$Appointment {
     @DateTimeConverter() DateTime? end,
   }) = FixedAppointment;
 
-  @Implements<DescriptiveModel>()
   const factory Appointment.repeating({
     @Default(-1) int id,
     @Default('') String name,
@@ -41,7 +38,6 @@ class Appointment with _$Appointment {
     @Default([]) List<int> exceptions,
   }) = RepeatingAppointment;
 
-  @Implements<DescriptiveModel>()
   const factory Appointment.auto({
     @Default(-1) int id,
     @Default('') String name,

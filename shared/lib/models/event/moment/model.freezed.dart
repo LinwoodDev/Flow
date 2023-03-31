@@ -247,7 +247,7 @@ class _$_Moment extends _Moment {
   }
 }
 
-abstract class _Moment extends Moment implements DescriptiveModel {
+abstract class _Moment extends Moment {
   const factory _Moment(
       {final int id,
       final String name,

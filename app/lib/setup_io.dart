@@ -12,6 +12,7 @@ Future<void> setup(SettingsCubit settingsCubit) async {
 
     final windowOptions = WindowOptions(
       size: const Size(800, 600),
+      minimumSize: const Size(410, 300),
       titleBarStyle: settingsCubit.state.nativeTitleBar
           ? TitleBarStyle.normal
           : TitleBarStyle.hidden,

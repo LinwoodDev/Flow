@@ -128,7 +128,7 @@ class _NoteDialogState extends State<NoteDialog> {
         ElevatedButton(
           onPressed: () {
             final service =
-                context.read<FlowCubit>().getSource(_newSource).note;
+                context.read<FlowCubit>().getService(_newSource).note;
             if (widget.note == null) {
               service?.createNote(_newNote);
             } else {

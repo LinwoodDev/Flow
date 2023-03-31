@@ -49,7 +49,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
     var sources = _cubit.getCurrentServicesMap();
     if (widget.filter.source != null) {
       sources = {
-        widget.filter.source!: _cubit.getSource(widget.filter.source!)
+        widget.filter.source!: _cubit.getService(widget.filter.source!)
       };
     }
     final dates = <SourcedConnectedModel<Appointment, Event>>[];

@@ -69,13 +69,13 @@ class PlaceDialog extends StatelessWidget {
             if (source == null) {
               context
                   .read<FlowCubit>()
-                  .getSource(currentSource)
+                  .getService(currentSource)
                   .place
                   ?.createPlace(place);
             } else {
               context
                   .read<FlowCubit>()
-                  .getSource(source!)
+                  .getService(source!)
                   .place
                   ?.updatePlace(place);
             }

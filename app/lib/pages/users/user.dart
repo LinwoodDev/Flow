@@ -59,7 +59,7 @@ class UserDialog extends StatelessWidget {
                           : FutureBuilder<Group?>(
                               future: Future.value(context
                                   .read<FlowCubit>()
-                                  .getSource(source!)
+                                  .getService(source!)
                                   .group
                                   ?.getGroup(user.groupId ?? -1)),
                               builder: (context, snapshot) {
@@ -113,13 +113,13 @@ class UserDialog extends StatelessWidget {
             if (source == null) {
               context
                   .read<FlowCubit>()
-                  .getSource(currentSource)
+                  .getService(currentSource)
                   .user
                   ?.createUser(user);
             } else {
               context
                   .read<FlowCubit>()
-                  .getSource(source!)
+                  .getService(source!)
                   .user
                   ?.updateUser(user);
             }

@@ -95,7 +95,7 @@ class _EventsPageState extends State<EventsPage> {
                       key: ValueKey(item.key.id),
                       onDismissed: (direction) async {
                         await _flowCubit
-                            .getSource(item.value)
+                            .getService(item.value)
                             .event
                             ?.deleteEvent(item.key.id);
                         _pagingController.itemList!.remove(item);
@@ -189,7 +189,7 @@ class EventTile extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               Navigator.of(context).pop();
-              await flowCubit.getSource(source).event?.deleteEvent(event.id);
+              await flowCubit.getService(source).event?.deleteEvent(event.id);
               pagingController.itemList!.remove(MapEntry(
                 event,
                 source,
@@ -288,6 +288,7 @@ Future<void> showCalendarCreate(
               context: context,
               builder: (context) => AppointmentDialog(
                 event: eventResult,
+                create: true,
               ),
             );
           },
@@ -300,8 +301,8 @@ Future<void> showCalendarCreate(
             showDialog(
               context: context,
               builder: (context) => MomentDialog(
-                event: eventResult.model,
-                source: eventResult.source,
+                event: eventResult,
+                create: true,
               ),
             );
           },
