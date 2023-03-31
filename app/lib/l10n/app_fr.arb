@@ -240,5 +240,8 @@
   "createAppointment": "Create appointment",
   "editAppointment": "Edit appointment",
   "createMoment": "Create moment",
-  "editMoment": "Edit moment"
+  "editMoment": "Edit moment",
+  "convertToNote": "Convert to note",
+  "convertToTodo": "Convert to todo",
+  "open": "Open"
 }
