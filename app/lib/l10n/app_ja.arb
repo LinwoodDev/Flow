@@ -42,8 +42,8 @@
   "month": "月",
   "version": "バージョン",
   "intro": "はじめに",
-  "caldav": "CalDAV",
-  "caldavDescription": "CalDAV インターフェイスを使用すると、任意の CalDAV サーバーからデータにアクセスできます。 データを他のデバイスやサービスと同期させるために使用できます。",
+  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
+  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
   "server": "サーバー",
   "serverDescription": "データをネイティブの Linwood Flow サーバーと同期します。自身のデータを自己ホストしたい場合には推奨します。",
   "googleDescription": "Googleとデータを同期します。Googleアカウントを使用してデータにアクセスする場合に推奨されます。 すべての機能がこのオプションで利用できるわけではありません。",
@@ -243,5 +243,6 @@
   "editMoment": "Edit moment",
   "convertToNote": "Convert to note",
   "convertToTodo": "Convert to todo",
-  "open": "Open"
+  "open": "Open",
+  "limited": "Limited"
 }
