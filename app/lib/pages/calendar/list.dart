@@ -64,7 +64,7 @@ class _CalendarListViewState extends State<CalendarListView> {
 
     ConnectedModel<Map<String, int>, Map<String, int>> createFullSourceMap() {
       final map = Map.fromEntries(allSources.map((e) => MapEntry(e, 0)));
-      return ConnectedModel(map, map);
+      return ConnectedModel(map, Map.from(map));
     }
 
     if (day < 0) {
@@ -130,7 +130,7 @@ class _CalendarListViewState extends State<CalendarListView> {
       if (fetched == null) continue;
       appointments
           .addAll(fetched.map((event) => SourcedModel(source.key, event)));
-      if (fetched.length < _pageSize) {
+      if (fetched.length >= _pageSize) {
         nextSources.add(source.key);
       }
     }
@@ -173,7 +173,7 @@ class _CalendarListViewState extends State<CalendarListView> {
           );
       if (fetched == null) continue;
       moments.addAll(fetched.map((event) => SourcedModel(source.key, event)));
-      if (fetched.length < _pageSize) {
+      if (fetched.length >= _pageSize) {
         nextSources.add(source.key);
       }
     }
@@ -250,7 +250,11 @@ class _CalendarListViewState extends State<CalendarListView> {
                           ),
                         ...item.map((event) {
                           return CalendarListTile(
-                            key: ValueKey('${event.source}@${event.main.id}'),
+                            key: ValueKey([
+                              event.main.id,
+                              event.source,
+                              event.main.runtimeType
+                            ]),
                             eventItem: event,
                             date: date,
                             onRefresh: _controller.refresh,

@@ -14,14 +14,16 @@ extension EventStatusHelper on EventStatus {
     }
   }
 
-  IconData getIcon() {
+  IconData getIcon([bool filled = false]) {
     switch (this) {
       case EventStatus.confirmed:
-        return Icons.check_circle_outline_outlined;
+        return filled
+            ? Icons.check_circle
+            : Icons.check_circle_outline_outlined;
       case EventStatus.draft:
-        return Icons.drafts_outlined;
+        return filled ? Icons.drafts : Icons.drafts_outlined;
       case EventStatus.cancelled:
-        return Icons.cancel_outlined;
+        return filled ? Icons.cancel : Icons.cancel_outlined;
     }
   }
 

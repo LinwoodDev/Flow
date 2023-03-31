@@ -52,12 +52,13 @@ class CalendarListTile extends StatelessWidget {
     } else {
       range = '$start - $end';
     }
+    final main = eventItem.main;
     return ListTile(
       title: Text(model.name),
       subtitle: Text(range),
-      leading: Icon(model.status.getIcon(), color: model.status.getColor()),
+      leading: Icon(model.status.getIcon(main is Appointment),
+          color: model.status.getColor()),
       onTap: () {
-        final main = eventItem.main;
         if (main is Appointment) {
           showDialog(
               context: context,
