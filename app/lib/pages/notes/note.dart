@@ -9,7 +9,8 @@ import '../../widgets/source_dropdown.dart';
 class NoteDialog extends StatefulWidget {
   final String? source;
   final Note? note;
-  const NoteDialog({super.key, this.source, this.note});
+  final bool create;
+  const NoteDialog({super.key, this.create = false, this.note, this.source});
 
   @override
   State<NoteDialog> createState() => _NoteDialogState();
@@ -29,12 +30,13 @@ class _NoteDialogState extends State<NoteDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final create = widget.create || widget.source == null;
     return AlertDialog(
       title: Row(
         children: [
           Expanded(
             child: Text(
-              widget.note == null
+              create
                   ? AppLocalizations.of(context).createNote
                   : AppLocalizations.of(context).editNote,
             ),
@@ -129,14 +131,14 @@ class _NoteDialogState extends State<NoteDialog> {
           onPressed: () {
             final service =
                 context.read<FlowCubit>().getService(_newSource).note;
-            if (widget.note == null) {
+            if (create) {
               service?.createNote(_newNote);
             } else {
               service?.updateNote(_newNote);
             }
             Navigator.of(context).pop();
           },
-          child: Text(widget.note == null
+          child: Text(create
               ? AppLocalizations.of(context).create
               : AppLocalizations.of(context).save),
         ),

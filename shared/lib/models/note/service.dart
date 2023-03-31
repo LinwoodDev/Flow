@@ -8,6 +8,7 @@ abstract class NoteService extends ModelService {
   FutureOr<List<Note>> getNotes({
     int offset = 0,
     int limit = 50,
+    int? parent,
     Set<NoteStatus?> statuses = const {
       NoteStatus.todo,
       NoteStatus.inProgress,

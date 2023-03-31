@@ -20,7 +20,7 @@ class NoteFilter with _$NoteFilter {
     return {
       if (showDone) NoteStatus.done,
       if (showInProgress) NoteStatus.inProgress,
-      if (showNote) NoteStatus.todo,
+      if (showTodo) NoteStatus.todo,
       if (showNote) null,
     };
   }
@@ -38,6 +38,7 @@ class NoteFilterView extends StatefulWidget {
 
 class _NoteFilterViewState extends State<NoteFilterView> {
   late NoteFilter _filter;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -47,94 +48,98 @@ class _NoteFilterViewState extends State<NoteFilterView> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          InputChip(
-            label: Text(AppLocalizations.of(context).done),
-            avatar: Icon(Icons.check_box_outlined,
-                color: _filter.showDone
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : Theme.of(context).iconTheme.color),
-            selected: _filter.showDone,
-            selectedColor: Theme.of(context).colorScheme.primaryContainer,
-            labelStyle: TextStyle(
-                color: _filter.showDone
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : null),
-            showCheckmark: false,
-            onSelected: (value) {
-              setState(() {
-                _filter = _filter.copyWith(showDone: value);
-                widget.onChanged(_filter);
-              });
-            },
-          ),
-          InputChip(
-            label: Text(AppLocalizations.of(context).inProgress),
-            avatar: Icon(Icons.indeterminate_check_box_outlined,
-                color: _filter.showInProgress
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : Theme.of(context).iconTheme.color),
-            selected: _filter.showInProgress,
-            selectedColor: Theme.of(context).colorScheme.primaryContainer,
-            labelStyle: TextStyle(
-                color: _filter.showInProgress
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : null),
-            showCheckmark: false,
-            onSelected: (value) {
-              setState(() {
-                _filter = _filter.copyWith(showInProgress: value);
-                widget.onChanged(_filter);
-              });
-            },
-          ),
-          InputChip(
-            label: Text(AppLocalizations.of(context).todo),
-            avatar: Icon(Icons.check_box_outline_blank_outlined,
-                color: _filter.showTodo
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : Theme.of(context).iconTheme.color),
-            selected: _filter.showTodo,
-            selectedColor: Theme.of(context).colorScheme.primaryContainer,
-            labelStyle: TextStyle(
-                color: _filter.showTodo
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : null),
-            showCheckmark: false,
-            onSelected: (value) {
-              setState(() {
-                _filter = _filter.copyWith(showTodo: value);
-                widget.onChanged(_filter);
-              });
-            },
-          ),
-          InputChip(
-            label: Text(AppLocalizations.of(context).note),
-            avatar: Icon(Icons.notes_outlined,
-                color: _filter.showNote
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : Theme.of(context).iconTheme.color),
-            selected: _filter.showNote,
-            selectedColor: Theme.of(context).colorScheme.primaryContainer,
-            labelStyle: TextStyle(
-                color: _filter.showNote
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : null),
-            showCheckmark: false,
-            onSelected: (value) {
-              setState(() {
-                _filter = _filter.copyWith(showNote: value);
-                widget.onChanged(_filter);
-              });
-            },
-          ),
-        ]
-            .map((e) => Padding(padding: const EdgeInsets.all(8.0), child: e))
-            .toList(),
+    return Scrollbar(
+      controller: _scrollController,
+      child: SingleChildScrollView(
+        controller: _scrollController,
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            InputChip(
+              label: Text(AppLocalizations.of(context).done),
+              avatar: Icon(Icons.check_box_outlined,
+                  color: _filter.showDone
+                      ? Theme.of(context).colorScheme.onPrimaryContainer
+                      : Theme.of(context).iconTheme.color),
+              selected: _filter.showDone,
+              selectedColor: Theme.of(context).colorScheme.primaryContainer,
+              labelStyle: TextStyle(
+                  color: _filter.showDone
+                      ? Theme.of(context).colorScheme.onPrimaryContainer
+                      : null),
+              showCheckmark: false,
+              onSelected: (value) {
+                setState(() {
+                  _filter = _filter.copyWith(showDone: value);
+                  widget.onChanged(_filter);
+                });
+              },
+            ),
+            InputChip(
+              label: Text(AppLocalizations.of(context).inProgress),
+              avatar: Icon(Icons.indeterminate_check_box_outlined,
+                  color: _filter.showInProgress
+                      ? Theme.of(context).colorScheme.onPrimaryContainer
+                      : Theme.of(context).iconTheme.color),
+              selected: _filter.showInProgress,
+              selectedColor: Theme.of(context).colorScheme.primaryContainer,
+              labelStyle: TextStyle(
+                  color: _filter.showInProgress
+                      ? Theme.of(context).colorScheme.onPrimaryContainer
+                      : null),
+              showCheckmark: false,
+              onSelected: (value) {
+                setState(() {
+                  _filter = _filter.copyWith(showInProgress: value);
+                  widget.onChanged(_filter);
+                });
+              },
+            ),
+            InputChip(
+              label: Text(AppLocalizations.of(context).todo),
+              avatar: Icon(Icons.check_box_outline_blank_outlined,
+                  color: _filter.showTodo
+                      ? Theme.of(context).colorScheme.onPrimaryContainer
+                      : Theme.of(context).iconTheme.color),
+              selected: _filter.showTodo,
+              selectedColor: Theme.of(context).colorScheme.primaryContainer,
+              labelStyle: TextStyle(
+                  color: _filter.showTodo
+                      ? Theme.of(context).colorScheme.onPrimaryContainer
+                      : null),
+              showCheckmark: false,
+              onSelected: (value) {
+                setState(() {
+                  _filter = _filter.copyWith(showTodo: value);
+                  widget.onChanged(_filter);
+                });
+              },
+            ),
+            InputChip(
+              label: Text(AppLocalizations.of(context).note),
+              avatar: Icon(Icons.notes_outlined,
+                  color: _filter.showNote
+                      ? Theme.of(context).colorScheme.onPrimaryContainer
+                      : Theme.of(context).iconTheme.color),
+              selected: _filter.showNote,
+              selectedColor: Theme.of(context).colorScheme.primaryContainer,
+              labelStyle: TextStyle(
+                  color: _filter.showNote
+                      ? Theme.of(context).colorScheme.onPrimaryContainer
+                      : null),
+              showCheckmark: false,
+              onSelected: (value) {
+                setState(() {
+                  _filter = _filter.copyWith(showNote: value);
+                  widget.onChanged(_filter);
+                });
+              },
+            ),
+          ]
+              .map((e) => Padding(padding: const EdgeInsets.all(8.0), child: e))
+              .toList(),
+        ),
       ),
     );
   }

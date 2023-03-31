@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:shared/models/model.dart';
 import 'package:shared/models/note/model.dart';
 
 import '../../cubits/flow.dart';
@@ -12,7 +13,9 @@ import '../../widgets/builder_delegate.dart';
 import 'card.dart';
 
 class NotesPage extends StatefulWidget {
-  const NotesPage({Key? key}) : super(key: key);
+  final SourcedModel<int>? parent;
+
+  const NotesPage({Key? key, this.parent}) : super(key: key);
 
   @override
   _NotesPageState createState() => _NotesPageState();
@@ -40,11 +43,18 @@ class _NotesPageState extends State<NotesPage> {
       ],
       body: NotesBodyView(
         pagingController: _pagingController,
+        parent: widget.parent,
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
           context: context,
-          builder: (context) => const NoteDialog(),
+          builder: (context) => NoteDialog(
+            source: widget.parent?.source,
+            create: true,
+            note: Note(
+              parentId: widget.parent?.model,
+            ),
+          ),
         ).then((value) => _pagingController.refresh()),
         label: Text(AppLocalizations.of(context).create),
         icon: const Icon(Icons.add_outlined),
@@ -97,10 +107,12 @@ class _NotesSearchDelegate extends SearchDelegate {
 class NotesBodyView extends StatefulWidget {
   final String search;
   final PagingController<int, MapEntry<Note, String>> pagingController;
+  final SourcedModel<int>? parent;
 
   const NotesBodyView({
     super.key,
     this.search = '',
+    this.parent,
     required this.pagingController,
   });
 
@@ -128,7 +140,12 @@ class _NotesBodyViewState extends State<NotesBodyView> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final sources = _flowCubit.getCurrentServicesMap().entries;
+      final sources = widget.parent == null
+          ? _flowCubit.getCurrentServicesMap().entries
+          : [
+              MapEntry(widget.parent!.source,
+                  _flowCubit.getService(widget.parent!.source))
+            ];
       final notes = <MapEntry<Note, String>>[];
       var isLast = false;
       for (final source in sources) {
@@ -137,6 +154,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
           limit: _pageSize,
           statuses: _filter.statuses,
           search: widget.search,
+          parent: widget.parent?.model ?? -1,
         );
         if (fetched == null) continue;
         notes.addAll(fetched.map((note) => MapEntry(note, source.key)));

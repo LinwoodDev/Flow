@@ -11,6 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:shared/models/model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 
@@ -141,11 +142,36 @@ class FlowApp extends StatelessWidget {
               ),
             ),
             GoRoute(
-              path: '/notes',
-              pageBuilder: _fadeTransitionBuilder(
-                (context, state) => const NotesPage(),
-              ),
-            ),
+                path: '/notes',
+                pageBuilder: _fadeTransitionBuilder(
+                  (context, state) => const NotesPage(),
+                ),
+                routes: [
+                  GoRoute(
+                    path: ':source/:id',
+                    name: 'subnote',
+                    pageBuilder: _fadeTransitionBuilder(
+                      (context, state) => NotesPage(
+                        parent: SourcedModel(
+                          state.params['source']!,
+                          int.parse(state.params['id']!),
+                        ),
+                      ),
+                    ),
+                  ),
+                  GoRoute(
+                    path: ':id',
+                    name: 'subnote-local',
+                    pageBuilder: _fadeTransitionBuilder(
+                      (context, state) => NotesPage(
+                        parent: SourcedModel(
+                          '',
+                          int.parse(state.params['id']!),
+                        ),
+                      ),
+                    ),
+                  )
+                ]),
             GoRoute(
               path: '/places',
               pageBuilder: _fadeTransitionBuilder(

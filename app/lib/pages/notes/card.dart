@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/note/model.dart';
 import 'package:shared/models/note/service.dart';
@@ -132,6 +133,25 @@ class _NoteCardState extends State<NoteCard> {
                 const SizedBox(width: 8),
                 PopupMenuButton(
                   itemBuilder: (context) => <dynamic>[
+                    if (_newNote.status != null) ...[
+                      [
+                        Icons.notes_outlined,
+                        AppLocalizations.of(context).convertToNote,
+                        () async {
+                          _newNote = _newNote.copyWith(status: null);
+                          await _updateNote();
+                        }
+                      ],
+                    ] else ...[
+                      [
+                        Icons.check_box_outlined,
+                        AppLocalizations.of(context).convertToTodo,
+                        () async {
+                          _newNote = _newNote.copyWith(status: NoteStatus.todo);
+                          await _updateNote();
+                        }
+                      ],
+                    ],
                     [
                       Icons.delete_outlined,
                       AppLocalizations.of(context).delete,
@@ -215,6 +235,19 @@ class _NoteCardState extends State<NoteCard> {
               onFieldSubmitted: (value) {
                 _newNote = _newNote.copyWith(description: value);
                 _updateNote();
+              },
+            ),
+            const SizedBox(height: 16),
+            TextButton(
+              child: Text(AppLocalizations.of(context).open),
+              onPressed: () {
+                GoRouter.of(context).pushNamed(
+                  widget.source.isEmpty ? "subnote-local" : "subnote",
+                  params: {
+                    if (widget.source.isNotEmpty) "source": widget.source,
+                    "id": widget.note.id.toString(),
+                  },
+                );
               },
             ),
           ],

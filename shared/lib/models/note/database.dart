@@ -43,6 +43,7 @@ class NoteDatabaseService extends NoteService with TableService {
   Future<List<Note>> getNotes({
     int offset = 0,
     int limit = 50,
+    int? parent,
     Set<NoteStatus?> statuses = const {
       NoteStatus.todo,
       NoteStatus.inProgress,
@@ -61,12 +62,22 @@ class NoteDatabaseService extends NoteService with TableService {
           ? ['%$search%', '%$search%']
           : [...whereArgs, '%$search%', '%$search%'];
     }
+    if (parent != null) {
+      if (parent >= 0) {
+        where = where == null ? 'parentId = ?' : '$where AND parentId = ?';
+        whereArgs = whereArgs == null ? [parent] : [...whereArgs, parent];
+      } else {
+        where =
+            where == null ? 'parentId IS NULL' : '$where AND parentId IS NULL';
+      }
+    }
     var statusStatement =
         "status IN (${statuses.whereNotNull().map((e) => "'${e.name}'").join(',')})";
     if (statuses.contains(null)) {
       statusStatement = "$statusStatement OR status IS NULL";
     }
-    where = where == null ? statusStatement : '$where AND $statusStatement';
+    where =
+        where == null ? '($statusStatement)' : '$where AND ($statusStatement)';
     final result = await db?.query(
       'notes',
       where: where,

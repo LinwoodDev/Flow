@@ -40,6 +40,7 @@ class CalendarFilterView extends StatefulWidget {
 }
 
 class _CalendarFilterViewState extends State<CalendarFilterView> {
+  final ScrollController _scrollController = ScrollController();
   late CalendarFilter _filter;
   @override
   void initState() {
@@ -49,153 +50,158 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          ...EventStatus.values.map(
-            (status) {
-              final selected = !_filter.hiddenStatuses.contains(status);
-              return InputChip(
-                label: Text(status.getLocalizedName(context)),
-                avatar: Icon(status.getIcon(),
-                    color: selected
+    return Scrollbar(
+      controller: _scrollController,
+      child: SingleChildScrollView(
+        controller: _scrollController,
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ...EventStatus.values.map(
+              (status) {
+                final selected = !_filter.hiddenStatuses.contains(status);
+                return InputChip(
+                  label: Text(status.getLocalizedName(context)),
+                  avatar: Icon(status.getIcon(),
+                      color: selected
+                          ? Theme.of(context).colorScheme.onPrimaryContainer
+                          : Theme.of(context).iconTheme.color),
+                  selected: selected,
+                  selectedColor: status.getColor(),
+                  labelStyle: TextStyle(
+                      color: selected
+                          ? Theme.of(context).colorScheme.onPrimaryContainer
+                          : null),
+                  showCheckmark: false,
+                  onSelected: (value) {
+                    setState(() {
+                      if (value == true) {
+                        _filter = _filter.copyWith(
+                          hiddenStatuses: _filter.hiddenStatuses
+                              .where((element) => element != status)
+                              .toList(),
+                        );
+                      } else {
+                        _filter = _filter.copyWith(
+                          hiddenStatuses: [
+                            ..._filter.hiddenStatuses,
+                            status,
+                          ],
+                        );
+                      }
+                    });
+                    widget.onChanged(_filter);
+                  },
+                );
+              },
+            ),
+            InputChip(
+              label: Text(AppLocalizations.of(context).group),
+              avatar: Icon(Icons.folder_outlined,
+                  color: _filter.group != null
+                      ? Theme.of(context).colorScheme.onPrimaryContainer
+                      : Theme.of(context).iconTheme.color),
+              selected: _filter.group != null,
+              selectedColor: Theme.of(context).colorScheme.primaryContainer,
+              labelStyle: TextStyle(
+                  color: _filter.group != null
+                      ? Theme.of(context).colorScheme.onPrimaryContainer
+                      : null),
+              showCheckmark: false,
+              deleteIconColor: Theme.of(context).colorScheme.onPrimaryContainer,
+              onDeleted: _filter.group == null
+                  ? null
+                  : () {
+                      setState(() {
+                        _filter = _filter.copyWith(group: null, source: null);
+                      });
+                      widget.onChanged(_filter);
+                    },
+              onSelected: (value) async {
+                final sourceGroup = await showDialog<SourcedModel<Group>>(
+                  context: context,
+                  builder: (context) => GroupSelectDialog(
+                    selected: _filter.source != null && _filter.group != null
+                        ? MapEntry(_filter.source!, _filter.group!)
+                        : null,
+                  ),
+                );
+                if (sourceGroup != null) {
+                  setState(() {
+                    _filter = _filter.copyWith(
+                        group: sourceGroup.model.id,
+                        source: sourceGroup.source);
+                  });
+                  widget.onChanged(_filter);
+                }
+              },
+            ),
+            InputChip(
+              label: Text(AppLocalizations.of(context).place),
+              avatar: Icon(Icons.location_on_outlined,
+                  color: _filter.place != null
+                      ? Theme.of(context).colorScheme.onPrimaryContainer
+                      : Theme.of(context).iconTheme.color),
+              selected: _filter.place != null,
+              selectedColor: Theme.of(context).colorScheme.primaryContainer,
+              labelStyle: TextStyle(
+                  color: _filter.place != null
+                      ? Theme.of(context).colorScheme.onPrimaryContainer
+                      : null),
+              showCheckmark: false,
+              deleteIconColor: Theme.of(context).colorScheme.onPrimaryContainer,
+              onDeleted: _filter.place == null
+                  ? null
+                  : () {
+                      setState(() {
+                        _filter = _filter.copyWith(place: null);
+                      });
+                      widget.onChanged(_filter);
+                    },
+              onSelected: (value) async {
+                final place = await showDialog<SourcedModel<Place>>(
+                  context: context,
+                  builder: (context) => PlaceSelectDialog(
+                    selected: _filter.place != null && _filter.source != null
+                        ? SourcedModel(_filter.source!, _filter.place!)
+                        : null,
+                  ),
+                );
+                if (place != null) {
+                  setState(() {
+                    _filter = _filter.copyWith(
+                        place: place.model.id, source: place.source);
+                  });
+                  widget.onChanged(_filter);
+                }
+              },
+            ),
+            if (widget.past)
+              InputChip(
+                label: Text(AppLocalizations.of(context).past),
+                avatar: Icon(Icons.history_outlined,
+                    color: _filter.past
                         ? Theme.of(context).colorScheme.onPrimaryContainer
                         : Theme.of(context).iconTheme.color),
-                selected: selected,
-                selectedColor: status.getColor(),
+                selected: _filter.past,
+                selectedColor: Theme.of(context).colorScheme.primaryContainer,
                 labelStyle: TextStyle(
-                    color: selected
+                    color: _filter.past
                         ? Theme.of(context).colorScheme.onPrimaryContainer
                         : null),
                 showCheckmark: false,
                 onSelected: (value) {
                   setState(() {
-                    if (value == true) {
-                      _filter = _filter.copyWith(
-                        hiddenStatuses: _filter.hiddenStatuses
-                            .where((element) => element != status)
-                            .toList(),
-                      );
-                    } else {
-                      _filter = _filter.copyWith(
-                        hiddenStatuses: [
-                          ..._filter.hiddenStatuses,
-                          status,
-                        ],
-                      );
-                    }
+                    _filter = _filter.copyWith(past: value);
                   });
                   widget.onChanged(_filter);
                 },
-              );
-            },
-          ),
-          InputChip(
-            label: Text(AppLocalizations.of(context).group),
-            avatar: Icon(Icons.folder_outlined,
-                color: _filter.group != null
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : Theme.of(context).iconTheme.color),
-            selected: _filter.group != null,
-            selectedColor: Theme.of(context).colorScheme.primaryContainer,
-            labelStyle: TextStyle(
-                color: _filter.group != null
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : null),
-            showCheckmark: false,
-            deleteIconColor: Theme.of(context).colorScheme.onPrimaryContainer,
-            onDeleted: _filter.group == null
-                ? null
-                : () {
-                    setState(() {
-                      _filter = _filter.copyWith(group: null, source: null);
-                    });
-                    widget.onChanged(_filter);
-                  },
-            onSelected: (value) async {
-              final sourceGroup = await showDialog<SourcedModel<Group>>(
-                context: context,
-                builder: (context) => GroupSelectDialog(
-                  selected: _filter.source != null && _filter.group != null
-                      ? MapEntry(_filter.source!, _filter.group!)
-                      : null,
-                ),
-              );
-              if (sourceGroup != null) {
-                setState(() {
-                  _filter = _filter.copyWith(
-                      group: sourceGroup.model.id, source: sourceGroup.source);
-                });
-                widget.onChanged(_filter);
-              }
-            },
-          ),
-          InputChip(
-            label: Text(AppLocalizations.of(context).place),
-            avatar: Icon(Icons.location_on_outlined,
-                color: _filter.place != null
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : Theme.of(context).iconTheme.color),
-            selected: _filter.place != null,
-            selectedColor: Theme.of(context).colorScheme.primaryContainer,
-            labelStyle: TextStyle(
-                color: _filter.place != null
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : null),
-            showCheckmark: false,
-            deleteIconColor: Theme.of(context).colorScheme.onPrimaryContainer,
-            onDeleted: _filter.place == null
-                ? null
-                : () {
-                    setState(() {
-                      _filter = _filter.copyWith(place: null);
-                    });
-                    widget.onChanged(_filter);
-                  },
-            onSelected: (value) async {
-              final place = await showDialog<SourcedModel<Place>>(
-                context: context,
-                builder: (context) => PlaceSelectDialog(
-                  selected: _filter.place != null && _filter.source != null
-                      ? SourcedModel(_filter.source!, _filter.place!)
-                      : null,
-                ),
-              );
-              if (place != null) {
-                setState(() {
-                  _filter = _filter.copyWith(
-                      place: place.model.id, source: place.source);
-                });
-                widget.onChanged(_filter);
-              }
-            },
-          ),
-          if (widget.past)
-            InputChip(
-              label: Text(AppLocalizations.of(context).past),
-              avatar: Icon(Icons.history_outlined,
-                  color: _filter.past
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : Theme.of(context).iconTheme.color),
-              selected: _filter.past,
-              selectedColor: Theme.of(context).colorScheme.primaryContainer,
-              labelStyle: TextStyle(
-                  color: _filter.past
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : null),
-              showCheckmark: false,
-              onSelected: (value) {
-                setState(() {
-                  _filter = _filter.copyWith(past: value);
-                });
-                widget.onChanged(_filter);
-              },
-            )
-        ]
-            .map((e) => Padding(padding: const EdgeInsets.all(8.0), child: e))
-            .toList(),
+              )
+          ]
+              .map((e) => Padding(padding: const EdgeInsets.all(8.0), child: e))
+              .toList(),
+        ),
       ),
     );
   }
