@@ -42,8 +42,8 @@
   "month": "Lună",
   "version": "Versiune",
   "intro": "Introducere",
-  "caldav": "CalDAV",
-  "caldavDescription": "Interfaţa CalDAV vă permite să accesaţi datele de pe orice server CalDAV. Îl puteți folosi pentru a vă sincroniza datele cu alte dispozitive sau servicii.",
+  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
+  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
   "server": "Server",
   "serverDescription": "Sincronizați-vă datele cu un server nativ Linwood Flow server. Acest lucru este recomandat utilizatorilor care doresc să își găzduiască datele.",
   "googleDescription": "Sincronizați-vă datele cu Google. Acest lucru este recomandat pentru utilizatorii care doresc să utilizeze contul lor Google pentru a le accesa datele. Nu sunt disponibile toate caracteristicile cu această opțiune.",
@@ -243,5 +243,6 @@
   "editMoment": "Edit moment",
   "convertToNote": "Convert to note",
   "convertToTodo": "Convert to todo",
-  "open": "Open"
+  "open": "Open",
+  "limited": "Limited"
 }
