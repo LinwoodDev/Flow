@@ -42,8 +42,8 @@
   "month": "Μήνας",
   "version": "Έκδοση",
   "intro": "Εισαγωγή",
-  "caldav": "CalDAV",
-  "caldavDescription": "Η διεπαφή CalDAV σας επιτρέπει να έχετε πρόσβαση στα δεδομένα σας από οποιονδήποτε διακομιστή CalDAV. Μπορείτε να το χρησιμοποιήσετε για να συγχρονίσετε τα δεδομένα σας με άλλες συσκευές ή υπηρεσίες.",
+  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
+  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
   "server": "Διακομιστής",
   "serverDescription": "Συγχρονίστε τα δεδομένα σας με έναν native διακομιστή Linwood Flow. Αυτό συνιστάται για χρήστες που θέλουν να φιλοξενήσουν τα δεδομένα τους.",
   "googleDescription": "Συγχρονίστε τα δεδομένα σας με την Google. Αυτό συνιστάται για χρήστες που θέλουν να χρησιμοποιήσουν τον λογαριασμό Google τους για να έχουν πρόσβαση στα δεδομένα τους. Δεν είναι διαθέσιμες όλες οι δυνατότητες με αυτήν την επιλογή.",
@@ -243,5 +243,6 @@
   "editMoment": "Edit moment",
   "convertToNote": "Convert to note",
   "convertToTodo": "Convert to todo",
-  "open": "Open"
+  "open": "Open",
+  "limited": "Limited"
 }
