@@ -244,5 +244,6 @@
   "convertToNote": "Convert to note",
   "convertToTodo": "Convert to todo",
   "open": "Open",
-  "limited": "Limited"
+  "limited": "Limited",
+  "notSet": "Not set"
 }
