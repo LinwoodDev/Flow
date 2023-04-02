@@ -31,16 +31,18 @@ class MomentDatabaseService extends MomentService with TableService {
   FutureOr<void> migrate(Database db, int version) {}
 
   @override
-  Future<List<ConnectedModel<Moment, Event>>> getMoments(
-      {List<EventStatus>? status,
-      int offset = 0,
-      int limit = 50,
-      DateTime? start,
-      DateTime? end,
-      DateTime? date,
-      String search = '',
-      int? groupId,
-      int? placeId}) async {
+  Future<List<ConnectedModel<Moment, Event>>> getMoments({
+    List<EventStatus>? status,
+    int offset = 0,
+    int limit = 50,
+    DateTime? start,
+    DateTime? end,
+    DateTime? date,
+    String search = '',
+    int? groupId,
+    int? placeId,
+    int? eventId,
+  }) async {
     String? where;
     List<Object?>? whereArgs;
     if (status != null) {

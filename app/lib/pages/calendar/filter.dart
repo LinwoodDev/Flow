@@ -13,14 +13,24 @@ part 'filter.freezed.dart';
 
 @freezed
 class CalendarFilter with _$CalendarFilter {
+  const CalendarFilter._();
+
   const factory CalendarFilter({
     @Default([EventStatus.draft, EventStatus.cancelled])
         List<EventStatus> hiddenStatuses,
     String? source,
     int? group,
+    int? event,
     int? place,
     @Default(false) bool past,
   }) = _CalendarFilter;
+
+  CalendarFilter removePlace() => copyWith(
+      place: null, source: (group != null && event != null) ? source : null);
+  CalendarFilter removeGroup() => copyWith(
+      group: null, source: (place != null && event != null) ? source : null);
+  CalendarFilter removeEvent() => copyWith(
+      event: null, source: (place != null && group != null) ? source : null);
 }
 
 class CalendarFilterView extends StatefulWidget {
@@ -114,7 +124,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                   ? null
                   : () {
                       setState(() {
-                        _filter = _filter.copyWith(group: null, source: null);
+                        _filter = _filter.removeGroup();
                       });
                       widget.onChanged(_filter);
                     },
@@ -155,7 +165,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                   ? null
                   : () {
                       setState(() {
-                        _filter = _filter.copyWith(place: null);
+                        _filter = _filter.removePlace();
                       });
                       widget.onChanged(_filter);
                     },

@@ -124,6 +124,8 @@ class _CalendarListViewState extends State<CalendarListView> {
                 source.key == widget.filter.source ? widget.filter.group : null,
             placeId:
                 source.key == widget.filter.source ? widget.filter.place : null,
+            eventId:
+                source.key == widget.filter.source ? widget.filter.event : null,
             offset: source.value * _pageSize,
             limit: _pageSize,
           );
@@ -165,6 +167,8 @@ class _CalendarListViewState extends State<CalendarListView> {
                 source.key == widget.filter.source ? widget.filter.group : null,
             placeId:
                 source.key == widget.filter.source ? widget.filter.place : null,
+            eventId:
+                source.key == widget.filter.source ? widget.filter.event : null,
             offset: source.value * _pageSize,
             limit: _pageSize,
           );

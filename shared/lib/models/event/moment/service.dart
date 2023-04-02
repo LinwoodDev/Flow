@@ -17,6 +17,7 @@ abstract class MomentService extends ModelService {
     String search = '',
     int? groupId,
     int? placeId,
+    int? eventId,
   });
 
   FutureOr<Moment?> createMoment(Moment moment);

@@ -19,6 +19,7 @@ mixin _$CalendarFilter {
   List<EventStatus> get hiddenStatuses => throw _privateConstructorUsedError;
   String? get source => throw _privateConstructorUsedError;
   int? get group => throw _privateConstructorUsedError;
+  int? get event => throw _privateConstructorUsedError;
   int? get place => throw _privateConstructorUsedError;
   bool get past => throw _privateConstructorUsedError;
 
@@ -37,6 +38,7 @@ abstract class $CalendarFilterCopyWith<$Res> {
       {List<EventStatus> hiddenStatuses,
       String? source,
       int? group,
+      int? event,
       int? place,
       bool past});
 }
@@ -57,6 +59,7 @@ class _$CalendarFilterCopyWithImpl<$Res, $Val extends CalendarFilter>
     Object? hiddenStatuses = null,
     Object? source = freezed,
     Object? group = freezed,
+    Object? event = freezed,
     Object? place = freezed,
     Object? past = null,
   }) {
@@ -72,6 +75,10 @@ class _$CalendarFilterCopyWithImpl<$Res, $Val extends CalendarFilter>
       group: freezed == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
+              as int?,
+      event: freezed == event
+          ? _value.event
+          : event // ignore: cast_nullable_to_non_nullable
               as int?,
       place: freezed == place
           ? _value.place
@@ -97,6 +104,7 @@ abstract class _$$_CalendarFilterCopyWith<$Res>
       {List<EventStatus> hiddenStatuses,
       String? source,
       int? group,
+      int? event,
       int? place,
       bool past});
 }
@@ -115,6 +123,7 @@ class __$$_CalendarFilterCopyWithImpl<$Res>
     Object? hiddenStatuses = null,
     Object? source = freezed,
     Object? group = freezed,
+    Object? event = freezed,
     Object? place = freezed,
     Object? past = null,
   }) {
@@ -131,6 +140,10 @@ class __$$_CalendarFilterCopyWithImpl<$Res>
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
               as int?,
+      event: freezed == event
+          ? _value.event
+          : event // ignore: cast_nullable_to_non_nullable
+              as int?,
       place: freezed == place
           ? _value.place
           : place // ignore: cast_nullable_to_non_nullable
@@ -145,7 +158,7 @@ class __$$_CalendarFilterCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CalendarFilter implements _CalendarFilter {
+class _$_CalendarFilter extends _CalendarFilter {
   const _$_CalendarFilter(
       {final List<EventStatus> hiddenStatuses = const [
         EventStatus.draft,
@@ -153,9 +166,11 @@ class _$_CalendarFilter implements _CalendarFilter {
       ],
       this.source,
       this.group,
+      this.event,
       this.place,
       this.past = false})
-      : _hiddenStatuses = hiddenStatuses;
+      : _hiddenStatuses = hiddenStatuses,
+        super._();
 
   final List<EventStatus> _hiddenStatuses;
   @override
@@ -171,6 +186,8 @@ class _$_CalendarFilter implements _CalendarFilter {
   @override
   final int? group;
   @override
+  final int? event;
+  @override
   final int? place;
   @override
   @JsonKey()
@@ -178,7 +195,7 @@ class _$_CalendarFilter implements _CalendarFilter {
 
   @override
   String toString() {
-    return 'CalendarFilter(hiddenStatuses: $hiddenStatuses, source: $source, group: $group, place: $place, past: $past)';
+    return 'CalendarFilter(hiddenStatuses: $hiddenStatuses, source: $source, group: $group, event: $event, place: $place, past: $past)';
   }
 
   @override
@@ -190,6 +207,7 @@ class _$_CalendarFilter implements _CalendarFilter {
                 .equals(other._hiddenStatuses, _hiddenStatuses) &&
             (identical(other.source, source) || other.source == source) &&
             (identical(other.group, group) || other.group == group) &&
+            (identical(other.event, event) || other.event == event) &&
             (identical(other.place, place) || other.place == place) &&
             (identical(other.past, past) || other.past == past));
   }
@@ -200,6 +218,7 @@ class _$_CalendarFilter implements _CalendarFilter {
       const DeepCollectionEquality().hash(_hiddenStatuses),
       source,
       group,
+      event,
       place,
       past);
 
@@ -210,13 +229,15 @@ class _$_CalendarFilter implements _CalendarFilter {
       __$$_CalendarFilterCopyWithImpl<_$_CalendarFilter>(this, _$identity);
 }
 
-abstract class _CalendarFilter implements CalendarFilter {
+abstract class _CalendarFilter extends CalendarFilter {
   const factory _CalendarFilter(
       {final List<EventStatus> hiddenStatuses,
       final String? source,
       final int? group,
+      final int? event,
       final int? place,
       final bool past}) = _$_CalendarFilter;
+  const _CalendarFilter._() : super._();
 
   @override
   List<EventStatus> get hiddenStatuses;
@@ -224,6 +245,8 @@ abstract class _CalendarFilter implements CalendarFilter {
   String? get source;
   @override
   int? get group;
+  @override
+  int? get event;
   @override
   int? get place;
   @override
