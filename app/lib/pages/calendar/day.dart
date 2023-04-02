@@ -34,7 +34,7 @@ class CalendarDayView extends StatefulWidget {
 class _CalendarDayViewState extends State<CalendarDayView> {
   late final FlowCubit _cubit;
   DateTime _date = DateTime.now();
-  late Future<List<SourcedConnectedModel<Appointment, Event>>> _dates;
+  late Future<List<SourcedConnectedModel<Appointment, Event?>>> _dates;
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
     _dates = _fetchDates();
   }
 
-  Future<List<SourcedConnectedModel<Appointment, Event>>> _fetchDates() async {
+  Future<List<SourcedConnectedModel<Appointment, Event?>>> _fetchDates() async {
     if (!mounted) return [];
 
     var sources = _cubit.getCurrentServicesMap();
@@ -52,7 +52,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
         widget.filter.source!: _cubit.getService(widget.filter.source!)
       };
     }
-    final dates = <SourcedConnectedModel<Appointment, Event>>[];
+    final dates = <SourcedConnectedModel<Appointment, Event?>>[];
     for (final source in sources.entries) {
       final fetched = await source.value.appointment?.getAppointments(
         date: _date,
@@ -158,7 +158,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
                   ],
                 ),
                 const Divider(),
-                FutureBuilder<List<SourcedConnectedModel<Appointment, Event>>>(
+                FutureBuilder<List<SourcedConnectedModel<Appointment, Event?>>>(
                     future: _dates,
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
@@ -183,14 +183,14 @@ class _CalendarDayViewState extends State<CalendarDayView> {
 }
 
 class _EventListPosition {
-  final SourcedConnectedModel<Appointment, Event> appointment;
+  final SourcedConnectedModel<Appointment, Event?> appointment;
   final int position;
 
   _EventListPosition(this.appointment, this.position);
 }
 
 class SingleDayList extends StatelessWidget {
-  final List<SourcedConnectedModel<Appointment, Event>> appointments;
+  final List<SourcedConnectedModel<Appointment, Event?>> appointments;
   final VoidCallback onChanged;
   final DateTime current;
   final double maxWidth;
@@ -267,8 +267,8 @@ class SingleDayList extends StatelessWidget {
                       context: context,
                       builder: (context) => AppointmentDialog(
                         appointment: appointment,
-                        event: SourcedModel(position.appointment.source,
-                            position.appointment.sub),
+                        event: position.appointment.sub,
+                        source: position.appointment.source,
                       ),
                     ).then((value) => onChanged()),
                     child: Padding(
@@ -315,7 +315,7 @@ class SingleDayList extends StatelessWidget {
   }
 
   List<_EventListPosition> _getEventListPositions(
-      List<SourcedConnectedModel<Appointment, Event>> dates) {
+      List<SourcedConnectedModel<Appointment, Event?>> dates) {
     final positions = <_EventListPosition>[];
     for (final date in dates) {
       final collide = positions.reversed.firstWhereOrNull(

@@ -31,7 +31,7 @@ class AppointmentSelectDialog extends StatefulWidget {
 class _AppointmentSelectDialogState extends State<AppointmentSelectDialog> {
   static const _pageSize = 20;
   final TextEditingController _controller = TextEditingController();
-  final PagingController<int, SourcedConnectedModel<Appointment, Event>>
+  final PagingController<int, SourcedConnectedModel<Appointment, Event?>>
       _pagingController = PagingController(firstPageKey: 0);
 
   @override
@@ -57,7 +57,7 @@ class _AppointmentSelectDialogState extends State<AppointmentSelectDialog> {
         return (appointments ?? <ConnectedModel<Appointment, Event>>[])
             .map((event) => SourcedModel(source.key, event))
             .where((element) =>
-                element.sub.id != widget.ignore || source.key != widget.source)
+                element.main.id != widget.ignore || source.key != widget.source)
             .toList();
       }));
       final allAppointments =
@@ -100,8 +100,8 @@ class _AppointmentSelectDialogState extends State<AppointmentSelectDialog> {
             const Divider(),
             const SizedBox(height: 8),
             Expanded(
-              child:
-                  PagedListView<int, SourcedConnectedModel<Appointment, Event>>(
+              child: PagedListView<int,
+                  SourcedConnectedModel<Appointment, Event?>>(
                 pagingController: _pagingController,
                 builderDelegate: buildMaterialPagedDelegate(
                   _pagingController,

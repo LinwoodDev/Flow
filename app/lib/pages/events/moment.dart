@@ -7,32 +7,35 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/event/moment/model.dart';
 import 'package:shared/models/event/model.dart';
-import 'package:shared/models/model.dart';
 import 'package:shared/models/note/model.dart';
 import 'package:shared/models/note/service.dart';
 
 import '../../widgets/date_time_field.dart';
+import '../../widgets/source_dropdown.dart';
 import '../notes/note.dart';
 import 'event.dart';
 
 class MomentDialog extends StatelessWidget {
   final bool create;
   final Moment? moment;
-  final SourcedModel<Event> event;
+  final Event? event;
+  final String? source;
 
   const MomentDialog({
     super.key,
     this.moment,
+    this.event,
+    this.source,
     this.create = false,
-    required this.event,
   });
 
   @override
   Widget build(BuildContext context) {
-    var create = this.create || moment == null;
+    var create = this.create || moment == null || source == null;
+    var currentSource = source ?? '';
     var currentMoment = moment ??
         Moment(
-          eventId: event.model.id,
+          eventId: event?.id,
         );
     final nameController = TextEditingController(text: currentMoment.name);
     final descriptionController =
@@ -76,18 +79,32 @@ class MomentDialog extends StatelessWidget {
                       child: ListView(
                         shrinkWrap: true,
                         children: [
+                          if (source == null) ...[
+                            SourceDropdown(
+                              value: currentSource,
+                              onChanged: (String? value) {
+                                currentSource = value ?? '';
+                              },
+                            ),
+                            const SizedBox(height: 16),
+                          ],
                           const SizedBox(height: 16),
                           ListTile(
                             title: Text(AppLocalizations.of(context).event),
-                            subtitle: Text(event.model.name),
+                            subtitle: Text(event?.name ??
+                                AppLocalizations.of(context).notSet),
                             leading: const Icon(Icons.event_outlined),
                             onTap: () {
                               Navigator.of(context).pop();
-                              showDialog(
-                                context: context,
-                                builder: (context) => EventDialog(
-                                    event: event.model, source: event.source),
-                              );
+                              if (event != null) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => EventDialog(
+                                    event: event!,
+                                    source: source,
+                                  ),
+                                );
+                              }
                             },
                           ),
                           const SizedBox(height: 16),
@@ -171,8 +188,8 @@ class MomentDialog extends StatelessWidget {
                     if (!create)
                       _MomentNotesTab(
                         moment: moment!,
-                        event: event.model,
-                        source: event.source,
+                        event: event!,
+                        source: currentSource,
                       ),
                   ],
                 ),
@@ -193,7 +210,7 @@ class MomentDialog extends StatelessWidget {
             if (create) {
               final created = await context
                   .read<FlowCubit>()
-                  .getService(event.source)
+                  .getService(currentSource)
                   .moment
                   ?.createMoment(currentMoment);
               if (created != null) {
@@ -202,7 +219,7 @@ class MomentDialog extends StatelessWidget {
             } else {
               context
                   .read<FlowCubit>()
-                  .getService(event.source)
+                  .getService(currentSource)
                   .moment
                   ?.updateMoment(currentMoment);
             }

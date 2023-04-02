@@ -12,7 +12,7 @@ _$FixedAppointment _$$FixedAppointmentFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       location: json['location'] as String? ?? '',
-      eventId: json['eventId'] as int,
+      eventId: json['eventId'] as int?,
       status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
           EventStatus.confirmed,
       start: const DateTimeConverter().fromJson(json['start'] as int?),
@@ -46,7 +46,7 @@ _$RepeatingAppointment _$$RepeatingAppointmentFromJson(
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       location: json['location'] as String? ?? '',
-      eventId: json['eventId'] as int,
+      eventId: json['eventId'] as int?,
       status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
           EventStatus.confirmed,
       start: const DateTimeConverter().fromJson(json['start'] as int?),
@@ -98,7 +98,7 @@ _$AutoAppointment _$$AutoAppointmentFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       location: json['location'] as String? ?? '',
-      eventId: json['eventId'] as int,
+      eventId: json['eventId'] as int?,
       status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
           EventStatus.confirmed,
       start: const DateTimeConverter().fromJson(json['start'] as int?),

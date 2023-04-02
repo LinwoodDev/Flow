@@ -89,6 +89,7 @@ class FlowRootNavigation extends StatelessWidget {
                   child: OverflowBox(
                       maxWidth: _drawerWidth,
                       minWidth: _drawerWidth,
+                      alignment: Alignment.centerRight,
                       child: _FlowDrawer())),
             ),
           ]);

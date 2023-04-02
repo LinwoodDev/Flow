@@ -7,7 +7,7 @@ import 'model.dart';
 
 abstract class AppointmentService extends ModelService {
   FutureOr<Appointment?> getAppointment(int id);
-  FutureOr<List<ConnectedModel<Appointment, Event>>> getAppointments({
+  FutureOr<List<ConnectedModel<Appointment, Event?>>> getAppointments({
     List<EventStatus>? status,
     int? eventId,
     int? groupId,
