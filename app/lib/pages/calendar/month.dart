@@ -114,6 +114,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
     return LayoutBuilder(
       builder: (context, constraints) => CreateEventScaffold(
         onCreated: _refresh,
+        event: widget.filter.sourceEvent,
         child: Column(children: [
           Column(mainAxisSize: MainAxisSize.min, children: [
             CalendarFilterView(
@@ -241,6 +242,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                               builder: (context) => CalendarDayDialog(
                                 date: day,
                                 appointments: appointments[current],
+                                event: widget.filter.sourceEvent,
                               ),
                             );
                             _refresh();
@@ -288,11 +290,13 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
 class CalendarDayDialog extends StatelessWidget {
   final DateTime date;
   final List<SourcedConnectedModel<Appointment, Event?>> appointments;
+  final SourcedModel<int>? event;
 
   const CalendarDayDialog({
     super.key,
     required this.date,
     required this.appointments,
+    this.event,
   });
 
   @override
@@ -316,7 +320,10 @@ class CalendarDayDialog extends StatelessWidget {
             tooltip: AppLocalizations.of(context).createEvent,
             onPressed: () async {
               Navigator.of(context).pop();
-              await showCalendarCreate(context: context);
+              await showCalendarCreate(
+                context: context,
+                event: event,
+              );
             },
           ),
         ],

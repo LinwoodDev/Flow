@@ -11,7 +11,7 @@ import '../../widgets/builder_delegate.dart';
 
 class GroupSelectDialog extends StatefulWidget {
   final String? source;
-  final MapEntry<String, int>? selected;
+  final SourcedModel<int>? selected;
   final int? ignore;
 
   const GroupSelectDialog({
@@ -100,8 +100,8 @@ class _GroupSelectDialogState extends State<GroupSelectDialog> {
                   _pagingController,
                   (context, item, index) => ListTile(
                     title: Text(item.model.name),
-                    selected: widget.selected?.value == item.model.id &&
-                        widget.selected?.key == item.source,
+                    selected: widget.selected?.model == item.model.id &&
+                        widget.selected?.source == item.source,
                     onTap: () {
                       Navigator.of(context).pop(item);
                     },

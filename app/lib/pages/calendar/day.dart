@@ -60,10 +60,8 @@ class _CalendarDayViewState extends State<CalendarDayView> {
             .where((element) => !widget.filter.hiddenStatuses.contains(element))
             .toList(),
         search: widget.search,
-        groupId:
-            source.key == widget.filter.source ? widget.filter.group : null,
-        placeId:
-            source.key == widget.filter.source ? widget.filter.place : null,
+        groupId: widget.filter.group,
+        placeId: widget.filter.place,
       );
       if (fetched == null) continue;
       dates.addAll(fetched.map((date) => SourcedModel(source.key, date)));
@@ -94,6 +92,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
   Widget build(BuildContext context) {
     return CreateEventScaffold(
       onCreated: _refresh,
+      event: widget.filter.sourceEvent,
       child: LayoutBuilder(
           builder: (context, constraints) => ListView(children: [
                 Align(
@@ -174,6 +173,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
                           onChanged: _refresh,
                           current: _date,
                           maxWidth: constraints.maxWidth,
+                          event: widget.filter.sourceEvent,
                         ),
                       );
                     }),
@@ -194,6 +194,7 @@ class SingleDayList extends StatelessWidget {
   final VoidCallback onChanged;
   final DateTime current;
   final double maxWidth;
+  final SourcedModel<int>? event;
 
   static const _hourHeight = 100.0;
   static const _dividerHeight = 4.0;
@@ -205,6 +206,7 @@ class SingleDayList extends StatelessWidget {
     required this.onChanged,
     required this.current,
     required this.maxWidth,
+    this.event,
   });
 
   @override
@@ -234,7 +236,8 @@ class SingleDayList extends StatelessWidget {
               minutes,
             );
 
-            await showCalendarCreate(context: context, time: dateTime);
+            await showCalendarCreate(
+                context: context, time: dateTime, event: event);
             onChanged();
           }),
           for (final position in positions)

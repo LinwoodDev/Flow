@@ -93,7 +93,9 @@ class MomentDialog extends StatelessWidget {
                             title: Text(AppLocalizations.of(context).event),
                             subtitle: Text(event?.name ??
                                 AppLocalizations.of(context).notSet),
-                            leading: const Icon(Icons.event_outlined),
+                            leading: Icon(event == null
+                                ? Icons.event
+                                : Icons.event_outlined),
                             onTap: () {
                               Navigator.of(context).pop();
                               if (event != null) {

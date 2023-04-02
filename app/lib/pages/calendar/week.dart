@@ -103,6 +103,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
     return LayoutBuilder(
       builder: (context, constraints) => CreateEventScaffold(
         onCreated: _refresh,
+        event: widget.filter.sourceEvent,
         child: Column(children: [
           Column(mainAxisSize: MainAxisSize.min, children: [
             CalendarFilterView(

@@ -73,7 +73,7 @@ class _UserFilterViewState extends State<UserFilterView> {
                   context: context,
                   builder: (context) => GroupSelectDialog(
                     selected: _filter.source != null && _filter.group != null
-                        ? MapEntry(_filter.source!, _filter.group!)
+                        ? SourcedModel(_filter.source!, _filter.group!)
                         : null,
                   ),
                 );

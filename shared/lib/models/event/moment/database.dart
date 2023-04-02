@@ -99,6 +99,10 @@ class MomentDatabaseService extends MomentService with TableService {
       where = where == null ? 'placeId = ?' : '$where AND placeId = ?';
       whereArgs = whereArgs == null ? [placeId] : [...whereArgs, placeId];
     }
+    if (eventId != null) {
+      where = where == null ? 'eventId = ?' : '$where AND eventId = ?';
+      whereArgs = whereArgs == null ? [eventId] : [...whereArgs, eventId];
+    }
     final result = await db?.query(
       "moments INNER JOIN events ON events.id = moments.eventId",
       columns: [

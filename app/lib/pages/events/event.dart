@@ -88,7 +88,8 @@ class EventDialog extends StatelessWidget {
                               builder: (context) => GroupSelectDialog(
                                 selected: currentEvent.groupId == null
                                     ? null
-                                    : MapEntry(source!, currentEvent.groupId!),
+                                    : SourcedModel(
+                                        source!, currentEvent.groupId!),
                                 source: source!,
                               ),
                             );

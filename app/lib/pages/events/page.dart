@@ -270,10 +270,17 @@ Future<SourcedModel<Event>?> showEventModalBottomSheet(
 
 Future<void> showCalendarCreate(
     {required BuildContext context,
-    SourcedModel<Event>? event,
+    SourcedModel<int>? event,
     DateTime? time}) async {
-  final eventResult =
-      event ?? await showEventModalBottomSheet(context: context, time: time);
+  final cubit = context.read<FlowCubit>();
+  SourcedModel<Event>? eventResult;
+  if (event == null) {
+    eventResult = await showEventModalBottomSheet(context: context, time: time);
+  } else {
+    final model =
+        await cubit.getService(event.source).event?.getEvent(event.model);
+    if (model != null) eventResult = SourcedModel(event.source, model);
+  }
   if (eventResult == null) return;
   if (context.mounted) {
     await showMaterialBottomSheet(
@@ -287,8 +294,8 @@ Future<void> showCalendarCreate(
             await showDialog(
               context: context,
               builder: (context) => AppointmentDialog(
-                event: eventResult.model,
-                source: eventResult.source,
+                event: eventResult?.model,
+                source: eventResult?.source,
                 create: true,
               ),
             );
@@ -302,8 +309,8 @@ Future<void> showCalendarCreate(
             await showDialog(
               context: context,
               builder: (context) => MomentDialog(
-                event: eventResult.model,
-                source: eventResult.source,
+                event: eventResult?.model,
+                source: eventResult?.source,
                 create: true,
               ),
             );

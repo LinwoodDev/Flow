@@ -110,25 +110,20 @@ class _CalendarListViewState extends State<CalendarListView> {
     final appointments = <SourcedConnectedModel<Appointment, Event?>>[];
     final nextSources = <String>[];
     for (final source in sources.entries) {
-      final fetched = await _cubit
-          .getService(source.key)
-          .appointment
-          ?.getAppointments(
-            date: date,
-            status: EventStatus.values
-                .where((element) =>
-                    !widget.filter.hiddenStatuses.contains(element))
-                .toList(),
-            search: widget.search,
-            groupId:
-                source.key == widget.filter.source ? widget.filter.group : null,
-            placeId:
-                source.key == widget.filter.source ? widget.filter.place : null,
-            eventId:
-                source.key == widget.filter.source ? widget.filter.event : null,
-            offset: source.value * _pageSize,
-            limit: _pageSize,
-          );
+      final fetched =
+          await _cubit.getService(source.key).appointment?.getAppointments(
+                date: date,
+                status: EventStatus.values
+                    .where((element) =>
+                        !widget.filter.hiddenStatuses.contains(element))
+                    .toList(),
+                search: widget.search,
+                groupId: widget.filter.group,
+                placeId: widget.filter.place,
+                eventId: widget.filter.event,
+                offset: source.value * _pageSize,
+                limit: _pageSize,
+              );
       if (fetched == null) continue;
       appointments
           .addAll(fetched.map((event) => SourcedModel(source.key, event)));
@@ -163,12 +158,9 @@ class _CalendarListViewState extends State<CalendarListView> {
                     !widget.filter.hiddenStatuses.contains(element))
                 .toList(),
             search: widget.search,
-            groupId:
-                source.key == widget.filter.source ? widget.filter.group : null,
-            placeId:
-                source.key == widget.filter.source ? widget.filter.place : null,
-            eventId:
-                source.key == widget.filter.source ? widget.filter.event : null,
+            groupId: widget.filter.group,
+            placeId: widget.filter.place,
+            eventId: widget.filter.event,
             offset: source.value * _pageSize,
             limit: _pageSize,
           );
@@ -195,6 +187,7 @@ class _CalendarListViewState extends State<CalendarListView> {
     final dateFormatter = DateFormat.yMMMMd(locale);
     return CreateEventScaffold(
       onCreated: _controller.refresh,
+      event: widget.filter.sourceEvent,
       child: Column(
         children: [
           CalendarFilterView(
@@ -272,6 +265,7 @@ class _CalendarListViewState extends State<CalendarListView> {
                             onTap: () => showCalendarCreate(
                               context: context,
                               time: date,
+                              event: widget.filter.sourceEvent,
                             ).then((value) => _controller.refresh()),
                             child: isMobile
                                 ? Column(

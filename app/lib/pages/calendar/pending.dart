@@ -97,6 +97,7 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
   Widget build(BuildContext context) {
     return CreateEventScaffold(
       onCreated: _controller.refresh,
+      event: widget.filter.sourceEvent,
       child: Column(
         children: [
           CalendarFilterView(

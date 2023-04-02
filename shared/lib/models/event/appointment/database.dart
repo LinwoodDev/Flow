@@ -119,6 +119,10 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
       where = where == null ? 'placeId = ?' : '$where AND placeId = ?';
       whereArgs = whereArgs == null ? [placeId] : [...whereArgs, placeId];
     }
+    if (eventId != null) {
+      where = where == null ? 'eventId = ?' : '$where AND eventId = ?';
+      whereArgs = whereArgs == null ? [eventId] : [...whereArgs, eventId];
+    }
     final result = await db?.query(
       "appointments INNER JOIN events ON events.id = appointments.eventId",
       columns: [

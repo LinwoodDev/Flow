@@ -44,7 +44,7 @@ class UserDialog extends StatelessWidget {
                           builder: (context) => GroupSelectDialog(
                             selected: user.groupId == null
                                 ? null
-                                : MapEntry(source!, user.groupId!),
+                                : SourcedModel(source!, user.groupId!),
                             source: source!,
                           ),
                         );
