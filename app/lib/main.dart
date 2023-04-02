@@ -23,6 +23,7 @@ import 'pages/sources/page.dart';
 import 'pages/places/page.dart';
 import 'pages/groups/page.dart';
 import 'pages/settings/page.dart';
+import 'pages/users/filter.dart';
 import 'pages/users/page.dart';
 
 import 'pages/notes/page.dart';
@@ -93,7 +94,7 @@ class FlowApp extends StatelessWidget {
         builder: (context, state) => MaterialApp.router(
               debugShowCheckedModeBanner: false,
               routerConfig: _router,
-              title: isNightly ? 'Linwood Flow Nightly' : 'Linwood Flow',
+              title: applicationName,
               theme: getThemeData(state.design, false, lightDynamic),
               darkTheme: getThemeData(state.design, true, darkDynamic),
               themeMode: state.themeMode,
@@ -181,7 +182,11 @@ class FlowApp extends StatelessWidget {
             GoRoute(
               path: '/users',
               pageBuilder: _fadeTransitionBuilder(
-                (context, state) => const UsersPage(),
+                (context, state) => UsersPage(
+                  filter: state.extra is UserFilter
+                      ? state.extra as UserFilter
+                      : const UserFilter(),
+                ),
               ),
             ),
             GoRoute(
@@ -204,3 +209,4 @@ class FlowApp extends StatelessWidget {
 const flavor = String.fromEnvironment('flavor');
 const isNightly =
     flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
+const applicationName = isNightly ? 'Linwood Flow Nightly' : 'Linwood Flow';

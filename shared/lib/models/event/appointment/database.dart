@@ -21,7 +21,7 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT NOT NULL DEFAULT '',
         location VARCHAR(100) NOT NULL DEFAULT '',
-        eventId INTEGER NOT NULL,
+        eventId INTEGER,
         start INTEGER,
         end INTEGER,
         status VARCHAR(20) NOT NULL DEFAULT 'confirmed',
@@ -33,7 +33,8 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
         exceptions TEXT,
         autoGroupId INTEGER NOT NULL DEFAULT -1,
         searchStart INTEGER,
-        autoDuration INTEGER NOT NULL DEFAULT 60
+        autoDuration INTEGER NOT NULL DEFAULT 60,
+        FOREIGN KEY (eventId) REFERENCES events(id) ON DELETE CASCADE
       )
     """);
   }
@@ -42,7 +43,7 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
   FutureOr<void> migrate(Database db, int version) {}
 
   @override
-  Future<List<ConnectedModel<Appointment, Event>>> getAppointments(
+  Future<List<ConnectedModel<Appointment, Event?>>> getAppointments(
       {List<EventStatus>? status,
       int? eventId,
       int? groupId,
@@ -124,7 +125,7 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
       whereArgs = whereArgs == null ? [eventId] : [...whereArgs, eventId];
     }
     final result = await db?.query(
-      "appointments INNER JOIN events ON events.id = appointments.eventId",
+      "appointments LEFT JOIN events ON events.id = appointments.eventId",
       columns: [
         "events.*",
         "appointments.runtimeType AS appointmentruntimeType",
@@ -150,12 +151,12 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
       whereArgs: whereArgs,
     );
     return result?.map((e) {
-          return ConnectedModel<Appointment, Event>(
+          return ConnectedModel<Appointment, Event?>(
             Appointment.fromJson(Map.fromEntries(e.entries
                 .where((element) => element.key.startsWith('appointment'))
                 .map((e) =>
                     MapEntry(e.key.substring("appointment".length), e.value)))),
-            Event.fromDatabase(e),
+            e['id'] == null ? null : Event.fromDatabase(e),
           );
         }).toList() ??
         [];

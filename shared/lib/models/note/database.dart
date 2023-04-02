@@ -7,6 +7,100 @@ import 'package:sqflite_common/sqlite_api.dart';
 
 import 'model.dart';
 
+abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
+    with TableService {
+  String get tableName;
+  String get connectedTableName;
+  String get connectedIdName;
+
+  T _decode(Map<String, dynamic> data);
+
+  @override
+  Future<void> create(Database db) async {
+    await db.execute("""
+      CREATE TABLE IF NOT EXISTS $tableName (
+        noteId INTEGER NOT NULL,
+        $connectedIdName INTEGER NOT NULL,
+        PRIMARY KEY ($connectedIdName, noteId),
+        FOREIGN KEY ($connectedIdName) REFERENCES $connectedTableName(id) ON DELETE CASCADE,
+        FOREIGN KEY (noteId) REFERENCES notes(id) ON DELETE CASCADE
+      )
+    """);
+  }
+
+  @override
+  Future<void> connect(int connectId, int noteId) async {
+    await db?.insert(tableName, {
+      'noteId': noteId,
+      connectedIdName: connectId,
+    });
+  }
+
+  @override
+  Future<void> disconnect(int connectId, int noteId) async {
+    await db?.delete(
+      tableName,
+      where: 'noteId = ? AND $connectedIdName = ?',
+      whereArgs: [noteId, connectId],
+    );
+  }
+
+  @override
+  Future<List<Note>> getNotes(int connectId,
+      {int offset = 0, int limit = 50}) async {
+    final result = await db?.query(
+      tableName,
+      where: '$connectedIdName = ?',
+      whereArgs: [connectId],
+      offset: offset,
+      limit: limit,
+    );
+    return result?.map(Note.fromJson).toList() ?? [];
+  }
+
+  @override
+  Future<List<T>> getConnected(int noteId,
+      {int offset = 0, int limit = 50}) async {
+    final result = await db?.query(
+      tableName,
+      where: 'noteId = ?',
+      whereArgs: [noteId],
+      offset: offset,
+      limit: limit,
+    );
+    return result?.map(_decode).toList() ?? [];
+  }
+
+  @override
+  Future<bool> isNoteConnected(int connectId, int noteId) async {
+    final result = await db?.query(
+      tableName,
+      where: 'noteId = ? AND $connectedIdName = ?',
+      whereArgs: [noteId, connectId],
+    );
+    return result?.isNotEmpty == true;
+  }
+
+  @override
+  Future<bool?> notesDone(int connectId) async {
+    final result = await db?.rawQuery(
+        'SELECT COUNT(*) AS count FROM notes WHERE $connectedIdName = ? AND status = ?',
+        [connectId, NoteStatus.done.name]);
+    final resultCount = result?.first['count'] as int? ?? 0;
+    final all = await db?.rawQuery(
+        'SELECT COUNT(*) AS count FROM notes WHERE $connectedIdName = ?',
+        [connectId]);
+    final allCount = all?.first['count'] as int? ?? 0;
+    if (resultCount == allCount && allCount > 0) {
+      return true;
+    }
+    if (resultCount == 0 && allCount > 0) {
+      return false;
+    }
+    return null;
+  }
+}
+
 class NoteDatabaseService extends NoteService with TableService {
   @override
   Future<void> create(Database db) {
@@ -91,24 +185,6 @@ class NoteDatabaseService extends NoteService with TableService {
                 Note.fromJson(Map.from(row)..['done'] = row['done'] == 1))
             .toList() ??
         [];
-  }
-
-  @override
-  Future<bool?> notesDone(int eventId) async {
-    final result = await db?.rawQuery(
-        'SELECT COUNT(*) AS count FROM notes WHERE eventId = ? AND status = ?',
-        [eventId, NoteStatus.done.name]);
-    final resultCount = result?.first['count'] as int? ?? 0;
-    final all = await db?.rawQuery(
-        'SELECT COUNT(*) AS count FROM notes WHERE eventId = ?', [eventId]);
-    final allCount = all?.first['count'] as int? ?? 0;
-    if (resultCount == allCount && allCount > 0) {
-      return true;
-    }
-    if (resultCount == 0 && allCount > 0) {
-      return false;
-    }
-    return null;
   }
 
   @override

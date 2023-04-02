@@ -99,6 +99,22 @@ class FlowRootNavigation extends StatelessWidget {
   }
 }
 
+class _NativeWindowArea extends StatelessWidget {
+  final Widget child;
+
+  const _NativeWindowArea({required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return DragToMoveArea(
+      child: GestureDetector(
+        onSecondaryTap: () => windowManager.popUpWindowMenu(),
+        child: child,
+      ),
+    );
+  }
+}
+
 class FlowNavigation extends StatelessWidget {
   final String title;
   final Widget body;
@@ -143,7 +159,7 @@ class FlowNavigation extends StatelessWidget {
                     previous.nativeTitleBar != current.nativeTitleBar,
                 builder: (context, state) => state.nativeTitleBar
                     ? child
-                    : DragToMoveArea(child: child)));
+                    : _NativeWindowArea(child: child)));
       }
 
       return Row(
@@ -235,7 +251,7 @@ class _FlowDrawer extends StatelessWidget {
                     ),
                     leadingWidth: 32,
                     title: const Text(
-                      isNightly ? "Flow Nightly" : "Flow",
+                      applicationName,
                       textAlign: TextAlign.center,
                     ),
                     centerTitle: true,
@@ -254,7 +270,7 @@ class _FlowDrawer extends StatelessWidget {
                           Platform.isLinux ||
                           Platform.isMacOS) &&
                       !state.nativeTitleBar) {
-                    return DragToMoveArea(child: widget);
+                    return _NativeWindowArea(child: widget);
                   }
                   return widget;
                 }),

@@ -13,8 +13,11 @@ import '../../cubits/flow.dart';
 import '../../widgets/builder_delegate.dart';
 
 class UsersPage extends StatefulWidget {
+  final UserFilter filter;
+
   const UsersPage({
     super.key,
+    this.filter = const UserFilter(),
   });
 
   @override
@@ -24,7 +27,7 @@ class UsersPage extends StatefulWidget {
 class _UsersPageState extends State<UsersPage> {
   static const _pageSize = 20;
   late final FlowCubit _flowCubit;
-  UserFilter _filter = const UserFilter();
+  late UserFilter _filter;
   final PagingController<int, MapEntry<User, String>> _pagingController =
       PagingController(firstPageKey: 0);
 
@@ -32,6 +35,7 @@ class _UsersPageState extends State<UsersPage> {
   void initState() {
     _flowCubit = context.read<FlowCubit>();
     _pagingController.addPageRequestListener(_fetchPage);
+    _filter = widget.filter;
     super.initState();
   }
 

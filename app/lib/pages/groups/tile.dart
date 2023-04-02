@@ -7,6 +7,7 @@ import 'package:shared/models/model.dart';
 
 import '../../cubits/flow.dart';
 import '../calendar/filter.dart';
+import '../users/filter.dart';
 import 'group.dart';
 
 class GroupTile extends StatelessWidget {
@@ -39,7 +40,7 @@ class GroupTile extends StatelessWidget {
           [
             Icons.people_outlined,
             AppLocalizations.of(context).users,
-            _openEvents,
+            _openUsers,
           ],
           [
             Icons.delete_outline,
@@ -100,6 +101,16 @@ class GroupTile extends StatelessWidget {
     GoRouter.of(context).go(
       "/calendar",
       extra: CalendarFilter(
+        group: group.id,
+        source: source,
+      ),
+    );
+  }
+
+  void _openUsers(BuildContext context) {
+    GoRouter.of(context).go(
+      "/users",
+      extra: UserFilter(
         group: group.id,
         source: source,
       ),

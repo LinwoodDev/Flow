@@ -1,11 +1,14 @@
 import 'dart:async';
 
+import 'package:shared/models/note/event/database.dart';
 import 'package:shared/services/source.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
 import '../models/event/appointment/database.dart';
 import '../models/event/database.dart';
 import '../models/event/moment/database.dart';
+import '../models/note/appointment/database.dart';
+import '../models/note/moment/database.dart';
 import '../models/place/database.dart';
 import '../models/user/database.dart';
 import '../models/group/database.dart';
@@ -31,6 +34,12 @@ class DatabaseService extends SourceService {
   @override
   late final NoteDatabaseService note;
   @override
+  late final EventNoteDatabaseConnector eventNote;
+  @override
+  late final AppointmentNoteDatabaseConnector appointmentNote;
+  @override
+  late final MomentNoteDatabaseConnector momentNote;
+  @override
   late final GroupDatabaseService group;
 
   @override
@@ -47,6 +56,9 @@ class DatabaseService extends SourceService {
     appointment = AppointmentDatabaseService();
     moment = MomentDatabaseService();
     note = NoteDatabaseService();
+    eventNote = EventNoteDatabaseConnector();
+    appointmentNote = AppointmentNoteDatabaseConnector();
+    momentNote = MomentNoteDatabaseConnector();
     place = PlaceDatabaseService();
     group = GroupDatabaseService();
 

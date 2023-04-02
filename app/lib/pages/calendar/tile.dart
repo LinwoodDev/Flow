@@ -26,6 +26,8 @@ class CalendarListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<FlowCubit>();
+    final service = cubit.getService(eventItem.source);
     final locale = Localizations.localeOf(context).languageCode;
     final timeFormatter = DateFormat.Hm(locale);
     final model = eventItem.main;
@@ -95,10 +97,9 @@ class CalendarListTile extends StatelessWidget {
       trailing: FutureBuilder<bool?>(
         future: Future.value(eventItem.sub == null
             ? null
-            : context
-                .read<FlowCubit>()
-                .getService(eventItem.source)
-                .note
+            : (main is Appointment
+                    ? service.appointmentNote
+                    : service.momentNote)
                 ?.notesDone(eventItem.sub!.id)),
         builder: (context, snapshot) {
           if (snapshot.hasData) {

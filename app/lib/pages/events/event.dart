@@ -10,6 +10,7 @@ import 'package:shared/models/place/model.dart';
 
 import '../../widgets/source_dropdown.dart';
 import '../places/select.dart';
+import 'select.dart';
 
 class EventDialog extends StatelessWidget {
   final String? source;
@@ -223,5 +224,86 @@ class EventDialog extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class EventListTile extends StatefulWidget {
+  final String source;
+  final int? value;
+  final ValueChanged<int?> onChanged;
+
+  const EventListTile({
+    super.key,
+    required this.source,
+    this.value,
+    required this.onChanged,
+  });
+
+  @override
+  State<EventListTile> createState() => _EventListTileState();
+}
+
+class _EventListTileState extends State<EventListTile> {
+  int? _value;
+
+  @override
+  void initState() {
+    super.initState();
+    _value = widget.value;
+  }
+
+  void _onChanged(int? value) {
+    setState(() {
+      _value = value;
+    });
+    widget.onChanged(value);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Event?>(
+        future: Future.value(_value == null
+            ? null
+            : context
+                .read<FlowCubit>()
+                .getService(widget.source)
+                .event
+                ?.getEvent(_value!)),
+        builder: (context, snapshot) {
+          final event = snapshot.data;
+          return ListTile(
+            title: Text(AppLocalizations.of(context).event),
+            subtitle: Text(event?.name ?? AppLocalizations.of(context).notSet),
+            leading: Icon(event == null ? Icons.event : Icons.event_outlined),
+            onTap: () async {
+              if (event != null) {
+                Navigator.of(context).pop();
+                showDialog(
+                  context: context,
+                  builder: (context) => EventDialog(
+                    event: event,
+                    source: widget.source,
+                  ),
+                );
+              } else {
+                final event = await showDialog<SourcedModel<Event>>(
+                  context: context,
+                  builder: (context) => EventSelectDialog(
+                    source: widget.source,
+                  ),
+                );
+                _onChanged(event?.model.id);
+              }
+            },
+            trailing: _value == null
+                ? null
+                : IconButton(
+                    icon: const Icon(Icons.clear),
+                    onPressed: () {
+                      _onChanged(null);
+                    },
+                  ),
+          );
+        });
   }
 }

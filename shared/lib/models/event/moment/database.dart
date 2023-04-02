@@ -20,9 +20,10 @@ class MomentDatabaseService extends MomentService with TableService {
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT NOT NULL DEFAULT '',
         location VARCHAR(100) NOT NULL DEFAULT '',
-        eventId INTEGER NOT NULL,
+        eventId INTEGER,
         status VARCHAR(20) NOT NULL DEFAULT 'confirmed',
-        time INTEGER
+        time INTEGER,
+        FOREIGN KEY (eventId) REFERENCES events(id) ON DELETE CASCADE
       )
     """);
   }
@@ -31,7 +32,7 @@ class MomentDatabaseService extends MomentService with TableService {
   FutureOr<void> migrate(Database db, int version) {}
 
   @override
-  Future<List<ConnectedModel<Moment, Event>>> getMoments({
+  Future<List<ConnectedModel<Moment, Event?>>> getMoments({
     List<EventStatus>? status,
     int offset = 0,
     int limit = 50,
@@ -119,12 +120,12 @@ class MomentDatabaseService extends MomentService with TableService {
       whereArgs: whereArgs,
     );
     return result?.map((e) {
-          return ConnectedModel<Moment, Event>(
+          return ConnectedModel<Moment, Event?>(
             Moment.fromJson(Map.fromEntries(e.entries
                 .where((element) => element.key.startsWith('moment'))
                 .map((e) =>
                     MapEntry(e.key.substring('moment'.length), e.value)))),
-            Event.fromDatabase(e),
+            e['id'] == null ? null : Event.fromDatabase(e),
           );
         }).toList() ??
         [];

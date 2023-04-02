@@ -84,29 +84,21 @@ class AppointmentDialog extends StatelessWidget {
                               value: currentSource,
                               onChanged: (String? value) {
                                 currentSource = value ?? '';
+                                currentAppointment =
+                                    currentAppointment.copyWith(
+                                  eventId: null,
+                                );
                               },
                             ),
                             const SizedBox(height: 16),
                           ],
                           const SizedBox(height: 16),
-                          ListTile(
-                            title: Text(AppLocalizations.of(context).event),
-                            subtitle: Text(event?.name ??
-                                AppLocalizations.of(context).notSet),
-                            leading: Icon(event == null
-                                ? Icons.event
-                                : Icons.event_outlined),
-                            onTap: () {
-                              Navigator.of(context).pop();
-                              if (event != null) {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => EventDialog(
-                                    event: event!,
-                                    source: source,
-                                  ),
-                                );
-                              }
+                          EventListTile(
+                            source: currentSource,
+                            value: currentAppointment.eventId,
+                            onChanged: (value) {
+                              currentAppointment =
+                                  currentAppointment.copyWith(eventId: value);
                             },
                           ),
                           const SizedBox(height: 16),
@@ -201,7 +193,7 @@ class AppointmentDialog extends StatelessWidget {
                     if (!create)
                       _AppointmentNotesTab(
                         appointment: appointment!,
-                        event: event!,
+                        event: event,
                         source: currentSource,
                       ),
                   ],
@@ -247,11 +239,11 @@ class AppointmentDialog extends StatelessWidget {
 }
 
 class _AppointmentNotesTab extends StatefulWidget {
-  final Event event;
+  final Event? event;
   final Appointment appointment;
   final String source;
   const _AppointmentNotesTab(
-      {required this.appointment, required this.source, required this.event});
+      {required this.appointment, required this.source, this.event});
 
   @override
   State<_AppointmentNotesTab> createState() => _AppointmentNotesTabState();

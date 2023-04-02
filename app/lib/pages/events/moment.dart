@@ -84,29 +84,20 @@ class MomentDialog extends StatelessWidget {
                               value: currentSource,
                               onChanged: (String? value) {
                                 currentSource = value ?? '';
+                                currentMoment = currentMoment.copyWith(
+                                  eventId: null,
+                                );
                               },
                             ),
                             const SizedBox(height: 16),
                           ],
                           const SizedBox(height: 16),
-                          ListTile(
-                            title: Text(AppLocalizations.of(context).event),
-                            subtitle: Text(event?.name ??
-                                AppLocalizations.of(context).notSet),
-                            leading: Icon(event == null
-                                ? Icons.event
-                                : Icons.event_outlined),
-                            onTap: () {
-                              Navigator.of(context).pop();
-                              if (event != null) {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => EventDialog(
-                                    event: event!,
-                                    source: source,
-                                  ),
-                                );
-                              }
+                          EventListTile(
+                            source: currentSource,
+                            value: currentMoment.eventId,
+                            onChanged: (value) {
+                              currentMoment =
+                                  currentMoment.copyWith(eventId: value);
                             },
                           ),
                           const SizedBox(height: 16),
@@ -190,7 +181,7 @@ class MomentDialog extends StatelessWidget {
                     if (!create)
                       _MomentNotesTab(
                         moment: moment!,
-                        event: event!,
+                        event: event,
                         source: currentSource,
                       ),
                   ],
@@ -236,11 +227,11 @@ class MomentDialog extends StatelessWidget {
 }
 
 class _MomentNotesTab extends StatefulWidget {
-  final Event event;
+  final Event? event;
   final Moment moment;
   final String source;
   const _MomentNotesTab(
-      {required this.moment, required this.source, required this.event});
+      {required this.moment, required this.source, this.event});
 
   @override
   State<_MomentNotesTab> createState() => _MomentNotesTabState();

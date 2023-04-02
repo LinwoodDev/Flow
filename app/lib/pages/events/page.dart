@@ -2,6 +2,7 @@ import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
@@ -10,6 +11,7 @@ import '../../cubits/flow.dart';
 import '../../helpers/sourced_paging_controller.dart';
 import '../../widgets/builder_delegate.dart';
 import '../../widgets/material_bottom_sheet.dart';
+import '../calendar/filter.dart';
 import 'appointment.dart';
 import 'event.dart';
 import 'filter.dart';
@@ -152,6 +154,11 @@ class EventTile extends StatelessWidget {
       trailing: PopupMenuButton<Function>(
         itemBuilder: (ctx) => <dynamic>[
           [
+            Icons.calendar_month_outlined,
+            AppLocalizations.of(context).events,
+            _openEvents,
+          ],
+          [
             Icons.delete_outline,
             AppLocalizations.of(context).delete,
             _deleteEvent,
@@ -169,6 +176,16 @@ class EventTile extends StatelessWidget {
                 ))
             .toList(),
         onSelected: (value) => value(context),
+      ),
+    );
+  }
+
+  void _openEvents(BuildContext context) {
+    GoRouter.of(context).go(
+      "/calendar",
+      extra: CalendarFilter(
+        event: event.id,
+        source: source,
       ),
     );
   }
@@ -274,14 +291,11 @@ Future<void> showCalendarCreate(
     DateTime? time}) async {
   final cubit = context.read<FlowCubit>();
   SourcedModel<Event>? eventResult;
-  if (event == null) {
-    eventResult = await showEventModalBottomSheet(context: context, time: time);
-  } else {
+  if (event != null) {
     final model =
         await cubit.getService(event.source).event?.getEvent(event.model);
     if (model != null) eventResult = SourcedModel(event.source, model);
   }
-  if (eventResult == null) return;
   if (context.mounted) {
     await showMaterialBottomSheet(
       context: context,
