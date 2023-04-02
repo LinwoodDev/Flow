@@ -253,13 +253,16 @@ class _AppointmentNotesTabState extends State<_AppointmentNotesTab> {
   static const _pageSize = 20;
 
   late final NoteService? _noteService;
+  late final NoteConnector<Appointment>? _noteConnector;
 
   final PagingController<int, Note> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
   void initState() {
-    _noteService = context.read<FlowCubit>().getService(widget.source).note;
+    final service = context.read<FlowCubit>().getService(widget.source);
+    _noteService = service.note;
+    _noteConnector = service.appointmentNote;
     _pagingController.addPageRequestListener((pageKey) {
       _fetchPage(pageKey);
     });
@@ -268,10 +271,8 @@ class _AppointmentNotesTabState extends State<_AppointmentNotesTab> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await _noteService?.getNotes(
-          //eventId: widget.appointment.id,
-          offset: pageKey * _pageSize,
-          limit: _pageSize);
+      final newItems = await _noteConnector?.getNotes(widget.appointment.id,
+          offset: pageKey * _pageSize, limit: _pageSize);
       if (newItems == null) return;
       final isLastPage = newItems.length < _pageSize;
       if (isLastPage) {
@@ -360,12 +361,16 @@ class _AppointmentNotesTabState extends State<_AppointmentNotesTab> {
                 label: Text(AppLocalizations.of(context).create),
                 icon: const Icon(Icons.add_outlined),
                 onPressed: () async {
-                  await showDialog<Note>(
+                  final note = await showDialog<Note>(
                     context: context,
                     builder: (context) => NoteDialog(
                       source: widget.source,
                     ),
                   );
+                  if (note != null) {
+                    await _noteConnector?.connect(
+                        widget.appointment.id, note.id);
+                  }
                   _pagingController.refresh();
                 },
               ),

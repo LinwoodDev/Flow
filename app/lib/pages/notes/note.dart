@@ -30,7 +30,8 @@ class _NoteDialogState extends State<NoteDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final create = widget.create || widget.source == null;
+    final create =
+        widget.create || widget.note == null || widget.source == null;
     return AlertDialog(
       title: Row(
         children: [
@@ -128,15 +129,17 @@ class _NoteDialogState extends State<NoteDialog> {
           child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
+            final navigator = Navigator.of(context);
             final service =
                 context.read<FlowCubit>().getService(_newSource).note;
+            Note? created;
             if (create) {
-              service?.createNote(_newNote);
+              created = await service?.createNote(_newNote);
             } else {
-              service?.updateNote(_newNote);
+              await service?.updateNote(_newNote);
             }
-            Navigator.of(context).pop();
+            navigator.pop(created);
           },
           child: Text(create
               ? AppLocalizations.of(context).create

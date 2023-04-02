@@ -49,13 +49,28 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
   Future<List<Note>> getNotes(int connectId,
       {int offset = 0, int limit = 50}) async {
     final result = await db?.query(
-      tableName,
+      '$tableName JOIN notes ON notes.id = noteId',
       where: '$connectedIdName = ?',
       whereArgs: [connectId],
+      columns: [
+        'notes.id AS noteid',
+        'notes.name AS notename',
+        'notes.description AS notedescription',
+        'notes.status AS notestatus',
+        'notes.priority AS notepriority',
+        'notes.parentId AS noteparentId',
+      ],
       offset: offset,
       limit: limit,
     );
-    return result?.map(Note.fromJson).toList() ?? [];
+    return result
+            ?.map((e) => Map.fromEntries(e.entries
+                .where((element) => element.key.startsWith('note'))
+                .map((e) => MapEntry(e.key.substring('note'.length), e.value))))
+            .map((e) {
+          return Note.fromJson(e);
+        }).toList() ??
+        [];
   }
 
   @override
