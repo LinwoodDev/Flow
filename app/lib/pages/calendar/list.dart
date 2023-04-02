@@ -38,7 +38,7 @@ class _CalendarListViewState extends State<CalendarListView> {
       ConnectedModel<int, ConnectedModel<Map<String, int>, Map<String, int>>>,
       List<
           SourcedConnectedModel<EventItem,
-              Event>>> _controller = PagingController(
+              Event?>>> _controller = PagingController(
       firstPageKey: const ConnectedModel(-1, ConnectedModel({}, {})));
   static const _pageSize = 50;
 
@@ -72,7 +72,7 @@ class _CalendarListViewState extends State<CalendarListView> {
       sources = createFullSourceMap();
     }
     var appointmentSource = sources.source;
-    var items = <SourcedConnectedModel<EventItem, Event>>[];
+    var items = <SourcedConnectedModel<EventItem, Event?>>[];
     if (appointmentSource.isNotEmpty) {
       final model = await _fetchAppointments(day, appointmentSource);
       items.addAll(model.source);
@@ -94,7 +94,7 @@ class _CalendarListViewState extends State<CalendarListView> {
   }
 
   Future<
-      ConnectedModel<List<SourcedConnectedModel<Appointment, Event>>,
+      ConnectedModel<List<SourcedConnectedModel<Appointment, Event?>>,
           List<String>>> _fetchAppointments(
       int day, Map<String, int> sources) async {
     if (!mounted) return ConnectedModel([], sources.keys.toList());
@@ -107,7 +107,7 @@ class _CalendarListViewState extends State<CalendarListView> {
 
     if (!mounted) return ConnectedModel([], sources.keys.toList());
 
-    final appointments = <SourcedConnectedModel<Appointment, Event>>[];
+    final appointments = <SourcedConnectedModel<Appointment, Event?>>[];
     final nextSources = <String>[];
     for (final source in sources.entries) {
       final fetched = await _cubit
@@ -138,7 +138,7 @@ class _CalendarListViewState extends State<CalendarListView> {
   }
 
   Future<
-      ConnectedModel<List<SourcedConnectedModel<Moment, Event>>,
+      ConnectedModel<List<SourcedConnectedModel<Moment, Event?>>,
           List<String>>> _fetchMoments(
       int day, Map<String, int> sources) async {
     if (!mounted) return ConnectedModel([], sources.keys.toList());
@@ -151,7 +151,7 @@ class _CalendarListViewState extends State<CalendarListView> {
 
     if (!mounted) return ConnectedModel([], sources.keys.toList());
 
-    final moments = <SourcedConnectedModel<Moment, Event>>[];
+    final moments = <SourcedConnectedModel<Moment, Event?>>[];
     final nextSources = <String>[];
     for (final source in sources.entries) {
       final fetched = await _cubit.getService(source.key).moment?.getMoments(
@@ -203,7 +203,7 @@ class _CalendarListViewState extends State<CalendarListView> {
               builder: (context, constraints) => PagedListView(
                 pagingController: _controller,
                 builderDelegate: buildMaterialPagedDelegate<
-                    List<SourcedConnectedModel<EventItem, Event>>>(
+                    List<SourcedConnectedModel<EventItem, Event?>>>(
                   _controller,
                   (context, item, index) {
                     var date = DateTime.now().onlyDate();

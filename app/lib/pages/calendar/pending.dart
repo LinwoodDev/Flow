@@ -30,7 +30,7 @@ class CalendarPendingView extends StatefulWidget {
 class _CalendarPendingViewState extends State<CalendarPendingView> {
   static const _pageSize = 50;
   late FlowCubit _cubit;
-  final PagingController<int, List<SourcedConnectedModel<Appointment, Event>>>
+  final PagingController<int, List<SourcedConnectedModel<Appointment, Event?>>>
       _controller = PagingController(firstPageKey: 0);
 
   @override
@@ -57,7 +57,7 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
     }
   }
 
-  Future<List<SourcedConnectedModel<Appointment, Event>>> _fetchAppointments(
+  Future<List<SourcedConnectedModel<Appointment, Event?>>> _fetchAppointments(
       int key) async {
     if (!mounted) return [];
 
@@ -67,7 +67,7 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
         widget.filter.source!: _cubit.getService(widget.filter.source!)
       };
     }
-    final appointments = <SourcedConnectedModel<Appointment, Event>>[];
+    final appointments = <SourcedConnectedModel<Appointment, Event?>>[];
     for (final source in sources.entries) {
       final fetched = await source.value.appointment?.getAppointments(
         status: EventStatus.values
@@ -110,7 +110,7 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
               builder: (context, constraints) => PagedListView(
                 pagingController: _controller,
                 builderDelegate: buildMaterialPagedDelegate<
-                    List<SourcedConnectedModel<Appointment, Event>>>(
+                    List<SourcedConnectedModel<Appointment, Event?>>>(
                   _controller,
                   (context, item, index) {
                     return Column(

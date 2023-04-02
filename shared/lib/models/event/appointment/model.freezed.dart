@@ -35,7 +35,7 @@ mixin _$Appointment {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
-  int get eventId => throw _privateConstructorUsedError;
+  int? get eventId => throw _privateConstructorUsedError;
   EventStatus get status => throw _privateConstructorUsedError;
   @DateTimeConverter()
   DateTime? get start => throw _privateConstructorUsedError;
@@ -48,7 +48,7 @@ mixin _$Appointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
@@ -58,7 +58,7 @@ mixin _$Appointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -74,7 +74,7 @@ mixin _$Appointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -91,7 +91,7 @@ mixin _$Appointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
@@ -101,7 +101,7 @@ mixin _$Appointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -117,7 +117,7 @@ mixin _$Appointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -134,7 +134,7 @@ mixin _$Appointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
@@ -144,7 +144,7 @@ mixin _$Appointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -160,7 +160,7 @@ mixin _$Appointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -210,7 +210,7 @@ abstract class $AppointmentCopyWith<$Res> {
       String name,
       String description,
       String location,
-      int eventId,
+      int? eventId,
       EventStatus status,
       @DateTimeConverter() DateTime? start,
       @DateTimeConverter() DateTime? end});
@@ -233,7 +233,7 @@ class _$AppointmentCopyWithImpl<$Res, $Val extends Appointment>
     Object? name = null,
     Object? description = null,
     Object? location = null,
-    Object? eventId = null,
+    Object? eventId = freezed,
     Object? status = null,
     Object? start = freezed,
     Object? end = freezed,
@@ -255,10 +255,10 @@ class _$AppointmentCopyWithImpl<$Res, $Val extends Appointment>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
-      eventId: null == eventId
+      eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -288,7 +288,7 @@ abstract class _$$FixedAppointmentCopyWith<$Res>
       String name,
       String description,
       String location,
-      int eventId,
+      int? eventId,
       EventStatus status,
       @DateTimeConverter() DateTime? start,
       @DateTimeConverter() DateTime? end});
@@ -309,7 +309,7 @@ class __$$FixedAppointmentCopyWithImpl<$Res>
     Object? name = null,
     Object? description = null,
     Object? location = null,
-    Object? eventId = null,
+    Object? eventId = freezed,
     Object? status = null,
     Object? start = freezed,
     Object? end = freezed,
@@ -331,10 +331,10 @@ class __$$FixedAppointmentCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
-      eventId: null == eventId
+      eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -359,7 +359,7 @@ class _$FixedAppointment extends FixedAppointment {
       this.name = '',
       this.description = '',
       this.location = '',
-      required this.eventId,
+      this.eventId,
       this.status = EventStatus.confirmed,
       @DateTimeConverter() this.start,
       @DateTimeConverter() this.end,
@@ -383,7 +383,7 @@ class _$FixedAppointment extends FixedAppointment {
   @JsonKey()
   final String location;
   @override
-  final int eventId;
+  final int? eventId;
   @override
   @JsonKey()
   final EventStatus status;
@@ -438,7 +438,7 @@ class _$FixedAppointment extends FixedAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
@@ -448,7 +448,7 @@ class _$FixedAppointment extends FixedAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -464,7 +464,7 @@ class _$FixedAppointment extends FixedAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -484,7 +484,7 @@ class _$FixedAppointment extends FixedAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
@@ -494,7 +494,7 @@ class _$FixedAppointment extends FixedAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -510,7 +510,7 @@ class _$FixedAppointment extends FixedAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -531,7 +531,7 @@ class _$FixedAppointment extends FixedAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
@@ -541,7 +541,7 @@ class _$FixedAppointment extends FixedAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -557,7 +557,7 @@ class _$FixedAppointment extends FixedAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -622,7 +622,7 @@ abstract class FixedAppointment extends Appointment {
       final String name,
       final String description,
       final String location,
-      required final int eventId,
+      final int? eventId,
       final EventStatus status,
       @DateTimeConverter() final DateTime? start,
       @DateTimeConverter() final DateTime? end}) = _$FixedAppointment;
@@ -640,7 +640,7 @@ abstract class FixedAppointment extends Appointment {
   @override
   String get location;
   @override
-  int get eventId;
+  int? get eventId;
   @override
   EventStatus get status;
   @override
@@ -668,7 +668,7 @@ abstract class _$$RepeatingAppointmentCopyWith<$Res>
       String name,
       String description,
       String location,
-      int eventId,
+      int? eventId,
       EventStatus status,
       @DateTimeConverter() DateTime? start,
       @DateTimeConverter() DateTime? end,
@@ -695,7 +695,7 @@ class __$$RepeatingAppointmentCopyWithImpl<$Res>
     Object? name = null,
     Object? description = null,
     Object? location = null,
-    Object? eventId = null,
+    Object? eventId = freezed,
     Object? status = null,
     Object? start = freezed,
     Object? end = freezed,
@@ -723,10 +723,10 @@ class __$$RepeatingAppointmentCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
-      eventId: null == eventId
+      eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -775,7 +775,7 @@ class _$RepeatingAppointment extends RepeatingAppointment {
       this.name = '',
       this.description = '',
       this.location = '',
-      required this.eventId,
+      this.eventId,
       this.status = EventStatus.confirmed,
       @DateTimeConverter() this.start,
       @DateTimeConverter() this.end,
@@ -806,7 +806,7 @@ class _$RepeatingAppointment extends RepeatingAppointment {
   @JsonKey()
   final String location;
   @override
-  final int eventId;
+  final int? eventId;
   @override
   @JsonKey()
   final EventStatus status;
@@ -909,7 +909,7 @@ class _$RepeatingAppointment extends RepeatingAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
@@ -919,7 +919,7 @@ class _$RepeatingAppointment extends RepeatingAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -935,7 +935,7 @@ class _$RepeatingAppointment extends RepeatingAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -956,7 +956,7 @@ class _$RepeatingAppointment extends RepeatingAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
@@ -966,7 +966,7 @@ class _$RepeatingAppointment extends RepeatingAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -982,7 +982,7 @@ class _$RepeatingAppointment extends RepeatingAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1003,7 +1003,7 @@ class _$RepeatingAppointment extends RepeatingAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
@@ -1013,7 +1013,7 @@ class _$RepeatingAppointment extends RepeatingAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1029,7 +1029,7 @@ class _$RepeatingAppointment extends RepeatingAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1094,7 +1094,7 @@ abstract class RepeatingAppointment extends Appointment {
       final String name,
       final String description,
       final String location,
-      required final int eventId,
+      final int? eventId,
       final EventStatus status,
       @DateTimeConverter() final DateTime? start,
       @DateTimeConverter() final DateTime? end,
@@ -1118,7 +1118,7 @@ abstract class RepeatingAppointment extends Appointment {
   @override
   String get location;
   @override
-  int get eventId;
+  int? get eventId;
   @override
   EventStatus get status;
   @override
@@ -1153,7 +1153,7 @@ abstract class _$$AutoAppointmentCopyWith<$Res>
       String name,
       String description,
       String location,
-      int eventId,
+      int? eventId,
       EventStatus status,
       @DateTimeConverter() DateTime? start,
       @DateTimeConverter() DateTime? end,
@@ -1177,7 +1177,7 @@ class __$$AutoAppointmentCopyWithImpl<$Res>
     Object? name = null,
     Object? description = null,
     Object? location = null,
-    Object? eventId = null,
+    Object? eventId = freezed,
     Object? status = null,
     Object? start = freezed,
     Object? end = freezed,
@@ -1202,10 +1202,10 @@ class __$$AutoAppointmentCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
-      eventId: null == eventId
+      eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -1242,7 +1242,7 @@ class _$AutoAppointment extends AutoAppointment {
       this.name = '',
       this.description = '',
       this.location = '',
-      required this.eventId,
+      this.eventId,
       this.status = EventStatus.confirmed,
       @DateTimeConverter() this.start,
       @DateTimeConverter() this.end,
@@ -1269,7 +1269,7 @@ class _$AutoAppointment extends AutoAppointment {
   @JsonKey()
   final String location;
   @override
-  final int eventId;
+  final int? eventId;
   @override
   @JsonKey()
   final EventStatus status;
@@ -1339,7 +1339,7 @@ class _$AutoAppointment extends AutoAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
@@ -1349,7 +1349,7 @@ class _$AutoAppointment extends AutoAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1365,7 +1365,7 @@ class _$AutoAppointment extends AutoAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1386,7 +1386,7 @@ class _$AutoAppointment extends AutoAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
@@ -1396,7 +1396,7 @@ class _$AutoAppointment extends AutoAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1412,7 +1412,7 @@ class _$AutoAppointment extends AutoAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1433,7 +1433,7 @@ class _$AutoAppointment extends AutoAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
@@ -1443,7 +1443,7 @@ class _$AutoAppointment extends AutoAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1459,7 +1459,7 @@ class _$AutoAppointment extends AutoAppointment {
             String name,
             String description,
             String location,
-            int eventId,
+            int? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1524,7 +1524,7 @@ abstract class AutoAppointment extends Appointment {
       final String name,
       final String description,
       final String location,
-      required final int eventId,
+      final int? eventId,
       final EventStatus status,
       @DateTimeConverter() final DateTime? start,
       @DateTimeConverter() final DateTime? end,
@@ -1545,7 +1545,7 @@ abstract class AutoAppointment extends Appointment {
   @override
   String get location;
   @override
-  int get eventId;
+  int? get eventId;
   @override
   EventStatus get status;
   @override

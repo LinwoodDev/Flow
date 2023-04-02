@@ -13,7 +13,7 @@ import '../events/appointment.dart';
 import '../events/moment.dart';
 
 class CalendarListTile extends StatelessWidget {
-  final SourcedConnectedModel<EventItem, Event> eventItem;
+  final SourcedConnectedModel<EventItem, Event?> eventItem;
   final DateTime? date;
   final VoidCallback onRefresh;
 
@@ -29,7 +29,7 @@ class CalendarListTile extends StatelessWidget {
     final locale = Localizations.localeOf(context).languageCode;
     final timeFormatter = DateFormat.Hm(locale);
     final model = eventItem.main;
-    final eventName = eventItem.sub.name;
+    final eventName = eventItem.sub?.name;
     final name = model.name.isEmpty ? eventName : model.name;
     String range = '';
     if (model is Appointment) {
@@ -55,14 +55,14 @@ class CalendarListTile extends StatelessWidget {
     }
     final main = eventItem.main;
     return ListTile(
-      title: Text(name),
+      title: Text(name ?? ''),
       subtitle: Wrap(
         spacing: 16,
         children: [
           if (range.isNotEmpty) ...[
             Text(range),
           ],
-          if (eventName != name) Text(eventItem.sub.name),
+          if (eventName != name && eventName != null) Text(eventName),
         ],
       ),
       leading: Tooltip(
@@ -78,7 +78,8 @@ class CalendarListTile extends StatelessWidget {
               context: context,
               builder: (context) => AppointmentDialog(
                     appointment: main,
-                    event: eventItem.subSourced,
+                    event: eventItem.sub,
+                    source: eventItem.source,
                   )).then((_) => onRefresh());
         }
         if (main is Moment) {
@@ -86,16 +87,19 @@ class CalendarListTile extends StatelessWidget {
               context: context,
               builder: (context) => MomentDialog(
                     moment: main,
-                    event: eventItem.subSourced,
+                    event: eventItem.sub,
+                    source: eventItem.source,
                   )).then((_) => onRefresh());
         }
       },
       trailing: FutureBuilder<bool?>(
-        future: Future.value(context
-            .read<FlowCubit>()
-            .getService(eventItem.source)
-            .note
-            ?.notesDone(eventItem.sub.id)),
+        future: Future.value(eventItem.sub == null
+            ? null
+            : context
+                .read<FlowCubit>()
+                .getService(eventItem.source)
+                .note
+                ?.notesDone(eventItem.sub!.id)),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Icon(

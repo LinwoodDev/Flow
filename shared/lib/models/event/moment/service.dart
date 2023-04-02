@@ -7,7 +7,8 @@ import 'model.dart';
 
 abstract class MomentService extends ModelService {
   FutureOr<Moment?> getMoment(int id);
-  FutureOr<List<ConnectedModel<Moment, Event>>> getMoments({
+
+  FutureOr<List<ConnectedModel<Moment, Event?>>> getMoments({
     List<EventStatus>? status,
     int offset = 0,
     int limit = 50,

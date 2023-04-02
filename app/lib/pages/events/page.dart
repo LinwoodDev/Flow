@@ -287,7 +287,8 @@ Future<void> showCalendarCreate(
             await showDialog(
               context: context,
               builder: (context) => AppointmentDialog(
-                event: eventResult,
+                event: eventResult.model,
+                source: eventResult.source,
                 create: true,
               ),
             );
@@ -301,7 +302,8 @@ Future<void> showCalendarCreate(
             await showDialog(
               context: context,
               builder: (context) => MomentDialog(
-                event: eventResult,
+                event: eventResult.model,
+                source: eventResult.source,
                 create: true,
               ),
             );

@@ -33,7 +33,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
   late final FlowCubit _cubit;
   int _month = 0, _year = 0;
   late final DateTime _now;
-  late Future<List<List<SourcedConnectedModel<Appointment, Event>>>>
+  late Future<List<List<SourcedConnectedModel<Appointment, Event?>>>>
       _appointments;
 
   @override
@@ -55,7 +55,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
         _now.second,
       );
 
-  Future<List<List<SourcedConnectedModel<Appointment, Event>>>>
+  Future<List<List<SourcedConnectedModel<Appointment, Event?>>>>
       _fetchAppointments() async {
     if (!mounted) return [];
 
@@ -66,7 +66,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
       };
     }
     final days = _date.getDaysInMonth();
-    final appointments = <List<SourcedConnectedModel<Appointment, Event>>>[
+    final appointments = <List<SourcedConnectedModel<Appointment, Event?>>>[
       for (int i = 0; i < days; i++) []
     ];
     for (final source in sources.entries) {
@@ -180,7 +180,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
           ]),
           Expanded(
             child: FutureBuilder<
-                    List<List<SourcedConnectedModel<Appointment, Event>>>>(
+                    List<List<SourcedConnectedModel<Appointment, Event?>>>>(
                 future: _appointments,
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
@@ -287,7 +287,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
 
 class CalendarDayDialog extends StatelessWidget {
   final DateTime date;
-  final List<SourcedConnectedModel<Appointment, Event>> appointments;
+  final List<SourcedConnectedModel<Appointment, Event?>> appointments;
 
   const CalendarDayDialog({
     super.key,

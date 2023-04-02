@@ -29,7 +29,7 @@ class CalendarWeekView extends StatefulWidget {
 class _CalendarWeekViewState extends State<CalendarWeekView> {
   late final FlowCubit _cubit;
   int _week = 0, _year = 0;
-  late Future<List<List<SourcedConnectedModel<Appointment, Event>>>>
+  late Future<List<List<SourcedConnectedModel<Appointment, Event?>>>>
       _appointments;
   final _columnScrollController = ScrollController(),
       _rowScrollController = ScrollController();
@@ -46,7 +46,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
 
   DateTime get _date => DateTime(_year, 1, 1).addDays((_week - 1) * 7);
 
-  Future<List<List<SourcedConnectedModel<Appointment, Event>>>>
+  Future<List<List<SourcedConnectedModel<Appointment, Event?>>>>
       _fetchAppointments() async {
     if (!mounted) return [];
 
@@ -56,7 +56,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
         widget.filter.source!: _cubit.getService(widget.filter.source!)
       };
     }
-    final appointments = <List<SourcedConnectedModel<Appointment, Event>>>[
+    final appointments = <List<SourcedConnectedModel<Appointment, Event?>>>[
       for (int i = 0; i < 7; i++) []
     ];
     for (final source in sources.entries) {
@@ -182,7 +182,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                             List<
                                 List<
                                     SourcedConnectedModel<Appointment,
-                                        Event>>>>(
+                                        Event?>>>>(
                         future: _appointments,
                         builder: (context, snapshot) {
                           if (snapshot.hasError) {

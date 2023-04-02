@@ -32,3 +32,11 @@ extension SourcedConnectedModelExtension<A, B> on SourcedConnectedModel<A, B> {
   SourcedModel<A> get mainSourced => SourcedModel(source, main);
   SourcedModel<B> get subSourced => SourcedModel(source, sub);
 }
+
+extension SourcedConnectedModelNullableExtension<A, B>
+    on SourcedConnectedModel<A?, B?> {
+  SourcedModel<A>? get mainSourcedOrNull =>
+      main == null ? null : SourcedModel(source, main as A);
+  SourcedModel<B>? get subSourcedOrNull =>
+      sub == null ? null : SourcedModel(source, sub as B);
+}
