@@ -211,6 +211,18 @@ class _NoteCardState extends State<NoteCard> {
                   ),
                 ),
               ),
+              TextButton(
+                child: Text(AppLocalizations.of(context).open),
+                onPressed: () {
+                  GoRouter.of(context).pushNamed(
+                    widget.source.isEmpty ? "subnote-local" : "subnote",
+                    params: {
+                      if (widget.source.isNotEmpty) "source": widget.source,
+                      "id": widget.note.id.toString(),
+                    },
+                  );
+                },
+              ),
             ]),
             const SizedBox(height: 16),
             TextFormField(
@@ -235,19 +247,6 @@ class _NoteCardState extends State<NoteCard> {
               onFieldSubmitted: (value) {
                 _newNote = _newNote.copyWith(description: value);
                 _updateNote();
-              },
-            ),
-            const SizedBox(height: 16),
-            TextButton(
-              child: Text(AppLocalizations.of(context).open),
-              onPressed: () {
-                GoRouter.of(context).pushNamed(
-                  widget.source.isEmpty ? "subnote-local" : "subnote",
-                  params: {
-                    if (widget.source.isNotEmpty) "source": widget.source,
-                    "id": widget.note.id.toString(),
-                  },
-                );
               },
             ),
           ],
