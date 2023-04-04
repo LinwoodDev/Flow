@@ -42,8 +42,8 @@
   "month": "Μήνας",
   "version": "Έκδοση",
   "intro": "Εισαγωγή",
-  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
-  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
+  "caldavDescription": "Η διεπαφή CalDAV σας επιτρέπει να έχετε πρόσβαση στα δεδομένα σας από οποιονδήποτε διακομιστή CalDAV. Έχει περιορισμένη υποστήριξη και υποστηρίζονται μόνο βασικές λειτουργίες. Μπορείτε να τη χρησιμοποιήσετε για να συγχρονίσετε τα δεδομένα σας με άλλες συσκευές ή υπηρεσίες.",
+  "webdavDescription": "Η διεπαφή WebDAV σας επιτρέπει να έχετε πρόσβαση στα δεδομένα σας από οποιονδήποτε διακομιστή WebDAV. Είναι αρχεία και καταλόγους για την αποθήκευση δεδομένων. Μπορείτε να το χρησιμοποιήσετε για να συγχρονίσετε τα δεδομένα σας με άλλες συσκευές ή υπηρεσίες.",
   "server": "Διακομιστής",
   "serverDescription": "Συγχρονίστε τα δεδομένα σας με έναν native διακομιστή Linwood Flow. Αυτό συνιστάται για χρήστες που θέλουν να φιλοξενήσουν τα δεδομένα τους.",
   "googleDescription": "Συγχρονίστε τα δεδομένα σας με την Google. Αυτό συνιστάται για χρήστες που θέλουν να χρησιμοποιήσουν τον λογαριασμό Google τους για να έχουν πρόσβαση στα δεδομένα τους. Δεν είναι διαθέσιμες όλες οι δυνατότητες με αυτήν την επιλογή.",
@@ -216,10 +216,10 @@
   "manual": "Χειροκίνητα",
   "syncMode": "Λειτουργία συγχρονισμού",
   "todo": "Todo",
-  "appointment": "Appointment",
-  "moment": "Moment",
-  "time": "Time",
-  "deleteEvent": "Delete event {name}",
+  "appointment": "Διορισμός",
+  "moment": "Στιγμή",
+  "time": "Ώρα",
+  "deleteEvent": "Διαγραφή εκδήλωσης {name}",
   "@deleteEvent": {
     "placeholders": {
       "name": {
@@ -228,7 +228,7 @@
       }
     }
   },
-  "deleteEventDescription": "Are you sure you want to delete the event {name}?",
+  "deleteEventDescription": "Είστε βέβαιοι ότι θέλετε να διαγράψετε την εκδήλωση {name}?",
   "@deleteEventDescription": {
     "placeholders": {
       "name": {
@@ -237,13 +237,13 @@
       }
     }
   },
-  "createAppointment": "Create appointment",
-  "editAppointment": "Edit appointment",
-  "createMoment": "Create moment",
-  "editMoment": "Edit moment",
-  "convertToNote": "Convert to note",
-  "convertToTodo": "Convert to todo",
-  "open": "Open",
-  "limited": "Limited",
-  "notSet": "Not set"
+  "createAppointment": "Δημιουργία ραντεβού",
+  "editAppointment": "Επεξεργασία ραντεβού",
+  "createMoment": "Δημιουργία στιγμής",
+  "editMoment": "Επεξεργασία στιγμής",
+  "convertToNote": "Μετατροπή σε σημείωση",
+  "convertToTodo": "Μετατροπή σε todo",
+  "open": "Άνοιγμα",
+  "limited": "Περιορισμένη",
+  "notSet": "Δεν έχει οριστεί"
 }
