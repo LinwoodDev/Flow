@@ -42,8 +42,8 @@
   "month": "Mese",
   "version": "Versione",
   "intro": "Introduzione",
-  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
-  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
+  "caldavDescription": "L'interfaccia CalDAV consente di accedere ai dati da qualsiasi server CalDAV. Ha un supporto limitato e sono supportate solo le funzioni di base. È possibile utilizzarlo per sincronizzare i dati con altri dispositivi o servizi.",
+  "webdavDescription": "L'interfaccia WebDAV consente di accedere ai dati da qualsiasi server WebDAV. File e directory per memorizzare i dati. È possibile utilizzarli per sincronizzare i dati con altri dispositivi o servizi.",
   "server": "Server",
   "serverDescription": "Sincronizza i tuoi dati con un server di Linwood Flow nativo. Questo è raccomandato per gli utenti che vogliono auto-ospitare i loro dati.",
   "googleDescription": "Sincronizza i tuoi dati con Google. Questo è raccomandato per gli utenti che desiderano utilizzare il loro account Google per accedere ai loro dati. Non tutte le funzionalità sono disponibili con questa opzione.",
@@ -216,10 +216,10 @@
   "manual": "Manuale",
   "syncMode": "Modalità sincronizzazione",
   "todo": "Todo",
-  "appointment": "Appointment",
-  "moment": "Moment",
-  "time": "Time",
-  "deleteEvent": "Delete event {name}",
+  "appointment": "Nomina",
+  "moment": "Momento",
+  "time": "Tempo",
+  "deleteEvent": "Elimina evento {name}",
   "@deleteEvent": {
     "placeholders": {
       "name": {
@@ -228,7 +228,7 @@
       }
     }
   },
-  "deleteEventDescription": "Are you sure you want to delete the event {name}?",
+  "deleteEventDescription": "Sei sicuro di voler eliminare l'evento {name}?",
   "@deleteEventDescription": {
     "placeholders": {
       "name": {
@@ -237,13 +237,13 @@
       }
     }
   },
-  "createAppointment": "Create appointment",
-  "editAppointment": "Edit appointment",
-  "createMoment": "Create moment",
-  "editMoment": "Edit moment",
-  "convertToNote": "Convert to note",
-  "convertToTodo": "Convert to todo",
-  "open": "Open",
-  "limited": "Limited",
-  "notSet": "Not set"
+  "createAppointment": "Crea appuntamento",
+  "editAppointment": "Modifica appuntamento",
+  "createMoment": "Crea momento",
+  "editMoment": "Modifica momento",
+  "convertToNote": "Converti in nota",
+  "convertToTodo": "Converti in todo",
+  "open": "Apri",
+  "limited": "Limitato",
+  "notSet": "Non impostato"
 }
