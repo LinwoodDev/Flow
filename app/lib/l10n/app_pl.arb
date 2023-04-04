@@ -42,8 +42,8 @@
   "month": "Miesiąc",
   "version": "Wersja",
   "intro": "Wprowadzenie",
-  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
-  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
+  "caldavDescription": "Interfejs CalDAV umożliwia dostęp do danych z dowolnego serwera CalDAV. Ma ograniczone wsparcie i obsługiwane są tylko podstawowe funkcje. Możesz je użyć do synchronizacji swoich danych z innymi urządzeniami lub usługami.",
+  "webdavDescription": "Interfejs WebDAV umożliwia dostęp do danych z dowolnego serwera WebDAV. Pliki i katalogi do przechowywania danych. Możesz je użyć do synchronizacji swoich danych z innymi urządzeniami lub usługami.",
   "server": "Serwer",
   "serverDescription": "Synchronizuj swoje dane z natywnym serwerem Linwood Flow. Jest to zalecane dla użytkowników, którzy chcą samodzielnie hostować swoje dane.",
   "googleDescription": "Synchronizuj swoje dane z Google. Jest to zalecane dla użytkowników, którzy chcą używać swojego konta Google, aby uzyskać dostęp do swoich danych. Nie wszystkie funkcje są dostępne w tej opcji.",
@@ -216,10 +216,10 @@
   "manual": "Ręcznie",
   "syncMode": "Tryb synchronizacji",
   "todo": "Todo",
-  "appointment": "Appointment",
+  "appointment": "Mianowanie",
   "moment": "Moment",
-  "time": "Time",
-  "deleteEvent": "Delete event {name}",
+  "time": "Czas",
+  "deleteEvent": "Usuń wydarzenie {name}",
   "@deleteEvent": {
     "placeholders": {
       "name": {
@@ -228,7 +228,7 @@
       }
     }
   },
-  "deleteEventDescription": "Are you sure you want to delete the event {name}?",
+  "deleteEventDescription": "Czy na pewno chcesz usunąć wydarzenie {name}?",
   "@deleteEventDescription": {
     "placeholders": {
       "name": {
@@ -237,13 +237,13 @@
       }
     }
   },
-  "createAppointment": "Create appointment",
-  "editAppointment": "Edit appointment",
-  "createMoment": "Create moment",
-  "editMoment": "Edit moment",
-  "convertToNote": "Convert to note",
-  "convertToTodo": "Convert to todo",
-  "open": "Open",
-  "limited": "Limited",
-  "notSet": "Not set"
+  "createAppointment": "Utwórz wizytę",
+  "editAppointment": "Edytuj wizytę",
+  "createMoment": "Utwórz moment",
+  "editMoment": "Edytuj moment",
+  "convertToNote": "Konwertuj na notatkę",
+  "convertToTodo": "Konwertuj na zadanie",
+  "open": "Otwórz",
+  "limited": "Ograniczone",
+  "notSet": "Nie ustawiono"
 }
