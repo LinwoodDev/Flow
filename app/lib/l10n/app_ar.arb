@@ -42,8 +42,8 @@
   "month": "شهر",
   "version": "الإصدار",
   "intro": "مقدمة",
-  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
-  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
+  "caldavDescription": "تتيح لك واجهة CalDAV الوصول إلى بياناتك من أي خادم CalDAV. يحتوي على دعم محدود و فقط الوظائف الأساسية مدعومة. يمكنك استخدامه لمزامنة بياناتك مع الأجهزة أو الخدمات الأخرى.",
+  "webdavDescription": "تتيح لك واجهة WebDAV الوصول إلى بياناتك من أي خادم WebDAV. إنها الملفات والدلائل لتخزين البيانات. يمكنك استخدامها لمزامنة بياناتك مع الأجهزة أو الخدمات الأخرى.",
   "server": "خادم",
   "serverDescription": "مزامنة بياناتك مع خادم لينود الأصلي. ينصح هذا للمستخدمين الذين يريدون استضافة بياناتهم ذاتيا.",
   "googleDescription": "قم بمزامنة بياناتك مع جوجل. وهذا ينصح للمستخدمين الذين يريدون استخدام حساب جوجل للوصول إلى بياناتهم. ليست كل الميزات متوفرة مع هذا الخيار.",
@@ -216,10 +216,10 @@
   "manual": "دليل",
   "syncMode": "وضع المزامنة",
   "todo": "Todo",
-  "appointment": "Appointment",
-  "moment": "Moment",
-  "time": "Time",
-  "deleteEvent": "Delete event {name}",
+  "appointment": "تعيين",
+  "moment": "لحظة",
+  "time": "الوقت",
+  "deleteEvent": "حذف الحدث {name}",
   "@deleteEvent": {
     "placeholders": {
       "name": {
@@ -228,7 +228,7 @@
       }
     }
   },
-  "deleteEventDescription": "Are you sure you want to delete the event {name}?",
+  "deleteEventDescription": "هل أنت متأكد من أنك تريد حذف الحدث {name}؟",
   "@deleteEventDescription": {
     "placeholders": {
       "name": {
@@ -237,13 +237,13 @@
       }
     }
   },
-  "createAppointment": "Create appointment",
-  "editAppointment": "Edit appointment",
-  "createMoment": "Create moment",
-  "editMoment": "Edit moment",
-  "convertToNote": "Convert to note",
-  "convertToTodo": "Convert to todo",
-  "open": "Open",
-  "limited": "Limited",
-  "notSet": "Not set"
+  "createAppointment": "إنشاء موعد",
+  "editAppointment": "تعديل الموعد",
+  "createMoment": "إنشاء لحظة",
+  "editMoment": "تحرير اللحظة",
+  "convertToNote": "تحويل إلى ملاحظة",
+  "convertToTodo": "تحويل إلى مهمة",
+  "open": "فتح",
+  "limited": "محدود",
+  "notSet": "لم يتم تعيينه"
 }
