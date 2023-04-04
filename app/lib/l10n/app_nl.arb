@@ -42,8 +42,8 @@
   "month": "maand",
   "version": "Versie",
   "intro": "Introductie",
-  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
-  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
+  "caldavDescription": "Op de CalDAV interface kunt u toegang krijgen tot uw gegevens uit elke CalDAV server. Het heeft beperkte ondersteuning en alleen basisfuncties worden ondersteund. U kunt het gebruiken om uw gegevens te synchroniseren met andere apparaten of diensten.",
+  "webdavDescription": "De WebDAV interface geeft u toegang tot uw gegevens vanaf elke WebDAV server. Het zijn bestanden en mappen om gegevens op te slaan. U kunt deze gebruiken om uw gegevens te synchroniseren met andere apparaten of diensten.",
   "server": "Server",
   "serverDescription": "Synchroniseer je gegevens met een native Linwood Flow server. Dit is aanbevolen voor gebruikers die hun gegevens zelf willen organiseren.",
   "googleDescription": "Synchroniseer uw gegevens met Google. Dit wordt aanbevolen voor gebruikers die hun Google-account willen gebruiken om toegang te krijgen tot hun gegevens. Niet alle functies zijn beschikbaar met deze optie.",
@@ -216,10 +216,10 @@
   "manual": "Handleiding",
   "syncMode": "Synchronisatie modus",
   "todo": "Todo",
-  "appointment": "Appointment",
+  "appointment": "Afspraak",
   "moment": "Moment",
-  "time": "Time",
-  "deleteEvent": "Delete event {name}",
+  "time": "Tijd",
+  "deleteEvent": "Afspraak {name} verwijderen",
   "@deleteEvent": {
     "placeholders": {
       "name": {
@@ -228,7 +228,7 @@
       }
     }
   },
-  "deleteEventDescription": "Are you sure you want to delete the event {name}?",
+  "deleteEventDescription": "Weet u zeker dat u het evenement {name} wilt verwijderen?",
   "@deleteEventDescription": {
     "placeholders": {
       "name": {
@@ -237,13 +237,13 @@
       }
     }
   },
-  "createAppointment": "Create appointment",
-  "editAppointment": "Edit appointment",
-  "createMoment": "Create moment",
-  "editMoment": "Edit moment",
-  "convertToNote": "Convert to note",
-  "convertToTodo": "Convert to todo",
+  "createAppointment": "Creëer afspraak",
+  "editAppointment": "Afspraak bewerken",
+  "createMoment": "Moment aanmaken",
+  "editMoment": "Bewerk moment",
+  "convertToNote": "Converteren naar notitie",
+  "convertToTodo": "Converteren naar todo",
   "open": "Open",
-  "limited": "Limited",
-  "notSet": "Not set"
+  "limited": "Beperkt",
+  "notSet": "Niet ingesteld"
 }
