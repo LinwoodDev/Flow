@@ -42,8 +42,8 @@
   "month": "Kuukausi",
   "version": "Versio",
   "intro": "Esittely",
-  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
-  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
+  "caldavDescription": "CalDAV käyttöliittymän avulla voit käyttää tietoja tahansa CalDAV palvelimen. Se on rajoitettu tuki ja vain perustoiminnot ovat tuettuja. Voit käyttää sitä synkronoidaksesi dataa muiden laitteiden tai palveluiden kanssa.",
+  "webdavDescription": "WebDAV käyttöliittymän avulla voit käyttää tietoja tahansa WebDAV palvelimella. Se tiedostoja ja hakemistoja tallentaa tietoja. Voit käyttää sitä synkronoida tietoja muiden laitteiden tai palvelujen kanssa.",
   "server": "Palvelin",
   "serverDescription": "Synkronoi tietosi natiivin Linwood Flow palvelimen kanssa. Tätä suositellaan käyttäjille, jotka haluavat itse isännöidä tietojaan.",
   "googleDescription": "Synkronoi tietosi Googlen kanssa. Tämä on suositeltavaa käyttäjille, jotka haluavat käyttää Google-tiliään päästäkseen käsiksi tietoihinsa. Kaikki ominaisuudet eivät ole käytettävissä tällä asetuksella.",
@@ -216,10 +216,10 @@
   "manual": "Manuaalinen",
   "syncMode": "Synkronoinnin tila",
   "todo": "Todo",
-  "appointment": "Appointment",
-  "moment": "Moment",
-  "time": "Time",
-  "deleteEvent": "Delete event {name}",
+  "appointment": "Tapaaminen",
+  "moment": "Hetki",
+  "time": "Aika",
+  "deleteEvent": "Poista tapahtuma {name}",
   "@deleteEvent": {
     "placeholders": {
       "name": {
@@ -228,7 +228,7 @@
       }
     }
   },
-  "deleteEventDescription": "Are you sure you want to delete the event {name}?",
+  "deleteEventDescription": "Oletko varma, että haluat poistaa tapahtuman {name}?",
   "@deleteEventDescription": {
     "placeholders": {
       "name": {
@@ -237,13 +237,13 @@
       }
     }
   },
-  "createAppointment": "Create appointment",
-  "editAppointment": "Edit appointment",
-  "createMoment": "Create moment",
-  "editMoment": "Edit moment",
-  "convertToNote": "Convert to note",
-  "convertToTodo": "Convert to todo",
-  "open": "Open",
-  "limited": "Limited",
-  "notSet": "Not set"
+  "createAppointment": "Luo tapaaminen",
+  "editAppointment": "Muokkaa tapaamista",
+  "createMoment": "Luo hetki",
+  "editMoment": "Muokkaa hetkeä",
+  "convertToNote": "Muunna muistiksi",
+  "convertToTodo": "Muunna todoksi",
+  "open": "Avaa",
+  "limited": "Rajoitettu",
+  "notSet": "Ei asetettu"
 }
