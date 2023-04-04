@@ -42,8 +42,8 @@
   "month": "Måned",
   "version": "Version",
   "intro": "Introduktion",
-  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
-  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
+  "caldavDescription": "CalDAV interface giver dig mulighed for at få adgang til dine data fra enhver CalDAV server. Det har begrænset understøttelse, og kun grundlæggende funktioner understøttes. Du kan bruge det til at synkronisere dine data med andre enheder eller tjenester.",
+  "webdavDescription": "WebDAV interface giver dig mulighed for at få adgang til dine data fra enhver WebDAV server. Det filer og mapper til at gemme data. Du kan bruge det til at synkronisere dine data med andre enheder eller tjenester.",
   "server": "Server",
   "serverDescription": "Synkroniser dine data med en indfødt Linwood Flow server. Dette anbefales til brugere, der ønsker at selv-vært deres data.",
   "googleDescription": "Synkroniser dine data med Google. Dette anbefales til brugere, der ønsker at bruge deres Google-konto til at få adgang til deres data. Ikke alle funktioner er tilgængelige med denne indstilling.",
@@ -216,10 +216,10 @@
   "manual": "Manuelt",
   "syncMode": "Synkroniser tilstand",
   "todo": "Todo",
-  "appointment": "Appointment",
+  "appointment": "Aftale",
   "moment": "Moment",
-  "time": "Time",
-  "deleteEvent": "Delete event {name}",
+  "time": "Tid",
+  "deleteEvent": "Slet begivenhed {name}",
   "@deleteEvent": {
     "placeholders": {
       "name": {
@@ -228,7 +228,7 @@
       }
     }
   },
-  "deleteEventDescription": "Are you sure you want to delete the event {name}?",
+  "deleteEventDescription": "Er du sikker på du vil slette begivenheden {name}?",
   "@deleteEventDescription": {
     "placeholders": {
       "name": {
@@ -237,13 +237,13 @@
       }
     }
   },
-  "createAppointment": "Create appointment",
-  "editAppointment": "Edit appointment",
-  "createMoment": "Create moment",
-  "editMoment": "Edit moment",
-  "convertToNote": "Convert to note",
-  "convertToTodo": "Convert to todo",
-  "open": "Open",
-  "limited": "Limited",
-  "notSet": "Not set"
+  "createAppointment": "Opret aftale",
+  "editAppointment": "Rediger aftale",
+  "createMoment": "Opret øjeblik",
+  "editMoment": "Rediger øjeblik",
+  "convertToNote": "Konvertér til note",
+  "convertToTodo": "Konverter til todo",
+  "open": "Åbn",
+  "limited": "Begrænset",
+  "notSet": "Ikke angivet"
 }
