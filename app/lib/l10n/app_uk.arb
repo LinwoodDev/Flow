@@ -42,8 +42,8 @@
   "month": "Місяць",
   "version": "Версія",
   "intro": "Вступ",
-  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
-  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
+  "caldavDescription": "Інтерфейс CalDAV надає доступ до ваших даних з будь-якого сервера CalDAV. Він має обмежену підтримку і підтримується тільки основні функції. Ви можете використовувати його для синхронізації ваших даних з іншими пристроями або сервісами.",
+  "webdavDescription": "Інтерфейс WebDAV дозволяє отримати доступ до ваших даних з будь-якого сервера WebDAV. Файли та директорії для зберігання даних. Ви можете використовувати їх для синхронізації ваших даних з іншими пристроями або сервісами.",
   "server": "Сервер",
   "serverDescription": "Синхронізація даних з рідним сервером Linwood Flow. Рекомендується для користувачів, які хочуть самотужки їх дані.",
   "googleDescription": "Синхронізуйте ваші дані з Google. Це рекомендується для користувачів, які хочуть використовувати свій обліковий запис Google, щоб отримати доступ до їх даних. Не всі функції доступні для цієї опції.",
@@ -216,10 +216,10 @@
   "manual": "Вручну",
   "syncMode": "Режим синхронізації",
   "todo": "Todo",
-  "appointment": "Appointment",
-  "moment": "Moment",
-  "time": "Time",
-  "deleteEvent": "Delete event {name}",
+  "appointment": "Посада",
+  "moment": "Момент",
+  "time": "Час",
+  "deleteEvent": "Видалити подію {name}",
   "@deleteEvent": {
     "placeholders": {
       "name": {
@@ -228,7 +228,7 @@
       }
     }
   },
-  "deleteEventDescription": "Are you sure you want to delete the event {name}?",
+  "deleteEventDescription": "Ви дійсно бажаєте видалити подію {name}?",
   "@deleteEventDescription": {
     "placeholders": {
       "name": {
@@ -237,13 +237,13 @@
       }
     }
   },
-  "createAppointment": "Create appointment",
-  "editAppointment": "Edit appointment",
-  "createMoment": "Create moment",
-  "editMoment": "Edit moment",
-  "convertToNote": "Convert to note",
-  "convertToTodo": "Convert to todo",
-  "open": "Open",
-  "limited": "Limited",
-  "notSet": "Not set"
+  "createAppointment": "Створити зустріч",
+  "editAppointment": "Редагувати зустріч",
+  "createMoment": "Створити момент",
+  "editMoment": "Змінити момент",
+  "convertToNote": "Конвертувати в нотатку",
+  "convertToTodo": "Перетворити на todo",
+  "open": "Відкриті",
+  "limited": "Обмежений",
+  "notSet": "Не задано"
 }
