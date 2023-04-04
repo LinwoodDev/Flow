@@ -42,8 +42,8 @@
   "month": "Månad",
   "version": "Version",
   "intro": "Introduktion",
-  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
-  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
+  "caldavDescription": "CalDAV-gränssnittet låter dig komma åt dina data från alla CalDAV-servrar. Det har begränsat stöd och endast grundläggande funktioner stöds. Du kan använda det för att synkronisera dina data med andra enheter eller tjänster.",
+  "webdavDescription": "Med WebDAV-gränssnittet kan du komma åt dina data från vilken WebDAV-server som helst. Det filer och kataloger att lagra data. Du kan använda den för att synkronisera dina data med andra enheter eller tjänster.",
   "server": "Server",
   "serverDescription": "Synkronisera dina data med en infödd Linwood Flow-server. Detta rekommenderas för användare som själv vill vara värd för sina data.",
   "googleDescription": "Synkronisera dina data med Google. Detta rekommenderas för användare som vill använda sitt Google-konto för att komma åt sina data. Alla funktioner är inte tillgängliga med det här alternativet.",
@@ -216,10 +216,10 @@
   "manual": "Manuell",
   "syncMode": "Synkronisera läge",
   "todo": "Todo",
-  "appointment": "Appointment",
-  "moment": "Moment",
-  "time": "Time",
-  "deleteEvent": "Delete event {name}",
+  "appointment": "Utnämning",
+  "moment": "Ögonblick",
+  "time": "Tid",
+  "deleteEvent": "Ta bort händelse {name}",
   "@deleteEvent": {
     "placeholders": {
       "name": {
@@ -228,7 +228,7 @@
       }
     }
   },
-  "deleteEventDescription": "Are you sure you want to delete the event {name}?",
+  "deleteEventDescription": "Är du säker på att du vill radera händelsen {name}?",
   "@deleteEventDescription": {
     "placeholders": {
       "name": {
@@ -237,13 +237,13 @@
       }
     }
   },
-  "createAppointment": "Create appointment",
-  "editAppointment": "Edit appointment",
-  "createMoment": "Create moment",
-  "editMoment": "Edit moment",
-  "convertToNote": "Convert to note",
-  "convertToTodo": "Convert to todo",
-  "open": "Open",
-  "limited": "Limited",
-  "notSet": "Not set"
+  "createAppointment": "Skapa tid",
+  "editAppointment": "Redigera tid",
+  "createMoment": "Skapa ögonblick",
+  "editMoment": "Redigera ögonblick",
+  "convertToNote": "Konvertera till anteckning",
+  "convertToTodo": "Konvertera till todo",
+  "open": "Öppna",
+  "limited": "Begränsad",
+  "notSet": "Ej inställd"
 }
