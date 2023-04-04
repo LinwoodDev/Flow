@@ -42,8 +42,8 @@
   "month": "Lună",
   "version": "Versiune",
   "intro": "Introducere",
-  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
-  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
+  "caldavDescription": "Interfaţa CalDAV vă permite să accesaţi datele de pe orice server CalDAV. Are suport limitat și sunt acceptate numai funcțiile de bază. Îl puteți folosi pentru a sincroniza datele cu alte dispozitive sau servicii.",
+  "webdavDescription": "Interfaţa WebDAV vă permite să accesaţi datele de pe orice server WebDAV. Fişiere şi directoare pentru a stoca date. Îl puteţi folosi pentru a sincroniza datele cu alte dispozitive sau servicii.",
   "server": "Server",
   "serverDescription": "Sincronizați-vă datele cu un server nativ Linwood Flow server. Acest lucru este recomandat utilizatorilor care doresc să își găzduiască datele.",
   "googleDescription": "Sincronizați-vă datele cu Google. Acest lucru este recomandat pentru utilizatorii care doresc să utilizeze contul lor Google pentru a le accesa datele. Nu sunt disponibile toate caracteristicile cu această opțiune.",
@@ -216,10 +216,10 @@
   "manual": "Manual",
   "syncMode": "Mod sincronizare",
   "todo": "Todo",
-  "appointment": "Appointment",
+  "appointment": "Numire",
   "moment": "Moment",
-  "time": "Time",
-  "deleteEvent": "Delete event {name}",
+  "time": "Timp",
+  "deleteEvent": "Șterge evenimentul {name}",
   "@deleteEvent": {
     "placeholders": {
       "name": {
@@ -228,7 +228,7 @@
       }
     }
   },
-  "deleteEventDescription": "Are you sure you want to delete the event {name}?",
+  "deleteEventDescription": "Ești sigur că vrei să ștergi evenimentul {name}?",
   "@deleteEventDescription": {
     "placeholders": {
       "name": {
@@ -237,13 +237,13 @@
       }
     }
   },
-  "createAppointment": "Create appointment",
-  "editAppointment": "Edit appointment",
-  "createMoment": "Create moment",
-  "editMoment": "Edit moment",
-  "convertToNote": "Convert to note",
-  "convertToTodo": "Convert to todo",
-  "open": "Open",
-  "limited": "Limited",
-  "notSet": "Not set"
+  "createAppointment": "Creaza intalnire",
+  "editAppointment": "Editare programare",
+  "createMoment": "Crează moment",
+  "editMoment": "Editare moment",
+  "convertToNote": "Convertește la notă",
+  "convertToTodo": "Convertește la todo",
+  "open": "Deschideți",
+  "limited": "Limitat",
+  "notSet": "Nu este setat"
 }
