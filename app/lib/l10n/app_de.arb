@@ -42,8 +42,8 @@
   "month": "Monat",
   "version": "Version",
   "intro": "Einleitung",
-  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
-  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
+  "caldavDescription": "Die CalDAV-Schnittstelle ermöglicht den Zugriff auf Ihre Daten von jedem CalDAV-Server. Es hat nur eine begrenzte Unterstützung und es werden nur grundlegende Funktionen unterstützt. Sie können Ihre Daten mit anderen Geräten oder Diensten synchronisieren.",
+  "webdavDescription": "Die WebDAV-Schnittstelle ermöglicht den Zugriff auf Ihre Daten von jedem WebDAV-Server. Es sind Dateien und Verzeichnisse zum Speichern von Daten. Sie können sie verwenden, um Ihre Daten mit anderen Geräten oder Diensten zu synchronisieren.",
   "server": "Server",
   "serverDescription": "Synchronisieren Sie Ihre Daten mit einem nativen Linwood Flow Server. Dies wird empfohlen für Benutzer, die ihre Daten selbst hosten möchten.",
   "googleDescription": "Synchronisieren Sie Ihre Daten mit Google. Dies wird Benutzern empfohlen, die ihr Google-Konto verwenden möchten, um auf ihre Daten zuzugreifen. Nicht alle Funktionen sind mit dieser Option verfügbar.",
@@ -216,10 +216,10 @@
   "manual": "Manuell",
   "syncMode": "Sync-Modus",
   "todo": "Todo",
-  "appointment": "Appointment",
+  "appointment": "Termin",
   "moment": "Moment",
-  "time": "Time",
-  "deleteEvent": "Delete event {name}",
+  "time": "Zeit",
+  "deleteEvent": "Ereignis {name} löschen",
   "@deleteEvent": {
     "placeholders": {
       "name": {
@@ -228,7 +228,7 @@
       }
     }
   },
-  "deleteEventDescription": "Are you sure you want to delete the event {name}?",
+  "deleteEventDescription": "Sind Sie sicher, dass Sie das Ereignis {name} löschen möchten?",
   "@deleteEventDescription": {
     "placeholders": {
       "name": {
@@ -237,13 +237,13 @@
       }
     }
   },
-  "createAppointment": "Create appointment",
-  "editAppointment": "Edit appointment",
-  "createMoment": "Create moment",
-  "editMoment": "Edit moment",
-  "convertToNote": "Convert to note",
-  "convertToTodo": "Convert to todo",
-  "open": "Open",
-  "limited": "Limited",
-  "notSet": "Not set"
+  "createAppointment": "Termin erstellen",
+  "editAppointment": "Termin bearbeiten",
+  "createMoment": "Moment erstellen",
+  "editMoment": "Moment bearbeiten",
+  "convertToNote": "In Notiz konvertieren",
+  "convertToTodo": "Zu Todo konvertieren",
+  "open": "Öffnen",
+  "limited": "Begrenzt",
+  "notSet": "Nicht gesetzt"
 }
