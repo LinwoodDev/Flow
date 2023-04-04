@@ -42,8 +42,8 @@
   "month": "月",
   "version": "バージョン",
   "intro": "はじめに",
-  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
-  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
+  "caldavDescription": "CalDAV インターフェイスを使用すると、任意の CalDAV サーバーからデータにアクセスできます。 サポートは限られており、基本的な機能のみがサポートされています。データを他のデバイスやサービスと同期させるために使用できます。",
+  "webdavDescription": "WebDAV インターフェイスを使用すると、任意の WebDAV サーバーからデータにアクセスできます。 データを保存するためのファイルとディレクトリです。データを他のデバイスやサービスと同期させるために使用できます。",
   "server": "サーバー",
   "serverDescription": "データをネイティブの Linwood Flow サーバーと同期します。自身のデータを自己ホストしたい場合には推奨します。",
   "googleDescription": "Googleとデータを同期します。Googleアカウントを使用してデータにアクセスする場合に推奨されます。 すべての機能がこのオプションで利用できるわけではありません。",
@@ -216,10 +216,10 @@
   "manual": "マニュアル",
   "syncMode": "同期モード",
   "todo": "Todo",
-  "appointment": "Appointment",
+  "appointment": "予約",
   "moment": "Moment",
-  "time": "Time",
-  "deleteEvent": "Delete event {name}",
+  "time": "時刻",
+  "deleteEvent": "イベント {name} を削除",
   "@deleteEvent": {
     "placeholders": {
       "name": {
@@ -228,7 +228,7 @@
       }
     }
   },
-  "deleteEventDescription": "Are you sure you want to delete the event {name}?",
+  "deleteEventDescription": "イベント {name} を削除してもよろしいですか？",
   "@deleteEventDescription": {
     "placeholders": {
       "name": {
@@ -237,13 +237,13 @@
       }
     }
   },
-  "createAppointment": "Create appointment",
-  "editAppointment": "Edit appointment",
-  "createMoment": "Create moment",
-  "editMoment": "Edit moment",
-  "convertToNote": "Convert to note",
-  "convertToTodo": "Convert to todo",
-  "open": "Open",
-  "limited": "Limited",
-  "notSet": "Not set"
+  "createAppointment": "予約を作成",
+  "editAppointment": "予定を編集",
+  "createMoment": "モーメントを作成",
+  "editMoment": "瞬間を編集",
+  "convertToNote": "メモに変換",
+  "convertToTodo": "Todoに変換",
+  "open": "開く",
+  "limited": "制限",
+  "notSet": "未設定"
 }
