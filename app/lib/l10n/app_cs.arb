@@ -42,8 +42,8 @@
   "month": "Měsíc",
   "version": "Verze",
   "intro": "Úvod",
-  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
-  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
+  "caldavDescription": "Rozhraní CalDAV umožňuje přístup k vašim datům z jakéhokoliv serveru CalDAV. Má omezenou podporu a jsou podporovány pouze základní funkce. Můžete ji použít k synchronizaci dat s jinými zařízeními nebo službami.",
+  "webdavDescription": "WebDAV rozhraní umožňuje přístup k vašim datům z jakéhokoliv WebDAV serveru. Soubory a adresáře pro ukládání dat. Můžete je použít k synchronizaci dat s jinými zařízeními nebo službami.",
   "server": "Server",
   "serverDescription": "Synchronizujte svá data s nativním Linwood Flow serverem. To je doporučeno pro uživatele, kteří chtějí hostit svá data.",
   "googleDescription": "Synchronizujte svá data s Googlem. To je doporučeno uživatelům, kteří chtějí použít svůj účet Google pro přístup ke svým datům. Ne všechny funkce jsou dostupné s touto možností.",
@@ -216,10 +216,10 @@
   "manual": "Ruční",
   "syncMode": "Režim synchronizace",
   "todo": "Todo",
-  "appointment": "Appointment",
+  "appointment": "Jmenování",
   "moment": "Moment",
-  "time": "Time",
-  "deleteEvent": "Delete event {name}",
+  "time": "Čas",
+  "deleteEvent": "Odstranit událost {name}",
   "@deleteEvent": {
     "placeholders": {
       "name": {
@@ -228,7 +228,7 @@
       }
     }
   },
-  "deleteEventDescription": "Are you sure you want to delete the event {name}?",
+  "deleteEventDescription": "Jste si jisti, že chcete odstranit událost {name}?",
   "@deleteEventDescription": {
     "placeholders": {
       "name": {
@@ -237,13 +237,13 @@
       }
     }
   },
-  "createAppointment": "Create appointment",
-  "editAppointment": "Edit appointment",
-  "createMoment": "Create moment",
-  "editMoment": "Edit moment",
-  "convertToNote": "Convert to note",
-  "convertToTodo": "Convert to todo",
-  "open": "Open",
-  "limited": "Limited",
-  "notSet": "Not set"
+  "createAppointment": "Vytvořit jmenování",
+  "editAppointment": "Upravit jmenování",
+  "createMoment": "Vytvořit okamžik",
+  "editMoment": "Upravit okamžik",
+  "convertToNote": "Převést na poznámku",
+  "convertToTodo": "Převést na úkol",
+  "open": "Otevřít",
+  "limited": "Omezeno",
+  "notSet": "Nenastaveno"
 }
