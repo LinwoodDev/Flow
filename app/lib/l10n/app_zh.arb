@@ -42,8 +42,8 @@
   "month": "月",
   "version": "版本",
   "intro": "简介",
-  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
-  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
+  "caldavDescription": "CalDAV 接口允许您从任意CalDAV服务器访问您的数据。 它的支持有限，只支持基本功能。您可以使用它来将您的数据与其他设备或服务同步。",
+  "webdavDescription": "WebDAV 接口允许您从任何 WebDAV 服务器访问您的数据。 它存储数据的文件和目录。您可以使用它来同步您的数据和其他设备或服务。",
   "server": "服务器",
   "serverDescription": "将您的数据与原生的Linwood Flow 服务器同步。这是推荐给想要自我主机数据的用户。",
   "googleDescription": "与Google同步您的数据。建议用户使用他们的Google账户访问他们的数据。 此选项并非所有功能都可用。",
@@ -216,10 +216,10 @@
   "manual": "手动模式",
   "syncMode": "同步模式",
   "todo": "Todo",
-  "appointment": "Appointment",
-  "moment": "Moment",
-  "time": "Time",
-  "deleteEvent": "Delete event {name}",
+  "appointment": "约会",
+  "moment": "瞬时",
+  "time": "时间",
+  "deleteEvent": "删除事件 {name}",
   "@deleteEvent": {
     "placeholders": {
       "name": {
@@ -228,7 +228,7 @@
       }
     }
   },
-  "deleteEventDescription": "Are you sure you want to delete the event {name}?",
+  "deleteEventDescription": "您确定要删除事件 {name} 吗？",
   "@deleteEventDescription": {
     "placeholders": {
       "name": {
@@ -237,13 +237,13 @@
       }
     }
   },
-  "createAppointment": "Create appointment",
-  "editAppointment": "Edit appointment",
-  "createMoment": "Create moment",
-  "editMoment": "Edit moment",
-  "convertToNote": "Convert to note",
-  "convertToTodo": "Convert to todo",
-  "open": "Open",
-  "limited": "Limited",
-  "notSet": "Not set"
+  "createAppointment": "创建约会",
+  "editAppointment": "编辑约会",
+  "createMoment": "创建时间",
+  "editMoment": "编辑时间",
+  "convertToNote": "转换为笔记",
+  "convertToTodo": "转换为土豆",
+  "open": "打开",
+  "limited": "限量的",
+  "notSet": "未设置"
 }
