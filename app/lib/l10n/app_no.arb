@@ -245,5 +245,7 @@
   "convertToTodo": "Konverter til todo",
   "open": "Åpne",
   "limited": "Begrenset",
-  "notSet": "Ikke angitt"
+  "notSet": "Ikke angitt",
+  "createPending": "Create pending",
+  "editPending": "Edit pending"
 }
