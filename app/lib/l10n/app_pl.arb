@@ -245,5 +245,7 @@
   "convertToTodo": "Konwertuj na zadanie",
   "open": "Otwórz",
   "limited": "Ograniczone",
-  "notSet": "Nie ustawiono"
+  "notSet": "Nie ustawiono",
+  "createPending": "Create pending",
+  "editPending": "Edit pending"
 }
