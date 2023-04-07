@@ -245,5 +245,7 @@
   "convertToTodo": "Converter para tarefa",
   "open": "Abertas",
   "limited": "Limitada",
-  "notSet": "Não definido"
+  "notSet": "Não definido",
+  "createPending": "Create pending",
+  "editPending": "Edit pending"
 }
