@@ -247,5 +247,6 @@
   "limited": "Περιορισμένη",
   "notSet": "Δεν έχει οριστεί",
   "createPending": "Create pending",
-  "editPending": "Edit pending"
+  "editPending": "Edit pending",
+  "convertTo": "Convert to"
 }
