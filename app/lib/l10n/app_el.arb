@@ -245,5 +245,7 @@
   "convertToTodo": "Μετατροπή σε todo",
   "open": "Άνοιγμα",
   "limited": "Περιορισμένη",
-  "notSet": "Δεν έχει οριστεί"
+  "notSet": "Δεν έχει οριστεί",
+  "createPending": "Create pending",
+  "editPending": "Edit pending"
 }
