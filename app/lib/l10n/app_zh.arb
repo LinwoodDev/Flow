@@ -245,5 +245,7 @@
   "convertToTodo": "转换为土豆",
   "open": "打开",
   "limited": "限量的",
-  "notSet": "未设置"
+  "notSet": "未设置",
+  "createPending": "Create pending",
+  "editPending": "Edit pending"
 }
