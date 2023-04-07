@@ -245,5 +245,7 @@
   "convertToTodo": "Перетворити на todo",
   "open": "Відкриті",
   "limited": "Обмежений",
-  "notSet": "Не задано"
+  "notSet": "Не задано",
+  "createPending": "Create pending",
+  "editPending": "Edit pending"
 }
