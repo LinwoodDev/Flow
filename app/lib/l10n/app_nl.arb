@@ -245,5 +245,7 @@
   "convertToTodo": "Converteren naar todo",
   "open": "Open",
   "limited": "Beperkt",
-  "notSet": "Niet ingesteld"
+  "notSet": "Niet ingesteld",
+  "createPending": "Create pending",
+  "editPending": "Edit pending"
 }
