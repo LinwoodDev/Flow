@@ -251,7 +251,7 @@ class _FlowDrawer extends StatelessWidget {
                     ),
                     leadingWidth: 32,
                     title: const Text(
-                      applicationName,
+                      shortApplicationName,
                       textAlign: TextAlign.center,
                     ),
                     centerTitle: true,

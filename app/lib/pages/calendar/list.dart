@@ -6,11 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
-import 'package:shared/models/event/appointment/model.dart';
+import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/helpers/date_time.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared/models/event/moment/model.dart';
 import 'package:shared/models/model.dart';
 
 import '../events/page.dart';
@@ -37,7 +36,7 @@ class _CalendarListViewState extends State<CalendarListView> {
   final PagingController<
       ConnectedModel<int, ConnectedModel<Map<String, int>, Map<String, int>>>,
       List<
-          SourcedConnectedModel<EventItem,
+          SourcedConnectedModel<CalendarItem,
               Event?>>> _controller = PagingController(
       firstPageKey: const ConnectedModel(-1, ConnectedModel({}, {})));
   static const _pageSize = 50;
@@ -72,19 +71,13 @@ class _CalendarListViewState extends State<CalendarListView> {
       sources = createFullSourceMap();
     }
     var appointmentSource = sources.source;
-    var items = <SourcedConnectedModel<EventItem, Event?>>[];
+    var items = <SourcedConnectedModel<CalendarItem, Event?>>[];
     if (appointmentSource.isNotEmpty) {
-      final model = await _fetchAppointments(day, appointmentSource);
+      final model = await _fetchCalendarItems(day, appointmentSource);
       items.addAll(model.source);
       appointmentSource.removeWhere((key, value) => !model.model.contains(key));
     }
-    var momentSource = sources.model;
-    if (momentSource.isNotEmpty) {
-      final model = await _fetchMoments(day, momentSource);
-      items.addAll(model.source);
-      momentSource.removeWhere((key, value) => !model.model.contains(key));
-    }
-    if (appointmentSource.isEmpty && momentSource.isEmpty) {
+    if (appointmentSource.isEmpty) {
       day++;
       sources = createFullSourceMap();
     }
@@ -94,8 +87,8 @@ class _CalendarListViewState extends State<CalendarListView> {
   }
 
   Future<
-      ConnectedModel<List<SourcedConnectedModel<Appointment, Event?>>,
-          List<String>>> _fetchAppointments(
+      ConnectedModel<List<SourcedConnectedModel<CalendarItem, Event?>>,
+          List<String>>> _fetchCalendarItems(
       int day, Map<String, int> sources) async {
     if (!mounted) return ConnectedModel([], sources.keys.toList());
     var date = DateTime.now().onlyDate();
@@ -107,11 +100,11 @@ class _CalendarListViewState extends State<CalendarListView> {
 
     if (!mounted) return ConnectedModel([], sources.keys.toList());
 
-    final appointments = <SourcedConnectedModel<Appointment, Event?>>[];
+    final appointments = <SourcedConnectedModel<CalendarItem, Event?>>[];
     final nextSources = <String>[];
     for (final source in sources.entries) {
       final fetched =
-          await _cubit.getService(source.key).appointment?.getAppointments(
+          await _cubit.getService(source.key).calendarItem?.getCalendarItems(
                 date: date,
                 status: EventStatus.values
                     .where((element) =>
@@ -132,45 +125,6 @@ class _CalendarListViewState extends State<CalendarListView> {
       }
     }
     return ConnectedModel(appointments, nextSources);
-  }
-
-  Future<
-      ConnectedModel<List<SourcedConnectedModel<Moment, Event?>>,
-          List<String>>> _fetchMoments(
-      int day, Map<String, int> sources) async {
-    if (!mounted) return ConnectedModel([], sources.keys.toList());
-    var date = DateTime.now().onlyDate();
-    if (widget.filter.past) {
-      date = date.subtract(Duration(days: day));
-    } else {
-      date = date.add(Duration(days: day));
-    }
-
-    if (!mounted) return ConnectedModel([], sources.keys.toList());
-
-    final moments = <SourcedConnectedModel<Moment, Event?>>[];
-    final nextSources = <String>[];
-    for (final source in sources.entries) {
-      final fetched = await _cubit.getService(source.key).moment?.getMoments(
-            date: date,
-            status: EventStatus.values
-                .where((element) =>
-                    !widget.filter.hiddenStatuses.contains(element))
-                .toList(),
-            search: widget.search,
-            groupId: widget.filter.group,
-            placeId: widget.filter.place,
-            eventId: widget.filter.event,
-            offset: source.value * _pageSize,
-            limit: _pageSize,
-          );
-      if (fetched == null) continue;
-      moments.addAll(fetched.map((event) => SourcedModel(source.key, event)));
-      if (fetched.length >= _pageSize) {
-        nextSources.add(source.key);
-      }
-    }
-    return ConnectedModel(moments, nextSources);
   }
 
   @override
@@ -200,7 +154,7 @@ class _CalendarListViewState extends State<CalendarListView> {
               builder: (context, constraints) => PagedListView(
                 pagingController: _controller,
                 builderDelegate: buildMaterialPagedDelegate<
-                    List<SourcedConnectedModel<EventItem, Event?>>>(
+                    List<SourcedConnectedModel<CalendarItem, Event?>>>(
                   _controller,
                   (context, item, index) {
                     var date = DateTime.now().onlyDate();

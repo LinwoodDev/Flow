@@ -2,7 +2,7 @@ import 'package:flow/cubits/flow.dart';
 import 'package:flow/pages/calendar/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared/models/event/appointment/model.dart';
+import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
 
@@ -29,7 +29,7 @@ class CalendarWeekView extends StatefulWidget {
 class _CalendarWeekViewState extends State<CalendarWeekView> {
   late final FlowCubit _cubit;
   int _week = 0, _year = 0;
-  late Future<List<List<SourcedConnectedModel<Appointment, Event?>>>>
+  late Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
       _appointments;
   final _columnScrollController = ScrollController(),
       _rowScrollController = ScrollController();
@@ -38,7 +38,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
   void initState() {
     super.initState();
     _cubit = context.read<FlowCubit>();
-    _appointments = _fetchAppointments();
+    _appointments = _fetchCalendarItems();
     final now = DateTime.now();
     _week = now.week;
     _year = now.year;
@@ -46,8 +46,8 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
 
   DateTime get _date => DateTime(_year, 1, 1).addDays((_week - 1) * 7);
 
-  Future<List<List<SourcedConnectedModel<Appointment, Event?>>>>
-      _fetchAppointments() async {
+  Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
+      _fetchCalendarItems() async {
     if (!mounted) return [];
 
     var sources = _cubit.getCurrentServicesMap();
@@ -56,12 +56,12 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
         widget.filter.source!: _cubit.getService(widget.filter.source!)
       };
     }
-    final appointments = <List<SourcedConnectedModel<Appointment, Event?>>>[
+    final appointments = <List<SourcedConnectedModel<CalendarItem, Event?>>>[
       for (int i = 0; i < 7; i++) []
     ];
     for (final source in sources.entries) {
       for (int i = 0; i < 7; i++) {
-        final fetchedDay = await source.value.appointment?.getAppointments(
+        final fetchedDay = await source.value.calendarItem?.getCalendarItems(
           date: _date.addDays(i),
           status: EventStatus.values
               .where(
@@ -82,12 +82,12 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
       final dateTime = DateTime(_year - 1, 12, 31).addDays((_week + add) * 7);
       _week = dateTime.week;
       _year = dateTime.year;
-      _appointments = _fetchAppointments();
+      _appointments = _fetchCalendarItems();
     });
   }
 
   void _refresh() => setState(() {
-        _appointments = _fetchAppointments();
+        _appointments = _fetchCalendarItems();
       });
 
   @override
@@ -133,7 +133,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                           final now = DateTime.now();
                           _week = now.week;
                           _year = now.year;
-                          _appointments = _fetchAppointments();
+                          _appointments = _fetchCalendarItems();
                         });
                       },
                     ),
@@ -153,7 +153,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                           setState(() {
                             _week = date.week;
                             _year = date.year;
-                            _appointments = _fetchAppointments();
+                            _appointments = _fetchCalendarItems();
                           });
                         }
                       },
@@ -182,7 +182,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                     child: FutureBuilder<
                             List<
                                 List<
-                                    SourcedConnectedModel<Appointment,
+                                    SourcedConnectedModel<CalendarItem,
                                         Event?>>>>(
                         future: _appointments,
                         builder: (context, snapshot) {

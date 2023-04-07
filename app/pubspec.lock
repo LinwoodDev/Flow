@@ -237,10 +237,10 @@ packages:
     dependency: "direct main"
     description:
       name: dynamic_color
-      sha256: c4a508284b14ec4dda5adba2c28b2cdd34fbae1afead7e8c52cad87d51c5405b
+      sha256: bbebb1b7ebed819e0ec83d4abdc2a8482d934f6a85289ffc1c6acf7589fa2aad
       url: "https://pub.dev"
     source: hosted
-    version: "1.6.2"
+    version: "1.6.3"
   equatable:
     dependency: transitive
     description:
@@ -277,10 +277,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: d8e9ca7e5d1983365c277f12c21b4362df6cf659c99af146ad4d04eb33033013
+      sha256: "0d923fb610d0abf67f2149c3a50ef85f78bebecfc4d645719ca70bcf4abc788f"
       url: "https://pub.dev"
     source: hosted
-    version: "5.2.6"
+    version: "5.2.7"
   fixnum:
     dependency: transitive
     description:
@@ -293,10 +293,10 @@ packages:
     dependency: "direct main"
     description:
       name: flex_color_scheme
-      sha256: d72aac83f525bf7a0fae66a90837817c73adcd52af4b4a8f310fb40a1b57055b
+      sha256: ba6b2e19aa6bcfebed8f74486b4359e1399e5f285a9b697107e14e27f2963415
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.0"
+    version: "7.0.1"
   flex_seed_scheme:
     dependency: transitive
     description:
@@ -449,10 +449,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "6af43e0948b9f64a812afbb9ac3f76e2c8f5abe4efaba4188702a56af46b98c2"
+      sha256: feab99a20fd248c658c923ba98f4449ca6e575c3dee9fdf07146f4f33482c6bc
       url: "https://pub.dev"
     source: hosted
-    version: "6.5.2"
+    version: "6.5.5"
   graphs:
     dependency: transitive
     description:
@@ -569,10 +569,10 @@ packages:
     dependency: "direct overridden"
     description:
       name: meta
-      sha256: "12307e7f0605ce3da64cf0db90e5fcab0869f3ca03f76be6bb2991ce0a55e82b"
+      sha256: "3c74dbf8763d36539f114c799d8a2d87343b5067e9d796ca22b5eb8437090ee3"
       url: "https://pub.dev"
     source: hosted
-    version: "1.9.0"
+    version: "1.9.1"
   mime:
     dependency: transitive
     description:
@@ -713,10 +713,10 @@ packages:
     dependency: transitive
     description:
       name: process_run
-      sha256: "1142d7f4f0c3f36393a1319406efcf481def2b6d862b2bf600c8ae8fa74d5bd8"
+      sha256: "4539b7c0a34a4a4979e7345d9f5c6358961d9f53901baf2930807159d08ee59b"
       url: "https://pub.dev"
     source: hosted
-    version: "0.12.5+2"
+    version: "0.12.5+3"
   provider:
     dependency: transitive
     description:
@@ -941,10 +941,10 @@ packages:
     dependency: "direct main"
     description:
       name: sqflite_common_ffi_web
-      sha256: a92f005c3e1e9f95d2fcdb1ad2a9df50ede7d0244986da1220e8d6ee28ef4e92
+      sha256: "9a750758387565458f897bedc79a5c2801ba9eb81d91dfd9deada9ee76676a2b"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.3+2"
+    version: "0.3.3+3"
   sqlite3:
     dependency: "direct main"
     description:
@@ -1013,26 +1013,26 @@ packages:
     dependency: transitive
     description:
       name: test
-      sha256: "5301f54eb6fe945daa99bc8df6ece3f88b5ceaa6f996f250efdaaf63e22886be"
+      sha256: a5fcd2d25eeadbb6589e80198a47d6a464ba3e2049da473943b8af9797900c2d
       url: "https://pub.dev"
     source: hosted
-    version: "1.23.1"
+    version: "1.22.0"
   test_api:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: test_api
-      sha256: "6182294da5abf431177fccc1ee02401f6df30f766bc6130a0852c6b6d7ee6b2d"
+      sha256: ad540f65f92caa91bf21dfc8ffb8c589d6e4dc0c2267818b4cc2792857706206
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.18"
+    version: "0.4.16"
   test_core:
     dependency: transitive
     description:
       name: test_core
-      sha256: d2e9240594b409565524802b84b7b39341da36dd6fd8e1660b53ad928ec3e9af
+      sha256: "0ef9755ec6d746951ba0aabe62f874b707690b5ede0fecc818b138fcc9b14888"
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.24"
+    version: "0.4.20"
   timing:
     dependency: transitive
     description:
@@ -1125,10 +1125,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: f6deed8ed625c52864792459709183da231ebf66ff0cf09e69b573227c377efe
+      sha256: e7fb6c2282f7631712b69c19d1bff82f3767eea33a2321c14fa59ad67ea391c7
       url: "https://pub.dev"
     source: hosted
-    version: "11.3.0"
+    version: "9.4.0"
   watcher:
     dependency: transitive
     description:

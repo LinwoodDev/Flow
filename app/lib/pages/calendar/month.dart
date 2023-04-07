@@ -3,7 +3,7 @@ import 'package:flow/pages/calendar/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:shared/models/event/appointment/model.dart';
+import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/model.dart';
@@ -33,7 +33,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
   late final FlowCubit _cubit;
   int _month = 0, _year = 0;
   late final DateTime _now;
-  late Future<List<List<SourcedConnectedModel<Appointment, Event?>>>>
+  late Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
       _appointments;
 
   @override
@@ -41,7 +41,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
     _now = DateTime.now();
     super.initState();
     _cubit = context.read<FlowCubit>();
-    _appointments = _fetchAppointments();
+    _appointments = _fetchCalendarItems();
     _month = _now.month;
     _year = _now.year;
   }
@@ -55,8 +55,8 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
         _now.second,
       );
 
-  Future<List<List<SourcedConnectedModel<Appointment, Event?>>>>
-      _fetchAppointments() async {
+  Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
+      _fetchCalendarItems() async {
     if (!mounted) return [];
 
     var sources = _cubit.getCurrentServicesMap();
@@ -66,12 +66,12 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
       };
     }
     final days = _date.getDaysInMonth();
-    final appointments = <List<SourcedConnectedModel<Appointment, Event?>>>[
+    final appointments = <List<SourcedConnectedModel<CalendarItem, Event?>>>[
       for (int i = 0; i < days; i++) []
     ];
     for (final source in sources.entries) {
       for (int i = 0; i < days; i++) {
-        final fetchedDay = await source.value.appointment?.getAppointments(
+        final fetchedDay = await source.value.calendarItem?.getCalendarItems(
           date: _date.addDays(i),
           status: EventStatus.values
               .where(
@@ -92,12 +92,12 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
       final dateTime = DateTime(_year, _month + add, 1);
       _month = dateTime.month;
       _year = dateTime.year;
-      _appointments = _fetchAppointments();
+      _appointments = _fetchCalendarItems();
     });
   }
 
   void _refresh() => setState(() {
-        _appointments = _fetchAppointments();
+        _appointments = _fetchCalendarItems();
       });
 
   @override
@@ -144,7 +144,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                           final now = DateTime.now();
                           _month = now.month;
                           _year = now.year;
-                          _appointments = _fetchAppointments();
+                          _appointments = _fetchCalendarItems();
                         });
                       },
                     ),
@@ -164,7 +164,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                           setState(() {
                             _month = date.month;
                             _year = date.year;
-                            _appointments = _fetchAppointments();
+                            _appointments = _fetchCalendarItems();
                           });
                         }
                       },
@@ -181,7 +181,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
           ]),
           Expanded(
             child: FutureBuilder<
-                    List<List<SourcedConnectedModel<Appointment, Event?>>>>(
+                    List<List<SourcedConnectedModel<CalendarItem, Event?>>>>(
                 future: _appointments,
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
@@ -289,7 +289,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
 
 class CalendarDayDialog extends StatelessWidget {
   final DateTime date;
-  final List<SourcedConnectedModel<Appointment, Event?>> appointments;
+  final List<SourcedConnectedModel<CalendarItem, Event?>> appointments;
   final SourcedModel<int>? event;
 
   const CalendarDayDialog({

@@ -2,16 +2,13 @@ import 'dart:async';
 
 import 'package:shared/services/source.dart';
 
-import 'appointment/model.dart';
+import 'item/model.dart';
 import 'model.dart';
-import 'moment/model.dart';
 
 abstract class EventService extends ModelService {
   FutureOr<Event?> getEvent(int id);
-  FutureOr<Event?> getEventByAppointment(Appointment appointment) =>
-      appointment.eventId == null ? null : getEvent(appointment.eventId!);
-  FutureOr<Event?> getEventByMoment(Moment moment) =>
-      moment.eventId == null ? null : getEvent(moment.eventId!);
+  FutureOr<Event?> getEventByItem(CalendarItem item) =>
+      item.eventId == null ? null : getEvent(item.eventId!);
 
   FutureOr<List<Event>> getEvents({
     int? groupId,

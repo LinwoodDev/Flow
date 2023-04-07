@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
 
@@ -12,10 +13,9 @@ import '../../helpers/sourced_paging_controller.dart';
 import '../../widgets/builder_delegate.dart';
 import '../../widgets/material_bottom_sheet.dart';
 import '../calendar/filter.dart';
-import 'appointment.dart';
+import 'item.dart';
 import 'event.dart';
 import 'filter.dart';
-import 'moment.dart';
 
 class EventsPage extends StatefulWidget {
   const EventsPage({
@@ -296,6 +296,16 @@ Future<void> showCalendarCreate(
         await cubit.getService(event.source).event?.getEvent(event.model);
     if (model != null) eventResult = SourcedModel(event.source, model);
   }
+  Future<void> showCalendarItemDialog(CalendarItem item) => showDialog(
+        context: context,
+        builder: (context) => CalendarItemDialog(
+          event: eventResult?.model,
+          item: item,
+          source: eventResult?.source,
+          create: true,
+        ),
+      );
+  time ??= DateTime.now();
   if (context.mounted) {
     await showMaterialBottomSheet(
       context: context,
@@ -305,12 +315,10 @@ Future<void> showCalendarCreate(
           title: Text(AppLocalizations.of(context).appointment),
           leading: const Icon(Icons.event_outlined),
           onTap: () async {
-            await showDialog(
-              context: context,
-              builder: (context) => AppointmentDialog(
-                event: eventResult?.model,
-                source: eventResult?.source,
-                create: true,
+            await showCalendarItemDialog(
+              CalendarItem.fixed(
+                start: time,
+                end: time?.add(const Duration(hours: 1)),
               ),
             );
             if (context.mounted) Navigator.of(ctx).pop();
@@ -320,13 +328,21 @@ Future<void> showCalendarCreate(
           title: Text(AppLocalizations.of(context).moment),
           leading: const Icon(Icons.mood_outlined),
           onTap: () async {
-            await showDialog(
-              context: context,
-              builder: (context) => MomentDialog(
-                event: eventResult?.model,
-                source: eventResult?.source,
-                create: true,
+            await showCalendarItemDialog(
+              CalendarItem.fixed(
+                start: time,
+                end: time,
               ),
+            );
+            if (context.mounted) Navigator.of(ctx).pop();
+          },
+        ),
+        ListTile(
+          title: Text(AppLocalizations.of(context).pending),
+          leading: const Icon(Icons.pending_actions_outlined),
+          onTap: () async {
+            await showCalendarItemDialog(
+              const CalendarItem.fixed(),
             );
             if (context.mounted) Navigator.of(ctx).pop();
           },

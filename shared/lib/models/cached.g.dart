@@ -15,8 +15,8 @@ _$_CachedData _$$_CachedDataFromJson(Map<String, dynamic> json) =>
               ?.map((e) => Event.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      appointments: (json['appointments'] as List<dynamic>?)
-              ?.map((e) => Appointment.fromJson(e as Map<String, dynamic>))
+      items: (json['items'] as List<dynamic>?)
+              ?.map((e) => CalendarItem.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
       notes: (json['notes'] as List<dynamic>?)
@@ -29,6 +29,6 @@ Map<String, dynamic> _$$_CachedDataToJson(_$_CachedData instance) =>
     <String, dynamic>{
       'lastUpdated': instance.lastUpdated?.toIso8601String(),
       'events': instance.events,
-      'appointments': instance.appointments,
+      'items': instance.items,
       'notes': instance.notes,
     };

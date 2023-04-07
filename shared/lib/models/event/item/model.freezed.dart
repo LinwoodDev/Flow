@@ -14,23 +14,23 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Appointment _$AppointmentFromJson(Map<String, dynamic> json) {
+CalendarItem _$CalendarItemFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType']) {
     case 'fixed':
-      return FixedAppointment.fromJson(json);
+      return FixedCalendarItem.fromJson(json);
     case 'repeating':
-      return RepeatingAppointment.fromJson(json);
+      return RepeatingCalendarItem.fromJson(json);
     case 'auto':
-      return AutoAppointment.fromJson(json);
+      return AutoCalendarItem.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'Appointment',
+      throw CheckedFromJsonException(json, 'runtimeType', 'CalendarItem',
           'Invalid union type "${json['runtimeType']}"!');
   }
 }
 
 /// @nodoc
-mixin _$Appointment {
+mixin _$CalendarItem {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -173,37 +173,37 @@ mixin _$Appointment {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(FixedAppointment value) fixed,
-    required TResult Function(RepeatingAppointment value) repeating,
-    required TResult Function(AutoAppointment value) auto,
+    required TResult Function(FixedCalendarItem value) fixed,
+    required TResult Function(RepeatingCalendarItem value) repeating,
+    required TResult Function(AutoCalendarItem value) auto,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(FixedAppointment value)? fixed,
-    TResult? Function(RepeatingAppointment value)? repeating,
-    TResult? Function(AutoAppointment value)? auto,
+    TResult? Function(FixedCalendarItem value)? fixed,
+    TResult? Function(RepeatingCalendarItem value)? repeating,
+    TResult? Function(AutoCalendarItem value)? auto,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(FixedAppointment value)? fixed,
-    TResult Function(RepeatingAppointment value)? repeating,
-    TResult Function(AutoAppointment value)? auto,
+    TResult Function(FixedCalendarItem value)? fixed,
+    TResult Function(RepeatingCalendarItem value)? repeating,
+    TResult Function(AutoCalendarItem value)? auto,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AppointmentCopyWith<Appointment> get copyWith =>
+  $CalendarItemCopyWith<CalendarItem> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AppointmentCopyWith<$Res> {
-  factory $AppointmentCopyWith(
-          Appointment value, $Res Function(Appointment) then) =
-      _$AppointmentCopyWithImpl<$Res, Appointment>;
+abstract class $CalendarItemCopyWith<$Res> {
+  factory $CalendarItemCopyWith(
+          CalendarItem value, $Res Function(CalendarItem) then) =
+      _$CalendarItemCopyWithImpl<$Res, CalendarItem>;
   @useResult
   $Res call(
       {int id,
@@ -217,9 +217,9 @@ abstract class $AppointmentCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AppointmentCopyWithImpl<$Res, $Val extends Appointment>
-    implements $AppointmentCopyWith<$Res> {
-  _$AppointmentCopyWithImpl(this._value, this._then);
+class _$CalendarItemCopyWithImpl<$Res, $Val extends CalendarItem>
+    implements $CalendarItemCopyWith<$Res> {
+  _$CalendarItemCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -276,11 +276,11 @@ class _$AppointmentCopyWithImpl<$Res, $Val extends Appointment>
 }
 
 /// @nodoc
-abstract class _$$FixedAppointmentCopyWith<$Res>
-    implements $AppointmentCopyWith<$Res> {
-  factory _$$FixedAppointmentCopyWith(
-          _$FixedAppointment value, $Res Function(_$FixedAppointment) then) =
-      __$$FixedAppointmentCopyWithImpl<$Res>;
+abstract class _$$FixedCalendarItemCopyWith<$Res>
+    implements $CalendarItemCopyWith<$Res> {
+  factory _$$FixedCalendarItemCopyWith(
+          _$FixedCalendarItem value, $Res Function(_$FixedCalendarItem) then) =
+      __$$FixedCalendarItemCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -295,11 +295,11 @@ abstract class _$$FixedAppointmentCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$FixedAppointmentCopyWithImpl<$Res>
-    extends _$AppointmentCopyWithImpl<$Res, _$FixedAppointment>
-    implements _$$FixedAppointmentCopyWith<$Res> {
-  __$$FixedAppointmentCopyWithImpl(
-      _$FixedAppointment _value, $Res Function(_$FixedAppointment) _then)
+class __$$FixedCalendarItemCopyWithImpl<$Res>
+    extends _$CalendarItemCopyWithImpl<$Res, _$FixedCalendarItem>
+    implements _$$FixedCalendarItemCopyWith<$Res> {
+  __$$FixedCalendarItemCopyWithImpl(
+      _$FixedCalendarItem _value, $Res Function(_$FixedCalendarItem) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -314,7 +314,7 @@ class __$$FixedAppointmentCopyWithImpl<$Res>
     Object? start = freezed,
     Object? end = freezed,
   }) {
-    return _then(_$FixedAppointment(
+    return _then(_$FixedCalendarItem(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -353,8 +353,8 @@ class __$$FixedAppointmentCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$FixedAppointment extends FixedAppointment {
-  const _$FixedAppointment(
+class _$FixedCalendarItem extends FixedCalendarItem {
+  const _$FixedCalendarItem(
       {this.id = -1,
       this.name = '',
       this.description = '',
@@ -367,8 +367,8 @@ class _$FixedAppointment extends FixedAppointment {
       : $type = $type ?? 'fixed',
         super._();
 
-  factory _$FixedAppointment.fromJson(Map<String, dynamic> json) =>
-      _$$FixedAppointmentFromJson(json);
+  factory _$FixedCalendarItem.fromJson(Map<String, dynamic> json) =>
+      _$$FixedCalendarItemFromJson(json);
 
   @override
   @JsonKey()
@@ -399,14 +399,14 @@ class _$FixedAppointment extends FixedAppointment {
 
   @override
   String toString() {
-    return 'Appointment.fixed(id: $id, name: $name, description: $description, location: $location, eventId: $eventId, status: $status, start: $start, end: $end)';
+    return 'CalendarItem.fixed(id: $id, name: $name, description: $description, location: $location, eventId: $eventId, status: $status, start: $start, end: $end)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$FixedAppointment &&
+            other is _$FixedCalendarItem &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
@@ -427,8 +427,8 @@ class _$FixedAppointment extends FixedAppointment {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$FixedAppointmentCopyWith<_$FixedAppointment> get copyWith =>
-      __$$FixedAppointmentCopyWithImpl<_$FixedAppointment>(this, _$identity);
+  _$$FixedCalendarItemCopyWith<_$FixedCalendarItem> get copyWith =>
+      __$$FixedCalendarItemCopyWithImpl<_$FixedCalendarItem>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -577,9 +577,9 @@ class _$FixedAppointment extends FixedAppointment {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(FixedAppointment value) fixed,
-    required TResult Function(RepeatingAppointment value) repeating,
-    required TResult Function(AutoAppointment value) auto,
+    required TResult Function(FixedCalendarItem value) fixed,
+    required TResult Function(RepeatingCalendarItem value) repeating,
+    required TResult Function(AutoCalendarItem value) auto,
   }) {
     return fixed(this);
   }
@@ -587,9 +587,9 @@ class _$FixedAppointment extends FixedAppointment {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(FixedAppointment value)? fixed,
-    TResult? Function(RepeatingAppointment value)? repeating,
-    TResult? Function(AutoAppointment value)? auto,
+    TResult? Function(FixedCalendarItem value)? fixed,
+    TResult? Function(RepeatingCalendarItem value)? repeating,
+    TResult? Function(AutoCalendarItem value)? auto,
   }) {
     return fixed?.call(this);
   }
@@ -597,9 +597,9 @@ class _$FixedAppointment extends FixedAppointment {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(FixedAppointment value)? fixed,
-    TResult Function(RepeatingAppointment value)? repeating,
-    TResult Function(AutoAppointment value)? auto,
+    TResult Function(FixedCalendarItem value)? fixed,
+    TResult Function(RepeatingCalendarItem value)? repeating,
+    TResult Function(AutoCalendarItem value)? auto,
     required TResult orElse(),
   }) {
     if (fixed != null) {
@@ -610,14 +610,14 @@ class _$FixedAppointment extends FixedAppointment {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$FixedAppointmentToJson(
+    return _$$FixedCalendarItemToJson(
       this,
     );
   }
 }
 
-abstract class FixedAppointment extends Appointment {
-  const factory FixedAppointment(
+abstract class FixedCalendarItem extends CalendarItem {
+  const factory FixedCalendarItem(
       {final int id,
       final String name,
       final String description,
@@ -625,11 +625,11 @@ abstract class FixedAppointment extends Appointment {
       final int? eventId,
       final EventStatus status,
       @DateTimeConverter() final DateTime? start,
-      @DateTimeConverter() final DateTime? end}) = _$FixedAppointment;
-  const FixedAppointment._() : super._();
+      @DateTimeConverter() final DateTime? end}) = _$FixedCalendarItem;
+  const FixedCalendarItem._() : super._();
 
-  factory FixedAppointment.fromJson(Map<String, dynamic> json) =
-      _$FixedAppointment.fromJson;
+  factory FixedCalendarItem.fromJson(Map<String, dynamic> json) =
+      _$FixedCalendarItem.fromJson;
 
   @override
   int get id;
@@ -651,16 +651,16 @@ abstract class FixedAppointment extends Appointment {
   DateTime? get end;
   @override
   @JsonKey(ignore: true)
-  _$$FixedAppointmentCopyWith<_$FixedAppointment> get copyWith =>
+  _$$FixedCalendarItemCopyWith<_$FixedCalendarItem> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$RepeatingAppointmentCopyWith<$Res>
-    implements $AppointmentCopyWith<$Res> {
-  factory _$$RepeatingAppointmentCopyWith(_$RepeatingAppointment value,
-          $Res Function(_$RepeatingAppointment) then) =
-      __$$RepeatingAppointmentCopyWithImpl<$Res>;
+abstract class _$$RepeatingCalendarItemCopyWith<$Res>
+    implements $CalendarItemCopyWith<$Res> {
+  factory _$$RepeatingCalendarItemCopyWith(_$RepeatingCalendarItem value,
+          $Res Function(_$RepeatingCalendarItem) then) =
+      __$$RepeatingCalendarItemCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -681,11 +681,11 @@ abstract class _$$RepeatingAppointmentCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$RepeatingAppointmentCopyWithImpl<$Res>
-    extends _$AppointmentCopyWithImpl<$Res, _$RepeatingAppointment>
-    implements _$$RepeatingAppointmentCopyWith<$Res> {
-  __$$RepeatingAppointmentCopyWithImpl(_$RepeatingAppointment _value,
-      $Res Function(_$RepeatingAppointment) _then)
+class __$$RepeatingCalendarItemCopyWithImpl<$Res>
+    extends _$CalendarItemCopyWithImpl<$Res, _$RepeatingCalendarItem>
+    implements _$$RepeatingCalendarItemCopyWith<$Res> {
+  __$$RepeatingCalendarItemCopyWithImpl(_$RepeatingCalendarItem _value,
+      $Res Function(_$RepeatingCalendarItem) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -706,7 +706,7 @@ class __$$RepeatingAppointmentCopyWithImpl<$Res>
     Object? until = freezed,
     Object? exceptions = null,
   }) {
-    return _then(_$RepeatingAppointment(
+    return _then(_$RepeatingCalendarItem(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -769,8 +769,8 @@ class __$$RepeatingAppointmentCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$RepeatingAppointment extends RepeatingAppointment {
-  const _$RepeatingAppointment(
+class _$RepeatingCalendarItem extends RepeatingCalendarItem {
+  const _$RepeatingCalendarItem(
       {this.id = -1,
       this.name = '',
       this.description = '',
@@ -790,8 +790,8 @@ class _$RepeatingAppointment extends RepeatingAppointment {
         $type = $type ?? 'repeating',
         super._();
 
-  factory _$RepeatingAppointment.fromJson(Map<String, dynamic> json) =>
-      _$$RepeatingAppointmentFromJson(json);
+  factory _$RepeatingCalendarItem.fromJson(Map<String, dynamic> json) =>
+      _$$RepeatingCalendarItemFromJson(json);
 
   @override
   @JsonKey()
@@ -845,14 +845,14 @@ class _$RepeatingAppointment extends RepeatingAppointment {
 
   @override
   String toString() {
-    return 'Appointment.repeating(id: $id, name: $name, description: $description, location: $location, eventId: $eventId, status: $status, start: $start, end: $end, repeatType: $repeatType, interval: $interval, variation: $variation, count: $count, until: $until, exceptions: $exceptions)';
+    return 'CalendarItem.repeating(id: $id, name: $name, description: $description, location: $location, eventId: $eventId, status: $status, start: $start, end: $end, repeatType: $repeatType, interval: $interval, variation: $variation, count: $count, until: $until, exceptions: $exceptions)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RepeatingAppointment &&
+            other is _$RepeatingCalendarItem &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
@@ -897,8 +897,8 @@ class _$RepeatingAppointment extends RepeatingAppointment {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$RepeatingAppointmentCopyWith<_$RepeatingAppointment> get copyWith =>
-      __$$RepeatingAppointmentCopyWithImpl<_$RepeatingAppointment>(
+  _$$RepeatingCalendarItemCopyWith<_$RepeatingCalendarItem> get copyWith =>
+      __$$RepeatingCalendarItemCopyWithImpl<_$RepeatingCalendarItem>(
           this, _$identity);
 
   @override
@@ -1049,9 +1049,9 @@ class _$RepeatingAppointment extends RepeatingAppointment {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(FixedAppointment value) fixed,
-    required TResult Function(RepeatingAppointment value) repeating,
-    required TResult Function(AutoAppointment value) auto,
+    required TResult Function(FixedCalendarItem value) fixed,
+    required TResult Function(RepeatingCalendarItem value) repeating,
+    required TResult Function(AutoCalendarItem value) auto,
   }) {
     return repeating(this);
   }
@@ -1059,9 +1059,9 @@ class _$RepeatingAppointment extends RepeatingAppointment {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(FixedAppointment value)? fixed,
-    TResult? Function(RepeatingAppointment value)? repeating,
-    TResult? Function(AutoAppointment value)? auto,
+    TResult? Function(FixedCalendarItem value)? fixed,
+    TResult? Function(RepeatingCalendarItem value)? repeating,
+    TResult? Function(AutoCalendarItem value)? auto,
   }) {
     return repeating?.call(this);
   }
@@ -1069,9 +1069,9 @@ class _$RepeatingAppointment extends RepeatingAppointment {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(FixedAppointment value)? fixed,
-    TResult Function(RepeatingAppointment value)? repeating,
-    TResult Function(AutoAppointment value)? auto,
+    TResult Function(FixedCalendarItem value)? fixed,
+    TResult Function(RepeatingCalendarItem value)? repeating,
+    TResult Function(AutoCalendarItem value)? auto,
     required TResult orElse(),
   }) {
     if (repeating != null) {
@@ -1082,14 +1082,14 @@ class _$RepeatingAppointment extends RepeatingAppointment {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$RepeatingAppointmentToJson(
+    return _$$RepeatingCalendarItemToJson(
       this,
     );
   }
 }
 
-abstract class RepeatingAppointment extends Appointment {
-  const factory RepeatingAppointment(
+abstract class RepeatingCalendarItem extends CalendarItem {
+  const factory RepeatingCalendarItem(
       {final int id,
       final String name,
       final String description,
@@ -1103,11 +1103,11 @@ abstract class RepeatingAppointment extends Appointment {
       final int variation,
       final int count,
       @DateTimeConverter() final DateTime? until,
-      final List<int> exceptions}) = _$RepeatingAppointment;
-  const RepeatingAppointment._() : super._();
+      final List<int> exceptions}) = _$RepeatingCalendarItem;
+  const RepeatingCalendarItem._() : super._();
 
-  factory RepeatingAppointment.fromJson(Map<String, dynamic> json) =
-      _$RepeatingAppointment.fromJson;
+  factory RepeatingCalendarItem.fromJson(Map<String, dynamic> json) =
+      _$RepeatingCalendarItem.fromJson;
 
   @override
   int get id;
@@ -1136,16 +1136,16 @@ abstract class RepeatingAppointment extends Appointment {
   List<int> get exceptions;
   @override
   @JsonKey(ignore: true)
-  _$$RepeatingAppointmentCopyWith<_$RepeatingAppointment> get copyWith =>
+  _$$RepeatingCalendarItemCopyWith<_$RepeatingCalendarItem> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AutoAppointmentCopyWith<$Res>
-    implements $AppointmentCopyWith<$Res> {
-  factory _$$AutoAppointmentCopyWith(
-          _$AutoAppointment value, $Res Function(_$AutoAppointment) then) =
-      __$$AutoAppointmentCopyWithImpl<$Res>;
+abstract class _$$AutoCalendarItemCopyWith<$Res>
+    implements $CalendarItemCopyWith<$Res> {
+  factory _$$AutoCalendarItemCopyWith(
+          _$AutoCalendarItem value, $Res Function(_$AutoCalendarItem) then) =
+      __$$AutoCalendarItemCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1163,11 +1163,11 @@ abstract class _$$AutoAppointmentCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$AutoAppointmentCopyWithImpl<$Res>
-    extends _$AppointmentCopyWithImpl<$Res, _$AutoAppointment>
-    implements _$$AutoAppointmentCopyWith<$Res> {
-  __$$AutoAppointmentCopyWithImpl(
-      _$AutoAppointment _value, $Res Function(_$AutoAppointment) _then)
+class __$$AutoCalendarItemCopyWithImpl<$Res>
+    extends _$CalendarItemCopyWithImpl<$Res, _$AutoCalendarItem>
+    implements _$$AutoCalendarItemCopyWith<$Res> {
+  __$$AutoCalendarItemCopyWithImpl(
+      _$AutoCalendarItem _value, $Res Function(_$AutoCalendarItem) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1185,7 +1185,7 @@ class __$$AutoAppointmentCopyWithImpl<$Res>
     Object? searchStart = freezed,
     Object? autoDuration = null,
   }) {
-    return _then(_$AutoAppointment(
+    return _then(_$AutoCalendarItem(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -1236,8 +1236,8 @@ class __$$AutoAppointmentCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AutoAppointment extends AutoAppointment {
-  const _$AutoAppointment(
+class _$AutoCalendarItem extends AutoCalendarItem {
+  const _$AutoCalendarItem(
       {this.id = -1,
       this.name = '',
       this.description = '',
@@ -1253,8 +1253,8 @@ class _$AutoAppointment extends AutoAppointment {
       : $type = $type ?? 'auto',
         super._();
 
-  factory _$AutoAppointment.fromJson(Map<String, dynamic> json) =>
-      _$$AutoAppointmentFromJson(json);
+  factory _$AutoCalendarItem.fromJson(Map<String, dynamic> json) =>
+      _$$AutoCalendarItemFromJson(json);
 
   @override
   @JsonKey()
@@ -1294,14 +1294,14 @@ class _$AutoAppointment extends AutoAppointment {
 
   @override
   String toString() {
-    return 'Appointment.auto(id: $id, name: $name, description: $description, location: $location, eventId: $eventId, status: $status, start: $start, end: $end, autoGroupId: $autoGroupId, searchStart: $searchStart, autoDuration: $autoDuration)';
+    return 'CalendarItem.auto(id: $id, name: $name, description: $description, location: $location, eventId: $eventId, status: $status, start: $start, end: $end, autoGroupId: $autoGroupId, searchStart: $searchStart, autoDuration: $autoDuration)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AutoAppointment &&
+            other is _$AutoCalendarItem &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
@@ -1328,8 +1328,8 @@ class _$AutoAppointment extends AutoAppointment {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AutoAppointmentCopyWith<_$AutoAppointment> get copyWith =>
-      __$$AutoAppointmentCopyWithImpl<_$AutoAppointment>(this, _$identity);
+  _$$AutoCalendarItemCopyWith<_$AutoCalendarItem> get copyWith =>
+      __$$AutoCalendarItemCopyWithImpl<_$AutoCalendarItem>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1479,9 +1479,9 @@ class _$AutoAppointment extends AutoAppointment {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(FixedAppointment value) fixed,
-    required TResult Function(RepeatingAppointment value) repeating,
-    required TResult Function(AutoAppointment value) auto,
+    required TResult Function(FixedCalendarItem value) fixed,
+    required TResult Function(RepeatingCalendarItem value) repeating,
+    required TResult Function(AutoCalendarItem value) auto,
   }) {
     return auto(this);
   }
@@ -1489,9 +1489,9 @@ class _$AutoAppointment extends AutoAppointment {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(FixedAppointment value)? fixed,
-    TResult? Function(RepeatingAppointment value)? repeating,
-    TResult? Function(AutoAppointment value)? auto,
+    TResult? Function(FixedCalendarItem value)? fixed,
+    TResult? Function(RepeatingCalendarItem value)? repeating,
+    TResult? Function(AutoCalendarItem value)? auto,
   }) {
     return auto?.call(this);
   }
@@ -1499,9 +1499,9 @@ class _$AutoAppointment extends AutoAppointment {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(FixedAppointment value)? fixed,
-    TResult Function(RepeatingAppointment value)? repeating,
-    TResult Function(AutoAppointment value)? auto,
+    TResult Function(FixedCalendarItem value)? fixed,
+    TResult Function(RepeatingCalendarItem value)? repeating,
+    TResult Function(AutoCalendarItem value)? auto,
     required TResult orElse(),
   }) {
     if (auto != null) {
@@ -1512,14 +1512,14 @@ class _$AutoAppointment extends AutoAppointment {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AutoAppointmentToJson(
+    return _$$AutoCalendarItemToJson(
       this,
     );
   }
 }
 
-abstract class AutoAppointment extends Appointment {
-  const factory AutoAppointment(
+abstract class AutoCalendarItem extends CalendarItem {
+  const factory AutoCalendarItem(
       {final int id,
       final String name,
       final String description,
@@ -1530,11 +1530,11 @@ abstract class AutoAppointment extends Appointment {
       @DateTimeConverter() final DateTime? end,
       final int autoGroupId,
       @DateTimeConverter() final DateTime? searchStart,
-      final int autoDuration}) = _$AutoAppointment;
-  const AutoAppointment._() : super._();
+      final int autoDuration}) = _$AutoCalendarItem;
+  const AutoCalendarItem._() : super._();
 
-  factory AutoAppointment.fromJson(Map<String, dynamic> json) =
-      _$AutoAppointment.fromJson;
+  factory AutoCalendarItem.fromJson(Map<String, dynamic> json) =
+      _$AutoCalendarItem.fromJson;
 
   @override
   int get id;
@@ -1560,6 +1560,6 @@ abstract class AutoAppointment extends Appointment {
   int get autoDuration;
   @override
   @JsonKey(ignore: true)
-  _$$AutoAppointmentCopyWith<_$AutoAppointment> get copyWith =>
+  _$$AutoCalendarItemCopyWith<_$AutoCalendarItem> get copyWith =>
       throw _privateConstructorUsedError;
 }

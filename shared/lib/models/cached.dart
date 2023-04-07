@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'event/appointment/model.dart';
+import 'event/item/model.dart';
 import 'event/model.dart';
 import 'note/model.dart';
 
@@ -12,7 +12,7 @@ class CachedData with _$CachedData {
   factory CachedData({
     DateTime? lastUpdated,
     @Default([]) List<Event> events,
-    @Default([]) List<Appointment> appointments,
+    @Default([]) List<CalendarItem> items,
     @Default([]) List<Note> notes,
   }) = _CachedData;
 

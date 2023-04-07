@@ -5,9 +5,9 @@ import '../../model.dart';
 import '../model.dart';
 import 'model.dart';
 
-abstract class AppointmentService extends ModelService {
-  FutureOr<Appointment?> getAppointment(int id);
-  FutureOr<List<ConnectedModel<Appointment, Event?>>> getAppointments({
+abstract class CalendarItemService extends ModelService {
+  FutureOr<CalendarItem?> getCalendarItem(int id);
+  FutureOr<List<ConnectedModel<CalendarItem, Event?>>> getCalendarItems({
     List<EventStatus>? status,
     int? eventId,
     int? groupId,
@@ -21,9 +21,9 @@ abstract class AppointmentService extends ModelService {
     String search = '',
   });
 
-  FutureOr<Appointment?> createAppointment(Appointment appointment);
+  FutureOr<CalendarItem?> createCalendarItem(CalendarItem item);
 
-  FutureOr<bool> updateAppointment(Appointment appointment);
+  FutureOr<bool> updateCalendarItem(CalendarItem item);
 
-  FutureOr<bool> deleteAppointment(int id);
+  FutureOr<bool> deleteCalendarItem(int id);
 }

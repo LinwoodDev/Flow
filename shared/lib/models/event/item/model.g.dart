@@ -6,8 +6,8 @@ part of 'model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$FixedAppointment _$$FixedAppointmentFromJson(Map<String, dynamic> json) =>
-    _$FixedAppointment(
+_$FixedCalendarItem _$$FixedCalendarItemFromJson(Map<String, dynamic> json) =>
+    _$FixedCalendarItem(
       id: json['id'] as int? ?? -1,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
@@ -20,7 +20,7 @@ _$FixedAppointment _$$FixedAppointmentFromJson(Map<String, dynamic> json) =>
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$FixedAppointmentToJson(_$FixedAppointment instance) =>
+Map<String, dynamic> _$$FixedCalendarItemToJson(_$FixedCalendarItem instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
@@ -39,9 +39,9 @@ const _$EventStatusEnumMap = {
   EventStatus.cancelled: 'cancelled',
 };
 
-_$RepeatingAppointment _$$RepeatingAppointmentFromJson(
+_$RepeatingCalendarItem _$$RepeatingCalendarItemFromJson(
         Map<String, dynamic> json) =>
-    _$RepeatingAppointment(
+    _$RepeatingCalendarItem(
       id: json['id'] as int? ?? -1,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
@@ -65,8 +65,8 @@ _$RepeatingAppointment _$$RepeatingAppointmentFromJson(
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$RepeatingAppointmentToJson(
-        _$RepeatingAppointment instance) =>
+Map<String, dynamic> _$$RepeatingCalendarItemToJson(
+        _$RepeatingCalendarItem instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
@@ -92,8 +92,8 @@ const _$RepeatTypeEnumMap = {
   RepeatType.yearly: 'yearly',
 };
 
-_$AutoAppointment _$$AutoAppointmentFromJson(Map<String, dynamic> json) =>
-    _$AutoAppointment(
+_$AutoCalendarItem _$$AutoCalendarItemFromJson(Map<String, dynamic> json) =>
+    _$AutoCalendarItem(
       id: json['id'] as int? ?? -1,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
@@ -110,7 +110,7 @@ _$AutoAppointment _$$AutoAppointmentFromJson(Map<String, dynamic> json) =>
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$AutoAppointmentToJson(_$AutoAppointment instance) =>
+Map<String, dynamic> _$$AutoCalendarItemToJson(_$AutoCalendarItem instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

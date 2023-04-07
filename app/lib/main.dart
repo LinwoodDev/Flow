@@ -209,4 +209,5 @@ class FlowApp extends StatelessWidget {
 const flavor = String.fromEnvironment('flavor');
 const isNightly =
     flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
-const applicationName = isNightly ? 'Linwood Flow Nightly' : 'Linwood Flow';
+const shortApplicationName = isNightly ? 'Flow Nightly' : 'Flow';
+const applicationName = '$shortApplicationName Flow';

@@ -1,8 +1,7 @@
 import 'package:shared/models/cached.dart';
+import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/note/model.dart';
-
-import '../models/event/appointment/model.dart';
 
 class ICalConverter {
   CachedData? data;
@@ -13,9 +12,9 @@ class ICalConverter {
     if (offset == -1) {
       return;
     }
-    Appointment? currentAppointment;
+    CalendarItem? currentItem;
     Note? currentNote;
-    final appointments = List<Appointment>.from(data?.appointments ?? []);
+    final appointments = List<CalendarItem>.from(data?.items ?? []);
     var currentEvent = Event(name: name);
     final notes = List<Note>.from(data?.notes ?? []);
     for (int i = offset; i < lines.length; i++) {
@@ -24,28 +23,26 @@ class ICalConverter {
       final name = parts[0].trim().split(';');
       final key = name.first;
       final value = parts.sublist(1).join(':').trim();
-      if (currentAppointment != null) {
+      if (currentItem != null) {
         switch (key) {
           case 'SUMMARY':
-            currentAppointment = currentAppointment.copyWith(name: value);
+            currentItem = currentItem.copyWith(name: value);
             break;
           case 'DESCRIPTION':
-            currentAppointment =
-                currentAppointment.copyWith(description: value);
+            currentItem = currentItem.copyWith(description: value);
             break;
           case 'DTSTART':
-            currentAppointment = currentAppointment.copyWith(
+            currentItem = currentItem.copyWith(
                 start:
                     DateTime.parse(value).subtract(const Duration(minutes: 1)));
             break;
           case 'DTEND':
-            currentAppointment =
-                currentAppointment.copyWith(end: DateTime.parse(value));
+            currentItem = currentItem.copyWith(end: DateTime.parse(value));
             break;
           case 'END':
             if (value != 'VEVENT') break;
-            appointments.add(currentAppointment);
-            currentAppointment = null;
+            appointments.add(currentItem);
+            currentItem = null;
             break;
         }
       } else if (currentNote != null) {
@@ -67,7 +64,7 @@ class ICalConverter {
             break;
           case 'BEGIN':
             if (value == 'VEVENT') {
-              currentAppointment = Appointment.fixed(
+              currentItem = CalendarItem.fixed(
                 id: appointments.length + 1,
                 eventId: currentEvent.id,
               );
@@ -93,15 +90,15 @@ class ICalConverter {
     final lines = <String>[];
     lines.add('BEGIN:VCALENDAR');
     lines.add('VERSION:2.0');
-    for (final event in data?.appointments ?? <Appointment>[]) {
+    for (final item in data?.items ?? <CalendarItem>[]) {
       lines.add('BEGIN:VEVENT');
-      lines.add('SUMMARY:${event.name}');
-      lines.add('DESCRIPTION:${event.description}');
-      if (event.start != null) {
-        lines.add('DTSTART:${event.start!.toUtc().toIso8601String()}');
+      lines.add('SUMMARY:${item.name}');
+      lines.add('DESCRIPTION:${item.description}');
+      if (item.start != null) {
+        lines.add('DTSTART:${item.start!.toUtc().toIso8601String()}');
       }
-      if (event.end != null) {
-        lines.add('DTEND:${event.end!.toUtc().toIso8601String()}');
+      if (item.end != null) {
+        lines.add('DTEND:${item.end!.toUtc().toIso8601String()}');
       }
       lines.add('END:VEVENT');
     }

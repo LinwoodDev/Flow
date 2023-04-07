@@ -1,16 +1,19 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../helpers/converter.dart';
+import '../../model.dart';
 import '../model.dart';
 
 part 'model.freezed.dart';
 part 'model.g.dart';
 
-@freezed
-class Appointment with _$Appointment implements EventItem {
-  const Appointment._();
+enum CalendarItemType { appointment, moment, pending }
 
-  const factory Appointment.fixed({
+@freezed
+class CalendarItem with _$CalendarItem, DescriptiveModel {
+  const CalendarItem._();
+
+  const factory CalendarItem.fixed({
     @Default(-1) int id,
     @Default('') String name,
     @Default('') String description,
@@ -19,9 +22,9 @@ class Appointment with _$Appointment implements EventItem {
     @Default(EventStatus.confirmed) EventStatus status,
     @DateTimeConverter() DateTime? start,
     @DateTimeConverter() DateTime? end,
-  }) = FixedAppointment;
+  }) = FixedCalendarItem;
 
-  const factory Appointment.repeating({
+  const factory CalendarItem.repeating({
     @Default(-1) int id,
     @Default('') String name,
     @Default('') String description,
@@ -36,9 +39,9 @@ class Appointment with _$Appointment implements EventItem {
     @Default(0) int count,
     @DateTimeConverter() DateTime? until,
     @Default([]) List<int> exceptions,
-  }) = RepeatingAppointment;
+  }) = RepeatingCalendarItem;
 
-  const factory Appointment.auto({
+  const factory CalendarItem.auto({
     @Default(-1) int id,
     @Default('') String name,
     @Default('') String description,
@@ -50,12 +53,22 @@ class Appointment with _$Appointment implements EventItem {
     @Default(-1) int autoGroupId,
     @DateTimeConverter() DateTime? searchStart,
     @Default(60) int autoDuration,
-  }) = AutoAppointment;
+  }) = AutoCalendarItem;
 
-  factory Appointment.fromJson(Map<String, dynamic> json) =>
-      _$AppointmentFromJson(json);
+  factory CalendarItem.fromJson(Map<String, dynamic> json) =>
+      _$CalendarItemFromJson(json);
 
-  bool collidesWith(Appointment date) {
+  CalendarItemType get type {
+    if (start == null && end == null) {
+      return CalendarItemType.pending;
+    } else if (start == end) {
+      return CalendarItemType.moment;
+    } else {
+      return CalendarItemType.appointment;
+    }
+  }
+
+  bool collidesWith(CalendarItem date) {
     return (date.end == null || (date.start?.isBefore(date.end!) ?? true)) &&
         (date.start == null || (date.end?.isAfter(date.start!) ?? true));
   }

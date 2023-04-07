@@ -9,13 +9,14 @@ import '../model.dart';
 import 'model.dart';
 import 'service.dart';
 
-class AppointmentDatabaseService extends AppointmentService with TableService {
-  AppointmentDatabaseService();
+class CalendarItemDatabaseService extends CalendarItemService
+    with TableService {
+  CalendarItemDatabaseService();
 
   @override
   Future<void> create(Database db) async {
     await db.execute("""
-      CREATE TABLE IF NOT EXISTS appointments (
+      CREATE TABLE IF NOT EXISTS calendarItems (
         runtimeType VARCHAR(20) NOT NULL DEFAULT 'fixed',
         id INTEGER PRIMARY KEY,
         name VARCHAR(100) NOT NULL DEFAULT '',
@@ -43,7 +44,7 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
   FutureOr<void> migrate(Database db, int version) {}
 
   @override
-  Future<List<ConnectedModel<Appointment, Event?>>> getAppointments(
+  Future<List<ConnectedModel<CalendarItem, Event?>>> getCalendarItems(
       {List<EventStatus>? status,
       int? eventId,
       int? groupId,
@@ -74,29 +75,29 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
           : [...whereArgs, end.secondsSinceEpoch];
     }
     if (date != null) {
-      var startAppointment = date.onlyDate();
-      var endAppointment =
-          startAppointment.add(Duration(hours: 23, minutes: 59, seconds: 59));
+      var startCalendarItem = date.onlyDate();
+      var endCalendarItem =
+          startCalendarItem.add(Duration(hours: 23, minutes: 59, seconds: 59));
       where = where == null
           ? '(start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))'
           : '$where AND (start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))';
       whereArgs = whereArgs == null
           ? [
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
+              startCalendarItem.secondsSinceEpoch,
+              endCalendarItem.secondsSinceEpoch,
+              startCalendarItem.secondsSinceEpoch,
+              endCalendarItem.secondsSinceEpoch,
+              startCalendarItem.secondsSinceEpoch,
+              endCalendarItem.secondsSinceEpoch,
             ]
           : [
               ...whereArgs,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
-              startAppointment.secondsSinceEpoch,
-              endAppointment.secondsSinceEpoch,
+              startCalendarItem.secondsSinceEpoch,
+              endCalendarItem.secondsSinceEpoch,
+              startCalendarItem.secondsSinceEpoch,
+              endCalendarItem.secondsSinceEpoch,
+              startCalendarItem.secondsSinceEpoch,
+              endCalendarItem.secondsSinceEpoch,
             ];
     }
     if (pending) {
@@ -125,37 +126,37 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
       whereArgs = whereArgs == null ? [eventId] : [...whereArgs, eventId];
     }
     final result = await db?.query(
-      "appointments LEFT JOIN events ON events.id = appointments.eventId",
+      "calendarItems LEFT JOIN events ON events.id = calendarItems.eventId",
       columns: [
         "events.*",
-        "appointments.runtimeType AS appointmentruntimeType",
-        "appointments.id AS appointmentid",
-        "appointments.name AS appointmentname",
-        "appointments.description AS appointmentdescription",
-        "appointments.location AS appointmentlocation",
-        "appointments.eventId AS appointmenteventId",
-        "appointments.start AS appointmentstart",
-        "appointments.end AS appointmentend",
-        "appointments.status AS appointmentstatus",
-        "appointments.repeatType AS appointmentrepeatType",
-        "appointments.interval AS appointmentinterval",
-        "appointments.variation AS appointmentvariation",
-        "appointments.count AS appointmentcount",
-        "appointments.until AS appointmentuntil",
-        "appointments.exceptions AS appointmentexceptions",
-        "appointments.autoGroupId AS appointmentautoGroupId",
-        "appointments.searchStart AS appointmentsearchStart",
-        "appointments.autoDuration AS appointmentautoDuration",
+        "calendarItems.runtimeType AS calendarItemruntimeType",
+        "calendarItems.id AS calendarItemid",
+        "calendarItems.name AS calendarItemname",
+        "calendarItems.description AS calendarItemdescription",
+        "calendarItems.location AS calendarItemlocation",
+        "calendarItems.eventId AS calendarItemeventId",
+        "calendarItems.start AS calendarItemstart",
+        "calendarItems.end AS calendarItemend",
+        "calendarItems.status AS calendarItemstatus",
+        "calendarItems.repeatType AS calendarItemrepeatType",
+        "calendarItems.interval AS calendarIteminterval",
+        "calendarItems.variation AS calendarItemvariation",
+        "calendarItems.count AS calendarItemcount",
+        "calendarItems.until AS calendarItemuntil",
+        "calendarItems.exceptions AS calendarItemexceptions",
+        "calendarItems.autoGroupId AS calendarItemautoGroupId",
+        "calendarItems.searchStart AS calendarItemsearchStart",
+        "calendarItems.autoDuration AS calendarItemautoDuration",
       ],
       where: where,
       whereArgs: whereArgs,
     );
     return result?.map((e) {
-          return ConnectedModel<Appointment, Event?>(
-            Appointment.fromJson(Map.fromEntries(e.entries
-                .where((element) => element.key.startsWith('appointment'))
-                .map((e) =>
-                    MapEntry(e.key.substring("appointment".length), e.value)))),
+          return ConnectedModel<CalendarItem, Event?>(
+            CalendarItem.fromJson(Map.fromEntries(e.entries
+                .where((element) => element.key.startsWith('calendarItem'))
+                .map((e) => MapEntry(
+                    e.key.substring("calendarItem".length), e.value)))),
             e['id'] == null ? null : Event.fromDatabase(e),
           );
         }).toList() ??
@@ -163,28 +164,27 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
   }
 
   @override
-  Future<Appointment?> createAppointment(Appointment appointment) async {
-    final id =
-        await db?.insert('appointments', appointment.toJson()..remove('id'));
+  Future<CalendarItem?> createCalendarItem(CalendarItem item) async {
+    final id = await db?.insert('calendarItems', item.toJson()..remove('id'));
     if (id == null) return null;
-    return appointment.copyWith(id: id);
+    return item.copyWith(id: id);
   }
 
   @override
-  Future<bool> updateAppointment(Appointment appointment) async {
+  Future<bool> updateCalendarItem(CalendarItem item) async {
     return await db?.update(
-          'appointments',
-          appointment.toJson(),
+          'calendarItems',
+          item.toJson(),
           where: 'id = ?',
-          whereArgs: [appointment.id],
+          whereArgs: [item.id],
         ) ==
         1;
   }
 
   @override
-  Future<bool> deleteAppointment(int id) async {
+  Future<bool> deleteCalendarItem(int id) async {
     return await db?.delete(
-          'appointments',
+          'calendarItems',
           where: 'id = ?',
           whereArgs: [id],
         ) ==
@@ -192,17 +192,17 @@ class AppointmentDatabaseService extends AppointmentService with TableService {
   }
 
   @override
-  FutureOr<Appointment?> getAppointment(int id) async {
+  FutureOr<CalendarItem?> getCalendarItem(int id) async {
     final result = await db?.query(
-      'appointments',
+      'calendarItems',
       where: 'id = ?',
       whereArgs: [id],
     );
-    return result?.map(Appointment.fromJson).first;
+    return result?.map(CalendarItem.fromJson).first;
   }
 
   @override
   Future<void> clear() async {
-    await db?.delete('appointments');
+    await db?.delete('calendarItems');
   }
 }
