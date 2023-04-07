@@ -247,5 +247,6 @@
   "limited": "Begränsad",
   "notSet": "Ej inställd",
   "createPending": "Create pending",
-  "editPending": "Edit pending"
+  "editPending": "Edit pending",
+  "convertTo": "Convert to"
 }
