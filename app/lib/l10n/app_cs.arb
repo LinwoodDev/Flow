@@ -245,5 +245,7 @@
   "convertToTodo": "Převést na úkol",
   "open": "Otevřít",
   "limited": "Omezeno",
-  "notSet": "Nenastaveno"
+  "notSet": "Nenastaveno",
+  "createPending": "Create pending",
+  "editPending": "Edit pending"
 }
