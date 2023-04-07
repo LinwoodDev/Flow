@@ -245,5 +245,7 @@
   "convertToTodo": "تحويل إلى مهمة",
   "open": "فتح",
   "limited": "محدود",
-  "notSet": "لم يتم تعيينه"
+  "notSet": "لم يتم تعيينه",
+  "createPending": "Create pending",
+  "editPending": "Edit pending"
 }
