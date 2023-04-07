@@ -245,5 +245,7 @@
   "convertToTodo": "Muunna todoksi",
   "open": "Avaa",
   "limited": "Rajoitettu",
-  "notSet": "Ei asetettu"
+  "notSet": "Ei asetettu",
+  "createPending": "Create pending",
+  "editPending": "Edit pending"
 }
