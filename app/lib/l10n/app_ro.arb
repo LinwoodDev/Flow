@@ -245,5 +245,7 @@
   "convertToTodo": "Convertește la todo",
   "open": "Deschideți",
   "limited": "Limitat",
-  "notSet": "Nu este setat"
+  "notSet": "Nu este setat",
+  "createPending": "Create pending",
+  "editPending": "Edit pending"
 }
