@@ -245,5 +245,7 @@
   "convertToTodo": "Преобразовать в задачу",
   "open": "Открыть",
   "limited": "Ограниченный",
-  "notSet": "Не задано"
+  "notSet": "Не задано",
+  "createPending": "Create pending",
+  "editPending": "Edit pending"
 }
