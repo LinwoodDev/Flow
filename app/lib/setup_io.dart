@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
+import 'api/storage/sources.dart';
 import 'cubits/settings.dart';
 import 'main.dart';
 import 'setup.dart' as general_setup;
 
-Future<void> setup(SettingsCubit settingsCubit) async {
+Future<void> setup(
+    SettingsCubit settingsCubit, SourcesService sourcesService) async {
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     await windowManager.ensureInitialized();
 
@@ -23,6 +25,6 @@ Future<void> setup(SettingsCubit settingsCubit) async {
       await windowManager.show();
       await windowManager.focus();
     });
-    await general_setup.setup(settingsCubit);
+    await general_setup.setup(settingsCubit, sourcesService);
   }
 }

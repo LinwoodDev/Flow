@@ -100,4 +100,10 @@ class SourcesService {
             (element) => element.remoteStorage.identifier == source) ??
         local;
   }
+
+  Future<void> clearRemotes() async {
+    for (final remote in remotes) {
+      await removeRemote(remote.remoteStorage.identifier);
+    }
+  }
 }

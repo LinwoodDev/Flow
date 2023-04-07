@@ -42,7 +42,7 @@ Future<void> main() async {
   final sourcesService = SourcesService(settingsCubit);
   await sourcesService.setup();
 
-  await setup(settingsCubit);
+  await setup(settingsCubit, sourcesService);
   runApp(
     BlocProvider.value(
       value: settingsCubit,

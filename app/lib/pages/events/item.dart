@@ -11,7 +11,7 @@ import '../../widgets/source_dropdown.dart';
 import 'note.dart';
 import 'event.dart';
 
-class CalendarItemDialog extends StatelessWidget {
+class CalendarItemDialog extends StatefulWidget {
   final bool create;
   final CalendarItem? item;
   final Event? event;
@@ -26,44 +26,115 @@ class CalendarItemDialog extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final create = this.create || item == null || source == null;
-    var currentSource = source ?? '';
-    var currentCalendarItem = item ??
+  State<CalendarItemDialog> createState() => _CalendarItemDialogState();
+}
+
+class _CalendarItemDialogState extends State<CalendarItemDialog> {
+  late final bool _create;
+  late String _source;
+  late CalendarItem _item;
+
+  @override
+  void initState() {
+    super.initState();
+    _create = widget.create || widget.item == null || widget.source == null;
+    _source = widget.source ?? '';
+    _item = widget.item ??
         CalendarItem.fixed(
-          eventId: event?.id,
+          eventId: widget.event?.id,
         );
+  }
+
+  void _convertTo(CalendarItemType type) {
+    setState(() {
+      switch (type) {
+        case CalendarItemType.appointment:
+          _item = _item.copyWith(
+            start: _item.start ?? DateTime.now(),
+            end: _item.end ??
+                (_item.start ?? DateTime.now()).add(const Duration(hours: 1)),
+          );
+          break;
+        case CalendarItemType.moment:
+          _item = _item.copyWith(
+            start: _item.start ?? DateTime.now(),
+            end: _item.start ?? DateTime.now(),
+          );
+          break;
+        case CalendarItemType.pending:
+          _item = _item.copyWith(
+            start: null,
+            end: null,
+          );
+          break;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final cubit = context.read<FlowCubit>();
-    final connector = cubit.getService(currentSource).calendarItemNote;
-    final nameController =
-        TextEditingController(text: currentCalendarItem.name);
-    final descriptionController =
-        TextEditingController(text: currentCalendarItem.description);
-    final locationController =
-        TextEditingController(text: currentCalendarItem.location);
-    final tabs = !create && connector != null;
-    final type = currentCalendarItem.type;
+    final connector = cubit.getService(_source).calendarItemNote;
+    final tabs = !_create && connector != null;
+    final type = _item.type;
     String title;
     switch (type) {
       case CalendarItemType.appointment:
-        title = create
+        title = _create
             ? AppLocalizations.of(context).createAppointment
             : AppLocalizations.of(context).editAppointment;
         break;
       case CalendarItemType.moment:
-        title = create
+        title = _create
             ? AppLocalizations.of(context).createMoment
             : AppLocalizations.of(context).editMoment;
         break;
       case CalendarItemType.pending:
-        title = create
+        title = _create
             ? AppLocalizations.of(context).createPending
             : AppLocalizations.of(context).editPending;
         break;
     }
 
     return AlertDialog(
-      title: Text(title),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(title),
+          MenuAnchor(
+            builder: (context, controller, child) => IconButton(
+              icon: const Icon(Icons.more_vert),
+              onPressed: () =>
+                  controller.isOpen ? controller.close() : controller.open(),
+            ),
+            menuChildren: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Text(
+                  AppLocalizations.of(context).convertTo,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+              MenuItemButton(
+                leadingIcon: const Icon(Icons.event_outlined),
+                onPressed: () => _convertTo(CalendarItemType.appointment),
+                child: Text(AppLocalizations.of(context).appointment),
+              ),
+              MenuItemButton(
+                leadingIcon: const Icon(Icons.mood_outlined),
+                onPressed: () => _convertTo(CalendarItemType.moment),
+                child: Text(AppLocalizations.of(context).moment),
+              ),
+              MenuItemButton(
+                leadingIcon: const Icon(Icons.pending_actions_outlined),
+                onPressed: () => _convertTo(CalendarItemType.pending),
+                child: Text(AppLocalizations.of(context).pending),
+              ),
+            ],
+          ),
+        ],
+      ),
       content: SizedBox(
         width: 500,
         height: 500,
@@ -97,13 +168,12 @@ class CalendarItemDialog extends StatelessWidget {
                       child: ListView(
                         shrinkWrap: true,
                         children: [
-                          if (source == null) ...[
+                          if (widget.source == null) ...[
                             SourceDropdown(
-                              value: currentSource,
+                              value: _source,
                               onChanged: (String? value) {
-                                currentSource = value ?? '';
-                                currentCalendarItem =
-                                    currentCalendarItem.copyWith(
+                                _source = value ?? '';
+                                _item = _item.copyWith(
                                   eventId: null,
                                 );
                               },
@@ -112,16 +182,15 @@ class CalendarItemDialog extends StatelessWidget {
                           ],
                           const SizedBox(height: 16),
                           EventListTile(
-                            source: currentSource,
-                            value: currentCalendarItem.eventId,
+                            source: _source,
+                            value: _item.eventId,
                             onChanged: (value) {
-                              currentCalendarItem =
-                                  currentCalendarItem.copyWith(eventId: value);
+                              _item = _item.copyWith(eventId: value);
                             },
                           ),
                           const SizedBox(height: 16),
                           DropdownButtonFormField<EventStatus>(
-                            value: currentCalendarItem.status,
+                            value: _item.status,
                             items: EventStatus.values
                                 .map<DropdownMenuItem<EventStatus>>((value) {
                               return DropdownMenuItem<EventStatus>(
@@ -137,10 +206,8 @@ class CalendarItemDialog extends StatelessWidget {
                               );
                             }).toList(),
                             onChanged: (EventStatus? value) {
-                              currentCalendarItem =
-                                  currentCalendarItem.copyWith(
-                                      status:
-                                          value ?? currentCalendarItem.status);
+                              _item =
+                                  _item.copyWith(status: value ?? _item.status);
                             },
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context).status,
@@ -150,16 +217,16 @@ class CalendarItemDialog extends StatelessWidget {
                           ),
                           const SizedBox(height: 16),
                           TextFormField(
-                            controller: nameController,
+                            initialValue: _item.name,
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context).name,
                               icon: const Icon(Icons.folder_outlined),
                             ),
-                            onChanged: (value) => currentCalendarItem =
-                                currentCalendarItem.copyWith(name: value),
+                            onChanged: (value) =>
+                                _item = _item.copyWith(name: value),
                           ),
                           const SizedBox(height: 16),
-                          TextField(
+                          TextFormField(
                             decoration: InputDecoration(
                               labelText:
                                   AppLocalizations.of(context).description,
@@ -168,13 +235,12 @@ class CalendarItemDialog extends StatelessWidget {
                             ),
                             minLines: 3,
                             maxLines: 5,
-                            controller: descriptionController,
-                            onChanged: (value) => currentCalendarItem =
-                                currentCalendarItem.copyWith(
-                                    description: value),
+                            initialValue: _item.description,
+                            onChanged: (value) =>
+                                _item = _item.copyWith(description: value),
                           ),
                           const SizedBox(height: 8),
-                          TextField(
+                          TextFormField(
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context).location,
                               filled: true,
@@ -182,30 +248,28 @@ class CalendarItemDialog extends StatelessWidget {
                             ),
                             minLines: 1,
                             maxLines: 2,
-                            controller: locationController,
-                            onChanged: (value) => currentCalendarItem =
-                                currentCalendarItem.copyWith(location: value),
+                            initialValue: _item.location,
+                            onChanged: (value) =>
+                                _item = _item.copyWith(location: value),
                           ),
                           const SizedBox(height: 16),
                           if (type == CalendarItemType.appointment) ...[
                             DateTimeField(
                               label: AppLocalizations.of(context).start,
-                              initialValue: currentCalendarItem.start,
+                              initialValue: _item.start,
                               icon: const Icon(Icons.calendar_today_outlined),
                               onChanged: (value) {
-                                currentCalendarItem =
-                                    currentCalendarItem.copyWith(start: value);
+                                _item = _item.copyWith(start: value);
                               },
                               canBeEmpty: true,
                             ),
                             const SizedBox(height: 8),
                             DateTimeField(
                               label: AppLocalizations.of(context).end,
-                              initialValue: currentCalendarItem.end,
+                              initialValue: _item.end,
                               icon: const Icon(Icons.calendar_today_outlined),
                               onChanged: (value) {
-                                currentCalendarItem =
-                                    currentCalendarItem.copyWith(end: value);
+                                _item = _item.copyWith(end: value);
                               },
                               canBeEmpty: true,
                             ),
@@ -213,11 +277,11 @@ class CalendarItemDialog extends StatelessWidget {
                           if (type == CalendarItemType.moment) ...[
                             DateTimeField(
                               label: AppLocalizations.of(context).time,
-                              initialValue: currentCalendarItem.start,
+                              initialValue: _item.start,
                               icon: const Icon(Icons.calendar_today_outlined),
                               onChanged: (value) {
-                                currentCalendarItem = currentCalendarItem
-                                    .copyWith(start: value, end: value);
+                                _item =
+                                    _item.copyWith(start: value, end: value);
                               },
                               canBeEmpty: true,
                             ),
@@ -227,9 +291,9 @@ class CalendarItemDialog extends StatelessWidget {
                     ),
                     if (tabs)
                       NotesView(
-                        model: item!,
+                        model: widget.item!,
                         connector: connector,
-                        source: currentSource,
+                        source: _source,
                       ),
                   ],
                 ),
@@ -248,21 +312,18 @@ class CalendarItemDialog extends StatelessWidget {
         ElevatedButton(
           onPressed: () async {
             final navigator = Navigator.of(context);
-            if (create) {
+            if (_create) {
               final created = await cubit
-                  .getService(currentSource)
+                  .getService(_source)
                   .calendarItem
-                  ?.createCalendarItem(currentCalendarItem);
+                  ?.createCalendarItem(_item);
               if (created != null) {
-                currentCalendarItem = created;
+                _item = created;
               }
             } else {
-              cubit
-                  .getService(currentSource)
-                  .calendarItem
-                  ?.updateCalendarItem(currentCalendarItem);
+              cubit.getService(_source).calendarItem?.updateCalendarItem(_item);
             }
-            navigator.pop(currentCalendarItem);
+            navigator.pop(_item);
           },
           child: Text(AppLocalizations.of(context).save),
         ),
