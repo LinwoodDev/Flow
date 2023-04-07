@@ -247,5 +247,6 @@
   "limited": "制限",
   "notSet": "未設定",
   "createPending": "Create pending",
-  "editPending": "Edit pending"
+  "editPending": "Edit pending",
+  "convertTo": "Convert to"
 }
