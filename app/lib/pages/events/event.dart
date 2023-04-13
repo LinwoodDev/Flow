@@ -15,15 +15,18 @@ import 'select.dart';
 class EventDialog extends StatelessWidget {
   final String? source;
   final Event? event;
+  final bool create;
 
   const EventDialog({
     super.key,
     this.source,
     this.event,
+    this.create = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    final create = this.create || event == null || source == null;
     var currentEvent = event ?? const Event();
     var currentSource = source ?? '';
     final nameController = TextEditingController(text: currentEvent.name);
@@ -32,7 +35,7 @@ class EventDialog extends StatelessWidget {
     final locationController =
         TextEditingController(text: currentEvent.location);
     return AlertDialog(
-      title: Text(source == null
+      title: Text(create
           ? AppLocalizations.of(context).createEvent
           : AppLocalizations.of(context).editEvent),
       content: SizedBox(
@@ -200,7 +203,8 @@ class EventDialog extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () async {
-            if (source == null) {
+            final navigator = Navigator.of(context);
+            if (create) {
               final created = await context
                   .read<FlowCubit>()
                   .getService(currentSource)
@@ -216,9 +220,7 @@ class EventDialog extends StatelessWidget {
                   .event
                   ?.updateEvent(currentEvent);
             }
-            // ignore: use_build_context_synchronously
-            Navigator.of(context)
-                .pop(SourcedModel(currentSource, currentEvent));
+            navigator.pop(SourcedModel(currentSource, currentEvent));
           },
           child: Text(AppLocalizations.of(context).save),
         ),
@@ -296,7 +298,18 @@ class _EventListTileState extends State<EventListTile> {
               }
             },
             trailing: _value == null
-                ? null
+                ? IconButton(
+                    icon: const Icon(Icons.add_circle_outline_outlined),
+                    onPressed: () async {
+                      final event = await showDialog<SourcedModel<Event>>(
+                        context: context,
+                        builder: (context) => EventDialog(
+                          source: widget.source,
+                        ),
+                      );
+                      _onChanged(event?.model.id);
+                    },
+                  )
                 : IconButton(
                     icon: const Icon(Icons.clear),
                     onPressed: () {
