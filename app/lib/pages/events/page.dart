@@ -307,7 +307,7 @@ Future<void> showCalendarCreate(
       );
   time ??= DateTime.now();
   if (context.mounted) {
-    await showMaterialBottomSheet(
+    final calendarItem = await showMaterialBottomSheet<CalendarItem>(
       context: context,
       title: AppLocalizations.of(context).create,
       childrenBuilder: (ctx) => [
@@ -315,39 +315,33 @@ Future<void> showCalendarCreate(
           title: Text(AppLocalizations.of(context).appointment),
           leading: const Icon(Icons.event_outlined),
           onTap: () async {
-            await showCalendarItemDialog(
-              CalendarItem.fixed(
-                start: time,
-                end: time?.add(const Duration(hours: 1)),
-              ),
-            );
-            if (context.mounted) Navigator.of(ctx).pop();
+            Navigator.of(ctx).pop(CalendarItem.fixed(
+              start: time,
+              end: time?.add(const Duration(hours: 1)),
+            ));
           },
         ),
         ListTile(
           title: Text(AppLocalizations.of(context).moment),
           leading: const Icon(Icons.mood_outlined),
           onTap: () async {
-            await showCalendarItemDialog(
-              CalendarItem.fixed(
-                start: time,
-                end: time,
-              ),
-            );
-            if (context.mounted) Navigator.of(ctx).pop();
+            Navigator.of(ctx).pop(CalendarItem.fixed(
+              start: time,
+              end: time,
+            ));
           },
         ),
         ListTile(
           title: Text(AppLocalizations.of(context).pending),
           leading: const Icon(Icons.pending_actions_outlined),
           onTap: () async {
-            await showCalendarItemDialog(
-              const CalendarItem.fixed(),
-            );
-            if (context.mounted) Navigator.of(ctx).pop();
+            Navigator.of(ctx).pop(const CalendarItem.fixed());
           },
         ),
       ],
     );
+    if (calendarItem != null) {
+      await showCalendarItemDialog(calendarItem);
+    }
   }
 }

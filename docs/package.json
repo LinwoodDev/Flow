@@ -45,7 +45,7 @@
   "packageManager": "yarn@3.5.0",
   "devDependencies": {
     "markdownlint-cli2": "^0.6.0",
-    "typescript": "^5.0.3"
+    "typescript": "^5.0.4"
   },
   "dependenciesMeta": {
     "react@17.0.2": {

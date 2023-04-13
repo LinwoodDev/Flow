@@ -210,4 +210,4 @@ const flavor = String.fromEnvironment('flavor');
 const isNightly =
     flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
 const shortApplicationName = isNightly ? 'Flow Nightly' : 'Flow';
-const applicationName = '$shortApplicationName Flow';
+const applicationName = 'Linwood $shortApplicationName';
