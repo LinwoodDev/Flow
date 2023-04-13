@@ -98,7 +98,7 @@ class PersonalizationSettingsView extends StatelessWidget {
 
                     final locale = await showMaterialBottomSheet<String>(
                       context: context,
-                      title: AppLocalizations.of(context).theme,
+                      title: AppLocalizations.of(context).language,
                       childrenBuilder: (context) => [
                         ListTile(
                           title: Text(_getLocalizedName(context, '')),
