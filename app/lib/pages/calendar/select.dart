@@ -13,7 +13,7 @@ import 'package:shared/services/source.dart';
 
 class AppointmentSelectDialog extends StatefulWidget {
   final String? source;
-  final MapEntry<String, int>? selected;
+  final SourcedModel<int>? selected;
   final int? ignore;
 
   const AppointmentSelectDialog({
@@ -109,8 +109,8 @@ class _AppointmentSelectDialogState extends State<AppointmentSelectDialog> {
                     final appointment = item.main;
                     return ListTile(
                       subtitle: Text(appointment.name),
-                      selected: widget.selected?.value == appointment.id &&
-                          widget.selected?.key == item.source,
+                      selected: widget.selected?.model == appointment.id &&
+                          widget.selected?.source == item.source,
                       title: Text(AppLocalizations.of(context).eventInfo(
                         appointment.name,
                         appointment.start == null

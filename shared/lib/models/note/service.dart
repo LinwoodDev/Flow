@@ -23,6 +23,8 @@ abstract class NoteService extends ModelService {
   FutureOr<bool> updateNote(Note note);
 
   FutureOr<bool> deleteNote(int id);
+
+  FutureOr<Note?> getNote(int id);
 }
 
 abstract class NoteConnector<T> extends ModelService {

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:shared/models/model.dart';
 import 'package:shared/models/user/model.dart';
 
 import '../../cubits/flow.dart';
@@ -28,7 +29,7 @@ class _UsersPageState extends State<UsersPage> {
   static const _pageSize = 20;
   late final FlowCubit _flowCubit;
   late UserFilter _filter;
-  final PagingController<int, MapEntry<User, String>> _pagingController =
+  final PagingController<int, SourcedModel<User>> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
@@ -42,7 +43,7 @@ class _UsersPageState extends State<UsersPage> {
   Future<void> _fetchPage(int pageKey) async {
     try {
       final sources = _flowCubit.getCurrentServicesMap().entries;
-      final notes = <MapEntry<User, String>>[];
+      final notes = <SourcedModel<User>>[];
       var isLast = false;
       for (final source in sources) {
         final fetched = await source.value.user?.getUsers(
@@ -51,7 +52,7 @@ class _UsersPageState extends State<UsersPage> {
           groupId: source.key == _filter.source ? _filter.group : null,
         );
         if (fetched == null) continue;
-        notes.addAll(fetched.map((note) => MapEntry(note, source.key)));
+        notes.addAll(fetched.map((note) => SourcedModel(source.key, note)));
         if (fetched.length < _pageSize) {
           isLast = true;
         }
@@ -91,15 +92,15 @@ class _UsersPageState extends State<UsersPage> {
                 child: PagedListView(
                   pagingController: _pagingController,
                   builderDelegate:
-                      buildMaterialPagedDelegate<MapEntry<User, String>>(
+                      buildMaterialPagedDelegate<SourcedModel<User>>(
                     _pagingController,
                     (ctx, item, index) => Dismissible(
-                      key: ValueKey(item.key.id),
+                      key: ValueKey('${item.model.id}@${item.source}'),
                       onDismissed: (direction) async {
                         await _flowCubit
-                            .getService(item.value)
+                            .getService(item.source)
                             .user
-                            ?.deleteUser(item.key.id);
+                            ?.deleteUser(item.model.id);
                         _pagingController.itemList!.remove(item);
                       },
                       background: Container(
@@ -108,8 +109,8 @@ class _UsersPageState extends State<UsersPage> {
                       child: UserTile(
                         flowCubit: _flowCubit,
                         pagingController: _pagingController,
-                        source: item.value,
-                        user: item.key,
+                        source: item.source,
+                        user: item.model,
                       ),
                     ),
                   ),
@@ -142,7 +143,7 @@ class UserTile extends StatelessWidget {
   final FlowCubit flowCubit;
   final User user;
   final String source;
-  final PagingController<int, MapEntry<User, String>> pagingController;
+  final PagingController<int, SourcedModel<User>> pagingController;
 
   @override
   Widget build(BuildContext context) {
@@ -197,9 +198,9 @@ class UserTile extends StatelessWidget {
             onPressed: () async {
               Navigator.of(context).pop();
               await flowCubit.getService(source).user?.deleteUser(user.id);
-              pagingController.itemList!.remove(MapEntry(
-                user,
+              pagingController.itemList!.remove(SourcedModel(
                 source,
+                user,
               ));
               pagingController.refresh();
             },

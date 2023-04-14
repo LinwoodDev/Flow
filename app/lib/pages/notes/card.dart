@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:shared/models/model.dart';
 import 'package:shared/models/note/model.dart';
 import 'package:shared/models/note/service.dart';
 
@@ -11,13 +12,15 @@ import '../../cubits/flow.dart';
 class NoteCard extends StatefulWidget {
   final String source;
   final Note note;
-  final PagingController<int, MapEntry<Note, String>> controller;
+  final PagingController<int, SourcedModel<Note>> controller;
+  final bool primary;
 
   const NoteCard({
     super.key,
     required this.source,
     required this.note,
     required this.controller,
+    this.primary = false,
   });
 
   @override
@@ -82,6 +85,7 @@ class _NoteCardState extends State<NoteCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: widget.primary ? 8 : 2,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -169,7 +173,21 @@ class _NoteCardState extends State<NoteCard> {
                             Text(e[1]),
                           ])))
                       .toList(),
-                )
+                ),
+                if (!widget.primary)
+                  IconButton(
+                    tooltip: AppLocalizations.of(context).open,
+                    icon: const Icon(Icons.open_in_new_outlined),
+                    onPressed: () {
+                      GoRouter.of(context).pushNamed(
+                        widget.source.isEmpty ? "subnote-local" : "subnote",
+                        params: {
+                          if (widget.source.isNotEmpty) "source": widget.source,
+                          "id": widget.note.id.toString(),
+                        },
+                      );
+                    },
+                  ),
               ],
             ),
             const SizedBox(height: 16),
@@ -210,18 +228,6 @@ class _NoteCardState extends State<NoteCard> {
                     ],
                   ),
                 ),
-              ),
-              TextButton(
-                child: Text(AppLocalizations.of(context).open),
-                onPressed: () {
-                  GoRouter.of(context).pushNamed(
-                    widget.source.isEmpty ? "subnote-local" : "subnote",
-                    params: {
-                      if (widget.source.isNotEmpty) "source": widget.source,
-                      "id": widget.note.id.toString(),
-                    },
-                  );
-                },
               ),
             ]),
             const SizedBox(height: 16),

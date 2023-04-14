@@ -22,7 +22,7 @@ class NotesPage extends StatefulWidget {
 }
 
 class _NotesPageState extends State<NotesPage> {
-  final PagingController<int, MapEntry<Note, String>> _pagingController =
+  final PagingController<int, SourcedModel<Note>> _pagingController =
       PagingController(firstPageKey: 0);
   @override
   void dispose() {
@@ -64,7 +64,7 @@ class _NotesPageState extends State<NotesPage> {
 }
 
 class _NotesSearchDelegate extends SearchDelegate {
-  final PagingController<int, MapEntry<Note, String>> _pagingController =
+  final PagingController<int, SourcedModel<Note>> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
@@ -106,7 +106,7 @@ class _NotesSearchDelegate extends SearchDelegate {
 
 class NotesBodyView extends StatefulWidget {
   final String search;
-  final PagingController<int, MapEntry<Note, String>> pagingController;
+  final PagingController<int, SourcedModel<Note>> pagingController;
   final SourcedModel<int>? parent;
 
   const NotesBodyView({
@@ -146,7 +146,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
               MapEntry(widget.parent!.source,
                   _flowCubit.getService(widget.parent!.source))
             ];
-      final notes = <MapEntry<Note, String>>[];
+      final notes = <SourcedModel<Note>>[];
       var isLast = false;
       for (final source in sources) {
         final fetched = await source.value.note?.getNotes(
@@ -157,9 +157,21 @@ class _NotesBodyViewState extends State<NotesBodyView> {
           parent: widget.parent?.model ?? -1,
         );
         if (fetched == null) continue;
-        notes.addAll(fetched.map((note) => MapEntry(note, source.key)));
+        notes.addAll(fetched.map((note) => SourcedModel(source.key, note)));
         if (fetched.length < _pageSize) {
           isLast = true;
+        }
+      }
+      if (pageKey == 0 && widget.parent != null) {
+        final note = await _flowCubit
+            .getService(widget.parent!.source)
+            .note!
+            .getNote(widget.parent!.model);
+        if (note != null) {
+          notes.insert(
+            0,
+            SourcedModel(widget.parent!.source, note),
+          );
         }
       }
       if (isLast) {
@@ -199,19 +211,32 @@ class _NotesBodyViewState extends State<NotesBodyView> {
         Flexible(
           child: PagedListView(
             pagingController: widget.pagingController,
-            builderDelegate: buildMaterialPagedDelegate<MapEntry<Note, String>>(
+            builderDelegate: buildMaterialPagedDelegate<SourcedModel<Note>>(
               widget.pagingController,
-              (context, item, index) => Align(
-                alignment: Alignment.topCenter,
-                child: Container(
+              (context, item, index) {
+                final parent = index == 0 && widget.parent != null;
+                return Align(
+                  alignment: Alignment.topCenter,
+                  child: ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 800),
-                    child: NoteCard(
-                      note: item.key,
-                      source: item.value,
-                      controller: widget.pagingController,
-                      key: ValueKey('${item.key.id}@${item.value}'),
-                    )),
-              ),
+                    child: Column(
+                      children: [
+                        NoteCard(
+                          note: item.model,
+                          source: item.source,
+                          controller: widget.pagingController,
+                          key: ValueKey('${item.model.id}@${item.source}'),
+                          primary: parent,
+                        ),
+                        if (parent) ...[
+                          const SizedBox(height: 8),
+                          const Divider(),
+                        ],
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ),

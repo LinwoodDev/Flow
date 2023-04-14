@@ -220,4 +220,14 @@ class NoteDatabaseService extends NoteService with TableService {
   Future<void> clear() async {
     await db?.delete('notes');
   }
+
+  @override
+  Future<Note?> getNote(int id) async {
+    final result = await db?.query(
+      'notes',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    return result?.map(Note.fromJson).firstOrNull;
+  }
 }

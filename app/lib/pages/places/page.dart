@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:shared/models/model.dart';
 import 'package:shared/models/place/model.dart';
 
 import '../../cubits/flow.dart';
@@ -23,7 +24,7 @@ class PlacesPage extends StatefulWidget {
 class _PlacesPageState extends State<PlacesPage> {
   static const _pageSize = 20;
   late final FlowCubit _flowCubit;
-  final PagingController<int, MapEntry<Place, String>> _pagingController =
+  final PagingController<int, SourcedModel<Place>> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
@@ -36,7 +37,7 @@ class _PlacesPageState extends State<PlacesPage> {
   Future<void> _fetchPage(int pageKey) async {
     try {
       final sources = _flowCubit.getCurrentServicesMap().entries;
-      final places = <MapEntry<Place, String>>[];
+      final places = <SourcedModel<Place>>[];
       var isLast = false;
       for (final source in sources) {
         final fetched = await source.value.place?.getPlaces(
@@ -44,7 +45,7 @@ class _PlacesPageState extends State<PlacesPage> {
           limit: _pageSize,
         );
         if (fetched == null) continue;
-        places.addAll(fetched.map((place) => MapEntry(place, source.key)));
+        places.addAll(fetched.map((place) => SourcedModel(source.key, place)));
         if (fetched.length < _pageSize) {
           isLast = true;
         }
@@ -76,16 +77,15 @@ class _PlacesPageState extends State<PlacesPage> {
           constraints: const BoxConstraints(maxWidth: 800),
           child: PagedListView(
             pagingController: _pagingController,
-            builderDelegate:
-                buildMaterialPagedDelegate<MapEntry<Place, String>>(
+            builderDelegate: buildMaterialPagedDelegate<SourcedModel<Place>>(
               _pagingController,
               (ctx, item, index) => Dismissible(
-                key: ValueKey(item.key.id),
+                key: ValueKey('${item.model.id}@${item.source}'),
                 onDismissed: (direction) async {
                   await _flowCubit
-                      .getService(item.value)
+                      .getService(item.source)
                       .place
-                      ?.deletePlace(item.key.id);
+                      ?.deletePlace(item.model.id);
                   _pagingController.itemList!.remove(item);
                 },
                 background: Container(
@@ -94,8 +94,8 @@ class _PlacesPageState extends State<PlacesPage> {
                 child: PlaceTile(
                   flowCubit: _flowCubit,
                   pagingController: _pagingController,
-                  source: item.value,
-                  place: item.key,
+                  source: item.source,
+                  place: item.model,
                 ),
               ),
             ),
@@ -125,7 +125,7 @@ class PlaceTile extends StatelessWidget {
   final FlowCubit flowCubit;
   final Place place;
   final String source;
-  final PagingController<int, MapEntry<Place, String>> pagingController;
+  final PagingController<int, SourcedModel<Place>> pagingController;
 
   @override
   Widget build(BuildContext context) {
@@ -180,9 +180,9 @@ class PlaceTile extends StatelessWidget {
             onPressed: () async {
               Navigator.of(context).pop();
               await flowCubit.getService(source).place?.deletePlace(place.id);
-              pagingController.itemList!.remove(MapEntry(
-                place,
+              pagingController.itemList!.remove(SourcedModel(
                 source,
+                place,
               ));
               pagingController.refresh();
             },

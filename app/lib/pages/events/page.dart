@@ -30,7 +30,7 @@ class _EventsPageState extends State<EventsPage> {
   static const _pageSize = 20;
   late final FlowCubit _flowCubit;
   EventFilter _filter = const EventFilter();
-  final PagingController<int, MapEntry<Event, String>> _pagingController =
+  final PagingController<int, SourcedModel<Event>> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
@@ -43,7 +43,7 @@ class _EventsPageState extends State<EventsPage> {
   Future<void> _fetchPage(int pageKey) async {
     try {
       final sources = _flowCubit.getCurrentServicesMap().entries;
-      final notes = <MapEntry<Event, String>>[];
+      final notes = <SourcedModel<Event>>[];
       var isLast = false;
       for (final source in sources) {
         final fetched = await source.value.event?.getEvents(
@@ -52,7 +52,7 @@ class _EventsPageState extends State<EventsPage> {
           groupId: source.key == _filter.source ? _filter.group : null,
         );
         if (fetched == null) continue;
-        notes.addAll(fetched.map((note) => MapEntry(note, source.key)));
+        notes.addAll(fetched.map((note) => SourcedModel(source.key, note)));
         if (fetched.length < _pageSize) {
           isLast = true;
         }
@@ -92,15 +92,15 @@ class _EventsPageState extends State<EventsPage> {
                 child: PagedListView(
                   pagingController: _pagingController,
                   builderDelegate:
-                      buildMaterialPagedDelegate<MapEntry<Event, String>>(
+                      buildMaterialPagedDelegate<SourcedModel<Event>>(
                     _pagingController,
                     (ctx, item, index) => Dismissible(
-                      key: ValueKey(item.key.id),
+                      key: ValueKey('${item.model.id}@${item.source}'),
                       onDismissed: (direction) async {
                         await _flowCubit
-                            .getService(item.value)
+                            .getService(item.source)
                             .event
-                            ?.deleteEvent(item.key.id);
+                            ?.deleteEvent(item.model.id);
                         _pagingController.itemList!.remove(item);
                       },
                       background: Container(
@@ -109,8 +109,8 @@ class _EventsPageState extends State<EventsPage> {
                       child: EventTile(
                         flowCubit: _flowCubit,
                         pagingController: _pagingController,
-                        source: item.value,
-                        event: item.key,
+                        source: item.source,
+                        event: item.model,
                       ),
                     ),
                   ),
@@ -143,7 +143,7 @@ class EventTile extends StatelessWidget {
   final FlowCubit flowCubit;
   final Event event;
   final String source;
-  final PagingController<int, MapEntry<Event, String>> pagingController;
+  final PagingController<int, SourcedModel<Event>> pagingController;
 
   @override
   Widget build(BuildContext context) {
@@ -208,9 +208,9 @@ class EventTile extends StatelessWidget {
             onPressed: () async {
               Navigator.of(context).pop();
               await flowCubit.getService(source).event?.deleteEvent(event.id);
-              pagingController.itemList!.remove(MapEntry(
-                event,
+              pagingController.itemList!.remove(SourcedModel(
                 source,
+                event,
               ));
               pagingController.refresh();
             },
