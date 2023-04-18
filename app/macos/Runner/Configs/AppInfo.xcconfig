@@ -11,4 +11,4 @@ PRODUCT_NAME = app
 PRODUCT_BUNDLE_IDENTIFIER = dev.linwood.flow
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2021 com.github.linwoodcloud. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2021 Linwood. All rights reserved.

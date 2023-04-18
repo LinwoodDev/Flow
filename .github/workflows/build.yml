@@ -530,14 +530,14 @@ jobs:
       - if: ${{ github.ref == 'refs/tags/stable' }}
         uses: vedantmgoyal2009/winget-releaser@v1
         with:
-          identifier: LinwoodCloud.Flow
+          identifier: LinwoodDev.Flow
           version: ${{ needs.deploy.outputs.version }}
           release-tag: v${{ needs.deploy.outputs.version }}
           token: ${{ secrets.CI_PAT }}
       - if: ${{ github.ref == 'refs/tags/nightly' }}
         uses: vedantmgoyal2009/winget-releaser@v1
         with:
-          identifier: LinwoodCloud.Flow.Nightly
+          identifier: LinwoodDev.Flow.Nightly
           version: ${{ needs.deploy.outputs.version }}
           release-tag: v${{ needs.deploy.outputs.version }}
           token: ${{ secrets.CI_PAT }}

@@ -27,7 +27,7 @@ module.exports = {
     },
     {
       type: 'link',
-      href: 'https://github.com/LinwoodCloud/Flow',
+      href: 'https://github.com/LinwoodDev/Flow',
       label: 'GitHub'
     }
   ],

@@ -20,6 +20,6 @@ title: "المجتمع"
 
 ## روابط مفيدة
 
-* [GitHub](https://github.com/LinwoodCloud/Flow)
+* [GitHub](https://github.com/LinwoodDev/Flow)
 * [ديسكورد](https://go.linwood.dev/discord)
 * [مصفوفة](https://go.linwood.dev/matrix)

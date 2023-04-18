@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "LinwoodCloud" "\0"
+            VALUE "CompanyName", "LinwoodDev" "\0"
             VALUE "FileDescription", "Linwood Flow" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "Linwood Flow" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2022 LinwoodCloud. Licensed under AGPL-3.0-only." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2022 LinwoodDev. Licensed under AGPL-3.0-only." "\0"
             VALUE "OriginalFilename", "flow.exe" "\0"
             VALUE "ProductName", "Linwood Flow" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

@@ -21,7 +21,7 @@
   },
   "link.item.label.Twitter": {
     "message": "Twitter",
-    "description": "The label of footer link with label=Twitter linking to https://twitter.com/LinwoodCloud"
+    "description": "The label of footer link with label=Twitter linking to https://twitter.com/LinwoodDev"
   },
   "link.item.label.Masnoten": {
     "message": "Masnoten",
@@ -29,23 +29,23 @@
   },
   "link.item.label.App": {
     "message": "Sovellus",
-    "description": "The label of footer link with label=App linking to https://github.com/LinwoodCloud/Flow/tree/develop/app"
+    "description": "The label of footer link with label=App linking to https://github.com/LinwoodDev/Flow/tree/develop/app"
   },
   "link.item.label.Server": {
     "message": "Palvelin",
-    "description": "The label of footer link with label=Server linking to https://github.com/LinwoodCloud/Flow/tree/develop/server"
+    "description": "The label of footer link with label=Server linking to https://github.com/LinwoodDev/Flow/tree/develop/server"
   },
   "link.item.label.Docs": {
     "message": "Asiakirjat",
-    "description": "The label of footer link with label=Docs linking to https://github.com/LinwoodCloud/Flow/tree/develop/docs"
+    "description": "The label of footer link with label=Docs linking to https://github.com/LinwoodDev/Flow/tree/develop/docs"
   },
   "link.item.label.Shared": {
     "message": "Jaettu",
-    "description": "The label of footer link with label=Shared linking to https://github.com/LinwoodCloud/Flow/tree/develop/shared"
+    "description": "The label of footer link with label=Shared linking to https://github.com/LinwoodDev/Flow/tree/develop/shared"
   },
   "link.item.label.Contribution guide": {
     "message": "Rahoitusosuuden opas",
-    "description": "The label of footer link with label=Contribution guide linking to https://github.com/LinwoodCloud/Flow/blob/develop/CONTRIBUTING.md"
+    "description": "The label of footer link with label=Contribution guide linking to https://github.com/LinwoodDev/Flow/blob/develop/CONTRIBUTING.md"
   },
   "link.item.label.Imprint": {
     "message": "Jälki",
@@ -60,7 +60,7 @@
     "description": "The label of footer link with label=Privacy Policy of the website linking to https://go.linwood.dev/privacypolicy"
   },
   "copyright": {
-    "message": "Tekijänoikeus © 2023 LinwoodCloud.",
+    "message": "Tekijänoikeus © 2023 LinwoodDev.",
     "description": "The footer copyright"
   }
 }

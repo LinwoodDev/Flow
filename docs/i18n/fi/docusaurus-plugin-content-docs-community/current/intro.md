@@ -20,6 +20,6 @@ Kaikki muut lisenssit löytyvät asetuksista.
 
 ## Hyödyllisiä linkkejä
 
-* [GitHub](https://github.com/LinwoodCloud/Flow)
+* [GitHub](https://github.com/LinwoodDev/Flow)
 * [Discord](https://go.linwood.dev/discord)
 * [Matriisi](https://go.linwood.dev/matrix)
