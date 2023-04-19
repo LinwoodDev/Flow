@@ -8,7 +8,7 @@ class CalendarItemNoteDatabaseConnector
   String get connectedIdName => "itemId";
 
   @override
-  String get connectedTableName => "items";
+  String get connectedTableName => "calendarItems";
 
   @override
   String get tableName => "calendarItemNotes";

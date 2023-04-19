@@ -11,7 +11,7 @@ Response onRequest(RequestContext context) {
   return Response.json(
     body: {
       'application': 'dev.linwood.flow',
-      'documentation': 'docs.flow.linwood.dev',
+      'documentation': 'https://docs.flow.linwood.dev',
       'versions': supportedVersions
     },
   );

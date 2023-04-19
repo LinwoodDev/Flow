@@ -17,6 +17,7 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
 
   @override
   Future<void> create(Database db) async {
+    print('create $tableName');
     await db.execute("""
       CREATE TABLE IF NOT EXISTS $tableName (
         noteId INTEGER NOT NULL,
@@ -30,6 +31,7 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
 
   @override
   Future<void> connect(int connectId, int noteId) async {
+    print("connect $connectId $noteId in $tableName");
     await db?.insert(tableName, {
       'noteId': noteId,
       connectedIdName: connectId,
