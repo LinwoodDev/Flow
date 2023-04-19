@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:collection/collection.dart';
@@ -191,7 +192,7 @@ class _EventListPosition {
   _EventListPosition(this.appointment, this.position);
 }
 
-class SingleDayList extends StatelessWidget {
+class SingleDayList extends StatefulWidget {
   final List<SourcedConnectedModel<CalendarItem, Event?>> appointments;
   final VoidCallback onChanged;
   final DateTime current;
@@ -212,50 +213,101 @@ class SingleDayList extends StatelessWidget {
   });
 
   @override
+  State<SingleDayList> createState() => _SingleDayListState();
+}
+
+class _SingleDayListState extends State<SingleDayList> {
+  late final Timer _minuteTimer;
+  double? _currentHeight;
+
+  @override
+  void initState() {
+    super.initState();
+    _minuteTimer = Timer.periodic(const Duration(seconds: 1), _tick);
+    _tick(_minuteTimer);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _minuteTimer.cancel();
+  }
+
+  void _tick(Timer timer) {
+    final now = DateTime.now();
+    final nextHeight = now.hour * SingleDayList._hourHeight +
+        now.minute * SingleDayList._hourHeight / 60.0;
+    if (nextHeight != _currentHeight && now.isSameDay(widget.current)) {
+      setState(() {
+        _currentHeight = nextHeight;
+      });
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant SingleDayList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.appointments != widget.appointments ||
+        oldWidget.event != widget.event) {
+      setState(() {});
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final positions = _getEventListPositions(appointments);
+    final positions = _getEventListPositions(widget.appointments);
     final maxPosition =
         positions.isEmpty ? 0 : positions.map((e) => e.position).reduce(max);
-    var currentPosWidth = max(maxWidth / (maxPosition + 2), _positionWidth);
+    var currentPosWidth =
+        max(widget.maxWidth / (maxPosition + 2), SingleDayList._positionWidth);
     if (currentPosWidth.isInfinite) {
-      currentPosWidth = _positionWidth;
+      currentPosWidth = SingleDayList._positionWidth;
     }
     return SizedBox(
-      height: 24 * _hourHeight + _dividerHeight,
+      height: 24 * SingleDayList._hourHeight + SingleDayList._dividerHeight,
       width: currentPosWidth * (maxPosition + 2),
       child: Stack(
         children: [
           GestureDetector(onTapUp: (details) async {
             var minutes =
-                ((details.localPosition.dy / _hourHeight) % 1 * 60).floor();
+                ((details.localPosition.dy / SingleDayList._hourHeight) %
+                        1 *
+                        60)
+                    .floor();
             minutes = (minutes / 5).floor() * 5;
             // Calculate current time
             final dateTime = DateTime(
-              current.year,
-              current.month,
-              current.day,
-              (details.localPosition.dy / _hourHeight).floor(),
+              widget.current.year,
+              widget.current.month,
+              widget.current.day,
+              (details.localPosition.dy / SingleDayList._hourHeight).floor(),
               minutes,
             );
 
             await showCalendarCreate(
-                context: context, time: dateTime, event: event);
-            onChanged();
+                context: context, time: dateTime, event: widget.event);
+            widget.onChanged();
           }),
           for (final position in positions)
             Builder(builder: (context) {
               double top = 0, height;
               final appointment = position.appointment.main;
-              if (appointment.start?.isSameDay(current) ?? false) {
-                top = (appointment.start?.hour ?? 0) * _hourHeight +
-                    (appointment.start?.minute ?? 0) / 60 * _hourHeight;
+              if (appointment.start?.isSameDay(widget.current) ?? false) {
+                top =
+                    (appointment.start?.hour ?? 0) * SingleDayList._hourHeight +
+                        (appointment.start?.minute ?? 0) /
+                            60 *
+                            SingleDayList._hourHeight;
               }
-              if (appointment.end?.isSameDay(current) ?? false) {
-                height = (appointment.end?.hour ?? 23) * _hourHeight +
-                    (appointment.end?.minute ?? 59) / 60 * _hourHeight -
-                    top;
+              if (appointment.end?.isSameDay(widget.current) ?? false) {
+                height =
+                    (appointment.end?.hour ?? 23) * SingleDayList._hourHeight +
+                        (appointment.end?.minute ?? 59) /
+                            60 *
+                            SingleDayList._hourHeight -
+                        top;
               } else {
-                height = 24 * _hourHeight - top;
+                height = 24 * SingleDayList._hourHeight - top;
               }
               return Positioned(
                 top: top,
@@ -275,7 +327,7 @@ class SingleDayList extends StatelessWidget {
                         event: position.appointment.sub,
                         source: position.appointment.source,
                       ),
-                    ).then((value) => onChanged()),
+                    ).then((value) => widget.onChanged()),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -299,7 +351,7 @@ class SingleDayList extends StatelessWidget {
             }),
           for (int i = 0; i < 24; i++)
             Positioned(
-              top: i * _hourHeight,
+              top: i * SingleDayList._hourHeight,
               left: 0,
               right: 0,
               child: Row(
@@ -312,6 +364,16 @@ class SingleDayList extends StatelessWidget {
                   const SizedBox(width: 8),
                   const Flexible(child: Divider()),
                 ],
+              ),
+            ),
+          if (_currentHeight != null)
+            Positioned(
+              top: _currentHeight!,
+              left: 0,
+              right: 0,
+              child: Divider(
+                color: Theme.of(context).colorScheme.secondary,
+                thickness: 2,
               ),
             ),
         ],

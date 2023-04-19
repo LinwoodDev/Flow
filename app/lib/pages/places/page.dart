@@ -65,12 +65,6 @@ class _PlacesPageState extends State<PlacesPage> {
   Widget build(BuildContext context) {
     return FlowNavigation(
       title: AppLocalizations.of(context).places,
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.filter_list),
-          onPressed: () async {},
-        ),
-      ],
       body: Align(
         alignment: Alignment.topCenter,
         child: Container(

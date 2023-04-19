@@ -41,9 +41,9 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
     _now = DateTime.now();
     super.initState();
     _cubit = context.read<FlowCubit>();
-    _appointments = _fetchCalendarItems();
     _month = _now.month;
     _year = _now.year;
+    _appointments = _fetchCalendarItems();
   }
 
   DateTime get _date => DateTime(
@@ -247,33 +247,37 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                             );
                             _refresh();
                           },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                day.day.toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge
-                                    ?.copyWith(
-                                      color: day.isSameDay(DateTime.now())
-                                          ? Theme.of(context).primaryColor
-                                          : null,
-                                    ),
-                              ),
-                              const SizedBox(height: 4),
-                              if (appointments[current].isNotEmpty)
-                                Container(
-                                  height: 16,
-                                  width: 16,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    shape: BoxShape.circle,
-                                  ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 16, horizontal: 8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  day.day.toString(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.copyWith(
+                                        color: day.isSameDay(DateTime.now())
+                                            ? Theme.of(context).primaryColor
+                                            : null,
+                                      ),
                                 ),
-                            ],
+                                const SizedBox(height: 4),
+                                if (appointments[current].isNotEmpty)
+                                  Container(
+                                    height: 16,
+                                    width: 16,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                              ],
+                            ),
                           ),
                         );
                       },
@@ -319,11 +323,13 @@ class CalendarDayDialog extends StatelessWidget {
             icon: const Icon(Icons.add_circle_outline_outlined),
             tooltip: AppLocalizations.of(context).createEvent,
             onPressed: () async {
-              Navigator.of(context).pop();
               await showCalendarCreate(
                 context: context,
                 event: event,
               );
+              if (context.mounted) {
+                Navigator.of(context).pop();
+              }
             },
           ),
         ],

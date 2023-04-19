@@ -191,45 +191,39 @@ class _NoteCardState extends State<NoteCard> {
               ],
             ),
             const SizedBox(height: 16),
-            Row(children: [
-              SizedBox(
-                width: 100,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).priority,
-                    filled: true,
-                    floatingLabelAlignment: FloatingLabelAlignment.center,
-                  ),
-                  textAlign: TextAlign.center,
-                  initialValue: _newNote.priority.toString(),
-                  keyboardType: TextInputType.number,
-                  onChanged: (value) {
-                    _newNote = _newNote.copyWith(
-                        priority: int.tryParse(value) ?? _newNote.priority);
-                    _updateNote();
-                  },
-                ),
-              ),
-              const SizedBox(width: 8),
-              Flexible(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      if (_loading) ...[
-                        const SizedBox(width: 8),
-                        const SizedBox(
-                          height: 16,
-                          width: 16,
-                          child: CircularProgressIndicator(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 100,
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context).priority,
+                          filled: true,
+                          floatingLabelAlignment: FloatingLabelAlignment.center,
                         ),
-                      ]
-                    ],
-                  ),
-                ),
-              ),
-            ]),
+                        textAlign: TextAlign.center,
+                        initialValue: _newNote.priority.toString(),
+                        keyboardType: TextInputType.number,
+                        onChanged: (value) {
+                          _newNote = _newNote.copyWith(
+                              priority:
+                                  int.tryParse(value) ?? _newNote.priority);
+                          _updateNote();
+                        },
+                      ),
+                    ),
+                    if (_loading) ...[
+                      const SizedBox(
+                        height: 16,
+                        width: 16,
+                        child: CircularProgressIndicator(),
+                      ),
+                    ]
+                  ]),
+            ),
             const SizedBox(height: 16),
             TextFormField(
               controller: _descriptionController,

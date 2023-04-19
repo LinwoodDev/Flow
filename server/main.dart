@@ -3,19 +3,30 @@
 import 'dart:io';
 
 import 'package:dart_frog/dart_frog.dart';
+import 'package:flow_server/utils.dart';
+import 'package:shared/models/error.dart';
 
-Future<void> init(InternetAddress ip, int port) async {
-  // Test if frontend is there
-  final frontendDir = Directory('frontend');
-  if (!frontendDir.existsSync()) {
-    print('''
-Frontend directory not found.
-Please build the frontend and place it in the frontend directory.
-''');
-    exit(1);
-  }
-}
+const supportedVersions = [0];
+
+// Add version as
+const _apiPattern = r'^/api/v(\d+)(?:/(.*))?';
 
 Future<HttpServer> run(Handler handler, InternetAddress ip, int port) {
-  return serve(handler, ip, port);
+  const customStaticFilePath = 'static';
+  final cascade = Cascade()
+      .add(createStaticFileHandler(path: customStaticFilePath))
+      .add(handler)
+      .add((context) {
+    final path = context.request.uri.path;
+    final match = RegExp(_apiPattern).firstMatch(path);
+    if (match != null) {
+      final apiVersion = int.tryParse(match.group(1) ?? '');
+      if (!supportedVersions.contains(apiVersion)) {
+        return errorResponse(ErrorType.invalidApiVersion);
+      }
+    }
+    return errorResponse(ErrorType.notFound);
+  }).add((context) => errorResponse(ErrorType.notFound));
+
+  return serve(cascade.handler, ip, port);
 }
