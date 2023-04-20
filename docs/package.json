@@ -44,7 +44,7 @@
   },
   "packageManager": "yarn@3.5.0",
   "devDependencies": {
-    "markdownlint-cli2": "^0.6.0",
+    "markdownlint-cli2": "^0.7.0",
     "typescript": "^5.0.4"
   },
   "dependenciesMeta": {

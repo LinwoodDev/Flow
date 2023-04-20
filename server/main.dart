@@ -16,7 +16,7 @@ Future<HttpServer> run(Handler handler, InternetAddress ip, int port) {
   final cascade = Cascade()
       .add(createStaticFileHandler(path: customStaticFilePath))
       .add(handler)
-      .add((context) {
+      .add((context) async {
     final path = context.request.uri.path;
     final match = RegExp(_apiPattern).firstMatch(path);
     if (match != null) {
@@ -24,8 +24,15 @@ Future<HttpServer> run(Handler handler, InternetAddress ip, int port) {
       if (!supportedVersions.contains(apiVersion)) {
         return errorResponse(ErrorType.invalidApiVersion);
       }
+      return errorResponse(ErrorType.notFound);
     }
-    return errorResponse(ErrorType.notFound);
+    // Serving static/index.html
+    return Response(
+      body: await File('$customStaticFilePath/index.html').readAsString(),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'text/html',
+      },
+    );
   }).add((context) => errorResponse(ErrorType.notFound));
 
   return serve(cascade.handler, ip, port);

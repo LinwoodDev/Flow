@@ -5717,7 +5717,7 @@ __metadata:
     "@mdx-js/react": ^1
     animate.css: ^4.1.1
     clsx: ^1.2.1
-    markdownlint-cli2: ^0.6.0
+    markdownlint-cli2: ^0.7.0
     prism-react-renderer: ^1.3.5
     react: ^18.2.0
     react-animation-on-scroll: ^5.1.0
@@ -6084,16 +6084,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:13.1.3":
-  version: 13.1.3
-  resolution: "globby@npm:13.1.3"
+"globby@npm:13.1.4, globby@npm:^13.1.1":
+  version: 13.1.4
+  resolution: "globby@npm:13.1.4"
   dependencies:
     dir-glob: ^3.0.1
     fast-glob: ^3.2.11
     ignore: ^5.2.0
     merge2: ^1.4.1
     slash: ^4.0.0
-  checksum: 93f06e02002cdf368f7e3d55bd59e7b00784c7cc8fe92c7ee5082cc7171ff6109fda45e1c97a80bb48bc811dedaf7843c7c9186f5f84bde4883ab630e13c43df
+  checksum: e8bc13879972082d590cd1b0e27080d90d2e12fff7eeb2cee9329c29115ace14cc5b9f899e3d6beb136ba826307a727016658919a6f383e1511d698acee81741
   languageName: node
   linkType: hard
 
@@ -6108,19 +6108,6 @@ __metadata:
     merge2: ^1.4.1
     slash: ^3.0.0
   checksum: b4be8885e0cfa018fc783792942d53926c35c50b3aefd3fdcfb9d22c627639dc26bd2327a40a0b74b074100ce95bb7187bfeae2f236856aa3de183af7a02aea6
-  languageName: node
-  linkType: hard
-
-"globby@npm:^13.1.1":
-  version: 13.1.4
-  resolution: "globby@npm:13.1.4"
-  dependencies:
-    dir-glob: ^3.0.1
-    fast-glob: ^3.2.11
-    ignore: ^5.2.0
-    merge2: ^1.4.1
-    slash: ^4.0.0
-  checksum: e8bc13879972082d590cd1b0e27080d90d2e12fff7eeb2cee9329c29115ace14cc5b9f899e3d6beb136ba826307a727016658919a6f383e1511d698acee81741
   languageName: node
   linkType: hard
 
@@ -7680,22 +7667,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdownlint-cli2-formatter-default@npm:0.0.3":
-  version: 0.0.3
-  resolution: "markdownlint-cli2-formatter-default@npm:0.0.3"
+"markdownlint-cli2-formatter-default@npm:0.0.4":
+  version: 0.0.4
+  resolution: "markdownlint-cli2-formatter-default@npm:0.0.4"
   peerDependencies:
     markdownlint-cli2: ">=0.0.4"
-  checksum: 9f42c30e9588c2e2f28577135ed734cfce04077a2468eabbe573f1ff738d87666168fd18594c333ca48a2caf0712d79ef07b01b54fef4e5aa758307b3ef260f4
+  checksum: 533971d6b04e5ff283af497bf13ba4a18aff582439a36e9fceeb01ab74b432085d1deccfa1e84e585fc7a12f5cd89d15fc6ccb797a8efd25d673d6d3b9a4c076
   languageName: node
   linkType: hard
 
-"markdownlint-cli2@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "markdownlint-cli2@npm:0.6.0"
+"markdownlint-cli2@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "markdownlint-cli2@npm:0.7.0"
   dependencies:
-    globby: 13.1.3
-    markdownlint: 0.27.0
-    markdownlint-cli2-formatter-default: 0.0.3
+    globby: 13.1.4
+    markdownlint: 0.28.1
+    markdownlint-cli2-formatter-default: 0.0.4
     micromatch: 4.0.5
     strip-json-comments: 5.0.0
     yaml: 2.2.1
@@ -7703,16 +7690,24 @@ __metadata:
     markdownlint-cli2: markdownlint-cli2.js
     markdownlint-cli2-config: markdownlint-cli2-config.js
     markdownlint-cli2-fix: markdownlint-cli2-fix.js
-  checksum: 79efe3789c90dcf5c70f67c0f55790489c4072e74045be44c54f7b7343bc18d0f02538e1cfa2b0a90be8615eab0b413409c3bdc6dba241c970ffe37e40f093d4
+  checksum: be0d937be2a6f620a85a420cce9a070c7e9e6eb669fa338837339eb8b2b1cff93acd5fcc5038a348d408f31439c95db0daf60b53d9fc38c0a2261a7823c3f73b
   languageName: node
   linkType: hard
 
-"markdownlint@npm:0.27.0":
-  version: 0.27.0
-  resolution: "markdownlint@npm:0.27.0"
+"markdownlint-micromark@npm:0.1.2":
+  version: 0.1.2
+  resolution: "markdownlint-micromark@npm:0.1.2"
+  checksum: f1ae330db8e9cad942de8f8e422287c38e94e9eb733031e73929023b03838f945776756dd7d6a4b3c9a5fa4ec1c1db6c0e0edd8b59ddc57defbdab2f01d31ce9
+  languageName: node
+  linkType: hard
+
+"markdownlint@npm:0.28.1":
+  version: 0.28.1
+  resolution: "markdownlint@npm:0.28.1"
   dependencies:
     markdown-it: 13.0.1
-  checksum: aecc5849e611f66f4c666c9fe47f798fc7cb044ee0bf7884d666152961f1bf585f0e16cafe575386d40d5d19b82e6071aeecee14f1a7006495fe46fcf93c7aa7
+    markdownlint-micromark: 0.1.2
+  checksum: d606e3f069d9b261b9c4ed0533f035420f38a4a19d73b238b35ff51a854be72a38e87d80eb15432aace34837a45b7da12bfbccaea4f70792d1e66ee771ded6d5
   languageName: node
   linkType: hard
 
