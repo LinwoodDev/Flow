@@ -12,6 +12,7 @@ class CalDavSourceDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool showPassword = false;
     return AlertDialog(
       title: const Text("CalDAV"),
       content: SizedBox(
@@ -26,6 +27,7 @@ class CalDavSourceDialog extends StatelessWidget {
                 border: const OutlineInputBorder(),
               ),
               controller: _urlController,
+              keyboardType: TextInputType.url,
             ),
             const SizedBox(height: 16),
             TextFormField(
@@ -37,15 +39,26 @@ class CalDavSourceDialog extends StatelessWidget {
               controller: _usernameController,
             ),
             const SizedBox(height: 8),
-            TextFormField(
-              decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).password,
-                icon: const Icon(Icons.lock_outline),
-                filled: true,
-              ),
-              obscureText: true,
-              controller: _passwordController,
-            ),
+            StatefulBuilder(builder: (context, setState) {
+              return TextFormField(
+                decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context).password,
+                    icon: const Icon(Icons.lock_outline),
+                    filled: true,
+                    suffix: IconButton(
+                        icon: Icon(showPassword
+                            ? Icons.lock_outlined
+                            : Icons.lock_open_outlined),
+                        onPressed: () =>
+                            setState(() => showPassword = !showPassword))),
+                obscureText: !showPassword,
+                controller: _passwordController,
+                keyboardType:
+                    showPassword ? TextInputType.visiblePassword : null,
+                enableSuggestions: false,
+                autocorrect: false,
+              );
+            }),
           ],
         ),
       ),

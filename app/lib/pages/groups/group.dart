@@ -36,7 +36,6 @@ class GroupDialog extends StatelessWidget {
           ],
           TextField(
             decoration: InputDecoration(
-              filled: true,
               labelText: AppLocalizations.of(context).name,
               icon: const Icon(Icons.folder_outlined),
             ),

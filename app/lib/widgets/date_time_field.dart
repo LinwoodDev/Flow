@@ -52,7 +52,6 @@ class _DateTimeFieldState extends State<DateTimeField> {
       controller: _controller,
       readOnly: true,
       decoration: InputDecoration(
-        filled: true,
         labelText: widget.label,
         icon: widget.icon ?? const Icon(Icons.date_range_outlined),
         suffix: Row(

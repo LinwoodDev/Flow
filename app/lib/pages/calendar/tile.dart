@@ -8,7 +8,7 @@ import 'package:shared/helpers/date_time.dart';
 import 'package:shared/models/model.dart';
 
 import '../../cubits/flow.dart';
-import '../events/item.dart';
+import 'item.dart';
 
 class CalendarListTile extends StatelessWidget {
   final SourcedConnectedModel<CalendarItem, Event?> eventItem;

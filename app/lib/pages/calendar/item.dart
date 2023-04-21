@@ -8,8 +8,8 @@ import 'package:shared/models/event/model.dart';
 
 import '../../widgets/date_time_field.dart';
 import '../../widgets/source_dropdown.dart';
-import 'note.dart';
-import 'event.dart';
+import '../events/note.dart';
+import '../events/event.dart';
 
 class CalendarItemDialog extends StatefulWidget {
   final bool create;
@@ -220,6 +220,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             initialValue: _item.name,
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context).name,
+                              filled: true,
                               icon: const Icon(Icons.folder_outlined),
                             ),
                             onChanged: (value) =>
@@ -243,7 +244,6 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                           TextFormField(
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context).location,
-                              filled: true,
                               icon: const Icon(Icons.location_on_outlined),
                             ),
                             minLines: 1,

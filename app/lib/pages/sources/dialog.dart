@@ -25,6 +25,30 @@ class AddSourceDialog extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(
+                  AppLocalizations.of(context).limited,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                const SizedBox(height: 8),
+                ListTile(
+                  title: const Text("CalDAV"),
+                  subtitle:
+                      Text(AppLocalizations.of(context).caldavDescription),
+                  leading: const Icon(Icons.web_outlined),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    showDialog(
+                      context: context,
+                      builder: (context) => CalDavSourceDialog(),
+                    );
+                  },
+                ),
+                const Divider(),
+                Text(
+                  AppLocalizations.of(context).comingSoon,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                const SizedBox(height: 8),
                 ListTile(
                   title: const Text("WebDAV"),
                   subtitle:
@@ -40,6 +64,7 @@ class AddSourceDialog extends StatelessWidget {
                 ),
                 ListTile(
                   title: const Text("Sia"),
+                  enabled: false,
                   subtitle: Text(
                       AppLocalizations.of(context).decentralizedDescription),
                   leading: const Icon(Icons.cloud_outlined),
@@ -58,25 +83,6 @@ class AddSourceDialog extends StatelessWidget {
                   leading: const Icon(Icons.storage_outlined),
                   onTap: () => Navigator.of(context).pop(),
                   enabled: false,
-                ),
-                const Divider(),
-                Text(
-                  AppLocalizations.of(context).limited,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                const SizedBox(height: 8),
-                ListTile(
-                  title: const Text("CalDAV"),
-                  subtitle:
-                      Text(AppLocalizations.of(context).caldavDescription),
-                  leading: const Icon(Icons.web_outlined),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    showDialog(
-                      context: context,
-                      builder: (context) => CalDavSourceDialog(),
-                    );
-                  },
                 ),
                 const Divider(),
                 ListTile(

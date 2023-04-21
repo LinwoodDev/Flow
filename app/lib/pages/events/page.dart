@@ -13,7 +13,7 @@ import '../../helpers/sourced_paging_controller.dart';
 import '../../widgets/builder_delegate.dart';
 import '../../widgets/material_bottom_sheet.dart';
 import '../calendar/filter.dart';
-import 'item.dart';
+import '../calendar/item.dart';
 import 'event.dart';
 import 'filter.dart';
 

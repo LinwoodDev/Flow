@@ -62,6 +62,7 @@ class EventDialog extends StatelessWidget {
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context).name,
                   icon: const Icon(Icons.folder_outlined),
+                  filled: true,
                 ),
                 onChanged: (value) =>
                     currentEvent = currentEvent.copyWith(name: value),
@@ -181,7 +182,6 @@ class EventDialog extends StatelessWidget {
               TextField(
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context).location,
-                  filled: true,
                   icon: const Icon(Icons.location_on_outlined),
                 ),
                 minLines: 1,
