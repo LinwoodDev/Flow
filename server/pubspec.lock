@@ -636,18 +636,18 @@ packages:
     dependency: "direct main"
     description:
       name: sqflite_common
-      sha256: "963dad8c4aa2f814ce7d2d5b1da2f36f31bd1a439d8f27e3dc189bb9d26bc684"
+      sha256: "220831bf0bd5333ff2445eee35ec131553b804e6b5d47a4a37ca6f5eb66e282c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.3"
+    version: "2.4.4"
   sqflite_common_ffi:
     dependency: "direct main"
     description:
       name: sqflite_common_ffi
-      sha256: "0595da0b418deff5a93a20e15811e73ea1bbce89745eeebed87c37f8027b7a5d"
+      sha256: "55641c9310e1da0856559f077ccc3cb7637b718d10b1fd8461c8088ef2d2f720"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.3"
+    version: "2.2.4"
   sqlite3:
     dependency: transitive
     description:

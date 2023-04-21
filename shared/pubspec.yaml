@@ -9,7 +9,7 @@ environment:
 dependencies:
   meta: ^1.9.1
   equatable: ^2.0.5
-  sqflite_common: ^2.4.3
+  sqflite_common: ^2.4.4
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.0
   collection: ^1.17.1

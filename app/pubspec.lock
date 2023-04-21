@@ -229,10 +229,10 @@ packages:
     dependency: transitive
     description:
       name: dev_test
-      sha256: "9ab68d643fbde86f6a4872222415d3f14f4379c67027b9b04546cc21c48152c1"
+      sha256: bf0a5e1d5bbca440e665768fc1c808dd599d4b66922696338481fb7178670c56
       url: "https://pub.dev"
     source: hosted
-    version: "0.15.7+3"
+    version: "0.16.0+1"
   dynamic_color:
     dependency: "direct main"
     description:
@@ -721,10 +721,10 @@ packages:
     dependency: transitive
     description:
       name: process_run
-      sha256: "4539b7c0a34a4a4979e7345d9f5c6358961d9f53901baf2930807159d08ee59b"
+      sha256: "0071cece7ca0fdf4aaf2cf84ee3082f3043f18afc7fcfd51f53f9424a8072c04"
       url: "https://pub.dev"
     source: hosted
-    version: "0.12.5+3"
+    version: "0.13.0"
   provider:
     dependency: transitive
     description:
@@ -925,34 +925,34 @@ packages:
     dependency: "direct main"
     description:
       name: sqflite
-      sha256: "500d6fec583d2c021f2d25a056d96654f910662c64f836cd2063167b8f1fa758"
+      sha256: e7dfb6482d5d02b661d0b2399efa72b98909e5aa7b8336e1fb37e226264ade00
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.6"
+    version: "2.2.7"
   sqflite_common:
     dependency: "direct main"
     description:
       name: sqflite_common
-      sha256: "963dad8c4aa2f814ce7d2d5b1da2f36f31bd1a439d8f27e3dc189bb9d26bc684"
+      sha256: "220831bf0bd5333ff2445eee35ec131553b804e6b5d47a4a37ca6f5eb66e282c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.3"
+    version: "2.4.4"
   sqflite_common_ffi:
     dependency: "direct main"
     description:
       name: sqflite_common_ffi
-      sha256: "0595da0b418deff5a93a20e15811e73ea1bbce89745eeebed87c37f8027b7a5d"
+      sha256: "55641c9310e1da0856559f077ccc3cb7637b718d10b1fd8461c8088ef2d2f720"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.3"
+    version: "2.2.4"
   sqflite_common_ffi_web:
     dependency: "direct main"
     description:
       name: sqflite_common_ffi_web
-      sha256: cfeae4cac17f1e1621e1c7b582aff5ac51b2411fbfe63cb24896e7b1da274258
+      sha256: "5acaaf382ea88e07122682d18d51602023f405ce1177593df0fb8a64e94ea374"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.4"
+    version: "0.3.5"
   sqlite3:
     dependency: "direct main"
     description:
@@ -1005,10 +1005,10 @@ packages:
     dependency: transitive
     description:
       name: synchronized
-      sha256: "33b31b6beb98100bf9add464a36a8dd03eb10c7a8cf15aeec535e9b054aaf04b"
+      sha256: "5fcbd27688af6082f5abd611af56ee575342c30e87541d0245f7ff99faa02c60"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.1"
+    version: "3.1.0"
   term_glyph:
     dependency: transitive
     description:
