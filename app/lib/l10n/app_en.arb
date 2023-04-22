@@ -249,5 +249,6 @@
   "createPending": "Create pending",
   "editPending": "Edit pending",
   "convertTo": "Convert to",
-  "comingSoon": "Coming soon"
+  "comingSoon": "Coming soon",
+  "notSupported": "Not supported"
 }

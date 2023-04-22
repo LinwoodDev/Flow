@@ -9,6 +9,7 @@ class APIRequest with _$APIRequest {
   const APIRequest._();
 
   const factory APIRequest({
+    @Default(-1) int id,
     required String method,
     required String authority,
     required String path,
@@ -21,7 +22,11 @@ class APIRequest with _$APIRequest {
 
   Future<Response> send([Client? client]) async {
     final currentClient = client ?? Client();
-    final request = Request(method, Uri.https(authority, path));
+    var uri = authority;
+    if (!uri.endsWith('/')) uri += '/';
+    var currentPath = path.startsWith('/') ? path.substring(1) : path;
+    if (currentPath.isNotEmpty) uri += currentPath;
+    final request = Request(method, Uri.parse(uri));
     request.headers.addAll(headers);
     request.body = body;
     try {

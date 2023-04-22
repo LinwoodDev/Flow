@@ -13,10 +13,13 @@ import 'model.dart';
 import 'service.dart';
 
 class CalDavRemoteService extends RemoteService<CalDavStorage> {
-  CalDavRemoteService(super.remoteStorage, super.local, super.password);
+  CalDavRemoteService(super.remoteStorage, super.local, super.password) {
+    calendarItem = CalendarItemCalDavRemoteService(this);
+  }
 
   @override
-  Future<void> sync() async {
+  Future<void> synchronize() async {
+    await super.synchronize();
     final client = http.Client();
     final request = http.Request('REPORT', Uri.parse(remoteStorage.url));
     request.headers['Depth'] = '1';
@@ -68,6 +71,9 @@ class CalDavRemoteService extends RemoteService<CalDavStorage> {
     }
     return false;
   }
+
+  @override
+  late final CalendarItemCalDavRemoteService calendarItem;
 }
 
 class CalendarItemCalDavRemoteService extends CalendarItemDatabaseService {
@@ -86,5 +92,17 @@ class CalendarItemCalDavRemoteService extends CalendarItemDatabaseService {
       ),
     );
     return super.createCalendarItem(item);
+  }
+
+  @override
+  Future<bool> deleteCalendarItem(int id) {
+    remote.addRequest(
+      APIRequest(
+        method: 'DELETE',
+        authority: remote.remoteStorage.url,
+        path: '',
+      ),
+    );
+    return super.deleteCalendarItem(id);
   }
 }

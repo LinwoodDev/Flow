@@ -20,6 +20,7 @@ APIRequest _$APIRequestFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$APIRequest {
+  int get id => throw _privateConstructorUsedError;
   String get method => throw _privateConstructorUsedError;
   String get authority => throw _privateConstructorUsedError;
   String get path => throw _privateConstructorUsedError;
@@ -39,7 +40,8 @@ abstract class $APIRequestCopyWith<$Res> {
       _$APIRequestCopyWithImpl<$Res, APIRequest>;
   @useResult
   $Res call(
-      {String method,
+      {int id,
+      String method,
       String authority,
       String path,
       Map<String, String> headers,
@@ -59,6 +61,7 @@ class _$APIRequestCopyWithImpl<$Res, $Val extends APIRequest>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? method = null,
     Object? authority = null,
     Object? path = null,
@@ -66,6 +69,10 @@ class _$APIRequestCopyWithImpl<$Res, $Val extends APIRequest>
     Object? body = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       method: null == method
           ? _value.method
           : method // ignore: cast_nullable_to_non_nullable
@@ -99,7 +106,8 @@ abstract class _$$_APIRequestCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String method,
+      {int id,
+      String method,
       String authority,
       String path,
       Map<String, String> headers,
@@ -117,6 +125,7 @@ class __$$_APIRequestCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? method = null,
     Object? authority = null,
     Object? path = null,
@@ -124,6 +133,10 @@ class __$$_APIRequestCopyWithImpl<$Res>
     Object? body = null,
   }) {
     return _then(_$_APIRequest(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       method: null == method
           ? _value.method
           : method // ignore: cast_nullable_to_non_nullable
@@ -152,7 +165,8 @@ class __$$_APIRequestCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_APIRequest extends _APIRequest {
   const _$_APIRequest(
-      {required this.method,
+      {this.id = -1,
+      required this.method,
       required this.authority,
       required this.path,
       final Map<String, String> headers = const {},
@@ -163,6 +177,9 @@ class _$_APIRequest extends _APIRequest {
   factory _$_APIRequest.fromJson(Map<String, dynamic> json) =>
       _$$_APIRequestFromJson(json);
 
+  @override
+  @JsonKey()
+  final int id;
   @override
   final String method;
   @override
@@ -184,7 +201,7 @@ class _$_APIRequest extends _APIRequest {
 
   @override
   String toString() {
-    return 'APIRequest(method: $method, authority: $authority, path: $path, headers: $headers, body: $body)';
+    return 'APIRequest(id: $id, method: $method, authority: $authority, path: $path, headers: $headers, body: $body)';
   }
 
   @override
@@ -192,6 +209,7 @@ class _$_APIRequest extends _APIRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_APIRequest &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.method, method) || other.method == method) &&
             (identical(other.authority, authority) ||
                 other.authority == authority) &&
@@ -202,7 +220,7 @@ class _$_APIRequest extends _APIRequest {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, method, authority, path,
+  int get hashCode => Object.hash(runtimeType, id, method, authority, path,
       const DeepCollectionEquality().hash(_headers), body);
 
   @JsonKey(ignore: true)
@@ -221,7 +239,8 @@ class _$_APIRequest extends _APIRequest {
 
 abstract class _APIRequest extends APIRequest {
   const factory _APIRequest(
-      {required final String method,
+      {final int id,
+      required final String method,
       required final String authority,
       required final String path,
       final Map<String, String> headers,
@@ -231,6 +250,8 @@ abstract class _APIRequest extends APIRequest {
   factory _APIRequest.fromJson(Map<String, dynamic> json) =
       _$_APIRequest.fromJson;
 
+  @override
+  int get id;
   @override
   String get method;
   @override

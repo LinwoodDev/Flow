@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/group/model.dart';
 import 'package:shared/models/model.dart';
 import 'package:shared/models/user/model.dart';
+import 'package:shared/models/user/service.dart';
 
 import '../../cubits/flow.dart';
 import '../../widgets/source_dropdown.dart';
@@ -18,6 +19,8 @@ class UserDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     var user = this.user ?? const User();
     var currentSource = source ?? '';
+    var currentService =
+        context.read<FlowCubit>().getService(currentSource).user;
     return AlertDialog(
       title: Text(source == null
           ? AppLocalizations.of(context).createUser
@@ -26,10 +29,12 @@ class UserDialog extends StatelessWidget {
         width: 500,
         child: Column(children: [
           if (source == null) ...[
-            SourceDropdown(
+            SourceDropdown<UserService>(
               value: currentSource,
-              onChanged: (String? value) {
-                currentSource = value ?? '';
+              buildService: (e) => e.user,
+              onChanged: (connected) {
+                currentSource = connected?.source ?? '';
+                currentService = connected?.model;
               },
             ),
           ] else ...[
@@ -67,8 +72,12 @@ class UserDialog extends StatelessWidget {
                                   return Text(snapshot.data!.name);
                                 } else if (snapshot.hasError) {
                                   return Text(snapshot.error.toString());
-                                } else {
+                                } else if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
                                   return const CircularProgressIndicator();
+                                } else {
+                                  return Text(AppLocalizations.of(context)
+                                      .notSupported);
                                 }
                               },
                             ),
@@ -111,17 +120,9 @@ class UserDialog extends StatelessWidget {
         ElevatedButton(
           onPressed: () {
             if (source == null) {
-              context
-                  .read<FlowCubit>()
-                  .getService(currentSource)
-                  .user
-                  ?.createUser(user);
+              currentService?.createUser(user);
             } else {
-              context
-                  .read<FlowCubit>()
-                  .getService(source!)
-                  .user
-                  ?.updateUser(user);
+              currentService?.updateUser(user);
             }
             Navigator.of(context).pop(user);
           },

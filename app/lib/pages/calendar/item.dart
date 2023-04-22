@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/event/item/model.dart';
+import 'package:shared/models/event/item/service.dart';
 import 'package:shared/models/event/model.dart';
 
 import '../../widgets/date_time_field.dart';
@@ -32,6 +33,7 @@ class CalendarItemDialog extends StatefulWidget {
 class _CalendarItemDialogState extends State<CalendarItemDialog> {
   late final bool _create;
   late String _source;
+  CalendarItemService? _service;
   late CalendarItem _item;
 
   @override
@@ -43,6 +45,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
         CalendarItem.fixed(
           eventId: widget.event?.id,
         );
+    _service = context.read<FlowCubit>().getService(_source).calendarItem;
   }
 
   void _convertTo(CalendarItemType type) {
@@ -169,13 +172,15 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                         shrinkWrap: true,
                         children: [
                           if (widget.source == null) ...[
-                            SourceDropdown(
+                            SourceDropdown<CalendarItemService>(
                               value: _source,
-                              onChanged: (String? value) {
-                                _source = value ?? '';
+                              buildService: (e) => e.calendarItem,
+                              onChanged: (connected) {
+                                _source = connected?.source ?? '';
                                 _item = _item.copyWith(
                                   eventId: null,
                                 );
+                                _service = connected?.model;
                               },
                             ),
                             const SizedBox(height: 16),
@@ -313,15 +318,12 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
           onPressed: () async {
             final navigator = Navigator.of(context);
             if (_create) {
-              final created = await cubit
-                  .getService(_source)
-                  .calendarItem
-                  ?.createCalendarItem(_item);
+              final created = await _service?.createCalendarItem(_item);
               if (created != null) {
                 _item = created;
               }
             } else {
-              cubit.getService(_source).calendarItem?.updateCalendarItem(_item);
+              _service?.updateCalendarItem(_item);
             }
             navigator.pop(_item);
           },

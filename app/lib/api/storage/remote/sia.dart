@@ -7,7 +7,7 @@ class SiaRemoteService extends RemoteService<SiaStorage> {
   SiaRemoteService(super.remoteStorage, super.local, super.password);
 
   @override
-  Future<void> sync() {
+  Future<void> synchronize() {
     // TODO: implement sync
     throw UnimplementedError();
   }

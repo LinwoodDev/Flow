@@ -24,37 +24,29 @@ const databaseVersion = 1;
 class DatabaseService extends SourceService {
   late final Database db;
   @override
-  late final EventDatabaseService event;
+  final EventDatabaseService event = EventDatabaseService();
   @override
-  late final CalendarItemDatabaseService calendarItem;
+  final CalendarItemDatabaseService calendarItem =
+      CalendarItemDatabaseService();
   @override
-  late final NoteDatabaseService note;
+  final NoteDatabaseService note = NoteDatabaseService();
   @override
-  late final EventNoteDatabaseConnector eventNote;
+  final EventNoteDatabaseConnector eventNote = EventNoteDatabaseConnector();
   @override
-  late final CalendarItemNoteDatabaseConnector calendarItemNote;
+  final CalendarItemNoteDatabaseConnector calendarItemNote =
+      CalendarItemNoteDatabaseConnector();
   @override
-  late final GroupDatabaseService group;
+  final GroupDatabaseService group = GroupDatabaseService();
   @override
-  late final UserDatabaseService user;
+  final UserDatabaseService user = UserDatabaseService();
   @override
-  late final PlaceDatabaseService place;
+  final PlaceDatabaseService place = PlaceDatabaseService();
 
   final DatabaseFactory databaseFactory;
 
   DatabaseService(this.databaseFactory);
 
   Future<void> setup(String name) async {
-    event = EventDatabaseService();
-    calendarItem = CalendarItemDatabaseService();
-    note = NoteDatabaseService();
-    eventNote = EventNoteDatabaseConnector();
-    calendarItemNote = CalendarItemNoteDatabaseConnector();
-    place = PlaceDatabaseService();
-    group = GroupDatabaseService();
-
-    user = UserDatabaseService();
-
     db = await databaseFactory(
         name: name,
         version: databaseVersion,

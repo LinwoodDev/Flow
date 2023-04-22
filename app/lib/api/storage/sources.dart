@@ -53,7 +53,7 @@ class SourcesService {
     syncStatus.add(SyncStatus.syncing);
     for (final remote in remotes) {
       try {
-        await remote.sync();
+        await remote.synchronize();
       } catch (e) {
         syncStatus.add(SyncStatus.error);
       }
@@ -106,4 +106,6 @@ class SourcesService {
       await removeRemote(remote.remoteStorage.identifier);
     }
   }
+
+  RemoteStorage? getRemote(String key) => settingsCubit.getStorage(key);
 }

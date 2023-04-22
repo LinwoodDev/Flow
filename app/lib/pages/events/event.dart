@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/event/model.dart';
+import 'package:shared/models/event/service.dart';
 import 'package:shared/models/group/model.dart';
 import 'package:shared/models/model.dart';
 import 'package:shared/models/place/model.dart';
@@ -27,8 +28,10 @@ class EventDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final create = this.create || event == null || source == null;
+    final cubit = context.read<FlowCubit>();
     var currentEvent = event ?? const Event();
     var currentSource = source ?? '';
+    var currentService = cubit.sourcesService.getSource(currentSource).event;
     final nameController = TextEditingController(text: currentEvent.name);
     final descriptionController =
         TextEditingController(text: currentEvent.description);
@@ -48,10 +51,12 @@ class EventDialog extends StatelessWidget {
             children: [
               const SizedBox(height: 16),
               if (source == null) ...[
-                SourceDropdown(
+                SourceDropdown<EventService>(
                   value: currentSource,
-                  onChanged: (String? value) {
-                    currentSource = value ?? '';
+                  buildService: (source) => source.event,
+                  onChanged: (connected) {
+                    currentSource = connected?.source ?? '';
+                    currentService = connected?.model;
                   },
                 ),
                 const SizedBox(height: 16),
@@ -118,8 +123,12 @@ class EventDialog extends StatelessWidget {
                                       return Text(snapshot.data!.name);
                                     } else if (snapshot.hasError) {
                                       return Text(snapshot.error.toString());
-                                    } else {
+                                    } else if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
                                       return const CircularProgressIndicator();
+                                    } else {
+                                      return Text(AppLocalizations.of(context)
+                                          .notSupported);
                                     }
                                   },
                                 ),
@@ -161,8 +170,12 @@ class EventDialog extends StatelessWidget {
                                       return Text(snapshot.data!.name);
                                     } else if (snapshot.hasError) {
                                       return Text(snapshot.error.toString());
-                                    } else {
+                                    } else if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
                                       return const CircularProgressIndicator();
+                                    } else {
+                                      return Text(AppLocalizations.of(context)
+                                          .notSupported);
                                     }
                                   },
                                 ),
@@ -205,20 +218,12 @@ class EventDialog extends StatelessWidget {
           onPressed: () async {
             final navigator = Navigator.of(context);
             if (create) {
-              final created = await context
-                  .read<FlowCubit>()
-                  .getService(currentSource)
-                  .event
-                  ?.createEvent(currentEvent);
+              final created = await currentService?.createEvent(currentEvent);
               if (created != null) {
                 currentEvent = created;
               }
             } else {
-              context
-                  .read<FlowCubit>()
-                  .getService(source!)
-                  .event
-                  ?.updateEvent(currentEvent);
+              currentService?.updateEvent(currentEvent);
             }
             navigator.pop(SourcedModel(currentSource, currentEvent));
           },

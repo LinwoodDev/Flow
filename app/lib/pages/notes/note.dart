@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/note/model.dart';
+import 'package:shared/models/note/service.dart';
 
 import '../../widgets/source_dropdown.dart';
 
@@ -19,6 +20,7 @@ class NoteDialog extends StatefulWidget {
 class _NoteDialogState extends State<NoteDialog> {
   late Note _newNote;
   late String _newSource;
+  NoteService? _service;
 
   @override
   void initState() {
@@ -26,6 +28,7 @@ class _NoteDialogState extends State<NoteDialog> {
 
     _newNote = widget.note ?? const Note();
     _newSource = widget.source ?? '';
+    _service = context.read<FlowCubit>().getService(_newSource).note;
   }
 
   @override
@@ -62,11 +65,13 @@ class _NoteDialogState extends State<NoteDialog> {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (widget.source == null) ...[
-              SourceDropdown(
+              SourceDropdown<NoteService>(
                 value: _newSource,
-                onChanged: (String? value) {
-                  _newSource = value ?? '';
+                onChanged: (connected) {
+                  _newSource = connected?.source ?? '';
+                  _service = connected?.model;
                 },
+                buildService: (e) => e.note,
               ),
               const SizedBox(height: 16),
             ],
@@ -131,13 +136,11 @@ class _NoteDialogState extends State<NoteDialog> {
         ElevatedButton(
           onPressed: () async {
             final navigator = Navigator.of(context);
-            final service =
-                context.read<FlowCubit>().getService(_newSource).note;
             Note? created;
             if (create) {
-              created = await service?.createNote(_newNote);
+              created = await _service?.createNote(_newNote);
             } else {
-              await service?.updateNote(_newNote);
+              await _service?.updateNote(_newNote);
             }
             navigator.pop(created);
           },

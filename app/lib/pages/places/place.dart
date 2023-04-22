@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/place/model.dart';
+import 'package:shared/models/place/service.dart';
 
 import '../../cubits/flow.dart';
 import '../../widgets/source_dropdown.dart';
@@ -15,6 +16,8 @@ class PlaceDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     var place = this.place ?? const Place();
     var currentSource = source ?? '';
+    var currentService =
+        context.read<FlowCubit>().getService(currentSource).place;
     return AlertDialog(
       title: Text(source == null
           ? AppLocalizations.of(context).createPlace
@@ -23,10 +26,11 @@ class PlaceDialog extends StatelessWidget {
         width: 500,
         child: Column(children: [
           if (source == null) ...[
-            SourceDropdown(
+            SourceDropdown<PlaceService>(
               value: currentSource,
-              onChanged: (String? value) {
-                currentSource = value ?? '';
+              buildService: (e) => e.place,
+              onChanged: (connected) {
+                currentSource = connected?.source ?? '';
               },
             ),
             const SizedBox(height: 16),
@@ -67,17 +71,9 @@ class PlaceDialog extends StatelessWidget {
         ElevatedButton(
           onPressed: () {
             if (source == null) {
-              context
-                  .read<FlowCubit>()
-                  .getService(currentSource)
-                  .place
-                  ?.createPlace(place);
+              currentService?.createPlace(place);
             } else {
-              context
-                  .read<FlowCubit>()
-                  .getService(source!)
-                  .place
-                  ?.updatePlace(place);
+              currentService?.updatePlace(place);
             }
             Navigator.of(context).pop(place);
           },

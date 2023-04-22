@@ -91,5 +91,14 @@ abstract class RemoteService<T extends RemoteStorage> extends SourceService {
     );
   }
 
-  Future<void> sync();
+  Future<void> synchronize() async {
+    final requests = await local.request.getRequests();
+    for (final request in requests) {
+      try {
+        await request.model
+            .send()
+            .then((value) => local.request.deleteRequest(request.model.id));
+      } catch (_) {}
+    }
+  }
 }

@@ -8,6 +8,7 @@ part of 'request.dart';
 
 _$_APIRequest _$$_APIRequestFromJson(Map<String, dynamic> json) =>
     _$_APIRequest(
+      id: json['id'] as int? ?? -1,
       method: json['method'] as String,
       authority: json['authority'] as String,
       path: json['path'] as String,
@@ -20,6 +21,7 @@ _$_APIRequest _$$_APIRequestFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_APIRequestToJson(_$_APIRequest instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'method': instance.method,
       'authority': instance.authority,
       'path': instance.path,

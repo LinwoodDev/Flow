@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/group/model.dart';
+import 'package:shared/models/group/service.dart';
 
 class GroupDialog extends StatelessWidget {
   final String? source;
@@ -15,6 +16,8 @@ class GroupDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     var group = this.group ?? const Group();
     var currentSource = source ?? '';
+    var currentService =
+        context.read<FlowCubit>().getService(currentSource).group;
     final nameController = TextEditingController(text: group.name);
     final descriptionController =
         TextEditingController(text: group.description);
@@ -26,10 +29,12 @@ class GroupDialog extends StatelessWidget {
         width: 500,
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           if (source == null) ...[
-            SourceDropdown(
+            SourceDropdown<GroupService>(
               value: currentSource,
-              onChanged: (String? value) {
-                currentSource = value ?? '';
+              buildService: (e) => e.group,
+              onChanged: (connected) {
+                currentSource = connected?.source ?? '';
+                currentService = connected?.model;
               },
             ),
             const SizedBox(height: 16),
@@ -70,17 +75,9 @@ class GroupDialog extends StatelessWidget {
         ElevatedButton(
           onPressed: () {
             if (source == null) {
-              context
-                  .read<FlowCubit>()
-                  .getService(currentSource)
-                  .group
-                  ?.createGroup(group);
+              currentService?.createGroup(group);
             } else {
-              context
-                  .read<FlowCubit>()
-                  .getService(source!)
-                  .group
-                  ?.updateGroup(group);
+              currentService?.updateGroup(group);
             }
             Navigator.of(context).pop(group);
           },
