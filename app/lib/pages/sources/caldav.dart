@@ -47,8 +47,8 @@ class CalDavSourceDialog extends StatelessWidget {
                     filled: true,
                     suffix: IconButton(
                         icon: Icon(showPassword
-                            ? Icons.lock_outlined
-                            : Icons.lock_open_outlined),
+                            ? Icons.lock_open_outlined
+                            : Icons.lock_outlined),
                         onPressed: () =>
                             setState(() => showPassword = !showPassword))),
                 obscureText: !showPassword,

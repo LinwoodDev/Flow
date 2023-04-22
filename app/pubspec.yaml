@@ -36,7 +36,7 @@ dependencies:
     path: ../shared
   path: ^1.8.3
   go_router: ^6.5.7
-  flex_color_scheme: ^7.0.3
+  flex_color_scheme: ^7.0.4
   flutter_bloc: ^8.1.2
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.0

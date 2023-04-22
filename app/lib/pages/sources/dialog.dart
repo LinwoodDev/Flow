@@ -54,6 +54,7 @@ class AddSourceDialog extends StatelessWidget {
                   subtitle:
                       Text(AppLocalizations.of(context).webdavDescription),
                   leading: const Icon(Icons.folder_outlined),
+                  enabled: false,
                   onTap: () {
                     Navigator.of(context).pop();
                     showDialog(

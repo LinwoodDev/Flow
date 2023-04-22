@@ -9,7 +9,7 @@ part 'model.g.dart';
 class Group with _$Group {
   @Implements<DescriptiveModel>()
   const factory Group({
-    @Default(-1) int id,
+    int? id,
     @Default('') String name,
     @Default('') String description,
     int? parentId,

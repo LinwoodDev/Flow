@@ -160,7 +160,7 @@ class _NoteCardState extends State<NoteCard> {
                       Icons.delete_outlined,
                       AppLocalizations.of(context).delete,
                       () async {
-                        await _noteService?.deleteNote(_newNote.id);
+                        await _noteService?.deleteNote(_newNote.id!);
                         widget.controller.refresh();
                       }
                     ]

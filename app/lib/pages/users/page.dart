@@ -100,7 +100,7 @@ class _UsersPageState extends State<UsersPage> {
                         await _flowCubit
                             .getService(item.source)
                             .user
-                            ?.deleteUser(item.model.id);
+                            ?.deleteUser(item.model.id!);
                         _pagingController.itemList!.remove(item);
                       },
                       background: Container(
@@ -197,7 +197,7 @@ class UserTile extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               Navigator.of(context).pop();
-              await flowCubit.getService(source).user?.deleteUser(user.id);
+              await flowCubit.getService(source).user?.deleteUser(user.id!);
               pagingController.itemList!.remove(SourcedModel(
                 source,
                 user,

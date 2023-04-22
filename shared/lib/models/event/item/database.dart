@@ -32,7 +32,7 @@ class CalendarItemDatabaseService extends CalendarItemService
         count INTEGER NOT NULL DEFAULT 0,
         until INTEGER,
         exceptions TEXT,
-        autoGroupId INTEGER NOT NULL DEFAULT -1,
+        autoGroupId INTEGER,
         searchStart INTEGER,
         autoDuration INTEGER NOT NULL DEFAULT 60,
         FOREIGN KEY (eventId) REFERENCES events(id) ON DELETE CASCADE
@@ -205,4 +205,57 @@ class CalendarItemDatabaseService extends CalendarItemService
   Future<void> clear() async {
     await db?.delete('calendarItems');
   }
+}
+
+abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
+    with TableService {
+  final CalendarItemDatabaseService service;
+
+  CalendarItemDatabaseServiceLinker(this.service);
+
+  @override
+  FutureOr<CalendarItem?> getCalendarItem(int id) =>
+      service.getCalendarItem(id);
+
+  @override
+  FutureOr<List<ConnectedModel<CalendarItem, Event?>>> getCalendarItems({
+    List<EventStatus>? status,
+    int? eventId,
+    int? groupId,
+    int? placeId,
+    bool pending = false,
+    int offset = 0,
+    int limit = 50,
+    DateTime? start,
+    DateTime? end,
+    DateTime? date,
+    String search = '',
+  }) =>
+      service.getCalendarItems(
+        status: status,
+        eventId: eventId,
+        groupId: groupId,
+        placeId: placeId,
+        pending: pending,
+        offset: offset,
+        limit: limit,
+        start: start,
+        end: end,
+        date: date,
+        search: search,
+      );
+
+  @override
+  FutureOr<CalendarItem?> createCalendarItem(CalendarItem item) =>
+      service.createCalendarItem(item);
+
+  @override
+  FutureOr<bool> updateCalendarItem(CalendarItem item) =>
+      service.updateCalendarItem(item);
+
+  @override
+  FutureOr<bool> deleteCalendarItem(int id) => service.deleteCalendarItem(id);
+
+  @override
+  FutureOr<void> clear() => service.clear();
 }

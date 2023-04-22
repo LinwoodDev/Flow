@@ -11,7 +11,7 @@ part 'model.g.dart';
 class User with _$User {
   @Implements<DescriptiveModel>()
   const factory User({
-    @Default(-1) int id,
+    int? id,
     int? groupId,
     @Default('') String name,
     @Default('') String email,

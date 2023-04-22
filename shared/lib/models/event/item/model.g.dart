@@ -8,7 +8,7 @@ part of 'model.dart';
 
 _$FixedCalendarItem _$$FixedCalendarItemFromJson(Map<String, dynamic> json) =>
     _$FixedCalendarItem(
-      id: json['id'] as int? ?? -1,
+      id: json['id'] as int?,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       location: json['location'] as String? ?? '',
@@ -42,7 +42,7 @@ const _$EventStatusEnumMap = {
 _$RepeatingCalendarItem _$$RepeatingCalendarItemFromJson(
         Map<String, dynamic> json) =>
     _$RepeatingCalendarItem(
-      id: json['id'] as int? ?? -1,
+      id: json['id'] as int?,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       location: json['location'] as String? ?? '',
@@ -94,7 +94,7 @@ const _$RepeatTypeEnumMap = {
 
 _$AutoCalendarItem _$$AutoCalendarItemFromJson(Map<String, dynamic> json) =>
     _$AutoCalendarItem(
-      id: json['id'] as int? ?? -1,
+      id: json['id'] as int?,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       location: json['location'] as String? ?? '',
@@ -103,7 +103,7 @@ _$AutoCalendarItem _$$AutoCalendarItemFromJson(Map<String, dynamic> json) =>
           EventStatus.confirmed,
       start: const DateTimeConverter().fromJson(json['start'] as int?),
       end: const DateTimeConverter().fromJson(json['end'] as int?),
-      autoGroupId: json['autoGroupId'] as int? ?? -1,
+      autoGroupId: json['autoGroupId'] as int?,
       searchStart:
           const DateTimeConverter().fromJson(json['searchStart'] as int?),
       autoDuration: json['autoDuration'] as int? ?? 60,

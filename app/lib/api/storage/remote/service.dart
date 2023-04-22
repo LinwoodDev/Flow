@@ -4,6 +4,7 @@ import 'package:flow/api/storage/remote/caldav.dart';
 import 'package:flow/api/storage/remote/model.dart';
 import 'package:flow/api/storage/remote/sia.dart';
 import 'package:flow/models/request.dart';
+import 'package:shared/models/cached.dart';
 import 'package:shared/models/model.dart';
 import 'package:shared/services/database.dart';
 import 'package:shared/services/source.dart';
@@ -77,6 +78,7 @@ abstract class RemoteService<T extends RemoteStorage> extends SourceService {
   final RemoteDatabaseService local;
   final T remoteStorage;
   final String? password;
+  bool _enableRequests = true;
 
   RemoteService(this.remoteStorage, this.local, this.password);
 
@@ -100,5 +102,23 @@ abstract class RemoteService<T extends RemoteStorage> extends SourceService {
             .then((value) => local.request.deleteRequest(request.model.id));
       } catch (_) {}
     }
+  }
+
+  Future<bool> addRequest(APIRequest apiRequest) async {
+    if (!_enableRequests) return false;
+    try {
+      await apiRequest.send();
+      return true;
+    } catch (_) {
+      local.request.createRequest(apiRequest);
+    }
+    return false;
+  }
+
+  @override
+  Future<void> import(CachedData data, [bool clear = true]) async {
+    _enableRequests = false;
+    await super.import(data, clear);
+    _enableRequests = true;
   }
 }

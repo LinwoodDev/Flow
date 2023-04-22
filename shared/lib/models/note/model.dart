@@ -9,7 +9,7 @@ part 'model.g.dart';
 class Note with _$Note {
   @Implements<DescriptiveModel>()
   const factory Note({
-    @Default(-1) int id,
+    int? id,
     int? parentId,
     @Default('') String name,
     @Default('') String description,

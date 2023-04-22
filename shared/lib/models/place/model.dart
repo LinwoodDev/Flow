@@ -9,7 +9,7 @@ part 'model.g.dart';
 class Place with _$Place {
   @Implements<DescriptiveModel>()
   const factory Place({
-    @Default(-1) int id,
+    int? id,
     @Default('') String name,
     @Default('') String description,
     @Default('') String address,

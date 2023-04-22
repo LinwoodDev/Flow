@@ -100,7 +100,7 @@ class _EventsPageState extends State<EventsPage> {
                         await _flowCubit
                             .getService(item.source)
                             .event
-                            ?.deleteEvent(item.model.id);
+                            ?.deleteEvent(item.model.id!);
                         _pagingController.itemList!.remove(item);
                       },
                       background: Container(
@@ -207,7 +207,7 @@ class EventTile extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               Navigator.of(context).pop();
-              await flowCubit.getService(source).event?.deleteEvent(event.id);
+              await flowCubit.getService(source).event?.deleteEvent(event.id!);
               pagingController.itemList!.remove(SourcedModel(
                 source,
                 event,

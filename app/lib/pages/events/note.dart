@@ -45,7 +45,7 @@ class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await widget.connector.getNotes(widget.model.id,
+      final newItems = await widget.connector.getNotes(widget.model.id!,
           offset: pageKey * _pageSize, limit: _pageSize);
       final isLastPage = newItems.length < _pageSize;
       if (isLastPage) {
@@ -79,7 +79,7 @@ class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
                         key: ValueKey(item.id),
                         background: Container(color: Colors.red),
                         onDismissed: (direction) {
-                          _noteService?.deleteNote(item.id);
+                          _noteService?.deleteNote(item.id!);
                           _pagingController.itemList!.remove(item);
                         },
                         child: ListTile(
@@ -141,7 +141,7 @@ class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
                     ),
                   );
                   if (note != null) {
-                    await widget.connector.connect(widget.model.id, note.id);
+                    await widget.connector.connect(widget.model.id!, note.id!);
                   }
                   _pagingController.refresh();
                 },

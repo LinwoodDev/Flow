@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared/converters/ical.dart';
 import 'package:shared/models/cached.dart';
+import 'package:shared/models/event/database.dart';
 import 'package:shared/models/event/item/database.dart';
 import 'package:shared/models/event/item/model.dart';
 import 'package:xml/xml.dart';
@@ -62,28 +63,21 @@ class CalDavRemoteService extends RemoteService<CalDavStorage> {
     if (converter.data != null) import(converter.data!);
   }
 
-  Future<bool> addRequest(APIRequest apiRequest) async {
-    try {
-      await apiRequest.send();
-      return true;
-    } catch (_) {
-      local.request.createRequest(apiRequest);
-    }
-    return false;
-  }
-
   @override
   late final CalendarItemCalDavRemoteService calendarItem;
+  @override
+  EventDatabaseService get event => local.event;
 }
 
-class CalendarItemCalDavRemoteService extends CalendarItemDatabaseService {
+class CalendarItemCalDavRemoteService
+    extends CalendarItemDatabaseServiceLinker {
   final CalDavRemoteService remote;
-
-  CalendarItemCalDavRemoteService(this.remote);
+  CalendarItemCalDavRemoteService(this.remote)
+      : super(remote.local.calendarItem);
 
   @override
-  Future<CalendarItem?> createCalendarItem(CalendarItem item) {
-    remote.addRequest(
+  Future<CalendarItem?> createCalendarItem(CalendarItem item) async {
+    await remote.addRequest(
       APIRequest(
         method: 'PUT',
         authority: remote.remoteStorage.url,
@@ -91,18 +85,18 @@ class CalendarItemCalDavRemoteService extends CalendarItemDatabaseService {
         path: '',
       ),
     );
-    return super.createCalendarItem(item);
+    return await super.createCalendarItem(item);
   }
 
   @override
-  Future<bool> deleteCalendarItem(int id) {
-    remote.addRequest(
+  Future<bool> deleteCalendarItem(int id) async {
+    await remote.addRequest(
       APIRequest(
         method: 'DELETE',
         authority: remote.remoteStorage.url,
         path: '',
       ),
     );
-    return super.deleteCalendarItem(id);
+    return await super.deleteCalendarItem(id);
   }
 }

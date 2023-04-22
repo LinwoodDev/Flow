@@ -137,15 +137,16 @@ class __$$_CachedDataCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_CachedData implements _CachedData {
-  _$_CachedData(
+class _$_CachedData extends _CachedData {
+  const _$_CachedData(
       {this.lastUpdated,
       final List<Event> events = const [],
       final List<CalendarItem> items = const [],
       final List<Note> notes = const []})
       : _events = events,
         _items = items,
-        _notes = notes;
+        _notes = notes,
+        super._();
 
   factory _$_CachedData.fromJson(Map<String, dynamic> json) =>
       _$$_CachedDataFromJson(json);
@@ -219,12 +220,13 @@ class _$_CachedData implements _CachedData {
   }
 }
 
-abstract class _CachedData implements CachedData {
-  factory _CachedData(
+abstract class _CachedData extends CachedData {
+  const factory _CachedData(
       {final DateTime? lastUpdated,
       final List<Event> events,
       final List<CalendarItem> items,
       final List<Note> notes}) = _$_CachedData;
+  const _CachedData._() : super._();
 
   factory _CachedData.fromJson(Map<String, dynamic> json) =
       _$_CachedData.fromJson;

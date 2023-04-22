@@ -7,7 +7,7 @@ part of 'model.dart';
 // **************************************************************************
 
 _$_Place _$$_PlaceFromJson(Map<String, dynamic> json) => _$_Place(
-      id: json['id'] as int? ?? -1,
+      id: json['id'] as int?,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       address: json['address'] as String? ?? '',

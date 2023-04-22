@@ -79,7 +79,7 @@ class _PlacesPageState extends State<PlacesPage> {
                   await _flowCubit
                       .getService(item.source)
                       .place
-                      ?.deletePlace(item.model.id);
+                      ?.deletePlace(item.model.id!);
                   _pagingController.itemList!.remove(item);
                 },
                 background: Container(
@@ -173,7 +173,7 @@ class PlaceTile extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               Navigator.of(context).pop();
-              await flowCubit.getService(source).place?.deletePlace(place.id);
+              await flowCubit.getService(source).place?.deletePlace(place.id!);
               pagingController.itemList!.remove(SourcedModel(
                 source,
                 place,

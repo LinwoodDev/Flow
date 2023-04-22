@@ -158,7 +158,7 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
                   await _flowCubit
                       .getService(item.source)
                       .group
-                      ?.deleteGroup(item.model.id);
+                      ?.deleteGroup(item.model.id!);
                   _controller.itemList!.remove(item);
                 },
                 background: Container(

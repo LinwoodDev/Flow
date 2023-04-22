@@ -20,7 +20,7 @@ Event _$EventFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Event {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   int? get parentId => throw _privateConstructorUsedError;
   int? get groupId => throw _privateConstructorUsedError;
   int? get placeId => throw _privateConstructorUsedError;
@@ -40,7 +40,7 @@ abstract class $EventCopyWith<$Res> {
       _$EventCopyWithImpl<$Res, Event>;
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       int? parentId,
       int? groupId,
       int? placeId,
@@ -63,7 +63,7 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? parentId = freezed,
     Object? groupId = freezed,
     Object? placeId = freezed,
@@ -73,10 +73,10 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
     Object? location = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
@@ -116,7 +116,7 @@ abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       int? parentId,
       int? groupId,
       int? placeId,
@@ -135,7 +135,7 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? parentId = freezed,
     Object? groupId = freezed,
     Object? placeId = freezed,
@@ -145,10 +145,10 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
     Object? location = null,
   }) {
     return _then(_$_Event(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
@@ -185,7 +185,7 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
 @JsonSerializable()
 class _$_Event extends _Event {
   const _$_Event(
-      {this.id = -1,
+      {this.id,
       this.parentId,
       this.groupId,
       this.placeId,
@@ -199,8 +199,7 @@ class _$_Event extends _Event {
       _$$_EventFromJson(json);
 
   @override
-  @JsonKey()
-  final int id;
+  final int? id;
   @override
   final int? parentId;
   @override
@@ -264,7 +263,7 @@ class _$_Event extends _Event {
 
 abstract class _Event extends Event implements DescriptiveModel {
   const factory _Event(
-      {final int id,
+      {final int? id,
       final int? parentId,
       final int? groupId,
       final int? placeId,
@@ -277,7 +276,7 @@ abstract class _Event extends Event implements DescriptiveModel {
   factory _Event.fromJson(Map<String, dynamic> json) = _$_Event.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   int? get parentId;
   @override

@@ -90,7 +90,7 @@ class CalendarListTile extends StatelessWidget {
       trailing: FutureBuilder<bool?>(
         future: Future.value(eventItem.sub == null
             ? null
-            : service.calendarItemNote?.notesDone(eventItem.sub!.id)),
+            : service.calendarItemNote?.notesDone(eventItem.sub!.id!)),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Icon(

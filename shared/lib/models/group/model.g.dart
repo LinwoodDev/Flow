@@ -7,7 +7,7 @@ part of 'model.dart';
 // **************************************************************************
 
 _$_Group _$$_GroupFromJson(Map<String, dynamic> json) => _$_Group(
-      id: json['id'] as int? ?? -1,
+      id: json['id'] as int?,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       parentId: json['parentId'] as int?,

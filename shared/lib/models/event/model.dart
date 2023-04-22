@@ -11,7 +11,7 @@ class Event with _$Event {
 
   @Implements<DescriptiveModel>()
   const factory Event({
-    @Default(-1) int id,
+    int? id,
     int? parentId,
     int? groupId,
     int? placeId,

@@ -16,8 +16,8 @@ class ICalConverter {
     }
     CalendarItem? currentItem;
     Note? currentNote;
-    final appointments = List<CalendarItem>.from(data?.items ?? []);
-    var currentEvent = Event(name: name);
+    final items = List<CalendarItem>.from(data?.items ?? []);
+    var currentEvent = Event(name: name, id: 1);
     final notes = List<Note>.from(data?.notes ?? []);
     for (int i = offset; i < lines.length; i++) {
       final line = lines[i];
@@ -43,7 +43,7 @@ class ICalConverter {
             break;
           case 'END':
             if (value != 'VEVENT') break;
-            appointments.add(currentItem);
+            items.add(currentItem);
             currentItem = null;
             break;
         }
@@ -67,7 +67,7 @@ class ICalConverter {
           case 'BEGIN':
             if (value == 'VEVENT') {
               currentItem = CalendarItem.fixed(
-                id: appointments.length + 1,
+                id: items.length + 1,
                 eventId: currentEvent.id,
               );
             } else if (value == 'VTODO') {
@@ -76,10 +76,16 @@ class ICalConverter {
             continue;
           case 'END':
             if (value == 'VCALENDAR') {
-              data = CachedData(
+              var current = CachedData(
                 events: [currentEvent],
+                items: items,
                 notes: notes,
               );
+              if (data == null) {
+                data = current;
+              } else {
+                data = data!.concat(current);
+              }
               return;
             }
             continue;

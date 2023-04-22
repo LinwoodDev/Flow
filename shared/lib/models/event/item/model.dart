@@ -14,7 +14,7 @@ class CalendarItem with _$CalendarItem, DescriptiveModel {
   const CalendarItem._();
 
   const factory CalendarItem.fixed({
-    @Default(-1) int id,
+    int? id,
     @Default('') String name,
     @Default('') String description,
     @Default('') String location,
@@ -25,7 +25,7 @@ class CalendarItem with _$CalendarItem, DescriptiveModel {
   }) = FixedCalendarItem;
 
   const factory CalendarItem.repeating({
-    @Default(-1) int id,
+    int? id,
     @Default('') String name,
     @Default('') String description,
     @Default('') String location,
@@ -42,7 +42,7 @@ class CalendarItem with _$CalendarItem, DescriptiveModel {
   }) = RepeatingCalendarItem;
 
   const factory CalendarItem.auto({
-    @Default(-1) int id,
+    int? id,
     @Default('') String name,
     @Default('') String description,
     @Default('') String location,
@@ -50,7 +50,7 @@ class CalendarItem with _$CalendarItem, DescriptiveModel {
     @Default(EventStatus.confirmed) EventStatus status,
     @DateTimeConverter() DateTime? start,
     @DateTimeConverter() DateTime? end,
-    @Default(-1) int autoGroupId,
+    int? autoGroupId,
     @DateTimeConverter() DateTime? searchStart,
     @Default(60) int autoDuration,
   }) = AutoCalendarItem;

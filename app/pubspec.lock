@@ -301,10 +301,10 @@ packages:
     dependency: "direct main"
     description:
       name: flex_color_scheme
-      sha256: "897b099b66d780c82536ab89e314b06a15914112512e6c9370847c366a2ee3ec"
+      sha256: "1a54a5b22a4a7c4e5c30a8cabb12a8cf3c3f477c15e1ab2e1ab2f569295f4fab"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.3"
+    version: "7.0.4"
   flex_seed_scheme:
     dependency: transitive
     description:
