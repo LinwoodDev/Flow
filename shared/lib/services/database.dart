@@ -35,7 +35,6 @@ class DatabaseService extends SourceService {
   late final CalendarItemNoteDatabaseConnector calendarItemNote;
   @override
   late final GroupDatabaseService group;
-
   @override
   late final UserDatabaseService user;
   @override

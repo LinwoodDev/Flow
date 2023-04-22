@@ -64,10 +64,10 @@ class SourcesService {
   }
 
   Future<void> _connectRemote(RemoteStorage storage, String? password) async {
-    final db = DatabaseService(openDatabase);
+    final db = RemoteDatabaseService(openDatabase);
     await db.setup(storage.toFilename());
 
-    remotes.add(RemoteService.fromStorage(storage, db, password));
+    remotes.add(RemoteService.fromStorage(db, storage, password));
   }
 
   Future<void> addRemote(RemoteStorage remoteStorage, String password) async {

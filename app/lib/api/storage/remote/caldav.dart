@@ -2,24 +2,18 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:shared/models/user/service.dart';
-import 'package:shared/models/place/service.dart';
-import 'package:shared/models/group/service.dart';
 import 'package:shared/converters/ical.dart';
+import 'package:shared/models/cached.dart';
+import 'package:shared/models/event/item/database.dart';
+import 'package:shared/models/event/item/model.dart';
 import 'package:xml/xml.dart';
 
+import '../../../models/request.dart';
 import 'model.dart';
 import 'service.dart';
 
 class CalDavRemoteService extends RemoteService<CalDavStorage> {
   CalDavRemoteService(super.remoteStorage, super.local, super.password);
-
-  @override
-  PlaceService? get place => null;
-  @override
-  GroupService? get group => null;
-  @override
-  UserService? get user => null;
 
   @override
   Future<void> sync() async {
@@ -63,5 +57,34 @@ class CalDavRemoteService extends RemoteService<CalDavStorage> {
       converter.read(text.split('\n'), remoteStorage.identifier);
     }
     if (converter.data != null) import(converter.data!);
+  }
+
+  Future<bool> addRequest(APIRequest apiRequest) async {
+    try {
+      await apiRequest.send();
+      return true;
+    } catch (_) {
+      local.request.createRequest(apiRequest);
+    }
+    return false;
+  }
+}
+
+class CalendarItemCalDavRemoteService extends CalendarItemDatabaseService {
+  final CalDavRemoteService remote;
+
+  CalendarItemCalDavRemoteService(this.remote);
+
+  @override
+  Future<CalendarItem?> createCalendarItem(CalendarItem item) {
+    remote.addRequest(
+      APIRequest(
+        method: 'PUT',
+        authority: remote.remoteStorage.url,
+        body: ICalConverter(CachedData(items: [item])).write().join('\n'),
+        path: '',
+      ),
+    );
+    return super.createCalendarItem(item);
   }
 }

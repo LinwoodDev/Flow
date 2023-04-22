@@ -6,6 +6,8 @@ import 'package:shared/models/note/model.dart';
 class ICalConverter {
   CachedData? data;
 
+  ICalConverter([this.data]);
+
   void read(List<String> lines, [String name = '']) {
     final offset =
         lines.indexWhere((element) => element.trim() == 'BEGIN:VCALENDAR');
@@ -86,27 +88,28 @@ class ICalConverter {
     }
   }
 
+  List<String> writeEvent(CalendarItem item) => [
+        'BEGIN:VEVENT',
+        'SUMMARY:${item.name}',
+        'DESCRIPTION:${item.description}',
+        if (item.start != null)
+          'DTSTART:${item.start!.toUtc().toIso8601String()}',
+        if (item.end != null) 'DTEND:${item.end!.toUtc().toIso8601String()}',
+        'END:VEVENT',
+      ];
+
+  List<String> writeNote(Note note) => [
+        'BEGIN:VTODO',
+        'SUMMARY:${note.name}',
+        'END:VTODO',
+      ];
+
   List<String> write() {
     final lines = <String>[];
     lines.add('BEGIN:VCALENDAR');
     lines.add('VERSION:2.0');
-    for (final item in data?.items ?? <CalendarItem>[]) {
-      lines.add('BEGIN:VEVENT');
-      lines.add('SUMMARY:${item.name}');
-      lines.add('DESCRIPTION:${item.description}');
-      if (item.start != null) {
-        lines.add('DTSTART:${item.start!.toUtc().toIso8601String()}');
-      }
-      if (item.end != null) {
-        lines.add('DTEND:${item.end!.toUtc().toIso8601String()}');
-      }
-      lines.add('END:VEVENT');
-    }
-    for (final note in data?.notes ?? []) {
-      lines.add('BEGIN:VTODO');
-      lines.add('SUMMARY:${note.name}');
-      lines.add('END:VTODO');
-    }
+    lines.addAll(data?.items.expand(writeEvent) ?? []);
+    lines.addAll(data?.notes.expand(writeNote) ?? []);
     lines.add('END:VCALENDAR');
     return lines;
   }
