@@ -1,82 +1,78 @@
 {
   "Getting started": {
-    "message": "Erste Schritte",
+    "message": "Getting started",
     "description": "homepage getting started button"
   },
   "Download for Windows": {
-    "message": "Download für Windows",
+    "message": "Download for Windows",
     "description": "homepage windows button"
   },
   "Download for Linux": {
-    "message": "Download für Linux",
+    "message": "Download for Linux",
     "description": "homepage linux button"
   },
   "Download for Android": {
-    "message": "Für Android herunterladen",
+    "message": "Download for Android",
     "description": "homepage android button"
   },
   "Open the web app": {
-    "message": "Web-App öffnen",
+    "message": "Open the web app",
     "description": "homepage web button"
   },
   "Downloads": {
     "message": "Downloads",
     "description": "homepage downloads button"
   },
-  "Cross platform": {
-    "message": "Plattformübergreifend",
-    "description": "Features cross-platform title"
+  "Time management": {
+    "message": "Time management",
+    "description": "Features Time management title"
   },
-  "You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.": {
-    "message": "Sie können die App auf Ihrem Smartphone, Tablet, Laptop oder Desktop verwenden. Die App ist unter Linux, Android und Windows verfügbar. Sie können die App auch im Web verwenden.",
-    "description": "Features cross-platform description"
+  "Manage the time efficiency and automate it.": {
+    "message": "Manage the time efficiency and automate it.",
+    "description": "Features Time management description"
   },
-  "Simple and intuitive": {
-    "message": "Einfach und intuitiv",
-    "description": "Features simple title"
+  "Event management": {
+    "message": "Event management",
+    "description": "Features Event management title"
   },
-  "Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.": {
-    "message": "Jedes Werkzeug ist an der richtigen Stelle. Öffnen Sie die App und beginnen Sie mit der Zeichnung. Ändern Sie Ihre Werkzeuge, indem Sie darauf klicken.",
-    "description": "Features simple description"
+  "Schedule events, assign users to it and give tasks to them": {
+    "message": "Schedule events, assign users to it and give tasks to them",
+    "description": "Features Event management description"
   },
-  "Customizable": {
-    "message": "Anpassbar",
-    "description": "Features customizable title"
+  "Your data": {
+    "message": "Your data",
+    "description": "Features Your data title"
   },
-  "Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.": {
-    "message": "Wählen Sie Ihre individuelle Farbe, erstellen Sie eine Palette und fügen Sie Ihre Seiten dem Papier hinzu. Das Papier hat eine unendliche Größe, perfekt für Ihre Ideen und Noten.",
-    "description": "Features customizable description"
+  "Everyone can create their own server and have your data on it.": {
+    "message": "Everyone can create their own server and have your data on it.",
+    "description": "Features Your data description"
   },
-  "Choose where your data is stored": {
-    "message": "Wählen Sie aus, wo Ihre Daten gespeichert sind",
-    "description": "Features local title"
+  "Open source": {
+    "message": "Open source",
+    "description": "Features Open source title"
   },
-  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
-    "message": "Sie können Ihre Daten lokal oder in Ihrer bevorzugten Cloud (webdav) speichern. Sie können Ihre Daten auch in eine Datei exportieren und sie erneut importieren.",
-    "description": "Features local description"
+  "The app and the server are all open source. Everyone can contribute!": {
+    "message": "The app and the server are all open source. Everyone can contribute!",
+    "description": "Features Open source description"
   },
   "theme.ErrorPageContent.title": {
-    "message": "Diese Seite ist abgestürzt.",
+    "message": "This page crashed.",
     "description": "The title of the fallback page when the page crashed"
   },
-  "theme.ErrorPageContent.tryAgain": {
-    "message": "Erneut versuchen",
-    "description": "The label of the button to try again when the page crashed"
-  },
   "theme.NotFound.title": {
-    "message": "Seite nicht gefunden",
+    "message": "Page Not Found",
     "description": "The title of the 404 page"
   },
   "theme.NotFound.p1": {
-    "message": "Wir konnten nicht finden, was Sie suchten.",
+    "message": "We could not find what you were looking for.",
     "description": "The first paragraph of the 404 page"
   },
   "theme.NotFound.p2": {
-    "message": "Bitte wenden Sie sich an den Besitzer der Website, die Sie mit der ursprünglichen URL verlinkt und lassen Sie sie wissen, dass der Link defekt ist.",
+    "message": "Please contact the owner of the site that linked you to the original URL and let them know their link is broken.",
     "description": "The 2nd paragraph of the 404 page"
   },
   "theme.admonition.note": {
-    "message": "notiz",
+    "message": "note",
     "description": "The default label used for the Note admonition (:::note)"
   },
   "theme.admonition.tip": {
@@ -84,7 +80,7 @@
     "description": "The default label used for the Tip admonition (:::tip)"
   },
   "theme.admonition.danger": {
-    "message": "gefahr",
+    "message": "danger",
     "description": "The default label used for the Danger admonition (:::danger)"
   },
   "theme.admonition.info": {
@@ -92,67 +88,67 @@
     "description": "The default label used for the Info admonition (:::info)"
   },
   "theme.admonition.caution": {
-    "message": "Vorsicht",
+    "message": "caution",
     "description": "The default label used for the Caution admonition (:::caution)"
   },
   "theme.blog.archive.title": {
-    "message": "Archivieren",
+    "message": "Archive",
     "description": "The page & hero title of the blog archive page"
   },
   "theme.blog.archive.description": {
-    "message": "Archivieren",
+    "message": "Archive",
     "description": "The page & hero description of the blog archive page"
   },
   "theme.BackToTopButton.buttonAriaLabel": {
-    "message": "Zurück nach oben scrollen",
+    "message": "Scroll back to top",
     "description": "The ARIA label for the back to top button"
   },
   "theme.blog.paginator.navAriaLabel": {
-    "message": "Navigation der Blog-Liste",
+    "message": "Blog list page navigation",
     "description": "The ARIA label for the blog pagination"
   },
   "theme.blog.paginator.newerEntries": {
-    "message": "Neuere Einträge",
+    "message": "Newer Entries",
     "description": "The label used to navigate to the newer blog posts page (previous page)"
   },
   "theme.blog.paginator.olderEntries": {
-    "message": "Ältere Einträge",
+    "message": "Older Entries",
     "description": "The label used to navigate to the older blog posts page (next page)"
   },
   "theme.blog.post.paginator.navAriaLabel": {
-    "message": "Blog-Beitragsseiten-Navigation",
+    "message": "Blog post page navigation",
     "description": "The ARIA label for the blog posts pagination"
   },
   "theme.blog.post.paginator.newerPost": {
-    "message": "Neuerer Beitrag",
+    "message": "Newer Post",
     "description": "The blog post button label to navigate to the newer/previous post"
   },
   "theme.blog.post.paginator.olderPost": {
-    "message": "Älterer Beitrag",
+    "message": "Older Post",
     "description": "The blog post button label to navigate to the older/next post"
   },
   "theme.blog.post.plurals": {
-    "message": "Ein Beitrag|{count} Beiträge",
+    "message": "One post|{count} posts",
     "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
   "theme.blog.tagTitle": {
-    "message": "{nPosts} markiert mit \"{tagName}\"",
+    "message": "{nPosts} tagged with \"{tagName}\"",
     "description": "The title of the page for a blog tag"
   },
   "theme.tags.tagsPageLink": {
-    "message": "Alle Tags anzeigen",
+    "message": "View All Tags",
     "description": "The label of the link targeting the tag list page"
   },
   "theme.colorToggle.ariaLabel": {
-    "message": "Zwischen Dunkel- und Lichtmodus wechseln (derzeit {mode})",
+    "message": "Switch between dark and light mode (currently {mode})",
     "description": "The ARIA label for the navbar color mode toggle"
   },
   "theme.colorToggle.ariaLabel.mode.dark": {
-    "message": "dunkler Modus",
+    "message": "dark mode",
     "description": "The name for the dark color mode"
   },
   "theme.colorToggle.ariaLabel.mode.light": {
-    "message": "lichtmodus",
+    "message": "light mode",
     "description": "The name for the light color mode"
   },
   "theme.docs.breadcrumbs.navAriaLabel": {
@@ -160,70 +156,70 @@
     "description": "The ARIA label for the breadcrumbs"
   },
   "theme.docs.DocCard.categoryDescription": {
-    "message": "{count} Elemente",
+    "message": "{count} items",
     "description": "The default description for a category card in the generated index about how many items this category includes"
   },
   "theme.docs.paginator.navAriaLabel": {
-    "message": "Navigation der Docs-Seiten",
+    "message": "Docs pages navigation",
     "description": "The ARIA label for the docs pagination"
   },
   "theme.docs.paginator.previous": {
-    "message": "Vorherige",
+    "message": "Previous",
     "description": "The label used to navigate to the previous doc"
   },
   "theme.docs.paginator.next": {
-    "message": "Nächste",
+    "message": "Next",
     "description": "The label used to navigate to the next doc"
   },
   "theme.docs.tagDocListPageTitle.nDocsTagged": {
-    "message": "Ein Doc tagged|{count} docs tagged",
+    "message": "One doc tagged|{count} docs tagged",
     "description": "Pluralized label for \"{count} docs tagged\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
   "theme.docs.tagDocListPageTitle": {
-    "message": "{nDocsTagged} mit \"{tagName}\"",
+    "message": "{nDocsTagged} with \"{tagName}\"",
     "description": "The title of the page for a docs tag"
   },
   "theme.docs.versionBadge.label": {
     "message": "Version: {versionLabel}"
   },
   "theme.docs.versions.unreleasedVersionLabel": {
-    "message": "Dies ist eine unveröffentlichte Dokumentation für die Version {siteTitle} {versionLabel}.",
+    "message": "This is unreleased documentation for {siteTitle} {versionLabel} version.",
     "description": "The label used to tell the user that he's browsing an unreleased doc version"
   },
   "theme.docs.versions.unmaintainedVersionLabel": {
-    "message": "Dies ist eine Dokumentation für {siteTitle} {versionLabel}, die nicht mehr aktiv gewartet wird.",
+    "message": "This is documentation for {siteTitle} {versionLabel}, which is no longer actively maintained.",
     "description": "The label used to tell the user that he's browsing an unmaintained doc version"
   },
   "theme.docs.versions.latestVersionSuggestionLabel": {
-    "message": "Aktuelle Dokumentation finden Sie im {latestVersionLink} ({versionLabel}).",
+    "message": "For up-to-date documentation, see the {latestVersionLink} ({versionLabel}).",
     "description": "The label used to tell the user to check the latest version"
   },
   "theme.docs.versions.latestVersionLinkLabel": {
-    "message": "neueste Version",
+    "message": "latest version",
     "description": "The label used for the latest version suggestion link label"
   },
   "theme.common.editThisPage": {
-    "message": "Diese Seite bearbeiten",
+    "message": "Edit this page",
     "description": "The link label to edit the current page"
   },
   "theme.common.headingLinkTitle": {
-    "message": "Direkter Link zu {heading}",
+    "message": "Direct link to {heading}",
     "description": "Title for link to heading"
   },
   "theme.lastUpdated.atDate": {
-    "message": " am {date}",
+    "message": " on {date}",
     "description": "The words used to describe on which date a page has been last updated"
   },
   "theme.lastUpdated.byUser": {
-    "message": " von {user}",
+    "message": " by {user}",
     "description": "The words used to describe by who the page has been last updated"
   },
   "theme.lastUpdated.lastUpdatedAtBy": {
-    "message": "Zuletzt aktualisiert{atDate}{byUser}",
+    "message": "Last updated{atDate}{byUser}",
     "description": "The sentence used to display when a page has been last updated, and by who"
   },
   "theme.navbar.mobileVersionsDropdown.label": {
-    "message": "Versionen",
+    "message": "Versions",
     "description": "The label for the navbar versions dropdown on mobile view"
   },
   "theme.tags.tagsListLabel": {
@@ -231,67 +227,67 @@
     "description": "The label alongside a tag list"
   },
   "theme.AnnouncementBar.closeButtonAriaLabel": {
-    "message": "Schließen",
+    "message": "Close",
     "description": "The ARIA label for close button of announcement bar"
   },
   "theme.blog.sidebar.navAriaLabel": {
-    "message": "Aktuelle Blog-Beitragsnavigation",
+    "message": "Blog recent posts navigation",
     "description": "The ARIA label for recent posts in the blog sidebar"
   },
   "theme.CodeBlock.copied": {
-    "message": "Kopiert",
+    "message": "Copied",
     "description": "The copied button label on code blocks"
   },
   "theme.CodeBlock.copyButtonAriaLabel": {
-    "message": "Code in Zwischenablage kopieren",
+    "message": "Copy code to clipboard",
     "description": "The ARIA label for copy code blocks button"
   },
   "theme.CodeBlock.copy": {
-    "message": "Kopieren",
+    "message": "Copy",
     "description": "The copy button label on code blocks"
   },
   "theme.CodeBlock.wordWrapToggle": {
-    "message": "Wortumbruch umschalten",
+    "message": "Toggle word wrap",
     "description": "The title attribute for toggle word wrapping button of code block lines"
   },
   "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
-    "message": "Umschalten der einklappbaren Seitenleistenkategorie '{label}'",
+    "message": "Toggle the collapsible sidebar category '{label}'",
     "description": "The ARIA label to toggle the collapsible sidebar category"
   },
   "theme.NavBar.navAriaLabel": {
-    "message": "Haupt",
+    "message": "Main",
     "description": "The ARIA label for the main navigation"
   },
   "theme.navbar.mobileLanguageDropdown.label": {
-    "message": "Sprachen",
+    "message": "Languages",
     "description": "The label for the mobile language switcher dropdown"
   },
   "theme.TOCCollapsible.toggleButtonLabel": {
-    "message": "Auf dieser Seite",
+    "message": "On this page",
     "description": "The label used by the button on the collapsible TOC component"
   },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "One min read|{readingTime} min read",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
   "theme.blog.post.readMore": {
-    "message": "Lesen Sie mehr",
+    "message": "Read More",
     "description": "The label used in blog post item excerpts to link to full blog posts"
   },
   "theme.blog.post.readMoreLabel": {
-    "message": "Lesen Sie mehr über {title}",
+    "message": "Read more about {title}",
     "description": "The ARIA label for the link to full blog posts from excerpts"
   },
-  "theme.blog.post.readingTime.plurals": {
-    "message": "1 Min. gelesen|{readingTime} Min. gelesen",
-    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
-  },
   "theme.docs.breadcrumbs.home": {
-    "message": "Startseite",
+    "message": "Home page",
     "description": "The ARIA label for the home page in the breadcrumbs"
   },
   "theme.docs.sidebar.collapseButtonTitle": {
-    "message": "Seitenleiste einklappen",
+    "message": "Collapse sidebar",
     "description": "The title attribute for collapse button of doc sidebar"
   },
   "theme.docs.sidebar.collapseButtonAriaLabel": {
-    "message": "Seitenleiste einklappen",
+    "message": "Collapse sidebar",
     "description": "The title attribute for collapse button of doc sidebar"
   },
   "theme.docs.sidebar.navAriaLabel": {
@@ -299,15 +295,15 @@
     "description": "The ARIA label for the sidebar navigation"
   },
   "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
-    "message": "Navigationsleiste schließen",
+    "message": "Close navigation bar",
     "description": "The ARIA label for close button of mobile sidebar"
   },
   "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
-    "message": "← Zurück zum Hauptmenü",
+    "message": "← Back to main menu",
     "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
   },
   "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
-    "message": "Navigationsleiste umschalten",
+    "message": "Toggle navigation bar",
     "description": "The ARIA label for hamburger menu button of mobile navigation"
   },
   "theme.docs.sidebar.expandButtonTitle": {
@@ -319,19 +315,23 @@
     "description": "The ARIA label and title attribute for expand button of doc sidebar"
   },
   "theme.PwaReloadPopup.info": {
-    "message": "Neue Version verfügbar",
+    "message": "New version available",
     "description": "The text for PWA reload popup"
   },
   "theme.PwaReloadPopup.refreshButtonText": {
-    "message": "Aktualisieren",
+    "message": "Refresh",
     "description": "The text for PWA reload button"
   },
   "theme.PwaReloadPopup.closeButtonAriaLabel": {
-    "message": "Schließen",
+    "message": "Close",
     "description": "The ARIA label for close button of PWA reload popup"
   },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Try again",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
+  },
   "theme.common.skipToMainContent": {
-    "message": "Zum Hauptinhalt springen",
+    "message": "Skip to main content",
     "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
   },
   "theme.tags.tagsPageTitle": {
