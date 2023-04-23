@@ -1,30 +1,34 @@
 {
   "title": {
-    "message": "التدفق",
+    "message": "Flow",
     "description": "The title in the navbar"
   },
+  "logo.alt": {
+    "message": "Flow Logo",
+    "description": "The alt text of navbar logo"
+  },
   "item.label.Tutorial": {
-    "message": "البرنامج التعليمي",
+    "message": "Tutorial",
     "description": "Navbar item with label Tutorial"
   },
   "item.label.Downloads": {
-    "message": "التنزيلات",
+    "message": "Downloads",
     "description": "Navbar item with label Downloads"
   },
   "item.label.Community": {
-    "message": "المجتمع",
+    "message": "Community",
     "description": "Navbar item with label Community"
   },
   "item.label.More": {
-    "message": "المزيد",
+    "message": "More",
     "description": "Navbar item with label More"
   },
   "item.label.Matrix": {
-    "message": "مصفوفة",
+    "message": "Matrix",
     "description": "Navbar item with label Matrix"
   },
   "item.label.Discord": {
-    "message": "ديسكورد",
+    "message": "Discord",
     "description": "Navbar item with label Discord"
   },
   "item.label.GitHub": {
@@ -32,23 +36,23 @@
     "description": "Navbar item with label GitHub"
   },
   "item.label.Blog": {
-    "message": "المدونة",
+    "message": "Blog",
     "description": "Navbar item with label Blog"
   },
   "item.label.Crowdin": {
-    "message": "كرودن",
+    "message": "Crowdin",
     "description": "Navbar item with label Crowdin"
   },
   "item.label.Twitter": {
-    "message": "تويتر",
+    "message": "Twitter",
     "description": "Navbar item with label Twitter"
   },
-  "item.label.Mastodon": {
-    "message": "Mastodon",
-    "description": "Navbar item with label Mastodon"
+  "item.label.Masnoten": {
+    "message": "Masnoten",
+    "description": "Navbar item with label Masnoten"
   },
   "item.label.License": {
-    "message": "الترخيص",
+    "message": "License",
     "description": "Navbar item with label License"
   }
 }
