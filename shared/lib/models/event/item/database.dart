@@ -18,11 +18,11 @@ class CalendarItemDatabaseService extends CalendarItemService
     await db.execute("""
       CREATE TABLE IF NOT EXISTS calendarItems (
         runtimeType VARCHAR(20) NOT NULL DEFAULT 'fixed',
-        id INTEGER PRIMARY KEY,
+        id VARCHAR(100) PRIMARY KEY,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT NOT NULL DEFAULT '',
         location VARCHAR(100) NOT NULL DEFAULT '',
-        eventId INTEGER,
+        eventId VARCHAR(100),
         start INTEGER,
         end INTEGER,
         status VARCHAR(20) NOT NULL DEFAULT 'confirmed',
@@ -32,7 +32,7 @@ class CalendarItemDatabaseService extends CalendarItemService
         count INTEGER NOT NULL DEFAULT 0,
         until INTEGER,
         exceptions TEXT,
-        autoGroupId INTEGER,
+        autoGroupId VARCHAR(100),
         searchStart INTEGER,
         autoDuration INTEGER NOT NULL DEFAULT 60,
         FOREIGN KEY (eventId) REFERENCES events(id) ON DELETE CASCADE
@@ -165,8 +165,7 @@ class CalendarItemDatabaseService extends CalendarItemService
 
   @override
   Future<CalendarItem?> createCalendarItem(CalendarItem item) async {
-    final id =
-        await db?.insert('calendarItems', item.toDatabase()..remove('id'));
+    final id = await db?.insert('calendarItems', item.toDatabase());
     if (id == null) return null;
     return item.copyWith(id: id.toString());
   }
@@ -183,7 +182,7 @@ class CalendarItemDatabaseService extends CalendarItemService
   }
 
   @override
-  Future<bool> deleteCalendarItem(int id) async {
+  Future<bool> deleteCalendarItem(String id) async {
     return await db?.delete(
           'calendarItems',
           where: 'id = ?',
@@ -193,7 +192,7 @@ class CalendarItemDatabaseService extends CalendarItemService
   }
 
   @override
-  FutureOr<CalendarItem?> getCalendarItem(int id) async {
+  FutureOr<CalendarItem?> getCalendarItem(String id) async {
     final result = await db?.query(
       'calendarItems',
       where: 'id = ?',
@@ -215,7 +214,7 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
   CalendarItemDatabaseServiceLinker(this.service);
 
   @override
-  FutureOr<CalendarItem?> getCalendarItem(int id) =>
+  FutureOr<CalendarItem?> getCalendarItem(String id) =>
       service.getCalendarItem(id);
 
   @override
@@ -255,7 +254,8 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
       service.updateCalendarItem(item);
 
   @override
-  FutureOr<bool> deleteCalendarItem(int id) => service.deleteCalendarItem(id);
+  FutureOr<bool> deleteCalendarItem(String id) =>
+      service.deleteCalendarItem(id);
 
   @override
   FutureOr<void> clear() => service.clear();

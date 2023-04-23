@@ -6,7 +6,7 @@ import '../model.dart';
 import 'model.dart';
 
 abstract class CalendarItemService extends ModelService {
-  FutureOr<CalendarItem?> getCalendarItem(int id);
+  FutureOr<CalendarItem?> getCalendarItem(String id);
   FutureOr<List<ConnectedModel<CalendarItem, Event?>>> getCalendarItems({
     List<EventStatus>? status,
     String? eventId,
@@ -25,5 +25,5 @@ abstract class CalendarItemService extends ModelService {
 
   FutureOr<bool> updateCalendarItem(CalendarItem item);
 
-  FutureOr<bool> deleteCalendarItem(int id);
+  FutureOr<bool> deleteCalendarItem(String id);
 }

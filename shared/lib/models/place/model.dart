@@ -21,11 +21,9 @@ class Place with _$Place {
 
   factory Place.fromDatabase(Map<String, dynamic> row) => Place.fromJson({
         ...row,
-        'id': row['id']?.toString(),
       });
 
   Map<String, dynamic> toDatabase() => {
         ...toJson(),
-        'id': int.tryParse(id ?? ''),
       };
 }

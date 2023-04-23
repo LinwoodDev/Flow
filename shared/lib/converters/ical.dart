@@ -8,7 +8,7 @@ class ICalConverter {
 
   ICalConverter([this.data]);
 
-  void read(List<String> lines, [String name = '']) {
+  void read(List<String> lines, [String name = '', String? id]) {
     final offset =
         lines.indexWhere((element) => element.trim() == 'BEGIN:VCALENDAR');
     if (offset == -1) {
@@ -17,7 +17,7 @@ class ICalConverter {
     CalendarItem? currentItem;
     Note? currentNote;
     final items = List<CalendarItem>.from(data?.items ?? []);
-    var currentEvent = Event(name: name, id: 1.toString());
+    var currentEvent = Event(name: name, id: id);
     final notes = List<Note>.from(data?.notes ?? []);
     for (int i = offset; i < lines.length; i++) {
       final line = lines[i];

@@ -17,10 +17,10 @@ class EventDatabaseService extends EventService with TableService {
   FutureOr<void> create(Database db) async {
     await db.execute("""
       CREATE TABLE IF NOT EXISTS events (
-        id INTEGER PRIMARY KEY,
-        parentId INTEGER,
-        groupId INTEGER,
-        placeId INTEGER,
+        id VARCHAR(100) PRIMARY KEY,
+        parentId VARCHAR(100),
+        groupId VARCHAR(100),
+        placeId VARCHAR(100),
         blocked INTEGER NOT NULL DEFAULT 1,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT NOT NULL DEFAULT '',
@@ -34,7 +34,7 @@ class EventDatabaseService extends EventService with TableService {
 
   @override
   Future<Event?> createEvent(Event event) async {
-    final id = await db?.insert('events', event.toDatabase()..remove('id'));
+    final id = await db?.insert('events', event.toDatabase());
     if (id == null) return null;
     return event.copyWith(id: id.toString());
   }
@@ -81,7 +81,7 @@ class EventDatabaseService extends EventService with TableService {
   FutureOr<bool> updateEvent(Event event) async {
     return await db?.update(
           'events',
-          event.toDatabase(),
+          event.toDatabase()..remove('id'),
           where: 'id = ?',
           whereArgs: [event.id],
         ) ==

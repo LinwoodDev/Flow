@@ -21,13 +21,9 @@ class Group with _$Group {
 
   factory Group.fromDatabase(Map<String, dynamic> row) => Group.fromJson({
         ...row,
-        'id': row['id']?.toString(),
-        'parentId': row['parentId']?.toString(),
       });
 
   Map<String, dynamic> toDatabase() => {
         ...toJson(),
-        'id': int.tryParse(id ?? ''),
-        'parentId': int.tryParse(parentId ?? ''),
       };
 }

@@ -26,13 +26,9 @@ class User with _$User {
 
   factory User.fromDatabase(Map<String, dynamic> row) => User.fromJson({
         ...row,
-        'id': row['id']?.toString(),
-        'groupId': row['groupId']?.toString(),
       });
 
   Map<String, dynamic> toDatabase() => {
         ...toJson(),
-        'id': int.tryParse(id ?? ''),
-        'groupId': int.tryParse(groupId ?? ''),
       };
 }

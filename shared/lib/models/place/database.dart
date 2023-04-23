@@ -12,7 +12,7 @@ class PlaceDatabaseService extends PlaceService with TableService {
   Future<void> create(Database db) {
     return db.execute("""
       CREATE TABLE IF NOT EXISTS places (
-        id INTEGER PRIMARY KEY,
+        id VARCHAR(100) PRIMARY KEY,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT,
         address TEXT
@@ -25,7 +25,7 @@ class PlaceDatabaseService extends PlaceService with TableService {
 
   @override
   Future<Place?> createPlace(Place place) async {
-    final id = await db?.insert('places', place.toDatabase()..remove('id'));
+    final id = await db?.insert('places', place.toDatabase());
     if (id == null) return null;
     return place.copyWith(id: id.toString());
   }

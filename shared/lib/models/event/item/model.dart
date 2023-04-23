@@ -61,9 +61,6 @@ class CalendarItem with _$CalendarItem, DescriptiveModel {
   factory CalendarItem.fromDatabase(Map<String, dynamic> json) =>
       CalendarItem.fromJson({
         ...json,
-        'id': json['id']?.toString(),
-        'eventId': json['eventId']?.toString(),
-        'autoGroupId': json['autoGroupId']?.toString(),
       });
 
   CalendarItemType get type {
@@ -83,12 +80,5 @@ class CalendarItem with _$CalendarItem, DescriptiveModel {
 
   Map<String, dynamic> toDatabase() => {
         ...toJson(),
-        'id': int.tryParse(id ?? ''),
-        'eventId': int.tryParse(eventId ?? ''),
-        ...maybeMap(
-            orElse: () => {},
-            auto: (a) => {
-                  'autoGroupId': int.tryParse(a.autoGroupId ?? ''),
-                }),
       };
 }

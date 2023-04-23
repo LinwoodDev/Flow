@@ -4,6 +4,7 @@ import 'package:flow/api/storage/remote/caldav.dart';
 import 'package:flow/api/storage/remote/model.dart';
 import 'package:flow/api/storage/remote/sia.dart';
 import 'package:flow/models/request.dart';
+import 'package:http/http.dart';
 import 'package:shared/models/cached.dart';
 import 'package:shared/models/model.dart';
 import 'package:shared/services/database.dart';
@@ -15,7 +16,7 @@ class RequestDatabaseService extends ModelService with TableService {
   Future<void> create(Database db) async {
     await db.execute('''
       CREATE TABLE IF NOT EXISTS request (
-        id INTEGER PRIMARY KEY,
+        id VARCHAR(100) PRIMARY KEY,
         created INTEGER NOT NULL,
         data TEXT NOT NULL
       )
@@ -104,15 +105,15 @@ abstract class RemoteService<T extends RemoteStorage> extends SourceService {
     }
   }
 
-  Future<bool> addRequest(APIRequest apiRequest) async {
-    if (!_enableRequests) return false;
+  Future<Response?> addRequest(APIRequest apiRequest) async {
+    if (!_enableRequests) return null;
     try {
-      await apiRequest.send();
-      return true;
+      final response = await apiRequest.send();
+      return response;
     } catch (_) {
       local.request.createRequest(apiRequest);
     }
-    return false;
+    return null;
   }
 
   @override

@@ -104,35 +104,52 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(title),
-          MenuAnchor(
-            builder: (context, controller, child) => IconButton(
-              icon: const Icon(Icons.more_vert),
-              onPressed: () =>
-                  controller.isOpen ? controller.close() : controller.open(),
-            ),
-            menuChildren: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Text(
-                  AppLocalizations.of(context).convertTo,
-                  style: Theme.of(context).textTheme.titleMedium,
+          Row(
+            children: [
+              if (!_create)
+                IconButton(
+                  icon: const Icon(Icons.delete_outline),
+                  onPressed: _create || _item.id == null
+                      ? null
+                      : () async {
+                          await _service?.deleteCalendarItem(_item.id!);
+                          if (context.mounted) {
+                            Navigator.of(context).pop();
+                          }
+                        },
                 ),
-              ),
-              MenuItemButton(
-                leadingIcon: const Icon(Icons.event_outlined),
-                onPressed: () => _convertTo(CalendarItemType.appointment),
-                child: Text(AppLocalizations.of(context).appointment),
-              ),
-              MenuItemButton(
-                leadingIcon: const Icon(Icons.mood_outlined),
-                onPressed: () => _convertTo(CalendarItemType.moment),
-                child: Text(AppLocalizations.of(context).moment),
-              ),
-              MenuItemButton(
-                leadingIcon: const Icon(Icons.pending_actions_outlined),
-                onPressed: () => _convertTo(CalendarItemType.pending),
-                child: Text(AppLocalizations.of(context).pending),
+              MenuAnchor(
+                builder: (context, controller, child) => IconButton(
+                  icon: const Icon(Icons.more_vert),
+                  onPressed: () => controller.isOpen
+                      ? controller.close()
+                      : controller.open(),
+                ),
+                menuChildren: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: Text(
+                      AppLocalizations.of(context).convertTo,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+                  MenuItemButton(
+                    leadingIcon: const Icon(Icons.event_outlined),
+                    onPressed: () => _convertTo(CalendarItemType.appointment),
+                    child: Text(AppLocalizations.of(context).appointment),
+                  ),
+                  MenuItemButton(
+                    leadingIcon: const Icon(Icons.mood_outlined),
+                    onPressed: () => _convertTo(CalendarItemType.moment),
+                    child: Text(AppLocalizations.of(context).moment),
+                  ),
+                  MenuItemButton(
+                    leadingIcon: const Icon(Icons.pending_actions_outlined),
+                    onPressed: () => _convertTo(CalendarItemType.pending),
+                    child: Text(AppLocalizations.of(context).pending),
+                  ),
+                ],
               ),
             ],
           ),

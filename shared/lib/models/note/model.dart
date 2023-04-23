@@ -23,14 +23,10 @@ class Note with _$Note {
 
   factory Note.fromDatabase(Map<String, dynamic> row) => Note.fromJson({
         ...row,
-        'id': row['id']?.toString(),
-        'parentId': row['parentId']?.toString(),
       });
 
   Map<String, dynamic> toDatabase() => {
         ...toJson(),
-        'id': int.tryParse(id ?? ''),
-        'parentId': int.tryParse(parentId ?? ''),
       };
 }
 

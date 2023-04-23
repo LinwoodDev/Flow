@@ -12,8 +12,8 @@ class UserDatabaseService extends UserService with TableService {
   Future<void> create(Database db) {
     return db.execute("""
       CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY,
-        groupId INTEGER,
+        id VARCHAR(100) PRIMARY KEY,
+        groupId VARCHAR(100),
         name VARCHAR(100) NOT NULL DEFAULT '',
         email VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT,
@@ -28,7 +28,7 @@ class UserDatabaseService extends UserService with TableService {
 
   @override
   Future<User?> createUser(User user) async {
-    final id = await db?.insert('users', user.toDatabase()..remove('id'));
+    final id = await db?.insert('users', user.toDatabase());
     if (id == null) return null;
     return user.copyWith(id: id.toString());
   }

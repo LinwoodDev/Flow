@@ -26,19 +26,11 @@ class Event with _$Event {
   factory Event.fromDatabase(Map<String, dynamic> row) => Event.fromJson({
         ...row,
         'blocked': row['blocked'] == 1,
-        'id': row['id']?.toString(),
-        'parentId': row['parentId']?.toString(),
-        'groupId': row['groupId']?.toString(),
-        'placeId': row['placeId']?.toString(),
       });
 
   Map<String, dynamic> toDatabase() => {
         ...toJson(),
         'blocked': blocked ? 1 : 0,
-        'id': int.tryParse(id ?? ''),
-        'parentId': int.tryParse(parentId ?? ''),
-        'groupId': int.tryParse(groupId ?? ''),
-        'placeId': int.tryParse(placeId ?? ''),
       };
 }
 

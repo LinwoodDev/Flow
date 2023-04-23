@@ -12,10 +12,10 @@ class GroupDatabaseService extends GroupService with TableService {
   Future<void> create(Database db) {
     return db.execute("""
       CREATE TABLE IF NOT EXISTS groups (
-        id INTEGER PRIMARY KEY,
+        id VARCHAR(100) PRIMARY KEY,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT,
-        parentId INTEGER
+        parentId VARCHAR(100)
       )
     """);
   }
@@ -25,7 +25,7 @@ class GroupDatabaseService extends GroupService with TableService {
 
   @override
   Future<Group?> createGroup(Group group) async {
-    final id = await db?.insert('groups', group.toDatabase()..remove('id'));
+    final id = await db?.insert('groups', group.toDatabase());
     if (id == null) return null;
     return group.copyWith(id: id.toString());
   }
