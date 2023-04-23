@@ -246,7 +246,7 @@
   "open": "Open",
   "limited": "Beperkt",
   "notSet": "Niet ingesteld",
-  "createPending": "Create pending",
-  "editPending": "Edit pending",
-  "convertTo": "Convert to"
+  "createPending": "Aanmaken in afwachting",
+  "editPending": "In afwachting bewerken",
+  "convertTo": "Converteren naar"
 }
