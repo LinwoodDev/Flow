@@ -246,7 +246,7 @@
   "open": "打开",
   "limited": "限量的",
   "notSet": "未设置",
-  "createPending": "Create pending",
-  "editPending": "Edit pending",
-  "convertTo": "Convert to"
+  "createPending": "创建待定",
+  "editPending": "编辑待定",
+  "convertTo": "转换为"
 }
