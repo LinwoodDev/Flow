@@ -1,82 +1,78 @@
 {
   "Getting started": {
-    "message": "Ξεκινώντας",
+    "message": "Getting started",
     "description": "homepage getting started button"
   },
   "Download for Windows": {
-    "message": "Λήψη για Windows",
+    "message": "Download for Windows",
     "description": "homepage windows button"
   },
   "Download for Linux": {
-    "message": "Λήψη για Linux",
+    "message": "Download for Linux",
     "description": "homepage linux button"
   },
   "Download for Android": {
-    "message": "Λήψη για Android",
+    "message": "Download for Android",
     "description": "homepage android button"
   },
   "Open the web app": {
-    "message": "Άνοιγμα της εφαρμογής web",
+    "message": "Open the web app",
     "description": "homepage web button"
   },
   "Downloads": {
-    "message": "Λήψεις",
+    "message": "Downloads",
     "description": "homepage downloads button"
   },
-  "Cross platform": {
-    "message": "Διασταυρούμενη πλατφόρμα",
-    "description": "Features cross-platform title"
+  "Time management": {
+    "message": "Time management",
+    "description": "Features Time management title"
   },
-  "You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.": {
-    "message": "Μπορείτε να χρησιμοποιήσετε την εφαρμογή στο τηλέφωνο, το tablet, το laptop ή την επιφάνεια εργασίας. Η εφαρμογή είναι διαθέσιμη σε Linux, Android και Windows. Μπορείτε επίσης να χρησιμοποιήσετε την εφαρμογή στο διαδίκτυο.",
-    "description": "Features cross-platform description"
+  "Manage the time efficiency and automate it.": {
+    "message": "Manage the time efficiency and automate it.",
+    "description": "Features Time management description"
   },
-  "Simple and intuitive": {
-    "message": "Απλό και διαισθητικό",
-    "description": "Features simple title"
+  "Event management": {
+    "message": "Event management",
+    "description": "Features Event management title"
   },
-  "Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.": {
-    "message": "Κάθε εργαλείο είναι στο σωστό μέρος. Ανοίξτε την εφαρμογή και ξεκινήστε το σχέδιο. Αλλάξτε τα εργαλεία σας κάνοντας κλικ πάνω της.",
-    "description": "Features simple description"
+  "Schedule events, assign users to it and give tasks to them": {
+    "message": "Schedule events, assign users to it and give tasks to them",
+    "description": "Features Event management description"
   },
-  "Customizable": {
-    "message": "Προσαρμόσιμο",
-    "description": "Features customizable title"
+  "Your data": {
+    "message": "Your data",
+    "description": "Features Your data title"
   },
-  "Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.": {
-    "message": "Αλλάξτε τα πάντα στις ανάγκες σας. Επιλέξτε το προσαρμοσμένο σας χρώμα, δημιουργήστε μια παλέτα και προσθέστε τις σελίδες σας στο χαρτί. Το χαρτί έχει άπειρο μέγεθος, ιδανικό για τις ιδέες και τις σημειώσεις σας.",
-    "description": "Features customizable description"
+  "Everyone can create their own server and have your data on it.": {
+    "message": "Everyone can create their own server and have your data on it.",
+    "description": "Features Your data description"
   },
-  "Choose where your data is stored": {
-    "message": "Επιλέξτε πού αποθηκεύονται τα δεδομένα σας",
-    "description": "Features local title"
+  "Open source": {
+    "message": "Open source",
+    "description": "Features Open source title"
   },
-  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
-    "message": "Μπορείτε να επιλέξετε να αποθηκεύσετε τα δεδομένα σας τοπικά ή στο αγαπημένο σας cloud (webdav). Μπορείτε επίσης να εξάγετε τα δεδομένα σας σε ένα αρχείο και να τα εισάγετε ξανά.",
-    "description": "Features local description"
+  "The app and the server are all open source. Everyone can contribute!": {
+    "message": "The app and the server are all open source. Everyone can contribute!",
+    "description": "Features Open source description"
   },
   "theme.ErrorPageContent.title": {
-    "message": "Αυτή η σελίδα κατέρρευσε.",
+    "message": "This page crashed.",
     "description": "The title of the fallback page when the page crashed"
   },
-  "theme.ErrorPageContent.tryAgain": {
-    "message": "Προσπαθήστε ξανά",
-    "description": "The label of the button to try again when the page crashed"
-  },
   "theme.NotFound.title": {
-    "message": "Η Σελίδα Δεν Βρέθηκε",
+    "message": "Page Not Found",
     "description": "The title of the 404 page"
   },
   "theme.NotFound.p1": {
-    "message": "Δεν μπορούσαμε να βρούμε αυτό που ψάχνετε.",
+    "message": "We could not find what you were looking for.",
     "description": "The first paragraph of the 404 page"
   },
   "theme.NotFound.p2": {
-    "message": "Παρακαλούμε επικοινωνήστε με τον ιδιοκτήτη της ιστοσελίδας που σας συνέδεσε με την αρχική διεύθυνση URL και ενημερώστε τους ότι ο σύνδεσμος τους είναι σπασμένος.",
+    "message": "Please contact the owner of the site that linked you to the original URL and let them know their link is broken.",
     "description": "The 2nd paragraph of the 404 page"
   },
   "theme.admonition.note": {
-    "message": "σημείωση",
+    "message": "note",
     "description": "The default label used for the Note admonition (:::note)"
   },
   "theme.admonition.tip": {
@@ -84,214 +80,214 @@
     "description": "The default label used for the Tip admonition (:::tip)"
   },
   "theme.admonition.danger": {
-    "message": "κίνδυνος",
+    "message": "danger",
     "description": "The default label used for the Danger admonition (:::danger)"
   },
   "theme.admonition.info": {
-    "message": "πληροφορίες",
+    "message": "info",
     "description": "The default label used for the Info admonition (:::info)"
   },
   "theme.admonition.caution": {
-    "message": "προσοχή",
+    "message": "caution",
     "description": "The default label used for the Caution admonition (:::caution)"
   },
   "theme.blog.archive.title": {
-    "message": "Αρχειοθέτηση",
+    "message": "Archive",
     "description": "The page & hero title of the blog archive page"
   },
   "theme.blog.archive.description": {
-    "message": "Αρχειοθέτηση",
+    "message": "Archive",
     "description": "The page & hero description of the blog archive page"
   },
   "theme.BackToTopButton.buttonAriaLabel": {
-    "message": "Κύλιση πίσω στην κορυφή",
+    "message": "Scroll back to top",
     "description": "The ARIA label for the back to top button"
   },
   "theme.blog.paginator.navAriaLabel": {
-    "message": "Πλοήγηση σελίδας λίστας ιστολογίου",
+    "message": "Blog list page navigation",
     "description": "The ARIA label for the blog pagination"
   },
   "theme.blog.paginator.newerEntries": {
-    "message": "Νεότερες Εγγραφές",
+    "message": "Newer Entries",
     "description": "The label used to navigate to the newer blog posts page (previous page)"
   },
   "theme.blog.paginator.olderEntries": {
-    "message": "Παλαιότερες Καταχωρήσεις",
+    "message": "Older Entries",
     "description": "The label used to navigate to the older blog posts page (next page)"
   },
   "theme.blog.post.paginator.navAriaLabel": {
-    "message": "Πλοήγηση σελίδας ιστολογίου",
+    "message": "Blog post page navigation",
     "description": "The ARIA label for the blog posts pagination"
   },
   "theme.blog.post.paginator.newerPost": {
-    "message": "Νεότερη Δημοσίευση",
+    "message": "Newer Post",
     "description": "The blog post button label to navigate to the newer/previous post"
   },
   "theme.blog.post.paginator.olderPost": {
-    "message": "Παλαιότερη Δημοσίευση",
+    "message": "Older Post",
     "description": "The blog post button label to navigate to the older/next post"
   },
   "theme.blog.post.plurals": {
-    "message": "Μια ανάρτηση{count} δημοσιεύσεις",
+    "message": "One post|{count} posts",
     "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
   "theme.blog.tagTitle": {
-    "message": "{nPosts} με ετικέτα \"{tagName}\"",
+    "message": "{nPosts} tagged with \"{tagName}\"",
     "description": "The title of the page for a blog tag"
   },
   "theme.tags.tagsPageLink": {
-    "message": "Προβολή Όλων Των Ετικετών",
+    "message": "View All Tags",
     "description": "The label of the link targeting the tag list page"
   },
   "theme.colorToggle.ariaLabel": {
-    "message": "Εναλλαγή μεταξύ σκοτεινής και φωτεινής λειτουργίας (προς το παρόν {mode})",
+    "message": "Switch between dark and light mode (currently {mode})",
     "description": "The ARIA label for the navbar color mode toggle"
   },
   "theme.colorToggle.ariaLabel.mode.dark": {
-    "message": "σκοτεινή λειτουργία",
+    "message": "dark mode",
     "description": "The name for the dark color mode"
   },
   "theme.colorToggle.ariaLabel.mode.light": {
-    "message": "λειτουργία φωτός",
+    "message": "light mode",
     "description": "The name for the light color mode"
   },
   "theme.docs.breadcrumbs.navAriaLabel": {
-    "message": "Ψίχουλα",
+    "message": "Breadcrumbs",
     "description": "The ARIA label for the breadcrumbs"
   },
   "theme.docs.DocCard.categoryDescription": {
-    "message": "{count} αντικείμενα",
+    "message": "{count} items",
     "description": "The default description for a category card in the generated index about how many items this category includes"
   },
   "theme.docs.paginator.navAriaLabel": {
-    "message": "Πλοήγηση σελίδων εγγράφων",
+    "message": "Docs pages navigation",
     "description": "The ARIA label for the docs pagination"
   },
   "theme.docs.paginator.previous": {
-    "message": "Προηγούμενο",
+    "message": "Previous",
     "description": "The label used to navigate to the previous doc"
   },
   "theme.docs.paginator.next": {
-    "message": "Επόμενο",
+    "message": "Next",
     "description": "The label used to navigate to the next doc"
   },
   "theme.docs.tagDocListPageTitle.nDocsTagged": {
-    "message": "Μια ετικέτα doc,{count} docs με ετικέτα",
+    "message": "One doc tagged|{count} docs tagged",
     "description": "Pluralized label for \"{count} docs tagged\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
   "theme.docs.tagDocListPageTitle": {
-    "message": "{nDocsTagged} με \"{tagName}\"",
+    "message": "{nDocsTagged} with \"{tagName}\"",
     "description": "The title of the page for a docs tag"
   },
   "theme.docs.versionBadge.label": {
-    "message": "Έκδοση: {versionLabel}"
+    "message": "Version: {versionLabel}"
   },
   "theme.docs.versions.unreleasedVersionLabel": {
-    "message": "Αυτή η τεκμηρίωση δεν είναι διαθέσιμη για την έκδοση {siteTitle} {versionLabel}.",
+    "message": "This is unreleased documentation for {siteTitle} {versionLabel} version.",
     "description": "The label used to tell the user that he's browsing an unreleased doc version"
   },
   "theme.docs.versions.unmaintainedVersionLabel": {
-    "message": "Αυτή είναι η τεκμηρίωση για {siteTitle} {versionLabel}, η οποία δεν διατηρείται πλέον ενεργά.",
+    "message": "This is documentation for {siteTitle} {versionLabel}, which is no longer actively maintained.",
     "description": "The label used to tell the user that he's browsing an unmaintained doc version"
   },
   "theme.docs.versions.latestVersionSuggestionLabel": {
-    "message": "Για ενημερωμένη τεκμηρίωση, ανατρέξτε στο {latestVersionLink} ({versionLabel}).",
+    "message": "For up-to-date documentation, see the {latestVersionLink} ({versionLabel}).",
     "description": "The label used to tell the user to check the latest version"
   },
   "theme.docs.versions.latestVersionLinkLabel": {
-    "message": "τελευταία έκδοση",
+    "message": "latest version",
     "description": "The label used for the latest version suggestion link label"
   },
   "theme.common.editThisPage": {
-    "message": "Επεξεργαστείτε αυτή τη σελίδα",
+    "message": "Edit this page",
     "description": "The link label to edit the current page"
   },
   "theme.common.headingLinkTitle": {
-    "message": "Άμεση σύνδεση με το {heading}",
+    "message": "Direct link to {heading}",
     "description": "Title for link to heading"
   },
   "theme.lastUpdated.atDate": {
-    "message": " στις {date}",
+    "message": " on {date}",
     "description": "The words used to describe on which date a page has been last updated"
   },
   "theme.lastUpdated.byUser": {
-    "message": " από {user}",
+    "message": " by {user}",
     "description": "The words used to describe by who the page has been last updated"
   },
   "theme.lastUpdated.lastUpdatedAtBy": {
-    "message": "Τελευταία ενημέρωση{atDate}{byUser}",
+    "message": "Last updated{atDate}{byUser}",
     "description": "The sentence used to display when a page has been last updated, and by who"
   },
   "theme.navbar.mobileVersionsDropdown.label": {
-    "message": "Εκδόσεις",
+    "message": "Versions",
     "description": "The label for the navbar versions dropdown on mobile view"
   },
   "theme.tags.tagsListLabel": {
-    "message": "Ετικέτες:",
+    "message": "Tags:",
     "description": "The label alongside a tag list"
   },
   "theme.AnnouncementBar.closeButtonAriaLabel": {
-    "message": "Κλείσιμο",
+    "message": "Close",
     "description": "The ARIA label for close button of announcement bar"
   },
   "theme.blog.sidebar.navAriaLabel": {
-    "message": "Blog πρόσφατη πλοήγηση δημοσιεύσεων",
+    "message": "Blog recent posts navigation",
     "description": "The ARIA label for recent posts in the blog sidebar"
   },
   "theme.CodeBlock.copied": {
-    "message": "Αντιγράφηκε",
+    "message": "Copied",
     "description": "The copied button label on code blocks"
   },
   "theme.CodeBlock.copyButtonAriaLabel": {
-    "message": "Αντιγραφή κώδικα στο πρόχειρο",
+    "message": "Copy code to clipboard",
     "description": "The ARIA label for copy code blocks button"
   },
   "theme.CodeBlock.copy": {
-    "message": "Αντιγραφή",
+    "message": "Copy",
     "description": "The copy button label on code blocks"
   },
   "theme.CodeBlock.wordWrapToggle": {
-    "message": "Εναλλαγή αναδίπλωσης λέξεων",
+    "message": "Toggle word wrap",
     "description": "The title attribute for toggle word wrapping button of code block lines"
   },
   "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
-    "message": "Εναλλαγή της πτυσσόμενης πλαϊνής μπάρας κατηγορίας '{label}'",
+    "message": "Toggle the collapsible sidebar category '{label}'",
     "description": "The ARIA label to toggle the collapsible sidebar category"
   },
   "theme.NavBar.navAriaLabel": {
-    "message": "Κύρια",
+    "message": "Main",
     "description": "The ARIA label for the main navigation"
   },
   "theme.navbar.mobileLanguageDropdown.label": {
-    "message": "Γλώσσες",
+    "message": "Languages",
     "description": "The label for the mobile language switcher dropdown"
   },
   "theme.TOCCollapsible.toggleButtonLabel": {
-    "message": "Σε αυτή τη σελίδα",
+    "message": "On this page",
     "description": "The label used by the button on the collapsible TOC component"
   },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "One min read|{readingTime} min read",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
   "theme.blog.post.readMore": {
-    "message": "Διαβάστε Περισσότερα",
+    "message": "Read More",
     "description": "The label used in blog post item excerpts to link to full blog posts"
   },
   "theme.blog.post.readMoreLabel": {
-    "message": "Διαβάστε περισσότερα για {title}",
+    "message": "Read more about {title}",
     "description": "The ARIA label for the link to full blog posts from excerpts"
   },
-  "theme.blog.post.readingTime.plurals": {
-    "message": "Ένα λεπτό διαβάστηκε{readingTime} λεπτά",
-    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
-  },
   "theme.docs.breadcrumbs.home": {
-    "message": "Αρχική σελίδα",
+    "message": "Home page",
     "description": "The ARIA label for the home page in the breadcrumbs"
   },
   "theme.docs.sidebar.collapseButtonTitle": {
-    "message": "Σύμπτυξη πλαϊνής μπάρας",
+    "message": "Collapse sidebar",
     "description": "The title attribute for collapse button of doc sidebar"
   },
   "theme.docs.sidebar.collapseButtonAriaLabel": {
-    "message": "Σύμπτυξη πλαϊνής μπάρας",
+    "message": "Collapse sidebar",
     "description": "The title attribute for collapse button of doc sidebar"
   },
   "theme.docs.sidebar.navAriaLabel": {
@@ -299,15 +295,15 @@
     "description": "The ARIA label for the sidebar navigation"
   },
   "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
-    "message": "Κλείσιμο γραμμής πλοήγησης",
+    "message": "Close navigation bar",
     "description": "The ARIA label for close button of mobile sidebar"
   },
   "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
-    "message": "← Πίσω στο κύριο μενού",
+    "message": "← Back to main menu",
     "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
   },
   "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
-    "message": "Εναλλαγή γραμμής πλοήγησης",
+    "message": "Toggle navigation bar",
     "description": "The ARIA label for hamburger menu button of mobile navigation"
   },
   "theme.docs.sidebar.expandButtonTitle": {
@@ -319,23 +315,27 @@
     "description": "The ARIA label and title attribute for expand button of doc sidebar"
   },
   "theme.PwaReloadPopup.info": {
-    "message": "Νέα έκδοση διαθέσιμη",
+    "message": "New version available",
     "description": "The text for PWA reload popup"
   },
   "theme.PwaReloadPopup.refreshButtonText": {
-    "message": "Ανανέωση",
+    "message": "Refresh",
     "description": "The text for PWA reload button"
   },
   "theme.PwaReloadPopup.closeButtonAriaLabel": {
-    "message": "Κλείσιμο",
+    "message": "Close",
     "description": "The ARIA label for close button of PWA reload popup"
   },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Try again",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
+  },
   "theme.common.skipToMainContent": {
-    "message": "Μετάβαση στο κύριο περιεχόμενο",
+    "message": "Skip to main content",
     "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
   },
   "theme.tags.tagsPageTitle": {
-    "message": "Ετικέτες",
+    "message": "Tags",
     "description": "The title of the tag list page"
   }
 }
