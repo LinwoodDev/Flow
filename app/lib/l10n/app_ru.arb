@@ -246,7 +246,7 @@
   "open": "Открыть",
   "limited": "Ограниченный",
   "notSet": "Не задано",
-  "createPending": "Create pending",
-  "editPending": "Edit pending",
-  "convertTo": "Convert to"
+  "createPending": "Создать ожидание",
+  "editPending": "Редактировать ожидание",
+  "convertTo": "Преобразовать в"
 }
