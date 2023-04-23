@@ -1,30 +1,34 @@
 {
   "title": {
-    "message": "Bevegelse",
+    "message": "Flow",
     "description": "The title in the navbar"
   },
+  "logo.alt": {
+    "message": "Flow Logo",
+    "description": "The alt text of navbar logo"
+  },
   "item.label.Tutorial": {
-    "message": "Opplæring",
+    "message": "Tutorial",
     "description": "Navbar item with label Tutorial"
   },
   "item.label.Downloads": {
-    "message": "Nedlastinger",
+    "message": "Downloads",
     "description": "Navbar item with label Downloads"
   },
   "item.label.Community": {
-    "message": "Fellesskap",
+    "message": "Community",
     "description": "Navbar item with label Community"
   },
   "item.label.More": {
-    "message": "Mer",
+    "message": "More",
     "description": "Navbar item with label More"
   },
   "item.label.Matrix": {
-    "message": "Matrise",
+    "message": "Matrix",
     "description": "Navbar item with label Matrix"
   },
   "item.label.Discord": {
-    "message": "Splid",
+    "message": "Discord",
     "description": "Navbar item with label Discord"
   },
   "item.label.GitHub": {
@@ -32,7 +36,7 @@
     "description": "Navbar item with label GitHub"
   },
   "item.label.Blog": {
-    "message": "Blogg",
+    "message": "Blog",
     "description": "Navbar item with label Blog"
   },
   "item.label.Crowdin": {
@@ -43,12 +47,12 @@
     "message": "Twitter",
     "description": "Navbar item with label Twitter"
   },
-  "item.label.Mastodon": {
-    "message": "Mastodon",
-    "description": "Navbar item with label Mastodon"
+  "item.label.Masnoten": {
+    "message": "Masnoten",
+    "description": "Navbar item with label Masnoten"
   },
   "item.label.License": {
-    "message": "Lisens",
+    "message": "License",
     "description": "Navbar item with label License"
   }
 }
