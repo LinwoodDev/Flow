@@ -246,7 +246,7 @@
   "open": "開く",
   "limited": "制限",
   "notSet": "未設定",
-  "createPending": "Create pending",
-  "editPending": "Edit pending",
-  "convertTo": "Convert to"
+  "createPending": "保留中の作成",
+  "editPending": "保留中の編集",
+  "convertTo": "変換先"
 }
