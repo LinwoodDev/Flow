@@ -1,6 +1,6 @@
 {
   "version.label": {
-    "message": "Próximo",
+    "message": "Next",
     "description": "The label for version current"
   },
   "sidebar.sidebar.link.Discord": {
@@ -9,6 +9,6 @@
   },
   "sidebar.sidebar.link.GitHub": {
     "message": "GitHub",
-    "description": "The label for link GitHub in sidebar sidebar, linking to https://github.com/LinwoodCloud/Flow"
+    "description": "The label for link GitHub in sidebar sidebar, linking to https://github.com/LinwoodDev/Flow"
   }
 }
