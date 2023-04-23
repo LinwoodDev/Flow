@@ -246,7 +246,7 @@
   "open": "Åpne",
   "limited": "Begrenset",
   "notSet": "Ikke angitt",
-  "createPending": "Create pending",
-  "editPending": "Edit pending",
-  "convertTo": "Convert to"
+  "createPending": "Opprett ventende",
+  "editPending": "Rediger ventende",
+  "convertTo": "Konverter til"
 }
