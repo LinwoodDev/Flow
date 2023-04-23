@@ -246,7 +246,7 @@
   "open": "Apri",
   "limited": "Limitato",
   "notSet": "Non impostato",
-  "createPending": "Create pending",
-  "editPending": "Edit pending",
-  "convertTo": "Convert to"
+  "createPending": "Crea in sospeso",
+  "editPending": "Modifica in sospeso",
+  "convertTo": "Converti in"
 }
