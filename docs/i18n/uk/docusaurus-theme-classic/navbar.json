@@ -1,26 +1,30 @@
 {
   "title": {
-    "message": "Потік",
+    "message": "Flow",
     "description": "The title in the navbar"
   },
+  "logo.alt": {
+    "message": "Flow Logo",
+    "description": "The alt text of navbar logo"
+  },
   "item.label.Tutorial": {
-    "message": "Навчальний посібник",
+    "message": "Tutorial",
     "description": "Navbar item with label Tutorial"
   },
   "item.label.Downloads": {
-    "message": "Завантажень",
+    "message": "Downloads",
     "description": "Navbar item with label Downloads"
   },
   "item.label.Community": {
-    "message": "Спільнота",
+    "message": "Community",
     "description": "Navbar item with label Community"
   },
   "item.label.More": {
-    "message": "Більше",
+    "message": "More",
     "description": "Navbar item with label More"
   },
   "item.label.Matrix": {
-    "message": "Матриця",
+    "message": "Matrix",
     "description": "Navbar item with label Matrix"
   },
   "item.label.Discord": {
@@ -32,23 +36,23 @@
     "description": "Navbar item with label GitHub"
   },
   "item.label.Blog": {
-    "message": "Блог",
+    "message": "Blog",
     "description": "Navbar item with label Blog"
   },
   "item.label.Crowdin": {
-    "message": "Кравдін",
+    "message": "Crowdin",
     "description": "Navbar item with label Crowdin"
   },
   "item.label.Twitter": {
-    "message": "Твіттер",
+    "message": "Twitter",
     "description": "Navbar item with label Twitter"
   },
-  "item.label.Mastodon": {
-    "message": "Mastodon",
-    "description": "Navbar item with label Mastodon"
+  "item.label.Masnoten": {
+    "message": "Masnoten",
+    "description": "Navbar item with label Masnoten"
   },
   "item.label.License": {
-    "message": "Ліцензія",
+    "message": "License",
     "description": "Navbar item with label License"
   }
 }
