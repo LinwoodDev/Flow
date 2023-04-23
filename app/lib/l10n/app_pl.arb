@@ -246,7 +246,7 @@
   "open": "Otwórz",
   "limited": "Ograniczone",
   "notSet": "Nie ustawiono",
-  "createPending": "Create pending",
-  "editPending": "Edit pending",
-  "convertTo": "Convert to"
+  "createPending": "Utwórz oczekujące",
+  "editPending": "Edytuj oczekujące",
+  "convertTo": "Konwertuj na"
 }
