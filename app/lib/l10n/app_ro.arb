@@ -246,7 +246,7 @@
   "open": "Deschideți",
   "limited": "Limitat",
   "notSet": "Nu este setat",
-  "createPending": "Create pending",
-  "editPending": "Edit pending",
-  "convertTo": "Convert to"
+  "createPending": "Creare în așteptare",
+  "editPending": "Editare în așteptare",
+  "convertTo": "Convertește în"
 }
