@@ -246,7 +246,7 @@
   "open": "فتح",
   "limited": "محدود",
   "notSet": "لم يتم تعيينه",
-  "createPending": "Create pending",
-  "editPending": "Edit pending",
-  "convertTo": "Convert to"
+  "createPending": "إنشاء معلق",
+  "editPending": "تحرير معلق",
+  "convertTo": "تحويل إلى"
 }
