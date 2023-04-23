@@ -31,11 +31,11 @@ CalendarItem _$CalendarItemFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CalendarItem {
-  int? get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
-  int? get eventId => throw _privateConstructorUsedError;
+  String? get eventId => throw _privateConstructorUsedError;
   EventStatus get status => throw _privateConstructorUsedError;
   @DateTimeConverter()
   DateTime? get start => throw _privateConstructorUsedError;
@@ -44,21 +44,21 @@ mixin _$CalendarItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
         fixed,
     required TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -70,15 +70,15 @@ mixin _$CalendarItem {
             List<int> exceptions)
         repeating,
     required TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int? autoGroupId,
+            String? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)
         auto,
@@ -87,21 +87,21 @@ mixin _$CalendarItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult? Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -113,15 +113,15 @@ mixin _$CalendarItem {
             List<int> exceptions)?
         repeating,
     TResult? Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int? autoGroupId,
+            String? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)?
         auto,
@@ -130,21 +130,21 @@ mixin _$CalendarItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -156,15 +156,15 @@ mixin _$CalendarItem {
             List<int> exceptions)?
         repeating,
     TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int? autoGroupId,
+            String? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)?
         auto,
@@ -206,11 +206,11 @@ abstract class $CalendarItemCopyWith<$Res> {
       _$CalendarItemCopyWithImpl<$Res, CalendarItem>;
   @useResult
   $Res call(
-      {int? id,
+      {String? id,
       String name,
       String description,
       String location,
-      int? eventId,
+      String? eventId,
       EventStatus status,
       @DateTimeConverter() DateTime? start,
       @DateTimeConverter() DateTime? end});
@@ -242,7 +242,7 @@ class _$CalendarItemCopyWithImpl<$Res, $Val extends CalendarItem>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -258,7 +258,7 @@ class _$CalendarItemCopyWithImpl<$Res, $Val extends CalendarItem>
       eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -284,11 +284,11 @@ abstract class _$$FixedCalendarItemCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? id,
+      {String? id,
       String name,
       String description,
       String location,
-      int? eventId,
+      String? eventId,
       EventStatus status,
       @DateTimeConverter() DateTime? start,
       @DateTimeConverter() DateTime? end});
@@ -318,7 +318,7 @@ class __$$FixedCalendarItemCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -334,7 +334,7 @@ class __$$FixedCalendarItemCopyWithImpl<$Res>
       eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -371,7 +371,7 @@ class _$FixedCalendarItem extends FixedCalendarItem {
       _$$FixedCalendarItemFromJson(json);
 
   @override
-  final int? id;
+  final String? id;
   @override
   @JsonKey()
   final String name;
@@ -382,7 +382,7 @@ class _$FixedCalendarItem extends FixedCalendarItem {
   @JsonKey()
   final String location;
   @override
-  final int? eventId;
+  final String? eventId;
   @override
   @JsonKey()
   final EventStatus status;
@@ -433,21 +433,21 @@ class _$FixedCalendarItem extends FixedCalendarItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
         fixed,
     required TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -459,15 +459,15 @@ class _$FixedCalendarItem extends FixedCalendarItem {
             List<int> exceptions)
         repeating,
     required TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int? autoGroupId,
+            String? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)
         auto,
@@ -479,21 +479,21 @@ class _$FixedCalendarItem extends FixedCalendarItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult? Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -505,15 +505,15 @@ class _$FixedCalendarItem extends FixedCalendarItem {
             List<int> exceptions)?
         repeating,
     TResult? Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int? autoGroupId,
+            String? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)?
         auto,
@@ -526,21 +526,21 @@ class _$FixedCalendarItem extends FixedCalendarItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -552,15 +552,15 @@ class _$FixedCalendarItem extends FixedCalendarItem {
             List<int> exceptions)?
         repeating,
     TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int? autoGroupId,
+            String? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)?
         auto,
@@ -617,11 +617,11 @@ class _$FixedCalendarItem extends FixedCalendarItem {
 
 abstract class FixedCalendarItem extends CalendarItem {
   const factory FixedCalendarItem(
-      {final int? id,
+      {final String? id,
       final String name,
       final String description,
       final String location,
-      final int? eventId,
+      final String? eventId,
       final EventStatus status,
       @DateTimeConverter() final DateTime? start,
       @DateTimeConverter() final DateTime? end}) = _$FixedCalendarItem;
@@ -631,7 +631,7 @@ abstract class FixedCalendarItem extends CalendarItem {
       _$FixedCalendarItem.fromJson;
 
   @override
-  int? get id;
+  String? get id;
   @override
   String get name;
   @override
@@ -639,7 +639,7 @@ abstract class FixedCalendarItem extends CalendarItem {
   @override
   String get location;
   @override
-  int? get eventId;
+  String? get eventId;
   @override
   EventStatus get status;
   @override
@@ -663,11 +663,11 @@ abstract class _$$RepeatingCalendarItemCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? id,
+      {String? id,
       String name,
       String description,
       String location,
-      int? eventId,
+      String? eventId,
       EventStatus status,
       @DateTimeConverter() DateTime? start,
       @DateTimeConverter() DateTime? end,
@@ -709,7 +709,7 @@ class __$$RepeatingCalendarItemCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -725,7 +725,7 @@ class __$$RepeatingCalendarItemCopyWithImpl<$Res>
       eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -793,7 +793,7 @@ class _$RepeatingCalendarItem extends RepeatingCalendarItem {
       _$$RepeatingCalendarItemFromJson(json);
 
   @override
-  final int? id;
+  final String? id;
   @override
   @JsonKey()
   final String name;
@@ -804,7 +804,7 @@ class _$RepeatingCalendarItem extends RepeatingCalendarItem {
   @JsonKey()
   final String location;
   @override
-  final int? eventId;
+  final String? eventId;
   @override
   @JsonKey()
   final EventStatus status;
@@ -903,21 +903,21 @@ class _$RepeatingCalendarItem extends RepeatingCalendarItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
         fixed,
     required TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -929,15 +929,15 @@ class _$RepeatingCalendarItem extends RepeatingCalendarItem {
             List<int> exceptions)
         repeating,
     required TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int? autoGroupId,
+            String? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)
         auto,
@@ -950,21 +950,21 @@ class _$RepeatingCalendarItem extends RepeatingCalendarItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult? Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -976,15 +976,15 @@ class _$RepeatingCalendarItem extends RepeatingCalendarItem {
             List<int> exceptions)?
         repeating,
     TResult? Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int? autoGroupId,
+            String? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)?
         auto,
@@ -997,21 +997,21 @@ class _$RepeatingCalendarItem extends RepeatingCalendarItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1023,15 +1023,15 @@ class _$RepeatingCalendarItem extends RepeatingCalendarItem {
             List<int> exceptions)?
         repeating,
     TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int? autoGroupId,
+            String? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)?
         auto,
@@ -1088,11 +1088,11 @@ class _$RepeatingCalendarItem extends RepeatingCalendarItem {
 
 abstract class RepeatingCalendarItem extends CalendarItem {
   const factory RepeatingCalendarItem(
-      {final int? id,
+      {final String? id,
       final String name,
       final String description,
       final String location,
-      final int? eventId,
+      final String? eventId,
       final EventStatus status,
       @DateTimeConverter() final DateTime? start,
       @DateTimeConverter() final DateTime? end,
@@ -1108,7 +1108,7 @@ abstract class RepeatingCalendarItem extends CalendarItem {
       _$RepeatingCalendarItem.fromJson;
 
   @override
-  int? get id;
+  String? get id;
   @override
   String get name;
   @override
@@ -1116,7 +1116,7 @@ abstract class RepeatingCalendarItem extends CalendarItem {
   @override
   String get location;
   @override
-  int? get eventId;
+  String? get eventId;
   @override
   EventStatus get status;
   @override
@@ -1147,15 +1147,15 @@ abstract class _$$AutoCalendarItemCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? id,
+      {String? id,
       String name,
       String description,
       String location,
-      int? eventId,
+      String? eventId,
       EventStatus status,
       @DateTimeConverter() DateTime? start,
       @DateTimeConverter() DateTime? end,
-      int? autoGroupId,
+      String? autoGroupId,
       @DateTimeConverter() DateTime? searchStart,
       int autoDuration});
 }
@@ -1187,7 +1187,7 @@ class __$$AutoCalendarItemCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1203,7 +1203,7 @@ class __$$AutoCalendarItemCopyWithImpl<$Res>
       eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -1219,7 +1219,7 @@ class __$$AutoCalendarItemCopyWithImpl<$Res>
       autoGroupId: freezed == autoGroupId
           ? _value.autoGroupId
           : autoGroupId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       searchStart: freezed == searchStart
           ? _value.searchStart
           : searchStart // ignore: cast_nullable_to_non_nullable
@@ -1255,7 +1255,7 @@ class _$AutoCalendarItem extends AutoCalendarItem {
       _$$AutoCalendarItemFromJson(json);
 
   @override
-  final int? id;
+  final String? id;
   @override
   @JsonKey()
   final String name;
@@ -1266,7 +1266,7 @@ class _$AutoCalendarItem extends AutoCalendarItem {
   @JsonKey()
   final String location;
   @override
-  final int? eventId;
+  final String? eventId;
   @override
   @JsonKey()
   final EventStatus status;
@@ -1277,7 +1277,7 @@ class _$AutoCalendarItem extends AutoCalendarItem {
   @DateTimeConverter()
   final DateTime? end;
   @override
-  final int? autoGroupId;
+  final String? autoGroupId;
   @override
   @DateTimeConverter()
   final DateTime? searchStart;
@@ -1331,21 +1331,21 @@ class _$AutoCalendarItem extends AutoCalendarItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
         fixed,
     required TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1357,15 +1357,15 @@ class _$AutoCalendarItem extends AutoCalendarItem {
             List<int> exceptions)
         repeating,
     required TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int? autoGroupId,
+            String? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)
         auto,
@@ -1378,21 +1378,21 @@ class _$AutoCalendarItem extends AutoCalendarItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult? Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1404,15 +1404,15 @@ class _$AutoCalendarItem extends AutoCalendarItem {
             List<int> exceptions)?
         repeating,
     TResult? Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int? autoGroupId,
+            String? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)?
         auto,
@@ -1425,21 +1425,21 @@ class _$AutoCalendarItem extends AutoCalendarItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1451,15 +1451,15 @@ class _$AutoCalendarItem extends AutoCalendarItem {
             List<int> exceptions)?
         repeating,
     TResult Function(
-            int? id,
+            String? id,
             String name,
             String description,
             String location,
-            int? eventId,
+            String? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            int? autoGroupId,
+            String? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)?
         auto,
@@ -1516,15 +1516,15 @@ class _$AutoCalendarItem extends AutoCalendarItem {
 
 abstract class AutoCalendarItem extends CalendarItem {
   const factory AutoCalendarItem(
-      {final int? id,
+      {final String? id,
       final String name,
       final String description,
       final String location,
-      final int? eventId,
+      final String? eventId,
       final EventStatus status,
       @DateTimeConverter() final DateTime? start,
       @DateTimeConverter() final DateTime? end,
-      final int? autoGroupId,
+      final String? autoGroupId,
       @DateTimeConverter() final DateTime? searchStart,
       final int autoDuration}) = _$AutoCalendarItem;
   const AutoCalendarItem._() : super._();
@@ -1533,7 +1533,7 @@ abstract class AutoCalendarItem extends CalendarItem {
       _$AutoCalendarItem.fromJson;
 
   @override
-  int? get id;
+  String? get id;
   @override
   String get name;
   @override
@@ -1541,7 +1541,7 @@ abstract class AutoCalendarItem extends CalendarItem {
   @override
   String get location;
   @override
-  int? get eventId;
+  String? get eventId;
   @override
   EventStatus get status;
   @override
@@ -1550,7 +1550,7 @@ abstract class AutoCalendarItem extends CalendarItem {
   @override
   @DateTimeConverter()
   DateTime? get end;
-  int? get autoGroupId;
+  String? get autoGroupId;
   @DateTimeConverter()
   DateTime? get searchStart;
   int get autoDuration;

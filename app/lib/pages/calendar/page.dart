@@ -229,7 +229,7 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
 class CreateEventScaffold extends StatelessWidget {
   final VoidCallback onCreated;
   final Widget child;
-  final SourcedModel<int>? event;
+  final SourcedModel<String>? event;
   const CreateEventScaffold({
     super.key,
     required this.onCreated,

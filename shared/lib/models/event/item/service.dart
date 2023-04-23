@@ -9,9 +9,9 @@ abstract class CalendarItemService extends ModelService {
   FutureOr<CalendarItem?> getCalendarItem(int id);
   FutureOr<List<ConnectedModel<CalendarItem, Event?>>> getCalendarItems({
     List<EventStatus>? status,
-    int? eventId,
-    int? groupId,
-    int? placeId,
+    String? eventId,
+    String? groupId,
+    String? placeId,
     bool pending = false,
     int offset = 0,
     int limit = 50,

@@ -13,7 +13,7 @@ import '../../widgets/builder_delegate.dart';
 import 'card.dart';
 
 class NotesPage extends StatefulWidget {
-  final SourcedModel<int>? parent;
+  final SourcedModel<String>? parent;
 
   const NotesPage({Key? key, this.parent}) : super(key: key);
 
@@ -107,7 +107,7 @@ class _NotesSearchDelegate extends SearchDelegate {
 class NotesBodyView extends StatefulWidget {
   final String search;
   final PagingController<int, SourcedModel<Note>> pagingController;
-  final SourcedModel<int>? parent;
+  final SourcedModel<String>? parent;
 
   const NotesBodyView({
     super.key,
@@ -154,7 +154,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
           limit: _pageSize,
           statuses: _filter.statuses,
           search: widget.search,
-          parent: widget.parent?.model ?? -1,
+          parent: widget.parent?.model,
         );
         if (fetched == null) continue;
         notes.addAll(fetched.map((note) => SourcedModel(source.key, note)));

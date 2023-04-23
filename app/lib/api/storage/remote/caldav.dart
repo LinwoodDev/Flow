@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:shared/converters/ical.dart';
+import 'package:shared/helpers/string.dart';
 import 'package:shared/models/cached.dart';
 import 'package:shared/models/event/database.dart';
 import 'package:shared/models/event/item/database.dart';
@@ -77,26 +78,51 @@ class CalendarItemCalDavRemoteService
 
   @override
   Future<CalendarItem?> createCalendarItem(CalendarItem item) async {
-    await remote.addRequest(
-      APIRequest(
-        method: 'PUT',
-        authority: remote.remoteStorage.url,
-        body: ICalConverter(CachedData(items: [item])).write().join('\n'),
-        path: '',
-      ),
-    );
-    return await super.createCalendarItem(item);
+    final result = await super.createCalendarItem(item);
+    await _sendUpdatedCalendarObject(result);
+    return result;
   }
 
   @override
   Future<bool> deleteCalendarItem(int id) async {
+    final item = await getCalendarItem(id);
+    final result = await super.deleteCalendarItem(id);
+    await _sendUpdatedCalendarObject(item);
+    return result;
+  }
+
+  Future<void> _sendUpdatedCalendarObject(CalendarItem? item) async {
+    if (item == null) return;
+    var items = <CalendarItem>[];
+    if (item.eventId != null) {
+      items = (await getCalendarItems(
+        eventId: item.eventId,
+      ))
+          .map((e) => e.source)
+          .toList();
+      if (items.isNotEmpty) {
+        await remote.addRequest(
+          APIRequest(
+            method: 'DELETE',
+            authority: remote.remoteStorage.url,
+            path: '',
+          ),
+        );
+        return;
+      }
+    }
+    var object = item.eventId;
+    while (object == null || await remote.event.getEvent(object) != null) {
+      object = Strings.randomString(10);
+    }
+    final body = ICalConverter(CachedData(items: items)).write().join('\n');
     await remote.addRequest(
       APIRequest(
-        method: 'DELETE',
+        method: 'PUT',
         authority: remote.remoteStorage.url,
-        path: '',
+        body: body,
+        path: '$object.ics',
       ),
     );
-    return await super.deleteCalendarItem(id);
   }
 }

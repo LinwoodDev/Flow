@@ -36,16 +36,16 @@ class EventDatabaseService extends EventService with TableService {
   Future<Event?> createEvent(Event event) async {
     final id = await db?.insert('events', event.toDatabase()..remove('id'));
     if (id == null) return null;
-    return event.copyWith(id: id);
+    return event.copyWith(id: id.toString());
   }
 
   @override
-  Future<bool> deleteEvent(int id) async {
+  Future<bool> deleteEvent(String id) async {
     return await db?.delete('events', where: 'id = ?', whereArgs: [id]) == 1;
   }
 
   @override
-  Future<Event?> getEvent(int id) async {
+  Future<Event?> getEvent(String id) async {
     final result = await db?.query(
       'events',
       where: 'id = ?',
@@ -56,8 +56,8 @@ class EventDatabaseService extends EventService with TableService {
 
   @override
   Future<List<Event>> getEvents(
-      {int? groupId,
-      int? placeId,
+      {String? groupId,
+      String? placeId,
       int offset = 0,
       int limit = 50,
       String search = ''}) async {

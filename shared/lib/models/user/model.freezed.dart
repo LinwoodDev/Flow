@@ -20,8 +20,8 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$User {
-  int? get id => throw _privateConstructorUsedError;
-  int? get groupId => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
+  String? get groupId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -40,8 +40,8 @@ abstract class $UserCopyWith<$Res> {
       _$UserCopyWithImpl<$Res, User>;
   @useResult
   $Res call(
-      {int? id,
-      int? groupId,
+      {String? id,
+      String? groupId,
       String name,
       String email,
       String description,
@@ -74,11 +74,11 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       groupId: freezed == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -110,8 +110,8 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? id,
-      int? groupId,
+      {String? id,
+      String? groupId,
       String name,
       String email,
       String description,
@@ -140,11 +140,11 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       groupId: freezed == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -171,7 +171,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 
 /// @nodoc
 @JsonSerializable()
-class _$_User implements _User {
+class _$_User extends _User {
   const _$_User(
       {this.id,
       this.groupId,
@@ -179,14 +179,15 @@ class _$_User implements _User {
       this.email = '',
       this.description = '',
       this.phone = '',
-      @Uint8ListConverter() this.image});
+      @Uint8ListConverter() this.image})
+      : super._();
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
   @override
-  final int? id;
+  final String? id;
   @override
-  final int? groupId;
+  final String? groupId;
   @override
   @JsonKey()
   final String name;
@@ -242,22 +243,23 @@ class _$_User implements _User {
   }
 }
 
-abstract class _User implements User, DescriptiveModel {
+abstract class _User extends User implements DescriptiveModel {
   const factory _User(
-      {final int? id,
-      final int? groupId,
+      {final String? id,
+      final String? groupId,
       final String name,
       final String email,
       final String description,
       final String phone,
       @Uint8ListConverter() final Uint8List? image}) = _$_User;
+  const _User._() : super._();
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
-  int? get id;
+  String? get id;
   @override
-  int? get groupId;
+  String? get groupId;
   @override
   String get name;
   @override

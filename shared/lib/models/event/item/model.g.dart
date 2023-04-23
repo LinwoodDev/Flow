@@ -8,11 +8,11 @@ part of 'model.dart';
 
 _$FixedCalendarItem _$$FixedCalendarItemFromJson(Map<String, dynamic> json) =>
     _$FixedCalendarItem(
-      id: json['id'] as int?,
+      id: json['id'] as String?,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       location: json['location'] as String? ?? '',
-      eventId: json['eventId'] as int?,
+      eventId: json['eventId'] as String?,
       status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
           EventStatus.confirmed,
       start: const DateTimeConverter().fromJson(json['start'] as int?),
@@ -42,11 +42,11 @@ const _$EventStatusEnumMap = {
 _$RepeatingCalendarItem _$$RepeatingCalendarItemFromJson(
         Map<String, dynamic> json) =>
     _$RepeatingCalendarItem(
-      id: json['id'] as int?,
+      id: json['id'] as String?,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       location: json['location'] as String? ?? '',
-      eventId: json['eventId'] as int?,
+      eventId: json['eventId'] as String?,
       status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
           EventStatus.confirmed,
       start: const DateTimeConverter().fromJson(json['start'] as int?),
@@ -94,16 +94,16 @@ const _$RepeatTypeEnumMap = {
 
 _$AutoCalendarItem _$$AutoCalendarItemFromJson(Map<String, dynamic> json) =>
     _$AutoCalendarItem(
-      id: json['id'] as int?,
+      id: json['id'] as String?,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       location: json['location'] as String? ?? '',
-      eventId: json['eventId'] as int?,
+      eventId: json['eventId'] as String?,
       status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
           EventStatus.confirmed,
       start: const DateTimeConverter().fromJson(json['start'] as int?),
       end: const DateTimeConverter().fromJson(json['end'] as int?),
-      autoGroupId: json['autoGroupId'] as int?,
+      autoGroupId: json['autoGroupId'] as String?,
       searchStart:
           const DateTimeConverter().fromJson(json['searchStart'] as int?),
       autoDuration: json['autoDuration'] as int? ?? 60,

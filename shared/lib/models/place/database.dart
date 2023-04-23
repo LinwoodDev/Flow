@@ -25,13 +25,13 @@ class PlaceDatabaseService extends PlaceService with TableService {
 
   @override
   Future<Place?> createPlace(Place place) async {
-    final id = await db?.insert('places', place.toJson()..remove('id'));
+    final id = await db?.insert('places', place.toDatabase()..remove('id'));
     if (id == null) return null;
-    return place.copyWith(id: id);
+    return place.copyWith(id: id.toString());
   }
 
   @override
-  Future<bool> deletePlace(int id) async {
+  Future<bool> deletePlace(String id) async {
     return await db?.delete(
           'places',
           where: 'id = ?',
@@ -53,24 +53,24 @@ class PlaceDatabaseService extends PlaceService with TableService {
       whereArgs: whereArgs,
     );
     if (result == null) return [];
-    return result.map((row) => Place.fromJson(row)).toList();
+    return result.map((row) => Place.fromDatabase(row)).toList();
   }
 
   @override
-  FutureOr<Place?> getPlace(int id) async {
+  FutureOr<Place?> getPlace(String id) async {
     final result = await db?.query(
       'places',
       where: 'id = ?',
       whereArgs: [id],
     );
-    return result?.map(Place.fromJson).firstOrNull;
+    return result?.map(Place.fromDatabase).firstOrNull;
   }
 
   @override
   Future<bool> updatePlace(Place place) async {
     return await db?.update(
           'places',
-          place.toJson()..remove('id'),
+          place.toDatabase()..remove('id'),
           where: 'id = ?',
           whereArgs: [place.id],
         ) ==

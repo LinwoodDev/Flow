@@ -11,7 +11,7 @@ import '../../widgets/builder_delegate.dart';
 
 class EventSelectDialog extends StatefulWidget {
   final String? source;
-  final SourcedModel<int>? selected;
+  final SourcedModel<String>? selected;
 
   const EventSelectDialog({
     super.key,

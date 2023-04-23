@@ -33,43 +33,43 @@ class SourceDropdown<T> extends StatelessWidget {
         .whereNotNull()
         .toList());
     final remotes = services.keys.map((e) => cubit.sourcesService.getRemote(e));
-    return DropdownButtonFormField<String>(
-      value: value,
-      items: [
-        DropdownMenuItem<String>(
-          value: '',
-          child: Text(AppLocalizations.of(context).local),
+    return Column(
+      children: [
+        const SizedBox(height: 16),
+        DropdownButtonFormField<String>(
+          value: value,
+          items: services.entries.map<DropdownMenuItem<String>>((value) {
+            final remote = cubit.sourcesService.getRemote(value.key);
+            return DropdownMenuItem<String>(
+              value: value.key,
+              child: Text(
+                  remote?.displayName ?? AppLocalizations.of(context).local),
+            );
+          }).toList(),
+          selectedItemBuilder: (context) {
+            return [
+              ...remotes.map<Widget>((value) =>
+                  Text(value?.uri.host ?? AppLocalizations.of(context).local))
+            ];
+          },
+          onChanged: (value) {
+            final service = services[value];
+            onChanged(
+              service == null
+                  ? null
+                  : ConnectedModel(
+                      value!,
+                      service,
+                    ),
+            );
+          },
+          decoration: InputDecoration(
+            labelText: AppLocalizations.of(context).source,
+            icon: const Icon(Icons.storage_outlined),
+            border: const OutlineInputBorder(),
+          ),
         ),
-        ...services.entries.map<DropdownMenuItem<String>>((value) {
-          final remote = cubit.sourcesService.getRemote(value.key);
-          return DropdownMenuItem<String>(
-            value: value.key,
-            child: Text(remote?.displayName ?? value.key),
-          );
-        })
       ],
-      selectedItemBuilder: (context) {
-        return [
-          Text(AppLocalizations.of(context).local),
-          ...remotes.map<Widget>((value) => Text(value?.uri.host ?? ''))
-        ];
-      },
-      onChanged: (value) {
-        final service = services[value];
-        onChanged(
-          service == null
-              ? null
-              : ConnectedModel(
-                  value!,
-                  service,
-                ),
-        );
-      },
-      decoration: InputDecoration(
-        labelText: AppLocalizations.of(context).source,
-        icon: const Icon(Icons.storage_outlined),
-        border: const OutlineInputBorder(),
-      ),
     );
   }
 }

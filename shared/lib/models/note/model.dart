@@ -7,10 +7,12 @@ part 'model.g.dart';
 
 @freezed
 class Note with _$Note {
+  const Note._();
+
   @Implements<DescriptiveModel>()
   const factory Note({
-    int? id,
-    int? parentId,
+    String? id,
+    String? parentId,
     @Default('') String name,
     @Default('') String description,
     NoteStatus? status,
@@ -18,6 +20,18 @@ class Note with _$Note {
   }) = _Note;
 
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
+
+  factory Note.fromDatabase(Map<String, dynamic> row) => Note.fromJson({
+        ...row,
+        'id': row['id']?.toString(),
+        'parentId': row['parentId']?.toString(),
+      });
+
+  Map<String, dynamic> toDatabase() => {
+        ...toJson(),
+        'id': int.tryParse(id ?? ''),
+        'parentId': int.tryParse(parentId ?? ''),
+      };
 }
 
 enum NoteStatus {

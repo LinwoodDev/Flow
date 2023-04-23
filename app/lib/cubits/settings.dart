@@ -88,7 +88,7 @@ class SettingsCubit extends Cubit<FlowSettings> {
   }
 
   RemoteStorage? getStorage(String name) {
-    return state.remotes.firstWhereOrNull((e) => e.toFilename() == name);
+    return state.remotes.firstWhereOrNull((e) => e.identifier == name);
   }
 
   Future<void> removeStorage(String name) {

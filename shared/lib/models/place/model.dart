@@ -7,13 +7,25 @@ part 'model.g.dart';
 
 @freezed
 class Place with _$Place {
+  const Place._();
+
   @Implements<DescriptiveModel>()
   const factory Place({
-    int? id,
+    String? id,
     @Default('') String name,
     @Default('') String description,
     @Default('') String address,
   }) = _Place;
 
   factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
+
+  factory Place.fromDatabase(Map<String, dynamic> row) => Place.fromJson({
+        ...row,
+        'id': row['id']?.toString(),
+      });
+
+  Map<String, dynamic> toDatabase() => {
+        ...toJson(),
+        'id': int.tryParse(id ?? ''),
+      };
 }

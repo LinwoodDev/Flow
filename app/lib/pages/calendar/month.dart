@@ -294,7 +294,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
 class CalendarDayDialog extends StatelessWidget {
   final DateTime date;
   final List<SourcedConnectedModel<CalendarItem, Event?>> appointments;
-  final SourcedModel<int>? event;
+  final SourcedModel<String>? event;
 
   const CalendarDayDialog({
     super.key,

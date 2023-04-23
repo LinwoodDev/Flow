@@ -21,14 +21,14 @@ class CalendarFilter with _$CalendarFilter {
     @Default([EventStatus.draft, EventStatus.cancelled])
         List<EventStatus> hiddenStatuses,
     String? source,
-    int? group,
-    int? event,
-    int? place,
+    String? group,
+    String? event,
+    String? place,
     @Default(false) bool past,
   }) = _CalendarFilter;
 
-  SourcedModel<int>? get sourceEvent => event != null && source != null
-      ? SourcedModel<int>(source!, event!)
+  SourcedModel<String>? get sourceEvent => event != null && source != null
+      ? SourcedModel<String>(source!, event!)
       : null;
 
   CalendarFilter removePlace() => copyWith(

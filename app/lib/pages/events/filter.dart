@@ -12,7 +12,7 @@ part 'filter.freezed.dart';
 class EventFilter with _$EventFilter {
   const factory EventFilter({
     String? source,
-    int? group,
+    String? group,
   }) = _EventFilter;
 }
 

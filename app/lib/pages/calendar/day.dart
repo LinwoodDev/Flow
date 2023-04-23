@@ -197,7 +197,7 @@ class SingleDayList extends StatefulWidget {
   final VoidCallback onChanged;
   final DateTime current;
   final double maxWidth;
-  final SourcedModel<int>? event;
+  final SourcedModel<String>? event;
 
   static const _hourHeight = 100.0;
   static const _dividerHeight = 4.0;

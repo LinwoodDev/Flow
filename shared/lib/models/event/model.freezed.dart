@@ -20,10 +20,10 @@ Event _$EventFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Event {
-  int? get id => throw _privateConstructorUsedError;
-  int? get parentId => throw _privateConstructorUsedError;
-  int? get groupId => throw _privateConstructorUsedError;
-  int? get placeId => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
+  String? get parentId => throw _privateConstructorUsedError;
+  String? get groupId => throw _privateConstructorUsedError;
+  String? get placeId => throw _privateConstructorUsedError;
   bool get blocked => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -40,10 +40,10 @@ abstract class $EventCopyWith<$Res> {
       _$EventCopyWithImpl<$Res, Event>;
   @useResult
   $Res call(
-      {int? id,
-      int? parentId,
-      int? groupId,
-      int? placeId,
+      {String? id,
+      String? parentId,
+      String? groupId,
+      String? placeId,
       bool blocked,
       String name,
       String description,
@@ -76,19 +76,19 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       groupId: freezed == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       placeId: freezed == placeId
           ? _value.placeId
           : placeId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       blocked: null == blocked
           ? _value.blocked
           : blocked // ignore: cast_nullable_to_non_nullable
@@ -116,10 +116,10 @@ abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? id,
-      int? parentId,
-      int? groupId,
-      int? placeId,
+      {String? id,
+      String? parentId,
+      String? groupId,
+      String? placeId,
       bool blocked,
       String name,
       String description,
@@ -148,19 +148,19 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       groupId: freezed == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       placeId: freezed == placeId
           ? _value.placeId
           : placeId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       blocked: null == blocked
           ? _value.blocked
           : blocked // ignore: cast_nullable_to_non_nullable
@@ -199,13 +199,13 @@ class _$_Event extends _Event {
       _$$_EventFromJson(json);
 
   @override
-  final int? id;
+  final String? id;
   @override
-  final int? parentId;
+  final String? parentId;
   @override
-  final int? groupId;
+  final String? groupId;
   @override
-  final int? placeId;
+  final String? placeId;
   @override
   @JsonKey()
   final bool blocked;
@@ -263,10 +263,10 @@ class _$_Event extends _Event {
 
 abstract class _Event extends Event implements DescriptiveModel {
   const factory _Event(
-      {final int? id,
-      final int? parentId,
-      final int? groupId,
-      final int? placeId,
+      {final String? id,
+      final String? parentId,
+      final String? groupId,
+      final String? placeId,
       final bool blocked,
       final String name,
       final String description,
@@ -276,13 +276,13 @@ abstract class _Event extends Event implements DescriptiveModel {
   factory _Event.fromJson(Map<String, dynamic> json) = _$_Event.fromJson;
 
   @override
-  int? get id;
+  String? get id;
   @override
-  int? get parentId;
+  String? get parentId;
   @override
-  int? get groupId;
+  String? get groupId;
   @override
-  int? get placeId;
+  String? get placeId;
   @override
   bool get blocked;
   @override

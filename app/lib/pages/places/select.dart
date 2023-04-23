@@ -11,7 +11,7 @@ import '../../widgets/builder_delegate.dart';
 
 class PlaceSelectDialog extends StatefulWidget {
   final String? source;
-  final SourcedModel<int>? selected;
+  final SourcedModel<String>? selected;
 
   const PlaceSelectDialog({
     super.key,

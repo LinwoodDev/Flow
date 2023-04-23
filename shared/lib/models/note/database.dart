@@ -29,7 +29,7 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
   }
 
   @override
-  Future<void> connect(int connectId, int noteId) async {
+  Future<void> connect(String connectId, String noteId) async {
     await db?.insert(tableName, {
       'noteId': noteId,
       connectedIdName: connectId,
@@ -37,7 +37,7 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
   }
 
   @override
-  Future<void> disconnect(int connectId, int noteId) async {
+  Future<void> disconnect(String connectId, String noteId) async {
     await db?.delete(
       tableName,
       where: 'noteId = ? AND $connectedIdName = ?',
@@ -46,7 +46,7 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
   }
 
   @override
-  Future<List<Note>> getNotes(int connectId,
+  Future<List<Note>> getNotes(String connectId,
       {int offset = 0, int limit = 50}) async {
     final result = await db?.query(
       '$tableName JOIN notes ON notes.id = noteId',
@@ -68,13 +68,13 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
                 .where((element) => element.key.startsWith('note'))
                 .map((e) => MapEntry(e.key.substring('note'.length), e.value))))
             .map((e) {
-          return Note.fromJson(e);
+          return Note.fromDatabase(e);
         }).toList() ??
         [];
   }
 
   @override
-  Future<List<T>> getConnected(int noteId,
+  Future<List<T>> getConnected(String noteId,
       {int offset = 0, int limit = 50}) async {
     final result = await db?.query(
       tableName,
@@ -87,7 +87,7 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
   }
 
   @override
-  Future<bool> isNoteConnected(int connectId, int noteId) async {
+  Future<bool> isNoteConnected(String connectId, String noteId) async {
     final result = await db?.query(
       tableName,
       where: 'noteId = ? AND $connectedIdName = ?',
@@ -97,7 +97,7 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
   }
 
   @override
-  Future<bool?> notesDone(int connectId) async {
+  Future<bool?> notesDone(String connectId) async {
     final result = await db?.rawQuery(
         'SELECT COUNT(*) AS count FROM notes WHERE $connectedIdName = ? AND status = ?',
         [connectId, NoteStatus.done.name]);
@@ -133,13 +133,13 @@ class NoteDatabaseService extends NoteService with TableService {
 
   @override
   Future<Note?> createNote(Note note) async {
-    final id = await db?.insert('notes', note.toJson()..remove('id'));
+    final id = await db?.insert('notes', note.toDatabase()..remove('id'));
     if (id == null) return null;
-    return note.copyWith(id: id);
+    return note.copyWith(id: id.toString());
   }
 
   @override
-  Future<bool> deleteNote(int id) async {
+  Future<bool> deleteNote(String id) async {
     return await db?.delete(
           'notes',
           where: 'id = ?',
@@ -152,7 +152,7 @@ class NoteDatabaseService extends NoteService with TableService {
   Future<List<Note>> getNotes({
     int offset = 0,
     int limit = 50,
-    int? parent,
+    String? parent,
     Set<NoteStatus?> statuses = const {
       NoteStatus.todo,
       NoteStatus.inProgress,
@@ -172,7 +172,7 @@ class NoteDatabaseService extends NoteService with TableService {
           : [...whereArgs, '%$search%', '%$search%'];
     }
     if (parent != null) {
-      if (parent >= 0) {
+      if (parent.isNotEmpty) {
         where = where == null ? 'parentId = ?' : '$where AND parentId = ?';
         whereArgs = whereArgs == null ? [parent] : [...whereArgs, parent];
       } else {
@@ -197,7 +197,7 @@ class NoteDatabaseService extends NoteService with TableService {
     );
     return result
             ?.map((row) =>
-                Note.fromJson(Map.from(row)..['done'] = row['done'] == 1))
+                Note.fromDatabase(Map.from(row)..['done'] = row['done'] == 1))
             .toList() ??
         [];
   }
@@ -209,7 +209,7 @@ class NoteDatabaseService extends NoteService with TableService {
   FutureOr<bool> updateNote(Note note) async {
     return await db?.update(
           'notes',
-          note.toJson()..remove('id'),
+          note.toDatabase()..remove('id'),
           where: 'id = ?',
           whereArgs: [note.id],
         ) ==
@@ -222,12 +222,12 @@ class NoteDatabaseService extends NoteService with TableService {
   }
 
   @override
-  Future<Note?> getNote(int id) async {
+  Future<Note?> getNote(String id) async {
     final result = await db?.query(
       'notes',
       where: 'id = ?',
       whereArgs: [id],
     );
-    return result?.map(Note.fromJson).firstOrNull;
+    return result?.map(Note.fromDatabase).firstOrNull;
   }
 }

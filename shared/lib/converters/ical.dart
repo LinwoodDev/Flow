@@ -17,7 +17,7 @@ class ICalConverter {
     CalendarItem? currentItem;
     Note? currentNote;
     final items = List<CalendarItem>.from(data?.items ?? []);
-    var currentEvent = Event(name: name, id: 1);
+    var currentEvent = Event(name: name, id: 1.toString());
     final notes = List<Note>.from(data?.notes ?? []);
     for (int i = offset; i < lines.length; i++) {
       final line = lines[i];
@@ -67,7 +67,7 @@ class ICalConverter {
           case 'BEGIN':
             if (value == 'VEVENT') {
               currentItem = CalendarItem.fixed(
-                id: items.length + 1,
+                id: (items.length + 1).toString(),
                 eventId: currentEvent.id,
               );
             } else if (value == 'VTODO') {
@@ -99,10 +99,13 @@ class ICalConverter {
         'SUMMARY:${item.name}',
         'DESCRIPTION:${item.description}',
         if (item.start != null)
-          'DTSTART:${item.start!.toUtc().toIso8601String()}',
-        if (item.end != null) 'DTEND:${item.end!.toUtc().toIso8601String()}',
+          'DTSTART:${_formatDateTime(item.start!.toUtc())}',
+        if (item.end != null) 'DTEND:${_formatDateTime(item.end!.toUtc())}',
         'END:VEVENT',
       ];
+
+  String _formatDateTime(DateTime dateTime) =>
+      "${dateTime.year}${dateTime.month.toString().padLeft(2, '0')}${dateTime.day.toString().padLeft(2, '0')}T${dateTime.hour.toString().padLeft(2, '0')}${dateTime.minute.toString().padLeft(2, '0')}00Z";
 
   List<String> writeNote(Note note) => [
         'BEGIN:VTODO',

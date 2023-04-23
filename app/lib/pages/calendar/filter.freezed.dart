@@ -18,9 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CalendarFilter {
   List<EventStatus> get hiddenStatuses => throw _privateConstructorUsedError;
   String? get source => throw _privateConstructorUsedError;
-  int? get group => throw _privateConstructorUsedError;
-  int? get event => throw _privateConstructorUsedError;
-  int? get place => throw _privateConstructorUsedError;
+  String? get group => throw _privateConstructorUsedError;
+  String? get event => throw _privateConstructorUsedError;
+  String? get place => throw _privateConstructorUsedError;
   bool get past => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -37,9 +37,9 @@ abstract class $CalendarFilterCopyWith<$Res> {
   $Res call(
       {List<EventStatus> hiddenStatuses,
       String? source,
-      int? group,
-      int? event,
-      int? place,
+      String? group,
+      String? event,
+      String? place,
       bool past});
 }
 
@@ -75,15 +75,15 @@ class _$CalendarFilterCopyWithImpl<$Res, $Val extends CalendarFilter>
       group: freezed == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       event: freezed == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       place: freezed == place
           ? _value.place
           : place // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       past: null == past
           ? _value.past
           : past // ignore: cast_nullable_to_non_nullable
@@ -103,9 +103,9 @@ abstract class _$$_CalendarFilterCopyWith<$Res>
   $Res call(
       {List<EventStatus> hiddenStatuses,
       String? source,
-      int? group,
-      int? event,
-      int? place,
+      String? group,
+      String? event,
+      String? place,
       bool past});
 }
 
@@ -139,15 +139,15 @@ class __$$_CalendarFilterCopyWithImpl<$Res>
       group: freezed == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       event: freezed == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       place: freezed == place
           ? _value.place
           : place // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       past: null == past
           ? _value.past
           : past // ignore: cast_nullable_to_non_nullable
@@ -184,11 +184,11 @@ class _$_CalendarFilter extends _CalendarFilter {
   @override
   final String? source;
   @override
-  final int? group;
+  final String? group;
   @override
-  final int? event;
+  final String? event;
   @override
-  final int? place;
+  final String? place;
   @override
   @JsonKey()
   final bool past;
@@ -233,9 +233,9 @@ abstract class _CalendarFilter extends CalendarFilter {
   const factory _CalendarFilter(
       {final List<EventStatus> hiddenStatuses,
       final String? source,
-      final int? group,
-      final int? event,
-      final int? place,
+      final String? group,
+      final String? event,
+      final String? place,
       final bool past}) = _$_CalendarFilter;
   const _CalendarFilter._() : super._();
 
@@ -244,11 +244,11 @@ abstract class _CalendarFilter extends CalendarFilter {
   @override
   String? get source;
   @override
-  int? get group;
+  String? get group;
   @override
-  int? get event;
+  String? get event;
   @override
-  int? get place;
+  String? get place;
   @override
   bool get past;
   @override

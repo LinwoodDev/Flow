@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$EventFilter {
   String? get source => throw _privateConstructorUsedError;
-  int? get group => throw _privateConstructorUsedError;
+  String? get group => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EventFilterCopyWith<EventFilter> get copyWith =>
@@ -30,7 +30,7 @@ abstract class $EventFilterCopyWith<$Res> {
           EventFilter value, $Res Function(EventFilter) then) =
       _$EventFilterCopyWithImpl<$Res, EventFilter>;
   @useResult
-  $Res call({String? source, int? group});
+  $Res call({String? source, String? group});
 }
 
 /// @nodoc
@@ -57,7 +57,7 @@ class _$EventFilterCopyWithImpl<$Res, $Val extends EventFilter>
       group: freezed == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ) as $Val);
   }
 }
@@ -70,7 +70,7 @@ abstract class _$$_EventFilterCopyWith<$Res>
       __$$_EventFilterCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? source, int? group});
+  $Res call({String? source, String? group});
 }
 
 /// @nodoc
@@ -95,7 +95,7 @@ class __$$_EventFilterCopyWithImpl<$Res>
       group: freezed == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ));
   }
 }
@@ -108,7 +108,7 @@ class _$_EventFilter implements _EventFilter {
   @override
   final String? source;
   @override
-  final int? group;
+  final String? group;
 
   @override
   String toString() {
@@ -135,13 +135,13 @@ class _$_EventFilter implements _EventFilter {
 }
 
 abstract class _EventFilter implements EventFilter {
-  const factory _EventFilter({final String? source, final int? group}) =
+  const factory _EventFilter({final String? source, final String? group}) =
       _$_EventFilter;
 
   @override
   String? get source;
   @override
-  int? get group;
+  String? get group;
   @override
   @JsonKey(ignore: true)
   _$$_EventFilterCopyWith<_$_EventFilter> get copyWith =>

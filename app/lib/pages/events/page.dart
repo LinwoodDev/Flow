@@ -287,7 +287,7 @@ Future<SourcedModel<Event>?> showEventModalBottomSheet(
 
 Future<void> showCalendarCreate(
     {required BuildContext context,
-    SourcedModel<int>? event,
+    SourcedModel<String>? event,
     DateTime? time}) async {
   final cubit = context.read<FlowCubit>();
   SourcedModel<Event>? eventResult;

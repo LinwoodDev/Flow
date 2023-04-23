@@ -46,9 +46,9 @@ class CalendarItemDatabaseService extends CalendarItemService
   @override
   Future<List<ConnectedModel<CalendarItem, Event?>>> getCalendarItems(
       {List<EventStatus>? status,
-      int? eventId,
-      int? groupId,
-      int? placeId,
+      String? eventId,
+      String? groupId,
+      String? placeId,
       bool pending = false,
       int offset = 0,
       int limit = 50,
@@ -153,7 +153,7 @@ class CalendarItemDatabaseService extends CalendarItemService
     );
     return result?.map((e) {
           return ConnectedModel<CalendarItem, Event?>(
-            CalendarItem.fromJson(Map.fromEntries(e.entries
+            CalendarItem.fromDatabase(Map.fromEntries(e.entries
                 .where((element) => element.key.startsWith('calendarItem'))
                 .map((e) => MapEntry(
                     e.key.substring("calendarItem".length), e.value)))),
@@ -165,16 +165,17 @@ class CalendarItemDatabaseService extends CalendarItemService
 
   @override
   Future<CalendarItem?> createCalendarItem(CalendarItem item) async {
-    final id = await db?.insert('calendarItems', item.toJson()..remove('id'));
+    final id =
+        await db?.insert('calendarItems', item.toDatabase()..remove('id'));
     if (id == null) return null;
-    return item.copyWith(id: id);
+    return item.copyWith(id: id.toString());
   }
 
   @override
   Future<bool> updateCalendarItem(CalendarItem item) async {
     return await db?.update(
           'calendarItems',
-          item.toJson(),
+          item.toDatabase(),
           where: 'id = ?',
           whereArgs: [item.id],
         ) ==
@@ -198,7 +199,7 @@ class CalendarItemDatabaseService extends CalendarItemService
       where: 'id = ?',
       whereArgs: [id],
     );
-    return result?.map(CalendarItem.fromJson).first;
+    return result?.map(CalendarItem.fromDatabase).first;
   }
 
   @override
@@ -220,9 +221,9 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
   @override
   FutureOr<List<ConnectedModel<CalendarItem, Event?>>> getCalendarItems({
     List<EventStatus>? status,
-    int? eventId,
-    int? groupId,
-    int? placeId,
+    String? eventId,
+    String? groupId,
+    String? placeId,
     bool pending = false,
     int offset = 0,
     int limit = 50,

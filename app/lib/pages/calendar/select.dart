@@ -13,8 +13,8 @@ import 'package:shared/services/source.dart';
 
 class AppointmentSelectDialog extends StatefulWidget {
   final String? source;
-  final SourcedModel<int>? selected;
-  final int? ignore;
+  final SourcedModel<String>? selected;
+  final String? ignore;
 
   const AppointmentSelectDialog({
     super.key,

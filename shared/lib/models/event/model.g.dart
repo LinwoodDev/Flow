@@ -7,10 +7,10 @@ part of 'model.dart';
 // **************************************************************************
 
 _$_Event _$$_EventFromJson(Map<String, dynamic> json) => _$_Event(
-      id: json['id'] as int?,
-      parentId: json['parentId'] as int?,
-      groupId: json['groupId'] as int?,
-      placeId: json['placeId'] as int?,
+      id: json['id'] as String?,
+      parentId: json['parentId'] as String?,
+      groupId: json['groupId'] as String?,
+      placeId: json['placeId'] as String?,
       blocked: json['blocked'] as bool? ?? true,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',

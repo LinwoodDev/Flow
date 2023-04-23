@@ -8,7 +8,7 @@ abstract class NoteService extends ModelService {
   FutureOr<List<Note>> getNotes({
     int offset = 0,
     int limit = 50,
-    int? parent,
+    String? parent,
     Set<NoteStatus?> statuses = const {
       NoteStatus.todo,
       NoteStatus.inProgress,
@@ -22,24 +22,24 @@ abstract class NoteService extends ModelService {
 
   FutureOr<bool> updateNote(Note note);
 
-  FutureOr<bool> deleteNote(int id);
+  FutureOr<bool> deleteNote(String id);
 
-  FutureOr<Note?> getNote(int id);
+  FutureOr<Note?> getNote(String id);
 }
 
 abstract class NoteConnector<T> extends ModelService {
-  FutureOr<void> connect(int connectId, int noteId);
-  FutureOr<void> disconnect(int connectId, int noteId);
+  FutureOr<void> connect(String connectId, String noteId);
+  FutureOr<void> disconnect(String connectId, String noteId);
   FutureOr<List<Note>> getNotes(
-    int connectId, {
+    String connectId, {
     int offset = 0,
     int limit = 50,
   });
   FutureOr<List<T>> getConnected(
-    int noteId, {
+    String noteId, {
     int offset = 0,
     int limit = 50,
   });
-  FutureOr<bool> isNoteConnected(int connectId, int noteId);
-  FutureOr<bool?> notesDone(int connectId);
+  FutureOr<bool> isNoteConnected(String connectId, String noteId);
+  FutureOr<bool?> notesDone(String connectId);
 }

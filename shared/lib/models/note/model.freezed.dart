@@ -20,8 +20,8 @@ Note _$NoteFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Note {
-  int? get id => throw _privateConstructorUsedError;
-  int? get parentId => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
+  String? get parentId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   NoteStatus? get status => throw _privateConstructorUsedError;
@@ -38,8 +38,8 @@ abstract class $NoteCopyWith<$Res> {
       _$NoteCopyWithImpl<$Res, Note>;
   @useResult
   $Res call(
-      {int? id,
-      int? parentId,
+      {String? id,
+      String? parentId,
       String name,
       String description,
       NoteStatus? status,
@@ -70,11 +70,11 @@ class _$NoteCopyWithImpl<$Res, $Val extends Note>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -102,8 +102,8 @@ abstract class _$$_NoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? id,
-      int? parentId,
+      {String? id,
+      String? parentId,
       String name,
       String description,
       NoteStatus? status,
@@ -130,11 +130,11 @@ class __$$_NoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res, _$_Note>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -157,21 +157,22 @@ class __$$_NoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res, _$_Note>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Note implements _Note {
+class _$_Note extends _Note {
   const _$_Note(
       {this.id,
       this.parentId,
       this.name = '',
       this.description = '',
       this.status,
-      this.priority = 0});
+      this.priority = 0})
+      : super._();
 
   factory _$_Note.fromJson(Map<String, dynamic> json) => _$$_NoteFromJson(json);
 
   @override
-  final int? id;
+  final String? id;
   @override
-  final int? parentId;
+  final String? parentId;
   @override
   @JsonKey()
   final String name;
@@ -224,21 +225,22 @@ class _$_Note implements _Note {
   }
 }
 
-abstract class _Note implements Note, DescriptiveModel {
+abstract class _Note extends Note implements DescriptiveModel {
   const factory _Note(
-      {final int? id,
-      final int? parentId,
+      {final String? id,
+      final String? parentId,
       final String name,
       final String description,
       final NoteStatus? status,
       final int priority}) = _$_Note;
+  const _Note._() : super._();
 
   factory _Note.fromJson(Map<String, dynamic> json) = _$_Note.fromJson;
 
   @override
-  int? get id;
+  String? get id;
   @override
-  int? get parentId;
+  String? get parentId;
   @override
   String get name;
   @override

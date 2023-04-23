@@ -11,8 +11,8 @@ import '../../widgets/builder_delegate.dart';
 
 class GroupSelectDialog extends StatefulWidget {
   final String? source;
-  final SourcedModel<int>? selected;
-  final int? ignore;
+  final SourcedModel<String>? selected;
+  final String? ignore;
 
   const GroupSelectDialog({
     super.key,

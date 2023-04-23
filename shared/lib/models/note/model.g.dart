@@ -7,8 +7,8 @@ part of 'model.dart';
 // **************************************************************************
 
 _$_Note _$$_NoteFromJson(Map<String, dynamic> json) => _$_Note(
-      id: json['id'] as int?,
-      parentId: json['parentId'] as int?,
+      id: json['id'] as String?,
+      parentId: json['parentId'] as String?,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       status: $enumDecodeNullable(_$NoteStatusEnumMap, json['status']),

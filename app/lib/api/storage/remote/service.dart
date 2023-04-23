@@ -25,7 +25,7 @@ class RequestDatabaseService extends ModelService with TableService {
   Future<int?> createRequest(APIRequest request) async {
     return db?.insert('request', {
       'created': DateTime.now().millisecondsSinceEpoch,
-      'data': request.toJson(),
+      'data': jsonEncode(request.toJson()),
     });
   }
 
@@ -41,7 +41,7 @@ class RequestDatabaseService extends ModelService with TableService {
     return result
         .map((e) => ConnectedModel(
               DateTime.fromMillisecondsSinceEpoch(e['created'] as int),
-              APIRequest.fromJson(json.decode(e['data'] as String)),
+              APIRequest.fromJson(jsonDecode(e['data'] as String)),
             ))
         .toList();
   }

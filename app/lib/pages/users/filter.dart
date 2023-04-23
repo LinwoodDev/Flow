@@ -12,7 +12,7 @@ part 'filter.freezed.dart';
 class UserFilter with _$UserFilter {
   const factory UserFilter({
     String? source,
-    int? group,
+    String? group,
   }) = _UserFilter;
 }
 

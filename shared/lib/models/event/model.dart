@@ -11,10 +11,10 @@ class Event with _$Event {
 
   @Implements<DescriptiveModel>()
   const factory Event({
-    int? id,
-    int? parentId,
-    int? groupId,
-    int? placeId,
+    String? id,
+    String? parentId,
+    String? groupId,
+    String? placeId,
     @Default(true) bool blocked,
     @Default('') String name,
     @Default('') String description,
@@ -23,19 +23,23 @@ class Event with _$Event {
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
 
-  factory Event.fromDatabase(Map<String, dynamic> row) {
-    return Event.fromJson({
-      ...row,
-      'blocked': row['blocked'] == 1,
-    });
-  }
+  factory Event.fromDatabase(Map<String, dynamic> row) => Event.fromJson({
+        ...row,
+        'blocked': row['blocked'] == 1,
+        'id': row['id']?.toString(),
+        'parentId': row['parentId']?.toString(),
+        'groupId': row['groupId']?.toString(),
+        'placeId': row['placeId']?.toString(),
+      });
 
-  Map<String, dynamic> toDatabase() {
-    return {
-      ...toJson(),
-      'blocked': blocked ? 1 : 0,
-    };
-  }
+  Map<String, dynamic> toDatabase() => {
+        ...toJson(),
+        'blocked': blocked ? 1 : 0,
+        'id': int.tryParse(id ?? ''),
+        'parentId': int.tryParse(parentId ?? ''),
+        'groupId': int.tryParse(groupId ?? ''),
+        'placeId': int.tryParse(placeId ?? ''),
+      };
 }
 
 enum EventStatus {

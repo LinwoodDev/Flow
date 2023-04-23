@@ -155,7 +155,7 @@ class FlowApp extends StatelessWidget {
                       (context, state) => NotesPage(
                         parent: SourcedModel(
                           state.params['source']!,
-                          int.parse(state.params['id']!),
+                          state.params['id']!,
                         ),
                       ),
                     ),
@@ -167,7 +167,7 @@ class FlowApp extends StatelessWidget {
                       (context, state) => NotesPage(
                         parent: SourcedModel(
                           '',
-                          int.parse(state.params['id']!),
+                          state.params['id']!,
                         ),
                       ),
                     ),

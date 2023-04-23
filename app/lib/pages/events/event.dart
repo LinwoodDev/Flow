@@ -117,7 +117,7 @@ class EventDialog extends StatelessWidget {
                                       .read<FlowCubit>()
                                       .getService(source!)
                                       .group
-                                      ?.getGroup(currentEvent.groupId ?? -1)),
+                                      ?.getGroup(currentEvent.groupId ?? "")),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
                                       return Text(snapshot.data!.name);
@@ -164,7 +164,7 @@ class EventDialog extends StatelessWidget {
                                       .read<FlowCubit>()
                                       .getService(source!)
                                       .place
-                                      ?.getPlace(currentEvent.placeId ?? -1)),
+                                      ?.getPlace(currentEvent.placeId ?? "")),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
                                       return Text(snapshot.data!.name);
@@ -236,8 +236,8 @@ class EventDialog extends StatelessWidget {
 
 class EventListTile extends StatefulWidget {
   final String source;
-  final int? value;
-  final ValueChanged<int?> onChanged;
+  final String? value;
+  final ValueChanged<String?> onChanged;
 
   const EventListTile({
     super.key,
@@ -251,7 +251,7 @@ class EventListTile extends StatefulWidget {
 }
 
 class _EventListTileState extends State<EventListTile> {
-  int? _value;
+  String? _value;
 
   @override
   void initState() {
@@ -259,7 +259,7 @@ class _EventListTileState extends State<EventListTile> {
     _value = widget.value;
   }
 
-  void _onChanged(int? value) {
+  void _onChanged(String? value) {
     setState(() {
       _value = value;
     });
