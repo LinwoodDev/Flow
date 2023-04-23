@@ -246,7 +246,7 @@
   "open": "Avaa",
   "limited": "Rajoitettu",
   "notSet": "Ei asetettu",
-  "createPending": "Create pending",
-  "editPending": "Edit pending",
-  "convertTo": "Convert to"
+  "createPending": "Luo odottaa",
+  "editPending": "Muokkaa odottavia",
+  "convertTo": "Muunna muotoon"
 }
