@@ -1,7 +1,11 @@
 {
   "title": {
-    "message": "Strömung",
+    "message": "Flow",
     "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "Flow Logo",
+    "description": "The alt text of navbar logo"
   },
   "item.label.Tutorial": {
     "message": "Tutorial",
@@ -16,7 +20,7 @@
     "description": "Navbar item with label Community"
   },
   "item.label.More": {
-    "message": "Mehr",
+    "message": "More",
     "description": "Navbar item with label More"
   },
   "item.label.Matrix": {
@@ -43,12 +47,12 @@
     "message": "Twitter",
     "description": "Navbar item with label Twitter"
   },
-  "item.label.Mastodon": {
-    "message": "Mastodon",
-    "description": "Navbar item with label Mastodon"
+  "item.label.Masnoten": {
+    "message": "Masnoten",
+    "description": "Navbar item with label Masnoten"
   },
   "item.label.License": {
-    "message": "Lizenz",
+    "message": "License",
     "description": "Navbar item with label License"
   }
 }
