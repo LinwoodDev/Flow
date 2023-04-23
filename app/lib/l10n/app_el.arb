@@ -246,7 +246,7 @@
   "open": "Άνοιγμα",
   "limited": "Περιορισμένη",
   "notSet": "Δεν έχει οριστεί",
-  "createPending": "Create pending",
-  "editPending": "Edit pending",
-  "convertTo": "Convert to"
+  "createPending": "Δημιουργία σε αναμονή",
+  "editPending": "Επεξεργασία σε αναμονή",
+  "convertTo": "Μετατροπή σε"
 }
