@@ -246,7 +246,7 @@
   "open": "Otevřít",
   "limited": "Omezeno",
   "notSet": "Nenastaveno",
-  "createPending": "Create pending",
-  "editPending": "Edit pending",
-  "convertTo": "Convert to"
+  "createPending": "Vytvořit nevyřízené",
+  "editPending": "Upravit čekající",
+  "convertTo": "Převést na"
 }
