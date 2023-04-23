@@ -1,22 +1,26 @@
 {
   "title": {
-    "message": "Stroom",
+    "message": "Flow",
     "description": "The title in the navbar"
   },
+  "logo.alt": {
+    "message": "Flow Logo",
+    "description": "The alt text of navbar logo"
+  },
   "item.label.Tutorial": {
-    "message": "Handleiding",
+    "message": "Tutorial",
     "description": "Navbar item with label Tutorial"
   },
   "item.label.Downloads": {
-    "message": "downloads",
+    "message": "Downloads",
     "description": "Navbar item with label Downloads"
   },
   "item.label.Community": {
-    "message": "Gemeenschap",
+    "message": "Community",
     "description": "Navbar item with label Community"
   },
   "item.label.More": {
-    "message": "Meer",
+    "message": "More",
     "description": "Navbar item with label More"
   },
   "item.label.Matrix": {
@@ -24,7 +28,7 @@
     "description": "Navbar item with label Matrix"
   },
   "item.label.Discord": {
-    "message": "Onenigheid",
+    "message": "Discord",
     "description": "Navbar item with label Discord"
   },
   "item.label.GitHub": {
@@ -43,12 +47,12 @@
     "message": "Twitter",
     "description": "Navbar item with label Twitter"
   },
-  "item.label.Mastodon": {
-    "message": "Mastodon",
-    "description": "Navbar item with label Mastodon"
+  "item.label.Masnoten": {
+    "message": "Masnoten",
+    "description": "Navbar item with label Masnoten"
   },
   "item.label.License": {
-    "message": "Licentie",
+    "message": "License",
     "description": "Navbar item with label License"
   }
 }
