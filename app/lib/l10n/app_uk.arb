@@ -246,7 +246,7 @@
   "open": "Відкриті",
   "limited": "Обмежений",
   "notSet": "Не задано",
-  "createPending": "Create pending",
-  "editPending": "Edit pending",
-  "convertTo": "Convert to"
+  "createPending": "Створити в очікуванні",
+  "editPending": "Редагування в очікуванні",
+  "convertTo": "Конвертувати в"
 }
