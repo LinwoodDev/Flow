@@ -8,11 +8,13 @@ part of 'model.dart';
 
 _$FixedCalendarItem _$$FixedCalendarItemFromJson(Map<String, dynamic> json) =>
     _$FixedCalendarItem(
-      id: json['id'] as String?,
+      id: _$JsonConverterFromJson<List<int>, Multihash>(
+          json['id'], const MultihashConverter().fromJson),
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       location: json['location'] as String? ?? '',
-      eventId: json['eventId'] as String?,
+      eventId: _$JsonConverterFromJson<List<int>, Multihash>(
+          json['eventId'], const MultihashConverter().fromJson),
       status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
           EventStatus.confirmed,
       start: const DateTimeConverter().fromJson(json['start'] as int?),
@@ -22,16 +24,24 @@ _$FixedCalendarItem _$$FixedCalendarItemFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$FixedCalendarItemToJson(_$FixedCalendarItem instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'id': _$JsonConverterToJson<List<int>, Multihash>(
+          instance.id, const MultihashConverter().toJson),
       'name': instance.name,
       'description': instance.description,
       'location': instance.location,
-      'eventId': instance.eventId,
+      'eventId': _$JsonConverterToJson<List<int>, Multihash>(
+          instance.eventId, const MultihashConverter().toJson),
       'status': _$EventStatusEnumMap[instance.status]!,
       'start': const DateTimeConverter().toJson(instance.start),
       'end': const DateTimeConverter().toJson(instance.end),
       'runtimeType': instance.$type,
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
 
 const _$EventStatusEnumMap = {
   EventStatus.confirmed: 'confirmed',
@@ -39,14 +49,22 @@ const _$EventStatusEnumMap = {
   EventStatus.cancelled: 'cancelled',
 };
 
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);
+
 _$RepeatingCalendarItem _$$RepeatingCalendarItemFromJson(
         Map<String, dynamic> json) =>
     _$RepeatingCalendarItem(
-      id: json['id'] as String?,
+      id: _$JsonConverterFromJson<List<int>, Multihash>(
+          json['id'], const MultihashConverter().fromJson),
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       location: json['location'] as String? ?? '',
-      eventId: json['eventId'] as String?,
+      eventId: _$JsonConverterFromJson<List<int>, Multihash>(
+          json['eventId'], const MultihashConverter().fromJson),
       status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
           EventStatus.confirmed,
       start: const DateTimeConverter().fromJson(json['start'] as int?),
@@ -68,11 +86,13 @@ _$RepeatingCalendarItem _$$RepeatingCalendarItemFromJson(
 Map<String, dynamic> _$$RepeatingCalendarItemToJson(
         _$RepeatingCalendarItem instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'id': _$JsonConverterToJson<List<int>, Multihash>(
+          instance.id, const MultihashConverter().toJson),
       'name': instance.name,
       'description': instance.description,
       'location': instance.location,
-      'eventId': instance.eventId,
+      'eventId': _$JsonConverterToJson<List<int>, Multihash>(
+          instance.eventId, const MultihashConverter().toJson),
       'status': _$EventStatusEnumMap[instance.status]!,
       'start': const DateTimeConverter().toJson(instance.start),
       'end': const DateTimeConverter().toJson(instance.end),
@@ -94,16 +114,19 @@ const _$RepeatTypeEnumMap = {
 
 _$AutoCalendarItem _$$AutoCalendarItemFromJson(Map<String, dynamic> json) =>
     _$AutoCalendarItem(
-      id: json['id'] as String?,
+      id: _$JsonConverterFromJson<List<int>, Multihash>(
+          json['id'], const MultihashConverter().fromJson),
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       location: json['location'] as String? ?? '',
-      eventId: json['eventId'] as String?,
+      eventId: _$JsonConverterFromJson<List<int>, Multihash>(
+          json['eventId'], const MultihashConverter().fromJson),
       status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
           EventStatus.confirmed,
       start: const DateTimeConverter().fromJson(json['start'] as int?),
       end: const DateTimeConverter().fromJson(json['end'] as int?),
-      autoGroupId: json['autoGroupId'] as String?,
+      autoGroupId: _$JsonConverterFromJson<List<int>, Multihash>(
+          json['autoGroupId'], const MultihashConverter().fromJson),
       searchStart:
           const DateTimeConverter().fromJson(json['searchStart'] as int?),
       autoDuration: json['autoDuration'] as int? ?? 60,
@@ -112,15 +135,18 @@ _$AutoCalendarItem _$$AutoCalendarItemFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$AutoCalendarItemToJson(_$AutoCalendarItem instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'id': _$JsonConverterToJson<List<int>, Multihash>(
+          instance.id, const MultihashConverter().toJson),
       'name': instance.name,
       'description': instance.description,
       'location': instance.location,
-      'eventId': instance.eventId,
+      'eventId': _$JsonConverterToJson<List<int>, Multihash>(
+          instance.eventId, const MultihashConverter().toJson),
       'status': _$EventStatusEnumMap[instance.status]!,
       'start': const DateTimeConverter().toJson(instance.start),
       'end': const DateTimeConverter().toJson(instance.end),
-      'autoGroupId': instance.autoGroupId,
+      'autoGroupId': _$JsonConverterToJson<List<int>, Multihash>(
+          instance.autoGroupId, const MultihashConverter().toJson),
       'searchStart': const DateTimeConverter().toJson(instance.searchStart),
       'autoDuration': instance.autoDuration,
       'runtimeType': instance.$type,

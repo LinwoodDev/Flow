@@ -20,14 +20,19 @@ Event _$EventFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Event {
-  String? get id => throw _privateConstructorUsedError;
-  String? get parentId => throw _privateConstructorUsedError;
-  String? get groupId => throw _privateConstructorUsedError;
-  String? get placeId => throw _privateConstructorUsedError;
+  @MultihashConverter()
+  Multihash? get id => throw _privateConstructorUsedError;
+  @MultihashConverter()
+  Multihash? get parentId => throw _privateConstructorUsedError;
+  @MultihashConverter()
+  Multihash? get groupId => throw _privateConstructorUsedError;
+  @MultihashConverter()
+  Multihash? get placeId => throw _privateConstructorUsedError;
   bool get blocked => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
+  String? get extra => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,14 +45,15 @@ abstract class $EventCopyWith<$Res> {
       _$EventCopyWithImpl<$Res, Event>;
   @useResult
   $Res call(
-      {String? id,
-      String? parentId,
-      String? groupId,
-      String? placeId,
+      {@MultihashConverter() Multihash? id,
+      @MultihashConverter() Multihash? parentId,
+      @MultihashConverter() Multihash? groupId,
+      @MultihashConverter() Multihash? placeId,
       bool blocked,
       String name,
       String description,
-      String location});
+      String location,
+      String? extra});
 }
 
 /// @nodoc
@@ -71,24 +77,25 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
     Object? name = null,
     Object? description = null,
     Object? location = null,
+    Object? extra = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       groupId: freezed == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       placeId: freezed == placeId
           ? _value.placeId
           : placeId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       blocked: null == blocked
           ? _value.blocked
           : blocked // ignore: cast_nullable_to_non_nullable
@@ -105,6 +112,10 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
+      extra: freezed == extra
+          ? _value.extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -116,14 +127,15 @@ abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? id,
-      String? parentId,
-      String? groupId,
-      String? placeId,
+      {@MultihashConverter() Multihash? id,
+      @MultihashConverter() Multihash? parentId,
+      @MultihashConverter() Multihash? groupId,
+      @MultihashConverter() Multihash? placeId,
       bool blocked,
       String name,
       String description,
-      String location});
+      String location,
+      String? extra});
 }
 
 /// @nodoc
@@ -143,24 +155,25 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
     Object? name = null,
     Object? description = null,
     Object? location = null,
+    Object? extra = freezed,
   }) {
     return _then(_$_Event(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       groupId: freezed == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       placeId: freezed == placeId
           ? _value.placeId
           : placeId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       blocked: null == blocked
           ? _value.blocked
           : blocked // ignore: cast_nullable_to_non_nullable
@@ -177,6 +190,10 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
+      extra: freezed == extra
+          ? _value.extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -185,27 +202,32 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
 @JsonSerializable()
 class _$_Event extends _Event {
   const _$_Event(
-      {this.id,
-      this.parentId,
-      this.groupId,
-      this.placeId,
+      {@MultihashConverter() this.id,
+      @MultihashConverter() this.parentId,
+      @MultihashConverter() this.groupId,
+      @MultihashConverter() this.placeId,
       this.blocked = true,
       this.name = '',
       this.description = '',
-      this.location = ''})
+      this.location = '',
+      this.extra})
       : super._();
 
   factory _$_Event.fromJson(Map<String, dynamic> json) =>
       _$$_EventFromJson(json);
 
   @override
-  final String? id;
+  @MultihashConverter()
+  final Multihash? id;
   @override
-  final String? parentId;
+  @MultihashConverter()
+  final Multihash? parentId;
   @override
-  final String? groupId;
+  @MultihashConverter()
+  final Multihash? groupId;
   @override
-  final String? placeId;
+  @MultihashConverter()
+  final Multihash? placeId;
   @override
   @JsonKey()
   final bool blocked;
@@ -218,10 +240,12 @@ class _$_Event extends _Event {
   @override
   @JsonKey()
   final String location;
+  @override
+  final String? extra;
 
   @override
   String toString() {
-    return 'Event(id: $id, parentId: $parentId, groupId: $groupId, placeId: $placeId, blocked: $blocked, name: $name, description: $description, location: $location)';
+    return 'Event(id: $id, parentId: $parentId, groupId: $groupId, placeId: $placeId, blocked: $blocked, name: $name, description: $description, location: $location, extra: $extra)';
   }
 
   @override
@@ -239,13 +263,14 @@ class _$_Event extends _Event {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.location, location) ||
-                other.location == location));
+                other.location == location) &&
+            (identical(other.extra, extra) || other.extra == extra));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, parentId, groupId, placeId,
-      blocked, name, description, location);
+      blocked, name, description, location, extra);
 
   @JsonKey(ignore: true)
   @override
@@ -263,26 +288,31 @@ class _$_Event extends _Event {
 
 abstract class _Event extends Event implements DescriptiveModel {
   const factory _Event(
-      {final String? id,
-      final String? parentId,
-      final String? groupId,
-      final String? placeId,
+      {@MultihashConverter() final Multihash? id,
+      @MultihashConverter() final Multihash? parentId,
+      @MultihashConverter() final Multihash? groupId,
+      @MultihashConverter() final Multihash? placeId,
       final bool blocked,
       final String name,
       final String description,
-      final String location}) = _$_Event;
+      final String location,
+      final String? extra}) = _$_Event;
   const _Event._() : super._();
 
   factory _Event.fromJson(Map<String, dynamic> json) = _$_Event.fromJson;
 
   @override
-  String? get id;
+  @MultihashConverter()
+  Multihash? get id;
   @override
-  String? get parentId;
+  @MultihashConverter()
+  Multihash? get parentId;
   @override
-  String? get groupId;
+  @MultihashConverter()
+  Multihash? get groupId;
   @override
-  String? get placeId;
+  @MultihashConverter()
+  Multihash? get placeId;
   @override
   bool get blocked;
   @override
@@ -291,6 +321,8 @@ abstract class _Event extends Event implements DescriptiveModel {
   String get description;
   @override
   String get location;
+  @override
+  String? get extra;
   @override
   @JsonKey(ignore: true)
   _$$_EventCopyWith<_$_Event> get copyWith =>

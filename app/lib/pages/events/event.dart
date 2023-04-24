@@ -3,6 +3,7 @@ import 'package:flow/pages/groups/select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lib5/lib5.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/event/service.dart';
 import 'package:shared/models/group/model.dart';
@@ -117,7 +118,7 @@ class EventDialog extends StatelessWidget {
                                       .read<FlowCubit>()
                                       .getService(source!)
                                       .group
-                                      ?.getGroup(currentEvent.groupId ?? "")),
+                                      ?.getGroup(currentEvent.groupId!)),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
                                       return Text(snapshot.data!.name);
@@ -164,7 +165,7 @@ class EventDialog extends StatelessWidget {
                                       .read<FlowCubit>()
                                       .getService(source!)
                                       .place
-                                      ?.getPlace(currentEvent.placeId ?? "")),
+                                      ?.getPlace(currentEvent.placeId!)),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
                                       return Text(snapshot.data!.name);
@@ -236,8 +237,8 @@ class EventDialog extends StatelessWidget {
 
 class EventListTile extends StatefulWidget {
   final String source;
-  final String? value;
-  final ValueChanged<String?> onChanged;
+  final Multihash? value;
+  final ValueChanged<Multihash?> onChanged;
 
   const EventListTile({
     super.key,
@@ -251,7 +252,7 @@ class EventListTile extends StatefulWidget {
 }
 
 class _EventListTileState extends State<EventListTile> {
-  String? _value;
+  Multihash? _value;
 
   @override
   void initState() {
@@ -259,7 +260,7 @@ class _EventListTileState extends State<EventListTile> {
     _value = widget.value;
   }
 
-  void _onChanged(String? value) {
+  void _onChanged(Multihash? value) {
     setState(() {
       _value = value;
     });

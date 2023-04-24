@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lib5/lib5.dart';
 import 'package:shared/models/group/model.dart';
 import 'package:shared/models/model.dart';
 
@@ -12,7 +13,7 @@ part 'filter.freezed.dart';
 class UserFilter with _$UserFilter {
   const factory UserFilter({
     String? source,
-    String? group,
+    Multihash? group,
   }) = _UserFilter;
 }
 

@@ -11,6 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:lib5/lib5.dart';
 import 'package:shared/models/model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
@@ -155,7 +156,7 @@ class FlowApp extends StatelessWidget {
                       (context, state) => NotesPage(
                         parent: SourcedModel(
                           state.params['source']!,
-                          state.params['id']!,
+                          Multihash.fromBase64Url(state.params['id']!),
                         ),
                       ),
                     ),
@@ -167,7 +168,7 @@ class FlowApp extends StatelessWidget {
                       (context, state) => NotesPage(
                         parent: SourcedModel(
                           '',
-                          state.params['id']!,
+                          Multihash.fromBase64Url(state.params['id']!),
                         ),
                       ),
                     ),

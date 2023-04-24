@@ -1,17 +1,19 @@
 import 'dart:async';
 
+import 'package:lib5/lib5.dart';
+
 import '../../../services/source.dart';
 import '../../model.dart';
 import '../model.dart';
 import 'model.dart';
 
 abstract class CalendarItemService extends ModelService {
-  FutureOr<CalendarItem?> getCalendarItem(String id);
+  FutureOr<CalendarItem?> getCalendarItem(Multihash id);
   FutureOr<List<ConnectedModel<CalendarItem, Event?>>> getCalendarItems({
     List<EventStatus>? status,
-    String? eventId,
-    String? groupId,
-    String? placeId,
+    Multihash? eventId,
+    Multihash? groupId,
+    Multihash? placeId,
     bool pending = false,
     int offset = 0,
     int limit = 50,
@@ -25,5 +27,5 @@ abstract class CalendarItemService extends ModelService {
 
   FutureOr<bool> updateCalendarItem(CalendarItem item);
 
-  FutureOr<bool> deleteCalendarItem(String id);
+  FutureOr<bool> deleteCalendarItem(Multihash id);
 }

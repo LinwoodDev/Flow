@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:lib5/lib5.dart';
 import 'package:shared/models/note/service.dart';
 import 'package:shared/services/database.dart';
 import 'package:sqflite_common/sqlite_api.dart';
@@ -20,7 +21,7 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
     await db.execute("""
       CREATE TABLE IF NOT EXISTS $tableName (
         noteId BLOB(16) NOT NULL,
-        $connectedIdName VARCHAR(100) NOT NULL,
+        $connectedIdName BLOB(16) NOT NULL,
         PRIMARY KEY ($connectedIdName, noteId),
         FOREIGN KEY ($connectedIdName) REFERENCES $connectedTableName(id) ON DELETE CASCADE,
         FOREIGN KEY (noteId) REFERENCES notes(id) ON DELETE CASCADE
@@ -29,29 +30,29 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
   }
 
   @override
-  Future<void> connect(String connectId, String noteId) async {
+  Future<void> connect(Multihash connectId, Multihash noteId) async {
     await db?.insert(tableName, {
-      'noteId': noteId,
-      connectedIdName: connectId,
+      'noteId': noteId.fullBytes,
+      connectedIdName: connectId.fullBytes,
     });
   }
 
   @override
-  Future<void> disconnect(String connectId, String noteId) async {
+  Future<void> disconnect(Multihash connectId, Multihash noteId) async {
     await db?.delete(
       tableName,
       where: 'noteId = ? AND $connectedIdName = ?',
-      whereArgs: [noteId, connectId],
+      whereArgs: [noteId.fullBytes, connectId.fullBytes],
     );
   }
 
   @override
-  Future<List<Note>> getNotes(String connectId,
+  Future<List<Note>> getNotes(Multihash connectId,
       {int offset = 0, int limit = 50}) async {
     final result = await db?.query(
       '$tableName JOIN notes ON notes.id = noteId',
       where: '$connectedIdName = ?',
-      whereArgs: [connectId],
+      whereArgs: [connectId.fullBytes],
       columns: [
         'notes.id AS noteid',
         'notes.name AS notename',
@@ -74,12 +75,12 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
   }
 
   @override
-  Future<List<T>> getConnected(String noteId,
+  Future<List<T>> getConnected(Multihash noteId,
       {int offset = 0, int limit = 50}) async {
     final result = await db?.query(
       tableName,
       where: 'noteId = ?',
-      whereArgs: [noteId],
+      whereArgs: [noteId.fullBytes],
       offset: offset,
       limit: limit,
     );
@@ -87,24 +88,24 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
   }
 
   @override
-  Future<bool> isNoteConnected(String connectId, String noteId) async {
+  Future<bool> isNoteConnected(Multihash connectId, Multihash noteId) async {
     final result = await db?.query(
       tableName,
       where: 'noteId = ? AND $connectedIdName = ?',
-      whereArgs: [noteId, connectId],
+      whereArgs: [noteId.fullBytes, connectId.fullBytes],
     );
     return result?.isNotEmpty == true;
   }
 
   @override
-  Future<bool?> notesDone(String connectId) async {
+  Future<bool?> notesDone(Multihash connectId) async {
     final result = await db?.rawQuery(
         'SELECT COUNT(*) AS count FROM notes WHERE $connectedIdName = ? AND status = ?',
-        [connectId, NoteStatus.done.name]);
+        [connectId.fullBytes, NoteStatus.done.name]);
     final resultCount = result?.first['count'] as int? ?? 0;
     final all = await db?.rawQuery(
         'SELECT COUNT(*) AS count FROM notes WHERE $connectedIdName = ?',
-        [connectId]);
+        [connectId.fullBytes]);
     final allCount = all?.first['count'] as int? ?? 0;
     if (resultCount == allCount && allCount > 0) {
       return true;
@@ -133,17 +134,19 @@ class NoteDatabaseService extends NoteService with TableService {
 
   @override
   Future<Note?> createNote(Note note) async {
-    final id = await db?.insert('notes', note.toDatabase());
-    if (id == null) return null;
-    return note.copyWith(id: id.toString());
+    final id = note.id ?? createUniqueMultihash();
+    note = note.copyWith(id: id);
+    final row = await db?.insert('notes', note.toDatabase());
+    if (row == null) return null;
+    return note;
   }
 
   @override
-  Future<bool> deleteNote(String id) async {
+  Future<bool> deleteNote(Multihash id) async {
     return await db?.delete(
           'notes',
           where: 'id = ?',
-          whereArgs: [id],
+          whereArgs: [id.fullBytes],
         ) ==
         1;
   }
@@ -152,7 +155,7 @@ class NoteDatabaseService extends NoteService with TableService {
   Future<List<Note>> getNotes({
     int offset = 0,
     int limit = 50,
-    String? parent,
+    Multihash? parent,
     Set<NoteStatus?> statuses = const {
       NoteStatus.todo,
       NoteStatus.inProgress,
@@ -172,9 +175,11 @@ class NoteDatabaseService extends NoteService with TableService {
           : [...whereArgs, '%$search%', '%$search%'];
     }
     if (parent != null) {
-      if (parent.isNotEmpty) {
+      if (parent.fullBytes.isNotEmpty) {
         where = where == null ? 'parentId = ?' : '$where AND parentId = ?';
-        whereArgs = whereArgs == null ? [parent] : [...whereArgs, parent];
+        whereArgs = whereArgs == null
+            ? [parent.fullBytes]
+            : [...whereArgs, parent.fullBytes];
       } else {
         where =
             where == null ? 'parentId IS NULL' : '$where AND parentId IS NULL';
@@ -195,11 +200,7 @@ class NoteDatabaseService extends NoteService with TableService {
       limit: limit,
       orderBy: 'priority DESC',
     );
-    return result
-            ?.map((row) =>
-                Note.fromDatabase(Map.from(row)..['done'] = row['done'] == 1))
-            .toList() ??
-        [];
+    return result?.map((row) => Note.fromDatabase(row)).toList() ?? [];
   }
 
   @override
@@ -211,7 +212,7 @@ class NoteDatabaseService extends NoteService with TableService {
           'notes',
           note.toDatabase()..remove('id'),
           where: 'id = ?',
-          whereArgs: [note.id],
+          whereArgs: [note.id?.fullBytes],
         ) ==
         1;
   }
@@ -222,11 +223,11 @@ class NoteDatabaseService extends NoteService with TableService {
   }
 
   @override
-  Future<Note?> getNote(String id) async {
+  Future<Note?> getNote(Multihash id) async {
     final result = await db?.query(
       'notes',
       where: 'id = ?',
-      whereArgs: [id],
+      whereArgs: [id.fullBytes],
     );
     return result?.map(Note.fromDatabase).firstOrNull;
   }

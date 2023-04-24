@@ -7,8 +7,10 @@ part of 'model.dart';
 // **************************************************************************
 
 _$_Note _$$_NoteFromJson(Map<String, dynamic> json) => _$_Note(
-      id: json['id'] as String?,
-      parentId: json['parentId'] as String?,
+      id: _$JsonConverterFromJson<List<int>, Multihash>(
+          json['id'], const MultihashConverter().fromJson),
+      parentId: _$JsonConverterFromJson<List<int>, Multihash>(
+          json['parentId'], const MultihashConverter().fromJson),
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       status: $enumDecodeNullable(_$NoteStatusEnumMap, json['status']),
@@ -16,16 +18,30 @@ _$_Note _$$_NoteFromJson(Map<String, dynamic> json) => _$_Note(
     );
 
 Map<String, dynamic> _$$_NoteToJson(_$_Note instance) => <String, dynamic>{
-      'id': instance.id,
-      'parentId': instance.parentId,
+      'id': _$JsonConverterToJson<List<int>, Multihash>(
+          instance.id, const MultihashConverter().toJson),
+      'parentId': _$JsonConverterToJson<List<int>, Multihash>(
+          instance.parentId, const MultihashConverter().toJson),
       'name': instance.name,
       'description': instance.description,
       'status': _$NoteStatusEnumMap[instance.status],
       'priority': instance.priority,
     };
 
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
 const _$NoteStatusEnumMap = {
   NoteStatus.todo: 'todo',
   NoteStatus.inProgress: 'inProgress',
   NoteStatus.done: 'done',
 };
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

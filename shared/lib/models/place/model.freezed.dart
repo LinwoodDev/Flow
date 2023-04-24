@@ -20,7 +20,8 @@ Place _$PlaceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Place {
-  String? get id => throw _privateConstructorUsedError;
+  @MultihashConverter()
+  Multihash? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
@@ -35,7 +36,11 @@ abstract class $PlaceCopyWith<$Res> {
   factory $PlaceCopyWith(Place value, $Res Function(Place) then) =
       _$PlaceCopyWithImpl<$Res, Place>;
   @useResult
-  $Res call({String? id, String name, String description, String address});
+  $Res call(
+      {@MultihashConverter() Multihash? id,
+      String name,
+      String description,
+      String address});
 }
 
 /// @nodoc
@@ -60,7 +65,7 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -83,7 +88,11 @@ abstract class _$$_PlaceCopyWith<$Res> implements $PlaceCopyWith<$Res> {
       __$$_PlaceCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? id, String name, String description, String address});
+  $Res call(
+      {@MultihashConverter() Multihash? id,
+      String name,
+      String description,
+      String address});
 }
 
 /// @nodoc
@@ -104,7 +113,7 @@ class __$$_PlaceCopyWithImpl<$Res> extends _$PlaceCopyWithImpl<$Res, _$_Place>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -125,14 +134,18 @@ class __$$_PlaceCopyWithImpl<$Res> extends _$PlaceCopyWithImpl<$Res, _$_Place>
 @JsonSerializable()
 class _$_Place extends _Place {
   const _$_Place(
-      {this.id, this.name = '', this.description = '', this.address = ''})
+      {@MultihashConverter() this.id,
+      this.name = '',
+      this.description = '',
+      this.address = ''})
       : super._();
 
   factory _$_Place.fromJson(Map<String, dynamic> json) =>
       _$$_PlaceFromJson(json);
 
   @override
-  final String? id;
+  @MultihashConverter()
+  final Multihash? id;
   @override
   @JsonKey()
   final String name;
@@ -180,7 +193,7 @@ class _$_Place extends _Place {
 
 abstract class _Place extends Place implements DescriptiveModel {
   const factory _Place(
-      {final String? id,
+      {@MultihashConverter() final Multihash? id,
       final String name,
       final String description,
       final String address}) = _$_Place;
@@ -189,7 +202,8 @@ abstract class _Place extends Place implements DescriptiveModel {
   factory _Place.fromJson(Map<String, dynamic> json) = _$_Place.fromJson;
 
   @override
-  String? get id;
+  @MultihashConverter()
+  Multihash? get id;
   @override
   String get name;
   @override

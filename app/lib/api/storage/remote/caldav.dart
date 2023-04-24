@@ -1,14 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:http/http.dart' as http;
+import 'package:lib5/lib5.dart';
 import 'package:shared/converters/ical.dart';
 import 'package:shared/models/cached.dart';
 import 'package:shared/models/event/database.dart';
 import 'package:shared/models/event/item/database.dart';
 import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
+import 'package:shared/services/database.dart';
 import 'package:xml/xml.dart';
 
 import '../../../models/request.dart';
@@ -64,7 +65,8 @@ class CalDavRemoteService extends RemoteService<CalDavStorage> {
       if (text == null) continue;
       final name =
           href.substring(href.lastIndexOf('/') + 1, href.lastIndexOf('.'));
-      converter.read(text.split('\n'), name, name);
+      converter.read(
+          text.split('\n'), Event(name: name, id: createUniqueMultihash()));
     }
     if (converter.data != null) import(converter.data!);
   }
@@ -78,8 +80,6 @@ class CalDavRemoteService extends RemoteService<CalDavStorage> {
   EventDatabaseService get event => local.event;
 }
 
-const _maxId = 1 << 32;
-
 class CalendarItemCalDavRemoteService
     extends CalendarItemDatabaseServiceLinker {
   final CalDavRemoteService remote;
@@ -88,19 +88,15 @@ class CalendarItemCalDavRemoteService
 
   @override
   Future<CalendarItem?> createCalendarItem(CalendarItem item) async {
-    var object = item.eventId;
-    if (object == null) {
-      while (object == null || await remote.event.getEvent(object) != null) {
-        object = Random().nextInt(_maxId).toString();
-      }
-    }
+    var object = item.eventId ?? createUniqueMultihash();
     if (await remote.event.getEvent(object) == null) {
       object = (await remote.event.createEvent(Event(
-        name: item.name,
-        description: item.description,
-      )))
-          ?.id
-          .toString();
+            name: item.name,
+            description: item.description,
+            id: object,
+          )))
+              ?.id ??
+          object;
     }
     final result =
         await super.createCalendarItem(item.copyWith(eventId: object));
@@ -109,7 +105,7 @@ class CalendarItemCalDavRemoteService
   }
 
   @override
-  Future<bool> deleteCalendarItem(String id) async {
+  Future<bool> deleteCalendarItem(Multihash id) async {
     final item = await getCalendarItem(id);
     final result = await super.deleteCalendarItem(id);
     await _sendUpdatedCalendarObject(item);

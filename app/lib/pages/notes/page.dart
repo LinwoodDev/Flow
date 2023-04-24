@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:lib5/lib5.dart';
 import 'package:shared/models/model.dart';
 import 'package:shared/models/note/model.dart';
 
@@ -13,7 +14,7 @@ import '../../widgets/builder_delegate.dart';
 import 'card.dart';
 
 class NotesPage extends StatefulWidget {
-  final SourcedModel<String>? parent;
+  final SourcedModel<Multihash>? parent;
 
   const NotesPage({Key? key, this.parent}) : super(key: key);
 
@@ -107,7 +108,7 @@ class _NotesSearchDelegate extends SearchDelegate {
 class NotesBodyView extends StatefulWidget {
   final String search;
   final PagingController<int, SourcedModel<Note>> pagingController;
-  final SourcedModel<String>? parent;
+  final SourcedModel<Multihash>? parent;
 
   const NotesBodyView({
     super.key,

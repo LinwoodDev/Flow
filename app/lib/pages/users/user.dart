@@ -66,7 +66,7 @@ class UserDialog extends StatelessWidget {
                                   .read<FlowCubit>()
                                   .getService(source!)
                                   .group
-                                  ?.getGroup(user.groupId ?? "")),
+                                  ?.getGroup(user.groupId!)),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
                                   return Text(snapshot.data!.name);

@@ -1,9 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lib5/lib5.dart';
 
 part 'model.freezed.dart';
 
 abstract class DescriptiveModel {
-  String? get id;
+  Multihash? get id;
   String get name;
   String get description;
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:lib5/lib5.dart';
 import 'package:shared/models/group/model.dart';
 import 'package:shared/models/model.dart';
 import 'package:shared/services/source.dart';
@@ -11,8 +12,8 @@ import '../../widgets/builder_delegate.dart';
 
 class GroupSelectDialog extends StatefulWidget {
   final String? source;
-  final SourcedModel<String>? selected;
-  final String? ignore;
+  final SourcedModel<Multihash>? selected;
+  final Multihash? ignore;
 
   const GroupSelectDialog({
     super.key,

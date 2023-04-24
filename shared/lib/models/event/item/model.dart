@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lib5/lib5.dart';
 
 import '../../../helpers/converter.dart';
 import '../../model.dart';
@@ -17,22 +17,22 @@ class CalendarItem with _$CalendarItem, DescriptiveModel {
   const CalendarItem._();
 
   const factory CalendarItem.fixed({
-    String? id,
+    @MultihashConverter() Multihash? id,
     @Default('') String name,
     @Default('') String description,
     @Default('') String location,
-    String? eventId,
+    @MultihashConverter() Multihash? eventId,
     @Default(EventStatus.confirmed) EventStatus status,
     @DateTimeConverter() DateTime? start,
     @DateTimeConverter() DateTime? end,
   }) = FixedCalendarItem;
 
   const factory CalendarItem.repeating({
-    String? id,
+    @MultihashConverter() Multihash? id,
     @Default('') String name,
     @Default('') String description,
     @Default('') String location,
-    String? eventId,
+    @MultihashConverter() Multihash? eventId,
     @Default(EventStatus.confirmed) EventStatus status,
     @DateTimeConverter() DateTime? start,
     @DateTimeConverter() DateTime? end,
@@ -45,15 +45,15 @@ class CalendarItem with _$CalendarItem, DescriptiveModel {
   }) = RepeatingCalendarItem;
 
   const factory CalendarItem.auto({
-    String? id,
+    @MultihashConverter() Multihash? id,
     @Default('') String name,
     @Default('') String description,
     @Default('') String location,
-    String? eventId,
+    @MultihashConverter() Multihash? eventId,
     @Default(EventStatus.confirmed) EventStatus status,
     @DateTimeConverter() DateTime? start,
     @DateTimeConverter() DateTime? end,
-    String? autoGroupId,
+    @MultihashConverter() Multihash? autoGroupId,
     @DateTimeConverter() DateTime? searchStart,
     @Default(60) int autoDuration,
   }) = AutoCalendarItem;
@@ -65,11 +65,9 @@ class CalendarItem with _$CalendarItem, DescriptiveModel {
       CalendarItem.fromJson({
         ...row,
         'id': row['id'] != null ? utf8.decode(row['id']) : null,
-        'eventId':
-            row['eventId'] != null ? utf8.decode(row['eventId']) : null,
-        'autoGroupId': row['autoGroupId'] != null
-            ? utf8.decode(row['autoGroupId'])
-            : null,
+        'eventId': row['eventId'] != null ? utf8.decode(row['eventId']) : null,
+        'autoGroupId':
+            row['autoGroupId'] != null ? utf8.decode(row['autoGroupId']) : null,
       });
 
   CalendarItemType get type {
@@ -89,16 +87,5 @@ class CalendarItem with _$CalendarItem, DescriptiveModel {
 
   Map<String, dynamic> toDatabase() => {
         ...toJson(),
-        'id': id != null ? Uint8List.fromList(utf8.encode(id!)) : null,
-        'eventId':
-            eventId != null ? Uint8List.fromList(utf8.encode(eventId!)) : null,
-        ...maybeMap(
-          auto: (e) => {
-            'autoGroupId': e.autoGroupId != null
-                ? Uint8List.fromList(utf8.encode(e.autoGroupId!))
-                : null,
-          },
-          orElse: () => {},
-        ),
       };
 }

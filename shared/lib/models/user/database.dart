@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:lib5/lib5.dart';
 import 'package:shared/models/user/model.dart';
 import 'package:shared/models/user/service.dart';
 import 'package:shared/services/database.dart';
@@ -28,17 +29,19 @@ class UserDatabaseService extends UserService with TableService {
 
   @override
   Future<User?> createUser(User user) async {
-    final id = await db?.insert('users', user.toDatabase());
-    if (id == null) return null;
-    return user.copyWith(id: id.toString());
+    final id = user.id ?? createUniqueMultihash();
+    user = user.copyWith(id: id);
+    final row = await db?.insert('users', user.toDatabase());
+    if (row == null) return null;
+    return user;
   }
 
   @override
-  Future<bool> deleteUser(String id) async {
+  Future<bool> deleteUser(Multihash id) async {
     return await db?.delete(
           'users',
           where: 'id = ?',
-          whereArgs: [id],
+          whereArgs: [id.fullBytes],
         ) ==
         1;
   }
@@ -48,7 +51,7 @@ class UserDatabaseService extends UserService with TableService {
     int offset = 0,
     int limit = 50,
     String search = '',
-    String? groupId,
+    Multihash? groupId,
   }) async {
     String? where;
     List<Object>? whereArgs;
@@ -58,7 +61,9 @@ class UserDatabaseService extends UserService with TableService {
     }
     if (groupId != null) {
       where = where == null ? 'groupId = ?' : '$where AND groupId = ?';
-      whereArgs = whereArgs == null ? [groupId] : [...whereArgs, groupId];
+      whereArgs = whereArgs == null
+          ? [groupId.fullBytes]
+          : [...whereArgs, groupId.fullBytes];
     }
     final result = await db?.query(
       'users',
@@ -77,7 +82,7 @@ class UserDatabaseService extends UserService with TableService {
           'users',
           user.toDatabase()..remove('id'),
           where: 'id = ?',
-          whereArgs: [user.id],
+          whereArgs: [user.id?.fullBytes],
         ) ==
         1;
   }

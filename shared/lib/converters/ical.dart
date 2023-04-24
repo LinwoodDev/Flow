@@ -2,13 +2,14 @@ import 'package:shared/models/cached.dart';
 import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/note/model.dart';
+import 'package:shared/services/database.dart';
 
 class ICalConverter {
   CachedData? data;
 
   ICalConverter([this.data]);
 
-  void read(List<String> lines, [String name = '', String? id]) {
+  void read(List<String> lines, [Event? event]) {
     final offset =
         lines.indexWhere((element) => element.trim() == 'BEGIN:VCALENDAR');
     if (offset == -1) {
@@ -17,7 +18,7 @@ class ICalConverter {
     CalendarItem? currentItem;
     Note? currentNote;
     final items = List<CalendarItem>.from(data?.items ?? []);
-    var currentEvent = Event(name: name, id: id);
+    var currentEvent = event ?? Event(id: createUniqueMultihash());
     final notes = List<Note>.from(data?.notes ?? []);
     for (int i = offset; i < lines.length; i++) {
       final line = lines[i];
@@ -67,7 +68,6 @@ class ICalConverter {
           case 'BEGIN':
             if (value == 'VEVENT') {
               currentItem = CalendarItem.fixed(
-                id: (items.length + 1).toString(),
                 eventId: currentEvent.id,
               );
             } else if (value == 'VTODO') {

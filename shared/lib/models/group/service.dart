@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:lib5/lib5.dart';
 import 'package:shared/services/source.dart';
 
 import 'model.dart';
@@ -11,11 +12,11 @@ abstract class GroupService extends ModelService {
     String search = '',
   });
 
-  FutureOr<Group?> getGroup(String id);
+  FutureOr<Group?> getGroup(Multihash id);
 
   FutureOr<Group?> createGroup(Group group);
 
   FutureOr<bool> updateGroup(Group group);
 
-  FutureOr<bool> deleteGroup(String id);
+  FutureOr<bool> deleteGroup(Multihash id);
 }

@@ -20,8 +20,10 @@ Note _$NoteFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Note {
-  String? get id => throw _privateConstructorUsedError;
-  String? get parentId => throw _privateConstructorUsedError;
+  @MultihashConverter()
+  Multihash? get id => throw _privateConstructorUsedError;
+  @MultihashConverter()
+  Multihash? get parentId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   NoteStatus? get status => throw _privateConstructorUsedError;
@@ -38,8 +40,8 @@ abstract class $NoteCopyWith<$Res> {
       _$NoteCopyWithImpl<$Res, Note>;
   @useResult
   $Res call(
-      {String? id,
-      String? parentId,
+      {@MultihashConverter() Multihash? id,
+      @MultihashConverter() Multihash? parentId,
       String name,
       String description,
       NoteStatus? status,
@@ -70,11 +72,11 @@ class _$NoteCopyWithImpl<$Res, $Val extends Note>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -102,8 +104,8 @@ abstract class _$$_NoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? id,
-      String? parentId,
+      {@MultihashConverter() Multihash? id,
+      @MultihashConverter() Multihash? parentId,
       String name,
       String description,
       NoteStatus? status,
@@ -130,11 +132,11 @@ class __$$_NoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res, _$_Note>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -159,8 +161,8 @@ class __$$_NoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res, _$_Note>
 @JsonSerializable()
 class _$_Note extends _Note {
   const _$_Note(
-      {this.id,
-      this.parentId,
+      {@MultihashConverter() this.id,
+      @MultihashConverter() this.parentId,
       this.name = '',
       this.description = '',
       this.status,
@@ -170,9 +172,11 @@ class _$_Note extends _Note {
   factory _$_Note.fromJson(Map<String, dynamic> json) => _$$_NoteFromJson(json);
 
   @override
-  final String? id;
+  @MultihashConverter()
+  final Multihash? id;
   @override
-  final String? parentId;
+  @MultihashConverter()
+  final Multihash? parentId;
   @override
   @JsonKey()
   final String name;
@@ -227,8 +231,8 @@ class _$_Note extends _Note {
 
 abstract class _Note extends Note implements DescriptiveModel {
   const factory _Note(
-      {final String? id,
-      final String? parentId,
+      {@MultihashConverter() final Multihash? id,
+      @MultihashConverter() final Multihash? parentId,
       final String name,
       final String description,
       final NoteStatus? status,
@@ -238,9 +242,11 @@ abstract class _Note extends Note implements DescriptiveModel {
   factory _Note.fromJson(Map<String, dynamic> json) = _$_Note.fromJson;
 
   @override
-  String? get id;
+  @MultihashConverter()
+  Multihash? get id;
   @override
-  String? get parentId;
+  @MultihashConverter()
+  Multihash? get parentId;
   @override
   String get name;
   @override

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:lib5/lib5.dart';
 import 'package:shared/services/database.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
@@ -34,35 +35,55 @@ class EventDatabaseService extends EventService with TableService {
 
   @override
   Future<Event?> createEvent(Event event) async {
-    final id = await db?.insert('events', event.toDatabase());
-    if (id == null) return null;
-    return event.copyWith(id: id.toString());
+    final id = event.id ?? createUniqueMultihash();
+    event = event.copyWith(id: id);
+    final row = await db?.insert('events', event.toDatabase());
+    if (row == null) return null;
+    return event;
   }
 
   @override
-  Future<bool> deleteEvent(String id) async {
-    return await db?.delete('events', where: 'id = ?', whereArgs: [id]) == 1;
+  Future<bool> deleteEvent(Multihash id) async {
+    return await db
+            ?.delete('events', where: 'id = ?', whereArgs: [id.fullBytes]) ==
+        1;
   }
 
   @override
-  Future<Event?> getEvent(String id) async {
+  Future<Event?> getEvent(Multihash id) async {
     final result = await db?.query(
       'events',
       where: 'id = ?',
-      whereArgs: [id],
+      whereArgs: [id.fullBytes],
     );
     return result?.map(Event.fromDatabase).firstOrNull;
   }
 
   @override
   Future<List<Event>> getEvents(
-      {String? groupId,
-      String? placeId,
+      {Multihash? groupId,
+      Multihash? placeId,
       int offset = 0,
       int limit = 50,
       String search = ''}) async {
-    final where = search.isEmpty ? null : 'name LIKE ?';
-    final whereArgs = search.isEmpty ? null : ['%$search%'];
+    String? where;
+    List<Object>? whereArgs;
+    if (search.isNotEmpty) {
+      where = 'name LIKE ?';
+      whereArgs = ['%$search%'];
+    }
+    if (groupId != null) {
+      where = where == null ? 'groupId = ?' : '$where AND groupId = ?';
+      whereArgs = whereArgs == null
+          ? [groupId.fullBytes]
+          : [...whereArgs, groupId.fullBytes];
+    }
+    if (placeId != null) {
+      where = where == null ? 'placeId = ?' : '$where AND placeId = ?';
+      whereArgs = whereArgs == null
+          ? [placeId.fullBytes]
+          : [...whereArgs, placeId.fullBytes];
+    }
     final result = await db?.query(
       'events',
       limit: limit,
@@ -83,7 +104,7 @@ class EventDatabaseService extends EventService with TableService {
           'events',
           event.toDatabase()..remove('id'),
           where: 'id = ?',
-          whereArgs: [event.id],
+          whereArgs: [event.id?.fullBytes],
         ) ==
         1;
   }

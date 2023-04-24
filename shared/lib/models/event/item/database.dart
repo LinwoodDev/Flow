@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:lib5/lib5.dart';
 import 'package:shared/helpers/date_time.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
@@ -46,9 +47,9 @@ class CalendarItemDatabaseService extends CalendarItemService
   @override
   Future<List<ConnectedModel<CalendarItem, Event?>>> getCalendarItems(
       {List<EventStatus>? status,
-      String? eventId,
-      String? groupId,
-      String? placeId,
+      Multihash? eventId,
+      Multihash? groupId,
+      Multihash? placeId,
       bool pending = false,
       int offset = 0,
       int limit = 50,
@@ -115,15 +116,21 @@ class CalendarItemDatabaseService extends CalendarItemService
     }
     if (groupId != null) {
       where = where == null ? 'groupId = ?' : '$where AND groupId = ?';
-      whereArgs = whereArgs == null ? [groupId] : [...whereArgs, groupId];
+      whereArgs = whereArgs == null
+          ? [groupId.fullBytes]
+          : [...whereArgs, groupId.fullBytes];
     }
     if (placeId != null) {
       where = where == null ? 'placeId = ?' : '$where AND placeId = ?';
-      whereArgs = whereArgs == null ? [placeId] : [...whereArgs, placeId];
+      whereArgs = whereArgs == null
+          ? [placeId.fullBytes]
+          : [...whereArgs, placeId.fullBytes];
     }
     if (eventId != null) {
       where = where == null ? 'eventId = ?' : '$where AND eventId = ?';
-      whereArgs = whereArgs == null ? [eventId] : [...whereArgs, eventId];
+      whereArgs = whereArgs == null
+          ? [eventId.fullBytes]
+          : [...whereArgs, eventId.fullBytes];
     }
     final result = await db?.query(
       "calendarItems LEFT JOIN events ON events.id = calendarItems.eventId",
@@ -165,9 +172,11 @@ class CalendarItemDatabaseService extends CalendarItemService
 
   @override
   Future<CalendarItem?> createCalendarItem(CalendarItem item) async {
-    final id = await db?.insert('calendarItems', item.toDatabase());
-    if (id == null) return null;
-    return item.copyWith(id: id.toString());
+    final id = item.id ?? createUniqueMultihash();
+    item = item.copyWith(id: id);
+    final row = await db?.insert('calendarItems', item.toDatabase());
+    if (row == null) return null;
+    return item;
   }
 
   @override
@@ -176,27 +185,27 @@ class CalendarItemDatabaseService extends CalendarItemService
           'calendarItems',
           item.toDatabase(),
           where: 'id = ?',
-          whereArgs: [item.id],
+          whereArgs: [item.id?.fullBytes],
         ) ==
         1;
   }
 
   @override
-  Future<bool> deleteCalendarItem(String id) async {
+  Future<bool> deleteCalendarItem(Multihash id) async {
     return await db?.delete(
           'calendarItems',
           where: 'id = ?',
-          whereArgs: [id],
+          whereArgs: [id.fullBytes],
         ) ==
         1;
   }
 
   @override
-  FutureOr<CalendarItem?> getCalendarItem(String id) async {
+  FutureOr<CalendarItem?> getCalendarItem(Multihash id) async {
     final result = await db?.query(
       'calendarItems',
       where: 'id = ?',
-      whereArgs: [id],
+      whereArgs: [id.fullBytes],
     );
     return result?.map(CalendarItem.fromDatabase).first;
   }
@@ -214,15 +223,15 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
   CalendarItemDatabaseServiceLinker(this.service);
 
   @override
-  FutureOr<CalendarItem?> getCalendarItem(String id) =>
+  FutureOr<CalendarItem?> getCalendarItem(Multihash id) =>
       service.getCalendarItem(id);
 
   @override
   FutureOr<List<ConnectedModel<CalendarItem, Event?>>> getCalendarItems({
     List<EventStatus>? status,
-    String? eventId,
-    String? groupId,
-    String? placeId,
+    Multihash? eventId,
+    Multihash? groupId,
+    Multihash? placeId,
     bool pending = false,
     int offset = 0,
     int limit = 50,
@@ -254,7 +263,7 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
       service.updateCalendarItem(item);
 
   @override
-  FutureOr<bool> deleteCalendarItem(String id) =>
+  FutureOr<bool> deleteCalendarItem(Multihash id) =>
       service.deleteCalendarItem(id);
 
   @override

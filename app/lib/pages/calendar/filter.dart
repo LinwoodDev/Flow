@@ -3,6 +3,7 @@ import 'package:flow/pages/groups/select.dart';
 import 'package:flow/pages/places/select.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lib5/lib5.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/group/model.dart';
@@ -21,14 +22,14 @@ class CalendarFilter with _$CalendarFilter {
     @Default([EventStatus.draft, EventStatus.cancelled])
         List<EventStatus> hiddenStatuses,
     String? source,
-    String? group,
-    String? event,
-    String? place,
+    Multihash? group,
+    Multihash? event,
+    Multihash? place,
     @Default(false) bool past,
   }) = _CalendarFilter;
 
-  SourcedModel<String>? get sourceEvent => event != null && source != null
-      ? SourcedModel<String>(source!, event!)
+  SourcedModel<Multihash>? get sourceEvent => event != null && source != null
+      ? SourcedModel<Multihash>(source!, event!)
       : null;
 
   CalendarFilter removePlace() => copyWith(

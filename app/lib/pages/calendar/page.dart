@@ -3,6 +3,7 @@ import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lib5/lib5.dart';
 import 'package:shared/models/model.dart';
 
 import 'day.dart';
@@ -229,7 +230,7 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
 class CreateEventScaffold extends StatelessWidget {
   final VoidCallback onCreated;
   final Widget child;
-  final SourcedModel<String>? event;
+  final SourcedModel<Multihash>? event;
   const CreateEventScaffold({
     super.key,
     required this.onCreated,

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:lib5/lib5.dart';
 import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
@@ -287,7 +288,7 @@ Future<SourcedModel<Event>?> showEventModalBottomSheet(
 
 Future<void> showCalendarCreate(
     {required BuildContext context,
-    SourcedModel<String>? event,
+    SourcedModel<Multihash>? event,
     DateTime? time}) async {
   final cubit = context.read<FlowCubit>();
   SourcedModel<Event>? eventResult;

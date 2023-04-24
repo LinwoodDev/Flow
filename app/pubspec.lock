@@ -41,6 +41,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.10.0"
+  base_codecs:
+    dependency: transitive
+    description:
+      name: base_codecs
+      sha256: "41701a12ede9912663decd708279924ece5018566daa7d1f484d5f4f10894f91"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   bloc:
     dependency: transitive
     description:
@@ -541,6 +549,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.6.1"
+  lib5:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: "4b07c3ad5122654b0ad8ff3238bb0b2493a43fc4"
+      resolved-ref: "4b07c3ad5122654b0ad8ff3238bb0b2493a43fc4"
+      url: "https://github.com/s5-dev/lib5.git"
+    source: git
+    version: "0.1.0"
   lints:
     dependency: transitive
     description:
@@ -572,6 +589,15 @@ packages:
       sha256: d92141dc6fe1dad30722f9aa826c7fbc896d021d792f80678280601aff8cf724
       url: "https://pub.dev"
     source: hosted
+    version: "0.2.0"
+  messagepack:
+    dependency: transitive
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "89910d0375f37077bc3cd949760a1a62a0d2ceb9"
+      url: "https://github.com/redsolver/messagepack.git"
+    source: git
     version: "0.2.0"
   meta:
     dependency: "direct overridden"

@@ -18,9 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CalendarFilter {
   List<EventStatus> get hiddenStatuses => throw _privateConstructorUsedError;
   String? get source => throw _privateConstructorUsedError;
-  String? get group => throw _privateConstructorUsedError;
-  String? get event => throw _privateConstructorUsedError;
-  String? get place => throw _privateConstructorUsedError;
+  Multihash? get group => throw _privateConstructorUsedError;
+  Multihash? get event => throw _privateConstructorUsedError;
+  Multihash? get place => throw _privateConstructorUsedError;
   bool get past => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -37,9 +37,9 @@ abstract class $CalendarFilterCopyWith<$Res> {
   $Res call(
       {List<EventStatus> hiddenStatuses,
       String? source,
-      String? group,
-      String? event,
-      String? place,
+      Multihash? group,
+      Multihash? event,
+      Multihash? place,
       bool past});
 }
 
@@ -75,15 +75,15 @@ class _$CalendarFilterCopyWithImpl<$Res, $Val extends CalendarFilter>
       group: freezed == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       event: freezed == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       place: freezed == place
           ? _value.place
           : place // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       past: null == past
           ? _value.past
           : past // ignore: cast_nullable_to_non_nullable
@@ -103,9 +103,9 @@ abstract class _$$_CalendarFilterCopyWith<$Res>
   $Res call(
       {List<EventStatus> hiddenStatuses,
       String? source,
-      String? group,
-      String? event,
-      String? place,
+      Multihash? group,
+      Multihash? event,
+      Multihash? place,
       bool past});
 }
 
@@ -139,15 +139,15 @@ class __$$_CalendarFilterCopyWithImpl<$Res>
       group: freezed == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       event: freezed == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       place: freezed == place
           ? _value.place
           : place // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       past: null == past
           ? _value.past
           : past // ignore: cast_nullable_to_non_nullable
@@ -184,11 +184,11 @@ class _$_CalendarFilter extends _CalendarFilter {
   @override
   final String? source;
   @override
-  final String? group;
+  final Multihash? group;
   @override
-  final String? event;
+  final Multihash? event;
   @override
-  final String? place;
+  final Multihash? place;
   @override
   @JsonKey()
   final bool past;
@@ -233,9 +233,9 @@ abstract class _CalendarFilter extends CalendarFilter {
   const factory _CalendarFilter(
       {final List<EventStatus> hiddenStatuses,
       final String? source,
-      final String? group,
-      final String? event,
-      final String? place,
+      final Multihash? group,
+      final Multihash? event,
+      final Multihash? place,
       final bool past}) = _$_CalendarFilter;
   const _CalendarFilter._() : super._();
 
@@ -244,11 +244,11 @@ abstract class _CalendarFilter extends CalendarFilter {
   @override
   String? get source;
   @override
-  String? get group;
+  Multihash? get group;
   @override
-  String? get event;
+  Multihash? get event;
   @override
-  String? get place;
+  Multihash? get place;
   @override
   bool get past;
   @override

@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lib5/lib5.dart';
 
+import '../../helpers/converter.dart';
 import '../model.dart';
 
 part 'model.freezed.dart';
@@ -11,7 +13,7 @@ class Place with _$Place {
 
   @Implements<DescriptiveModel>()
   const factory Place({
-    String? id,
+    @MultihashConverter() Multihash? id,
     @Default('') String name,
     @Default('') String description,
     @Default('') String address,

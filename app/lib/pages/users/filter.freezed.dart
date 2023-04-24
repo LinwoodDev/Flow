@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$UserFilter {
   String? get source => throw _privateConstructorUsedError;
-  String? get group => throw _privateConstructorUsedError;
+  Multihash? get group => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserFilterCopyWith<UserFilter> get copyWith =>
@@ -30,7 +30,7 @@ abstract class $UserFilterCopyWith<$Res> {
           UserFilter value, $Res Function(UserFilter) then) =
       _$UserFilterCopyWithImpl<$Res, UserFilter>;
   @useResult
-  $Res call({String? source, String? group});
+  $Res call({String? source, Multihash? group});
 }
 
 /// @nodoc
@@ -57,7 +57,7 @@ class _$UserFilterCopyWithImpl<$Res, $Val extends UserFilter>
       group: freezed == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
     ) as $Val);
   }
 }
@@ -70,7 +70,7 @@ abstract class _$$_UserFilterCopyWith<$Res>
       __$$_UserFilterCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? source, String? group});
+  $Res call({String? source, Multihash? group});
 }
 
 /// @nodoc
@@ -95,7 +95,7 @@ class __$$_UserFilterCopyWithImpl<$Res>
       group: freezed == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
     ));
   }
 }
@@ -108,7 +108,7 @@ class _$_UserFilter implements _UserFilter {
   @override
   final String? source;
   @override
-  final String? group;
+  final Multihash? group;
 
   @override
   String toString() {
@@ -135,13 +135,13 @@ class _$_UserFilter implements _UserFilter {
 }
 
 abstract class _UserFilter implements UserFilter {
-  const factory _UserFilter({final String? source, final String? group}) =
+  const factory _UserFilter({final String? source, final Multihash? group}) =
       _$_UserFilter;
 
   @override
   String? get source;
   @override
-  String? get group;
+  Multihash? get group;
   @override
   @JsonKey(ignore: true)
   _$$_UserFilterCopyWith<_$_UserFilter> get copyWith =>

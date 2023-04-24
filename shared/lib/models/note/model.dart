@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lib5/lib5.dart';
 
+import '../../helpers/converter.dart';
 import '../model.dart';
 
 part 'model.freezed.dart';
@@ -11,8 +13,8 @@ class Note with _$Note {
 
   @Implements<DescriptiveModel>()
   const factory Note({
-    String? id,
-    String? parentId,
+    @MultihashConverter() Multihash? id,
+    @MultihashConverter() Multihash? parentId,
     @Default('') String name,
     @Default('') String description,
     NoteStatus? status,

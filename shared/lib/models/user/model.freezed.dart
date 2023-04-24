@@ -20,8 +20,10 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$User {
-  String? get id => throw _privateConstructorUsedError;
-  String? get groupId => throw _privateConstructorUsedError;
+  @MultihashConverter()
+  Multihash? get id => throw _privateConstructorUsedError;
+  @MultihashConverter()
+  Multihash? get groupId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -40,8 +42,8 @@ abstract class $UserCopyWith<$Res> {
       _$UserCopyWithImpl<$Res, User>;
   @useResult
   $Res call(
-      {String? id,
-      String? groupId,
+      {@MultihashConverter() Multihash? id,
+      @MultihashConverter() Multihash? groupId,
       String name,
       String email,
       String description,
@@ -74,11 +76,11 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       groupId: freezed == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -110,8 +112,8 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? id,
-      String? groupId,
+      {@MultihashConverter() Multihash? id,
+      @MultihashConverter() Multihash? groupId,
       String name,
       String email,
       String description,
@@ -140,11 +142,11 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       groupId: freezed == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -173,8 +175,8 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 @JsonSerializable()
 class _$_User extends _User {
   const _$_User(
-      {this.id,
-      this.groupId,
+      {@MultihashConverter() this.id,
+      @MultihashConverter() this.groupId,
       this.name = '',
       this.email = '',
       this.description = '',
@@ -185,9 +187,11 @@ class _$_User extends _User {
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
   @override
-  final String? id;
+  @MultihashConverter()
+  final Multihash? id;
   @override
-  final String? groupId;
+  @MultihashConverter()
+  final Multihash? groupId;
   @override
   @JsonKey()
   final String name;
@@ -245,8 +249,8 @@ class _$_User extends _User {
 
 abstract class _User extends User implements DescriptiveModel {
   const factory _User(
-      {final String? id,
-      final String? groupId,
+      {@MultihashConverter() final Multihash? id,
+      @MultihashConverter() final Multihash? groupId,
       final String name,
       final String email,
       final String description,
@@ -257,9 +261,11 @@ abstract class _User extends User implements DescriptiveModel {
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
-  String? get id;
+  @MultihashConverter()
+  Multihash? get id;
   @override
-  String? get groupId;
+  @MultihashConverter()
+  Multihash? get groupId;
   @override
   String get name;
   @override

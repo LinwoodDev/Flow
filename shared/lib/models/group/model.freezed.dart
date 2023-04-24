@@ -20,10 +20,12 @@ Group _$GroupFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Group {
-  String? get id => throw _privateConstructorUsedError;
+  @MultihashConverter()
+  Multihash? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  String? get parentId => throw _privateConstructorUsedError;
+  @MultihashConverter()
+  Multihash? get parentId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +37,11 @@ abstract class $GroupCopyWith<$Res> {
   factory $GroupCopyWith(Group value, $Res Function(Group) then) =
       _$GroupCopyWithImpl<$Res, Group>;
   @useResult
-  $Res call({String? id, String name, String description, String? parentId});
+  $Res call(
+      {@MultihashConverter() Multihash? id,
+      String name,
+      String description,
+      @MultihashConverter() Multihash? parentId});
 }
 
 /// @nodoc
@@ -60,7 +66,7 @@ class _$GroupCopyWithImpl<$Res, $Val extends Group>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -72,7 +78,7 @@ class _$GroupCopyWithImpl<$Res, $Val extends Group>
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
     ) as $Val);
   }
 }
@@ -83,7 +89,11 @@ abstract class _$$_GroupCopyWith<$Res> implements $GroupCopyWith<$Res> {
       __$$_GroupCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? id, String name, String description, String? parentId});
+  $Res call(
+      {@MultihashConverter() Multihash? id,
+      String name,
+      String description,
+      @MultihashConverter() Multihash? parentId});
 }
 
 /// @nodoc
@@ -104,7 +114,7 @@ class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res, _$_Group>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -116,7 +126,7 @@ class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res, _$_Group>
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Multihash?,
     ));
   }
 }
@@ -125,14 +135,18 @@ class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res, _$_Group>
 @JsonSerializable()
 class _$_Group extends _Group {
   const _$_Group(
-      {this.id, this.name = '', this.description = '', this.parentId})
+      {@MultihashConverter() this.id,
+      this.name = '',
+      this.description = '',
+      @MultihashConverter() this.parentId})
       : super._();
 
   factory _$_Group.fromJson(Map<String, dynamic> json) =>
       _$$_GroupFromJson(json);
 
   @override
-  final String? id;
+  @MultihashConverter()
+  final Multihash? id;
   @override
   @JsonKey()
   final String name;
@@ -140,7 +154,8 @@ class _$_Group extends _Group {
   @JsonKey()
   final String description;
   @override
-  final String? parentId;
+  @MultihashConverter()
+  final Multihash? parentId;
 
   @override
   String toString() {
@@ -180,22 +195,24 @@ class _$_Group extends _Group {
 
 abstract class _Group extends Group implements DescriptiveModel {
   const factory _Group(
-      {final String? id,
+      {@MultihashConverter() final Multihash? id,
       final String name,
       final String description,
-      final String? parentId}) = _$_Group;
+      @MultihashConverter() final Multihash? parentId}) = _$_Group;
   const _Group._() : super._();
 
   factory _Group.fromJson(Map<String, dynamic> json) = _$_Group.fromJson;
 
   @override
-  String? get id;
+  @MultihashConverter()
+  Multihash? get id;
   @override
   String get name;
   @override
   String get description;
   @override
-  String? get parentId;
+  @MultihashConverter()
+  Multihash? get parentId;
   @override
   @JsonKey(ignore: true)
   _$$_GroupCopyWith<_$_Group> get copyWith =>

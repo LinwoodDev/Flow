@@ -7,15 +7,31 @@ part of 'model.dart';
 // **************************************************************************
 
 _$_Group _$$_GroupFromJson(Map<String, dynamic> json) => _$_Group(
-      id: json['id'] as String?,
+      id: _$JsonConverterFromJson<List<int>, Multihash>(
+          json['id'], const MultihashConverter().fromJson),
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      parentId: json['parentId'] as String?,
+      parentId: _$JsonConverterFromJson<List<int>, Multihash>(
+          json['parentId'], const MultihashConverter().fromJson),
     );
 
 Map<String, dynamic> _$$_GroupToJson(_$_Group instance) => <String, dynamic>{
-      'id': instance.id,
+      'id': _$JsonConverterToJson<List<int>, Multihash>(
+          instance.id, const MultihashConverter().toJson),
       'name': instance.name,
       'description': instance.description,
-      'parentId': instance.parentId,
+      'parentId': _$JsonConverterToJson<List<int>, Multihash>(
+          instance.parentId, const MultihashConverter().toJson),
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

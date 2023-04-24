@@ -41,6 +41,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  base_codecs:
+    dependency: transitive
+    description:
+      name: base_codecs
+      sha256: "41701a12ede9912663decd708279924ece5018566daa7d1f484d5f4f10894f91"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   bazel_worker:
     dependency: transitive
     description:
@@ -417,6 +425,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
+  lib5:
+    dependency: transitive
+    description:
+      path: "."
+      ref: "4b07c3ad5122654b0ad8ff3238bb0b2493a43fc4"
+      resolved-ref: "4b07c3ad5122654b0ad8ff3238bb0b2493a43fc4"
+      url: "https://github.com/s5-dev/lib5.git"
+    source: git
+    version: "0.1.0"
   lints:
     dependency: "direct dev"
     description:
@@ -441,6 +458,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.12.15"
+  messagepack:
+    dependency: transitive
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "89910d0375f37077bc3cd949760a1a62a0d2ceb9"
+      url: "https://github.com/redsolver/messagepack.git"
+    source: git
+    version: "0.2.0"
   meta:
     dependency: transitive
     description:

@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lib5/lib5.dart';
+import 'package:shared/models/extra.dart';
 
+import '../../helpers/converter.dart';
 import '../model.dart';
 
 part 'model.freezed.dart';
@@ -13,14 +16,15 @@ class Event with _$Event {
 
   @Implements<DescriptiveModel>()
   const factory Event({
-    String? id,
-    String? parentId,
-    String? groupId,
-    String? placeId,
+    @MultihashConverter() Multihash? id,
+    @MultihashConverter() Multihash? parentId,
+    @MultihashConverter() Multihash? groupId,
+    @MultihashConverter() Multihash? placeId,
     @Default(true) bool blocked,
     @Default('') String name,
     @Default('') String description,
     @Default('') String location,
+    String? extra,
   }) = _Event;
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
@@ -29,14 +33,17 @@ class Event with _$Event {
         ...row,
         'blocked': row['blocked'] == 1,
         'id': row['id'] != null ? utf8.decode(row['id']) : null,
-        'parentId': row['parentId'] != null ? utf8.decode(row['parentId']) : null,
-        
+        'parentId':
+            row['parentId'] != null ? utf8.decode(row['parentId']) : null,
       });
 
   Map<String, dynamic> toDatabase() => {
         ...toJson(),
         'blocked': blocked ? 1 : 0,
       };
+
+  ExtraProperties? get extraProperties =>
+      extra != null ? ExtraProperties.fromJson(jsonDecode(extra!)) : null;
 }
 
 enum EventStatus {

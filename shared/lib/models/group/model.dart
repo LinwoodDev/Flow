@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lib5/lib5.dart';
 
+import '../../helpers/converter.dart';
 import '../model.dart';
 
 part 'model.freezed.dart';
@@ -11,10 +13,10 @@ class Group with _$Group {
 
   @Implements<DescriptiveModel>()
   const factory Group({
-    String? id,
+    @MultihashConverter() Multihash? id,
     @Default('') String name,
     @Default('') String description,
-    String? parentId,
+    @MultihashConverter() Multihash? parentId,
   }) = _Group;
 
   factory Group.fromJson(Map<String, dynamic> json) => _$GroupFromJson(json);

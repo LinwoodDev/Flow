@@ -183,7 +183,7 @@ class _NoteCardState extends State<NoteCard> {
                         widget.source.isEmpty ? "subnote-local" : "subnote",
                         params: {
                           if (widget.source.isNotEmpty) "source": widget.source,
-                          "id": widget.note.id.toString(),
+                          "id": widget.note.id!.toBase64Url(),
                         },
                       );
                     },
