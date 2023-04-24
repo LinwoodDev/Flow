@@ -20,6 +20,6 @@ title: "Сообщество"
 
 ## Полезные ссылки
 
-* [GitHub](https://github.com/LinwoodDev/Flow)
+* [GitHub](https://github.com/LinwoodCloud/Flow)
 * [Discord](https://go.linwood.dev/discord)
 * [Матрица](https://go.linwood.dev/matrix)
