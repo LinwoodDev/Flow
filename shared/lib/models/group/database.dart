@@ -12,10 +12,10 @@ class GroupDatabaseService extends GroupService with TableService {
   Future<void> create(Database db) {
     return db.execute("""
       CREATE TABLE IF NOT EXISTS groups (
-        id VARCHAR(100) PRIMARY KEY,
+        id BLOB(16) PRIMARY KEY,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT,
-        parentId VARCHAR(100)
+        parentId BLOB(16)
       )
     """);
   }

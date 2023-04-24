@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../model.dart';
@@ -26,6 +28,9 @@ class Event with _$Event {
   factory Event.fromDatabase(Map<String, dynamic> row) => Event.fromJson({
         ...row,
         'blocked': row['blocked'] == 1,
+        'id': row['id'] != null ? utf8.decode(row['id']) : null,
+        'parentId': row['parentId'] != null ? utf8.decode(row['parentId']) : null,
+        
       });
 
   Map<String, dynamic> toDatabase() => {

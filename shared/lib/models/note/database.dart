@@ -19,7 +19,7 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
   Future<void> create(Database db) async {
     await db.execute("""
       CREATE TABLE IF NOT EXISTS $tableName (
-        noteId VARCHAR(100) NOT NULL,
+        noteId BLOB(16) NOT NULL,
         $connectedIdName VARCHAR(100) NOT NULL,
         PRIMARY KEY ($connectedIdName, noteId),
         FOREIGN KEY ($connectedIdName) REFERENCES $connectedTableName(id) ON DELETE CASCADE,
@@ -121,12 +121,12 @@ class NoteDatabaseService extends NoteService with TableService {
   Future<void> create(Database db) {
     return db.execute("""
       CREATE TABLE IF NOT EXISTS notes (
-        id VARCHAR(100) PRIMARY KEY,
+        id BLOB(16) PRIMARY KEY,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT,
         status VARCHAR(20),
         priority INTEGER NOT NULL DEFAULT 0,
-        parentId VARCHAR(100)
+        parentId BLOB(16)
       )
     """);
   }

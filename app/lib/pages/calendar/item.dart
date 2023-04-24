@@ -106,17 +106,15 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
           Text(title),
           Row(
             children: [
-              if (!_create)
+              if (tabs)
                 IconButton(
                   icon: const Icon(Icons.delete_outline),
-                  onPressed: _create || _item.id == null
-                      ? null
-                      : () async {
-                          await _service?.deleteCalendarItem(_item.id!);
-                          if (context.mounted) {
-                            Navigator.of(context).pop();
-                          }
-                        },
+                  onPressed: () async {
+                    await _service?.deleteCalendarItem(_item.id!);
+                    if (context.mounted) {
+                      Navigator.of(context).pop();
+                    }
+                  },
                 ),
               MenuAnchor(
                 builder: (context, controller, child) => IconButton(

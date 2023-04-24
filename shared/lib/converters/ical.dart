@@ -60,7 +60,7 @@ class ICalConverter {
         }
       } else {
         switch (key) {
-          case 'SUMMARY':
+          case 'NAME':
           case 'X-WR-CALNAME':
             currentEvent = currentEvent.copyWith(name: value);
             break;
@@ -113,10 +113,14 @@ class ICalConverter {
         'END:VTODO',
       ];
 
-  List<String> write() {
+  List<String> write([Event? event]) {
     final lines = <String>[];
     lines.add('BEGIN:VCALENDAR');
     lines.add('VERSION:2.0');
+    if (event != null) {
+      lines.add('NAME:${event.name}');
+      lines.add('X-WR-CALNAME:${event.name}');
+    }
     lines.addAll(data?.items.expand(writeEvent) ?? []);
     lines.addAll(data?.notes.expand(writeNote) ?? []);
     lines.add('END:VCALENDAR');

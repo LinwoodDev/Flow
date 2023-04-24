@@ -1,5 +1,9 @@
 import 'dart:async';
+import 'dart:math';
+import 'dart:typed_data';
 
+import 'package:lib5/lib5.dart';
+import 'package:lib5/util.dart';
 import 'package:shared/models/event/item/database.dart';
 import 'package:shared/models/note/event/database.dart';
 import 'package:shared/services/source.dart';
@@ -95,4 +99,12 @@ mixin TableService {
   }
 
   FutureOr<void> clear() {}
+}
+
+Multihash createUniqueMultihash() {
+  final random = Random.secure();
+  final uuid = Uint8List.fromList(
+      encodeEndian(DateTime.now().millisecondsSinceEpoch, 8) +
+          List.generate(8, (i) => random.nextInt(255)));
+  return Multihash(uuid);
 }

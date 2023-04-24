@@ -12,7 +12,7 @@ class PlaceDatabaseService extends PlaceService with TableService {
   Future<void> create(Database db) {
     return db.execute("""
       CREATE TABLE IF NOT EXISTS places (
-        id VARCHAR(100) PRIMARY KEY,
+        id BLOB(16) PRIMARY KEY,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT,
         address TEXT

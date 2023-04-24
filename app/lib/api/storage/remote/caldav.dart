@@ -135,7 +135,9 @@ class CalendarItemCalDavRemoteService
       );
       return;
     }
-    final body = ICalConverter(CachedData(items: items)).write().join('\n');
+    final event = await remote.event.getEvent(item.eventId!);
+    final body =
+        ICalConverter(CachedData(items: items)).write(event).join('\n');
     await remote.addRequest(
       APIRequest(
         method: 'PUT',

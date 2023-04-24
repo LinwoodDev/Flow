@@ -18,11 +18,11 @@ class CalendarItemDatabaseService extends CalendarItemService
     await db.execute("""
       CREATE TABLE IF NOT EXISTS calendarItems (
         runtimeType VARCHAR(20) NOT NULL DEFAULT 'fixed',
-        id VARCHAR(100) PRIMARY KEY,
+        id BLOB(16) PRIMARY KEY,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT NOT NULL DEFAULT '',
         location VARCHAR(100) NOT NULL DEFAULT '',
-        eventId VARCHAR(100),
+        eventId BLOB(16),
         start INTEGER,
         end INTEGER,
         status VARCHAR(20) NOT NULL DEFAULT 'confirmed',
@@ -32,7 +32,7 @@ class CalendarItemDatabaseService extends CalendarItemService
         count INTEGER NOT NULL DEFAULT 0,
         until INTEGER,
         exceptions TEXT,
-        autoGroupId VARCHAR(100),
+        autoGroupId BLOB(16),
         searchStart INTEGER,
         autoDuration INTEGER NOT NULL DEFAULT 60,
         FOREIGN KEY (eventId) REFERENCES events(id) ON DELETE CASCADE

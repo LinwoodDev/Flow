@@ -16,7 +16,7 @@ class RequestDatabaseService extends ModelService with TableService {
   Future<void> create(Database db) async {
     await db.execute('''
       CREATE TABLE IF NOT EXISTS request (
-        id VARCHAR(100) PRIMARY KEY,
+        id BLOB(16) PRIMARY KEY,
         created INTEGER NOT NULL,
         data TEXT NOT NULL
       )
