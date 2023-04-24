@@ -20,6 +20,6 @@ Toutes les autres licences peuvent être trouvées dans les paramètres.
 
 ## Liens utiles
 
-* [GitHub](https://github.com/LinwoodDev/Flow)
+* [GitHub](https://github.com/LinwoodCloud/Flow)
 * [Discord.](https://go.linwood.dev/discord)
 * [Matrice](https://go.linwood.dev/matrix)
