@@ -74,7 +74,7 @@ module.exports = {
               href: "https://twitter.com/LinwoodDev",
             },
             {
-              label: "Masnoten",
+              label: "Mastodon",
               href: "https://floss.social/@linwood",
             },
             {
@@ -114,7 +114,7 @@ module.exports = {
               href: "https://twitter.com/LinwoodDev",
             },
             {
-              label: "Masnoten",
+              label: "Mastodon",
               href: "https://floss.social/@linwood",
             },
             {
