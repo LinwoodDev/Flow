@@ -23,10 +23,6 @@
     "message": "Twitter",
     "description": "The label of footer link with label=Twitter linking to https://twitter.com/LinwoodDev"
   },
-  "link.item.label.Masnoten": {
-    "message": "Masnoten",
-    "description": "The label of footer link with label=Masnoten linking to https://floss.social/@linwood"
-  },
   "link.item.label.App": {
     "message": "App",
     "description": "The label of footer link with label=App linking to https://github.com/LinwoodDev/Flow/tree/develop/app"
@@ -66,5 +62,9 @@
   "logo.alt": {
     "message": "Linwood Logo",
     "description": "The alt text of footer logo"
+  },
+  "link.item.label.Mastodon": {
+    "message": "Mastodon",
+    "description": "The label of footer link with label=Mastodon linking to https://floss.social/@linwood"
   }
 }
