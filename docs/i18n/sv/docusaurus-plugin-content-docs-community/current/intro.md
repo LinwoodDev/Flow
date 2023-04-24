@@ -20,6 +20,6 @@ Alla andra licenser hittar du i inställningarna.
 
 ## Användbara länkar
 
-* [GitHub](https://github.com/LinwoodDev/Flow)
+* [GitHub](https://github.com/LinwoodCloud/Flow)
 * [Discord](https://go.linwood.dev/discord)
 * [Matris](https://go.linwood.dev/matrix)
