@@ -5,45 +5,38 @@ import Translate from '@docusaurus/Translate';
 
 const FeatureList = [
     {
-        title: (<Translate description="Features cross-platform title">Cross platform</Translate>),
-        Svg: require('../../static/img/undraw_progressive_app_m-9-ms.svg').default,
+        title: (<Translate description="Features Time management title">Time management</Translate>),
+        Svg: require('../../static/img/undraw_time_management_30iu.svg').default,
         description: (
-            <Translate description="Features cross-platform description">
-                You can use the app on your phone, tablet, laptop, or desktop.
-                The app is available on Linux, Android, and Windows.
-                You can also use the app on the web.
+            <Translate description="Features Time management description">
+                Manage the time efficiency and automate it.
             </Translate>
         ),
     },
     {
-        title: (<Translate description="Features simple title">Simple and intuitive</Translate>),
-        Svg: require('../../static/img/undraw_innovative_b409.svg').default,
+        title: (<Translate description="Features Event management title">Event management</Translate>),
+        Svg: require('../../static/img/undraw_Schedule_re_2vro.svg').default,
         description: (
-            <Translate description="Features simple description">
-                Every tool is on the right place.
-                Open the app and start drawing.
-                Change your tools by clicking on it.
+            <Translate description="Features Event management description">
+                Schedule events, assign users to it and give tasks to them
             </Translate>
         ),
     },
   {
-    title: (<Translate description="Features customizable title">Customizable</Translate>),
-    Svg: require('../../static/img/undraw_options_re_9vxh.svg').default,
+    title: (<Translate description="Features Your data title">Your data</Translate>),
+    Svg: require('../../static/img/undraw_personal_data_29co.svg').default,
     description: (
-      <Translate description="Features customizable description">
-          Change everything to your needs.
-          Choose your custom color, create a palette and add your pages to the paper.
-          The paper has an infinite size, perfect for your ideas and notes.
+      <Translate description="Features Your data description">
+          Everyone can create their own server and have your data on it.
       </Translate>
     ),
   },
   {
-    title: (<Translate description="Features local title">Choose where your data is stored</Translate>),
-    Svg: require('../../static/img/undraw_sweet_home_dkhr.svg').default,
+    title: (<Translate description="Features Open source title">Open source</Translate>),
+    Svg: require('../../static/img/undraw_open_source_1qxw.svg').default,
     description: (
-      <Translate description="Features local description">
-          You can choose to store your data locally or in your favorite cloud (caldav).
-          You can also export your data to a file and import it again.
+      <Translate description="Features Open source description">
+          The app and the server are all open source. Everyone can contribute!
       </Translate>
     ),
   },
