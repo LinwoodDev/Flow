@@ -4,12 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shared/models/group/model.dart';
+import 'package:shared/models/model.dart';
 import 'package:shared/services/source.dart';
+
+import '../../widgets/builder_delegate.dart';
 
 class GroupSelectDialog extends StatefulWidget {
   final String? source;
-  final MapEntry<String, int>? selected;
-  final int? ignore;
+  final SourcedModel<String>? selected;
+  final String? ignore;
 
   const GroupSelectDialog({
     super.key,
@@ -25,7 +28,7 @@ class GroupSelectDialog extends StatefulWidget {
 class _GroupSelectDialogState extends State<GroupSelectDialog> {
   static const _pageSize = 20;
   final TextEditingController _controller = TextEditingController();
-  final PagingController<int, MapEntry<String, Group>> _pagingController =
+  final PagingController<int, SourcedModel<Group>> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
@@ -40,20 +43,19 @@ class _GroupSelectDialogState extends State<GroupSelectDialog> {
       final cubit = context.read<FlowCubit>();
       Map<String, SourceService> sources = widget.source == null
           ? cubit.getCurrentServicesMap()
-          : {widget.source!: cubit.getSource(widget.source!)};
+          : {widget.source!: cubit.getService(widget.source!)};
       final groups = await Future.wait(sources.entries.map((source) async {
-        final groups = await source.value.group?.getGroups(
-          offset: pageKey * _pageSize,
-          limit: _pageSize,
-          search: _controller.text,
-        );
-        return groups
-                ?.map((group) => MapEntry(source.key, group))
+        return (await source.value.group?.getGroups(
+              offset: pageKey * _pageSize,
+              limit: _pageSize,
+              search: _controller.text,
+            ))
+                ?.map((group) => SourcedModel(source.key, group))
                 .where((element) =>
-                    element.value.id != widget.ignore ||
+                    element.model.id != widget.ignore ||
                     source.key != widget.source)
                 .toList() ??
-            <MapEntry<String, Group>>[];
+            <SourcedModel<Group>>[];
       }));
       final allGroups = groups.expand((element) => element).toList();
       final isLast = groups.length < _pageSize;
@@ -91,17 +93,17 @@ class _GroupSelectDialogState extends State<GroupSelectDialog> {
             const Divider(),
             const SizedBox(height: 8),
             Expanded(
-              child: PagedListView<int, MapEntry<String, Group>>(
+              child: PagedListView<int, SourcedModel<Group>>(
                 pagingController: _pagingController,
                 builderDelegate:
-                    PagedChildBuilderDelegate<MapEntry<String, Group>>(
-                  itemBuilder: (context, item, index) => ListTile(
-                    title: Text(item.value.name),
-                    selected: widget.selected?.value == item.value.id &&
-                        widget.selected?.key == item.key,
+                    buildMaterialPagedDelegate<SourcedModel<Group>>(
+                  _pagingController,
+                  (context, item, index) => ListTile(
+                    title: Text(item.model.name),
+                    selected: widget.selected?.model == item.model.id &&
+                        widget.selected?.source == item.source,
                     onTap: () {
-                      Navigator.of(context)
-                          .pop(MapEntry(item.key, item.value.id));
+                      Navigator.of(context).pop(item);
                     },
                   ),
                 ),

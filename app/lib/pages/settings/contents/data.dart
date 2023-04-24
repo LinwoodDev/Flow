@@ -1,5 +1,6 @@
 import 'package:flow/api/storage/sources.dart';
 import 'package:flow/visualizer/sync.dart';
+import 'package:flow/widgets/material_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -33,38 +34,24 @@ class DataSettingsView extends StatelessWidget {
           title: Text(AppLocalizations.of(context).syncMode),
           leading: Icon(state.syncMode.getIcon()),
           subtitle: Text(state.syncMode.getLocalizedName(context)),
-          onTap: () async => showModalBottomSheet(
-              constraints: const BoxConstraints(maxWidth: 640),
+          onTap: () async => showMaterialBottomSheet(
+              title: AppLocalizations.of(context).syncMode,
               context: context,
-              builder: (ctx) {
+              childrenBuilder: (ctx) {
                 final settingsCubit = context.read<SettingsCubit>();
                 void changeSyncMode(SyncMode syncMode) {
                   settingsCubit.setSyncMode(syncMode);
                   Navigator.of(context).pop();
                 }
 
-                return Container(
-                    margin: const EdgeInsets.only(bottom: 20),
-                    child: ListView(shrinkWrap: true, children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 20),
-                        child: Text(
-                          AppLocalizations.of(context).syncMode,
-                          style: Theme.of(context).textTheme.headlineSmall,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      ...SyncMode.values.map((syncMode) {
-                        return ListTile(
-                          title: Text(syncMode.getLocalizedName(context)),
-                          leading: Icon(syncMode.getIcon()),
-                          selected: syncMode == settingsCubit.state.syncMode,
-                          onTap: () => changeSyncMode(syncMode),
-                        );
-                      }),
-                      const SizedBox(height: 32),
-                    ]));
+                return SyncMode.values.map((syncMode) {
+                  return ListTile(
+                    title: Text(syncMode.getLocalizedName(context)),
+                    leading: Icon(syncMode.getIcon()),
+                    selected: syncMode == settingsCubit.state.syncMode,
+                    onTap: () => changeSyncMode(syncMode),
+                  );
+                }).toList();
               }),
         ),
       ]),

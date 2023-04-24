@@ -3,9 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/group/model.dart';
+import 'package:shared/models/model.dart';
 
 import '../../cubits/flow.dart';
 import '../calendar/filter.dart';
+import '../users/filter.dart';
 import 'group.dart';
 
 class GroupTile extends StatelessWidget {
@@ -20,7 +22,7 @@ class GroupTile extends StatelessWidget {
   final FlowCubit flowCubit;
   final Group group;
   final String source;
-  final PagingController<int, MapEntry<Group, String>> pagingController;
+  final PagingController<int, SourcedModel<Group>> pagingController;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class GroupTile extends StatelessWidget {
           [
             Icons.people_outlined,
             AppLocalizations.of(context).users,
-            _openEvents,
+            _openUsers,
           ],
           [
             Icons.delete_outline,
@@ -79,10 +81,10 @@ class GroupTile extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               Navigator.of(context).pop();
-              await flowCubit.getSource(source).group?.deleteGroup(group.id);
-              pagingController.itemList!.remove(MapEntry(
-                group,
+              await flowCubit.getService(source).group?.deleteGroup(group.id!);
+              pagingController.itemList!.remove(SourcedModel(
                 source,
+                group,
               ));
               pagingController.refresh();
             },
@@ -99,6 +101,16 @@ class GroupTile extends StatelessWidget {
     GoRouter.of(context).go(
       "/calendar",
       extra: CalendarFilter(
+        group: group.id,
+        source: source,
+      ),
+    );
+  }
+
+  void _openUsers(BuildContext context) {
+    GoRouter.of(context).go(
+      "/users",
+      extra: UserFilter(
         group: group.id,
         source: source,
       ),

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flow/cubits/flow.dart';
+import 'package:flow/cubits/settings.dart';
 import 'package:flow/widgets/window_buttons.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -24,9 +25,14 @@ List _getNavigationItems(BuildContext context) => [
       },
       null,
       {
-        "title": AppLocalizations.of(context).todos,
+        "title": AppLocalizations.of(context).events,
+        "icon": Icons.calendar_today_outlined,
+        "link": "/events"
+      },
+      {
+        "title": AppLocalizations.of(context).notes,
         "icon": Icons.checklist_outlined,
-        "link": "/todos"
+        "link": "/notes"
       },
       {
         "title": AppLocalizations.of(context).groups,
@@ -83,10 +89,27 @@ class FlowRootNavigation extends StatelessWidget {
                   child: OverflowBox(
                       maxWidth: _drawerWidth,
                       minWidth: _drawerWidth,
+                      alignment: Alignment.centerRight,
                       child: _FlowDrawer())),
             ),
           ]);
         },
+      ),
+    );
+  }
+}
+
+class _NativeWindowArea extends StatelessWidget {
+  final Widget child;
+
+  const _NativeWindowArea({required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return DragToMoveArea(
+      child: GestureDetector(
+        onSecondaryTap: () => windowManager.popUpWindowMenu(),
+        child: child,
       ),
     );
   }
@@ -128,9 +151,15 @@ class FlowNavigation extends StatelessWidget {
 
       if (!kIsWeb &&
           (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
+        final child = appBar;
         appBar = PreferredSize(
             preferredSize: appBar.preferredSize,
-            child: DragToMoveArea(child: appBar));
+            child: BlocBuilder<SettingsCubit, FlowSettings>(
+                buildWhen: (previous, current) =>
+                    previous.nativeTitleBar != current.nativeTitleBar,
+                builder: (context, state) => state.nativeTitleBar
+                    ? child
+                    : _NativeWindowArea(child: child)));
       }
 
       return Row(
@@ -211,7 +240,8 @@ class _FlowDrawer extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Builder(builder: (context) {
+                BlocBuilder<SettingsCubit, FlowSettings>(
+                    builder: (context, state) {
                   final widget = AppBar(
                     leading: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
@@ -221,7 +251,7 @@ class _FlowDrawer extends StatelessWidget {
                     ),
                     leadingWidth: 32,
                     title: const Text(
-                      isNightly ? "Flow Nightly" : "Flow",
+                      shortApplicationName,
                       textAlign: TextAlign.center,
                     ),
                     centerTitle: true,
@@ -238,8 +268,9 @@ class _FlowDrawer extends StatelessWidget {
                   if (!kIsWeb &&
                       (Platform.isWindows ||
                           Platform.isLinux ||
-                          Platform.isMacOS)) {
-                    return DragToMoveArea(child: widget);
+                          Platform.isMacOS) &&
+                      !state.nativeTitleBar) {
+                    return _NativeWindowArea(child: widget);
                   }
                   return widget;
                 }),
@@ -266,6 +297,7 @@ class _FlowDrawer extends StatelessWidget {
     final sources = [''];
     final currents =
         List<String>.from(context.read<FlowCubit>().getCurrentSources());
+    final remotes = context.read<SettingsCubit>().state.remotes;
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -274,7 +306,7 @@ class _FlowDrawer extends StatelessWidget {
         content: StatefulBuilder(
           builder: (context, setState) {
             bool? allSources;
-            if (currents.length == sources.length) {
+            if (currents.length >= sources.length) {
               allSources = true;
             } else if (currents.isEmpty) {
               allSources = false;
@@ -302,6 +334,16 @@ class _FlowDrawer extends StatelessWidget {
                   onChanged: (value) => setState(() => (value ?? false)
                       ? currents.add("")
                       : currents.remove("")),
+                ),
+                ...remotes.map(
+                  (e) => CheckboxListTile(
+                    title: Text(e.uri.host),
+                    subtitle: Text(e.username),
+                    value: currents.contains(e.identifier),
+                    onChanged: (value) => setState(() => (value ?? false)
+                        ? currents.add(e.identifier)
+                        : currents.remove(e.identifier)),
+                  ),
                 ),
               ],
             );

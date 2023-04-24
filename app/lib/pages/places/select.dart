@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:shared/models/model.dart';
 import 'package:shared/models/place/model.dart';
 import 'package:shared/services/source.dart';
 
+import '../../widgets/builder_delegate.dart';
+
 class PlaceSelectDialog extends StatefulWidget {
   final String? source;
-  final MapEntry<String, int>? selected;
+  final SourcedModel<String>? selected;
 
   const PlaceSelectDialog({
     super.key,
@@ -23,7 +26,7 @@ class PlaceSelectDialog extends StatefulWidget {
 class _PlaceSelectDialogState extends State<PlaceSelectDialog> {
   static const _pageSize = 20;
   final TextEditingController _controller = TextEditingController();
-  final PagingController<int, MapEntry<String, Place>> _pagingController =
+  final PagingController<int, SourcedModel<Place>> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
@@ -38,7 +41,7 @@ class _PlaceSelectDialogState extends State<PlaceSelectDialog> {
       final cubit = context.read<FlowCubit>();
       Map<String, SourceService> sources = widget.source == null
           ? cubit.getCurrentServicesMap()
-          : {widget.source!: cubit.getSource(widget.source!)};
+          : {widget.source!: cubit.getService(widget.source!)};
       final places = await Future.wait(sources.entries.map((source) async {
         final places = await source.value.place?.getPlaces(
           offset: pageKey * _pageSize,
@@ -46,7 +49,7 @@ class _PlaceSelectDialogState extends State<PlaceSelectDialog> {
           search: _controller.text,
         );
         return (places ?? <Place>[])
-            .map((place) => MapEntry(source.key, place))
+            .map((place) => SourcedModel(source.key, place))
             .toList();
       }));
       final allPlaces = places.expand((element) => element).toList();
@@ -85,17 +88,17 @@ class _PlaceSelectDialogState extends State<PlaceSelectDialog> {
             const Divider(),
             const SizedBox(height: 8),
             Expanded(
-              child: PagedListView<int, MapEntry<String, Place>>(
+              child: PagedListView<int, SourcedModel<Place>>(
                 pagingController: _pagingController,
                 builderDelegate:
-                    PagedChildBuilderDelegate<MapEntry<String, Place>>(
-                  itemBuilder: (context, item, index) => ListTile(
-                    title: Text(item.value.name),
-                    selected: widget.selected?.value == item.value.id &&
-                        widget.selected?.key == item.key,
+                    buildMaterialPagedDelegate<SourcedModel<Place>>(
+                  _pagingController,
+                  (context, item, index) => ListTile(
+                    title: Text(item.model.name),
+                    selected: widget.selected?.model == item.model.id &&
+                        widget.selected?.source == item.source,
                     onTap: () {
-                      Navigator.of(context)
-                          .pop(MapEntry(item.key, item.value.id));
+                      Navigator.of(context).pop(item);
                     },
                   ),
                 ),

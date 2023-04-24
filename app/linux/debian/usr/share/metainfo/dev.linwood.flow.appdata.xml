@@ -16,13 +16,13 @@
 		<control>keyboard</control>
 		<control>touch</control>
 	</recommends>
-	<developer_name>LinwoodCloud</developer_name>
+	<developer_name>Linwood</developer_name>
 	<url type="homepage">https://docs.flow.linwood.dev/</url>
-	<url type="bugtracker">https://github.com/LinwoodCloud/Flow/issues</url>
+	<url type="bugtracker">https://github.com/LinwoodDev/Flow/issues</url>
 	<url type="help">https://docs.flow.linwood.dev/docs/latest/intro</url>
 	<url type="translate">https://translate.linwood.dev/flow</url>
-	<url type="vcs-browser">https://github.com/LinwoodCloud/Flow.git</url>
-	<url type="contribute">https://github.com/LinwoodCloud/Flow/blob/develop/CONTRIBUTING.md</url>
+	<url type="vcs-browser">https://github.com/LinwoodDev/Flow.git</url>
+	<url type="contribute">https://github.com/LinwoodDev/Flow/blob/develop/CONTRIBUTING.md</url>
 	<description>
 		<p>A feature rich event and time management system.</p>
 		<p>Features:</p>

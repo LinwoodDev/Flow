@@ -1,13 +1,16 @@
 import 'dart:async';
 
+import 'package:shared/models/event/item/database.dart';
+import 'package:shared/models/note/event/database.dart';
 import 'package:shared/services/source.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
 import '../models/event/database.dart';
+import '../models/note/item/database.dart';
 import '../models/place/database.dart';
 import '../models/user/database.dart';
 import '../models/group/database.dart';
-import '../models/todo/database.dart';
+import '../models/note/database.dart';
 
 typedef DatabaseFactory = Future<Database> Function({
   String name,
@@ -21,29 +24,29 @@ const databaseVersion = 1;
 class DatabaseService extends SourceService {
   late final Database db;
   @override
-  late final EventDatabaseService event;
+  final EventDatabaseService event = EventDatabaseService();
   @override
-  late final TodoDatabaseService todo;
+  final CalendarItemDatabaseService calendarItem =
+      CalendarItemDatabaseService();
   @override
-  late final GroupDatabaseService group;
-
+  final NoteDatabaseService note = NoteDatabaseService();
   @override
-  late final UserDatabaseService user;
+  final EventNoteDatabaseConnector eventNote = EventNoteDatabaseConnector();
   @override
-  late final PlaceDatabaseService place;
+  final CalendarItemNoteDatabaseConnector calendarItemNote =
+      CalendarItemNoteDatabaseConnector();
+  @override
+  final GroupDatabaseService group = GroupDatabaseService();
+  @override
+  final UserDatabaseService user = UserDatabaseService();
+  @override
+  final PlaceDatabaseService place = PlaceDatabaseService();
 
   final DatabaseFactory databaseFactory;
 
   DatabaseService(this.databaseFactory);
 
   Future<void> setup(String name) async {
-    event = EventDatabaseService();
-    todo = TodoDatabaseService();
-    place = PlaceDatabaseService();
-    group = GroupDatabaseService();
-
-    user = UserDatabaseService();
-
     db = await databaseFactory(
         name: name,
         version: databaseVersion,
@@ -55,7 +58,7 @@ class DatabaseService extends SourceService {
     }
   }
 
-  List<TableService> get tables => models.cast<TableService>();
+  List<TableService> get tables => [...models.cast<TableService>()];
 
   FutureOr<void> _onCreate(Database db, int version) async {
     for (var table in tables) {
@@ -85,9 +88,11 @@ class DatabaseService extends SourceService {
 mixin TableService {
   Database? db;
 
-  FutureOr<void> create(Database db);
-  FutureOr<void> migrate(Database db, int version);
+  FutureOr<void> create(Database db) {}
+  FutureOr<void> migrate(Database db, int version) {}
   FutureOr<void> opened(Database db) {
     this.db = db;
   }
+
+  FutureOr<void> clear() {}
 }

@@ -11,9 +11,11 @@ abstract class PlaceService extends ModelService {
     String search = '',
   });
 
+  FutureOr<Place?> getPlace(String id);
+
   FutureOr<Place?> createPlace(Place place);
 
   FutureOr<bool> updatePlace(Place place);
 
-  FutureOr<bool> deletePlace(int id);
+  FutureOr<bool> deletePlace(String id);
 }

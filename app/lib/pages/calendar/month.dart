@@ -3,10 +3,12 @@ import 'package:flow/pages/calendar/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared/models/model.dart';
 
-import 'event.dart';
+import '../events/page.dart';
 import 'filter.dart';
 import '../../helpers/event.dart';
 import 'tile.dart';
@@ -31,16 +33,17 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
   late final FlowCubit _cubit;
   int _month = 0, _year = 0;
   late final DateTime _now;
-  late Future<List<List<MapEntry<String, Event>>>> _events;
+  late Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
+      _appointments;
 
   @override
   void initState() {
     _now = DateTime.now();
     super.initState();
     _cubit = context.read<FlowCubit>();
-    _events = _fetchEvents();
     _month = _now.month;
     _year = _now.year;
+    _appointments = _fetchCalendarItems();
   }
 
   DateTime get _date => DateTime(
@@ -52,38 +55,36 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
         _now.second,
       );
 
-  Future<List<List<MapEntry<String, Event>>>> _fetchEvents() async {
+  Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
+      _fetchCalendarItems() async {
     if (!mounted) return [];
 
     var sources = _cubit.getCurrentServicesMap();
     if (widget.filter.source != null) {
       sources = {
-        widget.filter.source!: _cubit.getSource(widget.filter.source!)
+        widget.filter.source!: _cubit.getService(widget.filter.source!)
       };
     }
     final days = _date.getDaysInMonth();
-    final events = <List<MapEntry<String, Event>>>[
+    final appointments = <List<SourcedConnectedModel<CalendarItem, Event?>>>[
       for (int i = 0; i < days; i++) []
     ];
     for (final source in sources.entries) {
       for (int i = 0; i < days; i++) {
-        final fetchedDay = await source.value.event?.getEvents(
+        final fetchedDay = await source.value.calendarItem?.getCalendarItems(
           date: _date.addDays(i),
           status: EventStatus.values
               .where(
                   (element) => !widget.filter.hiddenStatuses.contains(element))
               .toList(),
           search: widget.search,
-          groupId:
-              source.key == widget.filter.source ? widget.filter.group : null,
-          placeId:
-              source.key == widget.filter.source ? widget.filter.place : null,
         );
         if (fetchedDay == null) continue;
-        events[i].addAll(fetchedDay.map((e) => MapEntry(source.key, e)));
+        appointments[i]
+            .addAll(fetchedDay.map((e) => SourcedModel(source.key, e)));
       }
     }
-    return events;
+    return appointments;
   }
 
   void _addMonth(int add) {
@@ -91,12 +92,12 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
       final dateTime = DateTime(_year, _month + add, 1);
       _month = dateTime.month;
       _year = dateTime.year;
-      _events = _fetchEvents();
+      _appointments = _fetchCalendarItems();
     });
   }
 
   void _refresh() => setState(() {
-        _events = _fetchEvents();
+        _appointments = _fetchCalendarItems();
       });
 
   @override
@@ -112,7 +113,8 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
     final locale = Localizations.localeOf(context).languageCode;
     return LayoutBuilder(
       builder: (context, constraints) => CreateEventScaffold(
-        onCreated: (p0) => _refresh,
+        onCreated: _refresh,
+        event: widget.filter.sourceEvent,
         child: Column(children: [
           Column(mainAxisSize: MainAxisSize.min, children: [
             CalendarFilterView(
@@ -142,7 +144,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                           final now = DateTime.now();
                           _month = now.month;
                           _year = now.year;
-                          _events = _fetchEvents();
+                          _appointments = _fetchCalendarItems();
                         });
                       },
                     ),
@@ -162,7 +164,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                           setState(() {
                             _month = date.month;
                             _year = date.year;
-                            _events = _fetchEvents();
+                            _appointments = _fetchCalendarItems();
                           });
                         }
                       },
@@ -178,8 +180,9 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
             const Divider(),
           ]),
           Expanded(
-            child: FutureBuilder<List<List<MapEntry<String, Event>>>>(
-                future: _events,
+            child: FutureBuilder<
+                    List<List<SourcedConnectedModel<CalendarItem, Event?>>>>(
+                future: _appointments,
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return Text(snapshot.error.toString());
@@ -187,13 +190,13 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                   if (!snapshot.hasData) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  final events = snapshot.data!;
+                  final appointments = snapshot.data!;
                   final emptyPadding = _date.weekday - 1;
                   return SingleChildScrollView(
                     child: GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: events.length + emptyPadding + 7,
+                      itemCount: appointments.length + emptyPadding + 7,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 7,
                         childAspectRatio: constraints.maxWidth / 7 / 100,
@@ -238,38 +241,43 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                               context: context,
                               builder: (context) => CalendarDayDialog(
                                 date: day,
-                                events: events[current],
+                                appointments: appointments[current],
+                                event: widget.filter.sourceEvent,
                               ),
                             );
                             _refresh();
                           },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                day.day.toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge
-                                    ?.copyWith(
-                                      color: day.isSameDay(DateTime.now())
-                                          ? Theme.of(context).primaryColor
-                                          : null,
-                                    ),
-                              ),
-                              const SizedBox(height: 4),
-                              if (events[current].isNotEmpty)
-                                Container(
-                                  height: 16,
-                                  width: 16,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    shape: BoxShape.circle,
-                                  ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 16, horizontal: 8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  day.day.toString(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.copyWith(
+                                        color: day.isSameDay(DateTime.now())
+                                            ? Theme.of(context).primaryColor
+                                            : null,
+                                      ),
                                 ),
-                            ],
+                                const SizedBox(height: 4),
+                                if (appointments[current].isNotEmpty)
+                                  Container(
+                                    height: 16,
+                                    width: 16,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                              ],
+                            ),
                           ),
                         );
                       },
@@ -285,12 +293,14 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
 
 class CalendarDayDialog extends StatelessWidget {
   final DateTime date;
-  final List<MapEntry<String, Event>> events;
+  final List<SourcedConnectedModel<CalendarItem, Event?>> appointments;
+  final SourcedModel<String>? event;
 
   const CalendarDayDialog({
     super.key,
     required this.date,
-    required this.events,
+    required this.appointments,
+    this.event,
   });
 
   @override
@@ -313,18 +323,13 @@ class CalendarDayDialog extends StatelessWidget {
             icon: const Icon(Icons.add_circle_outline_outlined),
             tooltip: AppLocalizations.of(context).createEvent,
             onPressed: () async {
-              Navigator.of(context).pop();
-              await showDialog(
+              await showCalendarCreate(
                 context: context,
-                builder: (context) => EventDialog(
-                  event: Event(
-                    time: EventTime.fixed(
-                      start: date,
-                      end: date.add(const Duration(hours: 1)),
-                    ),
-                  ),
-                ),
+                event: event,
               );
+              if (context.mounted) {
+                Navigator.of(context).pop();
+              }
             },
           ),
         ],
@@ -333,16 +338,15 @@ class CalendarDayDialog extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (events.isEmpty)
+          if (appointments.isEmpty)
             Center(
               child: Text(AppLocalizations.of(context).noEvents),
             )
           else
-            ...events.map(
+            ...appointments.map(
               (e) => CalendarListTile(
-                key: ValueKey('${e.key}@${e.value.id}'),
-                event: e.value,
-                source: e.key,
+                key: ValueKey('${e.source}@${e.main.id}'),
+                eventItem: e,
                 date: date,
                 onRefresh: () => Navigator.of(context).pop(),
               ),

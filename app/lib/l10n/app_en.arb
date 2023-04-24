@@ -42,8 +42,8 @@
   "month": "Month",
   "version": "Version",
   "intro": "Intro",
-  "webdav": "WebDAV",
-  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. You can use it to synchronize your data with other devices or services.",
+  "caldavDescription": "The CalDAV interface allows you to access your data from any CalDAV server. It has limited support and only basic functions are supported. You can use it to synchronize your data with other devices or services.",
+  "webdavDescription": "The WebDAV interface allows you to access your data from any WebDAV server. It files and directories to store data. You can use it to synchronize your data with other devices or services.",
   "server": "Server",
   "serverDescription": "Sync your data with a native Linwood Flow server. This is recommended for users that want to self-host their data.",
   "googleDescription": "Sync your data with Google. This is recommended for users that want to use their Google account to access their data. Not all features are available with this option.",
@@ -65,9 +65,9 @@
   "draft": "Draft",
   "cancelled": "Cancelled",
   "general": "General",
-  "todos": "Todos",
-  "createTodo": "Create todo",
-  "editTodo": "Edit todo",
+  "notes": "Notes",
+  "createNote": "Create note",
+  "editNote": "Edit note",
   "indicatorEmpty": "No items found",
   "indicatorEmptyDescription": "The list is currently empty.",
   "indicatorLoading": "Loading",
@@ -102,7 +102,7 @@
   "filter": "Filter",
   "done": "Done",
   "inProgress": "In progress",
-  "todo": "Todo",
+  "note": "Note",
   "delete": "Delete",
   "edit": "Edit",
   "deleteGroup": "Delete group {name}",
@@ -214,5 +214,41 @@
   "always": "Always",
   "noMobile": "No mobile",
   "manual": "Manual",
-  "syncMode": "Sync mode"
+  "syncMode": "Sync mode",
+  "todo": "Todo",
+  "appointment": "Appointment",
+  "moment": "Moment",
+  "time": "Time",
+  "deleteEvent": "Delete event {name}",
+  "@deleteEvent": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "deleteEventDescription": "Are you sure you want to delete the event {name}?",
+  "@deleteEventDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "createAppointment": "Create appointment",
+  "editAppointment": "Edit appointment",
+  "createMoment": "Create moment",
+  "editMoment": "Edit moment",
+  "convertToNote": "Convert to note",
+  "convertToTodo": "Convert to todo",
+  "open": "Open",
+  "limited": "Limited",
+  "notSet": "Not set",
+  "createPending": "Create pending",
+  "editPending": "Edit pending",
+  "convertTo": "Convert to",
+  "comingSoon": "Coming soon",
+  "notSupported": "Not supported"
 }

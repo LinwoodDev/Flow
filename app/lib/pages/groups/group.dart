@@ -1,8 +1,10 @@
 import 'package:flow/cubits/flow.dart';
+import 'package:flow/widgets/source_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/group/model.dart';
+import 'package:shared/models/group/service.dart';
 
 class GroupDialog extends StatelessWidget {
   final String? source;
@@ -14,6 +16,8 @@ class GroupDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     var group = this.group ?? const Group();
     var currentSource = source ?? '';
+    var currentService =
+        context.read<FlowCubit>().getService(currentSource).group;
     final nameController = TextEditingController(text: group.name);
     final descriptionController =
         TextEditingController(text: group.description);
@@ -25,33 +29,18 @@ class GroupDialog extends StatelessWidget {
         width: 500,
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           if (source == null) ...[
-            DropdownButtonFormField<String>(
-              value: source,
-              items: context
-                  .read<FlowCubit>()
-                  .getCurrentSources()
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value.isEmpty
-                      ? AppLocalizations.of(context).local
-                      : value),
-                );
-              }).toList(),
-              onChanged: (String? value) {
-                currentSource = value ?? '';
+            SourceDropdown<GroupService>(
+              value: currentSource,
+              buildService: (e) => e.group,
+              onChanged: (connected) {
+                currentSource = connected?.source ?? '';
+                currentService = connected?.model;
               },
-              decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).source,
-                icon: const Icon(Icons.storage_outlined),
-                border: const OutlineInputBorder(),
-              ),
             ),
             const SizedBox(height: 16),
           ],
           TextField(
             decoration: InputDecoration(
-              filled: true,
               labelText: AppLocalizations.of(context).name,
               icon: const Icon(Icons.folder_outlined),
             ),
@@ -86,17 +75,9 @@ class GroupDialog extends StatelessWidget {
         ElevatedButton(
           onPressed: () {
             if (source == null) {
-              context
-                  .read<FlowCubit>()
-                  .getSource(currentSource)
-                  .group
-                  ?.createGroup(group);
+              currentService?.createGroup(group);
             } else {
-              context
-                  .read<FlowCubit>()
-                  .getSource(source!)
-                  .group
-                  ?.updateGroup(group);
+              currentService?.updateGroup(group);
             }
             Navigator.of(context).pop(group);
           },

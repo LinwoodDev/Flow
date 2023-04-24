@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flow/api/storage/db/database.dart';
 import 'package:flow/api/storage/remote/model.dart';
@@ -6,6 +7,7 @@ import 'package:flow/cubits/settings.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared/services/database.dart';
+import 'package:shared/services/source.dart';
 
 class SourcesService {
   final SettingsCubit settingsCubit;
@@ -51,7 +53,7 @@ class SourcesService {
     syncStatus.add(SyncStatus.syncing);
     for (final remote in remotes) {
       try {
-        await remote.sync();
+        await remote.synchronize();
       } catch (e) {
         syncStatus.add(SyncStatus.error);
       }
@@ -62,15 +64,15 @@ class SourcesService {
   }
 
   Future<void> _connectRemote(RemoteStorage storage, String? password) async {
-    final db = DatabaseService(openDatabase);
+    final db = RemoteDatabaseService(openDatabase);
     await db.setup(storage.toFilename());
 
-    remotes.add(RemoteService.fromStorage(storage, db, password));
+    remotes.add(RemoteService.fromStorage(db, storage, password));
   }
 
   Future<void> addRemote(RemoteStorage remoteStorage, String password) async {
-    if (settingsCubit.state.remotes.any((element) =>
-        element.toDisplayString() == remoteStorage.toDisplayString())) {
+    if (settingsCubit.state.remotes
+        .any((element) => element.identifier == remoteStorage.identifier)) {
       return;
     }
     final key = 'remote ${remoteStorage.toFilename()}';
@@ -89,4 +91,21 @@ class SourcesService {
         .removeWhere((element) => element.remoteStorage.toFilename() == name);
     await synchronize();
   }
+
+  List<RemoteStorage> getRemotes() => settingsCubit.state.remotes;
+
+  SourceService getSource(String source) {
+    if (source.isEmpty) return local;
+    return remotes.firstWhereOrNull(
+            (element) => element.remoteStorage.identifier == source) ??
+        local;
+  }
+
+  Future<void> clearRemotes() async {
+    for (final remote in remotes) {
+      await removeRemote(remote.remoteStorage.identifier);
+    }
+  }
+
+  RemoteStorage? getRemote(String key) => settingsCubit.getStorage(key);
 }

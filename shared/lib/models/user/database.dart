@@ -12,8 +12,8 @@ class UserDatabaseService extends UserService with TableService {
   Future<void> create(Database db) {
     return db.execute("""
       CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY,
-        groupId INTEGER,
+        id VARCHAR(100) PRIMARY KEY,
+        groupId VARCHAR(100),
         name VARCHAR(100) NOT NULL DEFAULT '',
         email VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT,
@@ -28,13 +28,13 @@ class UserDatabaseService extends UserService with TableService {
 
   @override
   Future<User?> createUser(User user) async {
-    final id = await db?.insert('users', user.toJson()..remove('id'));
+    final id = await db?.insert('users', user.toDatabase());
     if (id == null) return null;
-    return user.copyWith(id: id);
+    return user.copyWith(id: id.toString());
   }
 
   @override
-  Future<bool> deleteUser(int id) async {
+  Future<bool> deleteUser(String id) async {
     return await db?.delete(
           'users',
           where: 'id = ?',
@@ -48,7 +48,7 @@ class UserDatabaseService extends UserService with TableService {
     int offset = 0,
     int limit = 50,
     String search = '',
-    int? groupId,
+    String? groupId,
   }) async {
     String? where;
     List<Object>? whereArgs;
@@ -68,17 +68,22 @@ class UserDatabaseService extends UserService with TableService {
       limit: limit,
     );
     if (result == null) return [];
-    return result.map((e) => User.fromJson(e)).toList();
+    return result.map((e) => User.fromDatabase(e)).toList();
   }
 
   @override
   Future<bool> updateUser(User user) async {
     return await db?.update(
           'users',
-          user.toJson()..remove('id'),
+          user.toDatabase()..remove('id'),
           where: 'id = ?',
           whereArgs: [user.id],
         ) ==
         1;
+  }
+
+  @override
+  Future<void> clear() async {
+    await db?.delete('users');
   }
 }

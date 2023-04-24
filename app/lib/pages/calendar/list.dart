@@ -1,15 +1,18 @@
 import 'package:flow/cubits/flow.dart';
-import 'package:flow/pages/calendar/event.dart';
 import 'package:flow/pages/calendar/filter.dart';
 import 'package:flow/pages/calendar/page.dart';
+import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
+import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/helpers/date_time.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared/models/model.dart';
 
+import '../events/page.dart';
 import 'tile.dart';
 
 class CalendarListView extends StatefulWidget {
@@ -30,8 +33,13 @@ class CalendarListView extends StatefulWidget {
 
 class _CalendarListViewState extends State<CalendarListView> {
   late FlowCubit _cubit;
-  final PagingController<int, List<MapEntry<String, Event>>> _controller =
-      PagingController(firstPageKey: 0);
+  final PagingController<
+      ConnectedModel<int, ConnectedModel<Map<String, int>, Map<String, int>>>,
+      List<
+          SourcedConnectedModel<CalendarItem,
+              Event?>>> _controller = PagingController(
+      firstPageKey: const ConnectedModel(-1, ConnectedModel({}, {})));
+  static const _pageSize = 50;
 
   @override
   void initState() {
@@ -46,13 +54,43 @@ class _CalendarListViewState extends State<CalendarListView> {
     super.dispose();
   }
 
-  Future<void> _requestPage(int key) async {
-    final events = await _fetchEvents(key);
-    if (mounted) _controller.appendPage([events], key + 1);
+  Future<void> _requestPage(
+      ConnectedModel<int, ConnectedModel<Map<String, int>, Map<String, int>>>
+          key) async {
+    var day = key.source;
+    var sources = key.model;
+    final allSources = _cubit.getCurrentSources();
+
+    ConnectedModel<Map<String, int>, Map<String, int>> createFullSourceMap() {
+      final map = Map.fromEntries(allSources.map((e) => MapEntry(e, 0)));
+      return ConnectedModel(map, Map.from(map));
+    }
+
+    if (day < 0) {
+      day = 0;
+      sources = createFullSourceMap();
+    }
+    var appointmentSource = sources.source;
+    var items = <SourcedConnectedModel<CalendarItem, Event?>>[];
+    if (appointmentSource.isNotEmpty) {
+      final model = await _fetchCalendarItems(day, appointmentSource);
+      items.addAll(model.source);
+      appointmentSource.removeWhere((key, value) => !model.model.contains(key));
+    }
+    if (appointmentSource.isEmpty) {
+      day++;
+      sources = createFullSourceMap();
+    }
+    if (mounted) {
+      _controller.appendPage([items], ConnectedModel(day, sources));
+    }
   }
 
-  Future<List<MapEntry<String, Event>>> _fetchEvents(int day) async {
-    if (!mounted) return [];
+  Future<
+      ConnectedModel<List<SourcedConnectedModel<CalendarItem, Event?>>,
+          List<String>>> _fetchCalendarItems(
+      int day, Map<String, int> sources) async {
+    if (!mounted) return ConnectedModel([], sources.keys.toList());
     var date = DateTime.now().onlyDate();
     if (widget.filter.past) {
       date = date.subtract(Duration(days: day));
@@ -60,31 +98,33 @@ class _CalendarListViewState extends State<CalendarListView> {
       date = date.add(Duration(days: day));
     }
 
-    if (!mounted) return [];
+    if (!mounted) return ConnectedModel([], sources.keys.toList());
 
-    var sources = _cubit.getCurrentServicesMap();
-    if (widget.filter.source != null) {
-      sources = {
-        widget.filter.source!: _cubit.getSource(widget.filter.source!)
-      };
-    }
-    final events = <MapEntry<String, Event>>[];
+    final appointments = <SourcedConnectedModel<CalendarItem, Event?>>[];
+    final nextSources = <String>[];
     for (final source in sources.entries) {
-      final fetched = await source.value.event?.getEvents(
-        date: date,
-        status: EventStatus.values
-            .where((element) => !widget.filter.hiddenStatuses.contains(element))
-            .toList(),
-        search: widget.search,
-        groupId:
-            source.key == widget.filter.source ? widget.filter.group : null,
-        placeId:
-            source.key == widget.filter.source ? widget.filter.place : null,
-      );
+      final fetched =
+          await _cubit.getService(source.key).calendarItem?.getCalendarItems(
+                date: date,
+                status: EventStatus.values
+                    .where((element) =>
+                        !widget.filter.hiddenStatuses.contains(element))
+                    .toList(),
+                search: widget.search,
+                groupId: widget.filter.group,
+                placeId: widget.filter.place,
+                eventId: widget.filter.event,
+                offset: source.value * _pageSize,
+                limit: _pageSize,
+              );
       if (fetched == null) continue;
-      events.addAll(fetched.map((event) => MapEntry(source.key, event)));
+      appointments
+          .addAll(fetched.map((event) => SourcedModel(source.key, event)));
+      if (fetched.length >= _pageSize) {
+        nextSources.add(source.key);
+      }
     }
-    return events;
+    return ConnectedModel(appointments, nextSources);
   }
 
   @override
@@ -100,7 +140,8 @@ class _CalendarListViewState extends State<CalendarListView> {
     final locale = Localizations.localeOf(context).languageCode;
     final dateFormatter = DateFormat.yMMMMd(locale);
     return CreateEventScaffold(
-      onCreated: (p0) => _controller.refresh(),
+      onCreated: _controller.refresh,
+      event: widget.filter.sourceEvent,
       child: Column(
         children: [
           CalendarFilterView(
@@ -112,10 +153,11 @@ class _CalendarListViewState extends State<CalendarListView> {
             child: LayoutBuilder(
               builder: (context, constraints) => PagedListView(
                 pagingController: _controller,
-                builderDelegate:
-                    PagedChildBuilderDelegate<List<MapEntry<String, Event>>>(
-                  itemBuilder: (context, item, index) {
-                    var date = DateTime.now();
+                builderDelegate: buildMaterialPagedDelegate<
+                    List<SourcedConnectedModel<CalendarItem, Event?>>>(
+                  _controller,
+                  (context, item, index) {
+                    var date = DateTime.now().onlyDate();
                     if (widget.filter.past) {
                       date = date.subtract(Duration(days: index));
                     } else {
@@ -156,9 +198,12 @@ class _CalendarListViewState extends State<CalendarListView> {
                           ),
                         ...item.map((event) {
                           return CalendarListTile(
-                            key: ValueKey('${event.key}@${event.value.id}'),
-                            event: event.value,
-                            source: event.key,
+                            key: ValueKey([
+                              event.main.id,
+                              event.source,
+                              event.main.runtimeType
+                            ]),
+                            eventItem: event,
                             date: date,
                             onRefresh: _controller.refresh,
                           );
@@ -171,17 +216,11 @@ class _CalendarListViewState extends State<CalendarListView> {
                       child: ConstrainedBox(
                           constraints: const BoxConstraints(maxWidth: 1000),
                           child: GestureDetector(
-                            onTap: () => showDialog<Event>(
+                            onTap: () => showCalendarCreate(
                               context: context,
-                              builder: (context) => EventDialog(
-                                event: Event(
-                                  time: EventTime.fixed(
-                                    start: date,
-                                    end: date.add(const Duration(hours: 1)),
-                                  ),
-                                ),
-                              ),
-                            ),
+                              time: date,
+                              event: widget.filter.sourceEvent,
+                            ).then((value) => _controller.refresh()),
                             child: isMobile
                                 ? Column(
                                     children: [

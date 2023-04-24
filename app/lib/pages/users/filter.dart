@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared/models/group/model.dart';
+import 'package:shared/models/model.dart';
 
 import '../groups/select.dart';
 
@@ -10,7 +12,7 @@ part 'filter.freezed.dart';
 class UserFilter with _$UserFilter {
   const factory UserFilter({
     String? source,
-    int? group,
+    String? group,
   }) = _UserFilter;
 }
 
@@ -25,6 +27,7 @@ class UserFilterView extends StatefulWidget {
 }
 
 class _UserFilterViewState extends State<UserFilterView> {
+  final ScrollController _scrollController = ScrollController();
   late UserFilter _filter;
 
   @override
@@ -35,54 +38,58 @@ class _UserFilterViewState extends State<UserFilterView> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          InputChip(
-            label: Text(AppLocalizations.of(context).group),
-            avatar: Icon(Icons.folder_outlined,
-                color: _filter.group != null
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : Theme.of(context).iconTheme.color),
-            selected: _filter.group != null,
-            selectedColor: Theme.of(context).colorScheme.primaryContainer,
-            labelStyle: TextStyle(
-                color: _filter.group != null
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : null),
-            showCheckmark: false,
-            deleteIconColor: Theme.of(context).colorScheme.onPrimaryContainer,
-            onDeleted: _filter.group == null
-                ? null
-                : () {
-                    setState(() {
-                      _filter = _filter.copyWith(group: null, source: null);
-                    });
-                    widget.onChanged(_filter);
-                  },
-            onSelected: (value) async {
-              final groupId = await showDialog<MapEntry<String, int>>(
-                context: context,
-                builder: (context) => GroupSelectDialog(
-                  selected: _filter.source != null && _filter.group != null
-                      ? MapEntry(_filter.source!, _filter.group!)
-                      : null,
-                ),
-              );
-              if (groupId != null) {
-                setState(() {
-                  _filter = _filter.copyWith(
-                      group: groupId.value, source: groupId.key);
-                });
-                widget.onChanged(_filter);
-              }
-            },
-          ),
-        ]
-            .map((e) => Padding(padding: const EdgeInsets.all(8.0), child: e))
-            .toList(),
+    return Scrollbar(
+      controller: _scrollController,
+      child: SingleChildScrollView(
+        controller: _scrollController,
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            InputChip(
+              label: Text(AppLocalizations.of(context).group),
+              avatar: Icon(Icons.folder_outlined,
+                  color: _filter.group != null
+                      ? Theme.of(context).colorScheme.onPrimaryContainer
+                      : Theme.of(context).iconTheme.color),
+              selected: _filter.group != null,
+              selectedColor: Theme.of(context).colorScheme.primaryContainer,
+              labelStyle: TextStyle(
+                  color: _filter.group != null
+                      ? Theme.of(context).colorScheme.onPrimaryContainer
+                      : null),
+              showCheckmark: false,
+              deleteIconColor: Theme.of(context).colorScheme.onPrimaryContainer,
+              onDeleted: _filter.group == null
+                  ? null
+                  : () {
+                      setState(() {
+                        _filter = _filter.copyWith(group: null, source: null);
+                      });
+                      widget.onChanged(_filter);
+                    },
+              onSelected: (value) async {
+                final groupId = await showDialog<SourcedModel<Group>>(
+                  context: context,
+                  builder: (context) => GroupSelectDialog(
+                    selected: _filter.source != null && _filter.group != null
+                        ? SourcedModel(_filter.source!, _filter.group!)
+                        : null,
+                  ),
+                );
+                if (groupId != null) {
+                  setState(() {
+                    _filter = _filter.copyWith(
+                        group: groupId.model.id, source: groupId.source);
+                  });
+                  widget.onChanged(_filter);
+                }
+              },
+            ),
+          ]
+              .map((e) => Padding(padding: const EdgeInsets.all(8.0), child: e))
+              .toList(),
+        ),
       ),
     );
   }

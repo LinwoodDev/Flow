@@ -2,8 +2,8 @@ Package: linwood-flow
 Version: 1.0.0
 Section: base
 Priority: optional
-Homepage: https://github.com/LinwoodCloud/Flo
+Homepage: https://github.com/LinwoodDev/Flo
 Architecture: amd64
-Maintainer: LinwoodCloud <contact@linwood.dev>
+Maintainer: Linwood <contact@linwood.dev>
 Description: Linwood Flow
   A feature rich event and time management system.

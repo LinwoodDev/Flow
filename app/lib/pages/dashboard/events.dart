@@ -2,20 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
+import 'package:shared/models/model.dart';
 
 import '../../cubits/flow.dart';
 
 class DashboardEventsCard extends StatelessWidget {
   const DashboardEventsCard({Key? key}) : super(key: key);
 
-  Future<List<Event>> _getEvents(BuildContext context) async {
-    final sources = context.read<FlowCubit>().getCurrentServices();
-    final events = <Event>[];
-    for (final source in sources) {
-      events.addAll(await source.event?.getEvents(date: DateTime.now()) ?? []);
+  Future<List<SourcedConnectedModel<CalendarItem, Event?>>> _getAppointment(
+      BuildContext context) async {
+    final sources = context.read<FlowCubit>().getCurrentServicesMap();
+    final appointments = <SourcedConnectedModel<CalendarItem, Event?>>[];
+    for (final source in sources.entries) {
+      appointments.addAll((await source.value.calendarItem
+                  ?.getCalendarItems(date: DateTime.now()) ??
+              [])
+          .map((e) => SourcedModel(source.key, e)));
     }
-    return events;
+    return appointments;
   }
 
   @override
@@ -37,8 +43,8 @@ class DashboardEventsCard extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 20),
-        FutureBuilder<List<Event>>(
-            future: _getEvents(context),
+        FutureBuilder<List<SourcedConnectedModel<CalendarItem, Event?>>>(
+            future: _getAppointment(context),
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
                 return const Center(child: CircularProgressIndicator());
@@ -46,12 +52,12 @@ class DashboardEventsCard extends StatelessWidget {
               if (snapshot.hasError) {
                 return Text(snapshot.error.toString());
               }
-              final events = snapshot.data!;
+              final appointments = snapshot.data!;
               return Column(
-                children: events
+                children: appointments
                     .map((e) => ListTile(
-                          title: Text(e.name),
-                          subtitle: Text(e.description),
+                          title: Text(e.main.name),
+                          subtitle: Text(e.main.description),
                         ))
                     .toList(),
               );

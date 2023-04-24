@@ -4,7 +4,7 @@ sidebar_position: 0
 title: Pobrania
 ---
 
-![Stabilna wersja wydania](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fflow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Wersja Nightly](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fflow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stabilna wersja wydania](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fflow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Wersja Nightly](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fflow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 ## Wybierz swoją platformę
 
@@ -42,6 +42,6 @@ title: Pobrania
 ## Przydatne linki
 
 - [Lista zmian](changelog)
-- [Starsze wydania](https://github.com/LinwoodCloud/Flow/releases)
-- [Najnowsze wydanie](https://github.com/LinwoodCloud/Flow/releases/latest)
+- [Starsze wydania](https://github.com/LinwoodDev/Flow/releases)
+- [Najnowsze wydanie](https://github.com/LinwoodDev/Flow/releases/latest)
 - [Wsparcie](https://discord.linwood.dev)

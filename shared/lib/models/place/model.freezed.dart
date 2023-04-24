@@ -20,7 +20,7 @@ Place _$PlaceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Place {
-  int get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
@@ -35,7 +35,7 @@ abstract class $PlaceCopyWith<$Res> {
   factory $PlaceCopyWith(Place value, $Res Function(Place) then) =
       _$PlaceCopyWithImpl<$Res, Place>;
   @useResult
-  $Res call({int id, String name, String description, String address});
+  $Res call({String? id, String name, String description, String address});
 }
 
 /// @nodoc
@@ -51,16 +51,16 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? name = null,
     Object? description = null,
     Object? address = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -83,7 +83,7 @@ abstract class _$$_PlaceCopyWith<$Res> implements $PlaceCopyWith<$Res> {
       __$$_PlaceCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, String description, String address});
+  $Res call({String? id, String name, String description, String address});
 }
 
 /// @nodoc
@@ -95,16 +95,16 @@ class __$$_PlaceCopyWithImpl<$Res> extends _$PlaceCopyWithImpl<$Res, _$_Place>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? name = null,
     Object? description = null,
     Object? address = null,
   }) {
     return _then(_$_Place(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -123,16 +123,16 @@ class __$$_PlaceCopyWithImpl<$Res> extends _$PlaceCopyWithImpl<$Res, _$_Place>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Place implements _Place {
+class _$_Place extends _Place {
   const _$_Place(
-      {this.id = -1, this.name = '', this.description = '', this.address = ''});
+      {this.id, this.name = '', this.description = '', this.address = ''})
+      : super._();
 
   factory _$_Place.fromJson(Map<String, dynamic> json) =>
       _$$_PlaceFromJson(json);
 
   @override
-  @JsonKey()
-  final int id;
+  final String? id;
   @override
   @JsonKey()
   final String name;
@@ -178,17 +178,18 @@ class _$_Place implements _Place {
   }
 }
 
-abstract class _Place implements Place {
+abstract class _Place extends Place implements DescriptiveModel {
   const factory _Place(
-      {final int id,
+      {final String? id,
       final String name,
       final String description,
       final String address}) = _$_Place;
+  const _Place._() : super._();
 
   factory _Place.fromJson(Map<String, dynamic> json) = _$_Place.fromJson;
 
   @override
-  int get id;
+  String? get id;
   @override
   String get name;
   @override

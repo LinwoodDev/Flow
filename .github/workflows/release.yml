@@ -69,6 +69,7 @@ jobs:
         with:
           token: ${{ secrets.CI_PAT }}
           ref: ${{ github.ref }}
+          fetch-depth: 0
       - name: Get flutter version
         run: |
           FLUTTER_VERSION=$(cat FLUTTER_VERSION)
@@ -99,6 +100,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.CI_PAT }}
+          fetch-depth: 0
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
@@ -255,11 +257,11 @@ jobs:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
           embed-title: ${{ env.FLOW_VERSION }}
           embed-description: ${{ env.FLOW_CHANGELOG }}
-          embed-url: https://github.com/LinwoodCloud/flow/releases/tag/v${{ env.FLOW_VERSION }}
+          embed-url: https://github.com/LinwoodDev/Flow/releases/tag/v${{ env.FLOW_VERSION }}
           content: |
             Version ${{ env.FLOW_VERSION }} released!
             Download it here: https://docs.flow.linwood.dev/downloads
-            https://github.com/LinwoodCloud/flow/releases/tag/v${{ env.FLOW_VERSION }}
+            https://github.com/LinwoodDev/flow/releases/tag/v${{ env.FLOW_VERSION }}
       - name: Discord Webhook Action
         uses: tsickert/discord-webhook@v5.3.0
         if: ${{ github.event.inputs.stable == 'false' && github.ref == 'refs/heads/develop' }}
@@ -267,7 +269,7 @@ jobs:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
           embed-title: ${{ env.FLOW_VERSION }}
           embed-description: ${{ env.FLOW_CHANGELOG }}
-          embed-url: https://github.com/LinwoodCloud/flow/releases/tag/v${{ env.FLOW_VERSION }}
+          embed-url: https://github.com/LinwoodDev/Flow/releases/tag/v${{ env.FLOW_VERSION }}
           content: |
             Pre-release version ${{ env.FLOW_VERSION }} released!
             Download it here: https://docs.flow.linwood.dev/downloads

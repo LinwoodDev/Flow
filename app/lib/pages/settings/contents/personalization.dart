@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flow/cubits/settings.dart';
+import 'package:flow/widgets/material_bottom_sheet.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:shared/helpers/string.dart';
@@ -35,49 +36,33 @@ class PersonalizationSettingsView extends StatelessWidget {
                       : state.design.toDisplayString()),
                   onTap: () async {
                     final cubit = context.read<SettingsCubit>();
-                    final design = await showModalBottomSheet<String>(
+                    final design = await showMaterialBottomSheet<String>(
                         context: context,
-                        constraints: const BoxConstraints(maxWidth: 640),
-                        builder: (context) => Container(
-                            margin: const EdgeInsets.only(bottom: 20),
-                            child: ListView(
-                              shrinkWrap: true,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 20),
-                                  child: Text(
-                                    AppLocalizations.of(context).design,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                ListTile(
-                                  title: Text(
-                                      AppLocalizations.of(context).classic),
-                                  leading:
-                                      _ThemeBox(theme: getThemeData('', false)),
-                                  onTap: () => Navigator.pop(context, ''),
-                                  selected: state.design.isEmpty,
-                                ),
-                                ...getThemes().map(
-                                  (e) {
-                                    final theme = getThemeData(e, false);
-                                    return ListTile(
-                                        title: Text(e.toDisplayString()),
-                                        selected: e == state.design,
-                                        onTap: () async {
-                                          Navigator.of(context).pop(e);
-                                        },
-                                        leading: _ThemeBox(
-                                          theme: theme,
-                                        ));
-                                  },
-                                ),
-                              ],
-                            )));
+                        title: AppLocalizations.of(context).design,
+                        childrenBuilder: (context) => [
+                              ListTile(
+                                title:
+                                    Text(AppLocalizations.of(context).classic),
+                                leading:
+                                    _ThemeBox(theme: getThemeData('', false)),
+                                onTap: () => Navigator.pop(context, ''),
+                                selected: state.design.isEmpty,
+                              ),
+                              ...getThemes().map(
+                                (e) {
+                                  final theme = getThemeData(e, false);
+                                  return ListTile(
+                                      title: Text(e.toDisplayString()),
+                                      selected: e == state.design,
+                                      onTap: () async {
+                                        Navigator.of(context).pop(e);
+                                      },
+                                      leading: _ThemeBox(
+                                        theme: theme,
+                                      ));
+                                },
+                              )
+                            ]);
                     if (design != null) cubit.setDesign(design);
                   },
                 ),
@@ -88,35 +73,19 @@ class PersonalizationSettingsView extends StatelessWidget {
                   onTap: () async {
                     final cubit = context.read<SettingsCubit>();
 
-                    final theme = await showModalBottomSheet<ThemeMode>(
+                    final theme = await showMaterialBottomSheet<ThemeMode>(
                         context: context,
-                        constraints: const BoxConstraints(maxWidth: 640),
-                        builder: (context) => Container(
-                            margin: const EdgeInsets.only(bottom: 20),
-                            child: ListView(
-                              shrinkWrap: true,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 20),
-                                  child: Text(
-                                    AppLocalizations.of(context).theme,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                ...ThemeMode.values.map((e) => ListTile(
-                                      title: Text(e.getDisplayString(context)),
-                                      selected: state.themeMode == e,
-                                      leading: Icon(e.icon),
-                                      onTap: () {
-                                        Navigator.of(context).pop(e);
-                                      },
-                                    )),
-                              ],
-                            )));
+                        title: AppLocalizations.of(context).theme,
+                        childrenBuilder: (context) => ThemeMode.values
+                            .map((e) => ListTile(
+                                  title: Text(e.getDisplayString(context)),
+                                  selected: state.themeMode == e,
+                                  leading: Icon(e.icon),
+                                  onTap: () {
+                                    Navigator.of(context).pop(e);
+                                  },
+                                ))
+                            .toList());
                     if (theme != null) cubit.setThemeMode(theme);
                   },
                 ),
@@ -127,44 +96,28 @@ class PersonalizationSettingsView extends StatelessWidget {
                   onTap: () async {
                     final cubit = context.read<SettingsCubit>();
 
-                    final locale = await showModalBottomSheet<String>(
-                        context: context,
-                        constraints: const BoxConstraints(maxWidth: 640),
-                        builder: (context) => Container(
-                            margin: const EdgeInsets.only(bottom: 20),
-                            child: ListView(
-                              shrinkWrap: true,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 20),
-                                  child: Text(
-                                    AppLocalizations.of(context).theme,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                ListTile(
-                                  title: Text(_getLocalizedName(context, '')),
-                                  selected: state.locale.isEmpty,
+                    final locale = await showMaterialBottomSheet<String>(
+                      context: context,
+                      title: AppLocalizations.of(context).language,
+                      childrenBuilder: (context) => [
+                        ListTile(
+                          title: Text(_getLocalizedName(context, '')),
+                          selected: state.locale.isEmpty,
+                          onTap: () {
+                            Navigator.of(context).pop('');
+                          },
+                        ),
+                        ...AppLocalizations.supportedLocales
+                            .map((e) => e.toString())
+                            .map((e) => ListTile(
+                                  title: Text(_getLocalizedName(context, e)),
+                                  selected: state.locale == e,
                                   onTap: () {
-                                    Navigator.of(context).pop('');
+                                    Navigator.of(context).pop(e);
                                   },
-                                ),
-                                ...AppLocalizations.supportedLocales
-                                    .map((e) => e.toString())
-                                    .map((e) => ListTile(
-                                          title: Text(
-                                              _getLocalizedName(context, e)),
-                                          selected: state.locale == e,
-                                          onTap: () {
-                                            Navigator.of(context).pop(e);
-                                          },
-                                        )),
-                              ],
-                            )));
+                                )),
+                      ],
+                    );
                     if (locale != null) cubit.setLocale(locale);
                   },
                 ),

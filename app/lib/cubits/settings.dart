@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -86,10 +87,13 @@ class SettingsCubit extends Cubit<FlowSettings> {
     return state.save();
   }
 
+  RemoteStorage? getStorage(String name) {
+    return state.remotes.firstWhereOrNull((e) => e.identifier == name);
+  }
+
   Future<void> removeStorage(String name) {
     emit(state.copyWith(
-        remotes:
-            state.remotes.where((e) => e.toDisplayString() != name).toList()));
+        remotes: state.remotes.where((e) => e.toFilename() != name).toList()));
     return state.save();
   }
 }

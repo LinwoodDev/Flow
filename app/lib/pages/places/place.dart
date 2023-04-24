@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/place/model.dart';
+import 'package:shared/models/place/service.dart';
 
 import '../../cubits/flow.dart';
+import '../../widgets/source_dropdown.dart';
 
 class PlaceDialog extends StatelessWidget {
   final String? source;
@@ -14,6 +16,8 @@ class PlaceDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     var place = this.place ?? const Place();
     var currentSource = source ?? '';
+    var currentService =
+        context.read<FlowCubit>().getService(currentSource).place;
     return AlertDialog(
       title: Text(source == null
           ? AppLocalizations.of(context).createPlace
@@ -22,27 +26,12 @@ class PlaceDialog extends StatelessWidget {
         width: 500,
         child: Column(children: [
           if (source == null) ...[
-            DropdownButtonFormField<String>(
-              value: source,
-              items: context
-                  .read<FlowCubit>()
-                  .getCurrentSources()
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value.isEmpty
-                      ? AppLocalizations.of(context).local
-                      : value),
-                );
-              }).toList(),
-              onChanged: (String? value) {
-                currentSource = value ?? '';
+            SourceDropdown<PlaceService>(
+              value: currentSource,
+              buildService: (e) => e.place,
+              onChanged: (connected) {
+                currentSource = connected?.source ?? '';
               },
-              decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).source,
-                icon: const Icon(Icons.storage_outlined),
-                border: const OutlineInputBorder(),
-              ),
             ),
             const SizedBox(height: 16),
           ],
@@ -82,17 +71,9 @@ class PlaceDialog extends StatelessWidget {
         ElevatedButton(
           onPressed: () {
             if (source == null) {
-              context
-                  .read<FlowCubit>()
-                  .getSource(currentSource)
-                  .place
-                  ?.createPlace(place);
+              currentService?.createPlace(place);
             } else {
-              context
-                  .read<FlowCubit>()
-                  .getSource(source!)
-                  .place
-                  ?.updatePlace(place);
+              currentService?.updatePlace(place);
             }
             Navigator.of(context).pop(place);
           },

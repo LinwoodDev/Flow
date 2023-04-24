@@ -1,7 +1,14 @@
-# Files and directories created by pub.
-.dart_tool/
-.packages
+# See https://www.dartlang.org/guides/libraries/private-files
 
-# Conventional directory for build output.
+# Files and directories created by pub
+.dart_tool/
+static/
+.packages
+pubspec.lock
+
+# Files and directories created by dart_frog
 build/
-database.db
+.dart_frog
+
+# Test related files
+coverage/

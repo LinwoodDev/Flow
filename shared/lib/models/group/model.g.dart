@@ -7,10 +7,10 @@ part of 'model.dart';
 // **************************************************************************
 
 _$_Group _$$_GroupFromJson(Map<String, dynamic> json) => _$_Group(
-      id: json['id'] as int? ?? -1,
+      id: json['id'] as String?,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      parentId: json['parentId'] as int?,
+      parentId: json['parentId'] as String?,
     );
 
 Map<String, dynamic> _$$_GroupToJson(_$_Group instance) => <String, dynamic>{

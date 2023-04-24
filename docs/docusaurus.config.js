@@ -7,7 +7,7 @@ module.exports = {
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
-  organizationName: "LinwoodCloud", // Usually your GitHub org/user name.
+  organizationName: "LinwoodDev", // Usually your GitHub org/user name.
   projectName: "Flow", // Usually your repo name.
   i18n: {
     defaultLocale: "en",
@@ -59,7 +59,7 @@ module.exports = {
             },
             {
               label: "GitHub",
-              href: "https://github.com/LinwoodCloud/Flow",
+              href: "https://github.com/LinwoodDev/Flow",
             },
             {
               label: "Blog",
@@ -71,10 +71,10 @@ module.exports = {
             },
             {
               label: "Twitter",
-              href: "https://twitter.com/LinwoodCloud",
+              href: "https://twitter.com/LinwoodDev",
             },
             {
-              label: "Mastodon",
+              label: "Masnoten",
               href: "https://floss.social/@linwood",
             },
             {
@@ -111,10 +111,10 @@ module.exports = {
             },
             {
               label: "Twitter",
-              href: "https://twitter.com/LinwoodCloud",
+              href: "https://twitter.com/LinwoodDev",
             },
             {
-              label: "Mastodon",
+              label: "Masnoten",
               href: "https://floss.social/@linwood",
             },
             {
@@ -131,23 +131,23 @@ module.exports = {
           items: [
             {
               label: "App",
-              href: "https://github.com/LinwoodCloud/Flow/tree/develop/app",
+              href: "https://github.com/LinwoodDev/Flow/tree/develop/app",
             },
             {
               label: "Server",
-              href: "https://github.com/LinwoodCloud/Flow/tree/develop/server",
+              href: "https://github.com/LinwoodDev/Flow/tree/develop/server",
             },
             {
               label: "Docs",
-              href: "https://github.com/LinwoodCloud/Flow/tree/develop/docs",
+              href: "https://github.com/LinwoodDev/Flow/tree/develop/docs",
             },
             {
               label: "Shared",
-              href: "https://github.com/LinwoodCloud/Flow/tree/develop/shared",
+              href: "https://github.com/LinwoodDev/Flow/tree/develop/shared",
             },
             {
               label: "Contribution guide",
-              href: "https://github.com/LinwoodCloud/Flow/blob/develop/CONTRIBUTING.md",
+              href: "https://github.com/LinwoodDev/Flow/blob/develop/CONTRIBUTING.md",
             },
           ],
         },
@@ -171,11 +171,11 @@ module.exports = {
       ],
       logo: {
         alt: "Linwood Logo",
-        src: "https://raw.githubusercontent.com/LinwoodCloud/website/main/public/logos/logo.png",
+        src: "https://raw.githubusercontent.com/LinwoodDev/website/main/public/logos/logo.png",
         width: 100,
         href: "https://linwood.dev",
       },
-      copyright: `Copyright © ${new Date().getFullYear()} LinwoodCloud.`,
+      copyright: `Copyright © ${new Date().getFullYear()} LinwoodDev.`,
     },
   },
   presets: [
@@ -185,7 +185,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl: "https://github.com/LinwoodCloud/Flow/edit/develop/docs/",
+          editUrl: "https://github.com/LinwoodDev/Flow/edit/develop/docs/",
         },
         blog: false,
         theme: {

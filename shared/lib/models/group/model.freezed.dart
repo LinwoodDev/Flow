@@ -20,10 +20,10 @@ Group _$GroupFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Group {
-  int get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  int? get parentId => throw _privateConstructorUsedError;
+  String? get parentId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +35,7 @@ abstract class $GroupCopyWith<$Res> {
   factory $GroupCopyWith(Group value, $Res Function(Group) then) =
       _$GroupCopyWithImpl<$Res, Group>;
   @useResult
-  $Res call({int id, String name, String description, int? parentId});
+  $Res call({String? id, String name, String description, String? parentId});
 }
 
 /// @nodoc
@@ -51,16 +51,16 @@ class _$GroupCopyWithImpl<$Res, $Val extends Group>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? name = null,
     Object? description = null,
     Object? parentId = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -72,7 +72,7 @@ class _$GroupCopyWithImpl<$Res, $Val extends Group>
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ) as $Val);
   }
 }
@@ -83,7 +83,7 @@ abstract class _$$_GroupCopyWith<$Res> implements $GroupCopyWith<$Res> {
       __$$_GroupCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, String description, int? parentId});
+  $Res call({String? id, String name, String description, String? parentId});
 }
 
 /// @nodoc
@@ -95,16 +95,16 @@ class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res, _$_Group>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? name = null,
     Object? description = null,
     Object? parentId = freezed,
   }) {
     return _then(_$_Group(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -116,23 +116,23 @@ class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res, _$_Group>
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_Group implements _Group {
+class _$_Group extends _Group {
   const _$_Group(
-      {this.id = -1, this.name = '', this.description = '', this.parentId});
+      {this.id, this.name = '', this.description = '', this.parentId})
+      : super._();
 
   factory _$_Group.fromJson(Map<String, dynamic> json) =>
       _$$_GroupFromJson(json);
 
   @override
-  @JsonKey()
-  final int id;
+  final String? id;
   @override
   @JsonKey()
   final String name;
@@ -140,7 +140,7 @@ class _$_Group implements _Group {
   @JsonKey()
   final String description;
   @override
-  final int? parentId;
+  final String? parentId;
 
   @override
   String toString() {
@@ -178,23 +178,24 @@ class _$_Group implements _Group {
   }
 }
 
-abstract class _Group implements Group {
+abstract class _Group extends Group implements DescriptiveModel {
   const factory _Group(
-      {final int id,
+      {final String? id,
       final String name,
       final String description,
-      final int? parentId}) = _$_Group;
+      final String? parentId}) = _$_Group;
+  const _Group._() : super._();
 
   factory _Group.fromJson(Map<String, dynamic> json) = _$_Group.fromJson;
 
   @override
-  int get id;
+  String? get id;
   @override
   String get name;
   @override
   String get description;
   @override
-  int? get parentId;
+  String? get parentId;
   @override
   @JsonKey(ignore: true)
   _$$_GroupCopyWith<_$_Group> get copyWith =>

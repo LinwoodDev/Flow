@@ -4,7 +4,7 @@ sidebar_position: 0
 title: ダウンロード
 ---
 
-![安定版のリリース](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fflow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightlyリリースバージョン](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fflow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![安定版のリリース](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fflow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightlyリリースバージョン](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fflow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 ## プラットフォームを選択
 
@@ -42,6 +42,6 @@ title: ダウンロード
 ## 有用なリンク
 
 - [更新履歴](changelog)
-- [古いリリース](https://github.com/LinwoodCloud/Flow/releases)
-- [最新リリース](https://github.com/LinwoodCloud/Flow/releases/latest)
+- [古いリリース](https://github.com/LinwoodDev/Flow/releases)
+- [最新リリース](https://github.com/LinwoodDev/Flow/releases/latest)
 - [サポート](https://discord.linwood.dev)

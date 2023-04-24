@@ -1,16 +1,16 @@
 import 'package:flow/cubits/flow.dart';
-import 'package:flow/pages/calendar/filter.dart';
-import 'package:flow/pages/calendar/list.dart';
-import 'package:flow/pages/calendar/pending.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared/models/event/model.dart';
+import 'package:shared/models/model.dart';
 
 import 'day.dart';
-import 'event.dart';
+import '../events/page.dart';
+import 'filter.dart';
+import 'list.dart';
 import 'month.dart';
+import 'pending.dart';
 import 'week.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -227,12 +227,14 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
 }
 
 class CreateEventScaffold extends StatelessWidget {
-  final void Function(Event?) onCreated;
+  final VoidCallback onCreated;
   final Widget child;
+  final SourcedModel<String>? event;
   const CreateEventScaffold({
     super.key,
     required this.onCreated,
     required this.child,
+    this.event,
   });
 
   @override
@@ -240,9 +242,8 @@ class CreateEventScaffold extends StatelessWidget {
     return Scaffold(
       body: child,
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog<Event>(
-            context: context,
-            builder: (context) => const EventDialog()).then(onCreated),
+        onPressed: () => showCalendarCreate(context: context, event: event)
+            .then((_) => onCreated()),
         label: Text(AppLocalizations.of(context).create),
         icon: const Icon(Icons.add_outlined),
       ),

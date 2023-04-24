@@ -9,12 +9,12 @@ abstract class UserService extends ModelService {
     int offset = 0,
     int limit = 50,
     String search = '',
-    int? groupId,
+    String? groupId,
   });
 
   FutureOr<User?> createUser(User user);
 
   FutureOr<bool> updateUser(User user);
 
-  FutureOr<bool> deleteUser(int id);
+  FutureOr<bool> deleteUser(String id);
 }

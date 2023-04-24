@@ -1,4 +1,4 @@
-import 'package:flow/pages/dashboard/todo.dart';
+import 'package:flow/pages/dashboard/notes.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -49,7 +49,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       mainAxisSpacing: 16,
                       childAspectRatio: 3 / 4,
                       children: [
-                        const DashboardTodosCard(),
+                        const DashboardNotesCard(),
                         const DashboardEventsCard(),
                       ]
                           .map((e) => Card(

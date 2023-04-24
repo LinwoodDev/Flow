@@ -2,20 +2,19 @@ import 'dart:async';
 
 import 'package:shared/services/source.dart';
 
+import 'item/model.dart';
 import 'model.dart';
 
 abstract class EventService extends ModelService {
-  FutureOr<Event?> getEvent(int id);
+  FutureOr<Event?> getEvent(String id);
+  FutureOr<Event?> getEventByItem(CalendarItem item) =>
+      item.eventId == null ? null : getEvent(item.eventId!);
+
   FutureOr<List<Event>> getEvents({
-    bool pending = false,
-    List<EventStatus>? status,
-    int? groupId,
-    int? placeId,
+    String? groupId,
+    String? placeId,
     int offset = 0,
     int limit = 50,
-    DateTime? start,
-    DateTime? end,
-    DateTime? date,
     String search = '',
   });
 
@@ -23,5 +22,5 @@ abstract class EventService extends ModelService {
 
   FutureOr<bool> updateEvent(Event event);
 
-  FutureOr<bool> deleteEvent(int id);
+  FutureOr<bool> deleteEvent(String id);
 }

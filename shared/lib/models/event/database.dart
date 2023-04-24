@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:shared/helpers/date_time.dart';
+import 'package:collection/collection.dart';
 import 'package:shared/services/database.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
@@ -8,159 +8,83 @@ import 'model.dart';
 import 'service.dart';
 
 class EventDatabaseService extends EventService with TableService {
-  EventDatabaseService();
+  @override
+  Future<void> clear() async {
+    await db?.delete('events');
+  }
 
   @override
-  Future<void> create(Database db) async {
+  FutureOr<void> create(Database db) async {
     await db.execute("""
       CREATE TABLE IF NOT EXISTS events (
-        id INTEGER PRIMARY KEY,
-        parentId INTEGER,
-        groupId INTEGER,
+        id VARCHAR(100) PRIMARY KEY,
+        parentId VARCHAR(100),
+        groupId VARCHAR(100),
+        placeId VARCHAR(100),
         blocked INTEGER NOT NULL DEFAULT 1,
         name VARCHAR(100) NOT NULL DEFAULT '',
-        description TEXT,
-        location TEXT,
-        placeId INTEGER,
-        start INTEGER,
-        end INTEGER,
-        status TEXT
+        description TEXT NOT NULL DEFAULT '',
+        location TEXT NOT NULL DEFAULT '',
+        FOREIGN KEY (parentId) REFERENCES events(id) ON DELETE CASCADE,
+        FOREIGN KEY (groupId) REFERENCES groups(id) ON DELETE CASCADE,
+        FOREIGN KEY (placeId) REFERENCES places(id) ON DELETE CASCADE
       )
     """);
+  }
+
+  @override
+  Future<Event?> createEvent(Event event) async {
+    final id = await db?.insert('events', event.toDatabase());
+    if (id == null) return null;
+    return event.copyWith(id: id.toString());
+  }
+
+  @override
+  Future<bool> deleteEvent(String id) async {
+    return await db?.delete('events', where: 'id = ?', whereArgs: [id]) == 1;
+  }
+
+  @override
+  Future<Event?> getEvent(String id) async {
+    final result = await db?.query(
+      'events',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    return result?.map(Event.fromDatabase).firstOrNull;
+  }
+
+  @override
+  Future<List<Event>> getEvents(
+      {String? groupId,
+      String? placeId,
+      int offset = 0,
+      int limit = 50,
+      String search = ''}) async {
+    final where = search.isEmpty ? null : 'name LIKE ?';
+    final whereArgs = search.isEmpty ? null : ['%$search%'];
+    final result = await db?.query(
+      'events',
+      limit: limit,
+      offset: offset,
+      where: where,
+      whereArgs: whereArgs,
+    );
+    if (result == null) return [];
+    return result.map(Event.fromDatabase).toList();
   }
 
   @override
   FutureOr<void> migrate(Database db, int version) {}
 
   @override
-  Future<List<Event>> getEvents(
-      {List<EventStatus>? status,
-      bool pending = false,
-      int? groupId,
-      int? placeId,
-      int offset = 0,
-      int limit = 50,
-      DateTime? start,
-      DateTime? end,
-      DateTime? date,
-      String search = ''}) async {
-    String? where;
-    List<Object?>? whereArgs;
-    if (status != null) {
-      where = 'status IN (${status.map((e) => '?').join(', ')})';
-      whereArgs = status.map((e) => e.name).toList();
-    }
-    if (groupId != null) {
-      where = where == null ? 'groupId = ?' : '$where AND groupId = ?';
-      whereArgs = whereArgs == null ? [groupId] : [...whereArgs, groupId];
-    }
-    if (placeId != null) {
-      where = where == null ? 'placeId = ?' : '$where AND placeId = ?';
-      whereArgs = whereArgs == null ? [placeId] : [...whereArgs, placeId];
-    }
-    if (start != null) {
-      where = where == null ? 'start >= ?' : '$where AND start >= ?';
-      whereArgs = whereArgs == null
-          ? [start.secondsSinceEpoch]
-          : [...whereArgs, start.secondsSinceEpoch];
-    }
-    if (end != null) {
-      where = where == null ? 'end <= ?' : '$where AND end <= ?';
-      whereArgs = whereArgs == null
-          ? [end.secondsSinceEpoch]
-          : [...whereArgs, end.secondsSinceEpoch];
-    }
-    if (date != null) {
-      var startDate = date.onlyDate();
-      var endDate =
-          startDate.add(Duration(hours: 23, minutes: 59, seconds: 59));
-      where = where == null
-          ? '(start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))'
-          : '$where AND (start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))';
-      whereArgs = whereArgs == null
-          ? [
-              startDate.secondsSinceEpoch,
-              endDate.secondsSinceEpoch,
-              startDate.secondsSinceEpoch,
-              endDate.secondsSinceEpoch,
-              startDate.secondsSinceEpoch,
-              endDate.secondsSinceEpoch,
-            ]
-          : [
-              ...whereArgs,
-              startDate.secondsSinceEpoch,
-              endDate.secondsSinceEpoch,
-              startDate.secondsSinceEpoch,
-              endDate.secondsSinceEpoch,
-              startDate.secondsSinceEpoch,
-              endDate.secondsSinceEpoch,
-            ];
-    }
-    if (search.isNotEmpty) {
-      where = where == null
-          ? '(name LIKE ? OR description LIKE ?)'
-          : '$where AND (name LIKE ? OR description LIKE ?)';
-      whereArgs = whereArgs == null
-          ? ['%$search%', '%$search%']
-          : [...whereArgs, '%$search%', '%$search%'];
-    }
-    if (pending) {
-      where = where == null
-          ? 'start IS NULL AND end IS NULL'
-          : '$where AND start IS NULL AND end IS NULL';
-    }
-
-    final result = await db?.query('events',
-        where: where, whereArgs: whereArgs, offset: offset, limit: limit);
-    return result
-            ?.map((row) => Event.fromJson(
-                Map.from(row)..['blocked'] = row['blocked'] == 1))
-            .toList() ??
-        [];
-  }
-
-  @override
-  Future<Event?> createEvent(Event event) async {
-    final id = await db?.insert(
-        'events',
-        event.toJson()
-          ..remove('id')
-          ..['blocked'] = event.blocked ? 1 : 0);
-    if (id == null) return null;
-    return event.copyWith(id: id);
-  }
-
-  @override
-  Future<bool> updateEvent(Event event) async {
+  FutureOr<bool> updateEvent(Event event) async {
     return await db?.update(
           'events',
-          event.toJson()..['blocked'] = event.blocked ? 1 : 0,
+          event.toDatabase()..remove('id'),
           where: 'id = ?',
           whereArgs: [event.id],
         ) ==
         1;
-  }
-
-  @override
-  Future<bool> deleteEvent(int id) async {
-    return await db?.delete(
-          'events',
-          where: 'id = ?',
-          whereArgs: [id],
-        ) ==
-        1;
-  }
-
-  @override
-  FutureOr<Event?> getEvent(int id) async {
-    final result = await db?.query(
-      'events',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-    return result
-        ?.map((row) =>
-            Event.fromJson(Map.from(row)..['blocked'] = row['blocked'] == 1))
-        .first;
   }
 }

@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/group/model.dart';
+import 'package:shared/models/model.dart';
 import 'package:shared/models/user/model.dart';
+import 'package:shared/models/user/service.dart';
 
 import '../../cubits/flow.dart';
+import '../../widgets/source_dropdown.dart';
 import '../groups/select.dart';
 
 class UserDialog extends StatelessWidget {
@@ -16,6 +19,8 @@ class UserDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     var user = this.user ?? const User();
     var currentSource = source ?? '';
+    var currentService =
+        context.read<FlowCubit>().getService(currentSource).user;
     return AlertDialog(
       title: Text(source == null
           ? AppLocalizations.of(context).createUser
@@ -24,27 +29,13 @@ class UserDialog extends StatelessWidget {
         width: 500,
         child: Column(children: [
           if (source == null) ...[
-            DropdownButtonFormField<String>(
-              value: source,
-              items: context
-                  .read<FlowCubit>()
-                  .getCurrentSources()
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value.isEmpty
-                      ? AppLocalizations.of(context).local
-                      : value),
-                );
-              }).toList(),
-              onChanged: (String? value) {
-                currentSource = value ?? '';
+            SourceDropdown<UserService>(
+              value: currentSource,
+              buildService: (e) => e.user,
+              onChanged: (connected) {
+                currentSource = connected?.source ?? '';
+                currentService = connected?.model;
               },
-              decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).source,
-                icon: const Icon(Icons.storage_outlined),
-                border: const OutlineInputBorder(),
-              ),
             ),
           ] else ...[
             StatefulBuilder(
@@ -52,18 +43,19 @@ class UserDialog extends StatelessWidget {
                       leading: const Icon(Icons.folder_outlined),
                       title: Text(AppLocalizations.of(context).group),
                       onTap: () async {
-                        final groupId = await showDialog<MapEntry<String, int>>(
+                        final sourceGroup =
+                            await showDialog<SourcedModel<Group>>(
                           context: context,
                           builder: (context) => GroupSelectDialog(
                             selected: user.groupId == null
                                 ? null
-                                : MapEntry(source!, user.groupId!),
+                                : SourcedModel(source!, user.groupId!),
                             source: source!,
                           ),
                         );
-                        if (groupId != null) {
+                        if (sourceGroup != null) {
                           setState(() {
-                            user = user.copyWith(groupId: groupId.value);
+                            user = user.copyWith(groupId: sourceGroup.model.id);
                           });
                         }
                       },
@@ -72,16 +64,20 @@ class UserDialog extends StatelessWidget {
                           : FutureBuilder<Group?>(
                               future: Future.value(context
                                   .read<FlowCubit>()
-                                  .getSource(source!)
+                                  .getService(source!)
                                   .group
-                                  ?.getGroup(user.groupId ?? -1)),
+                                  ?.getGroup(user.groupId ?? "")),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
                                   return Text(snapshot.data!.name);
                                 } else if (snapshot.hasError) {
                                   return Text(snapshot.error.toString());
-                                } else {
+                                } else if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
                                   return const CircularProgressIndicator();
+                                } else {
+                                  return Text(AppLocalizations.of(context)
+                                      .notSupported);
                                 }
                               },
                             ),
@@ -124,17 +120,9 @@ class UserDialog extends StatelessWidget {
         ElevatedButton(
           onPressed: () {
             if (source == null) {
-              context
-                  .read<FlowCubit>()
-                  .getSource(currentSource)
-                  .user
-                  ?.createUser(user);
+              currentService?.createUser(user);
             } else {
-              context
-                  .read<FlowCubit>()
-                  .getSource(source!)
-                  .user
-                  ?.updateUser(user);
+              currentService?.updateUser(user);
             }
             Navigator.of(context).pop(user);
           },

@@ -2,61 +2,95 @@ import 'package:flow/helpers/event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/helpers/date_time.dart';
+import 'package:shared/models/model.dart';
 
 import '../../cubits/flow.dart';
-import 'event.dart';
+import 'item.dart';
 
 class CalendarListTile extends StatelessWidget {
-  final Event event;
-  final String source;
+  final SourcedConnectedModel<CalendarItem, Event?> eventItem;
   final DateTime? date;
   final VoidCallback onRefresh;
 
   const CalendarListTile({
     super.key,
-    required this.event,
-    required this.source,
+    required this.eventItem,
     this.date,
     required this.onRefresh,
   });
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<FlowCubit>();
+    final service = cubit.getService(eventItem.source);
     final locale = Localizations.localeOf(context).languageCode;
     final timeFormatter = DateFormat.Hm(locale);
-    final start =
-        event.time.start?.onlyDate() == date && event.time.start != null
-            ? timeFormatter.format(event.time.start!)
+    final model = eventItem.main;
+    final eventName = eventItem.sub?.name;
+    final name = model.name.isEmpty ? eventName : model.name;
+    String range = '';
+    final type = model.type;
+    switch (type) {
+      case CalendarItemType.appointment:
+        final start = model.start?.onlyDate() == date && model.start != null
+            ? timeFormatter.format(model.start!)
             : '';
-    final end = event.time.end?.onlyDate() == date && event.time.end != null
-        ? timeFormatter.format(event.time.end!)
-        : '';
-    String range;
-    if (start == '' && end == '') {
-      range = '';
-    } else if (start == '') {
-      range = ' - $end';
-    } else if (end == '') {
-      range = '$start -';
-    } else {
-      range = '$start - $end';
+        final end = model.end?.onlyDate() == date && model.end != null
+            ? timeFormatter.format(model.end!)
+            : '';
+        if (start == '' && end == '') {
+          range = '';
+        } else if (start == '') {
+          range = ' - $end';
+        } else if (end == '') {
+          range = '$start -';
+        } else {
+          range = '$start - $end';
+        }
+        break;
+      case CalendarItemType.moment:
+        range = model.start?.onlyDate() == date && model.start != null
+            ? timeFormatter.format(model.start!)
+            : '';
+        break;
+      case CalendarItemType.pending:
+        break;
     }
+    final main = eventItem.main;
     return ListTile(
-      title: Text(event.name),
-      subtitle: Text(range),
-      leading: Icon(event.status.getIcon(), color: event.status.getColor()),
-      onTap: () => showDialog(
-              context: context,
-              builder: (context) => EventDialog(event: event, source: source))
-          .then((_) => onRefresh()),
+      title: Text(name ?? ''),
+      subtitle: Wrap(
+        spacing: 16,
+        children: [
+          if (range.isNotEmpty) ...[
+            Text(range),
+          ],
+          if (eventName != name && eventName != null) Text(eventName),
+        ],
+      ),
+      leading: Tooltip(
+        message: model.status.getLocalizedName(context),
+        child: Icon(
+          model.status.getIcon(main.type == CalendarItemType.appointment),
+          color: model.status.getColor(),
+        ),
+      ),
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (context) => CalendarItemDialog(
+                  item: main,
+                  event: eventItem.sub,
+                  source: eventItem.source,
+                )).then((_) => onRefresh());
+      },
       trailing: FutureBuilder<bool?>(
-        future: Future.value(context
-            .read<FlowCubit>()
-            .getSource(source)
-            .todo
-            ?.todosDone(event.id)),
+        future: Future.value(eventItem.sub == null
+            ? null
+            : service.calendarItemNote?.notesDone(eventItem.sub!.id!)),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Icon(

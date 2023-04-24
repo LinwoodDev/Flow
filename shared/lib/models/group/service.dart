@@ -11,11 +11,11 @@ abstract class GroupService extends ModelService {
     String search = '',
   });
 
-  FutureOr<Group?> getGroup(int id);
+  FutureOr<Group?> getGroup(String id);
 
   FutureOr<Group?> createGroup(Group group);
 
   FutureOr<bool> updateGroup(Group group);
 
-  FutureOr<bool> deleteGroup(int id);
+  FutureOr<bool> deleteGroup(String id);
 }

@@ -1,19 +1,22 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/event.dart';
+import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
+import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
+import 'package:shared/models/model.dart';
 import 'package:shared/services/source.dart';
 
-class EventSelectDialog extends StatefulWidget {
+class AppointmentSelectDialog extends StatefulWidget {
   final String? source;
-  final MapEntry<String, int>? selected;
-  final int? ignore;
+  final SourcedModel<String>? selected;
+  final String? ignore;
 
-  const EventSelectDialog({
+  const AppointmentSelectDialog({
     super.key,
     this.source,
     this.selected,
@@ -21,14 +24,15 @@ class EventSelectDialog extends StatefulWidget {
   });
 
   @override
-  State<EventSelectDialog> createState() => _EventSelectDialogState();
+  State<AppointmentSelectDialog> createState() =>
+      _AppointmentSelectDialogState();
 }
 
-class _EventSelectDialogState extends State<EventSelectDialog> {
+class _AppointmentSelectDialogState extends State<AppointmentSelectDialog> {
   static const _pageSize = 20;
   final TextEditingController _controller = TextEditingController();
-  final PagingController<int, MapEntry<String, Event>> _pagingController =
-      PagingController(firstPageKey: 0);
+  final PagingController<int, SourcedConnectedModel<CalendarItem, Event?>>
+      _pagingController = PagingController(firstPageKey: 0);
 
   @override
   void initState() {
@@ -42,27 +46,28 @@ class _EventSelectDialogState extends State<EventSelectDialog> {
       final cubit = context.read<FlowCubit>();
       Map<String, SourceService> sources = widget.source == null
           ? cubit.getCurrentServicesMap()
-          : {widget.source!: cubit.getSource(widget.source!)};
-      final events = await Future.wait(sources.entries.map((source) async {
-        final events = await source.value.event?.getEvents(
+          : {widget.source!: cubit.getService(widget.source!)};
+      final appointments =
+          await Future.wait(sources.entries.map((source) async {
+        final appointments = await source.value.calendarItem?.getCalendarItems(
           offset: pageKey * _pageSize,
           limit: _pageSize,
           search: _controller.text,
         );
-        return (events ?? <Event>[])
-            .map((event) => MapEntry(source.key, event))
+        return (appointments ?? <ConnectedModel<CalendarItem, Event>>[])
+            .map((event) => SourcedModel(source.key, event))
             .where((element) =>
-                element.value.id != widget.ignore ||
-                source.key != widget.source)
+                element.main.id != widget.ignore || source.key != widget.source)
             .toList();
       }));
-      final allEvents = events.expand((element) => element).toList();
-      final isLast = events.length < _pageSize;
+      final allAppointments =
+          appointments.expand((element) => element).toList();
+      final isLast = appointments.length < _pageSize;
       if (isLast) {
-        _pagingController.appendLastPage(allEvents);
+        _pagingController.appendLastPage(allAppointments);
       } else {
         final nextPageKey = pageKey + 1;
-        _pagingController.appendPage(allEvents, nextPageKey);
+        _pagingController.appendPage(allAppointments, nextPageKey);
       }
     } catch (error) {
       _pagingController.error = error;
@@ -95,30 +100,32 @@ class _EventSelectDialogState extends State<EventSelectDialog> {
             const Divider(),
             const SizedBox(height: 8),
             Expanded(
-              child: PagedListView<int, MapEntry<String, Event>>(
+              child: PagedListView<int,
+                  SourcedConnectedModel<CalendarItem, Event?>>(
                 pagingController: _pagingController,
-                builderDelegate:
-                    PagedChildBuilderDelegate<MapEntry<String, Event>>(
-                  itemBuilder: (context, item, index) {
-                    final event = item.value;
+                builderDelegate: buildMaterialPagedDelegate(
+                  _pagingController,
+                  (context, item, index) {
+                    final appointment = item.main;
                     return ListTile(
-                      subtitle: Text(item.key),
-                      selected: widget.selected?.value == item.value.id &&
-                          widget.selected?.key == item.key,
+                      subtitle: Text(appointment.name),
+                      selected: widget.selected?.model == appointment.id &&
+                          widget.selected?.source == item.source,
                       title: Text(AppLocalizations.of(context).eventInfo(
-                        event.name,
-                        event.time.start == null
+                        appointment.name,
+                        appointment.start == null
                             ? '-'
-                            : dateFormatter.format(event.time.start!),
-                        event.time.start == null
+                            : dateFormatter.format(appointment.start!),
+                        appointment.end == null
                             ? '-'
-                            : timeFormatter.format(event.time.start!),
-                        event.location.isEmpty ? '-' : event.location,
-                        event.status.getLocalizedName(context),
+                            : timeFormatter.format(appointment.end!),
+                        appointment.location.isEmpty
+                            ? '-'
+                            : appointment.location,
+                        appointment.status.getLocalizedName(context),
                       )),
                       onTap: () {
-                        Navigator.of(context)
-                            .pop(MapEntry(item.key, item.value.id));
+                        Navigator.of(context).pop(item);
                       },
                     );
                   },

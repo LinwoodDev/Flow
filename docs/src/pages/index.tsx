@@ -103,6 +103,13 @@ function HomepageHeader({
               </AnimationOnScroll>
             </div>
           </div>
+          <div className={clsx("col col--6", styles.center)}>
+            <img data-aos="fade-up"
+              src={require('../../static/img/main.png').default}
+              className={styles.screenshot}
+              alt="Screenshot"
+            />
+          </div>
         </div>
       </div>
     </header>
@@ -114,7 +121,7 @@ export default function Home({docsPluginId}) {
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
-      description="Change the world">
+      description="Feature rich event, group and time managment system ">
       <main>
         <HomepageHeader docsPluginId={docsPluginId} />
         <HomepageFeatures />

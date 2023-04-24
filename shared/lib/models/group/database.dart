@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:shared/services/database.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
@@ -11,10 +12,10 @@ class GroupDatabaseService extends GroupService with TableService {
   Future<void> create(Database db) {
     return db.execute("""
       CREATE TABLE IF NOT EXISTS groups (
-        id INTEGER PRIMARY KEY,
+        id VARCHAR(100) PRIMARY KEY,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT,
-        parentId INTEGER
+        parentId VARCHAR(100)
       )
     """);
   }
@@ -24,13 +25,13 @@ class GroupDatabaseService extends GroupService with TableService {
 
   @override
   Future<Group?> createGroup(Group group) async {
-    final id = await db?.insert('groups', group.toJson()..remove('id'));
+    final id = await db?.insert('groups', group.toDatabase());
     if (id == null) return null;
-    return group.copyWith(id: id);
+    return group.copyWith(id: id.toString());
   }
 
   @override
-  Future<bool> deleteGroup(int id) async {
+  Future<bool> deleteGroup(String id) async {
     return await db?.delete(
           'groups',
           where: 'id = ?',
@@ -52,28 +53,32 @@ class GroupDatabaseService extends GroupService with TableService {
       whereArgs: whereArgs,
     );
     if (result == null) return [];
-    return result.map((row) => Group.fromJson(row)).toList();
+    return result.map(Group.fromDatabase).toList();
   }
 
   @override
-  Future<Group?> getGroup(int id) async {
+  Future<Group?> getGroup(String id) async {
     final result = await db?.query(
       'groups',
       where: 'id = ?',
       whereArgs: [id],
     );
-    if (result == null) return null;
-    return result.map((row) => Group.fromJson(row)).first;
+    return result?.map(Group.fromDatabase).firstOrNull;
   }
 
   @override
   Future<bool> updateGroup(Group group) async {
     return await db?.update(
           'groups',
-          group.toJson()..remove('id'),
+          group.toDatabase()..remove('id'),
           where: 'id = ?',
           whereArgs: [group.id],
         ) ==
         1;
+  }
+
+  @override
+  Future<void> clear() async {
+    await db?.delete('groups');
   }
 }

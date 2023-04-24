@@ -1,11 +1,14 @@
-import 'package:flow/pages/calendar/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
+import 'package:shared/models/model.dart';
 
 import '../../cubits/flow.dart';
+import '../../widgets/builder_delegate.dart';
 import 'filter.dart';
+import 'page.dart';
 import 'tile.dart';
 
 class CalendarPendingView extends StatefulWidget {
@@ -27,8 +30,8 @@ class CalendarPendingView extends StatefulWidget {
 class _CalendarPendingViewState extends State<CalendarPendingView> {
   static const _pageSize = 50;
   late FlowCubit _cubit;
-  final PagingController<int, List<MapEntry<String, Event>>> _controller =
-      PagingController(firstPageKey: 0);
+  final PagingController<int, List<SourcedConnectedModel<CalendarItem, Event?>>>
+      _controller = PagingController(firstPageKey: 0);
 
   @override
   void initState() {
@@ -44,44 +47,42 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
   }
 
   Future<void> _requestPage(int key) async {
-    final events = await _fetchEvents(key);
+    final calendarItems = await _fetchCalendarItems(key);
     if (mounted) {
-      if (events.length < _pageSize) {
-        _controller.appendLastPage([events]);
+      if (calendarItems.length < _pageSize) {
+        _controller.appendLastPage([calendarItems]);
       } else {
-        _controller.appendPage([events], key + 1);
+        _controller.appendPage([calendarItems], key + 1);
       }
     }
   }
 
-  Future<List<MapEntry<String, Event>>> _fetchEvents(int key) async {
+  Future<List<SourcedConnectedModel<CalendarItem, Event?>>> _fetchCalendarItems(
+      int key) async {
     if (!mounted) return [];
 
     var sources = _cubit.getCurrentServicesMap();
     if (widget.filter.source != null) {
       sources = {
-        widget.filter.source!: _cubit.getSource(widget.filter.source!)
+        widget.filter.source!: _cubit.getService(widget.filter.source!)
       };
     }
-    final events = <MapEntry<String, Event>>[];
+    final calendarItems = <SourcedConnectedModel<CalendarItem, Event?>>[];
     for (final source in sources.entries) {
-      final fetched = await source.value.event?.getEvents(
-        pending: true,
+      final fetched = await source.value.calendarItem?.getCalendarItems(
         status: EventStatus.values
             .where((element) => !widget.filter.hiddenStatuses.contains(element))
             .toList(),
         search: widget.search,
+        pending: true,
         offset: _pageSize * key,
         limit: _pageSize,
-        groupId:
-            source.key == widget.filter.source ? widget.filter.group : null,
-        placeId:
-            source.key == widget.filter.source ? widget.filter.place : null,
       );
       if (fetched == null) continue;
-      events.addAll(fetched.map((event) => MapEntry(source.key, event)));
+      calendarItems.addAll(fetched
+          .map((calendarItem) => SourcedModel(source.key, calendarItem)));
     }
-    return events;
+    return calendarItems;
   }
 
   @override
@@ -95,7 +96,8 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
   @override
   Widget build(BuildContext context) {
     return CreateEventScaffold(
-      onCreated: (p0) => _controller.refresh(),
+      onCreated: _controller.refresh,
+      event: widget.filter.sourceEvent,
       child: Column(
         children: [
           CalendarFilterView(
@@ -108,18 +110,18 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
             child: LayoutBuilder(
               builder: (context, constraints) => PagedListView(
                 pagingController: _controller,
-                builderDelegate:
-                    PagedChildBuilderDelegate<List<MapEntry<String, Event>>>(
-                  itemBuilder: (context, item, index) {
+                builderDelegate: buildMaterialPagedDelegate<
+                    List<SourcedConnectedModel<CalendarItem, Event?>>>(
+                  _controller,
+                  (context, item, index) {
                     return Column(
                       children: item
                           .map(
                             (e) => ConstrainedBox(
                               constraints: const BoxConstraints(maxWidth: 1000),
                               child: CalendarListTile(
-                                key: ValueKey('${e.key}@${e.value.id}'),
-                                event: e.value,
-                                source: e.key,
+                                key: ValueKey('${e.source}@${e.main.id}'),
+                                eventItem: e,
                                 onRefresh: _controller.refresh,
                               ),
                             ),

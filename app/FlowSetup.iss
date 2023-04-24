@@ -3,7 +3,7 @@
 
 #define MyAppName "Flow"
 #define MyAppVersion "1.6"
-#define MyAppPublisher "LinwoodCloud"
+#define MyAppPublisher "Linwood"
 #define MyAppURL "https://www.linwood.dev"
 #define MyAppExeName "flow.exe" 
 #define BaseDirRelease "build\windows\runner\Release"
@@ -16,7 +16,7 @@
 AppId={{966CE504-4AA5-49C7-A63B-74BD6C073E5B}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
-;AppVerName={#MyAppName} {#MyAppVersion}
+AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}

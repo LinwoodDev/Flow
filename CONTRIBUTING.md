@@ -11,9 +11,9 @@ Please follow the [Code of Conduct](https://docs.flow.linwood.dev/code-of-conduc
 ## Give feedback
 
 The best way to give feedback is to open an issue on GitHub.
-Please report any bug you find [here](https://github.com/LinwoodCloud/Flow/issues/new?assignees=CodeDoctorDE&labels=bug%2Ctriage&template=bug_report.yml&title=%5BBug%5D%3A+).
+Please report any bug you find [here](https://github.com/LinwoodDev/Flow/issues/new?assignees=CodeDoctorDE&labels=bug%2Ctriage&template=bug_report.yml&title=%5BBug%5D%3A+).
 
-If you have a feature that you would like to see added, please open an issue [here](https://github.com/LinwoodCloud/Flow/issues/new?assignees=CodeDoctorDE&labels=enhancement%2Ctriage&template=feature_request.yml&title=%5BFeature+request%5D%3A+).
+If you have a feature that you would like to see added, please open an issue [here](https://github.com/LinwoodDev/Flow/issues/new?assignees=CodeDoctorDE&labels=enhancement%2Ctriage&template=feature_request.yml&title=%5BFeature+request%5D%3A+).
 
 ## Test nightly builds
 
