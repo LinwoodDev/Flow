@@ -30,6 +30,6 @@ Para instalar la aplicación, debes hacer clic en "Más información".
 
 ![Pantalla inteligente más info](/img/smart-screen-more-info.png)
 
-Luego, haga clic en "Ejecutar de notes modos".
+Luego, haga clic en "Ejecutar de todos modos".
 
 </div>
