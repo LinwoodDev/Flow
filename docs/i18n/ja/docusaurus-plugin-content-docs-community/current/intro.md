@@ -20,6 +20,6 @@ title: "コミュニティ"
 
 ## 有用なリンク
 
-* [GitHub](https://github.com/LinwoodDev/Flow)
+* [GitHub](https://github.com/LinwoodCloud/Flow)
 * [Discord](https://go.linwood.dev/discord)
 * [マトリクス](https://go.linwood.dev/matrix)
