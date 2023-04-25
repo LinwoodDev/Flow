@@ -1,10 +1,10 @@
 {
   "version.label": {
-    "message": "Next",
+    "message": "Næste",
     "description": "The label for version current"
   },
   "sidebar.sidebar.link.Discord": {
-    "message": "Discord",
+    "message": "Uenighed",
     "description": "The label for link Discord in sidebar sidebar, linking to https://discord.linwood.dev"
   },
   "sidebar.sidebar.link.GitHub": {
