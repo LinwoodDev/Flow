@@ -1,18 +1,18 @@
 {
   "link.title.Community": {
-    "message": "Community",
+    "message": "Gemeenschap",
     "description": "The title of the footer links column with title=Community in the footer"
   },
   "link.title.Source code": {
-    "message": "Source code",
+    "message": "Bron code",
     "description": "The title of the footer links column with title=Source code in the footer"
   },
   "link.title.Legal": {
-    "message": "Legal",
+    "message": "Juridisch",
     "description": "The title of the footer links column with title=Legal in the footer"
   },
   "link.item.label.Discord": {
-    "message": "Discord",
+    "message": "Onenigheid",
     "description": "The label of footer link with label=Discord linking to https://discord.linwood.dev"
   },
   "link.item.label.Matrix": {
@@ -32,31 +32,31 @@
     "description": "The label of footer link with label=Server linking to https://github.com/LinwoodDev/Flow/tree/develop/server"
   },
   "link.item.label.Docs": {
-    "message": "Docs",
+    "message": "Documentatie",
     "description": "The label of footer link with label=Docs linking to https://github.com/LinwoodDev/Flow/tree/develop/docs"
   },
   "link.item.label.Shared": {
-    "message": "Shared",
+    "message": "Gedeeld",
     "description": "The label of footer link with label=Shared linking to https://github.com/LinwoodDev/Flow/tree/develop/shared"
   },
   "link.item.label.Contribution guide": {
-    "message": "Contribution guide",
+    "message": "Handleiding voor bijdragen",
     "description": "The label of footer link with label=Contribution guide linking to https://github.com/LinwoodDev/Flow/blob/develop/CONTRIBUTING.md"
   },
   "link.item.label.Imprint": {
-    "message": "Imprint",
+    "message": "Impressum",
     "description": "The label of footer link with label=Imprint linking to https://go.linwood.dev/imprint"
   },
   "link.item.label.Privacy Policy of the app": {
-    "message": "Privacy Policy of the app",
+    "message": "Privacybeleid van de app",
     "description": "The label of footer link with label=Privacy Policy of the app linking to /privacypolicy"
   },
   "link.item.label.Privacy Policy of the website": {
-    "message": "Privacy Policy of the website",
+    "message": "Privacybeleid van de website",
     "description": "The label of footer link with label=Privacy Policy of the website linking to https://go.linwood.dev/privacypolicy"
   },
   "copyright": {
-    "message": "Copyright © 2023 LinwoodDev.",
+    "message": "Copyright ©️ 2023 LinwoodDev.",
     "description": "The footer copyright"
   },
   "logo.alt": {
