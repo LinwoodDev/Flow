@@ -1,4 +1,5 @@
 import 'package:flow/cubits/flow.dart';
+import 'package:flow/widgets/markdown_field.dart';
 import 'package:flow/widgets/source_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,8 +20,6 @@ class GroupDialog extends StatelessWidget {
     var currentService =
         context.read<FlowCubit>().getService(currentSource).group;
     final nameController = TextEditingController(text: group.name);
-    final descriptionController =
-        TextEditingController(text: group.description);
     return AlertDialog(
       title: Text(source == null
           ? AppLocalizations.of(context).createGroup
@@ -50,15 +49,13 @@ class GroupDialog extends StatelessWidget {
             },
           ),
           const SizedBox(height: 16),
-          TextField(
+          MarkdownField(
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context).description,
               border: const OutlineInputBorder(),
               icon: const Icon(Icons.description_outlined),
             ),
-            controller: descriptionController,
-            minLines: 3,
-            maxLines: 5,
+            value: group.description,
             onChanged: (value) {
               group = group.copyWith(description: value);
             },

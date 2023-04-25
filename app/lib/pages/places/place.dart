@@ -1,3 +1,4 @@
+import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -47,15 +48,13 @@ class PlaceDialog extends StatelessWidget {
             },
           ),
           const SizedBox(height: 16),
-          TextFormField(
+          MarkdownField(
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context).description,
               border: const OutlineInputBorder(),
               icon: const Icon(Icons.description_outlined),
             ),
-            minLines: 3,
-            maxLines: 5,
-            initialValue: place.description,
+            value: place.description,
             onChanged: (value) {
               place = place.copyWith(description: value);
             },

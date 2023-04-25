@@ -10,6 +10,7 @@ import 'package:shared/models/group/model.dart';
 import 'package:shared/models/model.dart';
 import 'package:shared/models/place/model.dart';
 
+import '../../widgets/markdown_field.dart';
 import '../../widgets/source_dropdown.dart';
 import '../places/select.dart';
 import 'select.dart';
@@ -34,8 +35,6 @@ class EventDialog extends StatelessWidget {
     var currentSource = source ?? '';
     var currentService = cubit.sourcesService.getSource(currentSource).event;
     final nameController = TextEditingController(text: currentEvent.name);
-    final descriptionController =
-        TextEditingController(text: currentEvent.description);
     final locationController =
         TextEditingController(text: currentEvent.location);
     return AlertDialog(
@@ -74,15 +73,13 @@ class EventDialog extends StatelessWidget {
                     currentEvent = currentEvent.copyWith(name: value),
               ),
               const SizedBox(height: 16),
-              TextField(
+              MarkdownField(
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context).description,
                   border: const OutlineInputBorder(),
                   icon: const Icon(Icons.description_outlined),
                 ),
-                minLines: 3,
-                maxLines: 5,
-                controller: descriptionController,
+                value: currentEvent.description,
                 onChanged: (value) =>
                     currentEvent = currentEvent.copyWith(description: value),
               ),

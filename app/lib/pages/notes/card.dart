@@ -1,3 +1,4 @@
+import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -29,12 +30,10 @@ class NoteCard extends StatefulWidget {
 
 class _NoteCardState extends State<NoteCard> {
   late final TextEditingController _nameController;
-  late final TextEditingController _descriptionController;
   late Note _newNote;
   late final NoteService? _noteService;
 
   final FocusNode _nameFocus = FocusNode();
-  final FocusNode _descriptionFocus = FocusNode();
 
   bool _loading = false;
 
@@ -42,8 +41,6 @@ class _NoteCardState extends State<NoteCard> {
   void initState() {
     super.initState();
     _nameController = TextEditingController(text: widget.note.name);
-    _descriptionController =
-        TextEditingController(text: widget.note.description);
     _newNote = widget.note;
     _noteService =
         context.read<FlowCubit>().getCurrentServicesMap()[widget.source]?.note;
@@ -54,12 +51,6 @@ class _NoteCardState extends State<NoteCard> {
         _updateNote();
       }
     });
-    _descriptionFocus.addListener(() {
-      if (!_descriptionFocus.hasFocus) {
-        _newNote = _newNote.copyWith(description: _descriptionController.text);
-        _updateNote();
-      }
-    });
   }
 
   @override
@@ -67,7 +58,6 @@ class _NoteCardState extends State<NoteCard> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.note != widget.note) {
       _nameController.text = widget.note.name;
-      _descriptionController.text = widget.note.description;
       _newNote = widget.note;
     }
   }
@@ -225,26 +215,13 @@ class _NoteCardState extends State<NoteCard> {
                   ]),
             ),
             const SizedBox(height: 16),
-            TextFormField(
-              controller: _descriptionController,
-              focusNode: _descriptionFocus,
+            MarkdownField(
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context).description,
                 border: const OutlineInputBorder(),
               ),
-              minLines: 3,
-              maxLines: 5,
-              onEditingComplete: () {
-                _newNote =
-                    _newNote.copyWith(description: _descriptionController.text);
-                _updateNote();
-              },
-              onSaved: (value) {
-                if (value == null) return;
-                _newNote = _newNote.copyWith(description: value);
-                _updateNote();
-              },
-              onFieldSubmitted: (value) {
+              value: _newNote.description,
+              onChangeEnd: (value) {
                 _newNote = _newNote.copyWith(description: value);
                 _updateNote();
               },
