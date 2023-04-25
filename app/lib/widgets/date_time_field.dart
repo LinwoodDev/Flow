@@ -77,6 +77,13 @@ class _DateTimeFieldState extends State<DateTimeField> {
                   final result = await showTimePicker(
                     context: context,
                     initialTime: TimeOfDay.fromDateTime(useValue),
+                    builder: (context, child) {
+                      return MediaQuery(
+                        data: MediaQuery.of(context)
+                            .copyWith(alwaysUse24HourFormat: false),
+                        child: child ?? const SizedBox(),
+                      );
+                    },
                   );
                   if (result != null) {
                     _change(DateTime(useValue.year, useValue.month,

@@ -20,6 +20,7 @@ ThemeData getThemeData(String name, bool dark, [ColorScheme? overridden]) {
       useMaterial3: true,
       appBarElevation: 2,
       fontFamily: 'Comfortaa',
+      swapLegacyOnMaterial3: true,
     );
   }
   return FlexThemeData.light(
@@ -28,6 +29,7 @@ ThemeData getThemeData(String name, bool dark, [ColorScheme? overridden]) {
     useMaterial3: true,
     appBarElevation: 0.5,
     fontFamily: 'Comfortaa',
+    swapLegacyOnMaterial3: true,
   );
 }
 
