@@ -9,6 +9,7 @@ import 'package:shared/models/event/database.dart';
 import 'package:shared/models/event/item/database.dart';
 import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
+import 'package:shared/models/extra.dart';
 import 'package:shared/services/database.dart';
 import 'package:xml/xml.dart';
 
@@ -55,18 +56,19 @@ class CalDavRemoteService extends RemoteService<CalDavStorage> {
             [];
     final converter = ICalConverter();
     for (var element in data) {
-      final href = element.getElement("d:href")?.text;
+      final href = element.getElement("d:href")?.innerText;
+      final prop = element.getElement("d:propstat")?.getElement("d:prop");
       if (href == null) continue;
-      final text = element
-          .getElement("d:propstat")
-          ?.getElement("d:prop")
-          ?.getElement("cal:calendar-data")
-          ?.text;
+      final text = prop?.getElement("cal:calendar-data")?.innerText;
       if (text == null) continue;
-      final name =
-          href.substring(href.lastIndexOf('/') + 1, href.lastIndexOf('.'));
+      final etag = prop?.getElement("d:getetag")?.innerText;
+      if (etag == null) continue;
       converter.read(
-          text.split('\n'), Event(name: name, id: createUniqueMultihash()));
+          text.split('\n'),
+          Event(
+                  name: href.substring(href.lastIndexOf('/') + 1),
+                  id: createUniqueMultihash())
+              .addExtra(ExtraProperties.calDav(etag: etag, path: href)));
     }
     if (converter.data != null) import(converter.data!);
   }
@@ -114,8 +116,8 @@ class CalendarItemCalDavRemoteService
 
   Future<void> _sendUpdatedCalendarObject(CalendarItem? item) async {
     if (item?.eventId == null) return;
-    var items = <CalendarItem>[];
-    items = (await getCalendarItems(
+    final authority = remote.remoteStorage.uri.replace(path: '').toString();
+    final items = (await getCalendarItems(
       eventId: item!.eventId,
     ))
         .map((e) => e.source)
@@ -124,7 +126,7 @@ class CalendarItemCalDavRemoteService
       await remote.addRequest(
         APIRequest(
           method: 'DELETE',
-          authority: remote.remoteStorage.url,
+          authority: authority,
           path: '${item.eventId}.ics',
           headers: {'Authorization': remote._getAuthHeader()},
         ),
@@ -134,12 +136,14 @@ class CalendarItemCalDavRemoteService
     final event = await remote.event.getEvent(item.eventId!);
     final body =
         ICalConverter(CachedData(items: items)).write(event).join('\n');
+    final extra = event?.extraProperties;
+    if (extra is! CalDavExtraProperties) return;
     await remote.addRequest(
       APIRequest(
         method: 'PUT',
-        authority: remote.remoteStorage.url,
+        authority: authority,
         body: body,
-        path: '${item.eventId!}.ics',
+        path: '${extra.path}.ics',
         headers: {
           'Content-Type': 'text/calendar; charset=utf-8',
           'Authorization': remote._getAuthHeader(),

@@ -64,10 +64,6 @@ class CalendarItem with _$CalendarItem, DescriptiveModel {
   factory CalendarItem.fromDatabase(Map<String, dynamic> row) =>
       CalendarItem.fromJson({
         ...row,
-        'id': row['id'] != null ? utf8.decode(row['id']) : null,
-        'eventId': row['eventId'] != null ? utf8.decode(row['eventId']) : null,
-        'autoGroupId':
-            row['autoGroupId'] != null ? utf8.decode(row['autoGroupId']) : null,
       });
 
   CalendarItemType get type {

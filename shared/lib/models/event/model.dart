@@ -32,9 +32,6 @@ class Event with _$Event {
   factory Event.fromDatabase(Map<String, dynamic> row) => Event.fromJson({
         ...row,
         'blocked': row['blocked'] == 1,
-        'id': row['id'] != null ? utf8.decode(row['id']) : null,
-        'parentId':
-            row['parentId'] != null ? utf8.decode(row['parentId']) : null,
       });
 
   Map<String, dynamic> toDatabase() => {
@@ -44,6 +41,10 @@ class Event with _$Event {
 
   ExtraProperties? get extraProperties =>
       extra != null ? ExtraProperties.fromJson(jsonDecode(extra!)) : null;
+
+  Event? addExtra(ExtraProperties extraProperties) => copyWith(
+        extra: jsonEncode(extraProperties.toJson()),
+      );
 }
 
 enum EventStatus {

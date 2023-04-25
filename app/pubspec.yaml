@@ -35,7 +35,7 @@ dependencies:
   shared:
     path: ../shared
   path: ^1.8.3
-  go_router: ^6.5.7
+  go_router: ^6.5.8
   flex_color_scheme: ^7.0.4
   flutter_bloc: ^8.1.2
   freezed_annotation: ^2.2.0
@@ -55,7 +55,7 @@ dependencies:
   dynamic_color: ^1.6.3
   simple_icons: ^7.10.0
   flutter_localized_locales: ^2.0.4
-  xml: ^6.2.2
+  xml: ^6.3.0
   connectivity_plus: ^3.0.4
   rxdart: ^0.27.7
   flutter_secure_storage: ^8.0.0
