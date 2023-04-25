@@ -23,45 +23,41 @@
     "message": "Descargas",
     "description": "homepage downloads button"
   },
-  "Cross platform": {
-    "message": "Multiplataforma",
-    "description": "Features cross-platform title"
+  "Time management": {
+    "message": "Gestión del tiempo",
+    "description": "Features Time management title"
   },
-  "You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.": {
-    "message": "Puedes usar la aplicación en tu teléfono, tablet, portátil o ordenador. La aplicación está disponible en Linux, Android y Windows. También puedes usar la aplicación en la web.",
-    "description": "Features cross-platform description"
+  "Manage the time efficiency and automate it.": {
+    "message": "Gestiona la eficiencia del tiempo y automatiza.",
+    "description": "Features Time management description"
   },
-  "Simple and intuitive": {
-    "message": "Simple e intuitivo",
-    "description": "Features simple title"
+  "Event management": {
+    "message": "Gestión de eventos",
+    "description": "Features Event management title"
   },
-  "Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.": {
-    "message": "Cada herramienta está en el lugar correcto. Abra la aplicación y comience a dibujar. Cambie sus herramientas haciendo clic en ella.",
-    "description": "Features simple description"
+  "Schedule events, assign users to it and give tasks to them": {
+    "message": "Programar eventos, asignar usuarios y darles tareas",
+    "description": "Features Event management description"
   },
-  "Customizable": {
-    "message": "Personalizable",
-    "description": "Features customizable title"
+  "Your data": {
+    "message": "Sus datos",
+    "description": "Features Your data title"
   },
-  "Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.": {
-    "message": "Cambie note a sus necesidades. Elija su color personalizado, cree una paleta y añada sus páginas al papel. El documento tiene un tamaño infinito, perfecto para tus ideas y notas.",
-    "description": "Features customizable description"
+  "Everyone can create their own server and have your data on it.": {
+    "message": "Todo el mundo puede crear su propio servidor y tener sus datos en él.",
+    "description": "Features Your data description"
   },
-  "Choose where your data is stored": {
-    "message": "Elige dónde se almacenan tus datos",
-    "description": "Features local title"
+  "Open source": {
+    "message": "Código abierto",
+    "description": "Features Open source title"
   },
-  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
-    "message": "Puede elegir almacenar sus datos localmente o en su nube favorita (webdav). También puede exportar sus datos a un archivo e importarlos de nuevo.",
-    "description": "Features local description"
+  "The app and the server are all open source. Everyone can contribute!": {
+    "message": "La aplicación y el servidor son todos de código abierto. ¡Todos pueden contribuir!",
+    "description": "Features Open source description"
   },
   "theme.ErrorPageContent.title": {
     "message": "Esta página ha fallado.",
     "description": "The title of the fallback page when the page crashed"
-  },
-  "theme.ErrorPageContent.tryAgain": {
-    "message": "Inténtalo de nuevo",
-    "description": "The label of the button to try again when the page crashed"
   },
   "theme.NotFound.title": {
     "message": "Página no encontrada",
@@ -270,6 +266,10 @@
     "message": "En esta página",
     "description": "The label used by the button on the collapsible TOC component"
   },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "Lectura de un minuto|{readingTime} lectura mínima",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
   "theme.blog.post.readMore": {
     "message": "Leer más",
     "description": "The label used in blog post item excerpts to link to full blog posts"
@@ -277,10 +277,6 @@
   "theme.blog.post.readMoreLabel": {
     "message": "Leer más sobre {title}",
     "description": "The ARIA label for the link to full blog posts from excerpts"
-  },
-  "theme.blog.post.readingTime.plurals": {
-    "message": "Lectura de un minuto|{readingTime} lectura mínima",
-    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
   "theme.docs.breadcrumbs.home": {
     "message": "Página de inicio",
@@ -329,6 +325,10 @@
   "theme.PwaReloadPopup.closeButtonAriaLabel": {
     "message": "Cerrar",
     "description": "The ARIA label for close button of PWA reload popup"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Inténtalo de nuevo",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
   },
   "theme.common.skipToMainContent": {
     "message": "Ir al contenido principal",

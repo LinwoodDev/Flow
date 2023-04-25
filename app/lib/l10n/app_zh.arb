@@ -42,8 +42,8 @@
   "month": "月",
   "version": "版本",
   "intro": "简介",
-  "webdav": "WebDAV",
-  "webdavDescription": "WebDAV 接口允许您从任何 WebDAV 服务器访问您的数据。 您可以使用它来同步您的数据和其他设备或服务。",
+  "caldavDescription": "CalDAV 接口允许您从任意CalDAV服务器访问您的数据。 它的支持有限，只支持基本功能。您可以使用它来将您的数据与其他设备或服务同步。",
+  "webdavDescription": "WebDAV 接口允许您从任何 WebDAV 服务器访问您的数据。 它存储数据的文件和目录。您可以使用它来同步您的数据和其他设备或服务。",
   "server": "服务器",
   "serverDescription": "将您的数据与原生的Linwood Flow 服务器同步。这是推荐给想要自我主机数据的用户。",
   "googleDescription": "与Google同步您的数据。建议用户使用他们的Google账户访问他们的数据。 此选项并非所有功能都可用。",
@@ -65,9 +65,9 @@
   "draft": "草稿",
   "cancelled": "已取消",
   "general": "A. 概况",
-  "todos": "Todos",
-  "createTodo": "创建待办事项",
-  "editTodo": "编辑待办事项",
+  "notes": "注",
+  "createNote": "创建笔记",
+  "editNote": "编辑笔记",
   "indicatorEmpty": "未找到项目",
   "indicatorEmptyDescription": "列表目前是空的。",
   "indicatorLoading": "正在加载",
@@ -102,7 +102,7 @@
   "filter": "筛选器",
   "done": "完成",
   "inProgress": "进行中",
-  "todo": "Todo",
+  "note": "说明",
   "delete": "删除",
   "edit": "编辑",
   "deleteGroup": "删除组 {name}",
@@ -202,5 +202,51 @@
   },
   "import": "导入",
   "confirmImport": "您确定要导入它吗？",
-  "welcome": "欢迎使用"
+  "welcome": "欢迎使用",
+  "url": "网址",
+  "username": "用户名",
+  "password": "密码",
+  "connect": "连接",
+  "data": "数据",
+  "syncing": "正在同步",
+  "synced": "已同步",
+  "error": "错误",
+  "always": "总是显示",
+  "noMobile": "无手机",
+  "manual": "手动模式",
+  "syncMode": "同步模式",
+  "todo": "Todo",
+  "appointment": "约会",
+  "moment": "瞬时",
+  "time": "时间",
+  "deleteEvent": "删除事件 {name}",
+  "@deleteEvent": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "deleteEventDescription": "您确定要删除事件 {name} 吗？",
+  "@deleteEventDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "createAppointment": "创建约会",
+  "editAppointment": "编辑约会",
+  "createMoment": "创建时间",
+  "editMoment": "编辑时间",
+  "convertToNote": "转换为笔记",
+  "convertToTodo": "转换为土豆",
+  "open": "打开",
+  "limited": "限量的",
+  "notSet": "未设置",
+  "createPending": "创建待定",
+  "editPending": "编辑待定",
+  "convertTo": "转换为"
 }

@@ -42,7 +42,7 @@ Quiero informar a los usuarios de este Servicio que estos terceros tienen acceso
 
 **Seguridad**
 
-Valoro su confianza a la hora de proporcionarnos su Información Personal, por lo que nos esforzamos por utilizar medios comercialmente aceptables para protegerla. Pero recuerde que ningún ménote de transmisión a través de Internet, o ménote de almacenamiento electrónico es 100% seguro y fiable, y no puedo garantizar su absoluta seguridad.
+Valoro su confianza a la hora de proporcionarnos su Información Personal, por lo que nos esforzamos por utilizar medios comercialmente aceptables para protegerla. Pero recuerde que ningún método de transmisión a través de Internet, o método de almacenamiento electrónico es 100% seguro y fiable, y no puedo garantizar su absoluta seguridad.
 
 **Enlaces a otros sitios**
 

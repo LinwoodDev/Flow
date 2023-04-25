@@ -23,45 +23,41 @@
     "message": "Nedladdningar",
     "description": "homepage downloads button"
   },
-  "Cross platform": {
-    "message": "Plattformsoberoende",
-    "description": "Features cross-platform title"
+  "Time management": {
+    "message": "Tidshantering",
+    "description": "Features Time management title"
   },
-  "You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.": {
-    "message": "Du kan använda appen på din telefon, surfplatta, laptop eller dator. Appen finns tillgänglig på Linux, Android och Windows. Du kan även använda appen på webben.",
-    "description": "Features cross-platform description"
+  "Manage the time efficiency and automate it.": {
+    "message": "Hantera tidseffektiviteten och automatisera den.",
+    "description": "Features Time management description"
   },
-  "Simple and intuitive": {
-    "message": "Enkel och intuitiv",
-    "description": "Features simple title"
+  "Event management": {
+    "message": "Hantering av händelser",
+    "description": "Features Event management title"
   },
-  "Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.": {
-    "message": "Varje verktyg är på rätt plats. Öppna appen och börja rita. Ändra dina verktyg genom att klicka på den.",
-    "description": "Features simple description"
+  "Schedule events, assign users to it and give tasks to them": {
+    "message": "Schemalägga händelser, tilldela användare till den och ge uppgifter till dem",
+    "description": "Features Event management description"
   },
-  "Customizable": {
-    "message": "Anpassningsbar",
-    "description": "Features customizable title"
+  "Your data": {
+    "message": "Dina data",
+    "description": "Features Your data title"
   },
-  "Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.": {
-    "message": "Ändra allt efter dina behov. Välj din egen färg, skapa en palett och lägg till dina sidor i papperet. Pappret har en oändlig storlek, perfekt för dina idéer och anteckningar.",
-    "description": "Features customizable description"
+  "Everyone can create their own server and have your data on it.": {
+    "message": "Alla kan skapa sin egen server och ha dina data på den.",
+    "description": "Features Your data description"
   },
-  "Choose where your data is stored": {
-    "message": "Välj var dina data lagras",
-    "description": "Features local title"
+  "Open source": {
+    "message": "Öppen källkod",
+    "description": "Features Open source title"
   },
-  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
-    "message": "Du kan välja att lagra dina data lokalt eller i ditt favoritmoln (webdav). Du kan också exportera dina data till en fil och importera den igen.",
-    "description": "Features local description"
+  "The app and the server are all open source. Everyone can contribute!": {
+    "message": "Appen och servern är alla öppen källkod. Alla kan bidra!",
+    "description": "Features Open source description"
   },
   "theme.ErrorPageContent.title": {
     "message": "Denna sida kraschade.",
     "description": "The title of the fallback page when the page crashed"
-  },
-  "theme.ErrorPageContent.tryAgain": {
-    "message": "Försök igen",
-    "description": "The label of the button to try again when the page crashed"
   },
   "theme.NotFound.title": {
     "message": "Sidan hittades inte",
@@ -270,6 +266,10 @@
     "message": "På denna sida",
     "description": "The label used by the button on the collapsible TOC component"
   },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "En min läsa{readingTime} min",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
   "theme.blog.post.readMore": {
     "message": "Läs mer",
     "description": "The label used in blog post item excerpts to link to full blog posts"
@@ -277,10 +277,6 @@
   "theme.blog.post.readMoreLabel": {
     "message": "Läs mer om {title}",
     "description": "The ARIA label for the link to full blog posts from excerpts"
-  },
-  "theme.blog.post.readingTime.plurals": {
-    "message": "En min läsa{readingTime} min",
-    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
   "theme.docs.breadcrumbs.home": {
     "message": "Startsida",
@@ -329,6 +325,10 @@
   "theme.PwaReloadPopup.closeButtonAriaLabel": {
     "message": "Stäng",
     "description": "The ARIA label for close button of PWA reload popup"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Försök igen",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
   },
   "theme.common.skipToMainContent": {
     "message": "Hoppa till huvudinnehållet",

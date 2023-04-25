@@ -23,45 +23,41 @@
     "message": "Загрузки",
     "description": "homepage downloads button"
   },
-  "Cross platform": {
-    "message": "Перекрестная платформа",
-    "description": "Features cross-platform title"
+  "Time management": {
+    "message": "Управление временем",
+    "description": "Features Time management title"
   },
-  "You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.": {
-    "message": "Вы можете использовать приложение на вашем телефоне, планшете, ноутбуке или настольном компьютере. Приложение доступно на Linux, Android и Windows. Вы также можете использовать приложение в Интернете.",
-    "description": "Features cross-platform description"
+  "Manage the time efficiency and automate it.": {
+    "message": "Управляйте эффективностью времени и автоматизируйте его.",
+    "description": "Features Time management description"
   },
-  "Simple and intuitive": {
-    "message": "Простой и интуитивно понятный",
-    "description": "Features simple title"
+  "Event management": {
+    "message": "Управление событиями",
+    "description": "Features Event management title"
   },
-  "Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.": {
-    "message": "Каждый инструмент находится в нужном месте. Откройте приложение и начните рисовать. Измените инструменты, нажав на него.",
-    "description": "Features simple description"
+  "Schedule events, assign users to it and give tasks to them": {
+    "message": "Запланировать мероприятия, назначать пользователей и давать им задачи",
+    "description": "Features Event management description"
   },
-  "Customizable": {
-    "message": "Настраиваемый",
-    "description": "Features customizable title"
+  "Your data": {
+    "message": "Ваши данные",
+    "description": "Features Your data title"
   },
-  "Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.": {
-    "message": "Меняйте все для ваших нужд. Выберите свой пользовательский цвет, создайте палитру и добавьте свои страницы на бумагу. Статья имеет бесконечный размер, идеально подходит для ваших идей и заметок.",
-    "description": "Features customizable description"
+  "Everyone can create their own server and have your data on it.": {
+    "message": "Каждый может создать свой собственный сервер и иметь на нем свои данные.",
+    "description": "Features Your data description"
   },
-  "Choose where your data is stored": {
-    "message": "Выберите, где хранятся ваши данные",
-    "description": "Features local title"
+  "Open source": {
+    "message": "Открытый код",
+    "description": "Features Open source title"
   },
-  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
-    "message": "Вы можете выбрать хранение данных локально или в вашем любимом облаке (webdav). Вы также можете экспортировать данные в файл и импортировать их снова.",
-    "description": "Features local description"
+  "The app and the server are all open source. Everyone can contribute!": {
+    "message": "Приложение и сервер все открытые исходные коды. Все могут внести свой вклад!",
+    "description": "Features Open source description"
   },
   "theme.ErrorPageContent.title": {
     "message": "Эта страница прервана.",
     "description": "The title of the fallback page when the page crashed"
-  },
-  "theme.ErrorPageContent.tryAgain": {
-    "message": "Попробовать еще раз",
-    "description": "The label of the button to try again when the page crashed"
   },
   "theme.NotFound.title": {
     "message": "Страница не найдена",
@@ -270,6 +266,10 @@
     "message": "На этой странице",
     "description": "The label used by the button on the collapsible TOC component"
   },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "Один мин чтения|{readingTime} мин прочитано",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
   "theme.blog.post.readMore": {
     "message": "Читать далее",
     "description": "The label used in blog post item excerpts to link to full blog posts"
@@ -277,10 +277,6 @@
   "theme.blog.post.readMoreLabel": {
     "message": "Подробнее о {title}",
     "description": "The ARIA label for the link to full blog posts from excerpts"
-  },
-  "theme.blog.post.readingTime.plurals": {
-    "message": "Один мин чтения|{readingTime} мин прочитано",
-    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
   "theme.docs.breadcrumbs.home": {
     "message": "Главная страница",
@@ -329,6 +325,10 @@
   "theme.PwaReloadPopup.closeButtonAriaLabel": {
     "message": "Закрыть",
     "description": "The ARIA label for close button of PWA reload popup"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Попробовать еще раз",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
   },
   "theme.common.skipToMainContent": {
     "message": "Перейти к основному контенту",

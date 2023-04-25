@@ -20,6 +20,6 @@ title: "Κοινότητα"
 
 ## Χρήσιμοι σύνδεσμοι
 
-* [GitHub](https://github.com/LinwoodDev/Flow)
+* [GitHub](https://github.com/LinwoodCloud/Flow)
 * [Discord](https://go.linwood.dev/discord)
 * [Πίνακας](https://go.linwood.dev/matrix)

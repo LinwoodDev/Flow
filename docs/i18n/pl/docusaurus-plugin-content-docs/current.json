@@ -3,12 +3,8 @@
     "message": "Następny",
     "description": "The label for version current"
   },
-  "sidebar.tutorialSidebar.category.Tutorial - Basics": {
-    "message": "Samouczek - Podstawy",
-    "description": "The label for category Tutorial - Basics in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.Tutorial - Extras": {
-    "message": "Samouczek - dodatki",
-    "description": "The label for category Tutorial - Extras in sidebar tutorialSidebar"
+  "sidebar.tutorialSidebar.category.server": {
+    "message": "serwer",
+    "description": "The label for category server in sidebar tutorialSidebar"
   }
 }

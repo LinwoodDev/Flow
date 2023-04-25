@@ -3,12 +3,8 @@
     "message": "Neste",
     "description": "The label for version current"
   },
-  "sidebar.tutorialSidebar.category.Tutorial - Basics": {
-    "message": "Opplæring - Grunntrekk",
-    "description": "The label for category Tutorial - Basics in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.Tutorial - Extras": {
-    "message": "Opplæring - Tilbehør",
-    "description": "The label for category Tutorial - Extras in sidebar tutorialSidebar"
+  "sidebar.tutorialSidebar.category.server": {
+    "message": "tjener",
+    "description": "The label for category server in sidebar tutorialSidebar"
   }
 }

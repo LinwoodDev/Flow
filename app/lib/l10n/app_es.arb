@@ -42,8 +42,8 @@
   "month": "Mes",
   "version": "Versión",
   "intro": "Introducción",
-  "webdav": "WebDAV",
-  "webdavDescription": "La interfaz WebDAV le permite acceder a sus datos desde cualquier servidor WebDAV. Puede utilizarlo para sincronizar sus datos con otros dispositivos o servicios.",
+  "caldavDescription": "La interfaz de CalDAV le permite acceder a sus datos desde cualquier servidor de CalDAV. Tiene soporte limitado y sólo se admiten funciones básicas. Puede utilizarlo para sincronizar sus datos con otros dispositivos o servicios.",
+  "webdavDescription": "La interfaz WebDAV le permite acceder a sus datos desde cualquier servidor WebDAV. Archivos y directorios para almacenar datos. Puede utilizarlos para sincronizar sus datos con otros dispositivos o servicios.",
   "server": "Servidor",
   "serverDescription": "Sincronice sus datos con un servidor nativo de Linwood Flow. Esto se recomienda para los usuarios que quieran autoalojar sus datos.",
   "googleDescription": "Sincroniza tus datos con Google. Se recomienda a los usuarios que quieran utilizar su cuenta de Google para acceder a sus datos. No todas las características están disponibles con esta opción.",
@@ -65,9 +65,9 @@
   "draft": "Fabricación",
   "cancelled": "Cancelado",
   "general": "General",
-  "todos": "Todos",
-  "createTodo": "Crear tarea",
-  "editTodo": "Editar tarea",
+  "notes": "Notas",
+  "createNote": "Crear nota",
+  "editNote": "Editar nota",
   "indicatorEmpty": "No hay elementos",
   "indicatorEmptyDescription": "La lista está vacía.",
   "indicatorLoading": "Cargando",
@@ -102,7 +102,7 @@
   "filter": "Filtro",
   "done": "Hecho",
   "inProgress": "En progreso",
-  "todo": "Todo",
+  "note": "Nota",
   "delete": "Eliminar",
   "edit": "Editar",
   "deleteGroup": "Eliminar grupo {name}",
@@ -202,5 +202,51 @@
   },
   "import": "Importar",
   "confirmImport": "¿Estás seguro de que quieres importarlo?",
-  "welcome": "Bienvenida"
+  "welcome": "Bienvenida",
+  "url": "URL",
+  "username": "Usuario",
+  "password": "Contraseña",
+  "connect": "Conectar",
+  "data": "Datos",
+  "syncing": "Sincronizando",
+  "synced": "Sincronizado",
+  "error": "Error",
+  "always": "Siempre",
+  "noMobile": "Sin móvil",
+  "manual": "Manual",
+  "syncMode": "Modo de sincronización",
+  "todo": "Todo",
+  "appointment": "Cita",
+  "moment": "Momento",
+  "time": "Hora",
+  "deleteEvent": "Eliminar evento {name}",
+  "@deleteEvent": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "deleteEventDescription": "¿Está seguro que desea eliminar el evento {name}?",
+  "@deleteEventDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "createAppointment": "Crear cita",
+  "editAppointment": "Editar cita",
+  "createMoment": "Crear momento",
+  "editMoment": "Editar momento",
+  "convertToNote": "Convertir a nota",
+  "convertToTodo": "Convertir a tarea",
+  "open": "Abrir",
+  "limited": "Limitado",
+  "notSet": "No establecido",
+  "createPending": "Crear pendiente",
+  "editPending": "Editar pendiente",
+  "convertTo": "Convertir a"
 }

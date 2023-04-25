@@ -42,8 +42,8 @@
   "month": "Monat",
   "version": "Version",
   "intro": "Einleitung",
-  "webdav": "WebDAV",
-  "webdavDescription": "Die WebDAV-Schnittstelle ermöglicht den Zugriff auf Ihre Daten von jedem WebDAV-Server. Sie können damit Ihre Daten mit anderen Geräten oder Diensten synchronisieren.",
+  "caldavDescription": "Die CalDAV-Schnittstelle ermöglicht den Zugriff auf Ihre Daten von jedem CalDAV-Server. Es hat nur eine begrenzte Unterstützung und es werden nur grundlegende Funktionen unterstützt. Sie können Ihre Daten mit anderen Geräten oder Diensten synchronisieren.",
+  "webdavDescription": "Die WebDAV-Schnittstelle ermöglicht den Zugriff auf Ihre Daten von jedem WebDAV-Server. Es sind Dateien und Verzeichnisse zum Speichern von Daten. Sie können sie verwenden, um Ihre Daten mit anderen Geräten oder Diensten zu synchronisieren.",
   "server": "Server",
   "serverDescription": "Synchronisieren Sie Ihre Daten mit einem nativen Linwood Flow Server. Dies wird empfohlen für Benutzer, die ihre Daten selbst hosten möchten.",
   "googleDescription": "Synchronisieren Sie Ihre Daten mit Google. Dies wird Benutzern empfohlen, die ihr Google-Konto verwenden möchten, um auf ihre Daten zuzugreifen. Nicht alle Funktionen sind mit dieser Option verfügbar.",
@@ -65,9 +65,9 @@
   "draft": "Entwurf",
   "cancelled": "Abgebrochen",
   "general": "Allgemein",
-  "todos": "Todos",
-  "createTodo": "To-Do erstellen",
-  "editTodo": "To-Do bearbeiten",
+  "notes": "Notizen",
+  "createNote": "Notiz erstellen",
+  "editNote": "Notiz bearbeiten",
   "indicatorEmpty": "Keine Elemente gefunden",
   "indicatorEmptyDescription": "Die Liste ist derzeit leer.",
   "indicatorLoading": "Lädt",
@@ -102,7 +102,7 @@
   "filter": "Filtern",
   "done": "Fertig",
   "inProgress": "In Bearbeitung",
-  "todo": "Todo",
+  "note": "Notiz",
   "delete": "Löschen",
   "edit": "Bearbeiten",
   "deleteGroup": "Gruppe {name} löschen",
@@ -202,5 +202,51 @@
   },
   "import": "Importieren",
   "confirmImport": "Bist du sicher, dass du es importieren möchtest?",
-  "welcome": "Willkommen"
+  "welcome": "Willkommen",
+  "url": "URL",
+  "username": "Benutzername",
+  "password": "Passwort",
+  "connect": "Verbinden",
+  "data": "Daten",
+  "syncing": "Synchronisieren",
+  "synced": "Synchronisiert",
+  "error": "Fehler",
+  "always": "Immer",
+  "noMobile": "Kein Handy",
+  "manual": "Manuell",
+  "syncMode": "Sync-Modus",
+  "todo": "Todo",
+  "appointment": "Termin",
+  "moment": "Moment",
+  "time": "Zeit",
+  "deleteEvent": "Ereignis {name} löschen",
+  "@deleteEvent": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "deleteEventDescription": "Sind Sie sicher, dass Sie das Ereignis {name} löschen möchten?",
+  "@deleteEventDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "createAppointment": "Termin erstellen",
+  "editAppointment": "Termin bearbeiten",
+  "createMoment": "Moment erstellen",
+  "editMoment": "Moment bearbeiten",
+  "convertToNote": "In Notiz konvertieren",
+  "convertToTodo": "Zu Todo konvertieren",
+  "open": "Öffnen",
+  "limited": "Begrenzt",
+  "notSet": "Nicht gesetzt",
+  "createPending": "Erstellen ausstehend",
+  "editPending": "Bearbeitung ausstehend",
+  "convertTo": "Konvertiere in"
 }

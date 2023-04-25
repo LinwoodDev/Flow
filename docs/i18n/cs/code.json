@@ -23,45 +23,41 @@
     "message": "Stahování",
     "description": "homepage downloads button"
   },
-  "Cross platform": {
-    "message": "Křížová platforma",
-    "description": "Features cross-platform title"
+  "Time management": {
+    "message": "Správa času",
+    "description": "Features Time management title"
   },
-  "You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.": {
-    "message": "Aplikaci můžete použít ve vašem telefonu, tabletu, notebooku nebo počítači. Aplikace je dostupná na Linuxu, Androidu a Windows. Můžete také použít aplikaci na webu.",
-    "description": "Features cross-platform description"
+  "Manage the time efficiency and automate it.": {
+    "message": "Spravujte účinnost času a automatizujte ji.",
+    "description": "Features Time management description"
   },
-  "Simple and intuitive": {
-    "message": "Jednoduchý a intuitivní",
-    "description": "Features simple title"
+  "Event management": {
+    "message": "Správa událostí",
+    "description": "Features Event management title"
   },
-  "Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.": {
-    "message": "Každý nástroj je na správném místě. Otevřete aplikaci a začněte kreslit. Změňte své nástroje kliknutím.",
-    "description": "Features simple description"
+  "Schedule events, assign users to it and give tasks to them": {
+    "message": "Naplánovat události, přiřadit k němu uživatele a dát jim úkoly",
+    "description": "Features Event management description"
   },
-  "Customizable": {
-    "message": "Přizpůsobitelné",
-    "description": "Features customizable title"
+  "Your data": {
+    "message": "Vaše údaje",
+    "description": "Features Your data title"
   },
-  "Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.": {
-    "message": "Změňte vše podle vašich potřeb. Vyberte si vlastní barvu, vytvořte paletu a přidejte své stránky do dokumentu. Dokument má nekonečnou velikost, ideální pro vaše nápady a poznámky.",
-    "description": "Features customizable description"
+  "Everyone can create their own server and have your data on it.": {
+    "message": "Každý může vytvořit svůj vlastní server a mít svá data.",
+    "description": "Features Your data description"
   },
-  "Choose where your data is stored": {
-    "message": "Vyberte, kde jsou vaše data uložena",
-    "description": "Features local title"
+  "Open source": {
+    "message": "Open source",
+    "description": "Features Open source title"
   },
-  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
-    "message": "Můžete si vybrat uložit svá data lokálně nebo ve svém oblíbeném cloudu (webdav). Můžete také exportovat svá data do souboru a importovat je znovu.",
-    "description": "Features local description"
+  "The app and the server are all open source. Everyone can contribute!": {
+    "message": "Aplikace a server jsou všechny open source. Každý může přispět!",
+    "description": "Features Open source description"
   },
   "theme.ErrorPageContent.title": {
     "message": "Tato stránka se zhroutila.",
     "description": "The title of the fallback page when the page crashed"
-  },
-  "theme.ErrorPageContent.tryAgain": {
-    "message": "Zkuste to znovu",
-    "description": "The label of the button to try again when the page crashed"
   },
   "theme.NotFound.title": {
     "message": "Stránka nenalezena",
@@ -270,6 +266,10 @@
     "message": "Na této stránce",
     "description": "The label used by the button on the collapsible TOC component"
   },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "Jedna minuta přečtení|{readingTime} min čtení",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
   "theme.blog.post.readMore": {
     "message": "Číst více",
     "description": "The label used in blog post item excerpts to link to full blog posts"
@@ -277,10 +277,6 @@
   "theme.blog.post.readMoreLabel": {
     "message": "Přečtěte si více o {title}",
     "description": "The ARIA label for the link to full blog posts from excerpts"
-  },
-  "theme.blog.post.readingTime.plurals": {
-    "message": "Jedna minuta přečtení|{readingTime} min čtení",
-    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
   "theme.docs.breadcrumbs.home": {
     "message": "Domovská stránka",
@@ -329,6 +325,10 @@
   "theme.PwaReloadPopup.closeButtonAriaLabel": {
     "message": "Zavřít",
     "description": "The ARIA label for close button of PWA reload popup"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Zkuste to znovu",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
   },
   "theme.common.skipToMainContent": {
     "message": "Přeskočit na hlavní obsah",

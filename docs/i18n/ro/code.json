@@ -23,45 +23,41 @@
     "message": "Descărcări",
     "description": "homepage downloads button"
   },
-  "Cross platform": {
-    "message": "Platformă transversală",
-    "description": "Features cross-platform title"
+  "Time management": {
+    "message": "Managementul timpului",
+    "description": "Features Time management title"
   },
-  "You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.": {
-    "message": "Puteți utiliza aplicația pe telefon, tabletă, laptop sau desktop. Aplicația este disponibilă pe Linux, Android și Windows. De asemenea, puteți utiliza aplicația pe web.",
-    "description": "Features cross-platform description"
+  "Manage the time efficiency and automate it.": {
+    "message": "Gestionați eficiența timpului și automatizați-o.",
+    "description": "Features Time management description"
   },
-  "Simple and intuitive": {
-    "message": "Simplu și intuitiv",
-    "description": "Features simple title"
+  "Event management": {
+    "message": "Gestionare eveniment",
+    "description": "Features Event management title"
   },
-  "Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.": {
-    "message": "Fiecare unealtă este în locul potrivit. Deschideți aplicația și începeți să desenați. Schimbați instrumentele făcând clic pe ea.",
-    "description": "Features simple description"
+  "Schedule events, assign users to it and give tasks to them": {
+    "message": "Programați evenimente, atribuiți utilizatorilor și dați-i sarcini",
+    "description": "Features Event management description"
   },
-  "Customizable": {
-    "message": "Personalizabil",
-    "description": "Features customizable title"
+  "Your data": {
+    "message": "Datele tale",
+    "description": "Features Your data title"
   },
-  "Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.": {
-    "message": "Schimbă totul în funcție de nevoile tale. Alege culoarea personală, creează o paletă și adaugă paginile tale pe hârtie. Hârtia are o dimensiune infinită, perfectă pentru ideile și notele tale.",
-    "description": "Features customizable description"
+  "Everyone can create their own server and have your data on it.": {
+    "message": "Oricine își poate crea propriul server și poate avea datele tale pe el.",
+    "description": "Features Your data description"
   },
-  "Choose where your data is stored": {
-    "message": "Alege unde sunt stocate datele tale",
-    "description": "Features local title"
+  "Open source": {
+    "message": "Sursă deschisă",
+    "description": "Features Open source title"
   },
-  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
-    "message": "Poți alege să stochezi datele la nivel local sau în cloudul tău preferat (webdav). De asemenea, puteți exporta datele într-un fișier și să le importați din nou.",
-    "description": "Features local description"
+  "The app and the server are all open source. Everyone can contribute!": {
+    "message": "Aplicația și serverul sunt toate open source. Toată lumea poate să contribuie!",
+    "description": "Features Open source description"
   },
   "theme.ErrorPageContent.title": {
     "message": "Această pagină s-a prăbușit.",
     "description": "The title of the fallback page when the page crashed"
-  },
-  "theme.ErrorPageContent.tryAgain": {
-    "message": "Încercați din nou",
-    "description": "The label of the button to try again when the page crashed"
   },
   "theme.NotFound.title": {
     "message": "Pagina nu a fost găsită",
@@ -270,6 +266,10 @@
     "message": "Pe această pagină",
     "description": "The label used by the button on the collapsible TOC component"
   },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "Un min citire{readingTime} min",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
   "theme.blog.post.readMore": {
     "message": "Citește mai mult",
     "description": "The label used in blog post item excerpts to link to full blog posts"
@@ -277,10 +277,6 @@
   "theme.blog.post.readMoreLabel": {
     "message": "Citește mai multe despre {title}",
     "description": "The ARIA label for the link to full blog posts from excerpts"
-  },
-  "theme.blog.post.readingTime.plurals": {
-    "message": "Un min citire{readingTime} min",
-    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
   "theme.docs.breadcrumbs.home": {
     "message": "Pagina principală",
@@ -329,6 +325,10 @@
   "theme.PwaReloadPopup.closeButtonAriaLabel": {
     "message": "Inchide",
     "description": "The ARIA label for close button of PWA reload popup"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Încercați din nou",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
   },
   "theme.common.skipToMainContent": {
     "message": "Salt la conținutul principal",

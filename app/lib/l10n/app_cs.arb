@@ -42,8 +42,8 @@
   "month": "Měsíc",
   "version": "Verze",
   "intro": "Úvod",
-  "webdav": "WebDAV",
-  "webdavDescription": "WebDAV rozhraní umožňuje přístup k vašim datům z jakéhokoliv WebDAV serveru. Můžete ji použít k synchronizaci dat s jinými zařízeními nebo službami.",
+  "caldavDescription": "Rozhraní CalDAV umožňuje přístup k vašim datům z jakéhokoliv serveru CalDAV. Má omezenou podporu a jsou podporovány pouze základní funkce. Můžete ji použít k synchronizaci dat s jinými zařízeními nebo službami.",
+  "webdavDescription": "WebDAV rozhraní umožňuje přístup k vašim datům z jakéhokoliv WebDAV serveru. Soubory a adresáře pro ukládání dat. Můžete je použít k synchronizaci dat s jinými zařízeními nebo službami.",
   "server": "Server",
   "serverDescription": "Synchronizujte svá data s nativním Linwood Flow serverem. To je doporučeno pro uživatele, kteří chtějí hostit svá data.",
   "googleDescription": "Synchronizujte svá data s Googlem. To je doporučeno uživatelům, kteří chtějí použít svůj účet Google pro přístup ke svým datům. Ne všechny funkce jsou dostupné s touto možností.",
@@ -65,9 +65,9 @@
   "draft": "Koncept",
   "cancelled": "Zrušeno",
   "general": "Obecná ustanovení",
-  "todos": "Todos",
-  "createTodo": "Vytvořit úkol",
-  "editTodo": "Upravit úkol",
+  "notes": "Poznámky",
+  "createNote": "Vytvořit poznámku",
+  "editNote": "Upravit poznámku",
   "indicatorEmpty": "Nebyly nalezeny žádné položky",
   "indicatorEmptyDescription": "Seznam je momentálně prázdný.",
   "indicatorLoading": "Načítání",
@@ -102,7 +102,7 @@
   "filter": "Filtr",
   "done": "Hotovo",
   "inProgress": "Probíhá",
-  "todo": "Todo",
+  "note": "Poznámka",
   "delete": "Vymazat",
   "edit": "Upravit",
   "deleteGroup": "Odstranit skupinu {name}",
@@ -202,5 +202,51 @@
   },
   "import": "Importovat",
   "confirmImport": "Jste si jisti, že ho chcete importovat?",
-  "welcome": "Vítejte"
+  "welcome": "Vítejte",
+  "url": "URL",
+  "username": "Uživatelské jméno",
+  "password": "Heslo",
+  "connect": "Připojit",
+  "data": "Údaje",
+  "syncing": "Synchronizace",
+  "synced": "Synchronizováno",
+  "error": "Chyba",
+  "always": "Vždy",
+  "noMobile": "Žádný mobil",
+  "manual": "Ruční",
+  "syncMode": "Režim synchronizace",
+  "todo": "Todo",
+  "appointment": "Jmenování",
+  "moment": "Moment",
+  "time": "Čas",
+  "deleteEvent": "Odstranit událost {name}",
+  "@deleteEvent": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "deleteEventDescription": "Jste si jisti, že chcete odstranit událost {name}?",
+  "@deleteEventDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "createAppointment": "Vytvořit jmenování",
+  "editAppointment": "Upravit jmenování",
+  "createMoment": "Vytvořit okamžik",
+  "editMoment": "Upravit okamžik",
+  "convertToNote": "Převést na poznámku",
+  "convertToTodo": "Převést na úkol",
+  "open": "Otevřít",
+  "limited": "Omezeno",
+  "notSet": "Nenastaveno",
+  "createPending": "Vytvořit nevyřízené",
+  "editPending": "Upravit čekající",
+  "convertTo": "Převést na"
 }

@@ -23,45 +23,41 @@
     "message": "Λήψεις",
     "description": "homepage downloads button"
   },
-  "Cross platform": {
-    "message": "Διασταυρούμενη πλατφόρμα",
-    "description": "Features cross-platform title"
+  "Time management": {
+    "message": "Διαχείριση χρόνου",
+    "description": "Features Time management title"
   },
-  "You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.": {
-    "message": "Μπορείτε να χρησιμοποιήσετε την εφαρμογή στο τηλέφωνο, το tablet, το laptop ή την επιφάνεια εργασίας. Η εφαρμογή είναι διαθέσιμη σε Linux, Android και Windows. Μπορείτε επίσης να χρησιμοποιήσετε την εφαρμογή στο διαδίκτυο.",
-    "description": "Features cross-platform description"
+  "Manage the time efficiency and automate it.": {
+    "message": "Διαχειριστείτε την αποδοτικότητα του χρόνου και αυτοματοποιήστε την.",
+    "description": "Features Time management description"
   },
-  "Simple and intuitive": {
-    "message": "Απλό και διαισθητικό",
-    "description": "Features simple title"
+  "Event management": {
+    "message": "Διαχείριση συμβάντων",
+    "description": "Features Event management title"
   },
-  "Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.": {
-    "message": "Κάθε εργαλείο είναι στο σωστό μέρος. Ανοίξτε την εφαρμογή και ξεκινήστε το σχέδιο. Αλλάξτε τα εργαλεία σας κάνοντας κλικ πάνω της.",
-    "description": "Features simple description"
+  "Schedule events, assign users to it and give tasks to them": {
+    "message": "Προγραμματισμός εκδηλώσεων, εκχώρηση χρηστών σε αυτό και παροχή εργασιών σε αυτούς",
+    "description": "Features Event management description"
   },
-  "Customizable": {
-    "message": "Προσαρμόσιμο",
-    "description": "Features customizable title"
+  "Your data": {
+    "message": "Τα δεδομένα σας",
+    "description": "Features Your data title"
   },
-  "Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.": {
-    "message": "Αλλάξτε τα πάντα στις ανάγκες σας. Επιλέξτε το προσαρμοσμένο σας χρώμα, δημιουργήστε μια παλέτα και προσθέστε τις σελίδες σας στο χαρτί. Το χαρτί έχει άπειρο μέγεθος, ιδανικό για τις ιδέες και τις σημειώσεις σας.",
-    "description": "Features customizable description"
+  "Everyone can create their own server and have your data on it.": {
+    "message": "Ο καθένας μπορεί να δημιουργήσει το δικό του διακομιστή και να έχει τα δεδομένα σας σε αυτό.",
+    "description": "Features Your data description"
   },
-  "Choose where your data is stored": {
-    "message": "Επιλέξτε πού αποθηκεύονται τα δεδομένα σας",
-    "description": "Features local title"
+  "Open source": {
+    "message": "Ανοιχτός κώδικας",
+    "description": "Features Open source title"
   },
-  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
-    "message": "Μπορείτε να επιλέξετε να αποθηκεύσετε τα δεδομένα σας τοπικά ή στο αγαπημένο σας cloud (webdav). Μπορείτε επίσης να εξάγετε τα δεδομένα σας σε ένα αρχείο και να τα εισάγετε ξανά.",
-    "description": "Features local description"
+  "The app and the server are all open source. Everyone can contribute!": {
+    "message": "Η εφαρμογή και ο διακομιστής είναι όλοι ανοιχτοί κώδικας. Όλοι μπορούν να συνεισφέρουν!",
+    "description": "Features Open source description"
   },
   "theme.ErrorPageContent.title": {
     "message": "Αυτή η σελίδα κατέρρευσε.",
     "description": "The title of the fallback page when the page crashed"
-  },
-  "theme.ErrorPageContent.tryAgain": {
-    "message": "Προσπαθήστε ξανά",
-    "description": "The label of the button to try again when the page crashed"
   },
   "theme.NotFound.title": {
     "message": "Η Σελίδα Δεν Βρέθηκε",
@@ -270,6 +266,10 @@
     "message": "Σε αυτή τη σελίδα",
     "description": "The label used by the button on the collapsible TOC component"
   },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "Ένα λεπτό διαβάστηκε{readingTime} λεπτά",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
   "theme.blog.post.readMore": {
     "message": "Διαβάστε Περισσότερα",
     "description": "The label used in blog post item excerpts to link to full blog posts"
@@ -277,10 +277,6 @@
   "theme.blog.post.readMoreLabel": {
     "message": "Διαβάστε περισσότερα για {title}",
     "description": "The ARIA label for the link to full blog posts from excerpts"
-  },
-  "theme.blog.post.readingTime.plurals": {
-    "message": "Ένα λεπτό διαβάστηκε{readingTime} λεπτά",
-    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
   "theme.docs.breadcrumbs.home": {
     "message": "Αρχική σελίδα",
@@ -329,6 +325,10 @@
   "theme.PwaReloadPopup.closeButtonAriaLabel": {
     "message": "Κλείσιμο",
     "description": "The ARIA label for close button of PWA reload popup"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Προσπαθήστε ξανά",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
   },
   "theme.common.skipToMainContent": {
     "message": "Μετάβαση στο κύριο περιεχόμενο",

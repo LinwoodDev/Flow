@@ -23,45 +23,41 @@
     "message": "downloads",
     "description": "homepage downloads button"
   },
-  "Cross platform": {
-    "message": "Cross platform",
-    "description": "Features cross-platform title"
+  "Time management": {
+    "message": "Tijdsbeheer",
+    "description": "Features Time management title"
   },
-  "You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.": {
-    "message": "U kunt de app gebruiken op uw telefoon, tablet, laptop, of desktop. De app is beschikbaar op Linux, Android en Windows. U kunt de app ook gebruiken op het web.",
-    "description": "Features cross-platform description"
+  "Manage the time efficiency and automate it.": {
+    "message": "Beheer de tijd efficiëntie en automatiseer het.",
+    "description": "Features Time management description"
   },
-  "Simple and intuitive": {
-    "message": "Eenvoudig en intuïtief",
-    "description": "Features simple title"
+  "Event management": {
+    "message": "Gebeurtenis beheer",
+    "description": "Features Event management title"
   },
-  "Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.": {
-    "message": "Elk gereedschap is op de juiste plaats. Open de app en begin met tekenen. Verander je gereedschap door erop te klikken.",
-    "description": "Features simple description"
+  "Schedule events, assign users to it and give tasks to them": {
+    "message": "Plan gebeurtenissen, wijs gebruikers hieraan toe en geef taken aan hen",
+    "description": "Features Event management description"
   },
-  "Customizable": {
-    "message": "Aanpasbaar",
-    "description": "Features customizable title"
+  "Your data": {
+    "message": "Uw gegevens",
+    "description": "Features Your data title"
   },
-  "Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.": {
-    "message": "Verander alles naar je behoeften. Kies je eigen kleur, maak een palet en voeg je pagina's toe aan het papier. Het papier heeft een oneindig formaat, perfect voor uw ideeën en notities.",
-    "description": "Features customizable description"
+  "Everyone can create their own server and have your data on it.": {
+    "message": "Iedereen kan zijn eigen server maken en er jouw gegevens op hebben.",
+    "description": "Features Your data description"
   },
-  "Choose where your data is stored": {
-    "message": "Kies waar uw gegevens worden opgeslagen",
-    "description": "Features local title"
+  "Open source": {
+    "message": "Open bron",
+    "description": "Features Open source title"
   },
-  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
-    "message": "U kunt ervoor kiezen om uw gegevens lokaal of in uw favoriete cloud (webdav) op te slaan. U kunt uw gegevens ook naar een bestand exporteren en opnieuw importeren.",
-    "description": "Features local description"
+  "The app and the server are all open source. Everyone can contribute!": {
+    "message": "De app en de server zijn allemaal open source. Iedereen kan bijdragen!",
+    "description": "Features Open source description"
   },
   "theme.ErrorPageContent.title": {
     "message": "Deze pagina is gecrasht.",
     "description": "The title of the fallback page when the page crashed"
-  },
-  "theme.ErrorPageContent.tryAgain": {
-    "message": "Opnieuw proberen",
-    "description": "The label of the button to try again when the page crashed"
   },
   "theme.NotFound.title": {
     "message": "Pagina niet gevonden",
@@ -270,6 +266,10 @@
     "message": "Op deze pagina",
     "description": "The label used by the button on the collapsible TOC component"
   },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "Één minuut gelezen,{readingTime} minuten gelezen",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
   "theme.blog.post.readMore": {
     "message": "Meer informatie",
     "description": "The label used in blog post item excerpts to link to full blog posts"
@@ -277,10 +277,6 @@
   "theme.blog.post.readMoreLabel": {
     "message": "Lees meer over {title}",
     "description": "The ARIA label for the link to full blog posts from excerpts"
-  },
-  "theme.blog.post.readingTime.plurals": {
-    "message": "Één minuut gelezen,{readingTime} minuten gelezen",
-    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
   "theme.docs.breadcrumbs.home": {
     "message": "Persoonlijke webpagina",
@@ -329,6 +325,10 @@
   "theme.PwaReloadPopup.closeButtonAriaLabel": {
     "message": "Afsluiten",
     "description": "The ARIA label for close button of PWA reload popup"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Opnieuw proberen",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
   },
   "theme.common.skipToMainContent": {
     "message": "Ga naar de hoofdinhoud",

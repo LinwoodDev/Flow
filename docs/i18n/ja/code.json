@@ -23,45 +23,41 @@
     "message": "ダウンロード",
     "description": "homepage downloads button"
   },
-  "Cross platform": {
-    "message": "クロスプラットフォーム",
-    "description": "Features cross-platform title"
+  "Time management": {
+    "message": "時間管理",
+    "description": "Features Time management title"
   },
-  "You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.": {
-    "message": "携帯電話、タブレット、ラップトップ、またはデスクトップでアプリを使用できます。 アプリは、Linux、Android、および Windows 上で利用できます。また、ウェブ上でアプリを使用することもできます。",
-    "description": "Features cross-platform description"
+  "Manage the time efficiency and automate it.": {
+    "message": "時間効率を管理し、自動化します。",
+    "description": "Features Time management description"
   },
-  "Simple and intuitive": {
-    "message": "シンプルで直感的な",
-    "description": "Features simple title"
+  "Event management": {
+    "message": "イベント管理",
+    "description": "Features Event management title"
   },
-  "Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.": {
-    "message": "すべてのツールは正しい場所にあります。アプリを開いて描き始めましょう。ツールをクリックして変更してください。",
-    "description": "Features simple description"
+  "Schedule events, assign users to it and give tasks to them": {
+    "message": "予定をスケジュールし、ユーザーを割り当て、タスクを彼らに与える",
+    "description": "Features Event management description"
   },
-  "Customizable": {
-    "message": "カスタマイズ可能",
-    "description": "Features customizable title"
+  "Your data": {
+    "message": "あなたのデータ",
+    "description": "Features Your data title"
   },
-  "Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.": {
-    "message": "必要に応じてすべてを変更します。カスタムカラーを選択し、パレットを作成し、ページを紙に追加します。 紙は無限のサイズを持っています, あなたのアイデアやノートに最適.",
-    "description": "Features customizable description"
+  "Everyone can create their own server and have your data on it.": {
+    "message": "誰もが独自のサーバーを作成し、あなたのデータを持つことができます。",
+    "description": "Features Your data description"
   },
-  "Choose where your data is stored": {
-    "message": "データの保存場所を選択してください",
-    "description": "Features local title"
+  "Open source": {
+    "message": "オープンソース",
+    "description": "Features Open source title"
   },
-  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
-    "message": "データをローカルまたはお気に入りのクラウド(webdav)に保存することができます。 データをファイルにエクスポートして再度インポートすることもできます。",
-    "description": "Features local description"
+  "The app and the server are all open source. Everyone can contribute!": {
+    "message": "アプリとサーバーはすべてオープンソースです。誰でも参加できます！",
+    "description": "Features Open source description"
   },
   "theme.ErrorPageContent.title": {
     "message": "このページはクラッシュしました。",
     "description": "The title of the fallback page when the page crashed"
-  },
-  "theme.ErrorPageContent.tryAgain": {
-    "message": "もう一度やり直してください",
-    "description": "The label of the button to try again when the page crashed"
   },
   "theme.NotFound.title": {
     "message": "ページが見つかりません",
@@ -270,6 +266,10 @@
     "message": "このページ",
     "description": "The label used by the button on the collapsible TOC component"
   },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "1 分で読む|{readingTime} 分で読む。",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
   "theme.blog.post.readMore": {
     "message": "続きを読む",
     "description": "The label used in blog post item excerpts to link to full blog posts"
@@ -277,10 +277,6 @@
   "theme.blog.post.readMoreLabel": {
     "message": "{title} についてもっと読む",
     "description": "The ARIA label for the link to full blog posts from excerpts"
-  },
-  "theme.blog.post.readingTime.plurals": {
-    "message": "1 分で読む|{readingTime} 分で読む。",
-    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
   "theme.docs.breadcrumbs.home": {
     "message": "ホームページ",
@@ -329,6 +325,10 @@
   "theme.PwaReloadPopup.closeButtonAriaLabel": {
     "message": "閉じる",
     "description": "The ARIA label for close button of PWA reload popup"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "もう一度やり直してください",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
   },
   "theme.common.skipToMainContent": {
     "message": "メインコンテンツにスキップ",

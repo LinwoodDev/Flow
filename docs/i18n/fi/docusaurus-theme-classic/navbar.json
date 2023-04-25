@@ -3,6 +3,10 @@
     "message": "Virtaus",
     "description": "The title in the navbar"
   },
+  "logo.alt": {
+    "message": "Virtauksen Logo",
+    "description": "The alt text of navbar logo"
+  },
   "item.label.Tutorial": {
     "message": "Opastus",
     "description": "Navbar item with label Tutorial"
@@ -43,12 +47,12 @@
     "message": "Twitter",
     "description": "Navbar item with label Twitter"
   },
-  "item.label.Masnoten": {
-    "message": "Masnoten",
-    "description": "Navbar item with label Masnoten"
-  },
   "item.label.License": {
     "message": "Lisenssi",
     "description": "Navbar item with label License"
+  },
+  "item.label.Mastodon": {
+    "message": "Mastodon",
+    "description": "Navbar item with label Mastodon"
   }
 }

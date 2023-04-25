@@ -42,7 +42,7 @@ Voglio informare gli utenti di questo Servizio che queste terze parti hanno acce
 
 **Sicurezza**
 
-Apprezzo la vostra fiducia nel fornirci le vostre informazioni personali, così ci sforziamo di utilizzare mezzi commercialmente accettabili per proteggerle. Ma ricordate che nessun menote di trasmissione su internet, o menote di archiviazione elettronica è 100% sicuro e affidabile, e non posso garantire la sua assoluta sicurezza.
+Apprezzo la vostra fiducia nel fornirci le vostre informazioni personali, così ci sforziamo di utilizzare mezzi commercialmente accettabili per proteggerle. Ma ricordate che nessun metodo di trasmissione su internet, o metodo di archiviazione elettronica è 100% sicuro e affidabile, e non posso garantire la sua assoluta sicurezza.
 
 **Collegamenti ad altri siti**
 

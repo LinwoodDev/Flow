@@ -42,8 +42,8 @@
   "month": "Måned",
   "version": "Versjon",
   "intro": "Introduksjon",
-  "webdav": "WebDAV",
-  "webdavDescription": "WebDAV-grensesnittet gir deg tilgang til data fra en hvilken som helst WebDAV-server. Du kan bruke den for å synkronisere dataene med andre enheter eller tjenester.",
+  "caldavDescription": "CalDAV-grensesnittet gir deg tilgang til dine data fra hvilken som helst CalDAV-server. Det har begrenset støtte og bare grunnleggende funksjoner støttes. Du kan bruke den for å synkronisere dataene med andre enheter og tjenester.",
+  "webdavDescription": "WebDAV-grensesnittet gir deg tilgang til data fra en hvilken som helst WebDAV-server. Den filer og kataloger for å lagre data. Du kan bruke den for å synkronisere dataene med andre enheter eller tjenester.",
   "server": "Tjener",
   "serverDescription": "Synkroniser dataene dine med en naturlig Linewood Flow server. Dette er anbefalt for brukere som vil selv-arrangere dataene.",
   "googleDescription": "Synkroniser dataene dine med Google. Dette anbefales for brukere som vil bruke Google-kontoen sin for å få tilgang til dataene. Ikke alle funksjoner er tilgjengelige med dette alternativet.",
@@ -65,9 +65,9 @@
   "draft": "Utkast",
   "cancelled": "Avbrutt",
   "general": "Generelt",
-  "todos": "Todos",
-  "createTodo": "Opprett gjøremål",
-  "editTodo": "Rediger ToDo",
+  "notes": "Notater",
+  "createNote": "Opprett notat",
+  "editNote": "Rediger notat",
   "indicatorEmpty": "Ingen produkter funnet",
   "indicatorEmptyDescription": "Listen er for øyeblikket tom.",
   "indicatorLoading": "Laster",
@@ -102,7 +102,7 @@
   "filter": "Filtrer",
   "done": "Ferdig",
   "inProgress": "Under arbeid",
-  "todo": "Todo",
+  "note": "Notat",
   "delete": "Slett",
   "edit": "Rediger",
   "deleteGroup": "Slett gruppen {name}",
@@ -202,5 +202,51 @@
   },
   "import": "Importer",
   "confirmImport": "Er du sikker på at du vil importere den?",
-  "welcome": "Velkommen"
+  "welcome": "Velkommen",
+  "url": "Nettadresse",
+  "username": "Brukernavn",
+  "password": "Passord",
+  "connect": "Nettverk",
+  "data": "Data",
+  "syncing": "Synkroniserer",
+  "synced": "Synkronisert",
+  "error": "Feil",
+  "always": "Alltid",
+  "noMobile": "Ingen mobil",
+  "manual": "Manuell",
+  "syncMode": "Synk modus",
+  "todo": "Todo",
+  "appointment": "Avtale",
+  "moment": "Moment",
+  "time": "Tid",
+  "deleteEvent": "Slett hendelsen {name}",
+  "@deleteEvent": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "deleteEventDescription": "Er du sikker på at du vil slette hendelsen {name}?",
+  "@deleteEventDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "createAppointment": "Opprett aktivitet",
+  "editAppointment": "Rediger aktivitet",
+  "createMoment": "Opprett øyeblikk",
+  "editMoment": "Rediger øyeblikk",
+  "convertToNote": "Konverter til notat",
+  "convertToTodo": "Konverter til todo",
+  "open": "Åpne",
+  "limited": "Begrenset",
+  "notSet": "Ikke angitt",
+  "createPending": "Opprett ventende",
+  "editPending": "Rediger ventende",
+  "convertTo": "Konverter til"
 }

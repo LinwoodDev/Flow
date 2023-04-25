@@ -42,8 +42,8 @@
   "month": "Lună",
   "version": "Versiune",
   "intro": "Introducere",
-  "webdav": "WebDAV",
-  "webdavDescription": "Interfaţa WebDAV vă permite să accesaţi datele de pe orice server WebDAV. Îl puteți folosi pentru a vă sincroniza datele cu alte dispozitive sau servicii.",
+  "caldavDescription": "Interfaţa CalDAV vă permite să accesaţi datele de pe orice server CalDAV. Are suport limitat și sunt acceptate numai funcțiile de bază. Îl puteți folosi pentru a sincroniza datele cu alte dispozitive sau servicii.",
+  "webdavDescription": "Interfaţa WebDAV vă permite să accesaţi datele de pe orice server WebDAV. Fişiere şi directoare pentru a stoca date. Îl puteţi folosi pentru a sincroniza datele cu alte dispozitive sau servicii.",
   "server": "Server",
   "serverDescription": "Sincronizați-vă datele cu un server nativ Linwood Flow server. Acest lucru este recomandat utilizatorilor care doresc să își găzduiască datele.",
   "googleDescription": "Sincronizați-vă datele cu Google. Acest lucru este recomandat pentru utilizatorii care doresc să utilizeze contul lor Google pentru a le accesa datele. Nu sunt disponibile toate caracteristicile cu această opțiune.",
@@ -65,9 +65,9 @@
   "draft": "Schiță",
   "cancelled": "Anulat",
   "general": "Generalități",
-  "todos": "Todos",
-  "createTodo": "Creare todo",
-  "editTodo": "Editare todo",
+  "notes": "Note",
+  "createNote": "Creaţi o notă",
+  "editNote": "Editare notă",
   "indicatorEmpty": "Niciun element găsit",
   "indicatorEmptyDescription": "Lista este în prezent goală.",
   "indicatorLoading": "Încărcare",
@@ -102,7 +102,7 @@
   "filter": "Filtrare",
   "done": "Terminat",
   "inProgress": "În curs",
-  "todo": "Todo",
+  "note": "Notă",
   "delete": "Ștergere",
   "edit": "Editare",
   "deleteGroup": "Șterge grupul {name}",
@@ -202,5 +202,51 @@
   },
   "import": "Importă",
   "confirmImport": "Sunteţi sigur că doriţi să importați?",
-  "welcome": "Bun venit"
+  "welcome": "Bun venit",
+  "url": "URL",
+  "username": "Nume",
+  "password": "Parolă",
+  "connect": "Conectează-te",
+  "data": "Date",
+  "syncing": "Sincronizare",
+  "synced": "Sincronizat",
+  "error": "Eroare",
+  "always": "Întotdeauna",
+  "noMobile": "Niciun mobil",
+  "manual": "Manual",
+  "syncMode": "Mod sincronizare",
+  "todo": "Todo",
+  "appointment": "Numire",
+  "moment": "Moment",
+  "time": "Timp",
+  "deleteEvent": "Șterge evenimentul {name}",
+  "@deleteEvent": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "deleteEventDescription": "Ești sigur că vrei să ștergi evenimentul {name}?",
+  "@deleteEventDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "createAppointment": "Creaza intalnire",
+  "editAppointment": "Editare programare",
+  "createMoment": "Crează moment",
+  "editMoment": "Editare moment",
+  "convertToNote": "Convertește la notă",
+  "convertToTodo": "Convertește la todo",
+  "open": "Deschideți",
+  "limited": "Limitat",
+  "notSet": "Nu este setat",
+  "createPending": "Creare în așteptare",
+  "editPending": "Editare în așteptare",
+  "convertTo": "Convertește în"
 }

@@ -23,45 +23,41 @@
     "message": "التنزيلات",
     "description": "homepage downloads button"
   },
-  "Cross platform": {
-    "message": "منصة متقاطعة",
-    "description": "Features cross-platform title"
+  "Time management": {
+    "message": "إدارة الوقت",
+    "description": "Features Time management title"
   },
-  "You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.": {
-    "message": "يمكنك استخدام التطبيق على الهاتف أو الجهاز اللوحي أو الكمبيوتر المحمول أو سطح المكتب. التطبيق متاح على لينوكس، وأندرويد، وويندوز. يمكنك أيضًا استخدام التطبيق على الويب.",
-    "description": "Features cross-platform description"
+  "Manage the time efficiency and automate it.": {
+    "message": "إدارة كفاءة الوقت وأتمته.",
+    "description": "Features Time management description"
   },
-  "Simple and intuitive": {
-    "message": "بسيط وبديهي",
-    "description": "Features simple title"
+  "Event management": {
+    "message": "إدارة الحدث",
+    "description": "Features Event management title"
   },
-  "Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.": {
-    "message": "كل أداة موجودة في المكان الصحيح. افتح التطبيق وابدأ الرسم. غيّر أدواتك بالنقر عليها.",
-    "description": "Features simple description"
+  "Schedule events, assign users to it and give tasks to them": {
+    "message": "جدولة الأحداث، تعيين المستخدمين لها وإعطاء المهام لهم",
+    "description": "Features Event management description"
   },
-  "Customizable": {
-    "message": "قابل للتخصيص",
-    "description": "Features customizable title"
+  "Your data": {
+    "message": "البيانات الخاصة بك",
+    "description": "Features Your data title"
   },
-  "Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.": {
-    "message": "قم بتغيير كل شيء إلى احتياجاتك. اختر لونك المخصص, قم بإنشاء لوحة صوتية وأضف صفحاتك إلى الورق. الورقة لها حجم لا حدود له، مثالي لأفكارك وملاحظاتك.",
-    "description": "Features customizable description"
+  "Everyone can create their own server and have your data on it.": {
+    "message": "يمكن للجميع إنشاء خادم خاص بهم والحصول على بياناتك على ذلك.",
+    "description": "Features Your data description"
   },
-  "Choose where your data is stored": {
-    "message": "اختر مكان تخزين بياناتك",
-    "description": "Features local title"
+  "Open source": {
+    "message": "المصدر المفتوح",
+    "description": "Features Open source title"
   },
-  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
-    "message": "يمكنك اختيار تخزين بياناتك محليا أو في السحابة المفضلة لديك (webdav). يمكنك أيضا تصدير بياناتك إلى ملف واستيرادها مرة أخرى.",
-    "description": "Features local description"
+  "The app and the server are all open source. Everyone can contribute!": {
+    "message": "التطبيق والخادم كلهما مفتوح المصدر. يمكن للجميع المساهمة!",
+    "description": "Features Open source description"
   },
   "theme.ErrorPageContent.title": {
     "message": "تحطمت هذه الصفحة.",
     "description": "The title of the fallback page when the page crashed"
-  },
-  "theme.ErrorPageContent.tryAgain": {
-    "message": "حاول مرة أخرى",
-    "description": "The label of the button to try again when the page crashed"
   },
   "theme.NotFound.title": {
     "message": "الصفحة غير موجودة",
@@ -270,6 +266,10 @@
     "message": "في هذه الصفحة",
     "description": "The label used by the button on the collapsible TOC component"
   },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "قراءة دقيقة واحدة{readingTime} دقيقة",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
   "theme.blog.post.readMore": {
     "message": "اقرأ المزيد",
     "description": "The label used in blog post item excerpts to link to full blog posts"
@@ -277,10 +277,6 @@
   "theme.blog.post.readMoreLabel": {
     "message": "اقرأ المزيد حول {title}",
     "description": "The ARIA label for the link to full blog posts from excerpts"
-  },
-  "theme.blog.post.readingTime.plurals": {
-    "message": "قراءة دقيقة واحدة{readingTime} دقيقة",
-    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
   "theme.docs.breadcrumbs.home": {
     "message": "الصفحة الرئيسية",
@@ -329,6 +325,10 @@
   "theme.PwaReloadPopup.closeButtonAriaLabel": {
     "message": "أغلق",
     "description": "The ARIA label for close button of PWA reload popup"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "حاول مرة أخرى",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
   },
   "theme.common.skipToMainContent": {
     "message": "تخطي إلى المحتوى الرئيسي",

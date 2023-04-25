@@ -42,8 +42,8 @@
   "month": "Månad",
   "version": "Version",
   "intro": "Introduktion",
-  "webdav": "WebDAV",
-  "webdavDescription": "Med WebDAV-gränssnittet kan du komma åt dina data från vilken WebDAV-server som helst. Du kan använda den för att synkronisera dina data med andra enheter eller tjänster.",
+  "caldavDescription": "CalDAV-gränssnittet låter dig komma åt dina data från alla CalDAV-servrar. Det har begränsat stöd och endast grundläggande funktioner stöds. Du kan använda det för att synkronisera dina data med andra enheter eller tjänster.",
+  "webdavDescription": "Med WebDAV-gränssnittet kan du komma åt dina data från vilken WebDAV-server som helst. Det filer och kataloger att lagra data. Du kan använda den för att synkronisera dina data med andra enheter eller tjänster.",
   "server": "Server",
   "serverDescription": "Synkronisera dina data med en infödd Linwood Flow-server. Detta rekommenderas för användare som själv vill vara värd för sina data.",
   "googleDescription": "Synkronisera dina data med Google. Detta rekommenderas för användare som vill använda sitt Google-konto för att komma åt sina data. Alla funktioner är inte tillgängliga med det här alternativet.",
@@ -65,9 +65,9 @@
   "draft": "Utkast",
   "cancelled": "Avbruten",
   "general": "Allmänt",
-  "todos": "Todos",
-  "createTodo": "Skapa att göra",
-  "editTodo": "Redigera todo",
+  "notes": "Anteckningar",
+  "createNote": "Skapa anteckning",
+  "editNote": "Redigera anteckning",
   "indicatorEmpty": "Inga objekt hittades",
   "indicatorEmptyDescription": "Listan är för närvarande tom.",
   "indicatorLoading": "Laddar",
@@ -102,7 +102,7 @@
   "filter": "Filtrera",
   "done": "Klar",
   "inProgress": "pågår",
-  "todo": "Todo",
+  "note": "Anteckning",
   "delete": "Radera",
   "edit": "Redigera",
   "deleteGroup": "Ta bort grupp {name}",
@@ -202,5 +202,51 @@
   },
   "import": "Importera",
   "confirmImport": "Är du säker du vill importera den?",
-  "welcome": "Välkommen"
+  "welcome": "Välkommen",
+  "url": "URL",
+  "username": "Användarnamn",
+  "password": "Lösenord",
+  "connect": "Anslut",
+  "data": "Data",
+  "syncing": "Synkroniserar",
+  "synced": "Synkroniserad",
+  "error": "Fel",
+  "always": "Alltid",
+  "noMobile": "Ingen mobil",
+  "manual": "Manuell",
+  "syncMode": "Synkronisera läge",
+  "todo": "Todo",
+  "appointment": "Utnämning",
+  "moment": "Ögonblick",
+  "time": "Tid",
+  "deleteEvent": "Ta bort händelse {name}",
+  "@deleteEvent": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "deleteEventDescription": "Är du säker på att du vill radera händelsen {name}?",
+  "@deleteEventDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "createAppointment": "Skapa tid",
+  "editAppointment": "Redigera tid",
+  "createMoment": "Skapa ögonblick",
+  "editMoment": "Redigera ögonblick",
+  "convertToNote": "Konvertera till anteckning",
+  "convertToTodo": "Konvertera till todo",
+  "open": "Öppna",
+  "limited": "Begränsad",
+  "notSet": "Ej inställd",
+  "createPending": "Skapa väntande",
+  "editPending": "Redigera väntande",
+  "convertTo": "Konvertera till"
 }

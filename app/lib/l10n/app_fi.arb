@@ -42,8 +42,8 @@
   "month": "Kuukausi",
   "version": "Versio",
   "intro": "Esittely",
-  "webdav": "WebDAV",
-  "webdavDescription": "WebDAV käyttöliittymän avulla voit käyttää tietoja tahansa WebDAV palvelimella. Voit käyttää sitä synkronoidaksesi tietosi muiden laitteiden tai palveluiden kanssa.",
+  "caldavDescription": "CalDAV käyttöliittymän avulla voit käyttää tietoja tahansa CalDAV palvelimen. Se on rajoitettu tuki ja vain perustoiminnot ovat tuettuja. Voit käyttää sitä synkronoidaksesi dataa muiden laitteiden tai palveluiden kanssa.",
+  "webdavDescription": "WebDAV käyttöliittymän avulla voit käyttää tietoja tahansa WebDAV palvelimella. Se tiedostoja ja hakemistoja tallentaa tietoja. Voit käyttää sitä synkronoida tietoja muiden laitteiden tai palvelujen kanssa.",
   "server": "Palvelin",
   "serverDescription": "Synkronoi tietosi natiivin Linwood Flow palvelimen kanssa. Tätä suositellaan käyttäjille, jotka haluavat itse isännöidä tietojaan.",
   "googleDescription": "Synkronoi tietosi Googlen kanssa. Tämä on suositeltavaa käyttäjille, jotka haluavat käyttää Google-tiliään päästäkseen käsiksi tietoihinsa. Kaikki ominaisuudet eivät ole käytettävissä tällä asetuksella.",
@@ -65,9 +65,9 @@
   "draft": "Luonnos",
   "cancelled": "Peruutettu",
   "general": "Yleiset",
-  "todos": "Todos",
-  "createTodo": "Luo todo",
-  "editTodo": "Muokkaa todoa",
+  "notes": "Muistiinpanot",
+  "createNote": "Luo merkintä",
+  "editNote": "Muokkaa merkintää",
   "indicatorEmpty": "Kohteita ei löytynyt",
   "indicatorEmptyDescription": "Luettelo on tällä hetkellä tyhjä.",
   "indicatorLoading": "Ladataan",
@@ -102,7 +102,7 @@
   "filter": "Suodatin",
   "done": "Valmis",
   "inProgress": "Toiminto käynnissä",
-  "todo": "Todo",
+  "note": "Huomautus",
   "delete": "Poista",
   "edit": "Muokkaa",
   "deleteGroup": "Poista ryhmä {name}",
@@ -202,5 +202,51 @@
   },
   "import": "Tuo",
   "confirmImport": "Oletko varma, että haluat tuoda sen?",
-  "welcome": "Tervetuloa"
+  "welcome": "Tervetuloa",
+  "url": "URL-osoite",
+  "username": "Käyttäjätunnus",
+  "password": "Salasana",
+  "connect": "Yhdistä",
+  "data": "Tiedot",
+  "syncing": "Synkronoidaan",
+  "synced": "Synkronoitu",
+  "error": "Virhe",
+  "always": "Aina",
+  "noMobile": "Ei matkapuhelinta",
+  "manual": "Manuaalinen",
+  "syncMode": "Synkronoinnin tila",
+  "todo": "Todo",
+  "appointment": "Tapaaminen",
+  "moment": "Hetki",
+  "time": "Aika",
+  "deleteEvent": "Poista tapahtuma {name}",
+  "@deleteEvent": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "deleteEventDescription": "Oletko varma, että haluat poistaa tapahtuman {name}?",
+  "@deleteEventDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "createAppointment": "Luo tapaaminen",
+  "editAppointment": "Muokkaa tapaamista",
+  "createMoment": "Luo hetki",
+  "editMoment": "Muokkaa hetkeä",
+  "convertToNote": "Muunna muistiksi",
+  "convertToTodo": "Muunna todoksi",
+  "open": "Avaa",
+  "limited": "Rajoitettu",
+  "notSet": "Ei asetettu",
+  "createPending": "Luo odottaa",
+  "editPending": "Muokkaa odottavia",
+  "convertTo": "Muunna muotoon"
 }

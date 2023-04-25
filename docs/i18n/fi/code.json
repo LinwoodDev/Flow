@@ -23,45 +23,41 @@
     "message": "Lataukset",
     "description": "homepage downloads button"
   },
-  "Cross platform": {
-    "message": "Ristimäinen alustaa",
-    "description": "Features cross-platform title"
+  "Time management": {
+    "message": "Ajan hallinta",
+    "description": "Features Time management title"
   },
-  "You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.": {
-    "message": "Voit käyttää sovellusta puhelimessa, tabletissa, kannettavassa tietokoneessa tai työpöydällä. Sovellus on saatavilla Linuxissa, Androidissa ja Windowsissa. Voit myös käyttää sovellusta verkossa.",
-    "description": "Features cross-platform description"
+  "Manage the time efficiency and automate it.": {
+    "message": "Hallitse aikaa ja automatisoi se.",
+    "description": "Features Time management description"
   },
-  "Simple and intuitive": {
-    "message": "Yksinkertainen ja intuitiivinen",
-    "description": "Features simple title"
+  "Event management": {
+    "message": "Tapahtumien hallinta",
+    "description": "Features Event management title"
   },
-  "Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.": {
-    "message": "Jokainen työkalu on oikeassa paikassa. Avaa sovellus ja aloita piirtäminen. Vaihda työkaluja klikkaamalla sitä.",
-    "description": "Features simple description"
+  "Schedule events, assign users to it and give tasks to them": {
+    "message": "Ajoita tapahtumia, määritä käyttäjät siihen ja anna heille tehtäviä",
+    "description": "Features Event management description"
   },
-  "Customizable": {
-    "message": "Muokattavissa",
-    "description": "Features customizable title"
+  "Your data": {
+    "message": "Sinun tietosi",
+    "description": "Features Your data title"
   },
-  "Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.": {
-    "message": "Muuta kaikki tarpeisiisi. Valitse oma väri, luo paletti ja lisää sivut paperiin. Paperi on ääretön koko, täydellinen ideoita ja muistiinpanoja.",
-    "description": "Features customizable description"
+  "Everyone can create their own server and have your data on it.": {
+    "message": "Kaikki voivat luoda oman palvelimen ja saada tietosi siitä.",
+    "description": "Features Your data description"
   },
-  "Choose where your data is stored": {
-    "message": "Valitse mihin tietosi on tallennettu",
-    "description": "Features local title"
+  "Open source": {
+    "message": "Avoin lähdekoodi",
+    "description": "Features Open source title"
   },
-  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
-    "message": "Voit halutessasi tallentaa tiedot paikallisesti tai suosikki pilveen (webdav). Voit myös viedä tietosi tiedostoon ja tuoda ne uudelleen.",
-    "description": "Features local description"
+  "The app and the server are all open source. Everyone can contribute!": {
+    "message": "Sovellus ja palvelin ovat kaikki avointa lähdekoodia. Kaikki voivat osallistua!",
+    "description": "Features Open source description"
   },
   "theme.ErrorPageContent.title": {
     "message": "Tämä sivu kaatui.",
     "description": "The title of the fallback page when the page crashed"
-  },
-  "theme.ErrorPageContent.tryAgain": {
-    "message": "Yritä uudelleen",
-    "description": "The label of the button to try again when the page crashed"
   },
   "theme.NotFound.title": {
     "message": "Sivua Ei Löytynyt",
@@ -270,6 +266,10 @@
     "message": "Tällä sivulla",
     "description": "The label used by the button on the collapsible TOC component"
   },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "Yksi minuutti lukemista{readingTime} min luettu",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
   "theme.blog.post.readMore": {
     "message": "Lue Lisää",
     "description": "The label used in blog post item excerpts to link to full blog posts"
@@ -277,10 +277,6 @@
   "theme.blog.post.readMoreLabel": {
     "message": "Lue lisää {title}",
     "description": "The ARIA label for the link to full blog posts from excerpts"
-  },
-  "theme.blog.post.readingTime.plurals": {
-    "message": "Yksi minuutti lukemista{readingTime} min luettu",
-    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
   "theme.docs.breadcrumbs.home": {
     "message": "Kotisivu",
@@ -329,6 +325,10 @@
   "theme.PwaReloadPopup.closeButtonAriaLabel": {
     "message": "Sulje",
     "description": "The ARIA label for close button of PWA reload popup"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Yritä uudelleen",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
   },
   "theme.common.skipToMainContent": {
     "message": "Siirry pääsisältöön",

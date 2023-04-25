@@ -42,8 +42,8 @@
   "month": "月",
   "version": "バージョン",
   "intro": "はじめに",
-  "webdav": "WebDAV",
-  "webdavDescription": "WebDAV インターフェイスを使用すると、任意の WebDAV サーバーからデータにアクセスできます。 データを他のデバイスやサービスと同期させるために使用できます。",
+  "caldavDescription": "CalDAV インターフェイスを使用すると、任意の CalDAV サーバーからデータにアクセスできます。 サポートは限られており、基本的な機能のみがサポートされています。データを他のデバイスやサービスと同期させるために使用できます。",
+  "webdavDescription": "WebDAV インターフェイスを使用すると、任意の WebDAV サーバーからデータにアクセスできます。 データを保存するためのファイルとディレクトリです。データを他のデバイスやサービスと同期させるために使用できます。",
   "server": "サーバー",
   "serverDescription": "データをネイティブの Linwood Flow サーバーと同期します。自身のデータを自己ホストしたい場合には推奨します。",
   "googleDescription": "Googleとデータを同期します。Googleアカウントを使用してデータにアクセスする場合に推奨されます。 すべての機能がこのオプションで利用できるわけではありません。",
@@ -65,9 +65,9 @@
   "draft": "ドラフト（下書き）",
   "cancelled": "キャンセルしました",
   "general": "全般",
-  "todos": "Todos",
-  "createTodo": "タスクを作成",
-  "editTodo": "タスクを編集",
+  "notes": "メモ",
+  "createNote": "ノートを作成",
+  "editNote": "ノートを編集",
   "indicatorEmpty": "アイテムが見つかりません",
   "indicatorEmptyDescription": "リストは現在空です。",
   "indicatorLoading": "読み込み中",
@@ -102,7 +102,7 @@
   "filter": "フィルター",
   "done": "完了",
   "inProgress": "進行中",
-  "todo": "Todo",
+  "note": "メモ",
   "delete": "削除",
   "edit": "編集",
   "deleteGroup": "グループ {name} を削除",
@@ -202,5 +202,51 @@
   },
   "import": "インポート",
   "confirmImport": "インポートしてもよろしいですか？",
-  "welcome": "ようこそ"
+  "welcome": "ようこそ",
+  "url": "URL",
+  "username": "ユーザー名",
+  "password": "パスワード",
+  "connect": "接続する",
+  "data": "データ",
+  "syncing": "同期中",
+  "synced": "同期済み",
+  "error": "エラー",
+  "always": "常に表示",
+  "noMobile": "携帯電話がありません",
+  "manual": "マニュアル",
+  "syncMode": "同期モード",
+  "todo": "Todo",
+  "appointment": "予約",
+  "moment": "Moment",
+  "time": "時刻",
+  "deleteEvent": "イベント {name} を削除",
+  "@deleteEvent": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "deleteEventDescription": "イベント {name} を削除してもよろしいですか？",
+  "@deleteEventDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "createAppointment": "予約を作成",
+  "editAppointment": "予定を編集",
+  "createMoment": "モーメントを作成",
+  "editMoment": "瞬間を編集",
+  "convertToNote": "メモに変換",
+  "convertToTodo": "Todoに変換",
+  "open": "開く",
+  "limited": "制限",
+  "notSet": "未設定",
+  "createPending": "保留中の作成",
+  "editPending": "保留中の編集",
+  "convertTo": "変換先"
 }

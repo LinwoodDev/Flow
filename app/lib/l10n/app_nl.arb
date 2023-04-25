@@ -42,8 +42,8 @@
   "month": "maand",
   "version": "Versie",
   "intro": "Introductie",
-  "webdav": "WebDAV",
-  "webdavDescription": "De WebDAV interface geeft u toegang tot uw gegevens vanaf elke WebDAV server. U kunt het gebruiken om uw gegevens te synchroniseren met andere apparaten of diensten.",
+  "caldavDescription": "Op de CalDAV interface kunt u toegang krijgen tot uw gegevens uit elke CalDAV server. Het heeft beperkte ondersteuning en alleen basisfuncties worden ondersteund. U kunt het gebruiken om uw gegevens te synchroniseren met andere apparaten of diensten.",
+  "webdavDescription": "De WebDAV interface geeft u toegang tot uw gegevens vanaf elke WebDAV server. Het zijn bestanden en mappen om gegevens op te slaan. U kunt deze gebruiken om uw gegevens te synchroniseren met andere apparaten of diensten.",
   "server": "Server",
   "serverDescription": "Synchroniseer je gegevens met een native Linwood Flow server. Dit is aanbevolen voor gebruikers die hun gegevens zelf willen organiseren.",
   "googleDescription": "Synchroniseer uw gegevens met Google. Dit wordt aanbevolen voor gebruikers die hun Google-account willen gebruiken om toegang te krijgen tot hun gegevens. Niet alle functies zijn beschikbaar met deze optie.",
@@ -65,9 +65,9 @@
   "draft": "Kladversie",
   "cancelled": "Geannuleerd",
   "general": "Algemeen",
-  "todos": "Todos",
-  "createTodo": "Todo aanmaken",
-  "editTodo": "Todo bewerken",
+  "notes": "Opmerkingen",
+  "createNote": "Notitie maken",
+  "editNote": "Notitie bewerken",
   "indicatorEmpty": "Geen items gevonden",
   "indicatorEmptyDescription": "De lijst is momenteel leeg.",
   "indicatorLoading": "Laden...",
@@ -102,7 +102,7 @@
   "filter": "Filteren",
   "done": "Voltooid",
   "inProgress": "In behandeling",
-  "todo": "Todo",
+  "note": "Notitie",
   "delete": "Verwijderen",
   "edit": "Bewerken",
   "deleteGroup": "Verwijder groep {name}",
@@ -202,5 +202,51 @@
   },
   "import": "Importeren",
   "confirmImport": "Weet u zeker dat u deze wilt importeren?",
-  "welcome": "Verwelkoming"
+  "welcome": "Verwelkoming",
+  "url": "URL",
+  "username": "Gebruikersnaam",
+  "password": "Wachtwoord",
+  "connect": "Verbinden",
+  "data": "Gegevens",
+  "syncing": "Synchroniseren",
+  "synced": "Gesynchroniseerd",
+  "error": "Foutmelding",
+  "always": "altijd",
+  "noMobile": "Geen mobiel",
+  "manual": "Handleiding",
+  "syncMode": "Synchronisatie modus",
+  "todo": "Todo",
+  "appointment": "Afspraak",
+  "moment": "Moment",
+  "time": "Tijd",
+  "deleteEvent": "Afspraak {name} verwijderen",
+  "@deleteEvent": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "deleteEventDescription": "Weet u zeker dat u het evenement {name} wilt verwijderen?",
+  "@deleteEventDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Event name"
+      }
+    }
+  },
+  "createAppointment": "Creëer afspraak",
+  "editAppointment": "Afspraak bewerken",
+  "createMoment": "Moment aanmaken",
+  "editMoment": "Bewerk moment",
+  "convertToNote": "Converteren naar notitie",
+  "convertToTodo": "Converteren naar todo",
+  "open": "Open",
+  "limited": "Beperkt",
+  "notSet": "Niet ingesteld",
+  "createPending": "Aanmaken in afwachting",
+  "editPending": "In afwachting bewerken",
+  "convertTo": "Converteren naar"
 }

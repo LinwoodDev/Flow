@@ -20,6 +20,6 @@ Alle andere licenties vind je in de instellingen.
 
 ## Nuttige links
 
-* [GitHub](https://github.com/LinwoodDev/Flow)
+* [GitHub](https://github.com/LinwoodCloud/Flow)
 * [Onenigheid](https://go.linwood.dev/discord)
 * [Matrix](https://go.linwood.dev/matrix)
