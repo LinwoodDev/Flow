@@ -21,7 +21,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={autopf}\{#MyAppName}  
+DefaultDirName={autopf64}\{#MyAppName}  
 DefaultGroupName={#MyAppPublisher}\{#MyAppName}
 DisableProgramGroupPage=yes
 LicenseFile=..\LICENSE
@@ -59,8 +59,6 @@ Name: "portable"; Description: "Portable mode"
 Name: "full"; Description: "full"; Types: full
 
 [Icons]
-Name: "{group}\Uninstall Flow"; Filename: "{uninstallexe}"
-
 Name: "{group}\Visit Website"; Filename: "http://www.linwood.dev/"
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon

@@ -23,7 +23,7 @@ class InformationSettingsView extends StatelessWidget {
         ListTile(
           title: Text(AppLocalizations.of(context).releaseNotes),
           leading: const Icon(Icons.flag_outlined),
-          onTap: () => launchUrl(Uri.https("go.linwood.dev", "flow/1.0")),
+          onTap: () => launchUrl(Uri.https("go.linwood.dev", "flow/0.1")),
         ),
         ListTile(
           title: const Text("Discord"),
