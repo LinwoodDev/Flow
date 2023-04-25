@@ -1,10 +1,10 @@
 {
   "version.label": {
-    "message": "Next",
+    "message": "下一个",
     "description": "The label for version current"
   },
   "sidebar.tutorialSidebar.category.server": {
-    "message": "server",
+    "message": "服务器",
     "description": "The label for category server in sidebar tutorialSidebar"
   }
 }
