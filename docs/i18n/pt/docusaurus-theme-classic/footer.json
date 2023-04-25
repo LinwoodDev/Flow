@@ -1,14 +1,14 @@
 {
   "link.title.Community": {
-    "message": "Community",
+    "message": "Comunidade",
     "description": "The title of the footer links column with title=Community in the footer"
   },
   "link.title.Source code": {
-    "message": "Source code",
+    "message": "Código fonte",
     "description": "The title of the footer links column with title=Source code in the footer"
   },
   "link.title.Legal": {
-    "message": "Legal",
+    "message": "Informações",
     "description": "The title of the footer links column with title=Legal in the footer"
   },
   "link.item.label.Discord": {
@@ -16,7 +16,7 @@
     "description": "The label of footer link with label=Discord linking to https://discord.linwood.dev"
   },
   "link.item.label.Matrix": {
-    "message": "Matrix",
+    "message": "Matriz",
     "description": "The label of footer link with label=Matrix linking to https://linwood.dev/matrix"
   },
   "link.item.label.Twitter": {
@@ -24,43 +24,43 @@
     "description": "The label of footer link with label=Twitter linking to https://twitter.com/LinwoodDev"
   },
   "link.item.label.App": {
-    "message": "App",
+    "message": "Aplicativo",
     "description": "The label of footer link with label=App linking to https://github.com/LinwoodDev/Flow/tree/develop/app"
   },
   "link.item.label.Server": {
-    "message": "Server",
+    "message": "Servidor",
     "description": "The label of footer link with label=Server linking to https://github.com/LinwoodDev/Flow/tree/develop/server"
   },
   "link.item.label.Docs": {
-    "message": "Docs",
+    "message": "Documentação",
     "description": "The label of footer link with label=Docs linking to https://github.com/LinwoodDev/Flow/tree/develop/docs"
   },
   "link.item.label.Shared": {
-    "message": "Shared",
+    "message": "Compartilhado",
     "description": "The label of footer link with label=Shared linking to https://github.com/LinwoodDev/Flow/tree/develop/shared"
   },
   "link.item.label.Contribution guide": {
-    "message": "Contribution guide",
+    "message": "Guia de contribuição",
     "description": "The label of footer link with label=Contribution guide linking to https://github.com/LinwoodDev/Flow/blob/develop/CONTRIBUTING.md"
   },
   "link.item.label.Imprint": {
-    "message": "Imprint",
+    "message": "Imprimir",
     "description": "The label of footer link with label=Imprint linking to https://go.linwood.dev/imprint"
   },
   "link.item.label.Privacy Policy of the app": {
-    "message": "Privacy Policy of the app",
+    "message": "Política de privacidade do aplicativo",
     "description": "The label of footer link with label=Privacy Policy of the app linking to /privacypolicy"
   },
   "link.item.label.Privacy Policy of the website": {
-    "message": "Privacy Policy of the website",
+    "message": "Política de privacidade do site",
     "description": "The label of footer link with label=Privacy Policy of the website linking to https://go.linwood.dev/privacypolicy"
   },
   "copyright": {
-    "message": "Copyright © 2023 LinwoodDev.",
+    "message": "Copyright ©️ 2023 LinwoodDev.",
     "description": "The footer copyright"
   },
   "logo.alt": {
-    "message": "Linwood Logo",
+    "message": "Logotipo Linwood",
     "description": "The alt text of footer logo"
   },
   "link.item.label.Mastodon": {
