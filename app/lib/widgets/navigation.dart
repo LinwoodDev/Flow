@@ -162,36 +162,39 @@ class FlowNavigation extends StatelessWidget {
                     : _NativeWindowArea(child: child)));
       }
 
-      return Row(
-        textDirection: TextDirection.rtl,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: Scaffold(
-              appBar: appBar,
-              drawer: isMobile
-                  ? const Drawer(
-                      width: _drawerWidth,
-                      child: drawer,
-                    )
-                  : null,
-              endDrawer: isMobile && endDrawer != null
-                  ? Drawer(child: endDrawer)
-                  : null,
-              body: Row(
-                children: [
-                  Expanded(child: body),
-                  if (!isMobile && endDrawer != null)
-                    SizedBox(
-                      width: 250,
-                      child: endDrawer!,
-                    )
-                ],
+      return GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Row(
+          textDirection: TextDirection.rtl,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: Scaffold(
+                appBar: appBar,
+                drawer: isMobile
+                    ? const Drawer(
+                        width: _drawerWidth,
+                        child: drawer,
+                      )
+                    : null,
+                endDrawer: isMobile && endDrawer != null
+                    ? Drawer(child: endDrawer)
+                    : null,
+                body: Row(
+                  children: [
+                    Expanded(child: body),
+                    if (!isMobile && endDrawer != null)
+                      SizedBox(
+                        width: 250,
+                        child: endDrawer!,
+                      )
+                  ],
+                ),
+                floatingActionButton: floatingActionButton,
               ),
-              floatingActionButton: floatingActionButton,
             ),
-          ),
-        ].reversed.toList(),
+          ].reversed.toList(),
+        ),
       );
     });
   }

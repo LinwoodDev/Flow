@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:markdown/markdown.dart' as md;
 
 class MarkdownField extends StatefulWidget {
   final String value;
@@ -78,6 +79,13 @@ class _MarkdownFieldState extends State<MarkdownField> {
                       builder: (context, child) => MarkdownBody(
                         data: _controller.text,
                         onTapText: () => setState(() => _editMode = true),
+                        extensionSet: md.ExtensionSet(
+                          md.ExtensionSet.gitHubFlavored.blockSyntaxes,
+                          [
+                            md.EmojiSyntax(),
+                            ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes
+                          ],
+                        ),
                         onTapLink: (text, href, title) async {
                           if (href != null && await canLaunchUrlString(href)) {
                             launchUrlString(href);
