@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flow/api/directory.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart'
     show databaseFactoryFfi, sqfliteFfiInit;
@@ -15,7 +16,7 @@ Future<Database> openDatabase({
   sqfliteFfiInit();
   var factory = databaseFactoryFfi;
   var db = await factory.openDatabase(
-    '$name.db',
+    '${await getFlowDirectory()}/$name.db',
     options: OpenDatabaseOptions(
         version: version, onUpgrade: onUpgrade, onCreate: onCreate),
   );

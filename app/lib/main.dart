@@ -1,3 +1,4 @@
+import 'package:args/args.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/api/storage/sources.dart';
@@ -32,10 +33,16 @@ import 'setup.dart'
     if (dart.library.html) 'setup_web.dart'
     if (dart.library.io) 'setup_io.dart';
 
-Future<void> main() async {
+String? dataPath;
+
+Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   usePathUrlStrategy();
+  final argParser = ArgParser();
+  argParser.addOption('path', abbr: 'p');
+  final result = argParser.parse(args);
+  dataPath = result['path'];
 
   final prefs = await SharedPreferences.getInstance();
   final settingsCubit = SettingsCubit(prefs);
