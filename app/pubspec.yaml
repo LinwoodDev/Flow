@@ -73,7 +73,7 @@ dev_dependencies:
     sdk: flutter
   freezed: ^2.3.2
   json_serializable: ^6.6.1
-  espresso: ^0.3.0
+  espresso: ^0.3.0+3
 dependency_overrides:
   collection: 1.17.1
   path: 1.8.3
