@@ -5,7 +5,7 @@
 #define MyAppVersion "1.6"
 #define MyAppPublisher "Linwood"
 #define MyAppURL "https://www.linwood.dev"
-#define MyAppExeName "flow.exe" 
+#define MyAppExeName "flow.exe"
 #define BaseDirRelease "build\windows\runner\Release"
 #define RunnerSourceDir "windows\runner"
 
@@ -13,7 +13,7 @@
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{966CE504-4AA5-49C7-A63B-74BD6C073E5B}
+AppId={{C06443E9-4307-4A52-88A1-0698B500F288}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
@@ -60,9 +60,9 @@ Name: "full"; Description: "full"; Types: full
 
 [Icons]
 Name: "{group}\Visit Website"; Filename: "http://www.linwood.dev/"
+Name: "{group}\Flow Documentation"; Filename: "https://docs.flow.linwood.dev/"
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
-
