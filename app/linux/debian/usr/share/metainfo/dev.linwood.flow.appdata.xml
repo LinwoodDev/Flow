@@ -39,4 +39,5 @@
 	<content_rating type="oars-1.1" />
 	<update_contact>contact@linwood.dev</update_contact>
 </component>
+		<release version="0.1.1" date="2023-04-27" />
 		<release version="0.1.0" date="2023-04-27" />
