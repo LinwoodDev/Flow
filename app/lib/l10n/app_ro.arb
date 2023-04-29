@@ -248,5 +248,8 @@
   "notSet": "Nu este setat",
   "createPending": "Creare în așteptare",
   "editPending": "Editare în așteptare",
-  "convertTo": "Convertește în"
+  "convertTo": "Convertește în",
+  "comingSoon": "Coming soon",
+  "notSupported": "Not supported",
+  "databaseVersion": "Database version"
 }
