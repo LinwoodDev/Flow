@@ -249,7 +249,7 @@
   "createPending": "Criar pendente",
   "editPending": "Editar pendente",
   "convertTo": "Converter para",
-  "comingSoon": "Coming soon",
-  "notSupported": "Not supported",
-  "databaseVersion": "Database version"
+  "comingSoon": "Em breve",
+  "notSupported": "Não suportado",
+  "databaseVersion": "Versão do banco"
 }
