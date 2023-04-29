@@ -249,7 +249,7 @@
   "createPending": "创建待定",
   "editPending": "编辑待定",
   "convertTo": "转换为",
-  "comingSoon": "Coming soon",
-  "notSupported": "Not supported",
-  "databaseVersion": "Database version"
+  "comingSoon": "即将开始",
+  "notSupported": "不支持",
+  "databaseVersion": "数据库版本"
 }
