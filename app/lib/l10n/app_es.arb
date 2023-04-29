@@ -248,5 +248,8 @@
   "notSet": "No establecido",
   "createPending": "Crear pendiente",
   "editPending": "Editar pendiente",
-  "convertTo": "Convertir a"
+  "convertTo": "Convertir a",
+  "comingSoon": "Próximamente",
+  "notSupported": "No soportado",
+  "databaseVersion": "Versión de base de datos"
 }

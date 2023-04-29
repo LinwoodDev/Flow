@@ -248,5 +248,8 @@
   "notSet": "Nenastaveno",
   "createPending": "Vytvořit nevyřízené",
   "editPending": "Upravit čekající",
-  "convertTo": "Převést na"
+  "convertTo": "Převést na",
+  "comingSoon": "Již brzy",
+  "notSupported": "Nepodporováno",
+  "databaseVersion": "Verze databáze"
 }

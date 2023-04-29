@@ -248,5 +248,8 @@
   "notSet": "未设置",
   "createPending": "创建待定",
   "editPending": "编辑待定",
-  "convertTo": "转换为"
+  "convertTo": "转换为",
+  "comingSoon": "即将开始",
+  "notSupported": "不支持",
+  "databaseVersion": "数据库版本"
 }

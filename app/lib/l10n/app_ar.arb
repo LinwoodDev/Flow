@@ -248,5 +248,8 @@
   "notSet": "لم يتم تعيينه",
   "createPending": "إنشاء معلق",
   "editPending": "تحرير معلق",
-  "convertTo": "تحويل إلى"
+  "convertTo": "تحويل إلى",
+  "comingSoon": "قريباً",
+  "notSupported": "غير مدعوم",
+  "databaseVersion": "إصدار قاعدة البيانات"
 }

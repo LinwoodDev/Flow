@@ -248,5 +248,8 @@
   "notSet": "Non impostato",
   "createPending": "Crea in sospeso",
   "editPending": "Modifica in sospeso",
-  "convertTo": "Converti in"
+  "convertTo": "Converti in",
+  "comingSoon": "In arrivo",
+  "notSupported": "Non supportato",
+  "databaseVersion": "Versione del database"
 }

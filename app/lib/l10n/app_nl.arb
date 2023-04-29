@@ -248,5 +248,8 @@
   "notSet": "Niet ingesteld",
   "createPending": "Aanmaken in afwachting",
   "editPending": "In afwachting bewerken",
-  "convertTo": "Converteren naar"
+  "convertTo": "Converteren naar",
+  "comingSoon": "Binnenkort beschikbaar",
+  "notSupported": "Niet ondersteund",
+  "databaseVersion": "Database versie"
 }
