@@ -248,5 +248,8 @@
   "notSet": "Ikke angitt",
   "createPending": "Opprett ventende",
   "editPending": "Rediger ventende",
-  "convertTo": "Konverter til"
+  "convertTo": "Konverter til",
+  "comingSoon": "Coming soon",
+  "notSupported": "Not supported",
+  "databaseVersion": "Database version"
 }
