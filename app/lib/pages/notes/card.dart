@@ -1,10 +1,9 @@
+import 'package:flow/helpers/sourced_paging_controller.dart';
 import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:shared/models/model.dart';
 import 'package:shared/models/note/model.dart';
 import 'package:shared/models/note/service.dart';
 
@@ -13,7 +12,7 @@ import '../../cubits/flow.dart';
 class NoteCard extends StatefulWidget {
   final String source;
   final Note note;
-  final PagingController<int, SourcedModel<Note>> controller;
+  final SourcedPagingController<Note> controller;
   final bool primary;
 
   const NoteCard({
@@ -171,7 +170,7 @@ class _NoteCardState extends State<NoteCard> {
                     onPressed: () {
                       GoRouter.of(context).pushNamed(
                         widget.source.isEmpty ? "subnote-local" : "subnote",
-                        params: {
+                        pathParameters: {
                           if (widget.source.isNotEmpty) "source": widget.source,
                           "id": widget.note.id!.toBase64Url(),
                         },

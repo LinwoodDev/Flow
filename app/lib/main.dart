@@ -162,8 +162,8 @@ class FlowApp extends StatelessWidget {
                     pageBuilder: _fadeTransitionBuilder(
                       (context, state) => NotesPage(
                         parent: SourcedModel(
-                          state.params['source']!,
-                          Multihash.fromBase64Url(state.params['id']!),
+                          state.pathParameters['source']!,
+                          Multihash.fromBase64Url(state.pathParameters['id']!),
                         ),
                       ),
                     ),
@@ -175,7 +175,7 @@ class FlowApp extends StatelessWidget {
                       (context, state) => NotesPage(
                         parent: SourcedModel(
                           '',
-                          Multihash.fromBase64Url(state.params['id']!),
+                          Multihash.fromBase64Url(state.pathParameters['id']!),
                         ),
                       ),
                     ),

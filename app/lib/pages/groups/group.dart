@@ -42,6 +42,7 @@ class GroupDialog extends StatelessWidget {
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context).name,
               icon: const Icon(Icons.folder_outlined),
+              filled: true,
             ),
             controller: nameController,
             onChanged: (value) {

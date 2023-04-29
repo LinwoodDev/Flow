@@ -1,0 +1,4 @@
+* Add version to settings
+* Improve list views
+* Fix windows setup again
+* Fix missing translation

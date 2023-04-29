@@ -1,35 +1,34 @@
+import 'package:flow/helpers/sourced_paging_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared/models/group/model.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared/models/model.dart';
+import 'package:shared/models/place/model.dart';
 
 import '../../cubits/flow.dart';
-import '../../helpers/sourced_paging_controller.dart';
 import '../calendar/filter.dart';
-import '../users/filter.dart';
-import 'group.dart';
+import 'place.dart';
 
-class GroupTile extends StatelessWidget {
-  const GroupTile({
+class PlaceTile extends StatelessWidget {
+  const PlaceTile({
     Key? key,
     required this.source,
-    required this.group,
+    required this.place,
     required this.flowCubit,
     required this.pagingController,
   }) : super(key: key);
 
   final FlowCubit flowCubit;
-  final Group group;
+  final Place place;
   final String source;
-  final SourcedPagingController<Group> pagingController;
+  final SourcedPagingController<Place> pagingController;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(group.name),
-      subtitle: Text(group.description),
-      onTap: () => _editGroup(context),
+      title: Text(place.name),
+      subtitle: Text(place.description),
+      onTap: () => _editPlace(context),
       trailing: PopupMenuButton<Function>(
         itemBuilder: (ctx) => <dynamic>[
           [
@@ -38,14 +37,9 @@ class GroupTile extends StatelessWidget {
             _openEvents,
           ],
           [
-            Icons.people_outlined,
-            AppLocalizations.of(context).users,
-            _openUsers,
-          ],
-          [
             Icons.delete_outline,
             AppLocalizations.of(context).delete,
-            _deleteGroup,
+            _deletePlace,
           ],
         ]
             .map((e) => PopupMenuItem<Function>(
@@ -64,13 +58,13 @@ class GroupTile extends StatelessWidget {
     );
   }
 
-  void _deleteGroup(BuildContext context) {
+  void _deletePlace(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context).deleteGroup(group.name)),
+        title: Text(AppLocalizations.of(context).deletePlace(place.name)),
         content: Text(
-            AppLocalizations.of(context).deleteGroupDescription(group.name)),
+            AppLocalizations.of(context).deletePlaceDescription(place.name)),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -81,10 +75,10 @@ class GroupTile extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               Navigator.of(context).pop();
-              await flowCubit.getService(source).group?.deleteGroup(group.id!);
+              await flowCubit.getService(source).place?.deletePlace(place.id!);
               pagingController.itemList!.remove(SourcedModel(
                 source,
-                group,
+                place,
               ));
               pagingController.refresh();
             },
@@ -101,27 +95,17 @@ class GroupTile extends StatelessWidget {
     GoRouter.of(context).go(
       "/calendar",
       extra: CalendarFilter(
-        group: group.id,
+        place: place.id,
         source: source,
       ),
     );
   }
 
-  void _openUsers(BuildContext context) {
-    GoRouter.of(context).go(
-      "/users",
-      extra: UserFilter(
-        group: group.id,
-        source: source,
-      ),
-    );
-  }
-
-  void _editGroup(BuildContext context) {
+  void _editPlace(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => GroupDialog(
-        group: group,
+      builder: (context) => PlaceDialog(
+        place: place,
         source: source,
       ),
     ).then((value) => pagingController.refresh());

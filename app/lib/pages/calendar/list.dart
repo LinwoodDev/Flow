@@ -1,6 +1,4 @@
 import 'package:flow/cubits/flow.dart';
-import 'package:flow/pages/calendar/filter.dart';
-import 'package:flow/pages/calendar/page.dart';
 import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +10,8 @@ import 'package:shared/helpers/date_time.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/model.dart';
 
-import '../events/page.dart';
+import 'filter.dart';
+import 'page.dart';
 import 'tile.dart';
 
 class CalendarListView extends StatefulWidget {

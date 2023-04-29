@@ -250,5 +250,6 @@
   "editPending": "Edit pending",
   "convertTo": "Convert to",
   "comingSoon": "Coming soon",
-  "notSupported": "Not supported"
+  "notSupported": "Not supported",
+  "databaseVersion": "Database version"
 }

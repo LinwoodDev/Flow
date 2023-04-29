@@ -357,10 +357,10 @@ packages:
     dependency: transitive
     description:
       name: http_methods
-      sha256: c192bb6fb4ae99d06053f67a2c1c65350a29bc778a39d9a12b96bd2ec820e9dc
+      sha256: "6bccce8f1ec7b5d701e7921dca35e202d425b57e317ba1a37f2638590e29e566"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   http_multi_server:
     dependency: transitive
     description:
@@ -662,18 +662,18 @@ packages:
     dependency: "direct main"
     description:
       name: sqflite_common
-      sha256: "220831bf0bd5333ff2445eee35ec131553b804e6b5d47a4a37ca6f5eb66e282c"
+      sha256: e77abf6ff961d69dfef41daccbb66b51e9983cdd5cb35bf30733598057401555
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.4"
+    version: "2.4.5"
   sqflite_common_ffi:
     dependency: "direct main"
     description:
       name: sqflite_common_ffi
-      sha256: "55641c9310e1da0856559f077ccc3cb7637b718d10b1fd8461c8088ef2d2f720"
+      sha256: f86de82d37403af491b21920a696b19f01465b596f545d1acd4d29a0a72418ad
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.4"
+    version: "2.2.5"
   sqlite3:
     dependency: transitive
     description:

@@ -9,6 +9,7 @@ import 'package:shared/models/group/model.dart';
 import 'package:shared/models/model.dart';
 
 import '../../cubits/flow.dart';
+import '../../helpers/sourced_paging_controller.dart';
 import 'tile.dart';
 
 class GroupsPage extends StatefulWidget {
@@ -86,15 +87,15 @@ class GroupsBodyView extends StatefulWidget {
 }
 
 class _GroupsBodyViewState extends State<GroupsBodyView> {
-  static const _pageSize = 20;
   late final FlowCubit _flowCubit;
-  final PagingController<int, SourcedModel<Group>> _controller =
-      PagingController(firstPageKey: 0);
+  late final SourcedPagingController<Group> _controller;
 
   @override
   void initState() {
     _flowCubit = context.read<FlowCubit>();
-    _controller.addPageRequestListener(_fetchPage);
+    _controller = SourcedPagingController(_flowCubit);
+    _controller.addFetchListener((source, service, offset, limit) async =>
+        service.group?.getGroups(offset: offset, limit: limit));
     super.initState();
   }
 
@@ -110,34 +111,6 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
 
     if (oldWidget.search != widget.search) {
       _controller.refresh();
-    }
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
-    try {
-      final sources = _flowCubit.getCurrentServicesMap().entries;
-      final groups = <SourcedModel<Group>>[];
-      var isLast = false;
-      for (final source in sources) {
-        final fetched = await source.value.group?.getGroups(
-          offset: pageKey * _pageSize,
-          limit: _pageSize,
-          search: widget.search,
-        );
-        if (fetched == null) continue;
-        groups.addAll(fetched.map((note) => SourcedModel(source.key, note)));
-        if (fetched.length < _pageSize) {
-          isLast = true;
-        }
-      }
-      if (isLast) {
-        _controller.appendLastPage(groups);
-      } else {
-        final nextPageKey = pageKey + 1;
-        _controller.appendPage(groups, nextPageKey);
-      }
-    } catch (error) {
-      _controller.error = error;
     }
   }
 

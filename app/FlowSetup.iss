@@ -2,7 +2,9 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Flow"
-#define MyAppVersion "1.6"
+#ifndef MyAppVersion
+#define MyAppVersion "1.0"
+#endif
 #define MyAppPublisher "Linwood"
 #define MyAppURL "https://www.linwood.dev"
 #define MyAppExeName "flow.exe"
@@ -21,7 +23,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={autopf64}\{#MyAppName}  
+DefaultDirName={autopf64}\{#MyAppPublisher}\{#MyAppName}  
 DefaultGroupName={#MyAppPublisher}\{#MyAppName}
 DisableProgramGroupPage=yes
 LicenseFile=..\LICENSE
@@ -31,6 +33,7 @@ PrivilegesRequiredOverridesAllowed=
 OutputDir=build\windows
 OutputBaseFilename=linwood-flow-windows-setup
 SetupIconFile={#RunnerSourceDir}\resources\app_icon.ico
+UninstallDisplayIcon={app}\{#MyAppExeName}
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern

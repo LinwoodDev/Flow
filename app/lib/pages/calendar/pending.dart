@@ -6,6 +6,7 @@ import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
 
 import '../../cubits/flow.dart';
+import '../../helpers/sourced_paging_controller.dart';
 import '../../widgets/builder_delegate.dart';
 import 'filter.dart';
 import 'page.dart';
@@ -28,61 +29,31 @@ class CalendarPendingView extends StatefulWidget {
 }
 
 class _CalendarPendingViewState extends State<CalendarPendingView> {
-  static const _pageSize = 50;
   late FlowCubit _cubit;
-  final PagingController<int, List<SourcedConnectedModel<CalendarItem, Event?>>>
-      _controller = PagingController(firstPageKey: 0);
-
+  late final SourcedPagingController<ConnectedModel<CalendarItem, Event?>>
+      _controller;
   @override
   void initState() {
     super.initState();
     _cubit = context.read<FlowCubit>();
-    _controller.addPageRequestListener(_requestPage);
+    _controller = SourcedPagingController(_cubit);
+    _controller.addFetchListener((source, service, offset, limit) async =>
+        service.calendarItem?.getCalendarItems(
+          status: EventStatus.values
+              .where(
+                  (element) => !widget.filter.hiddenStatuses.contains(element))
+              .toList(),
+          search: widget.search,
+          pending: true,
+          offset: offset,
+          limit: limit,
+        ));
   }
 
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-
-  Future<void> _requestPage(int key) async {
-    final calendarItems = await _fetchCalendarItems(key);
-    if (mounted) {
-      if (calendarItems.length < _pageSize) {
-        _controller.appendLastPage([calendarItems]);
-      } else {
-        _controller.appendPage([calendarItems], key + 1);
-      }
-    }
-  }
-
-  Future<List<SourcedConnectedModel<CalendarItem, Event?>>> _fetchCalendarItems(
-      int key) async {
-    if (!mounted) return [];
-
-    var sources = _cubit.getCurrentServicesMap();
-    if (widget.filter.source != null) {
-      sources = {
-        widget.filter.source!: _cubit.getService(widget.filter.source!)
-      };
-    }
-    final calendarItems = <SourcedConnectedModel<CalendarItem, Event?>>[];
-    for (final source in sources.entries) {
-      final fetched = await source.value.calendarItem?.getCalendarItems(
-        status: EventStatus.values
-            .where((element) => !widget.filter.hiddenStatuses.contains(element))
-            .toList(),
-        search: widget.search,
-        pending: true,
-        offset: _pageSize * key,
-        limit: _pageSize,
-      );
-      if (fetched == null) continue;
-      calendarItems.addAll(fetched
-          .map((calendarItem) => SourcedModel(source.key, calendarItem)));
-    }
-    return calendarItems;
   }
 
   @override
@@ -111,22 +82,16 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
               builder: (context, constraints) => PagedListView(
                 pagingController: _controller,
                 builderDelegate: buildMaterialPagedDelegate<
-                    List<SourcedConnectedModel<CalendarItem, Event?>>>(
+                    SourcedConnectedModel<CalendarItem, Event?>>(
                   _controller,
                   (context, item, index) {
-                    return Column(
-                      children: item
-                          .map(
-                            (e) => ConstrainedBox(
-                              constraints: const BoxConstraints(maxWidth: 1000),
-                              child: CalendarListTile(
-                                key: ValueKey('${e.source}@${e.main.id}'),
-                                eventItem: e,
-                                onRefresh: _controller.refresh,
-                              ),
-                            ),
-                          )
-                          .toList(),
+                    return ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 1000),
+                      child: CalendarListTile(
+                        key: ValueKey('${item.source}@${item.main.id}'),
+                        eventItem: item,
+                        onRefresh: _controller.refresh,
+                      ),
                     );
                   },
                 ),

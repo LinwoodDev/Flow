@@ -1,36 +1,36 @@
+import 'dart:typed_data';
+
 import 'package:flow/pages/notes/note.dart';
-import 'package:flow/pages/notes/filter.dart';
+import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lib5/lib5.dart';
-import 'package:shared/models/model.dart';
 import 'package:shared/models/note/model.dart';
+import 'package:shared/models/model.dart';
 
 import '../../cubits/flow.dart';
-import '../../widgets/builder_delegate.dart';
+import '../../helpers/sourced_paging_controller.dart';
+import 'filter.dart';
 import 'card.dart';
 
 class NotesPage extends StatefulWidget {
+  final NoteFilter filter;
   final SourcedModel<Multihash>? parent;
 
-  const NotesPage({Key? key, this.parent}) : super(key: key);
+  const NotesPage({
+    super.key,
+    this.parent,
+    this.filter = const NoteFilter(),
+  });
 
   @override
   _NotesPageState createState() => _NotesPageState();
 }
 
 class _NotesPageState extends State<NotesPage> {
-  final PagingController<int, SourcedModel<Note>> _pagingController =
-      PagingController(firstPageKey: 0);
-  @override
-  void dispose() {
-    _pagingController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return FlowNavigation(
@@ -38,35 +38,22 @@ class _NotesPageState extends State<NotesPage> {
       actions: [
         IconButton(
           icon: const Icon(Icons.search_outlined),
-          onPressed: () =>
-              showSearch(context: context, delegate: _NotesSearchDelegate()),
+          onPressed: () => showSearch(
+            context: context,
+            delegate: _NotesSearchDelegate(widget.filter, widget.parent),
+          ),
         ),
       ],
-      body: NotesBodyView(
-        pagingController: _pagingController,
-        parent: widget.parent,
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog(
-          context: context,
-          builder: (context) => NoteDialog(
-            source: widget.parent?.source,
-            create: true,
-            note: Note(
-              parentId: widget.parent?.model,
-            ),
-          ),
-        ).then((value) => _pagingController.refresh()),
-        label: Text(AppLocalizations.of(context).create),
-        icon: const Icon(Icons.add_outlined),
-      ),
+      body: NotesBodyView(filter: widget.filter, parent: widget.parent),
     );
   }
 }
 
 class _NotesSearchDelegate extends SearchDelegate {
-  final PagingController<int, SourcedModel<Note>> _pagingController =
-      PagingController(firstPageKey: 0);
+  final NoteFilter filter;
+  final SourcedModel<Multihash>? parent;
+
+  _NotesSearchDelegate(this.filter, this.parent);
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -92,10 +79,10 @@ class _NotesSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    _pagingController.refresh();
     return NotesBodyView(
-      pagingController: _pagingController,
       search: query,
+      filter: filter,
+      parent: parent,
     );
   }
 
@@ -107,14 +94,14 @@ class _NotesSearchDelegate extends SearchDelegate {
 
 class NotesBodyView extends StatefulWidget {
   final String search;
-  final PagingController<int, SourcedModel<Note>> pagingController;
+  final NoteFilter filter;
   final SourcedModel<Multihash>? parent;
 
   const NotesBodyView({
     super.key,
     this.search = '',
+    this.filter = const NoteFilter(),
     this.parent,
-    required this.pagingController,
   });
 
   @override
@@ -122,68 +109,40 @@ class NotesBodyView extends StatefulWidget {
 }
 
 class _NotesBodyViewState extends State<NotesBodyView> {
-  static const _pageSize = 20;
   late final FlowCubit _flowCubit;
-  NoteFilter _filter = const NoteFilter();
+  late final SourcedPagingController<Note> _controller;
+  late NoteFilter _filter;
 
   @override
   void initState() {
     _flowCubit = context.read<FlowCubit>();
-    widget.pagingController.addPageRequestListener(_fetchPage);
+    _controller = SourcedPagingController(_flowCubit);
+    _controller.addFetchListener((source, service, offset, limit) async {
+      final notes = await service.note?.getNotes(
+          offset: offset,
+          limit: limit,
+          statuses: _filter.statuses,
+          parent: widget.parent?.source == source
+              ? widget.parent?.model
+              : Multihash(Uint8List.fromList([])),
+          search: widget.search);
+      if (notes == null) return null;
+      if (source != widget.parent?.source) return notes;
+      final parent = await service.note?.getNote(widget.parent!.model);
+      if (parent == null) return notes;
+      return [
+        parent,
+        ...notes,
+      ];
+    });
+    _filter = widget.filter;
     super.initState();
   }
 
   @override
   void dispose() {
-    widget.pagingController.removePageRequestListener(_fetchPage);
+    _controller.dispose();
     super.dispose();
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
-    try {
-      final sources = widget.parent == null
-          ? _flowCubit.getCurrentServicesMap().entries
-          : [
-              MapEntry(widget.parent!.source,
-                  _flowCubit.getService(widget.parent!.source))
-            ];
-      final notes = <SourcedModel<Note>>[];
-      var isLast = false;
-      for (final source in sources) {
-        final fetched = await source.value.note?.getNotes(
-          offset: pageKey * _pageSize,
-          limit: _pageSize,
-          statuses: _filter.statuses,
-          search: widget.search,
-          parent: widget.parent?.model,
-        );
-        if (fetched == null) continue;
-        notes.addAll(fetched.map((note) => SourcedModel(source.key, note)));
-        if (fetched.length < _pageSize) {
-          isLast = true;
-        }
-      }
-      if (pageKey == 0 && widget.parent != null) {
-        final note = await _flowCubit
-            .getService(widget.parent!.source)
-            .note!
-            .getNote(widget.parent!.model);
-        if (note != null) {
-          notes.insert(
-            0,
-            SourcedModel(widget.parent!.source, note),
-          );
-        }
-      }
-      if (isLast) {
-        widget.pagingController.appendLastPage(notes);
-      } else {
-        final nextPageKey = pageKey + 1;
-        widget.pagingController.appendPage(notes, nextPageKey);
-      }
-    } catch (error) {
-      widget.pagingController.error = error;
-    }
   }
 
   @override
@@ -191,57 +150,62 @@ class _NotesBodyViewState extends State<NotesBodyView> {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.search != widget.search) {
-      widget.pagingController.refresh();
+      _controller.refresh();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        NoteFilterView(
-          initialFilter: _filter,
-          onChanged: (filter) {
-            setState(() {
-              _filter = filter;
-              widget.pagingController.refresh();
-            });
-          },
-        ),
-        const SizedBox(height: 8),
-        Flexible(
-          child: PagedListView(
-            pagingController: widget.pagingController,
-            builderDelegate: buildMaterialPagedDelegate<SourcedModel<Note>>(
-              widget.pagingController,
-              (context, item, index) {
-                final parent = index == 0 && widget.parent != null;
-                return Align(
-                  alignment: Alignment.topCenter,
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 800),
-                    child: Column(
-                      children: [
-                        NoteCard(
-                          note: item.model,
-                          source: item.source,
-                          controller: widget.pagingController,
-                          key: ValueKey('${item.model.id}@${item.source}'),
-                          primary: parent,
-                        ),
-                        if (parent) ...[
-                          const SizedBox(height: 8),
-                          const Divider(),
-                        ],
-                      ],
+    return Scaffold(
+      body: Column(
+        children: [
+          NoteFilterView(
+            initialFilter: _filter,
+            onChanged: (filter) {
+              setState(() {
+                _filter = filter;
+              });
+              _controller.refresh();
+            },
+          ),
+          const SizedBox(height: 8),
+          Expanded(
+            child: PagedListView(
+              pagingController: _controller,
+              builderDelegate: buildMaterialPagedDelegate<SourcedModel<Note>>(
+                _controller,
+                (ctx, item, index) => Column(
+                  children: [
+                    NoteCard(
+                      controller: _controller,
+                      source: item.source,
+                      note: item.model,
                     ),
-                  ),
-                );
-              },
+                    if (item.source == widget.parent?.source &&
+                        item.model.id == widget.parent?.model) ...[
+                      const SizedBox(height: 8),
+                      const Divider(),
+                    ]
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => showDialog<Note>(
+            context: context,
+            builder: (context) => NoteDialog(
+                  note: Note(
+                    parentId: widget.parent?.model,
+                  ),
+                  source: widget.parent?.source,
+                  create: true,
+                )).then((_) => _controller.refresh()),
+        label: Text(AppLocalizations.of(context).create),
+        icon: const Icon(Icons.add_outlined),
+      ),
     );
   }
 }

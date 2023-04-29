@@ -4,6 +4,7 @@ import 'package:flow/widgets/material_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../cubits/settings.dart';
 
@@ -19,14 +20,29 @@ class DataSettingsView extends StatelessWidget {
         const SizedBox(height: 32),
         ListTile(
           leading: const Icon(Icons.storage_outlined),
-          title: const Text('Database Version'),
+          title: Text(AppLocalizations.of(context).databaseVersion),
           subtitle: FutureBuilder<String>(
               future: context.read<SourcesService>().local.getSqliteVersion(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return Text(snapshot.data ?? 'Unknown');
+                  return Text(
+                      snapshot.data ?? AppLocalizations.of(context).unknown);
                 } else {
-                  return const Text('Loading...');
+                  return Text(AppLocalizations.of(context).loading);
+                }
+              }),
+        ),
+        ListTile(
+          leading: const Icon(Icons.info_outline),
+          title: Text(AppLocalizations.of(context).version),
+          subtitle: FutureBuilder<String>(
+              future: PackageInfo.fromPlatform().then((value) => value.version),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Text(
+                      snapshot.data ?? AppLocalizations.of(context).unknown);
+                } else {
+                  return Text(AppLocalizations.of(context).loading);
                 }
               }),
         ),

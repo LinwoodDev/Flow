@@ -12,7 +12,6 @@ import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
 
 import 'item.dart';
-import '../events/page.dart';
 import 'filter.dart';
 import '../../helpers/event.dart';
 import 'page.dart';

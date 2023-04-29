@@ -9,7 +9,6 @@ import 'package:shared/models/event/model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/model.dart';
 
-import '../events/page.dart';
 import 'filter.dart';
 import '../../helpers/event.dart';
 import 'tile.dart';
