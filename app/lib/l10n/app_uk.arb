@@ -248,5 +248,8 @@
   "notSet": "Не задано",
   "createPending": "Створити в очікуванні",
   "editPending": "Редагування в очікуванні",
-  "convertTo": "Конвертувати в"
+  "convertTo": "Конвертувати в",
+  "comingSoon": "Coming soon",
+  "notSupported": "Not supported",
+  "databaseVersion": "Database version"
 }
