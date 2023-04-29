@@ -248,5 +248,8 @@
   "notSet": "未設定",
   "createPending": "保留中の作成",
   "editPending": "保留中の編集",
-  "convertTo": "変換先"
+  "convertTo": "変換先",
+  "comingSoon": "Coming soon",
+  "notSupported": "Not supported",
+  "databaseVersion": "Database version"
 }
