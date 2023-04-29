@@ -249,7 +249,7 @@
   "createPending": "إنشاء معلق",
   "editPending": "تحرير معلق",
   "convertTo": "تحويل إلى",
-  "comingSoon": "Coming soon",
-  "notSupported": "Not supported",
-  "databaseVersion": "Database version"
+  "comingSoon": "قريباً",
+  "notSupported": "غير مدعوم",
+  "databaseVersion": "إصدار قاعدة البيانات"
 }
