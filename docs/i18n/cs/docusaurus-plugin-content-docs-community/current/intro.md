@@ -20,6 +20,6 @@ Všechny ostatní licence naleznete v nastavení.
 
 ## Užitečné odkazy
 
-* [GitHub](https://github.com/LinwoodCloud/Flow)
+* [GitHub](https://github.com/LinwoodDev/Flow)
 * [Discord](https://go.linwood.dev/discord)
 * [Matice](https://go.linwood.dev/matrix)
