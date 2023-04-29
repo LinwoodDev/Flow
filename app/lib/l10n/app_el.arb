@@ -248,5 +248,8 @@
   "notSet": "Δεν έχει οριστεί",
   "createPending": "Δημιουργία σε αναμονή",
   "editPending": "Επεξεργασία σε αναμονή",
-  "convertTo": "Μετατροπή σε"
+  "convertTo": "Μετατροπή σε",
+  "comingSoon": "Coming soon",
+  "notSupported": "Not supported",
+  "databaseVersion": "Database version"
 }
