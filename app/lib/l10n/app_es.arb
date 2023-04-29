@@ -249,7 +249,7 @@
   "createPending": "Crear pendiente",
   "editPending": "Editar pendiente",
   "convertTo": "Convertir a",
-  "comingSoon": "Coming soon",
-  "notSupported": "Not supported",
-  "databaseVersion": "Database version"
+  "comingSoon": "Próximamente",
+  "notSupported": "No soportado",
+  "databaseVersion": "Versión de base de datos"
 }
