@@ -249,7 +249,7 @@
   "createPending": "Utwórz oczekujące",
   "editPending": "Edytuj oczekujące",
   "convertTo": "Konwertuj na",
-  "comingSoon": "Coming soon",
-  "notSupported": "Not supported",
-  "databaseVersion": "Database version"
+  "comingSoon": "Już wkrótce",
+  "notSupported": "Nie obsługiwane",
+  "databaseVersion": "Wersja bazy danych"
 }
