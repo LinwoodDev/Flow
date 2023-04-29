@@ -68,6 +68,9 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                   (element) => !widget.filter.hiddenStatuses.contains(element))
               .toList(),
           search: widget.search,
+          eventId: widget.filter.event,
+          groupId: widget.filter.group,
+          placeId: widget.filter.place,
         );
         if (fetchedDay == null) continue;
         appointments[i]

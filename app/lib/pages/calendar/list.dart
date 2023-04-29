@@ -58,7 +58,11 @@ class _CalendarListViewState extends State<CalendarListView> {
           key) async {
     var day = key.source;
     var sources = key.model;
-    final allSources = _cubit.getCurrentSources();
+    final allSources = widget.filter.source != null
+        ? [
+            widget.filter.source!,
+          ]
+        : _cubit.getCurrentSources();
 
     ConnectedModel<Map<String, int>, Map<String, int>> createFullSourceMap() {
       final map = Map.fromEntries(allSources.map((e) => MapEntry(e, 0)));

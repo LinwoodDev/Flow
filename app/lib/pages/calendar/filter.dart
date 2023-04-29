@@ -142,6 +142,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                     selected: _filter.source != null && _filter.event != null
                         ? SourcedModel(_filter.source!, _filter.event!)
                         : null,
+                    source: _filter.source,
                   ),
                 );
                 if (sourceGroup != null) {
@@ -183,6 +184,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                     selected: _filter.source != null && _filter.group != null
                         ? SourcedModel(_filter.source!, _filter.group!)
                         : null,
+                    source: _filter.source,
                   ),
                 );
                 if (sourceGroup != null) {
@@ -224,6 +226,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                     selected: _filter.place != null && _filter.source != null
                         ? SourcedModel(_filter.source!, _filter.place!)
                         : null,
+                    source: _filter.source,
                   ),
                 );
                 if (place != null) {

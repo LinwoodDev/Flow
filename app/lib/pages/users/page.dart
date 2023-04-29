@@ -112,11 +112,13 @@ class _UsersBodyViewState extends State<UsersBodyView> {
     _flowCubit = context.read<FlowCubit>();
     _controller = SourcedPagingController(_flowCubit);
     _controller.addFetchListener((source, service, offset, limit) async =>
-        service.user?.getUsers(
-            offset: offset,
-            limit: limit,
-            groupId: _filter.group,
-            search: widget.search));
+        _filter.source != null && _filter.source != source
+            ? null
+            : service.user?.getUsers(
+                offset: offset,
+                limit: limit,
+                groupId: _filter.group,
+                search: widget.search));
     _filter = widget.filter;
     super.initState();
   }

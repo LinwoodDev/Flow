@@ -112,11 +112,14 @@ class _EventsBodyViewState extends State<EventsBodyView> {
     _flowCubit = context.read<FlowCubit>();
     _controller = SourcedPagingController(_flowCubit);
     _controller.addFetchListener((source, service, offset, limit) async =>
-        service.event?.getEvents(
-            offset: offset,
-            limit: limit,
-            groupId: _filter.group,
-            search: widget.search));
+        _filter.source != null && _filter.source != source
+            ? null
+            : service.event?.getEvents(
+                offset: offset,
+                limit: limit,
+                groupId: _filter.source == source ? _filter.group : null,
+                placeId: _filter.source == source ? _filter.place : null,
+                search: widget.search));
     _filter = widget.filter;
     super.initState();
   }

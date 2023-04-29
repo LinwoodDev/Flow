@@ -64,6 +64,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
         search: widget.search,
         groupId: widget.filter.group,
         placeId: widget.filter.place,
+        eventId: widget.filter.event,
       );
       if (fetched == null) continue;
       dates.addAll(fetched.map((date) => SourcedModel(source.key, date)));

@@ -1,4 +1,5 @@
 * Add version to settings
+* Add place to event filter
 * Improve list views
 * Fix windows setup again
 * Fix missing translation
