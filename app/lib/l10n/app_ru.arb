@@ -249,7 +249,7 @@
   "createPending": "Создать ожидание",
   "editPending": "Редактировать ожидание",
   "convertTo": "Преобразовать в",
-  "comingSoon": "Coming soon",
-  "notSupported": "Not supported",
-  "databaseVersion": "Database version"
+  "comingSoon": "Скоро появится",
+  "notSupported": "Не поддерживается",
+  "databaseVersion": "Версия базы данных"
 }
