@@ -248,5 +248,8 @@
   "notSet": "Ei asetettu",
   "createPending": "Luo odottaa",
   "editPending": "Muokkaa odottavia",
-  "convertTo": "Muunna muotoon"
+  "convertTo": "Muunna muotoon",
+  "comingSoon": "Coming soon",
+  "notSupported": "Not supported",
+  "databaseVersion": "Database version"
 }
