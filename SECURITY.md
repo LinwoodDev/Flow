@@ -5,7 +5,7 @@
 | Version | Supported          |                                                                                                                                            |
 | ------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | 2.0-dev | :warning:          | [Docs](https://docs.flow.linwood.dev/docs/dev/intro) |
-| 0.1.0   | :white_check_mark: | [Docs](https://docs.flow.linwood.dev/docs/dev/intro) [Release](https://github.com/LinwoodDev/Flow/releases/tag/v0.1.0)         |
+| 0.1.2   | :white_check_mark: | [Docs](https://docs.flow.linwood.dev/docs/dev/intro) [Release](https://github.com/LinwoodDev/Flow/releases/tag/v0.1.0)         |
 
 ## Reporting a Vulnerability
 
