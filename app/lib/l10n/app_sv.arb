@@ -249,7 +249,7 @@
   "createPending": "Skapa väntande",
   "editPending": "Redigera väntande",
   "convertTo": "Konvertera till",
-  "comingSoon": "Coming soon",
-  "notSupported": "Not supported",
-  "databaseVersion": "Database version"
+  "comingSoon": "Kommer snart",
+  "notSupported": "Stöds inte",
+  "databaseVersion": "Databasens version"
 }
