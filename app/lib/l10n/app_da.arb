@@ -249,7 +249,7 @@
   "createPending": "Opret afventende",
   "editPending": "Rediger afventende",
   "convertTo": "Konvertér til",
-  "comingSoon": "Coming soon",
-  "notSupported": "Not supported",
+  "comingSoon": "Kommer snart",
+  "notSupported": "Ikke understøttet",
   "databaseVersion": "Database version"
 }
