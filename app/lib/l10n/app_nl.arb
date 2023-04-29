@@ -249,7 +249,7 @@
   "createPending": "Aanmaken in afwachting",
   "editPending": "In afwachting bewerken",
   "convertTo": "Converteren naar",
-  "comingSoon": "Coming soon",
-  "notSupported": "Not supported",
-  "databaseVersion": "Database version"
+  "comingSoon": "Binnenkort beschikbaar",
+  "notSupported": "Niet ondersteund",
+  "databaseVersion": "Database versie"
 }
