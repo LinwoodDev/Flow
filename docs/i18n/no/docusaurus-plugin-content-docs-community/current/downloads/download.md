@@ -4,7 +4,7 @@ sidebar_position: 0
 title: Nedlastinger
 ---
 
-![Stable utgivelsesversjon](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fflow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Slipp versjon for nattlig](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fflow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stable utgivelsesversjon](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fflow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Slipp versjon for nattlig](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fflow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 ## Velg din plattform
 
@@ -42,6 +42,6 @@ title: Nedlastinger
 ## Nyttige lenker
 
 - [Endringslogg](changelog)
-- [Eldre utgivelser](https://github.com/LinwoodCloud/Flow/releases)
-- [Siste utgivelse](https://github.com/LinwoodCloud/Flow/releases/latest)
+- [Eldre utgivelser](https://github.com/LinwoodDev/Flow/releases)
+- [Siste utgivelse](https://github.com/LinwoodDev/Flow/releases/latest)
 - [Brukerstøtte](https://discord.linwood.dev)
