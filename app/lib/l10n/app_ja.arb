@@ -249,7 +249,7 @@
   "createPending": "保留中の作成",
   "editPending": "保留中の編集",
   "convertTo": "変換先",
-  "comingSoon": "Coming soon",
-  "notSupported": "Not supported",
-  "databaseVersion": "Database version"
+  "comingSoon": "近日公開",
+  "notSupported": "対応していません",
+  "databaseVersion": "データベースのバージョン"
 }
