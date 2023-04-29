@@ -249,7 +249,7 @@
   "createPending": "Δημιουργία σε αναμονή",
   "editPending": "Επεξεργασία σε αναμονή",
   "convertTo": "Μετατροπή σε",
-  "comingSoon": "Coming soon",
-  "notSupported": "Not supported",
-  "databaseVersion": "Database version"
+  "comingSoon": "Έρχεται σύντομα",
+  "notSupported": "Δεν υποστηρίζεται",
+  "databaseVersion": "Έκδοση βάσης δεδομένων"
 }
