@@ -249,7 +249,7 @@
   "createPending": "Vytvořit nevyřízené",
   "editPending": "Upravit čekající",
   "convertTo": "Převést na",
-  "comingSoon": "Coming soon",
-  "notSupported": "Not supported",
-  "databaseVersion": "Database version"
+  "comingSoon": "Již brzy",
+  "notSupported": "Nepodporováno",
+  "databaseVersion": "Verze databáze"
 }
