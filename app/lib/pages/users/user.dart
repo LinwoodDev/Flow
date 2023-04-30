@@ -2,8 +2,6 @@ import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared/models/group/model.dart';
-import 'package:shared/models/model.dart';
 import 'package:shared/models/user/model.dart';
 import 'package:shared/models/user/service.dart';
 
@@ -14,11 +12,13 @@ import '../groups/select.dart';
 class UserDialog extends StatelessWidget {
   final String? source;
   final User? user;
-  const UserDialog({super.key, this.source, this.user});
+  final bool create;
+  const UserDialog({super.key, this.source, this.user, this.create = false});
 
   @override
   Widget build(BuildContext context) {
-    var user = this.user ?? const User();
+    final create = this.create || user == null || source == null;
+    var currentUser = user ?? const User();
     var currentSource = source ?? '';
     var currentService =
         context.read<FlowCubit>().getService(currentSource).user;
@@ -38,51 +38,6 @@ class UserDialog extends StatelessWidget {
                 currentService = connected?.model;
               },
             ),
-          ] else ...[
-            StatefulBuilder(
-                builder: (context, setState) => ListTile(
-                      leading: const Icon(Icons.folder_outlined),
-                      title: Text(AppLocalizations.of(context).group),
-                      onTap: () async {
-                        final sourceGroup =
-                            await showDialog<SourcedModel<Group>>(
-                          context: context,
-                          builder: (context) => GroupSelectDialog(
-                            selected: user.groupId == null
-                                ? null
-                                : SourcedModel(source!, user.groupId!),
-                            source: source!,
-                          ),
-                        );
-                        if (sourceGroup != null) {
-                          setState(() {
-                            user = user.copyWith(groupId: sourceGroup.model.id);
-                          });
-                        }
-                      },
-                      subtitle: user.groupId == null
-                          ? null
-                          : FutureBuilder<Group?>(
-                              future: Future.value(context
-                                  .read<FlowCubit>()
-                                  .getService(source!)
-                                  .group
-                                  ?.getGroup(user.groupId!)),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  return Text(snapshot.data!.name);
-                                } else if (snapshot.hasError) {
-                                  return Text(snapshot.error.toString());
-                                } else if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return const CircularProgressIndicator();
-                                } else {
-                                  return Text(AppLocalizations.of(context)
-                                      .notSupported);
-                                }
-                              },
-                            ),
-                    )),
           ],
           const SizedBox(height: 16),
           TextFormField(
@@ -91,9 +46,9 @@ class UserDialog extends StatelessWidget {
               filled: true,
               icon: const Icon(Icons.folder_outlined),
             ),
-            initialValue: user.name,
+            initialValue: currentUser.name,
             onChanged: (value) {
-              user = user.copyWith(name: value);
+              currentUser = currentUser.copyWith(name: value);
             },
           ),
           const SizedBox(height: 16),
@@ -103,11 +58,21 @@ class UserDialog extends StatelessWidget {
               border: const OutlineInputBorder(),
               icon: const Icon(Icons.description_outlined),
             ),
-            value: user.description,
+            value: currentUser.description,
             onChanged: (value) {
-              user = user.copyWith(description: value);
+              currentUser = currentUser.copyWith(description: value);
             },
-          )
+          ),
+          if (!create) ...[
+            const SizedBox(height: 16),
+            GroupSelectTile(
+              value: currentUser.groupId,
+              source: currentSource,
+              onChanged: (value) {
+                currentUser = currentUser.copyWith(groupId: value);
+              },
+            ),
+          ],
         ]),
       ),
       scrollable: true,
@@ -117,13 +82,19 @@ class UserDialog extends StatelessWidget {
           child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
             if (source == null) {
-              currentService?.createUser(user);
+              final created = await currentService?.createUser(currentUser);
+              if (created == null) {
+                return;
+              }
+              currentUser = created;
             } else {
-              currentService?.updateUser(user);
+              await currentService?.updateUser(currentUser);
             }
-            Navigator.of(context).pop(user);
+            if (context.mounted) {
+              Navigator.of(context).pop(currentUser);
+            }
           },
           child: Text(AppLocalizations.of(context).create),
         ),

@@ -9,6 +9,105 @@ import 'package:shared/models/place/model.dart';
 import 'package:shared/services/source.dart';
 
 import '../../widgets/builder_delegate.dart';
+import 'place.dart';
+
+class PlaceSelectTile extends StatefulWidget {
+  final String source;
+  final Multihash? value;
+  final ValueChanged<Multihash?> onChanged;
+
+  const PlaceSelectTile({
+    super.key,
+    required this.source,
+    this.value,
+    required this.onChanged,
+  });
+
+  @override
+  State<PlaceSelectTile> createState() => _PlaceSelectTileState();
+}
+
+class _PlaceSelectTileState extends State<PlaceSelectTile> {
+  Multihash? _value;
+
+  @override
+  void initState() {
+    super.initState();
+    _value = widget.value;
+  }
+
+  void _onChanged(Multihash? value) {
+    setState(() {
+      _value = value;
+    });
+    widget.onChanged(value);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Place?>(
+        future: Future.value(_value == null
+            ? null
+            : context
+                .read<FlowCubit>()
+                .getService(widget.source)
+                .place
+                ?.getPlace(_value!)),
+        builder: (context, snapshot) {
+          final place = snapshot.data;
+          return ListTile(
+            title: Text(AppLocalizations.of(context).place),
+            subtitle: Text(place?.name ?? AppLocalizations.of(context).notSet),
+            leading: Icon(place == null ? Icons.place : Icons.place_outlined),
+            onTap: () async {
+              if (place != null) {
+                Navigator.of(context).pop();
+                final model = await showDialog<SourcedModel<Place>>(
+                  context: context,
+                  builder: (context) => PlaceDialog(
+                    place: place,
+                    source: widget.source,
+                  ),
+                );
+                if (model != null) {
+                  _onChanged(model.model.id);
+                }
+              } else {
+                final model = await showDialog<SourcedModel<Place>>(
+                  context: context,
+                  builder: (context) => PlaceSelectDialog(
+                    source: widget.source,
+                  ),
+                );
+                if (model != null) {
+                  _onChanged(model.model.id);
+                }
+              }
+            },
+            trailing: _value == null
+                ? IconButton(
+                    icon: const Icon(Icons.add_circle_outline_outlined),
+                    onPressed: () async {
+                      final place = await showDialog<SourcedModel<Place>>(
+                        context: context,
+                        builder: (context) => PlaceDialog(
+                          source: widget.source,
+                          create: true,
+                        ),
+                      );
+                      _onChanged(place?.model.id);
+                    },
+                  )
+                : IconButton(
+                    icon: const Icon(Icons.clear),
+                    onPressed: () {
+                      _onChanged(null);
+                    },
+                  ),
+          );
+        });
+  }
+}
 
 class PlaceSelectDialog extends StatefulWidget {
   final String? source;

@@ -190,7 +190,7 @@ class _EventsBodyViewState extends State<EventsBodyView> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog<Event>(
+        onPressed: () => showDialog(
                 context: context, builder: (context) => const EventDialog())
             .then((_) => _controller.refresh()),
         label: Text(AppLocalizations.of(context).create),

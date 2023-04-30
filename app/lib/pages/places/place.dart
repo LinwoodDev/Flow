@@ -2,6 +2,7 @@ import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared/models/model.dart';
 import 'package:shared/models/place/model.dart';
 import 'package:shared/models/place/service.dart';
 
@@ -11,16 +12,24 @@ import '../../widgets/source_dropdown.dart';
 class PlaceDialog extends StatelessWidget {
   final String? source;
   final Place? place;
-  const PlaceDialog({super.key, this.source, this.place});
+  final bool create;
+
+  const PlaceDialog({
+    super.key,
+    this.source,
+    this.place,
+    this.create = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    var place = this.place ?? const Place();
+    final create = this.create || place == null || source == null;
+    var currentPlace = place ?? const Place();
     var currentSource = source ?? '';
     var currentService =
         context.read<FlowCubit>().getService(currentSource).place;
     return AlertDialog(
-      title: Text(source == null
+      title: Text(create
           ? AppLocalizations.of(context).createPlace
           : AppLocalizations.of(context).editPlace),
       content: SizedBox(
@@ -42,9 +51,9 @@ class PlaceDialog extends StatelessWidget {
               filled: true,
               icon: const Icon(Icons.folder_outlined),
             ),
-            initialValue: place.name,
+            initialValue: currentPlace.name,
             onChanged: (value) {
-              place = place.copyWith(name: value);
+              currentPlace = currentPlace.copyWith(name: value);
             },
           ),
           const SizedBox(height: 16),
@@ -54,9 +63,9 @@ class PlaceDialog extends StatelessWidget {
               border: const OutlineInputBorder(),
               icon: const Icon(Icons.description_outlined),
             ),
-            value: place.description,
+            value: currentPlace.description,
             onChanged: (value) {
-              place = place.copyWith(description: value);
+              currentPlace = currentPlace.copyWith(description: value);
             },
           )
         ]),
@@ -68,13 +77,20 @@ class PlaceDialog extends StatelessWidget {
           child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
-          onPressed: () {
-            if (source == null) {
-              currentService?.createPlace(place);
+          onPressed: () async {
+            if (create) {
+              final created = await currentService?.createPlace(currentPlace);
+              if (created == null) {
+                return;
+              }
+              currentPlace = created;
             } else {
-              currentService?.updatePlace(place);
+              await currentService?.updatePlace(currentPlace);
             }
-            Navigator.of(context).pop(place);
+            if (context.mounted) {
+              Navigator.of(context)
+                  .pop(SourcedModel(currentSource, currentPlace));
+            }
           },
           child: Text(AppLocalizations.of(context).create),
         ),

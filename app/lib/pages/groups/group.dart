@@ -6,22 +6,30 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/group/model.dart';
 import 'package:shared/models/group/service.dart';
+import 'package:shared/models/model.dart';
 
 class GroupDialog extends StatelessWidget {
   final String? source;
   final Group? group;
+  final bool create;
 
-  const GroupDialog({super.key, this.group, this.source});
+  const GroupDialog({
+    super.key,
+    this.group,
+    this.source,
+    this.create = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    var group = this.group ?? const Group();
+    final create = this.create || group == null || source == null;
+    var currentGroup = group ?? const Group();
     var currentSource = source ?? '';
     var currentService =
         context.read<FlowCubit>().getService(currentSource).group;
-    final nameController = TextEditingController(text: group.name);
+    final nameController = TextEditingController(text: currentGroup.name);
     return AlertDialog(
-      title: Text(source == null
+      title: Text(create
           ? AppLocalizations.of(context).createGroup
           : AppLocalizations.of(context).editGroup),
       content: SizedBox(
@@ -46,7 +54,7 @@ class GroupDialog extends StatelessWidget {
             ),
             controller: nameController,
             onChanged: (value) {
-              group = group.copyWith(name: value);
+              currentGroup = currentGroup.copyWith(name: value);
             },
           ),
           const SizedBox(height: 16),
@@ -56,9 +64,9 @@ class GroupDialog extends StatelessWidget {
               border: const OutlineInputBorder(),
               icon: const Icon(Icons.description_outlined),
             ),
-            value: group.description,
+            value: currentGroup.description,
             onChanged: (value) {
-              group = group.copyWith(description: value);
+              currentGroup = currentGroup.copyWith(description: value);
             },
           )
         ]),
@@ -71,13 +79,20 @@ class GroupDialog extends StatelessWidget {
           child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
-          onPressed: () {
-            if (source == null) {
-              currentService?.createGroup(group);
+          onPressed: () async {
+            if (create) {
+              final created = await currentService?.createGroup(currentGroup);
+              if (created == null) {
+                return;
+              }
+              currentGroup = created;
             } else {
-              currentService?.updateGroup(group);
+              await currentService?.updateGroup(currentGroup);
             }
-            Navigator.of(context).pop(group);
+            if (context.mounted) {
+              Navigator.of(context)
+                  .pop(SourcedModel(currentSource, currentGroup));
+            }
           },
           child: Text(AppLocalizations.of(context).save),
         ),

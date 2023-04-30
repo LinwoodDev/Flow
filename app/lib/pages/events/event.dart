@@ -3,17 +3,13 @@ import 'package:flow/pages/groups/select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:lib5/lib5.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/event/service.dart';
-import 'package:shared/models/group/model.dart';
 import 'package:shared/models/model.dart';
-import 'package:shared/models/place/model.dart';
 
 import '../../widgets/markdown_field.dart';
 import '../../widgets/source_dropdown.dart';
 import '../places/select.dart';
-import 'select.dart';
 
 class EventDialog extends StatelessWidget {
   final String? source;
@@ -83,101 +79,21 @@ class EventDialog extends StatelessWidget {
                 onChanged: (value) =>
                     currentEvent = currentEvent.copyWith(description: value),
               ),
-              if (source != null) ...[
+              if (!create) ...[
                 const SizedBox(height: 16),
-                StatefulBuilder(
-                    builder: (context, setState) => ListTile(
-                          leading: const Icon(Icons.folder_outlined),
-                          title: Text(AppLocalizations.of(context).group),
-                          onTap: () async {
-                            final sourceGroup =
-                                await showDialog<SourcedModel<Group>>(
-                              context: context,
-                              builder: (context) => GroupSelectDialog(
-                                selected: currentEvent.groupId == null
-                                    ? null
-                                    : SourcedModel(
-                                        source!, currentEvent.groupId!),
-                                source: source!,
-                              ),
-                            );
-                            if (sourceGroup != null) {
-                              setState(() {
-                                currentEvent = currentEvent.copyWith(
-                                    groupId: sourceGroup.model.id);
-                              });
-                            }
-                          },
-                          subtitle: currentEvent.groupId == null
-                              ? null
-                              : FutureBuilder<Group?>(
-                                  future: Future.value(context
-                                      .read<FlowCubit>()
-                                      .getService(source!)
-                                      .group
-                                      ?.getGroup(currentEvent.groupId!)),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      return Text(snapshot.data!.name);
-                                    } else if (snapshot.hasError) {
-                                      return Text(snapshot.error.toString());
-                                    } else if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return const CircularProgressIndicator();
-                                    } else {
-                                      return Text(AppLocalizations.of(context)
-                                          .notSupported);
-                                    }
-                                  },
-                                ),
-                        )),
+                GroupSelectTile(
+                  source: source!,
+                  onChanged: (value) {
+                    currentEvent = currentEvent.copyWith(groupId: value);
+                  },
+                ),
                 const SizedBox(height: 16),
-                StatefulBuilder(
-                    builder: (context, setState) => ListTile(
-                          leading: const Icon(Icons.location_on_outlined),
-                          title: Text(AppLocalizations.of(context).place),
-                          onTap: () async {
-                            final sourcePlace =
-                                await showDialog<SourcedModel<Place>>(
-                              context: context,
-                              builder: (context) => PlaceSelectDialog(
-                                selected: currentEvent.placeId == null
-                                    ? null
-                                    : SourcedModel(
-                                        source!, currentEvent.placeId!),
-                                source: source!,
-                              ),
-                            );
-                            if (sourcePlace != null) {
-                              setState(() {
-                                currentEvent = currentEvent.copyWith(
-                                    placeId: sourcePlace.model.id);
-                              });
-                            }
-                          },
-                          subtitle: currentEvent.placeId == null
-                              ? null
-                              : FutureBuilder<Place?>(
-                                  future: Future.value(context
-                                      .read<FlowCubit>()
-                                      .getService(source!)
-                                      .place
-                                      ?.getPlace(currentEvent.placeId!)),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      return Text(snapshot.data!.name);
-                                    } else if (snapshot.hasError) {
-                                      return Text(snapshot.error.toString());
-                                    } else if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return const CircularProgressIndicator();
-                                    } else {
-                                      return Text(AppLocalizations.of(context)
-                                          .notSupported);
-                                    }
-                                  },
-                                ),
-                        )),
+                PlaceSelectTile(
+                  source: source!,
+                  onChanged: (value) {
+                    currentEvent = currentEvent.copyWith(placeId: value);
+                  },
+                ),
               ],
               const SizedBox(height: 8),
               StatefulBuilder(
@@ -214,112 +130,23 @@ class EventDialog extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () async {
-            final navigator = Navigator.of(context);
             if (create) {
               final created = await currentService?.createEvent(currentEvent);
-              if (created != null) {
-                currentEvent = created;
+              if (created == null) {
+                return;
               }
+              currentEvent = created;
             } else {
-              currentService?.updateEvent(currentEvent);
+              await currentService?.updateEvent(currentEvent);
             }
-            navigator.pop(SourcedModel(currentSource, currentEvent));
+            if (context.mounted) {
+              Navigator.of(context)
+                  .pop(SourcedModel(currentSource, currentEvent));
+            }
           },
           child: Text(AppLocalizations.of(context).save),
         ),
       ],
     );
-  }
-}
-
-class EventListTile extends StatefulWidget {
-  final String source;
-  final Multihash? value;
-  final ValueChanged<Multihash?> onChanged;
-
-  const EventListTile({
-    super.key,
-    required this.source,
-    this.value,
-    required this.onChanged,
-  });
-
-  @override
-  State<EventListTile> createState() => _EventListTileState();
-}
-
-class _EventListTileState extends State<EventListTile> {
-  Multihash? _value;
-
-  @override
-  void initState() {
-    super.initState();
-    _value = widget.value;
-  }
-
-  void _onChanged(Multihash? value) {
-    setState(() {
-      _value = value;
-    });
-    widget.onChanged(value);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<Event?>(
-        future: Future.value(_value == null
-            ? null
-            : context
-                .read<FlowCubit>()
-                .getService(widget.source)
-                .event
-                ?.getEvent(_value!)),
-        builder: (context, snapshot) {
-          final event = snapshot.data;
-          return ListTile(
-            title: Text(AppLocalizations.of(context).event),
-            subtitle: Text(event?.name ?? AppLocalizations.of(context).notSet),
-            leading: Icon(event == null ? Icons.event : Icons.event_outlined),
-            onTap: () async {
-              if (event != null) {
-                Navigator.of(context).pop();
-                showDialog(
-                  context: context,
-                  builder: (context) => EventDialog(
-                    event: event,
-                    source: widget.source,
-                  ),
-                );
-              } else {
-                final event = await showDialog<SourcedModel<Event>>(
-                  context: context,
-                  builder: (context) => EventSelectDialog(
-                    source: widget.source,
-                  ),
-                );
-                _onChanged(event?.model.id);
-              }
-            },
-            trailing: _value == null
-                ? IconButton(
-                    icon: const Icon(Icons.add_circle_outline_outlined),
-                    onPressed: () async {
-                      final event = await showDialog<SourcedModel<Event>>(
-                        context: context,
-                        builder: (context) => EventDialog(
-                          source: widget.source,
-                        ),
-                      );
-                      _onChanged(event?.model.id);
-                    },
-                  )
-                : IconButton(
-                    icon: const Icon(Icons.clear),
-                    onPressed: () {
-                      _onChanged(null);
-                    },
-                  ),
-          );
-        });
   }
 }

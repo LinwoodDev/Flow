@@ -9,6 +9,107 @@ import 'package:shared/models/model.dart';
 import 'package:shared/services/source.dart';
 
 import '../../widgets/builder_delegate.dart';
+import 'group.dart';
+
+class GroupSelectTile extends StatefulWidget {
+  final String source;
+  final Multihash? value;
+  final ValueChanged<Multihash?> onChanged;
+
+  const GroupSelectTile({
+    super.key,
+    required this.source,
+    this.value,
+    required this.onChanged,
+  });
+
+  @override
+  State<GroupSelectTile> createState() => _GroupSelectTileState();
+}
+
+class _GroupSelectTileState extends State<GroupSelectTile> {
+  Multihash? _value;
+
+  @override
+  void initState() {
+    super.initState();
+    _value = widget.value;
+  }
+
+  void _onChanged(Multihash? value) {
+    setState(() {
+      _value = value;
+    });
+    widget.onChanged(value);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Group?>(
+        future: Future.value(_value == null
+            ? null
+            : context
+                .read<FlowCubit>()
+                .getService(widget.source)
+                .group
+                ?.getGroup(_value!)),
+        builder: (context, snapshot) {
+          final group = snapshot.data;
+          return ListTile(
+            title: Text(AppLocalizations.of(context).group),
+            subtitle: Text(group?.name ?? AppLocalizations.of(context).notSet),
+            leading: Icon(group == null ? Icons.group : Icons.group_outlined),
+            onTap: () async {
+              if (group != null) {
+                Navigator.of(context).pop();
+                final model = await showDialog<SourcedModel<Group>>(
+                  context: context,
+                  builder: (context) => GroupDialog(
+                    group: group,
+                    source: widget.source,
+                  ),
+                );
+                if (model != null) {
+                  _onChanged(model.model.id);
+                }
+              } else {
+                final model = await showDialog<SourcedModel<Group>>(
+                  context: context,
+                  builder: (context) => GroupSelectDialog(
+                    source: widget.source,
+                  ),
+                );
+                if (model != null) {
+                  _onChanged(model.model.id);
+                }
+              }
+            },
+            trailing: _value == null
+                ? IconButton(
+                    icon: const Icon(Icons.add_circle_outline_outlined),
+                    onPressed: () async {
+                      final model = await showDialog<SourcedModel<Group>>(
+                        context: context,
+                        builder: (context) => GroupDialog(
+                          source: widget.source,
+                          create: true,
+                        ),
+                      );
+                      if (model != null) {
+                        _onChanged(model.model.id);
+                      }
+                    },
+                  )
+                : IconButton(
+                    icon: const Icon(Icons.clear),
+                    onPressed: () {
+                      _onChanged(null);
+                    },
+                  ),
+          );
+        });
+  }
+}
 
 class GroupSelectDialog extends StatefulWidget {
   final String? source;

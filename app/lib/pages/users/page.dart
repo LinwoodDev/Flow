@@ -189,7 +189,7 @@ class _UsersBodyViewState extends State<UsersBodyView> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog<User>(
+        onPressed: () => showDialog(
                 context: context, builder: (context) => const UserDialog())
             .then((_) => _controller.refresh()),
         label: Text(AppLocalizations.of(context).create),

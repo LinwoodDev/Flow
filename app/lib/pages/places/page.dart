@@ -149,7 +149,7 @@ class _PlacesBodyViewState extends State<PlacesBodyView> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog<Place>(
+        onPressed: () => showDialog(
                 context: context, builder: (context) => const PlaceDialog())
             .then((_) => _controller.refresh()),
         label: Text(AppLocalizations.of(context).create),

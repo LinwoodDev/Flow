@@ -15,12 +15,12 @@ import 'event.dart';
 
 class EventTile extends StatelessWidget {
   const EventTile({
-    Key? key,
+    super.key,
     required this.source,
     required this.event,
     required this.flowCubit,
     required this.pagingController,
-  }) : super(key: key);
+  });
 
   final FlowCubit flowCubit;
   final Event event;

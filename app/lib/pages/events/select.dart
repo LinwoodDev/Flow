@@ -9,6 +9,105 @@ import 'package:shared/models/event/model.dart';
 import 'package:shared/services/source.dart';
 
 import '../../widgets/builder_delegate.dart';
+import 'event.dart';
+
+class EventSelectTile extends StatefulWidget {
+  final String source;
+  final Multihash? value;
+  final ValueChanged<Multihash?> onChanged;
+
+  const EventSelectTile({
+    super.key,
+    required this.source,
+    this.value,
+    required this.onChanged,
+  });
+
+  @override
+  State<EventSelectTile> createState() => _EventSelectTileState();
+}
+
+class _EventSelectTileState extends State<EventSelectTile> {
+  Multihash? _value;
+
+  @override
+  void initState() {
+    super.initState();
+    _value = widget.value;
+  }
+
+  void _onChanged(Multihash? value) {
+    setState(() {
+      _value = value;
+    });
+    widget.onChanged(value);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Event?>(
+        future: Future.value(_value == null
+            ? null
+            : context
+                .read<FlowCubit>()
+                .getService(widget.source)
+                .event
+                ?.getEvent(_value!)),
+        builder: (context, snapshot) {
+          final event = snapshot.data;
+          return ListTile(
+            title: Text(AppLocalizations.of(context).event),
+            subtitle: Text(event?.name ?? AppLocalizations.of(context).notSet),
+            leading: Icon(event == null ? Icons.event : Icons.event_outlined),
+            onTap: () async {
+              if (event != null) {
+                Navigator.of(context).pop();
+                final model = await showDialog<SourcedModel<Event>>(
+                  context: context,
+                  builder: (context) => EventDialog(
+                    event: event,
+                    source: widget.source,
+                  ),
+                );
+                if (model != null) {
+                  _onChanged(model.model.id);
+                }
+              } else {
+                final model = await showDialog<SourcedModel<Event>>(
+                  context: context,
+                  builder: (context) => EventSelectDialog(
+                    source: widget.source,
+                  ),
+                );
+                if (model != null) {
+                  _onChanged(model.model.id);
+                }
+              }
+            },
+            trailing: _value == null
+                ? IconButton(
+                    icon: const Icon(Icons.add_circle_outline_outlined),
+                    onPressed: () async {
+                      final event = await showDialog<SourcedModel<Event>>(
+                        context: context,
+                        builder: (context) => EventDialog(
+                          source: widget.source,
+                          create: true,
+                        ),
+                      );
+                      _onChanged(event?.model.id);
+                    },
+                  )
+                : IconButton(
+                    icon: const Icon(Icons.clear),
+                    onPressed: () {
+                      _onChanged(null);
+                    },
+                  ),
+          );
+        });
+  }
+}
 
 class EventSelectDialog extends StatefulWidget {
   final String? source;

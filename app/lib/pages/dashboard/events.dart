@@ -9,7 +9,7 @@ import 'package:shared/models/model.dart';
 import '../../cubits/flow.dart';
 
 class DashboardEventsCard extends StatelessWidget {
-  const DashboardEventsCard({Key? key}) : super(key: key);
+  const DashboardEventsCard({super.key});
 
   Future<List<SourcedConnectedModel<CalendarItem, Event?>>> _getAppointment(
       BuildContext context) async {

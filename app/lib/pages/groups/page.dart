@@ -149,7 +149,7 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog<Group>(
+        onPressed: () => showDialog(
                 context: context, builder: (context) => const GroupDialog())
             .then((_) => _controller.refresh()),
         label: Text(AppLocalizations.of(context).create),

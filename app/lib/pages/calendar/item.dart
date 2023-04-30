@@ -7,11 +7,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/item/service.dart';
 import 'package:shared/models/event/model.dart';
+import 'package:shared/models/model.dart';
 
 import '../../widgets/date_time_field.dart';
 import '../../widgets/source_dropdown.dart';
 import '../events/note.dart';
-import '../events/event.dart';
+import '../events/select.dart';
 
 class CalendarItemDialog extends StatefulWidget {
   final bool create;
@@ -202,7 +203,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             const SizedBox(height: 16),
                           ],
                           const SizedBox(height: 16),
-                          EventListTile(
+                          EventSelectTile(
                             source: _source,
                             value: _item.eventId,
                             onChanged: (value) {
@@ -330,16 +331,18 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
         ),
         ElevatedButton(
           onPressed: () async {
-            final navigator = Navigator.of(context);
             if (_create) {
               final created = await _service?.createCalendarItem(_item);
-              if (created != null) {
-                _item = created;
+              if (created == null) {
+                return;
               }
+              _item = created;
             } else {
-              _service?.updateCalendarItem(_item);
+              await _service?.updateCalendarItem(_item);
             }
-            navigator.pop(_item);
+            if (context.mounted) {
+              Navigator.of(context).pop(SourcedModel(_source, _item));
+            }
           },
           child: Text(AppLocalizations.of(context).save),
         ),
