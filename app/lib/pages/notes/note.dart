@@ -1,4 +1,5 @@
 import 'package:flow/cubits/flow.dart';
+import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -101,15 +102,13 @@ class _NoteDialogState extends State<NoteDialog> {
               },
             ),
             const SizedBox(height: 16),
-            TextFormField(
+            MarkdownField(
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context).description,
                 icon: const Icon(Icons.description_outlined),
                 border: const OutlineInputBorder(),
               ),
-              initialValue: _newNote.description,
-              minLines: 3,
-              maxLines: 5,
+              value: _newNote.description,
               onChanged: (value) {
                 _newNote = _newNote.copyWith(description: value);
               },

@@ -9,6 +9,7 @@ import 'package:shared/models/model.dart';
 import '../../cubits/flow.dart';
 import '../../helpers/sourced_paging_controller.dart';
 import '../../widgets/builder_delegate.dart';
+import '../../widgets/markdown_field.dart';
 import '../../widgets/material_bottom_sheet.dart';
 import '../calendar/filter.dart';
 import 'event.dart';
@@ -31,7 +32,7 @@ class EventTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(event.name),
-      subtitle: Text(event.description),
+      subtitle: MarkdownText(event.description),
       onTap: () => _editEvent(context),
       trailing: PopupMenuButton<Function>(
         itemBuilder: (ctx) => <dynamic>[

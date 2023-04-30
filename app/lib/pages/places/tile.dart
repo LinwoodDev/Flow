@@ -6,6 +6,7 @@ import 'package:shared/models/model.dart';
 import 'package:shared/models/place/model.dart';
 
 import '../../cubits/flow.dart';
+import '../../widgets/markdown_field.dart';
 import '../calendar/filter.dart';
 import 'place.dart';
 
@@ -27,7 +28,7 @@ class PlaceTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(place.name),
-      subtitle: Text(place.description),
+      subtitle: MarkdownText(place.description),
       onTap: () => _editPlace(context),
       trailing: PopupMenuButton<Function>(
         itemBuilder: (ctx) => <dynamic>[

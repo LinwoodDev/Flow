@@ -6,6 +6,7 @@ import 'package:shared/models/model.dart';
 import 'package:shared/models/user/model.dart';
 
 import '../../cubits/flow.dart';
+import '../../widgets/markdown_field.dart';
 import '../calendar/filter.dart';
 import 'user.dart';
 
@@ -27,7 +28,7 @@ class UserTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(user.name),
-      subtitle: Text(user.description),
+      subtitle: MarkdownText(user.description),
       onTap: () => _editUser(context),
       trailing: PopupMenuButton<Function>(
         itemBuilder: (ctx) => <dynamic>[

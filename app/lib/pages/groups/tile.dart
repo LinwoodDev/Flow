@@ -6,6 +6,7 @@ import 'package:shared/models/model.dart';
 
 import '../../cubits/flow.dart';
 import '../../helpers/sourced_paging_controller.dart';
+import '../../widgets/markdown_field.dart';
 import '../calendar/filter.dart';
 import '../users/filter.dart';
 import 'group.dart';
@@ -28,7 +29,7 @@ class GroupTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(group.name),
-      subtitle: Text(group.description),
+      subtitle: MarkdownText(group.description),
       onTap: () => _editGroup(context),
       trailing: PopupMenuButton<Function>(
         itemBuilder: (ctx) => <dynamic>[

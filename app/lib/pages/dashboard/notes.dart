@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shared/models/note/model.dart';
 
 import '../../cubits/flow.dart';
+import '../../widgets/markdown_field.dart';
 
 class DashboardNotesCard extends StatelessWidget {
   const DashboardNotesCard({Key? key}) : super(key: key);
@@ -51,7 +52,7 @@ class DashboardNotesCard extends StatelessWidget {
                 children: notes
                     .map((e) => ListTile(
                           title: Text(e.name),
-                          subtitle: Text(e.description),
+                          subtitle: MarkdownText(e.description),
                         ))
                     .toList(),
               );

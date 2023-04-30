@@ -7,6 +7,7 @@ import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
 
 import '../../cubits/flow.dart';
+import '../../widgets/markdown_field.dart';
 
 class DashboardEventsCard extends StatelessWidget {
   const DashboardEventsCard({super.key});
@@ -57,7 +58,7 @@ class DashboardEventsCard extends StatelessWidget {
                 children: appointments
                     .map((e) => ListTile(
                           title: Text(e.main.name),
-                          subtitle: Text(e.main.description),
+                          subtitle: MarkdownText(e.main.description),
                         ))
                     .toList(),
               );

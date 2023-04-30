@@ -1,1 +1,2 @@
 * Fix dialog results
+* Fix markdown in lists
