@@ -2,6 +2,7 @@ import 'package:flow/cubits/flow.dart';
 import 'package:flow/pages/calendar/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
@@ -44,7 +45,8 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
     _year = now.year;
   }
 
-  DateTime get _date => DateTime(_year, 1, 1).addDays((_week - 1) * 7);
+  DateTime get _date =>
+      DateTime(_year, 1, 1).nextStartOfWeek.addDays((_week - 1) * 7);
 
   Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
       _fetchCalendarItems() async {
@@ -82,7 +84,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
 
   void _addWeek(int add) {
     setState(() {
-      final dateTime = DateTime(_year - 1, 12, 31).addDays((_week + add) * 7);
+      final dateTime = DateTime(_year, 1, 1).addDays((_week + add) * 7);
       _week = dateTime.week;
       _year = dateTime.year;
       _appointments = _fetchCalendarItems();
@@ -130,7 +132,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                     IconButton(
                       icon: const Icon(Icons.today_outlined),
                       isSelected: _date.year == DateTime.now().year &&
-                          _date.week == DateTime.now().week - 1,
+                          _date.week == DateTime.now().week,
                       onPressed: () {
                         setState(() {
                           final now = DateTime.now();
@@ -204,6 +206,21 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                               final date = _date.addDays(entry.key);
                               return Column(
                                 children: [
+                                  // Weekday
+                                  Text(
+                                    DateFormat.EEEE().format(date),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
+                                          color: date.isSameDay(DateTime.now())
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary
+                                              : null,
+                                        ),
+                                  ),
+                                  const SizedBox(height: 8),
                                   Text(
                                     date.day.toString(),
                                     style: Theme.of(context)

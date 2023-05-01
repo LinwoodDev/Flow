@@ -55,16 +55,14 @@ extension DateTimeHelper on DateTime {
 
   int get week {
     final date = DateTime(year, month, day);
-    final firstDay = DateTime(date.year, 1, 1);
+    final firstDay = DateTime(date.year - 1, 12, 31);
     final days = date.difference(firstDay).inDays;
     return (days / 7).ceil();
   }
 
-  DateTime get startOfWeek {
-    final date = DateTime(year, month, day);
-    final firstDay = DateTime(date.year, 1, 1);
-    final days = date.difference(firstDay).inDays;
-    return firstDay.add(Duration(days: days - days % 7));
+  DateTime get nextStartOfWeek {
+    var date = DateTime(year, month, day);
+    return date.addDays(7 - date.weekday + 1);
   }
 
   int getDaysInMonth() {

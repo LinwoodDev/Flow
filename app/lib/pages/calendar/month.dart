@@ -49,7 +49,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
   DateTime get _date => DateTime(
         _year,
         _month,
-        _now.day,
+        1,
         _now.hour,
         _now.minute,
         _now.second,
@@ -208,7 +208,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                         if (index < 7) {
                           return LayoutBuilder(builder: (context, constraints) {
                             final current =
-                                _date.startOfWeek.addDays(index + 1);
+                                _date.nextStartOfWeek.addDays(index);
                             var text = DateFormat.EEEE(locale).format(
                               current,
                             );
@@ -237,7 +237,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                           return Container();
                         }
                         current = current - emptyPadding;
-                        final day = _date.addDays(current);
+                        final day = _date.nextStartOfWeek.addDays(current - 7);
                         return InkWell(
                           onTap: () async {
                             await showDialog(
@@ -265,7 +265,12 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                                       ?.copyWith(
                                         color: day.isSameDay(DateTime.now())
                                             ? Theme.of(context).primaryColor
-                                            : null,
+                                            : day.month != _month
+                                                ? Theme.of(context)
+                                                    .colorScheme
+                                                    .onSurface
+                                                    .withOpacity(0.5)
+                                                : null,
                                       ),
                                 ),
                                 const SizedBox(height: 4),

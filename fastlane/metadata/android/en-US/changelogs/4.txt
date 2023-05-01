@@ -1,2 +1,6 @@
+* Add weekday to week view
+* Improve date colors in month view
 * Fix dialog results
 * Fix markdown in lists
+* Fix calendar week display
+* Fix week view not starting on Monday
