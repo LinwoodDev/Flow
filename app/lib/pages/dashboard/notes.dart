@@ -7,9 +7,14 @@ import 'package:shared/models/note/model.dart';
 import '../../cubits/flow.dart';
 import '../../widgets/markdown_field.dart';
 
-class DashboardNotesCard extends StatelessWidget {
+class DashboardNotesCard extends StatefulWidget {
   const DashboardNotesCard({Key? key}) : super(key: key);
 
+  @override
+  State<DashboardNotesCard> createState() => _DashboardNotesCardState();
+}
+
+class _DashboardNotesCardState extends State<DashboardNotesCard> {
   Future<List<Note>> _getNotes(BuildContext context) async {
     final sources = context.read<FlowCubit>().getCurrentServices();
     final notes = <Note>[];
@@ -17,6 +22,12 @@ class DashboardNotesCard extends StatelessWidget {
       notes.addAll(await source.note?.getNotes() ?? []);
     }
     return notes;
+  }
+
+  @override
+  void didUpdateWidget(covariant DashboardNotesCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {});
   }
 
   @override
@@ -51,9 +62,12 @@ class DashboardNotesCard extends StatelessWidget {
               return Column(
                 children: notes
                     .map((e) => ListTile(
-                          title: Text(e.name),
-                          subtitle: MarkdownText(e.description),
-                        ))
+                        title: Text(e.name),
+                        subtitle: MarkdownText(e.description),
+                        onTap: () =>
+                            GoRouter.of(context).push('/notes/${e.id}').then(
+                                  (value) => setState(() {}),
+                                )))
                     .toList(),
               );
             })

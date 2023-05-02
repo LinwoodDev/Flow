@@ -1,0 +1,2 @@
+* Add virtual window frame
+* Add links to dashboard

@@ -16,6 +16,7 @@ import 'package:lib5/lib5.dart';
 import 'package:shared/models/model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'cubits/settings.dart';
 import 'pages/events/page.dart';
@@ -94,6 +95,7 @@ class FlowApp extends StatelessWidget {
   }
 
   Widget _buildApp(ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+    final virtualWindowFrameBuilder = VirtualWindowFrameInit();
     return BlocBuilder<SettingsCubit, FlowSettings>(
         buildWhen: (previous, current) =>
             previous.design != current.design ||
@@ -114,6 +116,7 @@ class FlowApp extends StatelessWidget {
                 GlobalCupertinoLocalizations.delegate,
                 LocaleNamesLocalizationsDelegate(),
               ],
+              builder: virtualWindowFrameBuilder,
               supportedLocales: AppLocalizations.supportedLocales,
             ));
   }

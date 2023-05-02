@@ -1,3 +1,4 @@
+import 'package:flow/pages/calendar/item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -9,10 +10,15 @@ import 'package:shared/models/model.dart';
 import '../../cubits/flow.dart';
 import '../../widgets/markdown_field.dart';
 
-class DashboardEventsCard extends StatelessWidget {
+class DashboardEventsCard extends StatefulWidget {
   const DashboardEventsCard({super.key});
 
-  Future<List<SourcedConnectedModel<CalendarItem, Event?>>> _getAppointment(
+  @override
+  State<DashboardEventsCard> createState() => _DashboardEventsCardState();
+}
+
+class _DashboardEventsCardState extends State<DashboardEventsCard> {
+  Future<List<SourcedConnectedModel<CalendarItem, Event?>>> _getAppointments(
       BuildContext context) async {
     final sources = context.read<FlowCubit>().getCurrentServicesMap();
     final appointments = <SourcedConnectedModel<CalendarItem, Event?>>[];
@@ -23,6 +29,12 @@ class DashboardEventsCard extends StatelessWidget {
           .map((e) => SourcedModel(source.key, e)));
     }
     return appointments;
+  }
+
+  @override
+  void didUpdateWidget(covariant DashboardEventsCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {});
   }
 
   @override
@@ -45,7 +57,7 @@ class DashboardEventsCard extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         FutureBuilder<List<SourcedConnectedModel<CalendarItem, Event?>>>(
-            future: _getAppointment(context),
+            future: _getAppointments(context),
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
                 return const Center(child: CircularProgressIndicator());
@@ -59,6 +71,13 @@ class DashboardEventsCard extends StatelessWidget {
                     .map((e) => ListTile(
                           title: Text(e.main.name),
                           subtitle: MarkdownText(e.main.description),
+                          onTap: () => showDialog(
+                              context: context,
+                              builder: (context) => CalendarItemDialog(
+                                    event: e.sub,
+                                    item: e.main,
+                                    source: e.source,
+                                  )).then((value) => setState(() {})),
                         ))
                     .toList(),
               );

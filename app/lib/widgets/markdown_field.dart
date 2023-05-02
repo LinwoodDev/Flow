@@ -78,6 +78,7 @@ class _MarkdownFieldState extends State<MarkdownField> {
                       animation: _controller,
                       builder: (context, child) => MarkdownText(
                         _controller.text,
+                        border: false,
                         onTap: () => setState(() => _editMode = true),
                       ),
                     ),
@@ -98,23 +99,35 @@ class _MarkdownFieldState extends State<MarkdownField> {
 class MarkdownText extends StatelessWidget {
   final String value;
   final VoidCallback? onTap;
+  final bool border;
 
-  const MarkdownText(this.value, {super.key, this.onTap});
+  const MarkdownText(this.value, {super.key, this.onTap, this.border = true});
 
   @override
   Widget build(BuildContext context) {
-    return MarkdownBody(
-      data: value,
-      onTapText: onTap,
-      extensionSet: md.ExtensionSet(
-        md.ExtensionSet.gitHubFlavored.blockSyntaxes,
-        [md.EmojiSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
+    return Container(
+      decoration: border && value.isNotEmpty
+          ? BoxDecoration(
+              border: Border.all(
+                color: Theme.of(context).dividerColor,
+              ),
+              borderRadius: BorderRadius.circular(4),
+            )
+          : null,
+      padding: border && value.isNotEmpty ? const EdgeInsets.all(8) : null,
+      child: MarkdownBody(
+        data: value,
+        onTapText: onTap,
+        extensionSet: md.ExtensionSet(
+          md.ExtensionSet.gitHubFlavored.blockSyntaxes,
+          [md.EmojiSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
+        ),
+        onTapLink: (text, href, title) async {
+          if (href != null && await canLaunchUrlString(href)) {
+            launchUrlString(href);
+          }
+        },
       ),
-      onTapLink: (text, href, title) async {
-        if (href != null && await canLaunchUrlString(href)) {
-          launchUrlString(href);
-        }
-      },
     );
   }
 }
