@@ -174,20 +174,24 @@ class _NotesBodyViewState extends State<NotesBodyView> {
               pagingController: _controller,
               builderDelegate: buildMaterialPagedDelegate<SourcedModel<Note>>(
                 _controller,
-                (ctx, item, index) => Column(
-                  children: [
-                    NoteCard(
-                      controller: _controller,
-                      source: item.source,
-                      note: item.model,
-                    ),
-                    if (item.source == widget.parent?.source &&
-                        item.model.id == widget.parent?.model) ...[
-                      const SizedBox(height: 8),
-                      const Divider(),
-                    ]
-                  ],
-                ),
+                (ctx, item, index) {
+                  final primary = item.source == widget.parent?.source &&
+                      item.model.id == widget.parent?.model;
+                  return Column(
+                    children: [
+                      NoteCard(
+                        controller: _controller,
+                        source: item.source,
+                        note: item.model,
+                        primary: primary,
+                      ),
+                      if (primary) ...[
+                        const SizedBox(height: 8),
+                        const Divider(),
+                      ]
+                    ],
+                  );
+                },
               ),
             ),
           ),
