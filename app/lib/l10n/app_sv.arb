@@ -142,6 +142,7 @@
   "decentralizedDescription": "Det decentraliserade gränssnittet ger dig tillgång till dina data från alla decentraliserade servrar. Du kan använda den för att synkronisera dina data med andra enheter eller tjänster.",
   "importFile": "Importera fil",
   "importFileDescription": "Importera en fil från din enhet. Du kan importera en databasfil från en annan Linwood Flow-instans eller en vanlig kalenderfil.",
+  "icalDescription": "The iCal interface allows you to access your data from any iCal server. It can only read data and does not support writing. You can use it to synchronize your data with other devices or services that do not support CalDAV.",
   "place": "Plats",
   "editPlace": "Redigera plats",
   "deletePlace": "Ta bort plats {name}",
