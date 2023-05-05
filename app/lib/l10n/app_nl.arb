@@ -252,5 +252,8 @@
   "convertTo": "Converteren naar",
   "comingSoon": "Binnenkort beschikbaar",
   "notSupported": "Niet ondersteund",
-  "databaseVersion": "Database versie"
+  "databaseVersion": "Database versie",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "Restore"
 }
