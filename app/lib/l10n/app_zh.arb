@@ -252,5 +252,8 @@
   "convertTo": "转换为",
   "comingSoon": "即将开始",
   "notSupported": "不支持",
-  "databaseVersion": "数据库版本"
+  "databaseVersion": "数据库版本",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "Restore"
 }
