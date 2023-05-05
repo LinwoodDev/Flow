@@ -142,6 +142,7 @@
   "decentralizedDescription": "分散化接口允许您从任何分散的服务器访问您的数据。 您可以使用它来同步您的数据和其他设备或服务。",
   "importFile": "导入文件",
   "importFileDescription": "从您的设备导入文件。您可以从另一个 Linwood 流实例或常规日历文件导入数据库文件。",
+  "icalDescription": "The iCal interface allows you to access your data from any iCal server. It can only read data and does not support writing. You can use it to synchronize your data with other devices or services that do not support CalDAV.",
   "place": "地点",
   "editPlace": "编辑地点",
   "deletePlace": "删除地点 {name}",
