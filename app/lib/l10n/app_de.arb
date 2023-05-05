@@ -252,5 +252,8 @@
   "convertTo": "Konvertiere in",
   "comingSoon": "Demnächst",
   "notSupported": "Nicht unterstützt",
-  "databaseVersion": "Datenbankversion"
+  "databaseVersion": "Datenbankversion",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "Restore"
 }
