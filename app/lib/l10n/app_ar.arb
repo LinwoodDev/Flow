@@ -142,6 +142,7 @@
   "decentralizedDescription": "تتيح لك الواجهة اللامركزية الوصول إلى بياناتك من أي خادم لامركزي. يمكنك استخدامه لمزامنة بياناتك مع الأجهزة أو الخدمات الأخرى.",
   "importFile": "استيراد ملف",
   "importFileDescription": "استيراد ملف من جهازك. يمكنك استيراد ملف قاعدة بيانات من نموذج لينود آخر أو ملف تقويم عادي.",
+  "icalDescription": "The iCal interface allows you to access your data from any iCal server. It can only read data and does not support writing. You can use it to synchronize your data with other devices or services that do not support CalDAV.",
   "place": "مكان",
   "editPlace": "تعديل المكان",
   "deletePlace": "حذف المكان {name}",
