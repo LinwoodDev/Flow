@@ -252,5 +252,8 @@
   "convertTo": "変換先",
   "comingSoon": "近日公開",
   "notSupported": "対応していません",
-  "databaseVersion": "データベースのバージョン"
+  "databaseVersion": "データベースのバージョン",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "Restore"
 }
