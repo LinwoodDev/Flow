@@ -252,5 +252,8 @@
   "convertTo": "Konverter til",
   "comingSoon": "Kommer snart",
   "notSupported": "Støttes ikke",
-  "databaseVersion": "Database versjon"
+  "databaseVersion": "Database versjon",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "Restore"
 }
