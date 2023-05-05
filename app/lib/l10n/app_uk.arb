@@ -252,5 +252,8 @@
   "convertTo": "Конвертувати в",
   "comingSoon": "Чекайте вже скоро",
   "notSupported": "Не підтримується",
-  "databaseVersion": "Версія бази даних"
+  "databaseVersion": "Версія бази даних",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "Restore"
 }
