@@ -48,7 +48,7 @@ dependencies:
   package_info_plus: ^3.1.2
   # Database
   sqflite_common: ^2.4.5
-  sqflite: ^2.2.8
+  sqflite: ^2.2.8+1
   sqflite_common_ffi: ^2.2.5
   sqflite_common_ffi_web: ^0.3.5
   sqlite3_flutter_libs: ^0.5.13
@@ -60,7 +60,6 @@ dependencies:
   connectivity_plus: ^3.0.6
   rxdart: ^0.27.7
   flutter_secure_storage: ^8.0.0
-  pubspec_parse: ^1.2.2
   lib5:
     git:
       url: https://github.com/s5-dev/lib5.git

@@ -20,6 +20,20 @@ Map<String, dynamic> _$$CalDavStorageToJson(_$CalDavStorage instance) =>
       'runtimeType': instance.$type,
     };
 
+_$ICalStorage _$$ICalStorageFromJson(Map<String, dynamic> json) =>
+    _$ICalStorage(
+      url: json['url'] as String,
+      username: json['username'] as String,
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$ICalStorageToJson(_$ICalStorage instance) =>
+    <String, dynamic>{
+      'url': instance.url,
+      'username': instance.username,
+      'runtimeType': instance.$type,
+    };
+
 _$WebDavStorage _$$WebDavStorageFromJson(Map<String, dynamic> json) =>
     _$WebDavStorage(
       url: json['url'] as String,

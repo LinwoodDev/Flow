@@ -76,7 +76,9 @@ class SourcesService {
       return;
     }
     final key = 'remote ${remoteStorage.toFilename()}';
-    await secureStorage.write(key: key, value: password);
+    if (password.isNotEmpty) {
+      await secureStorage.write(key: key, value: password);
+    }
     await settingsCubit.addStorage(remoteStorage);
     await _connectRemote(remoteStorage, password);
     await synchronize();

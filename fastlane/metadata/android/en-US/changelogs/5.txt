@@ -1,3 +1,4 @@
 * Add virtual window frame
 * Add links to dashboard
+* Add ical remote storage
 * Fix primary card in notes

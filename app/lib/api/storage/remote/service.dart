@@ -11,6 +11,8 @@ import 'package:shared/services/database.dart';
 import 'package:shared/services/source.dart';
 import 'package:sqflite_common/sqlite_api.dart' show Database;
 
+import 'ical.dart';
+
 class RequestDatabaseService extends ModelService with TableService {
   @override
   Future<void> create(Database db) async {
@@ -88,6 +90,8 @@ abstract class RemoteService<T extends RemoteStorage> extends SourceService {
     return storage.map(
       calDav: (value) =>
           CalDavRemoteService(value, local, password) as RemoteService<T>,
+      iCal: (value) =>
+          IcalRemoteService(value, local, password) as RemoteService<T>,
       webDav: (value) => throw UnimplementedError(),
       sia: (value) =>
           SiaRemoteService(value, local, password) as RemoteService<T>,

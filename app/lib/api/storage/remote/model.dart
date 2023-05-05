@@ -13,6 +13,10 @@ class RemoteStorage with _$RemoteStorage {
     required String url,
     required String username,
   }) = CalDavStorage;
+  const factory RemoteStorage.iCal({
+    required String url,
+    required String username,
+  }) = ICalStorage;
   const factory RemoteStorage.webDav({
     required String url,
     required String username,

@@ -18,6 +18,8 @@ RemoteStorage _$RemoteStorageFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType']) {
     case 'calDav':
       return CalDavStorage.fromJson(json);
+    case 'iCal':
+      return ICalStorage.fromJson(json);
     case 'webDav':
       return WebDavStorage.fromJson(json);
     case 'sia':
@@ -36,6 +38,7 @@ mixin _$RemoteStorage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String url, String username) calDav,
+    required TResult Function(String url, String username) iCal,
     required TResult Function(String url, String username) webDav,
     required TResult Function(String url, String username) sia,
   }) =>
@@ -43,6 +46,7 @@ mixin _$RemoteStorage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String url, String username)? calDav,
+    TResult? Function(String url, String username)? iCal,
     TResult? Function(String url, String username)? webDav,
     TResult? Function(String url, String username)? sia,
   }) =>
@@ -50,6 +54,7 @@ mixin _$RemoteStorage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String url, String username)? calDav,
+    TResult Function(String url, String username)? iCal,
     TResult Function(String url, String username)? webDav,
     TResult Function(String url, String username)? sia,
     required TResult orElse(),
@@ -58,6 +63,7 @@ mixin _$RemoteStorage {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(CalDavStorage value) calDav,
+    required TResult Function(ICalStorage value) iCal,
     required TResult Function(WebDavStorage value) webDav,
     required TResult Function(SiaStorage value) sia,
   }) =>
@@ -65,6 +71,7 @@ mixin _$RemoteStorage {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(CalDavStorage value)? calDav,
+    TResult? Function(ICalStorage value)? iCal,
     TResult? Function(WebDavStorage value)? webDav,
     TResult? Function(SiaStorage value)? sia,
   }) =>
@@ -72,6 +79,7 @@ mixin _$RemoteStorage {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CalDavStorage value)? calDav,
+    TResult Function(ICalStorage value)? iCal,
     TResult Function(WebDavStorage value)? webDav,
     TResult Function(SiaStorage value)? sia,
     required TResult orElse(),
@@ -207,6 +215,7 @@ class _$CalDavStorage extends CalDavStorage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String url, String username) calDav,
+    required TResult Function(String url, String username) iCal,
     required TResult Function(String url, String username) webDav,
     required TResult Function(String url, String username) sia,
   }) {
@@ -217,6 +226,7 @@ class _$CalDavStorage extends CalDavStorage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String url, String username)? calDav,
+    TResult? Function(String url, String username)? iCal,
     TResult? Function(String url, String username)? webDav,
     TResult? Function(String url, String username)? sia,
   }) {
@@ -227,6 +237,7 @@ class _$CalDavStorage extends CalDavStorage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String url, String username)? calDav,
+    TResult Function(String url, String username)? iCal,
     TResult Function(String url, String username)? webDav,
     TResult Function(String url, String username)? sia,
     required TResult orElse(),
@@ -241,6 +252,7 @@ class _$CalDavStorage extends CalDavStorage {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(CalDavStorage value) calDav,
+    required TResult Function(ICalStorage value) iCal,
     required TResult Function(WebDavStorage value) webDav,
     required TResult Function(SiaStorage value) sia,
   }) {
@@ -251,6 +263,7 @@ class _$CalDavStorage extends CalDavStorage {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(CalDavStorage value)? calDav,
+    TResult? Function(ICalStorage value)? iCal,
     TResult? Function(WebDavStorage value)? webDav,
     TResult? Function(SiaStorage value)? sia,
   }) {
@@ -261,6 +274,7 @@ class _$CalDavStorage extends CalDavStorage {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CalDavStorage value)? calDav,
+    TResult Function(ICalStorage value)? iCal,
     TResult Function(WebDavStorage value)? webDav,
     TResult Function(SiaStorage value)? sia,
     required TResult orElse(),
@@ -295,6 +309,189 @@ abstract class CalDavStorage extends RemoteStorage {
   @override
   @JsonKey(ignore: true)
   _$$CalDavStorageCopyWith<_$CalDavStorage> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ICalStorageCopyWith<$Res>
+    implements $RemoteStorageCopyWith<$Res> {
+  factory _$$ICalStorageCopyWith(
+          _$ICalStorage value, $Res Function(_$ICalStorage) then) =
+      __$$ICalStorageCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String url, String username});
+}
+
+/// @nodoc
+class __$$ICalStorageCopyWithImpl<$Res>
+    extends _$RemoteStorageCopyWithImpl<$Res, _$ICalStorage>
+    implements _$$ICalStorageCopyWith<$Res> {
+  __$$ICalStorageCopyWithImpl(
+      _$ICalStorage _value, $Res Function(_$ICalStorage) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? url = null,
+    Object? username = null,
+  }) {
+    return _then(_$ICalStorage(
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ICalStorage extends ICalStorage {
+  const _$ICalStorage(
+      {required this.url, required this.username, final String? $type})
+      : $type = $type ?? 'iCal',
+        super._();
+
+  factory _$ICalStorage.fromJson(Map<String, dynamic> json) =>
+      _$$ICalStorageFromJson(json);
+
+  @override
+  final String url;
+  @override
+  final String username;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'RemoteStorage.iCal(url: $url, username: $username)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ICalStorage &&
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.username, username) ||
+                other.username == username));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, url, username);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ICalStorageCopyWith<_$ICalStorage> get copyWith =>
+      __$$ICalStorageCopyWithImpl<_$ICalStorage>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String url, String username) calDav,
+    required TResult Function(String url, String username) iCal,
+    required TResult Function(String url, String username) webDav,
+    required TResult Function(String url, String username) sia,
+  }) {
+    return iCal(url, username);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String url, String username)? calDav,
+    TResult? Function(String url, String username)? iCal,
+    TResult? Function(String url, String username)? webDav,
+    TResult? Function(String url, String username)? sia,
+  }) {
+    return iCal?.call(url, username);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String url, String username)? calDav,
+    TResult Function(String url, String username)? iCal,
+    TResult Function(String url, String username)? webDav,
+    TResult Function(String url, String username)? sia,
+    required TResult orElse(),
+  }) {
+    if (iCal != null) {
+      return iCal(url, username);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CalDavStorage value) calDav,
+    required TResult Function(ICalStorage value) iCal,
+    required TResult Function(WebDavStorage value) webDav,
+    required TResult Function(SiaStorage value) sia,
+  }) {
+    return iCal(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CalDavStorage value)? calDav,
+    TResult? Function(ICalStorage value)? iCal,
+    TResult? Function(WebDavStorage value)? webDav,
+    TResult? Function(SiaStorage value)? sia,
+  }) {
+    return iCal?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CalDavStorage value)? calDav,
+    TResult Function(ICalStorage value)? iCal,
+    TResult Function(WebDavStorage value)? webDav,
+    TResult Function(SiaStorage value)? sia,
+    required TResult orElse(),
+  }) {
+    if (iCal != null) {
+      return iCal(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ICalStorageToJson(
+      this,
+    );
+  }
+}
+
+abstract class ICalStorage extends RemoteStorage {
+  const factory ICalStorage(
+      {required final String url,
+      required final String username}) = _$ICalStorage;
+  const ICalStorage._() : super._();
+
+  factory ICalStorage.fromJson(Map<String, dynamic> json) =
+      _$ICalStorage.fromJson;
+
+  @override
+  String get url;
+  @override
+  String get username;
+  @override
+  @JsonKey(ignore: true)
+  _$$ICalStorageCopyWith<_$ICalStorage> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -384,6 +581,7 @@ class _$WebDavStorage extends WebDavStorage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String url, String username) calDav,
+    required TResult Function(String url, String username) iCal,
     required TResult Function(String url, String username) webDav,
     required TResult Function(String url, String username) sia,
   }) {
@@ -394,6 +592,7 @@ class _$WebDavStorage extends WebDavStorage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String url, String username)? calDav,
+    TResult? Function(String url, String username)? iCal,
     TResult? Function(String url, String username)? webDav,
     TResult? Function(String url, String username)? sia,
   }) {
@@ -404,6 +603,7 @@ class _$WebDavStorage extends WebDavStorage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String url, String username)? calDav,
+    TResult Function(String url, String username)? iCal,
     TResult Function(String url, String username)? webDav,
     TResult Function(String url, String username)? sia,
     required TResult orElse(),
@@ -418,6 +618,7 @@ class _$WebDavStorage extends WebDavStorage {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(CalDavStorage value) calDav,
+    required TResult Function(ICalStorage value) iCal,
     required TResult Function(WebDavStorage value) webDav,
     required TResult Function(SiaStorage value) sia,
   }) {
@@ -428,6 +629,7 @@ class _$WebDavStorage extends WebDavStorage {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(CalDavStorage value)? calDav,
+    TResult? Function(ICalStorage value)? iCal,
     TResult? Function(WebDavStorage value)? webDav,
     TResult? Function(SiaStorage value)? sia,
   }) {
@@ -438,6 +640,7 @@ class _$WebDavStorage extends WebDavStorage {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CalDavStorage value)? calDav,
+    TResult Function(ICalStorage value)? iCal,
     TResult Function(WebDavStorage value)? webDav,
     TResult Function(SiaStorage value)? sia,
     required TResult orElse(),
@@ -561,6 +764,7 @@ class _$SiaStorage extends SiaStorage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String url, String username) calDav,
+    required TResult Function(String url, String username) iCal,
     required TResult Function(String url, String username) webDav,
     required TResult Function(String url, String username) sia,
   }) {
@@ -571,6 +775,7 @@ class _$SiaStorage extends SiaStorage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String url, String username)? calDav,
+    TResult? Function(String url, String username)? iCal,
     TResult? Function(String url, String username)? webDav,
     TResult? Function(String url, String username)? sia,
   }) {
@@ -581,6 +786,7 @@ class _$SiaStorage extends SiaStorage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String url, String username)? calDav,
+    TResult Function(String url, String username)? iCal,
     TResult Function(String url, String username)? webDav,
     TResult Function(String url, String username)? sia,
     required TResult orElse(),
@@ -595,6 +801,7 @@ class _$SiaStorage extends SiaStorage {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(CalDavStorage value) calDav,
+    required TResult Function(ICalStorage value) iCal,
     required TResult Function(WebDavStorage value) webDav,
     required TResult Function(SiaStorage value) sia,
   }) {
@@ -605,6 +812,7 @@ class _$SiaStorage extends SiaStorage {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(CalDavStorage value)? calDav,
+    TResult? Function(ICalStorage value)? iCal,
     TResult? Function(WebDavStorage value)? webDav,
     TResult? Function(SiaStorage value)? sia,
   }) {
@@ -615,6 +823,7 @@ class _$SiaStorage extends SiaStorage {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CalDavStorage value)? calDav,
+    TResult Function(ICalStorage value)? iCal,
     TResult Function(WebDavStorage value)? webDav,
     TResult Function(SiaStorage value)? sia,
     required TResult orElse(),

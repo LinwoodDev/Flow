@@ -9,6 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/converters/ical.dart';
 
 import 'caldav.dart';
+import 'ical.dart';
 
 class AddSourceDialog extends StatelessWidget {
   const AddSourceDialog({super.key});
@@ -40,6 +41,18 @@ class AddSourceDialog extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (context) => CalDavSourceDialog(),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: const Text("iCal"),
+                  subtitle: Text(AppLocalizations.of(context).icalDescription),
+                  leading: const Icon(Icons.view_agenda_outlined),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    showDialog(
+                      context: context,
+                      builder: (context) => ICalSourceDialog(),
                     );
                   },
                 ),
