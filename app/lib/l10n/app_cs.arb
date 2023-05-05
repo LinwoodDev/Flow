@@ -252,5 +252,8 @@
   "convertTo": "Převést na",
   "comingSoon": "Již brzy",
   "notSupported": "Nepodporováno",
-  "databaseVersion": "Verze databáze"
+  "databaseVersion": "Verze databáze",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "Restore"
 }
