@@ -142,6 +142,7 @@
   "decentralizedDescription": "Hajautetun käyttöliittymän avulla voit käyttää tietoja miltä tahansa hajautetulta palvelimelta. Voit käyttää sitä synkronoidaksesi tietosi muiden laitteiden tai palveluiden kanssa.",
   "importFile": "Tuo tiedosto",
   "importFileDescription": "Tuo tiedosto laitteestasi. Voit tuoda tietokantatiedoston toisesta Linwood Flow instanssista tai tavallisesta kalenteritiedostosta.",
+  "icalDescription": "The iCal interface allows you to access your data from any iCal server. It can only read data and does not support writing. You can use it to synchronize your data with other devices or services that do not support CalDAV.",
   "place": "Paikka",
   "editPlace": "Muokkaa paikkaa",
   "deletePlace": "Poista paikka {name}",
