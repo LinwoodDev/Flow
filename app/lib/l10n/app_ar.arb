@@ -252,5 +252,8 @@
   "convertTo": "تحويل إلى",
   "comingSoon": "قريباً",
   "notSupported": "غير مدعوم",
-  "databaseVersion": "إصدار قاعدة البيانات"
+  "databaseVersion": "إصدار قاعدة البيانات",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "Restore"
 }
