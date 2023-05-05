@@ -142,6 +142,7 @@
   "decentralizedDescription": "Interfața descentralizată îți permite să accesezi datele tale de la orice server descentralizat. Îl puteți folosi pentru a vă sincroniza datele cu alte dispozitive sau servicii.",
   "importFile": "Importă fișier",
   "importFileDescription": "Importă un fișier de pe dispozitivul tău. Poți importa un fișier de bază de date dintr-o altă instanță de flori Linwood sau un fișier calendar obișnuit.",
+  "icalDescription": "The iCal interface allows you to access your data from any iCal server. It can only read data and does not support writing. You can use it to synchronize your data with other devices or services that do not support CalDAV.",
   "place": "Locul",
   "editPlace": "Editează locul",
   "deletePlace": "Șterge locul {name}",
