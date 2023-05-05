@@ -252,5 +252,8 @@
   "convertTo": "Convertește în",
   "comingSoon": "În curând",
   "notSupported": "Nu este suportat",
-  "databaseVersion": "Versiunea bazei de date"
+  "databaseVersion": "Versiunea bazei de date",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "Restore"
 }
