@@ -2,4 +2,5 @@
 * Add links to dashboard
 * Add ical remote storage
 * Add weekdays in list view
+* Improve title bar
 * Fix primary card in notes

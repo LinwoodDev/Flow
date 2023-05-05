@@ -12,6 +12,8 @@ import 'package:window_manager/window_manager.dart';
 
 import '../main.dart';
 
+const kAppBarHeight = 64.0;
+
 List _getNavigationItems(BuildContext context) => [
       {
         "title": AppLocalizations.of(context).dashboard,
@@ -141,6 +143,7 @@ class FlowNavigation extends StatelessWidget {
       PreferredSizeWidget appBar = AppBar(
         bottom: bottom,
         title: Text(title),
+        toolbarHeight: kAppBarHeight,
         actions: [
           if (actions != null) ...actions!,
           if (!kIsWeb &&
@@ -252,6 +255,7 @@ class _FlowDrawer extends StatelessWidget {
                         isNightly ? "images/nightly.png" : "images/logo.png",
                       ),
                     ),
+                    toolbarHeight: kAppBarHeight,
                     leadingWidth: 32,
                     title: const Text(
                       shortApplicationName,
