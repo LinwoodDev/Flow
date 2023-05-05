@@ -252,5 +252,8 @@
   "convertTo": "Muunna muotoon",
   "comingSoon": "Tulossa pian",
   "notSupported": "Ei tuettu",
-  "databaseVersion": "Tietokannan versio"
+  "databaseVersion": "Tietokannan versio",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "Restore"
 }
