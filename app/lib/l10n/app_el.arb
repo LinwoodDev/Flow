@@ -252,5 +252,8 @@
   "convertTo": "Μετατροπή σε",
   "comingSoon": "Έρχεται σύντομα",
   "notSupported": "Δεν υποστηρίζεται",
-  "databaseVersion": "Έκδοση βάσης δεδομένων"
+  "databaseVersion": "Έκδοση βάσης δεδομένων",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "Restore"
 }
