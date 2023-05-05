@@ -25,7 +25,11 @@ class ICalConverter {
       final parts = line.split(':');
       final name = parts[0].trim().split(';');
       final key = name.first;
-      final value = parts.sublist(1).join(':').trim();
+      var value = parts.sublist(1).join(':').trim();
+      value = value
+          .replaceAll(r'\,', ',')
+          .replaceAll(r'\;', ';')
+          .replaceAll(r'\n', '\n');
       if (currentItem != null) {
         switch (key) {
           case 'SUMMARY':

@@ -186,6 +186,9 @@ class _CalendarListViewState extends State<CalendarListView> {
                             dateFormatter.format(date),
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
+                          Text(
+                            DateFormat.EEEE(locale).format(date),
+                          ),
                         ],
                       ),
                     );

@@ -1,4 +1,5 @@
 * Add virtual window frame
 * Add links to dashboard
 * Add ical remote storage
+* Add weekdays in list view
 * Fix primary card in notes
