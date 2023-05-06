@@ -255,5 +255,6 @@
   "databaseVersion": "データベースのバージョン",
   "minimize": "Minimize",
   "maximize": "Maximize",
-  "restore": "Restore"
+  "restore": "Restore",
+  "markdownIsSupported": "Markdown is supported"
 }
