@@ -142,7 +142,7 @@
   "decentralizedDescription": "Het gedecentraliseerde scherm geeft u toegang tot uw gegevens van elke gedecentraliseerde server. U kunt het gebruiken om uw gegevens te synchroniseren met andere apparaten of diensten.",
   "importFile": "Bestand importeren",
   "importFileDescription": "Importeer een bestand vanaf uw apparaat. U kunt een databasebestand importeren uit een ander Linwood Flow exemplaar of een normaal kalenderbestand.",
-  "icalDescription": "The iCal interface allows you to access your data from any iCal server. It can only read data and does not support writing. You can use it to synchronize your data with other devices or services that do not support CalDAV.",
+  "icalDescription": "De iCal interface geeft u toegang tot uw gegevens op elke iCal server. Het kan alleen gegevens lezen en ondersteunt geen schrijfgegevens. U kunt het gebruiken om uw gegevens te synchroniseren met andere apparaten of diensten die CalDAV niet ondersteunen.",
   "place": "Plaats",
   "editPlace": "Bewerk plaats",
   "deletePlace": "Verwijder plaats {name}",
@@ -255,6 +255,6 @@
   "databaseVersion": "Database versie",
   "minimize": "Minimize",
   "maximize": "Maximize",
-  "restore": "Restore",
-  "markdownIsSupported": "Markdown is supported"
+  "restore": "Herstellen",
+  "markdownIsSupported": "Markdown wordt ondersteund"
 }
