@@ -142,7 +142,7 @@
   "decentralizedDescription": "Η αποκεντρωμένη διεπαφή σας επιτρέπει να έχετε πρόσβαση στα δεδομένα σας από οποιονδήποτε αποκεντρωμένο διακομιστή. Μπορείτε να το χρησιμοποιήσετε για να συγχρονίσετε τα δεδομένα σας με άλλες συσκευές ή υπηρεσίες.",
   "importFile": "Εισαγωγή αρχείου",
   "importFileDescription": "Εισαγωγή ενός αρχείου από τη συσκευή σας. Μπορείτε να εισαγάγετε ένα αρχείο βάσης δεδομένων από άλλο παράδειγμα Linwood Flow ή ένα κανονικό αρχείο ημερολογίου.",
-  "icalDescription": "The iCal interface allows you to access your data from any iCal server. It can only read data and does not support writing. You can use it to synchronize your data with other devices or services that do not support CalDAV.",
+  "icalDescription": "Η διεπαφή iCal σας επιτρέπει να έχετε πρόσβαση στα δεδομένα σας από οποιονδήποτε διακομιστή iCal. Μπορεί να διαβάσει μόνο δεδομένα και δεν υποστηρίζει εγγραφή. Μπορείτε να το χρησιμοποιήσετε για να συγχρονίσετε τα δεδομένα σας με άλλες συσκευές ή υπηρεσίες που δεν υποστηρίζουν CalDAV.",
   "place": "Τόπος",
   "editPlace": "Επεξεργασία τόπου",
   "deletePlace": "Διαγραφή τόπου {name}",
@@ -255,6 +255,6 @@
   "databaseVersion": "Έκδοση βάσης δεδομένων",
   "minimize": "Minimize",
   "maximize": "Maximize",
-  "restore": "Restore",
-  "markdownIsSupported": "Markdown is supported"
+  "restore": "Επαναφορά",
+  "markdownIsSupported": "Το Markdown υποστηρίζεται"
 }
