@@ -142,7 +142,7 @@
   "decentralizedDescription": "decentralizované rozhraní umožňuje přístup k vašim datům z libovolného decentralizovaného serveru. Můžete ji použít k synchronizaci dat s jinými zařízeními nebo službami.",
   "importFile": "Importovat soubor",
   "importFileDescription": "Importujte soubor z vašeho zařízení. Můžete importovat databázový soubor z jiné instance toku linwood nebo z běžného souboru kalendáře.",
-  "icalDescription": "The iCal interface allows you to access your data from any iCal server. It can only read data and does not support writing. You can use it to synchronize your data with other devices or services that do not support CalDAV.",
+  "icalDescription": "Rozhraní iCal umožňuje přístup k vašim datům z jakéhokoliv serveru iCal. Může pouze číst data a nepodporuje psaní. Můžete ji použít k synchronizaci dat s jinými zařízeními nebo službami, které CalDAV.",
   "place": "Umístění",
   "editPlace": "Upravit místo",
   "deletePlace": "Odstranit místo {name}",
@@ -255,6 +255,6 @@
   "databaseVersion": "Verze databáze",
   "minimize": "Minimize",
   "maximize": "Maximize",
-  "restore": "Restore",
-  "markdownIsSupported": "Markdown is supported"
+  "restore": "Obnovit",
+  "markdownIsSupported": "Markdown je podporován"
 }
