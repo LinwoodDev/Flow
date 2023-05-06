@@ -17,7 +17,7 @@ class _SettingsPageState extends State<SettingsPage> {
   final ScrollController _scrollController = ScrollController(
     keepScrollOffset: true,
   );
-  final GlobalKey _scrollViewKey = GlobalKey();
+  final GlobalKey _scrollContentKey = GlobalKey(), _scrollViewKey = GlobalKey();
   int selected = -1;
 
   @override
@@ -30,7 +30,7 @@ class _SettingsPageState extends State<SettingsPage> {
   void _updateSelected() {
     final scrollOffset = _scrollController.offset;
     final scrollView =
-        _scrollViewKey.currentContext!.findRenderObject() as RenderBox;
+        _scrollContentKey.currentContext!.findRenderObject() as RenderBox;
     final scrollViewTop = scrollView.localToGlobal(Offset.zero).dy;
     final index = _itemKeys.indexWhere((key) {
       final item = key.currentContext!.findRenderObject() as RenderBox;
@@ -69,11 +69,12 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       body: SingleChildScrollView(
         controller: _scrollController,
+        key: _scrollViewKey,
         child: Align(
           alignment: Alignment.topCenter,
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 600),
-            key: _scrollViewKey,
+            key: _scrollContentKey,
             child: SettingsContent(itemKeys: _itemKeys),
           ),
         ),
