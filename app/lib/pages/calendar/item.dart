@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/item/service.dart';
 import 'package:shared/models/event/model.dart';
@@ -110,7 +111,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
             children: [
               if (tabs)
                 IconButton(
-                  icon: const Icon(Icons.delete_outline),
+                  icon: const PhosphorIcon(PhosphorIconsLight.trash),
                   onPressed: () async {
                     await _service?.deleteCalendarItem(_item.id!);
                     if (context.mounted) {
@@ -120,7 +121,8 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                 ),
               MenuAnchor(
                 builder: (context, controller, child) => IconButton(
-                  icon: const Icon(Icons.more_vert),
+                  icon:
+                      const PhosphorIcon(PhosphorIconsLight.dotsThreeVertical),
                   onPressed: () => controller.isOpen
                       ? controller.close()
                       : controller.open(),
@@ -135,17 +137,18 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                     ),
                   ),
                   MenuItemButton(
-                    leadingIcon: const Icon(Icons.event_outlined),
+                    leadingIcon:
+                        const PhosphorIcon(PhosphorIconsLight.calendar),
                     onPressed: () => _convertTo(CalendarItemType.appointment),
                     child: Text(AppLocalizations.of(context).appointment),
                   ),
                   MenuItemButton(
-                    leadingIcon: const Icon(Icons.mood_outlined),
+                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.smiley),
                     onPressed: () => _convertTo(CalendarItemType.moment),
                     child: Text(AppLocalizations.of(context).moment),
                   ),
                   MenuItemButton(
-                    leadingIcon: const Icon(Icons.pending_actions_outlined),
+                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.clock),
                     onPressed: () => _convertTo(CalendarItemType.pending),
                     child: Text(AppLocalizations.of(context).pending),
                   ),
@@ -175,7 +178,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                                 child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                  Icon(e[0]),
+                                  PhosphorIcon(e[0]),
                                   const SizedBox(width: 8),
                                   Text(e[1]),
                                 ])))
@@ -219,7 +222,8 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                                 value: value,
                                 child: Row(
                                   children: [
-                                    Icon(value.getIcon(),
+                                    PhosphorIcon(
+                                        value.icon(PhosphorIconsStyle.light),
                                         color: value.getColor()),
                                     const SizedBox(width: 8),
                                     Text(value.getLocalizedName(context)),
@@ -233,7 +237,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             },
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context).status,
-                              icon: const Icon(Icons.info_outlined),
+                              icon: const PhosphorIcon(PhosphorIconsLight.info),
                               border: const OutlineInputBorder(),
                             ),
                           ),
@@ -243,7 +247,8 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context).name,
                               filled: true,
-                              icon: const Icon(Icons.folder_outlined),
+                              icon:
+                                  const PhosphorIcon(PhosphorIconsLight.folder),
                             ),
                             onChanged: (value) =>
                                 _item = _item.copyWith(name: value),
@@ -254,7 +259,8 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                               labelText:
                                   AppLocalizations.of(context).description,
                               border: const OutlineInputBorder(),
-                              icon: const Icon(Icons.description_outlined),
+                              icon: const PhosphorIcon(
+                                  PhosphorIconsLight.fileText),
                             ),
                             onChanged: (value) =>
                                 _item = _item.copyWith(description: value),
@@ -264,7 +270,8 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                           TextFormField(
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context).location,
-                              icon: const Icon(Icons.location_on_outlined),
+                              icon:
+                                  const PhosphorIcon(PhosphorIconsLight.mapPin),
                             ),
                             minLines: 1,
                             maxLines: 2,
@@ -277,7 +284,8 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             DateTimeField(
                               label: AppLocalizations.of(context).start,
                               initialValue: _item.start,
-                              icon: const Icon(Icons.calendar_today_outlined),
+                              icon: const PhosphorIcon(
+                                  PhosphorIconsLight.calendarBlank),
                               onChanged: (value) {
                                 _item = _item.copyWith(start: value);
                               },
@@ -287,7 +295,8 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             DateTimeField(
                               label: AppLocalizations.of(context).end,
                               initialValue: _item.end,
-                              icon: const Icon(Icons.calendar_today_outlined),
+                              icon: const PhosphorIcon(
+                                  PhosphorIconsLight.calendarBlank),
                               onChanged: (value) {
                                 _item = _item.copyWith(end: value);
                               },
@@ -298,7 +307,8 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             DateTimeField(
                               label: AppLocalizations.of(context).time,
                               initialValue: _item.start,
-                              icon: const Icon(Icons.calendar_today_outlined),
+                              icon: const PhosphorIcon(
+                                  PhosphorIconsLight.calendarBlank),
                               onChanged: (value) {
                                 _item =
                                     _item.copyWith(start: value, end: value);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/note/model.dart';
 
 part 'filter.freezed.dart';
@@ -58,7 +59,7 @@ class _NoteFilterViewState extends State<NoteFilterView> {
           children: <Widget>[
             InputChip(
               label: Text(AppLocalizations.of(context).done),
-              avatar: Icon(Icons.check_box_outlined,
+              avatar: PhosphorIcon(PhosphorIconsLight.checkSquare,
                   color: _filter.showDone
                       ? Theme.of(context).colorScheme.onPrimaryContainer
                       : Theme.of(context).iconTheme.color),
@@ -78,7 +79,7 @@ class _NoteFilterViewState extends State<NoteFilterView> {
             ),
             InputChip(
               label: Text(AppLocalizations.of(context).inProgress),
-              avatar: Icon(Icons.indeterminate_check_box_outlined,
+              avatar: PhosphorIcon(PhosphorIconsLight.minusSquare,
                   color: _filter.showInProgress
                       ? Theme.of(context).colorScheme.onPrimaryContainer
                       : Theme.of(context).iconTheme.color),
@@ -98,7 +99,7 @@ class _NoteFilterViewState extends State<NoteFilterView> {
             ),
             InputChip(
               label: Text(AppLocalizations.of(context).todo),
-              avatar: Icon(Icons.check_box_outline_blank_outlined,
+              avatar: PhosphorIcon(PhosphorIconsLight.square,
                   color: _filter.showTodo
                       ? Theme.of(context).colorScheme.onPrimaryContainer
                       : Theme.of(context).iconTheme.color),
@@ -118,7 +119,7 @@ class _NoteFilterViewState extends State<NoteFilterView> {
             ),
             InputChip(
               label: Text(AppLocalizations.of(context).note),
-              avatar: Icon(Icons.notes_outlined,
+              avatar: PhosphorIcon(PhosphorIconsLight.note,
                   color: _filter.showNote
                       ? Theme.of(context).colorScheme.onPrimaryContainer
                       : Theme.of(context).iconTheme.color),

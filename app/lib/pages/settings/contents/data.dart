@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../cubits/settings.dart';
 
@@ -19,7 +20,7 @@ class DataSettingsView extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineSmall),
         const SizedBox(height: 32),
         ListTile(
-          leading: const Icon(Icons.storage_outlined),
+          leading: const PhosphorIcon(PhosphorIconsLight.cloud),
           title: Text(AppLocalizations.of(context).databaseVersion),
           subtitle: FutureBuilder<String>(
               future: context.read<SourcesService>().local.getSqliteVersion(),
@@ -33,7 +34,7 @@ class DataSettingsView extends StatelessWidget {
               }),
         ),
         ListTile(
-          leading: const Icon(Icons.info_outline),
+          leading: const PhosphorIcon(PhosphorIconsLight.info),
           title: Text(AppLocalizations.of(context).version),
           subtitle: FutureBuilder<String>(
               future: PackageInfo.fromPlatform().then((value) => value.version),
@@ -48,7 +49,7 @@ class DataSettingsView extends StatelessWidget {
         ),
         ListTile(
           title: Text(AppLocalizations.of(context).syncMode),
-          leading: Icon(state.syncMode.getIcon()),
+          leading: PhosphorIcon(state.syncMode.icon(PhosphorIconsStyle.light)),
           subtitle: Text(state.syncMode.getLocalizedName(context)),
           onTap: () async => showLeapBottomSheet(
               title: AppLocalizations.of(context).syncMode,
@@ -63,7 +64,8 @@ class DataSettingsView extends StatelessWidget {
                 return SyncMode.values.map((syncMode) {
                   return ListTile(
                     title: Text(syncMode.getLocalizedName(context)),
-                    leading: Icon(syncMode.getIcon()),
+                    leading:
+                        PhosphorIcon(syncMode.icon(PhosphorIconsStyle.light)),
                     selected: syncMode == settingsCubit.state.syncMode,
                     onTap: () => changeSyncMode(syncMode),
                   );

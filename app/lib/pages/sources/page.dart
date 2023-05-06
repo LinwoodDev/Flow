@@ -7,6 +7,7 @@ import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../api/storage/sources.dart';
 import 'local.dart';
@@ -23,7 +24,8 @@ class SourcesPage extends StatelessWidget {
             stream: context.read<SourcesService>().syncStatus,
             builder: (context, snapshot) {
               return IconButton(
-                icon: Icon(snapshot.data.getIcon()),
+                icon:
+                    PhosphorIcon(snapshot.data.icon(PhosphorIconsStyle.light)),
                 onPressed: () =>
                     context.read<SourcesService>().synchronize(true),
               );
@@ -37,7 +39,7 @@ class SourcesPage extends StatelessWidget {
               child: Column(children: [
                 ListTile(
                   title: Text(AppLocalizations.of(context).local),
-                  leading: const Icon(Icons.computer_outlined),
+                  leading: const PhosphorIcon(PhosphorIconsLight.laptop),
                   onTap: () => showDialog(
                       context: context,
                       builder: (context) => const LocalSourceDialog()),
@@ -62,7 +64,8 @@ class SourcesPage extends StatelessWidget {
                           },
                           child: ListTile(
                             title: Text(remote.displayName),
-                            leading: Icon(remote.getIcon()),
+                            leading: PhosphorIcon(
+                                remote.icon(PhosphorIconsStyle.light)),
                           ),
                         );
                       },
@@ -76,7 +79,7 @@ class SourcesPage extends StatelessWidget {
         onPressed: () => showDialog(
             context: context, builder: (context) => const AddSourceDialog()),
         label: Text(AppLocalizations.of(context).create),
-        icon: const Icon(Icons.add_outlined),
+        icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),
     );
   }

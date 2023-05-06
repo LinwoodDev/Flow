@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/user/model.dart';
 import 'package:shared/models/model.dart';
 
@@ -31,7 +32,7 @@ class _UsersPageState extends State<UsersPage> {
       title: AppLocalizations.of(context).users,
       actions: [
         IconButton(
-          icon: const Icon(Icons.search_outlined),
+          icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
           onPressed: () => showSearch(
             context: context,
             delegate: _UsersSearchDelegate(
@@ -56,7 +57,7 @@ class _UsersSearchDelegate extends SearchDelegate {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: const Icon(Icons.clear),
+        icon: const PhosphorIcon(PhosphorIconsLight.x),
         onPressed: () {
           query = '';
         },
@@ -67,7 +68,7 @@ class _UsersSearchDelegate extends SearchDelegate {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: const Icon(Icons.arrow_back),
+      icon: const PhosphorIcon(PhosphorIconsLight.arrowLeft),
       onPressed: () {
         close(context, null);
       },
@@ -193,7 +194,7 @@ class _UsersBodyViewState extends State<UsersBodyView> {
                 context: context, builder: (context) => const UserDialog())
             .then((_) => _controller.refresh()),
         label: Text(AppLocalizations.of(context).create),
-        icon: const Icon(Icons.add_outlined),
+        icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),
     );
   }

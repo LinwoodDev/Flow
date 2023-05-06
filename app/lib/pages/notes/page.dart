@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lib5/lib5.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/note/model.dart';
 import 'package:shared/models/model.dart';
 
@@ -37,7 +38,7 @@ class _NotesPageState extends State<NotesPage> {
       title: AppLocalizations.of(context).notes,
       actions: [
         IconButton(
-          icon: const Icon(Icons.search_outlined),
+          icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
           onPressed: () => showSearch(
             context: context,
             delegate: _NotesSearchDelegate(widget.filter, widget.parent),
@@ -59,7 +60,7 @@ class _NotesSearchDelegate extends SearchDelegate {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: const Icon(Icons.clear),
+        icon: const PhosphorIcon(PhosphorIconsLight.x),
         onPressed: () {
           query = '';
         },
@@ -70,7 +71,7 @@ class _NotesSearchDelegate extends SearchDelegate {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: const Icon(Icons.arrow_back),
+      icon: const PhosphorIcon(PhosphorIconsLight.arrowLeft),
       onPressed: () {
         close(context, null);
       },
@@ -208,7 +209,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
                   create: true,
                 )).then((_) => _controller.refresh()),
         label: Text(AppLocalizations.of(context).create),
-        icon: const Icon(Icons.add_outlined),
+        icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),
     );
   }

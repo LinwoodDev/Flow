@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/helpers/date_time.dart';
@@ -176,8 +177,8 @@ class _CalendarListViewState extends State<CalendarListView> {
                           if (index == 0)
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 16),
-                              child: Icon(
-                                Icons.today_outlined,
+                              child: PhosphorIcon(
+                                PhosphorIconsLight.calendarBlank,
                                 color: Theme.of(context).colorScheme.secondary,
                                 size: 64,
                               ),

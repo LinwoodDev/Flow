@@ -8,11 +8,11 @@ import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:lib5/lib5.dart';
+import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:shared/models/model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
@@ -110,10 +110,8 @@ class FlowApp extends StatelessWidget {
               themeMode: state.themeMode,
               locale: state.locale.isEmpty ? null : Locale(state.locale),
               localizationsDelegates: const [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
+                ...AppLocalizations.localizationsDelegates,
+                LeapLocalizations.delegate,
                 LocaleNamesLocalizationsDelegate(),
               ],
               builder: virtualWindowFrameBuilder,

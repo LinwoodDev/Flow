@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:lib5/lib5.dart';
+import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/model.dart';
 
 import 'filter.dart';
-import '../../helpers/event.dart';
 import 'tile.dart';
 
 class CalendarMonthView extends StatefulWidget {
@@ -134,12 +135,13 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
               children: [
                 ElevatedButton(
                   onPressed: () => _addMonth(-1),
-                  child: const Icon(Icons.chevron_left),
+                  child: const PhosphorIcon(PhosphorIconsLight.caretLeft),
                 ),
                 Row(
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.today_outlined),
+                      icon:
+                          const PhosphorIcon(PhosphorIconsLight.calendarBlank),
                       isSelected: _date.year == DateTime.now().year &&
                           _date.month == DateTime.now().month,
                       onPressed: () {
@@ -176,7 +178,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                 ),
                 ElevatedButton(
                   onPressed: () => _addMonth(1),
-                  child: const Icon(Icons.chevron_right),
+                  child: const PhosphorIcon(PhosphorIconsLight.caretRight),
                 ),
               ],
             ),
@@ -328,7 +330,7 @@ class CalendarDayDialog extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           IconButton(
-            icon: const Icon(Icons.add_circle_outline_outlined),
+            icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
             tooltip: AppLocalizations.of(context).createEvent,
             onPressed: () async {
               await showCalendarCreate(

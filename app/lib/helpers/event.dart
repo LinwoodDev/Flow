@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -14,16 +16,14 @@ extension EventStatusHelper on EventStatus {
     }
   }
 
-  IconData getIcon([bool filled = false]) {
+  IconGetter get icon {
     switch (this) {
       case EventStatus.confirmed:
-        return filled
-            ? Icons.check_circle
-            : Icons.check_circle_outline_outlined;
+        return PhosphorIcons.checkCircle;
       case EventStatus.draft:
-        return filled ? Icons.drafts : Icons.drafts_outlined;
+        return PhosphorIcons.fileDashed;
       case EventStatus.cancelled:
-        return filled ? Icons.cancel : Icons.cancel_outlined;
+        return PhosphorIcons.xCircle;
     }
   }
 
@@ -36,36 +36,5 @@ extension EventStatusHelper on EventStatus {
       case EventStatus.cancelled:
         return Colors.red;
     }
-  }
-}
-
-extension DateTimeHelper on DateTime {
-  bool isSameDay(DateTime other) {
-    return year == other.year && month == other.month && day == other.day;
-  }
-
-  DateTime addYears(int years) {
-    return DateTime(
-        year + years, month, day, hour, minute, second, millisecond);
-  }
-
-  DateTime addDays(int days) {
-    return DateTime(year, month, day + days, hour, minute, second, millisecond);
-  }
-
-  int get week {
-    final date = DateTime(year, month, day);
-    final firstDay = DateTime(date.year - 1, 12, 31);
-    final days = date.difference(firstDay).inDays;
-    return (days / 7).ceil();
-  }
-
-  DateTime get nextStartOfWeek {
-    var date = DateTime(year, month, day);
-    return date.addDays(7 - date.weekday + 1);
-  }
-
-  int getDaysInMonth() {
-    return DateTime(year, month + 1, 0).day;
   }
 }

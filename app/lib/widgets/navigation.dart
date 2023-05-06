@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../main.dart';
@@ -17,38 +18,38 @@ const kAppBarHeight = 64.0;
 List _getNavigationItems(BuildContext context) => [
       {
         "title": AppLocalizations.of(context).dashboard,
-        "icon": Icons.dashboard_outlined,
+        "icon": PhosphorIconsLight.squaresFour,
         "link": "/"
       },
       {
         "title": AppLocalizations.of(context).calendar,
-        "icon": Icons.calendar_month_outlined,
+        "icon": PhosphorIconsLight.calendar,
         "link": "/calendar"
       },
       null,
       {
         "title": AppLocalizations.of(context).events,
-        "icon": Icons.calendar_today_outlined,
+        "icon": PhosphorIconsLight.calendarBlank,
         "link": "/events"
       },
       {
         "title": AppLocalizations.of(context).notes,
-        "icon": Icons.checklist_outlined,
+        "icon": PhosphorIconsLight.listChecks,
         "link": "/notes"
       },
       {
         "title": AppLocalizations.of(context).groups,
-        "icon": Icons.folder_outlined,
+        "icon": PhosphorIconsLight.fileText,
         "link": "/groups"
       },
       {
         "title": AppLocalizations.of(context).places,
-        "icon": Icons.location_on_outlined,
+        "icon": PhosphorIconsLight.mapPin,
         "link": "/places"
       },
       {
         "title": AppLocalizations.of(context).users,
-        "icon": Icons.people_outlined,
+        "icon": PhosphorIconsLight.users,
         "link": "/users"
       },
     ];
@@ -57,12 +58,12 @@ List _getSecondaryItems(BuildContext context) => [
       null,
       {
         "title": AppLocalizations.of(context).sources,
-        "icon": Icons.dns_outlined,
+        "icon": PhosphorIconsLight.hardDrives,
         "link": "/sources"
       },
       {
         "title": AppLocalizations.of(context).settings,
-        "icon": Icons.settings_outlined,
+        "icon": PhosphorIconsLight.gear,
         "link": "/settings"
       }
     ];
@@ -150,7 +151,7 @@ class FlowNavigation extends StatelessWidget {
           ...actions,
           if (showEndDrawerButton)
             IconButton(
-              icon: const Icon(Icons.menu_outlined),
+              icon: const PhosphorIcon(PhosphorIconsLight.list),
               onPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
             ),
           if (!kIsWeb &&
@@ -229,7 +230,7 @@ class _FlowDrawer extends StatelessWidget {
         : ListTile(
             style: ListTileStyle.drawer,
             title: Text(map['title']),
-            leading: Icon(map['icon']),
+            leading: PhosphorIcon(map['icon']),
             onTap: () => GoRouter.of(context).go(map['link']),
             selected: currentSelected,
             selectedColor: Theme.of(context).colorScheme.onBackground,
@@ -276,7 +277,7 @@ class _FlowDrawer extends StatelessWidget {
                     actions: [
                       IconButton(
                         tooltip: AppLocalizations.of(context).sources,
-                        icon: const Icon(Icons.filter_alt_outlined),
+                        icon: const PhosphorIcon(PhosphorIconsLight.funnel),
                         onPressed: () => _showSources(context),
                       ),
                     ],

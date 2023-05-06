@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
@@ -50,7 +51,7 @@ class _DashboardEventsCardState extends State<DashboardEventsCard> {
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.open_in_new_outlined),
+              icon: const PhosphorIcon(PhosphorIconsLight.arrowSquareOut),
               onPressed: () => GoRouter.of(context).go('/calendar'),
             )
           ],

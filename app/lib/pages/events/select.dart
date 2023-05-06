@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lib5/lib5.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/services/source.dart';
@@ -58,7 +59,9 @@ class _EventSelectTileState extends State<EventSelectTile> {
           return ListTile(
             title: Text(AppLocalizations.of(context).event),
             subtitle: Text(event?.name ?? AppLocalizations.of(context).notSet),
-            leading: Icon(event == null ? Icons.event : Icons.event_outlined),
+            leading: PhosphorIcon(PhosphorIcons.calendar(event == null
+                ? PhosphorIconsStyle.light
+                : PhosphorIconsStyle.fill)),
             onTap: () async {
               if (event != null) {
                 Navigator.of(context).pop();
@@ -86,7 +89,7 @@ class _EventSelectTileState extends State<EventSelectTile> {
             },
             trailing: _value == null
                 ? IconButton(
-                    icon: const Icon(Icons.add_circle_outline_outlined),
+                    icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
                     onPressed: () async {
                       final event = await showDialog<SourcedModel<Event>>(
                         context: context,
@@ -99,7 +102,7 @@ class _EventSelectTileState extends State<EventSelectTile> {
                     },
                   )
                 : IconButton(
-                    icon: const Icon(Icons.clear),
+                    icon: const PhosphorIcon(PhosphorIconsLight.x),
                     onPressed: () {
                       _onChanged(null);
                     },
@@ -177,7 +180,7 @@ class _EventSelectDialogState extends State<EventSelectDialog> {
             TextField(
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context).search,
-                icon: const Icon(Icons.search_outlined),
+                icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
               ),
               controller: _controller,
               onSubmitted: (_) {

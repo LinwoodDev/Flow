@@ -4,6 +4,7 @@ import 'package:flow/widgets/source_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/group/model.dart';
 import 'package:shared/models/group/service.dart';
 import 'package:shared/models/model.dart';
@@ -49,7 +50,7 @@ class GroupDialog extends StatelessWidget {
           TextField(
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context).name,
-              icon: const Icon(Icons.folder_outlined),
+              icon: const PhosphorIcon(PhosphorIconsLight.fileText),
               filled: true,
             ),
             controller: nameController,
@@ -62,7 +63,7 @@ class GroupDialog extends StatelessWidget {
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context).description,
               border: const OutlineInputBorder(),
-              icon: const Icon(Icons.description_outlined),
+              icon: const PhosphorIcon(PhosphorIconsLight.fileText),
             ),
             value: currentGroup.description,
             onChanged: (value) {

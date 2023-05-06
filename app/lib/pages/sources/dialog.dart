@@ -6,6 +6,7 @@ import 'package:flow/pages/sources/import.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/converters/ical.dart';
 
 import 'caldav.dart';
@@ -35,7 +36,7 @@ class AddSourceDialog extends StatelessWidget {
                   title: const Text("CalDAV"),
                   subtitle:
                       Text(AppLocalizations.of(context).caldavDescription),
-                  leading: const Icon(Icons.web_outlined),
+                  leading: const PhosphorIcon(PhosphorIconsLight.globe),
                   onTap: () {
                     Navigator.of(context).pop();
                     showDialog(
@@ -47,7 +48,7 @@ class AddSourceDialog extends StatelessWidget {
                 ListTile(
                   title: const Text("iCal"),
                   subtitle: Text(AppLocalizations.of(context).icalDescription),
-                  leading: const Icon(Icons.view_agenda_outlined),
+                  leading: const PhosphorIcon(PhosphorIconsLight.calendar),
                   onTap: () {
                     Navigator.of(context).pop();
                     showDialog(
@@ -66,7 +67,7 @@ class AddSourceDialog extends StatelessWidget {
                   title: const Text("WebDAV"),
                   subtitle:
                       Text(AppLocalizations.of(context).webdavDescription),
-                  leading: const Icon(Icons.folder_outlined),
+                  leading: const PhosphorIcon(PhosphorIconsLight.fileText),
                   enabled: false,
                   onTap: () {
                     Navigator.of(context).pop();
@@ -81,7 +82,7 @@ class AddSourceDialog extends StatelessWidget {
                   enabled: false,
                   subtitle: Text(
                       AppLocalizations.of(context).decentralizedDescription),
-                  leading: const Icon(Icons.cloud_outlined),
+                  leading: const PhosphorIcon(PhosphorIconsLight.cloud),
                   onTap: () {
                     Navigator.of(context).pop();
                     showDialog(
@@ -94,7 +95,7 @@ class AddSourceDialog extends StatelessWidget {
                   title: Text(AppLocalizations.of(context).server),
                   subtitle:
                       Text(AppLocalizations.of(context).serverDescription),
-                  leading: const Icon(Icons.storage_outlined),
+                  leading: const PhosphorIcon(PhosphorIconsLight.hardDrive),
                   onTap: () => Navigator.of(context).pop(),
                   enabled: false,
                 ),
@@ -103,7 +104,7 @@ class AddSourceDialog extends StatelessWidget {
                     title: Text(AppLocalizations.of(context).importFile),
                     subtitle: Text(
                         AppLocalizations.of(context).importFileDescription),
-                    leading: const Icon(Icons.file_copy_outlined),
+                    leading: const PhosphorIcon(PhosphorIconsLight.file),
                     onTap: () async {
                       final cubit = context.read<FlowCubit>();
                       final result = await FilePicker.platform.pickFiles(

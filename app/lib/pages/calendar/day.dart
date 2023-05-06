@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:lib5/lib5.dart';
+import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
@@ -115,12 +117,13 @@ class _CalendarDayViewState extends State<CalendarDayView> {
                   children: [
                     ElevatedButton(
                       onPressed: () => _addDay(-1),
-                      child: const Icon(Icons.chevron_left),
+                      child: const PhosphorIcon(PhosphorIconsLight.caretLeft),
                     ),
                     Row(
                       children: [
                         IconButton(
-                          icon: const Icon(Icons.today_outlined),
+                          icon: const PhosphorIcon(
+                              PhosphorIconsLight.calendarBlank),
                           isSelected: _date.isSameDay(DateTime.now()),
                           onPressed: () {
                             setState(() {
@@ -155,7 +158,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
                     ),
                     ElevatedButton(
                       onPressed: () => _addDay(1),
-                      child: const Icon(Icons.chevron_right),
+                      child: const PhosphorIcon(PhosphorIconsLight.caretRight),
                     ),
                   ],
                 ),

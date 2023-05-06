@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 extension ThemeModeHelper on ThemeMode {
-  IconData get icon {
+  PhosphorIconData get icon {
     switch (this) {
       case ThemeMode.light:
-        return Icons.light_mode_outlined;
+        return PhosphorIconsLight.sun;
       case ThemeMode.dark:
-        return Icons.dark_mode_outlined;
+        return PhosphorIconsLight.moon;
       case ThemeMode.system:
-        return Icons.brightness_auto;
+        return PhosphorIconsLight.power;
     }
   }
 

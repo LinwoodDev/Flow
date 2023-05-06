@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/model.dart';
 import 'package:shared/services/source.dart';
 
@@ -65,7 +66,7 @@ class SourceDropdown<T> extends StatelessWidget {
           },
           decoration: InputDecoration(
             labelText: AppLocalizations.of(context).source,
-            icon: const Icon(Icons.storage_outlined),
+            icon: const PhosphorIcon(PhosphorIconsLight.cloud),
             border: const OutlineInputBorder(),
           ),
         ),

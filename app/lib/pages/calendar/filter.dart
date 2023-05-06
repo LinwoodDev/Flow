@@ -4,6 +4,7 @@ import 'package:flow/pages/places/select.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lib5/lib5.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared/models/group/model.dart';
@@ -80,7 +81,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                 final selected = !_filter.hiddenStatuses.contains(status);
                 return InputChip(
                   label: Text(status.getLocalizedName(context)),
-                  avatar: Icon(status.getIcon(),
+                  avatar: PhosphorIcon(status.icon(PhosphorIconsStyle.light),
                       color: selected
                           ? Theme.of(context).colorScheme.onPrimaryContainer
                           : Theme.of(context).iconTheme.color),
@@ -115,7 +116,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
             ),
             InputChip(
               label: Text(AppLocalizations.of(context).event),
-              avatar: Icon(Icons.event_outlined,
+              avatar: PhosphorIcon(PhosphorIconsLight.calendar,
                   color: _filter.event != null
                       ? Theme.of(context).colorScheme.onPrimaryContainer
                       : Theme.of(context).iconTheme.color),
@@ -157,7 +158,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
             ),
             InputChip(
               label: Text(AppLocalizations.of(context).group),
-              avatar: Icon(Icons.folder_outlined,
+              avatar: PhosphorIcon(PhosphorIconsLight.folder,
                   color: _filter.group != null
                       ? Theme.of(context).colorScheme.onPrimaryContainer
                       : Theme.of(context).iconTheme.color),
@@ -199,7 +200,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
             ),
             InputChip(
               label: Text(AppLocalizations.of(context).place),
-              avatar: Icon(Icons.location_on_outlined,
+              avatar: PhosphorIcon(PhosphorIconsLight.mapPin,
                   color: _filter.place != null
                       ? Theme.of(context).colorScheme.onPrimaryContainer
                       : Theme.of(context).iconTheme.color),
@@ -241,7 +242,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
             if (widget.past)
               InputChip(
                 label: Text(AppLocalizations.of(context).past),
-                avatar: Icon(Icons.history_outlined,
+                avatar: PhosphorIcon(PhosphorIconsLight.clockCounterClockwise,
                     color: _filter.past
                         ? Theme.of(context).colorScheme.onPrimaryContainer
                         : Theme.of(context).iconTheme.color),

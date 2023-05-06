@@ -2,6 +2,7 @@ import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/user/model.dart';
 import 'package:shared/models/user/service.dart';
 
@@ -44,7 +45,7 @@ class UserDialog extends StatelessWidget {
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context).name,
               filled: true,
-              icon: const Icon(Icons.folder_outlined),
+              icon: const PhosphorIcon(PhosphorIconsLight.fileText),
             ),
             initialValue: currentUser.name,
             onChanged: (value) {
@@ -56,7 +57,7 @@ class UserDialog extends StatelessWidget {
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context).description,
               border: const OutlineInputBorder(),
-              icon: const Icon(Icons.description_outlined),
+              icon: const PhosphorIcon(PhosphorIconsLight.fileText),
             ),
             value: currentUser.description,
             onChanged: (value) {

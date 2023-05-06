@@ -1,5 +1,7 @@
 import 'package:flow/api/storage/remote/model.dart';
 import 'package:flutter/material.dart';
+import 'package:material_leap/helpers.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 extension StorageVisualizer on RemoteStorage {
   String getLocalizedName(BuildContext context) {
@@ -10,12 +12,12 @@ extension StorageVisualizer on RemoteStorage {
         webDav: (_) => 'WebDAV');
   }
 
-  IconData getIcon() {
+  IconGetter get icon {
     return map(
-      calDav: (_) => Icons.calendar_today_outlined,
-      iCal: (_) => Icons.view_agenda_outlined,
-      sia: (_) => Icons.cloud,
-      webDav: (_) => Icons.folder_outlined,
+      calDav: (_) => PhosphorIcons.globe,
+      iCal: (_) => PhosphorIcons.calendar,
+      sia: (_) => PhosphorIcons.cloud,
+      webDav: (_) => PhosphorIcons.fileText,
     );
   }
 }

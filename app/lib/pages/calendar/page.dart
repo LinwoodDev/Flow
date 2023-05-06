@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lib5/lib5.dart';
 import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
@@ -46,18 +47,18 @@ extension _CalendarViewExtension on _CalendarView {
     }
   }
 
-  IconData getIcon() {
+  IconGetter get icon {
     switch (this) {
       case _CalendarView.list:
-        return Icons.list;
+        return PhosphorIcons.list;
       case _CalendarView.day:
-        return Icons.calendar_today;
+        return PhosphorIcons.calendar;
       case _CalendarView.week:
-        return Icons.calendar_view_week;
+        return PhosphorIcons.columns;
       case _CalendarView.month:
-        return Icons.calendar_view_month;
+        return PhosphorIcons.gridNine;
       case _CalendarView.pending:
-        return Icons.pending_actions;
+        return PhosphorIcons.clock;
     }
   }
 }
@@ -72,13 +73,13 @@ class _CalendarPageState extends State<CalendarPage>
       title: AppLocalizations.of(context).calendar,
       actions: [
         IconButton(
-          icon: const Icon(Icons.search_outlined),
+          icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
           onPressed: () => showSearch(
               context: context,
               delegate: _CalendarSearchDelegate(_calendarView)),
         ),
         PopupMenuButton<_CalendarView>(
-          icon: Icon(_calendarView.getIcon()),
+          icon: PhosphorIcon(_calendarView.icon(PhosphorIconsStyle.light)),
           initialValue: _calendarView,
           onSelected: (value) {
             setState(() {
@@ -90,7 +91,7 @@ class _CalendarPageState extends State<CalendarPage>
                   value: e,
                   child: Row(
                     children: [
-                      Icon(e.getIcon()),
+                      PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
                       const SizedBox(width: 8),
                       Text(e.getLocalizedName(context)),
                     ],
@@ -115,7 +116,7 @@ class _CalendarSearchDelegate extends SearchDelegate {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: const Icon(Icons.clear),
+        icon: const PhosphorIcon(PhosphorIconsLight.x),
         onPressed: () {
           query = '';
         },
@@ -126,7 +127,7 @@ class _CalendarSearchDelegate extends SearchDelegate {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: const Icon(Icons.arrow_back),
+      icon: const PhosphorIcon(PhosphorIconsLight.arrowLeft),
       onPressed: () {
         close(context, null);
       },
@@ -249,7 +250,7 @@ class CreateEventScaffold extends StatelessWidget {
         onPressed: () => showCalendarCreate(context: context, event: event)
             .then((_) => onCreated()),
         label: Text(AppLocalizations.of(context).create),
-        icon: const Icon(Icons.add_outlined),
+        icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),
     );
   }
@@ -283,7 +284,7 @@ Future<void> showCalendarCreate(
       childrenBuilder: (ctx) => [
         ListTile(
           title: Text(AppLocalizations.of(context).appointment),
-          leading: const Icon(Icons.event_outlined),
+          leading: const PhosphorIcon(PhosphorIconsLight.calendar),
           onTap: () async {
             Navigator.of(ctx).pop(CalendarItem.fixed(
               start: time,
@@ -293,7 +294,7 @@ Future<void> showCalendarCreate(
         ),
         ListTile(
           title: Text(AppLocalizations.of(context).moment),
-          leading: const Icon(Icons.mood_outlined),
+          leading: const PhosphorIcon(PhosphorIconsLight.smiley),
           onTap: () async {
             Navigator.of(ctx).pop(CalendarItem.fixed(
               start: time,
@@ -303,7 +304,7 @@ Future<void> showCalendarCreate(
         ),
         ListTile(
           title: Text(AppLocalizations.of(context).pending),
-          leading: const Icon(Icons.pending_actions_outlined),
+          leading: const PhosphorIcon(PhosphorIconsLight.clock),
           onTap: () async {
             Navigator.of(ctx).pop(const CalendarItem.fixed());
           },

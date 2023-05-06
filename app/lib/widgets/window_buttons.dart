@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:window_manager/window_manager.dart';
 
 class FlowWindowButtons extends StatefulWidget {
@@ -88,7 +89,8 @@ class _FlowWindowButtonsState extends State<FlowWindowButtons>
                               children: [
                                 if (!fullScreen) ...[
                                   IconButton(
-                                    icon: const Icon(Icons.minimize_outlined),
+                                    icon: const PhosphorIcon(
+                                        PhosphorIconsLight.minus),
                                     tooltip:
                                         AppLocalizations.of(context).minimize,
                                     splashRadius: 20,
@@ -98,8 +100,8 @@ class _FlowWindowButtonsState extends State<FlowWindowButtons>
                                     tooltip: maximized
                                         ? AppLocalizations.of(context).restore
                                         : AppLocalizations.of(context).maximize,
-                                    icon: Icon(
-                                      Icons.square_outlined,
+                                    icon: PhosphorIcon(
+                                      PhosphorIconsLight.square,
                                       size: maximized ? 14 : 20,
                                       color: Theme.of(context).iconTheme.color,
                                     ),
@@ -109,7 +111,8 @@ class _FlowWindowButtonsState extends State<FlowWindowButtons>
                                             : windowManager.maximize(),
                                   ),
                                   IconButton(
-                                    icon: const Icon(Icons.close_outlined),
+                                    icon: const PhosphorIcon(
+                                        PhosphorIconsLight.x),
                                     tooltip: AppLocalizations.of(context).close,
                                     color: Colors.red,
                                     splashRadius: 20,

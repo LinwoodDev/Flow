@@ -3,6 +3,7 @@ import 'package:flow/pages/groups/select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/event/service.dart';
 import 'package:shared/models/model.dart';
@@ -62,7 +63,7 @@ class EventDialog extends StatelessWidget {
                 controller: nameController,
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context).name,
-                  icon: const Icon(Icons.folder_outlined),
+                  icon: const PhosphorIcon(PhosphorIconsLight.fileText),
                   filled: true,
                 ),
                 onChanged: (value) =>
@@ -73,7 +74,7 @@ class EventDialog extends StatelessWidget {
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context).description,
                   border: const OutlineInputBorder(),
-                  icon: const Icon(Icons.description_outlined),
+                  icon: const PhosphorIcon(PhosphorIconsLight.fileText),
                 ),
                 value: currentEvent.description,
                 onChanged: (value) =>
@@ -109,7 +110,7 @@ class EventDialog extends StatelessWidget {
               TextField(
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context).location,
-                  icon: const Icon(Icons.location_on_outlined),
+                  icon: const PhosphorIcon(PhosphorIconsLight.mapPin),
                 ),
                 minLines: 1,
                 maxLines: 2,

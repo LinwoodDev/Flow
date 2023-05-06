@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
 
@@ -37,12 +38,12 @@ class EventTile extends StatelessWidget {
       trailing: PopupMenuButton<Function>(
         itemBuilder: (ctx) => <dynamic>[
           [
-            Icons.calendar_month_outlined,
+            PhosphorIconsLight.calendar,
             AppLocalizations.of(context).events,
             _openEvents,
           ],
           [
-            Icons.delete_outline,
+            PhosphorIconsLight.trash,
             AppLocalizations.of(context).delete,
             _deleteEvent,
           ],
@@ -51,7 +52,7 @@ class EventTile extends StatelessWidget {
                   value: e[2],
                   child: Row(
                     children: [
-                      Icon(e[0]),
+                      PhosphorIcon(e[0]),
                       const SizedBox(width: 8),
                       Text(e[1]),
                     ],
@@ -129,7 +130,7 @@ Future<SourcedModel<Event>?> showEventModalBottomSheet(
       title: AppLocalizations.of(context).events,
       actionsBuilder: (ctx) => [
             TextButton.icon(
-              icon: const Icon(Icons.add_circle_outline_outlined),
+              icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
               label: Text(AppLocalizations.of(context).create),
               onPressed: () {
                 Navigator.of(ctx).pop(true);
@@ -146,7 +147,7 @@ Future<SourcedModel<Event>?> showEventModalBottomSheet(
                   (ctx, item, index) {
                     return ListTile(
                       title: Text(item.model.name),
-                      leading: const Icon(Icons.event_outlined),
+                      leading: const PhosphorIcon(PhosphorIconsLight.calendar),
                       onTap: () {
                         event = item;
                         Navigator.of(ctx).pop();

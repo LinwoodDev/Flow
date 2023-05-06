@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
 
@@ -31,7 +32,7 @@ class _EventsPageState extends State<EventsPage> {
       title: AppLocalizations.of(context).events,
       actions: [
         IconButton(
-          icon: const Icon(Icons.search_outlined),
+          icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
           onPressed: () => showSearch(
             context: context,
             delegate: _EventsSearchDelegate(
@@ -56,7 +57,7 @@ class _EventsSearchDelegate extends SearchDelegate {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: const Icon(Icons.clear),
+        icon: const PhosphorIcon(PhosphorIconsLight.x),
         onPressed: () {
           query = '';
         },
@@ -67,7 +68,7 @@ class _EventsSearchDelegate extends SearchDelegate {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: const Icon(Icons.arrow_back),
+      icon: const PhosphorIcon(PhosphorIconsLight.arrowLeft),
       onPressed: () {
         close(context, null);
       },
@@ -194,7 +195,7 @@ class _EventsBodyViewState extends State<EventsBodyView> {
                 context: context, builder: (context) => const EventDialog())
             .then((_) => _controller.refresh()),
         label: Text(AppLocalizations.of(context).create),
-        icon: const Icon(Icons.add_outlined),
+        icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),
     );
   }

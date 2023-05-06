@@ -4,6 +4,7 @@ import 'package:flow/cubits/settings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/helpers/string.dart';
 import 'package:flow/helpers/theme_mode.dart';
 import 'package:flow/theme.dart';
@@ -30,7 +31,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                 const SizedBox(height: 32),
                 ListTile(
                   title: Text(AppLocalizations.of(context).design),
-                  leading: const Icon(Icons.palette_outlined),
+                  leading: const PhosphorIcon(PhosphorIconsLight.palette),
                   subtitle: Text(state.design.isEmpty
                       ? AppLocalizations.of(context).classic
                       : state.design.toDisplayString()),
@@ -68,7 +69,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                 ),
                 ListTile(
                   title: Text(AppLocalizations.of(context).theme),
-                  leading: Icon(state.themeMode.icon),
+                  leading: PhosphorIcon(state.themeMode.icon),
                   subtitle: Text(state.themeMode.getDisplayString(context)),
                   onTap: () async {
                     final cubit = context.read<SettingsCubit>();
@@ -80,7 +81,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                             .map((e) => ListTile(
                                   title: Text(e.getDisplayString(context)),
                                   selected: state.themeMode == e,
-                                  leading: Icon(e.icon),
+                                  leading: PhosphorIcon(e.icon),
                                   onTap: () {
                                     Navigator.of(context).pop(e);
                                   },
@@ -91,7 +92,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                 ),
                 ListTile(
                   title: Text(AppLocalizations.of(context).language),
-                  leading: const Icon(Icons.translate_outlined),
+                  leading: const PhosphorIcon(PhosphorIconsLight.translate),
                   subtitle: Text(_getLocalizedName(context, state.locale)),
                   onTap: () async {
                     final cubit = context.read<SettingsCubit>();
@@ -133,7 +134,8 @@ class PersonalizationSettingsView extends StatelessWidget {
                           title:
                               Text(AppLocalizations.of(context).nativeTitleBar),
                           value: state.nativeTitleBar,
-                          secondary: const Icon(Icons.title_outlined),
+                          secondary:
+                              const PhosphorIcon(PhosphorIconsLight.textT),
                           onChanged: (value) {
                             context
                                 .read<SettingsCubit>()

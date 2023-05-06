@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lib5/lib5.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/group/model.dart';
 import 'package:shared/models/model.dart';
 import 'package:shared/models/place/model.dart';
@@ -59,7 +60,7 @@ class _EventFilterViewState extends State<EventFilterView> {
           children: <Widget>[
             InputChip(
               label: Text(AppLocalizations.of(context).group),
-              avatar: Icon(Icons.folder_outlined,
+              avatar: PhosphorIcon(PhosphorIconsLight.fileText,
                   color: _filter.group != null
                       ? Theme.of(context).colorScheme.onPrimaryContainer
                       : Theme.of(context).iconTheme.color),
@@ -100,7 +101,7 @@ class _EventFilterViewState extends State<EventFilterView> {
             ),
             InputChip(
               label: Text(AppLocalizations.of(context).place),
-              avatar: Icon(Icons.location_on_outlined,
+              avatar: PhosphorIcon(PhosphorIconsLight.mapPin,
                   color: _filter.place != null
                       ? Theme.of(context).colorScheme.onPrimaryContainer
                       : Theme.of(context).iconTheme.color),

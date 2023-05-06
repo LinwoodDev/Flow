@@ -3,6 +3,7 @@ import 'package:flow/api/storage/sources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ICalSourceDialog extends StatelessWidget {
   final TextEditingController _urlController = TextEditingController(),
@@ -23,7 +24,7 @@ class ICalSourceDialog extends StatelessWidget {
             TextFormField(
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context).url,
-                icon: const Icon(Icons.web_outlined),
+                icon: const PhosphorIcon(PhosphorIconsLight.globe),
                 border: const OutlineInputBorder(),
               ),
               controller: _urlController,
@@ -33,7 +34,7 @@ class ICalSourceDialog extends StatelessWidget {
             TextFormField(
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context).username,
-                icon: const Icon(Icons.person_outline),
+                icon: const PhosphorIcon(PhosphorIconsLight.user),
                 filled: true,
               ),
               controller: _usernameController,
@@ -43,12 +44,12 @@ class ICalSourceDialog extends StatelessWidget {
               return TextFormField(
                 decoration: InputDecoration(
                     labelText: AppLocalizations.of(context).password,
-                    icon: const Icon(Icons.lock_outline),
+                    icon: const PhosphorIcon(PhosphorIconsLight.lock),
                     filled: true,
                     suffix: IconButton(
-                        icon: Icon(showPassword
-                            ? Icons.lock_open_outlined
-                            : Icons.lock_outlined),
+                        icon: PhosphorIcon(showPassword
+                            ? PhosphorIconsLight.lockOpen
+                            : PhosphorIconsLight.lock),
                         onPressed: () =>
                             setState(() => showPassword = !showPassword))),
                 obscureText: !showPassword,

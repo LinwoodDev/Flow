@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/model.dart';
 import 'package:shared/models/note/model.dart';
 import 'package:shared/models/note/service.dart';
@@ -132,7 +133,7 @@ class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
               padding: const EdgeInsets.all(16.0),
               child: FloatingActionButton.extended(
                 label: Text(AppLocalizations.of(context).create),
-                icon: const Icon(Icons.add_outlined),
+                icon: const PhosphorIcon(PhosphorIconsLight.plus),
                 onPressed: () async {
                   final note = await showDialog<Note>(
                     context: context,

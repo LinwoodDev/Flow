@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/note/model.dart';
 import 'package:shared/models/note/service.dart';
 
@@ -128,7 +129,7 @@ class _NoteCardState extends State<NoteCard> {
                   itemBuilder: (context) => <dynamic>[
                     if (_newNote.status != null) ...[
                       [
-                        Icons.notes_outlined,
+                        PhosphorIconsLight.note,
                         AppLocalizations.of(context).convertToNote,
                         () async {
                           _newNote = _newNote.copyWith(status: null);
@@ -137,7 +138,7 @@ class _NoteCardState extends State<NoteCard> {
                       ],
                     ] else ...[
                       [
-                        Icons.check_box_outlined,
+                        PhosphorIconsLight.checkSquare,
                         AppLocalizations.of(context).convertToTodo,
                         () async {
                           _newNote = _newNote.copyWith(status: NoteStatus.todo);
@@ -146,7 +147,7 @@ class _NoteCardState extends State<NoteCard> {
                       ],
                     ],
                     [
-                      Icons.delete_outlined,
+                      PhosphorIconsLight.trash,
                       AppLocalizations.of(context).delete,
                       () async {
                         await _noteService?.deleteNote(_newNote.id!);
@@ -157,7 +158,7 @@ class _NoteCardState extends State<NoteCard> {
                       .map((e) => PopupMenuItem(
                           onTap: e[2],
                           child: Row(children: [
-                            Icon(e[0]),
+                            PhosphorIcon(e[0]),
                             const SizedBox(width: 8),
                             Text(e[1]),
                           ])))
@@ -166,7 +167,7 @@ class _NoteCardState extends State<NoteCard> {
                 if (!widget.primary)
                   IconButton(
                     tooltip: AppLocalizations.of(context).open,
-                    icon: const Icon(Icons.open_in_new_outlined),
+                    icon: const PhosphorIcon(PhosphorIconsLight.arrowSquareOut),
                     onPressed: () {
                       GoRouter.of(context).pushNamed(
                         widget.source.isEmpty ? "subnote-local" : "subnote",

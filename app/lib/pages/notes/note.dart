@@ -3,6 +3,7 @@ import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/note/model.dart';
 import 'package:shared/models/note/service.dart';
 
@@ -79,7 +80,7 @@ class _NoteDialogState extends State<NoteDialog> {
             TextFormField(
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context).name,
-                icon: const Icon(Icons.title_outlined),
+                icon: const PhosphorIcon(PhosphorIconsLight.textT),
                 filled: true,
               ),
               initialValue: _newNote.name,
@@ -91,7 +92,7 @@ class _NoteDialogState extends State<NoteDialog> {
             TextFormField(
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context).priority,
-                icon: const Icon(Icons.priority_high_outlined),
+                icon: const PhosphorIcon(PhosphorIconsLight.arrowSquareUp),
                 border: const OutlineInputBorder(),
               ),
               initialValue: _newNote.priority.toString(),
@@ -105,7 +106,7 @@ class _NoteDialogState extends State<NoteDialog> {
             MarkdownField(
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context).description,
-                icon: const Icon(Icons.description_outlined),
+                icon: const PhosphorIcon(PhosphorIconsLight.fileText),
                 border: const OutlineInputBorder(),
               ),
               value: _newNote.description,

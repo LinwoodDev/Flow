@@ -2,6 +2,7 @@ import 'package:flow/helpers/event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/helpers/date_time.dart';
@@ -73,8 +74,10 @@ class CalendarListTile extends StatelessWidget {
       ),
       leading: Tooltip(
         message: model.status.getLocalizedName(context),
-        child: Icon(
-          model.status.getIcon(main.type == CalendarItemType.appointment),
+        child: PhosphorIcon(
+          model.status.icon(main.type == CalendarItemType.appointment
+              ? PhosphorIconsStyle.bold
+              : PhosphorIconsStyle.light),
           color: model.status.getColor(),
         ),
       ),
@@ -93,10 +96,10 @@ class CalendarListTile extends StatelessWidget {
             : service.calendarItemNote?.notesDone(eventItem.sub!.id!)),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Icon(
+            return PhosphorIcon(
               snapshot.data!
-                  ? Icons.check_circle_outline_outlined
-                  : Icons.circle_outlined,
+                  ? PhosphorIconsLight.checkCircle
+                  : PhosphorIconsLight.circle,
               color: snapshot.data ?? false
                   ? Theme.of(context).colorScheme.onPrimaryContainer
                   : Theme.of(context).colorScheme.onSurfaceVariant,

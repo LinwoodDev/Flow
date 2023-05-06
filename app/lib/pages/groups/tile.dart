@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/group/model.dart';
 import 'package:shared/models/model.dart';
 
@@ -34,17 +35,17 @@ class GroupTile extends StatelessWidget {
       trailing: PopupMenuButton<Function>(
         itemBuilder: (ctx) => <dynamic>[
           [
-            Icons.calendar_month_outlined,
+            PhosphorIconsLight.calendar,
             AppLocalizations.of(context).events,
             _openEvents,
           ],
           [
-            Icons.people_outlined,
+            PhosphorIconsLight.users,
             AppLocalizations.of(context).users,
             _openUsers,
           ],
           [
-            Icons.delete_outline,
+            PhosphorIconsLight.trash,
             AppLocalizations.of(context).delete,
             _deleteGroup,
           ],
@@ -53,7 +54,7 @@ class GroupTile extends StatelessWidget {
                   value: e[2],
                   child: Row(
                     children: [
-                      Icon(e[0]),
+                      PhosphorIcon(e[0]),
                       const SizedBox(width: 8),
                       Text(e[1]),
                     ],

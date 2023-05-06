@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
 import 'package:lib5/lib5.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
@@ -90,7 +91,7 @@ class _AppointmentSelectDialogState extends State<AppointmentSelectDialog> {
             TextField(
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context).search,
-                icon: const Icon(Icons.search_outlined),
+                icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
               ),
               controller: _controller,
               onSubmitted: (_) {

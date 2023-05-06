@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../cubits/settings.dart';
 
@@ -17,16 +19,14 @@ extension SyncStatusVisualizer on SyncStatus? {
     }
   }
 
-  IconData getIcon() {
+  IconGetter get icon {
     switch (this) {
       case SyncStatus.syncing:
-        return Icons.sync_outlined;
+        return PhosphorIcons.arrowClockwise;
       case SyncStatus.synced:
-        return Icons.check_circle_outline;
-      case SyncStatus.error:
-        return Icons.error_outline;
+        return PhosphorIcons.check;
       default:
-        return Icons.sync_problem_outlined;
+        return PhosphorIcons.warningCircle;
     }
   }
 }
@@ -43,14 +43,14 @@ extension SyncModeVisualizer on SyncMode {
     }
   }
 
-  IconData getIcon() {
+  IconGetter get icon {
     switch (this) {
       case SyncMode.always:
-        return Icons.wifi_outlined;
+        return PhosphorIcons.wifiHigh;
       case SyncMode.noMobile:
-        return Icons.wifi_tethering_off_outlined;
+        return PhosphorIcons.deviceMobile;
       case SyncMode.manual:
-        return Icons.sync_disabled_outlined;
+        return PhosphorIcons.wifiX;
     }
   }
 }
