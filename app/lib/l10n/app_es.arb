@@ -142,7 +142,7 @@
   "decentralizedDescription": "La interfaz descentralizada le permite acceder a sus datos desde cualquier servidor descentralizado. Puede utilizarlo para sincronizar sus datos con otros dispositivos o servicios.",
   "importFile": "Importar archivo",
   "importFileDescription": "Importa un archivo desde tu dispositivo. Puedes importar un archivo de base de datos desde otra instancia de Linwood Flow o un archivo de calendario normal.",
-  "icalDescription": "The iCal interface allows you to access your data from any iCal server. It can only read data and does not support writing. You can use it to synchronize your data with other devices or services that do not support CalDAV.",
+  "icalDescription": "La interfaz iCal le permite acceder a sus datos desde cualquier servidor iCal. Sólo puede leer datos y no es compatible con la escritura. Puede usarlo para sincronizar sus datos con otros dispositivos o servicios que no soporten CalDAV.",
   "place": "Colocar",
   "editPlace": "Editar lugar",
   "deletePlace": "Eliminar lugar {name}",
@@ -255,6 +255,6 @@
   "databaseVersion": "Versión de base de datos",
   "minimize": "Minimize",
   "maximize": "Maximize",
-  "restore": "Restore",
-  "markdownIsSupported": "Markdown is supported"
+  "restore": "Restaurar",
+  "markdownIsSupported": "Markdown soportado"
 }
