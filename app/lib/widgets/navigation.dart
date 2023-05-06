@@ -122,16 +122,17 @@ class FlowNavigation extends StatelessWidget {
   final Widget body;
   final PreferredSizeWidget? bottom;
   final Widget? endDrawer;
-  final List<Widget>? actions;
+  final List<Widget> actions;
   final FloatingActionButton? floatingActionButton;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
-  const FlowNavigation({
+  FlowNavigation({
     super.key,
     required this.title,
     required this.body,
     this.bottom,
     this.endDrawer,
-    this.actions,
+    this.actions = const [],
     this.floatingActionButton,
   });
 
@@ -139,16 +140,24 @@ class FlowNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       final isMobile = MediaQuery.of(context).size.width < 768;
+      final showEndDrawerButton = isMobile && endDrawer != null;
       const drawer = _FlowDrawer();
       PreferredSizeWidget appBar = AppBar(
         bottom: bottom,
         title: Text(title),
         toolbarHeight: kAppBarHeight,
         actions: [
-          if (actions != null) ...actions!,
+          ...actions,
+          if (showEndDrawerButton)
+            IconButton(
+              icon: const Icon(Icons.menu_outlined),
+              onPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
+            ),
           if (!kIsWeb &&
               (Platform.isWindows || Platform.isLinux || Platform.isMacOS))
-            const FlowWindowButtons()
+            FlowWindowButtons(
+              divider: actions.isNotEmpty || showEndDrawerButton,
+            ),
         ],
       );
 
@@ -174,6 +183,7 @@ class FlowNavigation extends StatelessWidget {
             Expanded(
               child: Scaffold(
                 appBar: appBar,
+                key: _scaffoldKey,
                 drawer: isMobile
                     ? const Drawer(
                         width: _drawerWidth,

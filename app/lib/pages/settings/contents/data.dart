@@ -1,9 +1,9 @@
 import 'package:flow/api/storage/sources.dart';
 import 'package:flow/visualizer/sync.dart';
-import 'package:flow/widgets/material_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../cubits/settings.dart';
@@ -50,7 +50,7 @@ class DataSettingsView extends StatelessWidget {
           title: Text(AppLocalizations.of(context).syncMode),
           leading: Icon(state.syncMode.getIcon()),
           subtitle: Text(state.syncMode.getLocalizedName(context)),
-          onTap: () async => showMaterialBottomSheet(
+          onTap: () async => showLeapBottomSheet(
               title: AppLocalizations.of(context).syncMode,
               context: context,
               childrenBuilder: (ctx) {

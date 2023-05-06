@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lib5/lib5.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
 
-import '../../widgets/material_bottom_sheet.dart';
 import 'day.dart';
 import 'filter.dart';
 import 'item.dart';
@@ -277,7 +277,7 @@ Future<void> showCalendarCreate(
       );
   time ??= DateTime.now();
   if (context.mounted) {
-    final calendarItem = await showMaterialBottomSheet<CalendarItem>(
+    final calendarItem = await showLeapBottomSheet<CalendarItem>(
       context: context,
       title: AppLocalizations.of(context).create,
       childrenBuilder: (ctx) => [

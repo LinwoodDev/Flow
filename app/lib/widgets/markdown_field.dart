@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:markdown/markdown.dart' as md;
@@ -57,7 +58,10 @@ class _MarkdownFieldState extends State<MarkdownField> {
         child: SizedBox(
           child: _editMode
               ? TextFormField(
-                  decoration: widget.decoration,
+                  decoration: widget.decoration.copyWith(
+                    helperText:
+                        AppLocalizations.of(context).markdownIsSupported,
+                  ),
                   maxLines: null,
                   minLines: 3,
                   onChanged: widget.onChanged,

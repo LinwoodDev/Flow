@@ -4,3 +4,4 @@
 * Add weekdays in list view
 * Improve title bar
 * Fix primary card in notes
+* Fix end drawer

@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flow/cubits/settings.dart';
-import 'package:flow/widgets/material_bottom_sheet.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:shared/helpers/string.dart';
 import 'package:flow/helpers/theme_mode.dart';
 import 'package:flow/theme.dart';
@@ -36,7 +36,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                       : state.design.toDisplayString()),
                   onTap: () async {
                     final cubit = context.read<SettingsCubit>();
-                    final design = await showMaterialBottomSheet<String>(
+                    final design = await showLeapBottomSheet<String>(
                         context: context,
                         title: AppLocalizations.of(context).design,
                         childrenBuilder: (context) => [
@@ -73,7 +73,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                   onTap: () async {
                     final cubit = context.read<SettingsCubit>();
 
-                    final theme = await showMaterialBottomSheet<ThemeMode>(
+                    final theme = await showLeapBottomSheet<ThemeMode>(
                         context: context,
                         title: AppLocalizations.of(context).theme,
                         childrenBuilder: (context) => ThemeMode.values
@@ -96,7 +96,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                   onTap: () async {
                     final cubit = context.read<SettingsCubit>();
 
-                    final locale = await showMaterialBottomSheet<String>(
+                    final locale = await showLeapBottomSheet<String>(
                       context: context,
                       title: AppLocalizations.of(context).language,
                       childrenBuilder: (context) => [

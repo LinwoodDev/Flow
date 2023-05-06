@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
 
@@ -10,7 +11,6 @@ import '../../cubits/flow.dart';
 import '../../helpers/sourced_paging_controller.dart';
 import '../../widgets/builder_delegate.dart';
 import '../../widgets/markdown_field.dart';
-import '../../widgets/material_bottom_sheet.dart';
 import '../calendar/filter.dart';
 import 'event.dart';
 
@@ -124,7 +124,7 @@ Future<SourcedModel<Event>?> showEventModalBottomSheet(
   final pagingController = SourcedPagingController<Event>(cubit);
   pagingController.addFetchListener((source, service, offset, limit) async =>
       service.event?.getEvents(offset: offset, limit: limit));
-  final shouldCreate = await showMaterialBottomSheet<bool>(
+  final shouldCreate = await showLeapBottomSheet<bool>(
       context: context,
       title: AppLocalizations.of(context).events,
       actionsBuilder: (ctx) => [
