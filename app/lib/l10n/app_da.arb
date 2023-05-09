@@ -256,5 +256,6 @@
   "minimize": "Minimize",
   "maximize": "Maximize",
   "restore": "Gendan",
-  "markdownIsSupported": "Markdown understøttes"
+  "markdownIsSupported": "Markdown understøttes",
+  "addLabel": "Add label"
 }
