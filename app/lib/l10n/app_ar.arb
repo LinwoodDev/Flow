@@ -256,5 +256,6 @@
   "minimize": "Minimize",
   "maximize": "Maximize",
   "restore": "إستعادة",
-  "markdownIsSupported": "Markdown مدعوم"
+  "markdownIsSupported": "Markdown مدعوم",
+  "addLabel": "Add label"
 }
