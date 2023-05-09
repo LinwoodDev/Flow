@@ -256,5 +256,6 @@
   "minimize": "Minimize",
   "maximize": "Maximize",
   "restore": "Restaurează",
-  "markdownIsSupported": "Markdown este suportat"
+  "markdownIsSupported": "Markdown este suportat",
+  "addLabel": "Add label"
 }
