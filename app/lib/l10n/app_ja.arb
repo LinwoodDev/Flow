@@ -256,5 +256,6 @@
   "minimize": "Minimize",
   "maximize": "Maximize",
   "restore": "復元",
-  "markdownIsSupported": "Markdown はサポートされています"
+  "markdownIsSupported": "Markdown はサポートされています",
+  "addLabel": "Add label"
 }
