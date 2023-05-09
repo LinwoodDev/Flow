@@ -256,5 +256,6 @@
   "minimize": "Minimize",
   "maximize": "Maximize",
   "restore": "Επαναφορά",
-  "markdownIsSupported": "Το Markdown υποστηρίζεται"
+  "markdownIsSupported": "Το Markdown υποστηρίζεται",
+  "addLabel": "Add label"
 }
