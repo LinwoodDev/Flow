@@ -256,5 +256,6 @@
   "minimize": "Minimize",
   "maximize": "Maximize",
   "restore": "Herstellen",
-  "markdownIsSupported": "Markdown wordt ondersteund"
+  "markdownIsSupported": "Markdown wordt ondersteund",
+  "addLabel": "Add label"
 }
