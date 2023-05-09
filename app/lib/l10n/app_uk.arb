@@ -256,5 +256,6 @@
   "minimize": "Minimize",
   "maximize": "Maximize",
   "restore": "Відновити",
-  "markdownIsSupported": "Markdown підтримується"
+  "markdownIsSupported": "Markdown підтримується",
+  "addLabel": "Add label"
 }
