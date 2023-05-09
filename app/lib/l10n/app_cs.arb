@@ -256,5 +256,6 @@
   "minimize": "Minimize",
   "maximize": "Maximize",
   "restore": "Obnovit",
-  "markdownIsSupported": "Markdown je podporován"
+  "markdownIsSupported": "Markdown je podporován",
+  "addLabel": "Add label"
 }
