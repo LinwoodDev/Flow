@@ -256,5 +256,6 @@
   "minimize": "Minimize",
   "maximize": "Maximize",
   "restore": "恢复",
-  "markdownIsSupported": "支持Markdown"
+  "markdownIsSupported": "支持Markdown",
+  "addLabel": "Add label"
 }
