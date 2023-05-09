@@ -73,7 +73,7 @@ class UserDatabaseService extends UserService with TableService {
       limit: limit,
     );
     if (result == null) return [];
-    return result.map((e) => User.fromDatabase(e)).toList();
+    return result.map(User.fromDatabase).toList();
   }
 
   @override

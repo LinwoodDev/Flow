@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:shared/models/event/item/service.dart';
 import 'package:shared/models/event/service.dart';
 import 'package:shared/models/group/service.dart';
+import 'package:shared/models/label/service.dart';
 import 'package:shared/models/place/service.dart';
 import 'package:shared/models/user/service.dart';
 
@@ -24,6 +25,7 @@ abstract class SourceService {
   PlaceService? get place => null;
   GroupService? get group => null;
   UserService? get user => null;
+  LabelService? get label => null;
 
   List<ModelService> get models => <ModelService?>[
         event,
@@ -33,7 +35,8 @@ abstract class SourceService {
         calendarItemNote,
         group,
         user,
-        place
+        place,
+        label
       ].whereNotNull().toList();
 
   Future<void> import(CachedData data, [bool clear = true]) async {

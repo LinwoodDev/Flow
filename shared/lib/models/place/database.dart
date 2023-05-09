@@ -56,7 +56,7 @@ class PlaceDatabaseService extends PlaceService with TableService {
       whereArgs: whereArgs,
     );
     if (result == null) return [];
-    return result.map((row) => Place.fromDatabase(row)).toList();
+    return result.map(Place.fromDatabase).toList();
   }
 
   @override

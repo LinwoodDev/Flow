@@ -5,12 +5,13 @@ import 'dart:typed_data';
 import 'package:lib5/lib5.dart';
 import 'package:lib5/util.dart';
 import 'package:shared/models/event/item/database.dart';
-import 'package:shared/models/note/event/database.dart';
+import 'package:shared/models/label/database.dart';
+import 'package:shared/models/note/event.dart';
 import 'package:shared/services/source.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
 import '../models/event/database.dart';
-import '../models/note/item/database.dart';
+import '../models/note/item.dart';
 import '../models/place/database.dart';
 import '../models/user/database.dart';
 import '../models/group/database.dart';
@@ -45,6 +46,8 @@ class DatabaseService extends SourceService {
   final UserDatabaseService user = UserDatabaseService();
   @override
   final PlaceDatabaseService place = PlaceDatabaseService();
+  @override
+  final LabelDatabaseService label = LabelDatabaseService();
 
   final DatabaseFactory databaseFactory;
 

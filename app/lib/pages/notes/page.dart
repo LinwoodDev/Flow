@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flow/pages/notes/labels.dart';
 import 'package:flow/pages/notes/note.dart';
 import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flow/widgets/navigation.dart';
@@ -36,6 +37,7 @@ class _NotesPageState extends State<NotesPage> {
   Widget build(BuildContext context) {
     return FlowNavigation(
       title: AppLocalizations.of(context).notes,
+      endDrawer: const LabelsDrawer(),
       actions: [
         IconButton(
           icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),

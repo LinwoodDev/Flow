@@ -1,6 +1,6 @@
 import 'package:shared/models/note/database.dart';
 
-import '../../event/model.dart';
+import '../event/model.dart';
 
 class EventNoteDatabaseConnector extends NoteDatabaseConnector<Event> {
   @override
