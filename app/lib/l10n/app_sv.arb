@@ -256,5 +256,6 @@
   "minimize": "Minimize",
   "maximize": "Maximize",
   "restore": "Återställ",
-  "markdownIsSupported": "Markdown stöds"
+  "markdownIsSupported": "Markdown stöds",
+  "addLabel": "Add label"
 }
