@@ -167,12 +167,8 @@ class NoteDatabaseService extends NoteService with TableService {
     String? where;
     List<Object>? whereArgs;
     if (search.isNotEmpty) {
-      where = where == null
-          ? '(name LIKE ? OR description LIKE ?)'
-          : '$where AND (name LIKE ? OR description LIKE ?)';
-      whereArgs = whereArgs == null
-          ? ['%$search%', '%$search%']
-          : [...whereArgs, '%$search%', '%$search%'];
+      where = '(name LIKE ? OR description LIKE ?)';
+      whereArgs = ['%$search%', '%$search%'];
     }
     if (parent != null) {
       if (parent.fullBytes.isNotEmpty) {

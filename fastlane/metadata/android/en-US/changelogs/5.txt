@@ -6,3 +6,4 @@
 * Improve title bar
 * Fix primary card in notes
 * Fix end drawer
+* Upgrade to flutter 3.10

@@ -26,7 +26,8 @@ class CalendarFilter with _$CalendarFilter {
     Multihash? group,
     Multihash? event,
     Multihash? place,
-    @Default(false) bool past,
+    @Default(false)
+        bool past,
   }) = _CalendarFilter;
 
   SourcedModel<Multihash>? get sourceEvent => event != null && source != null
