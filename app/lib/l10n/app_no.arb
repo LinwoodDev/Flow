@@ -257,5 +257,6 @@
   "maximize": "Maximize",
   "restore": "Gjenopprett",
   "markdownIsSupported": "Markdown støttes ikke",
-  "addLabel": "Add label"
+  "createLabel": "Create label",
+  "editLabel": "Edit label"
 }
