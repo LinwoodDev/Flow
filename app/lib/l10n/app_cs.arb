@@ -257,5 +257,6 @@
   "maximize": "Maximize",
   "restore": "Obnovit",
   "markdownIsSupported": "Markdown je podporován",
-  "addLabel": "Add label"
+  "createLabel": "Create label",
+  "editLabel": "Edit label"
 }
