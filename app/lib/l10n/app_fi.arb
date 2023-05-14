@@ -257,5 +257,6 @@
   "maximize": "Maximize",
   "restore": "Palauta",
   "markdownIsSupported": "Markdown on tuettu",
-  "addLabel": "Add label"
+  "createLabel": "Create label",
+  "editLabel": "Edit label"
 }
