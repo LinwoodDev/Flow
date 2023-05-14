@@ -257,5 +257,6 @@
   "maximize": "Maximize",
   "restore": "Wiederherstellen",
   "markdownIsSupported": "Markdown wird unterstützt",
-  "addLabel": "Add label"
+  "createLabel": "Create label",
+  "editLabel": "Edit label"
 }
