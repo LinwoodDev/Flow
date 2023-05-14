@@ -257,5 +257,6 @@
   "maximize": "Maximize",
   "restore": "Restaurează",
   "markdownIsSupported": "Markdown este suportat",
-  "addLabel": "Add label"
+  "createLabel": "Create label",
+  "editLabel": "Edit label"
 }
