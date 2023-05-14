@@ -4,6 +4,7 @@
 * Add weekdays in list view
 * Use phosphor icons
 * Improve title bar
+* Fix dashboard scrolling and spacing issues
 * Fix primary card in notes
 * Fix end drawer
 * Upgrade to flutter 3.10
