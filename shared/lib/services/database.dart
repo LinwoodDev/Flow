@@ -24,7 +24,7 @@ typedef DatabaseFactory = Future<Database> Function({
   FutureOr<void> Function(Database, int)? onCreate,
 });
 
-const databaseVersion = 1;
+const databaseVersion = 2;
 
 class DatabaseService extends SourceService {
   late final Database db;

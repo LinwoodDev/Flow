@@ -22,7 +22,11 @@ class LabelDatabaseService extends LabelService with TableService {
   }
 
   @override
-  FutureOr<void> migrate(Database db, int version) {}
+  FutureOr<void> migrate(Database db, int version) {
+    if (version < 2) {
+      return create(db);
+    }
+  }
 
   @override
   Future<Label?> createLabel(Label label) async {
