@@ -257,5 +257,6 @@
   "maximize": "Maximize",
   "restore": "恢复",
   "markdownIsSupported": "支持Markdown",
-  "addLabel": "Add label"
+  "createLabel": "Create label",
+  "editLabel": "Edit label"
 }
