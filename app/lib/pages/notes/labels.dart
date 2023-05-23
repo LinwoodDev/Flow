@@ -1,5 +1,4 @@
 import 'package:flow/helpers/sourced_paging_controller.dart';
-import 'package:flow/pages/notes/label.dart';
 import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

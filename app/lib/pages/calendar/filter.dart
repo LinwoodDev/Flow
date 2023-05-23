@@ -21,13 +21,12 @@ class CalendarFilter with _$CalendarFilter {
 
   const factory CalendarFilter({
     @Default([EventStatus.draft, EventStatus.cancelled])
-        List<EventStatus> hiddenStatuses,
+    List<EventStatus> hiddenStatuses,
     String? source,
     Multihash? group,
     Multihash? event,
     Multihash? place,
-    @Default(false)
-        bool past,
+    @Default(false) bool past,
   }) = _CalendarFilter;
 
   SourcedModel<Multihash>? get sourceEvent => event != null && source != null
