@@ -65,11 +65,30 @@ class _LabelsDrawerState extends State<LabelsDrawer> {
           const Divider(),
           OutlinedButton.icon(
             icon: const PhosphorIcon(PhosphorIconsLight.plus),
-            label: Text(AppLocalizations.of(context).addLabel),
-            onPressed: () {},
+            label: Text(AppLocalizations.of(context).createLabel),
+            onPressed: () => showDialog(
+                context: context, builder: (context) => const LabelDialog()),
           )
         ]),
       ),
+    );
+  }
+}
+
+class LabelDialog extends StatelessWidget {
+  final String? source;
+  final Label? label;
+  final bool create;
+
+  const LabelDialog({super.key, this.create = false, this.label, this.source});
+
+  @override
+  Widget build(BuildContext context) {
+    final create = this.create || label == null || source == null;
+    return AlertDialog(
+      title: Text(create
+          ? AppLocalizations.of(context).createLabel
+          : AppLocalizations.of(context).editLabel),
     );
   }
 }
