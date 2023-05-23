@@ -33,7 +33,7 @@ class _DashboardNotesCardState extends State<DashboardNotesCard> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: [
         Row(
           children: [

@@ -40,7 +40,7 @@ class _DashboardEventsCardState extends State<DashboardEventsCard> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: [
         Row(
           children: [

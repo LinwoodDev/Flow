@@ -23,13 +23,6 @@ class _DashboardPageState extends State<DashboardPage> {
           constraints: const BoxConstraints(maxWidth: 1000),
           child: LayoutBuilder(
             builder: (context, constraints) {
-              int crossAxisCount = 1;
-              if (constraints.maxWidth > 500) {
-                crossAxisCount = 2;
-              }
-              /*if (constraints.maxWidth > 1000) {
-                crossAxisCount = 3;
-              }*/
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -43,20 +36,21 @@ class _DashboardPageState extends State<DashboardPage> {
                     ),
                   )),
                   Expanded(
-                    child: GridView.count(
-                      crossAxisCount: crossAxisCount,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                      childAspectRatio: 3 / 4,
+                    child: Wrap(
+                      alignment: WrapAlignment.center,
                       children: [
                         const DashboardNotesCard(),
                         const DashboardEventsCard(),
                       ]
-                          .map((e) => Card(
-                                  child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: e,
-                              )))
+                          .map((e) => ConstrainedBox(
+                                constraints:
+                                    const BoxConstraints(maxWidth: 500),
+                                child: Card(
+                                    child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: e,
+                                )),
+                              ))
                           .toList(),
                     ),
                   ),
