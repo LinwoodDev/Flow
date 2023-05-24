@@ -156,6 +156,7 @@ class NoteDatabaseService extends NoteService with TableService {
     int offset = 0,
     int limit = 50,
     Multihash? parent,
+    Set<Multihash> labels = const {},
     Set<NoteStatus?> statuses = const {
       NoteStatus.todo,
       NoteStatus.inProgress,

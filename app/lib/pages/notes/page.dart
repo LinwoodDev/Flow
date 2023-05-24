@@ -33,21 +33,61 @@ class NotesPage extends StatefulWidget {
 }
 
 class _NotesPageState extends State<NotesPage> {
+  late NoteFilter _filter;
+
+  @override
+  void initState() {
+    super.initState();
+    _filter = widget.filter;
+  }
+
   @override
   Widget build(BuildContext context) {
     return FlowNavigation(
       title: AppLocalizations.of(context).notes,
-      endDrawer: const LabelsDrawer(),
+      endDrawer: LabelsDrawer(
+        selected: _filter.selectedLabels,
+        onChanged: (value, add) {
+          final source = value.source;
+          final model = SourcedModel(value.source, value.model.id!);
+          if (add) {
+            setState(() {
+              _filter = _filter.copyWith(
+                selectedLabels: [
+                  ..._filter.selectedLabels,
+                  model,
+                ],
+                source: source,
+              );
+            });
+          } else {
+            setState(() {
+              _filter = _filter.copyWith(
+                selectedLabels: _filter.selectedLabels
+                    .where((element) => element != model)
+                    .toList(),
+                source: _filter.selectedLabels.length <= 1 ? null : source,
+              );
+            });
+          }
+        },
+      ),
       actions: [
         IconButton(
           icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
           onPressed: () => showSearch(
             context: context,
-            delegate: _NotesSearchDelegate(widget.filter, widget.parent),
+            delegate: _NotesSearchDelegate(
+              _filter,
+              widget.parent,
+            ),
           ),
         ),
       ],
-      body: NotesBodyView(filter: widget.filter, parent: widget.parent),
+      body: NotesBodyView(
+        filter: _filter,
+        parent: widget.parent,
+      ),
     );
   }
 }
@@ -121,10 +161,12 @@ class _NotesBodyViewState extends State<NotesBodyView> {
     _flowCubit = context.read<FlowCubit>();
     _controller = SourcedPagingController(_flowCubit);
     _controller.addFetchListener((source, service, offset, limit) async {
+      if (_filter.source != null && _filter.source != source) return null;
       final notes = await service.note?.getNotes(
           offset: offset,
           limit: limit,
           statuses: _filter.statuses,
+          labels: _filter.selectedLabels.map((e) => e.model).toSet(),
           parent: widget.parent?.source == source
               ? widget.parent?.model
               : Multihash(Uint8List.fromList([])),
@@ -153,6 +195,12 @@ class _NotesBodyViewState extends State<NotesBodyView> {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.search != widget.search) {
+      _controller.refresh();
+    }
+    if (oldWidget.filter != widget.filter) {
+      setState(() {
+        _filter = widget.filter;
+      });
       _controller.refresh();
     }
   }

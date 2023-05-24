@@ -20,6 +20,9 @@ mixin _$NoteFilter {
   bool get showInProgress => throw _privateConstructorUsedError;
   bool get showTodo => throw _privateConstructorUsedError;
   bool get showNote => throw _privateConstructorUsedError;
+  List<ConnectedModel<String, Multihash>> get selectedLabels =>
+      throw _privateConstructorUsedError;
+  String? get source => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NoteFilterCopyWith<NoteFilter> get copyWith =>
@@ -32,7 +35,13 @@ abstract class $NoteFilterCopyWith<$Res> {
           NoteFilter value, $Res Function(NoteFilter) then) =
       _$NoteFilterCopyWithImpl<$Res, NoteFilter>;
   @useResult
-  $Res call({bool showDone, bool showInProgress, bool showTodo, bool showNote});
+  $Res call(
+      {bool showDone,
+      bool showInProgress,
+      bool showTodo,
+      bool showNote,
+      List<ConnectedModel<String, Multihash>> selectedLabels,
+      String? source});
 }
 
 /// @nodoc
@@ -52,6 +61,8 @@ class _$NoteFilterCopyWithImpl<$Res, $Val extends NoteFilter>
     Object? showInProgress = null,
     Object? showTodo = null,
     Object? showNote = null,
+    Object? selectedLabels = null,
+    Object? source = freezed,
   }) {
     return _then(_value.copyWith(
       showDone: null == showDone
@@ -70,6 +81,14 @@ class _$NoteFilterCopyWithImpl<$Res, $Val extends NoteFilter>
           ? _value.showNote
           : showNote // ignore: cast_nullable_to_non_nullable
               as bool,
+      selectedLabels: null == selectedLabels
+          ? _value.selectedLabels
+          : selectedLabels // ignore: cast_nullable_to_non_nullable
+              as List<ConnectedModel<String, Multihash>>,
+      source: freezed == source
+          ? _value.source
+          : source // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -82,7 +101,13 @@ abstract class _$$_NoteFilterCopyWith<$Res>
       __$$_NoteFilterCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool showDone, bool showInProgress, bool showTodo, bool showNote});
+  $Res call(
+      {bool showDone,
+      bool showInProgress,
+      bool showTodo,
+      bool showNote,
+      List<ConnectedModel<String, Multihash>> selectedLabels,
+      String? source});
 }
 
 /// @nodoc
@@ -100,6 +125,8 @@ class __$$_NoteFilterCopyWithImpl<$Res>
     Object? showInProgress = null,
     Object? showTodo = null,
     Object? showNote = null,
+    Object? selectedLabels = null,
+    Object? source = freezed,
   }) {
     return _then(_$_NoteFilter(
       showDone: null == showDone
@@ -118,6 +145,14 @@ class __$$_NoteFilterCopyWithImpl<$Res>
           ? _value.showNote
           : showNote // ignore: cast_nullable_to_non_nullable
               as bool,
+      selectedLabels: null == selectedLabels
+          ? _value._selectedLabels
+          : selectedLabels // ignore: cast_nullable_to_non_nullable
+              as List<ConnectedModel<String, Multihash>>,
+      source: freezed == source
+          ? _value.source
+          : source // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -129,8 +164,11 @@ class _$_NoteFilter extends _NoteFilter {
       {this.showDone = true,
       this.showInProgress = true,
       this.showTodo = true,
-      this.showNote = true})
-      : super._();
+      this.showNote = true,
+      final List<ConnectedModel<String, Multihash>> selectedLabels = const [],
+      this.source})
+      : _selectedLabels = selectedLabels,
+        super._();
 
   @override
   @JsonKey()
@@ -144,10 +182,21 @@ class _$_NoteFilter extends _NoteFilter {
   @override
   @JsonKey()
   final bool showNote;
+  final List<ConnectedModel<String, Multihash>> _selectedLabels;
+  @override
+  @JsonKey()
+  List<ConnectedModel<String, Multihash>> get selectedLabels {
+    if (_selectedLabels is EqualUnmodifiableListView) return _selectedLabels;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_selectedLabels);
+  }
+
+  @override
+  final String? source;
 
   @override
   String toString() {
-    return 'NoteFilter(showDone: $showDone, showInProgress: $showInProgress, showTodo: $showTodo, showNote: $showNote)';
+    return 'NoteFilter(showDone: $showDone, showInProgress: $showInProgress, showTodo: $showTodo, showNote: $showNote, selectedLabels: $selectedLabels, source: $source)';
   }
 
   @override
@@ -162,12 +211,21 @@ class _$_NoteFilter extends _NoteFilter {
             (identical(other.showTodo, showTodo) ||
                 other.showTodo == showTodo) &&
             (identical(other.showNote, showNote) ||
-                other.showNote == showNote));
+                other.showNote == showNote) &&
+            const DeepCollectionEquality()
+                .equals(other._selectedLabels, _selectedLabels) &&
+            (identical(other.source, source) || other.source == source));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, showDone, showInProgress, showTodo, showNote);
+  int get hashCode => Object.hash(
+      runtimeType,
+      showDone,
+      showInProgress,
+      showTodo,
+      showNote,
+      const DeepCollectionEquality().hash(_selectedLabels),
+      source);
 
   @JsonKey(ignore: true)
   @override
@@ -181,7 +239,9 @@ abstract class _NoteFilter extends NoteFilter {
       {final bool showDone,
       final bool showInProgress,
       final bool showTodo,
-      final bool showNote}) = _$_NoteFilter;
+      final bool showNote,
+      final List<ConnectedModel<String, Multihash>> selectedLabels,
+      final String? source}) = _$_NoteFilter;
   const _NoteFilter._() : super._();
 
   @override
@@ -192,6 +252,10 @@ abstract class _NoteFilter extends NoteFilter {
   bool get showTodo;
   @override
   bool get showNote;
+  @override
+  List<ConnectedModel<String, Multihash>> get selectedLabels;
+  @override
+  String? get source;
   @override
   @JsonKey(ignore: true)
   _$$_NoteFilterCopyWith<_$_NoteFilter> get copyWith =>

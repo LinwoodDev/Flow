@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lib5/lib5.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:shared/models/model.dart';
 import 'package:shared/models/note/model.dart';
 
 part 'filter.freezed.dart';
@@ -13,6 +15,8 @@ class NoteFilter with _$NoteFilter {
     @Default(true) bool showInProgress,
     @Default(true) bool showTodo,
     @Default(true) bool showNote,
+    @Default([]) List<SourcedModel<Multihash>> selectedLabels,
+    String? source,
   }) = _NoteFilter;
 
   const NoteFilter._();
@@ -45,6 +49,17 @@ class _NoteFilterViewState extends State<NoteFilterView> {
   void initState() {
     _filter = widget.initialFilter ?? const NoteFilter();
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant NoteFilterView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.initialFilter != widget.initialFilter) {
+      setState(() {
+        _filter = widget.initialFilter ?? const NoteFilter();
+      });
+    }
   }
 
   @override

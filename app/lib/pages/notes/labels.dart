@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:lib5/lib5.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/label/model.dart';
 import 'package:shared/models/model.dart';
@@ -13,7 +14,10 @@ import '../../cubits/flow.dart';
 import 'label.dart';
 
 class LabelsDrawer extends StatefulWidget {
-  const LabelsDrawer({super.key});
+  final List<SourcedModel<Multihash>> selected;
+  final void Function(SourcedModel<Label>, bool)? onChanged;
+
+  const LabelsDrawer({super.key, this.selected = const [], this.onChanged});
 
   @override
   State<LabelsDrawer> createState() => _LabelsDrawerState();
@@ -42,6 +46,15 @@ class _LabelsDrawerState extends State<LabelsDrawer> {
   }
 
   @override
+  void didUpdateWidget(covariant LabelsDrawer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.selected != widget.selected) {
+      setState(() {});
+      _pagingController.refresh();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
@@ -63,69 +76,77 @@ class _LabelsDrawerState extends State<LabelsDrawer> {
               pagingController: _pagingController,
               builderDelegate: buildMaterialPagedDelegate<SourcedModel<Label>>(
                 _pagingController,
-                (context, item, index) => ListTile(
-                  title: Text(item.model.name),
-                  onTap: () {},
-                  leading:
-                      ColorPoint(color: Color(item.model.color).withAlpha(255)),
-                  trailing: MenuAnchor(
-                    menuChildren: [
-                      MenuItemButton(
+                (context, item, index) {
+                  final selected = widget.selected.any((element) =>
+                      element.model == item.model.id &&
+                      element.source == item.source);
+                  return ListTile(
+                    title: Text(item.model.name),
+                    onTap: () {
+                      widget.onChanged?.call(item, !selected);
+                    },
+                    selected: selected,
+                    leading: ColorPoint(
+                        color: Color(item.model.color).withAlpha(255)),
+                    trailing: MenuAnchor(
+                      menuChildren: [
+                        MenuItemButton(
+                            leadingIcon:
+                                const PhosphorIcon(PhosphorIconsLight.pencil),
+                            child: Text(AppLocalizations.of(context).edit),
+                            onPressed: () => showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        LabelDialog(label: item.model))
+                                .then((value) => _pagingController.refresh())),
+                        MenuItemButton(
                           leadingIcon:
-                              const PhosphorIcon(PhosphorIconsLight.pencil),
-                          child: Text(AppLocalizations.of(context).edit),
+                              const PhosphorIcon(PhosphorIconsLight.trash),
+                          child: Text(AppLocalizations.of(context).delete),
                           onPressed: () => showDialog(
-                                  context: context,
-                                  builder: (context) =>
-                                      LabelDialog(label: item.model))
-                              .then((value) => _pagingController.refresh())),
-                      MenuItemButton(
-                        leadingIcon:
-                            const PhosphorIcon(PhosphorIconsLight.trash),
-                        child: Text(AppLocalizations.of(context).delete),
-                        onPressed: () => showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: Text(AppLocalizations.of(context)
-                                .deleteLabel(item.model.name)),
-                            content: Text(AppLocalizations.of(context)
-                                .deleteLabelDescription(item.model.name)),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.of(context).pop(),
-                                child:
-                                    Text(AppLocalizations.of(context).cancel),
-                              ),
-                              ElevatedButton(
-                                onPressed: () async {
-                                  final id = item.model.id;
-                                  if (id == null) return;
-                                  await _cubit
-                                      .getService(item.source)
-                                      .label
-                                      ?.deleteLabel(id);
-                                  _pagingController.refresh();
-                                  if (context.mounted) {
-                                    Navigator.of(context).pop();
-                                  }
-                                },
-                                child:
-                                    Text(AppLocalizations.of(context).delete),
-                              ),
-                            ],
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text(AppLocalizations.of(context)
+                                  .deleteLabel(item.model.name)),
+                              content: Text(AppLocalizations.of(context)
+                                  .deleteLabelDescription(item.model.name)),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child:
+                                      Text(AppLocalizations.of(context).cancel),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    final id = item.model.id;
+                                    if (id == null) return;
+                                    await _cubit
+                                        .getService(item.source)
+                                        .label
+                                        ?.deleteLabel(id);
+                                    _pagingController.refresh();
+                                    if (context.mounted) {
+                                      Navigator.of(context).pop();
+                                    }
+                                  },
+                                  child:
+                                      Text(AppLocalizations.of(context).delete),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
+                      ],
+                      builder: (context, controller, child) => IconButton(
+                        icon: const PhosphorIcon(
+                            PhosphorIconsLight.dotsThreeVertical),
+                        onPressed: () => controller.isOpen
+                            ? controller.close()
+                            : controller.open(),
                       ),
-                    ],
-                    builder: (context, controller, child) => IconButton(
-                      icon: const PhosphorIcon(
-                          PhosphorIconsLight.dotsThreeVertical),
-                      onPressed: () => controller.isOpen
-                          ? controller.close()
-                          : controller.open(),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
             ),
           ),
