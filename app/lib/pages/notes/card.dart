@@ -126,41 +126,41 @@ class _NoteCardState extends State<NoteCard> {
                 )),
                 const SizedBox(width: 8),
                 PopupMenuButton(
-                  itemBuilder: (context) => <dynamic>[
+                  itemBuilder: (context) => [
                     if (_newNote.status != null) ...[
-                      [
+                      (
                         PhosphorIconsLight.note,
                         AppLocalizations.of(context).convertToNote,
                         () async {
                           _newNote = _newNote.copyWith(status: null);
                           await _updateNote();
                         }
-                      ],
+                      ),
                     ] else ...[
-                      [
+                      (
                         PhosphorIconsLight.checkSquare,
                         AppLocalizations.of(context).convertToTodo,
                         () async {
                           _newNote = _newNote.copyWith(status: NoteStatus.todo);
                           await _updateNote();
                         }
-                      ],
+                      ),
                     ],
-                    [
+                    (
                       PhosphorIconsLight.trash,
                       AppLocalizations.of(context).delete,
                       () async {
                         await _noteService?.deleteNote(_newNote.id!);
                         widget.controller.refresh();
                       }
-                    ]
+                    )
                   ]
                       .map((e) => PopupMenuItem(
-                          onTap: e[2],
+                          onTap: e.$3,
                           child: Row(children: [
-                            PhosphorIcon(e[0]),
+                            PhosphorIcon(e.$1),
                             const SizedBox(width: 8),
-                            Text(e[1]),
+                            Text(e.$2),
                           ])))
                       .toList(),
                 ),

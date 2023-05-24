@@ -167,20 +167,23 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
             children: [
               if (tabs)
                 TabBar(
-                    tabs: <dynamic>[
-                  [Icons.tune_outlined, AppLocalizations.of(context).general],
-                  [
-                    Icons.check_circle_outline_outlined,
+                    tabs: [
+                  (
+                    PhosphorIconsLight.faders,
+                    AppLocalizations.of(context).general
+                  ),
+                  (
+                    PhosphorIconsLight.checkCircle,
                     AppLocalizations.of(context).notes
-                  ],
+                  ),
                 ]
                         .map((e) => Tab(
                                 child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                  PhosphorIcon(e[0]),
+                                  PhosphorIcon(e.$1),
                                   const SizedBox(width: 8),
-                                  Text(e[1]),
+                                  Text(e.$2),
                                 ])))
                         .toList()),
               Flexible(

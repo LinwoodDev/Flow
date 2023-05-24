@@ -16,7 +16,7 @@ An example application built with dart_frog
 Install dependencies:
 
 ```bash
-dart pub global activate dart_frog
+dart pub global activate dart_frog_cli
 dart pub get
 ```
 

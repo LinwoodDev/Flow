@@ -11,7 +11,7 @@ _$_Label _$$_LabelFromJson(Map<String, dynamic> json) => _$_Label(
           json['id'], const MultihashConverter().fromJson),
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      color: json['color'] as int? ?? 0,
+      color: json['color'] as int? ?? kColorBlack,
     );
 
 Map<String, dynamic> _$$_LabelToJson(_$_Label instance) => <String, dynamic>{

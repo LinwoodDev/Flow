@@ -3,6 +3,8 @@ import 'package:lib5/lib5.dart';
 
 part 'model.freezed.dart';
 
+const kColorBlack = 0xFF000000;
+
 abstract class DescriptiveModel {
   Multihash? get id;
   String get name;

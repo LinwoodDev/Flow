@@ -36,25 +36,25 @@ class EventTile extends StatelessWidget {
       subtitle: MarkdownText(event.description),
       onTap: () => _editEvent(context),
       trailing: PopupMenuButton<Function>(
-        itemBuilder: (ctx) => <dynamic>[
-          [
+        itemBuilder: (ctx) => [
+          (
             PhosphorIconsLight.calendar,
             AppLocalizations.of(context).events,
             _openEvents,
-          ],
-          [
+          ),
+          (
             PhosphorIconsLight.trash,
             AppLocalizations.of(context).delete,
             _deleteEvent,
-          ],
+          ),
         ]
             .map((e) => PopupMenuItem<Function>(
-                  value: e[2],
+                  value: e.$3,
                   child: Row(
                     children: [
-                      PhosphorIcon(e[0]),
+                      PhosphorIcon(e.$1),
                       const SizedBox(width: 8),
-                      Text(e[1]),
+                      Text(e.$2),
                     ],
                   ),
                 ))

@@ -325,10 +325,10 @@ packages:
     dependency: transitive
     description:
       name: graphs
-      sha256: "772db3d53d23361d4ffcf5a9bb091cf3ee9b22f2be52cd107cd7a2683a89ba0e"
+      sha256: aedc5a15e78fc65a6e23bcd927f24c64dd995062bcd1ca6eda65a3cff92a4d19
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.0"
+    version: "2.3.1"
   hotreloader:
     dependency: transitive
     description:
@@ -389,18 +389,18 @@ packages:
     dependency: "direct main"
     description:
       name: jaspr
-      sha256: "8659e79ac2aa902d643b0b06860d207d2648465448fdb2c0b22872ec38a54a31"
+      sha256: "7e74bda373cbc9bfcd275206cb44367b3e37379b25c35745475b1d487ab18383"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.0"
+    version: "0.4.0"
   jaspr_builder:
     dependency: "direct dev"
     description:
       name: jaspr_builder
-      sha256: "3de681ffc17be2ceee234e8e9d438b66c3034c0ae8839239d6e3c435d6af8e82"
+      sha256: "6b8c9d365b233ecf61a721f717729e52ee435c98175fc9f443715facb1508b84"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.0"
+    version: "0.4.0"
   js:
     dependency: transitive
     description:
@@ -606,10 +606,10 @@ packages:
     dependency: transitive
     description:
       name: shelf_proxy
-      sha256: cf9883f9ec7fe9d3fb076724d627dd5d9a3c8d07cde7ef5c3f51813d1d732abe
+      sha256: a71d2307f4393211930c590c3d2c00630f6c5a7a77edc1ef6436dfd85a6a7ee3
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.3"
+    version: "1.0.4"
   shelf_static:
     dependency: transitive
     description:

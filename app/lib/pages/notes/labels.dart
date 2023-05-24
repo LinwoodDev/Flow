@@ -1,5 +1,6 @@
 import 'package:flow/helpers/sourced_paging_controller.dart';
 import 'package:flow/widgets/builder_delegate.dart';
+import 'package:flow/widgets/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -9,6 +10,7 @@ import 'package:shared/models/label/model.dart';
 import 'package:shared/models/model.dart';
 
 import '../../cubits/flow.dart';
+import 'label.dart';
 
 class LabelsDrawer extends StatefulWidget {
   const LabelsDrawer({super.key});
@@ -20,12 +22,13 @@ class LabelsDrawer extends StatefulWidget {
 class _LabelsDrawerState extends State<LabelsDrawer> {
   late final SourcedPagingController<Label> _pagingController;
   String _search = '';
+  late final FlowCubit _cubit;
 
   @override
   void initState() {
     super.initState();
-    final cubit = context.read<FlowCubit>();
-    _pagingController = SourcedPagingController(cubit);
+    _cubit = context.read<FlowCubit>();
+    _pagingController = SourcedPagingController(_cubit);
     _pagingController.addFetchListener((source, service, offset, limit) async =>
         await service.label
             ?.getLabels(offset: offset, limit: limit, search: _search));
@@ -54,41 +57,88 @@ class _LabelsDrawerState extends State<LabelsDrawer> {
               _pagingController.refresh();
             },
           ),
+          const SizedBox(height: 8),
           Expanded(
-              child: PagedListView(
-                  pagingController: _pagingController,
-                  builderDelegate:
-                      buildMaterialPagedDelegate<SourcedModel<Label>>(
-                          _pagingController,
-                          (context, item, index) =>
-                              ListTile(title: Text(item.model.name))))),
+            child: PagedListView(
+              pagingController: _pagingController,
+              builderDelegate: buildMaterialPagedDelegate<SourcedModel<Label>>(
+                _pagingController,
+                (context, item, index) => ListTile(
+                  title: Text(item.model.name),
+                  onTap: () {},
+                  leading:
+                      ColorPoint(color: Color(item.model.color).withAlpha(255)),
+                  trailing: MenuAnchor(
+                    menuChildren: [
+                      MenuItemButton(
+                          leadingIcon:
+                              const PhosphorIcon(PhosphorIconsLight.pencil),
+                          child: Text(AppLocalizations.of(context).edit),
+                          onPressed: () => showDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      LabelDialog(label: item.model))
+                              .then((value) => _pagingController.refresh())),
+                      MenuItemButton(
+                        leadingIcon:
+                            const PhosphorIcon(PhosphorIconsLight.trash),
+                        child: Text(AppLocalizations.of(context).delete),
+                        onPressed: () => showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text(AppLocalizations.of(context)
+                                .deleteLabel(item.model.name)),
+                            content: Text(AppLocalizations.of(context)
+                                .deleteLabelDescription(item.model.name)),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.of(context).pop(),
+                                child:
+                                    Text(AppLocalizations.of(context).cancel),
+                              ),
+                              ElevatedButton(
+                                onPressed: () async {
+                                  final id = item.model.id;
+                                  if (id == null) return;
+                                  await _cubit
+                                      .getService(item.source)
+                                      .label
+                                      ?.deleteLabel(id);
+                                  _pagingController.refresh();
+                                  if (context.mounted) {
+                                    Navigator.of(context).pop();
+                                  }
+                                },
+                                child:
+                                    Text(AppLocalizations.of(context).delete),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                    builder: (context, controller, child) => IconButton(
+                      icon: const PhosphorIcon(
+                          PhosphorIconsLight.dotsThreeVertical),
+                      onPressed: () => controller.isOpen
+                          ? controller.close()
+                          : controller.open(),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
           const Divider(),
           OutlinedButton.icon(
             icon: const PhosphorIcon(PhosphorIconsLight.plus),
             label: Text(AppLocalizations.of(context).createLabel),
             onPressed: () => showDialog(
-                context: context, builder: (context) => const LabelDialog()),
+                    context: context, builder: (context) => const LabelDialog())
+                .then((value) => _pagingController.refresh()),
           )
         ]),
       ),
-    );
-  }
-}
-
-class LabelDialog extends StatelessWidget {
-  final String? source;
-  final Label? label;
-  final bool create;
-
-  const LabelDialog({super.key, this.create = false, this.label, this.source});
-
-  @override
-  Widget build(BuildContext context) {
-    final create = this.create || label == null || source == null;
-    return AlertDialog(
-      title: Text(create
-          ? AppLocalizations.of(context).createLabel
-          : AppLocalizations.of(context).editLabel),
     );
   }
 }

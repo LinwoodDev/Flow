@@ -137,7 +137,7 @@ class _$_Label extends _Label {
       {@MultihashConverter() this.id,
       this.name = '',
       this.description = '',
-      this.color = 0})
+      this.color = kColorBlack})
       : super._();
 
   factory _$_Label.fromJson(Map<String, dynamic> json) =>

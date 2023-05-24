@@ -15,7 +15,7 @@ class Label with _$Label {
     @MultihashConverter() Multihash? id,
     @Default('') String name,
     @Default('') String description,
-    @Default(0) int color,
+    @Default(kColorBlack) int color,
   }) = _Label;
 
   factory Label.fromJson(Map<String, dynamic> json) => _$LabelFromJson(json);

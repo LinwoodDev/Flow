@@ -3,6 +3,7 @@ analyzer:
   exclude:
     - build/**
     - web/**
+    - static/**
 linter:
   rules:
     file_names: false
