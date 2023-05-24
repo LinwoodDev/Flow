@@ -258,5 +258,15 @@
   "restore": "إستعادة",
   "markdownIsSupported": "Markdown مدعوم",
   "createLabel": "Create label",
-  "editLabel": "Edit label"
+  "editLabel": "Edit label",
+  "deleteLabel": "Delete label {name}",
+  "@deleteLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Label name"
+      }
+    }
+  },
+  "deleteLabelDescription": "Are you sure you want to delete the label {name}?"
 }
