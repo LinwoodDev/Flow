@@ -253,10 +253,10 @@ packages:
     dependency: transitive
     description:
       name: devtools_shared
-      sha256: "726caccaf7c693e6605c948c9372a870a2f5c5250b5ea44f8cb863ef9c1ad32e"
+      sha256: ad58ac3a5df41adf08d0d6f0a4d73349533edcc383ee93a30ac3d0fd0bb6df49
       url: "https://pub.dev"
     source: hosted
-    version: "2.23.0"
+    version: "2.24.0"
   dwds:
     dependency: transitive
     description:
@@ -389,18 +389,18 @@ packages:
     dependency: "direct main"
     description:
       name: jaspr
-      sha256: "7e74bda373cbc9bfcd275206cb44367b3e37379b25c35745475b1d487ab18383"
+      sha256: a5c87385633add05191b336a9fb8a408ef3a351666af913a956dc07a7268ac2e
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.0"
+    version: "0.5.0"
   jaspr_builder:
     dependency: "direct dev"
     description:
       name: jaspr_builder
-      sha256: "6b8c9d365b233ecf61a721f717729e52ee435c98175fc9f443715facb1508b84"
+      sha256: "892065c5619c9eb80356ab6c22b71f5d1dbbc22070a50b17e875ed7df0cb3588"
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.0"
+    version: "0.5.0"
   js:
     dependency: transitive
     description:

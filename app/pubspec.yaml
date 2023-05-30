@@ -29,7 +29,7 @@ dependencies:
     sdk: flutter
   intl: ^0.18.1
   animations: ^2.0.7
-  http: ^0.13.5
+  http: ^1.0.0
   url_launcher: ^6.1.11
   path_provider: ^2.0.15
   shared:
@@ -54,7 +54,7 @@ dependencies:
   collection: ^1.17.1
   infinite_scroll_pagination: 4.0.0-dev.1
   window_manager: ^0.3.4
-  package_info_plus: ^4.0.1
+  package_info_plus: ^4.0.2
   # Database
   sqflite_common: ^2.4.5
   sqflite: ^2.2.8+4
@@ -87,6 +87,7 @@ dev_dependencies:
 dependency_overrides:
   collection: 1.17.2
   intl: 0.18.1
+  http: 1.0.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

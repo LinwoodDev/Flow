@@ -2,7 +2,7 @@ import 'package:jaspr/html.dart';
 
 part 'admin.g.dart';
 
-@app
+@client
 class HomePage extends StatefulComponent with _$HomePage {
   const HomePage({super.key});
 

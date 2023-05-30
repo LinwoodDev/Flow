@@ -13,7 +13,7 @@ Future<Response> renderJasprComponent(
 ]) async {
   return Response(
     body: await renderComponent(
-      Document.app(
+      Document(
         base: basePath,
         body: child,
       ),
