@@ -5,6 +5,7 @@ import 'package:shared/models/event/item/service.dart';
 import 'package:shared/models/event/service.dart';
 import 'package:shared/models/group/service.dart';
 import 'package:shared/models/label/service.dart';
+import 'package:shared/models/note/label.dart';
 import 'package:shared/models/place/service.dart';
 import 'package:shared/models/user/service.dart';
 
@@ -20,6 +21,7 @@ abstract class SourceService {
   CalendarItemService? get calendarItem => null;
 
   NoteService? get note => null;
+  LabelNoteConnector? get labelNote => null;
   NoteConnector<Event>? get eventNote => null;
   NoteConnector<CalendarItem>? get calendarItemNote => null;
   PlaceService? get place => null;
@@ -31,6 +33,7 @@ abstract class SourceService {
         event,
         calendarItem,
         note,
+        labelNote,
         eventNote,
         calendarItemNote,
         group,

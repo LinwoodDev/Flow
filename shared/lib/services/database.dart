@@ -12,6 +12,7 @@ import 'package:sqflite_common/sqlite_api.dart';
 
 import '../models/event/database.dart';
 import '../models/note/item.dart';
+import '../models/note/label.dart';
 import '../models/place/database.dart';
 import '../models/user/database.dart';
 import '../models/group/database.dart';
@@ -35,6 +36,8 @@ class DatabaseService extends SourceService {
       CalendarItemDatabaseService();
   @override
   final NoteDatabaseService note = NoteDatabaseService();
+  @override
+  final LabelNoteDatabaseConnector labelNote = LabelNoteDatabaseConnector();
   @override
   final EventNoteDatabaseConnector eventNote = EventNoteDatabaseConnector();
   @override

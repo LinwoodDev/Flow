@@ -46,27 +46,21 @@ class _NotesPageState extends State<NotesPage> {
     return FlowNavigation(
       title: AppLocalizations.of(context).notes,
       endDrawer: LabelsDrawer(
-        selected: _filter.selectedLabels,
+        selected: _filter.selectedLabel,
         onChanged: (value, add) {
           final source = value.source;
-          final model = SourcedModel(value.source, value.model.id!);
           if (add) {
             setState(() {
               _filter = _filter.copyWith(
-                selectedLabels: [
-                  ..._filter.selectedLabels,
-                  model,
-                ],
+                selectedLabel: value.model.id,
                 source: source,
               );
             });
           } else {
             setState(() {
               _filter = _filter.copyWith(
-                selectedLabels: _filter.selectedLabels
-                    .where((element) => element != model)
-                    .toList(),
-                source: _filter.selectedLabels.length <= 1 ? null : source,
+                selectedLabel: null,
+                source: null,
               );
             });
           }
@@ -162,15 +156,25 @@ class _NotesBodyViewState extends State<NotesBodyView> {
     _controller = SourcedPagingController(_flowCubit);
     _controller.addFetchListener((source, service, offset, limit) async {
       if (_filter.source != null && _filter.source != source) return null;
-      final notes = await service.note?.getNotes(
-          offset: offset,
-          limit: limit,
-          statuses: _filter.statuses,
-          labels: _filter.selectedLabels.map((e) => e.model).toSet(),
-          parent: widget.parent?.source == source
-              ? widget.parent?.model
-              : Multihash(Uint8List.fromList([])),
-          search: widget.search);
+      final notes = _filter.selectedLabel != null
+          ? await service.labelNote?.getNotes(
+              _filter.selectedLabel!,
+              offset: offset,
+              limit: limit,
+              statuses: _filter.statuses,
+              parent: widget.parent?.source == source
+                  ? widget.parent?.model
+                  : Multihash(Uint8List.fromList([])),
+              search: widget.search,
+            )
+          : await service.note?.getNotes(
+              offset: offset,
+              limit: limit,
+              statuses: _filter.statuses,
+              parent: widget.parent?.source == source
+                  ? widget.parent?.model
+                  : Multihash(Uint8List.fromList([])),
+              search: widget.search);
       if (notes == null) return null;
       if (source != widget.parent?.source) return notes;
       final parent = await service.note?.getNote(widget.parent!.model);

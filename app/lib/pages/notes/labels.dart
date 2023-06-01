@@ -14,10 +14,10 @@ import '../../cubits/flow.dart';
 import 'label.dart';
 
 class LabelsDrawer extends StatefulWidget {
-  final List<SourcedModel<Multihash>> selected;
+  final Multihash? selected;
   final void Function(SourcedModel<Label>, bool)? onChanged;
 
-  const LabelsDrawer({super.key, this.selected = const [], this.onChanged});
+  const LabelsDrawer({super.key, this.selected, this.onChanged});
 
   @override
   State<LabelsDrawer> createState() => _LabelsDrawerState();
@@ -77,9 +77,7 @@ class _LabelsDrawerState extends State<LabelsDrawer> {
               builderDelegate: buildMaterialPagedDelegate<SourcedModel<Label>>(
                 _pagingController,
                 (context, item, index) {
-                  final selected = widget.selected.any((element) =>
-                      element.model == item.model.id &&
-                      element.source == item.source);
+                  final selected = widget.selected == item.model.id;
                   return ListTile(
                     title: Text(item.model.name),
                     onTap: () {
