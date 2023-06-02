@@ -257,9 +257,9 @@
   "maximize": "Maximize",
   "restore": "復元",
   "markdownIsSupported": "Markdown はサポートされています",
-  "createLabel": "Create label",
-  "editLabel": "Edit label",
-  "deleteLabel": "Delete label {name}",
+  "createLabel": "ラベルを作成",
+  "editLabel": "ラベルを編集",
+  "deleteLabel": "ラベル {name} を削除",
   "@deleteLabel": {
     "placeholders": {
       "name": {
@@ -268,5 +268,5 @@
       }
     }
   },
-  "deleteLabelDescription": "Are you sure you want to delete the label {name}?"
+  "deleteLabelDescription": "ラベル {name} を削除してもよろしいですか？"
 }
