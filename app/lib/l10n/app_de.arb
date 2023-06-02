@@ -142,6 +142,7 @@
   "decentralizedDescription": "Die dezentrale Schnittstelle ermöglicht den Zugriff auf Ihre Daten von jedem dezentralen Server. Sie können damit Ihre Daten mit anderen Geräten oder Diensten synchronisieren.",
   "importFile": "Datei importieren",
   "importFileDescription": "Importieren Sie eine Datei von Ihrem Gerät. Sie können eine Datenbankdatei aus einer anderen Linwood Flow Instanz oder einer regulären Kalenderdatei importieren.",
+  "icalDescription": "Die iCal Schnittstelle ermöglicht den Zugriff auf Ihre Daten von jedem iCal Server. Sie können damit Ihre Daten mit anderen Geräten oder Diensten synchronisieren, die CalDAV nicht unterstützen.",
   "place": "Ort",
   "editPlace": "Ort bearbeiten",
   "deletePlace": "Ort {name} löschen",
@@ -251,5 +252,21 @@
   "convertTo": "Konvertiere in",
   "comingSoon": "Demnächst",
   "notSupported": "Nicht unterstützt",
-  "databaseVersion": "Datenbankversion"
+  "databaseVersion": "Datenbankversion",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "Wiederherstellen",
+  "markdownIsSupported": "Markdown wird unterstützt",
+  "createLabel": "Label erstellen",
+  "editLabel": "Label bearbeiten",
+  "deleteLabel": "Label {name} löschen",
+  "@deleteLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Label name"
+      }
+    }
+  },
+  "deleteLabelDescription": "Sind Sie sicher, dass Sie die Bezeichnung {name} löschen möchten?"
 }

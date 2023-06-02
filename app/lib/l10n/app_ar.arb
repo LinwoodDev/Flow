@@ -142,6 +142,7 @@
   "decentralizedDescription": "تتيح لك الواجهة اللامركزية الوصول إلى بياناتك من أي خادم لامركزي. يمكنك استخدامه لمزامنة بياناتك مع الأجهزة أو الخدمات الأخرى.",
   "importFile": "استيراد ملف",
   "importFileDescription": "استيراد ملف من جهازك. يمكنك استيراد ملف قاعدة بيانات من نموذج لينود آخر أو ملف تقويم عادي.",
+  "icalDescription": "واجهة iCal تسمح لك بالوصول إلى بياناتك من أي خادم iCal. يمكنها فقط قراءة البيانات ولا تدعم الكتابة. يمكنك استخدامه لمزامنة بياناتك مع الأجهزة الأخرى أو الخدمات التي لا تدعم CalDAV.",
   "place": "مكان",
   "editPlace": "تعديل المكان",
   "deletePlace": "حذف المكان {name}",
@@ -251,5 +252,21 @@
   "convertTo": "تحويل إلى",
   "comingSoon": "قريباً",
   "notSupported": "غير مدعوم",
-  "databaseVersion": "إصدار قاعدة البيانات"
+  "databaseVersion": "إصدار قاعدة البيانات",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "إستعادة",
+  "markdownIsSupported": "Markdown مدعوم",
+  "createLabel": "إنشاء تسمية",
+  "editLabel": "تعديل التسمية",
+  "deleteLabel": "حذف التسمية {name}",
+  "@deleteLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Label name"
+      }
+    }
+  },
+  "deleteLabelDescription": "هل أنت متأكد من أنك تريد حذف التسمية {name}؟"
 }

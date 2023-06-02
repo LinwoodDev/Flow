@@ -142,6 +142,7 @@
   "decentralizedDescription": "decentralizované rozhraní umožňuje přístup k vašim datům z libovolného decentralizovaného serveru. Můžete ji použít k synchronizaci dat s jinými zařízeními nebo službami.",
   "importFile": "Importovat soubor",
   "importFileDescription": "Importujte soubor z vašeho zařízení. Můžete importovat databázový soubor z jiné instance toku linwood nebo z běžného souboru kalendáře.",
+  "icalDescription": "Rozhraní iCal umožňuje přístup k vašim datům z jakéhokoliv serveru iCal. Může pouze číst data a nepodporuje psaní. Můžete ji použít k synchronizaci dat s jinými zařízeními nebo službami, které CalDAV.",
   "place": "Umístění",
   "editPlace": "Upravit místo",
   "deletePlace": "Odstranit místo {name}",
@@ -251,5 +252,21 @@
   "convertTo": "Převést na",
   "comingSoon": "Již brzy",
   "notSupported": "Nepodporováno",
-  "databaseVersion": "Verze databáze"
+  "databaseVersion": "Verze databáze",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "Obnovit",
+  "markdownIsSupported": "Markdown je podporován",
+  "createLabel": "Vytvořit štítek",
+  "editLabel": "Upravit štítek",
+  "deleteLabel": "Odstranit štítek {name}",
+  "@deleteLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Label name"
+      }
+    }
+  },
+  "deleteLabelDescription": "Jste si jisti, že chcete odstranit štítek {name}?"
 }

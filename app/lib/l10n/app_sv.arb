@@ -142,6 +142,7 @@
   "decentralizedDescription": "Det decentraliserade gränssnittet ger dig tillgång till dina data från alla decentraliserade servrar. Du kan använda den för att synkronisera dina data med andra enheter eller tjänster.",
   "importFile": "Importera fil",
   "importFileDescription": "Importera en fil från din enhet. Du kan importera en databasfil från en annan Linwood Flow-instans eller en vanlig kalenderfil.",
+  "icalDescription": "Med iCal-gränssnittet kan du komma åt dina data från alla iCal-servrar. Det kan bara läsa data och stöder inte skrivning. Du kan använda den för att synkronisera dina data med andra enheter eller tjänster som inte stöder CalDAV.",
   "place": "Plats",
   "editPlace": "Redigera plats",
   "deletePlace": "Ta bort plats {name}",
@@ -251,5 +252,21 @@
   "convertTo": "Konvertera till",
   "comingSoon": "Kommer snart",
   "notSupported": "Stöds inte",
-  "databaseVersion": "Databasens version"
+  "databaseVersion": "Databasens version",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "Återställ",
+  "markdownIsSupported": "Markdown stöds",
+  "createLabel": "Skapa etikett",
+  "editLabel": "Redigera etikett",
+  "deleteLabel": "Ta bort etikett {name}",
+  "@deleteLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Label name"
+      }
+    }
+  },
+  "deleteLabelDescription": "Är du säker på att du vill ta bort etiketten {name}?"
 }

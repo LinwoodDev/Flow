@@ -142,6 +142,7 @@
   "decentralizedDescription": "分散型インターフェイスを使用すると、任意の分散型サーバーからデータにアクセスできます。 データを他のデバイスやサービスと同期させるために使用できます。",
   "importFile": "ファイルをインポート",
   "importFileDescription": "お使いのデバイスからファイルをインポートします。別のLinwood Flowインスタンスまたは通常のカレンダーファイルからデータベースファイルをインポートできます。",
+  "icalDescription": "iCalインターフェイスを使用すると、任意のiCalサーバーからデータにアクセスできます。データの読み取りのみが可能で、書き込みはサポートされません。 CalDAV をサポートしていない他のデバイスやサービスとデータを同期するために使用できます。",
   "place": "場所",
   "editPlace": "場所を編集",
   "deletePlace": "場所 {name} を削除",
@@ -251,5 +252,21 @@
   "convertTo": "変換先",
   "comingSoon": "近日公開",
   "notSupported": "対応していません",
-  "databaseVersion": "データベースのバージョン"
+  "databaseVersion": "データベースのバージョン",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "復元",
+  "markdownIsSupported": "Markdown はサポートされています",
+  "createLabel": "ラベルを作成",
+  "editLabel": "ラベルを編集",
+  "deleteLabel": "ラベル {name} を削除",
+  "@deleteLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Label name"
+      }
+    }
+  },
+  "deleteLabelDescription": "ラベル {name} を削除してもよろしいですか？"
 }

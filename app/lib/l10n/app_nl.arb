@@ -142,6 +142,7 @@
   "decentralizedDescription": "Het gedecentraliseerde scherm geeft u toegang tot uw gegevens van elke gedecentraliseerde server. U kunt het gebruiken om uw gegevens te synchroniseren met andere apparaten of diensten.",
   "importFile": "Bestand importeren",
   "importFileDescription": "Importeer een bestand vanaf uw apparaat. U kunt een databasebestand importeren uit een ander Linwood Flow exemplaar of een normaal kalenderbestand.",
+  "icalDescription": "De iCal interface geeft u toegang tot uw gegevens op elke iCal server. Het kan alleen gegevens lezen en ondersteunt geen schrijfgegevens. U kunt het gebruiken om uw gegevens te synchroniseren met andere apparaten of diensten die CalDAV niet ondersteunen.",
   "place": "Plaats",
   "editPlace": "Bewerk plaats",
   "deletePlace": "Verwijder plaats {name}",
@@ -251,5 +252,21 @@
   "convertTo": "Converteren naar",
   "comingSoon": "Binnenkort beschikbaar",
   "notSupported": "Niet ondersteund",
-  "databaseVersion": "Database versie"
+  "databaseVersion": "Database versie",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "Herstellen",
+  "markdownIsSupported": "Markdown wordt ondersteund",
+  "createLabel": "Label aanmaken",
+  "editLabel": "Bewerk label",
+  "deleteLabel": "Verwijder label {name}",
+  "@deleteLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Label name"
+      }
+    }
+  },
+  "deleteLabelDescription": "Weet u zeker dat u het label {name} wilt verwijderen?"
 }

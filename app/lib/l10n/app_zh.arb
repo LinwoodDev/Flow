@@ -142,6 +142,7 @@
   "decentralizedDescription": "分散化接口允许您从任何分散的服务器访问您的数据。 您可以使用它来同步您的数据和其他设备或服务。",
   "importFile": "导入文件",
   "importFileDescription": "从您的设备导入文件。您可以从另一个 Linwood 流实例或常规日历文件导入数据库文件。",
+  "icalDescription": "iCal 接口允许您从任何 iCal 服务器访问您的数据。它只能读取数据，不支持写入。 您可以使用它来同步您的数据和不支持CalDAV的其他设备或服务。",
   "place": "地点",
   "editPlace": "编辑地点",
   "deletePlace": "删除地点 {name}",
@@ -251,5 +252,21 @@
   "convertTo": "转换为",
   "comingSoon": "即将开始",
   "notSupported": "不支持",
-  "databaseVersion": "数据库版本"
+  "databaseVersion": "数据库版本",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "恢复",
+  "markdownIsSupported": "支持Markdown",
+  "createLabel": "创建标签",
+  "editLabel": "编辑标签",
+  "deleteLabel": "删除标签 {name}",
+  "@deleteLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Label name"
+      }
+    }
+  },
+  "deleteLabelDescription": "您确定要删除标签 {name} 吗？"
 }

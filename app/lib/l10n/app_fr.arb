@@ -142,6 +142,7 @@
   "decentralizedDescription": "L'interface décentralisée vous permet d'accéder à vos données depuis n'importe quel serveur décentralisé. Vous pouvez l'utiliser pour synchroniser vos données avec d'autres appareils ou services.",
   "importFile": "Importer un fichier",
   "importFileDescription": "Importez un fichier depuis votre appareil. Vous pouvez importer un fichier de base de données depuis une autre instance Linwood Flow ou un fichier calendrier normal.",
+  "icalDescription": "L'interface iCal vous permet d'accéder à vos données depuis n'importe quel serveur iCal. Vous pouvez l'utiliser pour synchroniser vos données avec d'autres appareils ou services qui ne prennent pas en charge CalDAV.",
   "place": "Lieu",
   "editPlace": "Modifier le lieu",
   "deletePlace": "Supprimer le lieu {name}",
@@ -251,5 +252,21 @@
   "convertTo": "Convertir en",
   "comingSoon": "Bientôt disponible",
   "notSupported": "Non pris en charge",
-  "databaseVersion": "Version de la base de données"
+  "databaseVersion": "Version de la base de données",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "Restaurer",
+  "markdownIsSupported": "Markdown est pris en charge",
+  "createLabel": "Créer une étiquette",
+  "editLabel": "Modifier l'étiquette",
+  "deleteLabel": "Supprimer l'étiquette « {name}»",
+  "@deleteLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Label name"
+      }
+    }
+  },
+  "deleteLabelDescription": "Êtes-vous sûr de vouloir supprimer l'étiquette {name}?"
 }

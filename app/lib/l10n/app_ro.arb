@@ -142,6 +142,7 @@
   "decentralizedDescription": "Interfața descentralizată îți permite să accesezi datele tale de la orice server descentralizat. Îl puteți folosi pentru a vă sincroniza datele cu alte dispozitive sau servicii.",
   "importFile": "Importă fișier",
   "importFileDescription": "Importă un fișier de pe dispozitivul tău. Poți importa un fișier de bază de date dintr-o altă instanță de flori Linwood sau un fișier calendar obișnuit.",
+  "icalDescription": "Interfața iCal vă permite să accesați datele de pe orice server iCal. Aceasta poate doar citi datele și nu suportă scrierea. Îl puteţi folosi pentru a vă sincroniza datele cu alte dispozitive sau servicii care nu acceptă CalDAV.",
   "place": "Locul",
   "editPlace": "Editează locul",
   "deletePlace": "Șterge locul {name}",
@@ -251,5 +252,21 @@
   "convertTo": "Convertește în",
   "comingSoon": "În curând",
   "notSupported": "Nu este suportat",
-  "databaseVersion": "Versiunea bazei de date"
+  "databaseVersion": "Versiunea bazei de date",
+  "minimize": "Minimize",
+  "maximize": "Maximize",
+  "restore": "Restaurează",
+  "markdownIsSupported": "Markdown este suportat",
+  "createLabel": "Creare etichetă",
+  "editLabel": "Editare etichetă",
+  "deleteLabel": "Șterge eticheta {name}",
+  "@deleteLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Label name"
+      }
+    }
+  },
+  "deleteLabelDescription": "Sigur doriți să ștergeți eticheta {name}?"
 }
