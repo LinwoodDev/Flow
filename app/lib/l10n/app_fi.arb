@@ -257,9 +257,9 @@
   "maximize": "Maximize",
   "restore": "Palauta",
   "markdownIsSupported": "Markdown on tuettu",
-  "createLabel": "Create label",
-  "editLabel": "Edit label",
-  "deleteLabel": "Delete label {name}",
+  "createLabel": "Luo tunniste",
+  "editLabel": "Muokkaa nimikettä",
+  "deleteLabel": "Poista tunniste {name}",
   "@deleteLabel": {
     "placeholders": {
       "name": {
@@ -268,5 +268,5 @@
       }
     }
   },
-  "deleteLabelDescription": "Are you sure you want to delete the label {name}?"
+  "deleteLabelDescription": "Oletko varma, että haluat poistaa tunnisteen {name}?"
 }
