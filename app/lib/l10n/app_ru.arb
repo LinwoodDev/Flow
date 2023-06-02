@@ -257,9 +257,9 @@
   "maximize": "Maximize",
   "restore": "Восстановить",
   "markdownIsSupported": "Поддержка Markdown",
-  "createLabel": "Create label",
-  "editLabel": "Edit label",
-  "deleteLabel": "Delete label {name}",
+  "createLabel": "Создать метку",
+  "editLabel": "Изменить метку",
+  "deleteLabel": "Удалить метку {name}",
   "@deleteLabel": {
     "placeholders": {
       "name": {
@@ -268,5 +268,5 @@
       }
     }
   },
-  "deleteLabelDescription": "Are you sure you want to delete the label {name}?"
+  "deleteLabelDescription": "Вы уверены, что хотите удалить метку {name}?"
 }
