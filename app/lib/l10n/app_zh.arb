@@ -257,9 +257,9 @@
   "maximize": "Maximize",
   "restore": "恢复",
   "markdownIsSupported": "支持Markdown",
-  "createLabel": "Create label",
-  "editLabel": "Edit label",
-  "deleteLabel": "Delete label {name}",
+  "createLabel": "创建标签",
+  "editLabel": "编辑标签",
+  "deleteLabel": "删除标签 {name}",
   "@deleteLabel": {
     "placeholders": {
       "name": {
@@ -268,5 +268,5 @@
       }
     }
   },
-  "deleteLabelDescription": "Are you sure you want to delete the label {name}?"
+  "deleteLabelDescription": "您确定要删除标签 {name} 吗？"
 }
