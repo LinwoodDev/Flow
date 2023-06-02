@@ -257,9 +257,9 @@
   "maximize": "Maximize",
   "restore": "Επαναφορά",
   "markdownIsSupported": "Το Markdown υποστηρίζεται",
-  "createLabel": "Create label",
-  "editLabel": "Edit label",
-  "deleteLabel": "Delete label {name}",
+  "createLabel": "Δημιουργία ετικέτας",
+  "editLabel": "Επεξεργασία ετικέτας",
+  "deleteLabel": "Διαγραφή ετικέτας {name}",
   "@deleteLabel": {
     "placeholders": {
       "name": {
@@ -268,5 +268,5 @@
       }
     }
   },
-  "deleteLabelDescription": "Are you sure you want to delete the label {name}?"
+  "deleteLabelDescription": "Είστε βέβαιοι ότι θέλετε να διαγράψετε την ετικέτα {name}?"
 }
