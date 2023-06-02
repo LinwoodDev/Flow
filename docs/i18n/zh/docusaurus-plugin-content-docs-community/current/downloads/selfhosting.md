@@ -21,4 +21,4 @@ flotter building web
 
 ## 停靠栏
 
-复制仓库并使用 `Dockerfile` 使用： `docker building -t linwood-flow` 启动服务器使用： `停靠运行-p 8080:8080 -d linwood-flow`。 启动服务器使用： `停靠运行-p 8080:8080 -d linwood-flow`。
+复制仓库并使用 `Dockerfile` 使用： `docker building -t linwood-flow` 启动服务器使用： `停靠运行-p 8080:8080 -d linwood-flow`。
