@@ -257,9 +257,9 @@
   "maximize": "Maximize",
   "restore": "Återställ",
   "markdownIsSupported": "Markdown stöds",
-  "createLabel": "Create label",
-  "editLabel": "Edit label",
-  "deleteLabel": "Delete label {name}",
+  "createLabel": "Skapa etikett",
+  "editLabel": "Redigera etikett",
+  "deleteLabel": "Ta bort etikett {name}",
   "@deleteLabel": {
     "placeholders": {
       "name": {
@@ -268,5 +268,5 @@
       }
     }
   },
-  "deleteLabelDescription": "Are you sure you want to delete the label {name}?"
+  "deleteLabelDescription": "Är du säker på att du vill ta bort etiketten {name}?"
 }
