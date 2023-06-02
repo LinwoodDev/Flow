@@ -257,9 +257,9 @@
   "maximize": "Maximize",
   "restore": "Obnovit",
   "markdownIsSupported": "Markdown je podporován",
-  "createLabel": "Create label",
-  "editLabel": "Edit label",
-  "deleteLabel": "Delete label {name}",
+  "createLabel": "Vytvořit štítek",
+  "editLabel": "Upravit štítek",
+  "deleteLabel": "Odstranit štítek {name}",
   "@deleteLabel": {
     "placeholders": {
       "name": {
@@ -268,5 +268,5 @@
       }
     }
   },
-  "deleteLabelDescription": "Are you sure you want to delete the label {name}?"
+  "deleteLabelDescription": "Jste si jisti, že chcete odstranit štítek {name}?"
 }
