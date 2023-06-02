@@ -257,9 +257,9 @@
   "maximize": "Maximize",
   "restore": "Herstellen",
   "markdownIsSupported": "Markdown wordt ondersteund",
-  "createLabel": "Create label",
-  "editLabel": "Edit label",
-  "deleteLabel": "Delete label {name}",
+  "createLabel": "Label aanmaken",
+  "editLabel": "Bewerk label",
+  "deleteLabel": "Verwijder label {name}",
   "@deleteLabel": {
     "placeholders": {
       "name": {
@@ -268,5 +268,5 @@
       }
     }
   },
-  "deleteLabelDescription": "Are you sure you want to delete the label {name}?"
+  "deleteLabelDescription": "Weet u zeker dat u het label {name} wilt verwijderen?"
 }
