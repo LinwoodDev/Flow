@@ -257,9 +257,9 @@
   "maximize": "Maximize",
   "restore": "إستعادة",
   "markdownIsSupported": "Markdown مدعوم",
-  "createLabel": "Create label",
-  "editLabel": "Edit label",
-  "deleteLabel": "Delete label {name}",
+  "createLabel": "إنشاء تسمية",
+  "editLabel": "تعديل التسمية",
+  "deleteLabel": "حذف التسمية {name}",
   "@deleteLabel": {
     "placeholders": {
       "name": {
@@ -268,5 +268,5 @@
       }
     }
   },
-  "deleteLabelDescription": "Are you sure you want to delete the label {name}?"
+  "deleteLabelDescription": "هل أنت متأكد من أنك تريد حذف التسمية {name}؟"
 }
