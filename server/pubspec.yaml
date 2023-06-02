@@ -10,7 +10,7 @@ dependencies:
   dart_frog: ^0.3.6
   jaspr: ^0.5.0
   shared:
-    path: ../shared
+    path: shared
   sqflite_common: ^2.4.5
   sqflite_common_ffi: ^2.2.5
 
@@ -23,3 +23,5 @@ dev_dependencies:
   test: ^1.24.3
   very_good_analysis: ^5.0.0+1
   webdev: ^3.0.4
+dependency_overrides:
+  http: 1.0.0

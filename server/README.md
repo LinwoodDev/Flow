@@ -23,7 +23,7 @@ dart pub get
 Build webdev:
 
 ```bash
-dart run webdev build --output=static
+dart run webdev build --output=web:static
 ```
 
 Serve dev server:
