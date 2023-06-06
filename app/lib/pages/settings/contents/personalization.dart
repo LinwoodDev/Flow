@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/helpers/string.dart';
 import 'package:flow/helpers/theme_mode.dart';
 import 'package:flow/theme.dart';
 import 'package:flutter/material.dart';

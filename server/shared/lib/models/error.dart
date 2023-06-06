@@ -1,5 +1,3 @@
-import 'package:shared/helpers/string.dart';
-
 enum ErrorType {
   notFound(404),
   serverError(500),
@@ -9,6 +7,4 @@ enum ErrorType {
   final int httpCode;
 
   const ErrorType(this.httpCode);
-
-  String getDisplayString() => name.toDisplayString();
 }

@@ -29,10 +29,10 @@ packages:
     dependency: "direct main"
     description:
       name: args
-      sha256: c372bb384f273f0c2a8aaaa226dad84dc27c8519a691b888725dec59518ad53a
+      sha256: eef6c46b622e0494a36c5a12d10d77fb4e855501a91c1b9ef9339326e58f0596
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.1"
+    version: "2.4.2"
   async:
     dependency: transitive
     description:
@@ -217,6 +217,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
+  dart_leap:
+    dependency: "direct main"
+    description:
+      path: "packages/dart_leap"
+      ref: "92d779ef92954e6e9afd8a4493b3ab5c7674b6e2"
+      resolved-ref: "92d779ef92954e6e9afd8a4493b3ab5c7674b6e2"
+      url: "https://github.com/LinwoodDev/dart_pkgs"
+    source: git
+    version: "1.0.0"
   dart_style:
     dependency: transitive
     description:
@@ -441,10 +450,10 @@ packages:
     dependency: "direct dev"
     description:
       name: freezed
-      sha256: "2edb9ef971d0f803860ecd9084afd48c717d002141ad77b69be3e976bee7190e"
+      sha256: a9520490532087cf38bf3f7de478ab6ebeb5f68bb1eb2641546d92719b224445
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.4"
+    version: "2.3.5"
   freezed_annotation:
     dependency: "direct main"
     description:
@@ -609,8 +618,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: "7230b62ecb2652790d93450ca5951f18180a93ef"
-      resolved-ref: "7230b62ecb2652790d93450ca5951f18180a93ef"
+      ref: "951759e991d5232e39ea12c894586314866b8137"
+      resolved-ref: "951759e991d5232e39ea12c894586314866b8137"
       url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "0.0.1"
@@ -1039,10 +1048,10 @@ packages:
     dependency: "direct main"
     description:
       name: sqlite3
-      sha256: "2cef47b59d310e56f8275b13734ee80a9cf4a48a43172020cb55a620121fbf66"
+      sha256: "281b672749af2edf259fc801f0fcba092257425bcd32a0ce1c8237130bc934c7"
       url: "https://pub.dev"
     source: hosted
-    version: "1.11.1"
+    version: "1.11.2"
   sqlite3_flutter_libs:
     dependency: "direct main"
     description:
@@ -1284,5 +1293,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.0.0 <4.0.0"
+  dart: ">=3.0.3 <4.0.0"
   flutter: ">=3.10.0"

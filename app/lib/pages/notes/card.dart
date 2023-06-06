@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/note/model.dart';
 import 'package:shared/models/note/service.dart';
@@ -125,8 +126,9 @@ class _NoteCardState extends State<NoteCard> {
                   },
                 )),
                 const SizedBox(width: 8),
-                PopupMenuButton(
-                  itemBuilder: (context) => [
+                MenuAnchor(
+                  builder: defaultMenuButton(),
+                  menuChildren: [
                     if (_newNote.status != null) ...[
                       (
                         PhosphorIconsLight.note,
@@ -155,13 +157,11 @@ class _NoteCardState extends State<NoteCard> {
                       }
                     )
                   ]
-                      .map((e) => PopupMenuItem(
-                          onTap: e.$3,
-                          child: Row(children: [
-                            PhosphorIcon(e.$1),
-                            const SizedBox(width: 8),
-                            Text(e.$2),
-                          ])))
+                      .map((e) => MenuItemButton(
+                            leadingIcon: PhosphorIcon(e.$1),
+                            onPressed: e.$3,
+                            child: Text(e.$2),
+                          ))
                       .toList(),
                 ),
                 if (!widget.primary)

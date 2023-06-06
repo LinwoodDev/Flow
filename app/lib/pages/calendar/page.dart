@@ -78,24 +78,15 @@ class _CalendarPageState extends State<CalendarPage>
               context: context,
               delegate: _CalendarSearchDelegate(_calendarView)),
         ),
-        PopupMenuButton<_CalendarView>(
-          icon: PhosphorIcon(_calendarView.icon(PhosphorIconsStyle.light)),
-          initialValue: _calendarView,
-          onSelected: (value) {
-            setState(() {
-              _calendarView = value;
-            });
-          },
-          itemBuilder: (context) => _CalendarView.values
-              .map((e) => PopupMenuItem(
-                  value: e,
-                  child: Row(
-                    children: [
-                      PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
-                      const SizedBox(width: 8),
-                      Text(e.getLocalizedName(context)),
-                    ],
-                  )))
+        MenuAnchor(
+          builder:
+              defaultMenuButton(_calendarView.icon(PhosphorIconsStyle.light)),
+          menuChildren: _CalendarView.values
+              .map((e) => MenuItemButton(
+                    leadingIcon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
+                    child: Text(e.getLocalizedName(context)),
+                    onPressed: () => setState(() => _calendarView = e),
+                  ))
               .toList(),
         ),
       ],

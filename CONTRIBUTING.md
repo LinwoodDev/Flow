@@ -60,6 +60,7 @@ Please install the dependencies first:
 To get started, run:
 
 ```bash
+git submodule update --init --recursive dependencies/leap
 cd app
 flutter pub get
 flutter run

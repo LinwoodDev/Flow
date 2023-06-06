@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared/models/group/model.dart';
 import 'package:shared/models/model.dart';
@@ -32,8 +33,9 @@ class GroupTile extends StatelessWidget {
       title: Text(group.name),
       subtitle: MarkdownText(group.description),
       onTap: () => _editGroup(context),
-      trailing: PopupMenuButton<Function>(
-        itemBuilder: (ctx) => [
+      trailing: MenuAnchor(
+        builder: defaultMenuButton(),
+        menuChildren: [
           (
             PhosphorIconsLight.calendar,
             AppLocalizations.of(context).events,
@@ -50,18 +52,12 @@ class GroupTile extends StatelessWidget {
             _deleteGroup,
           ),
         ]
-            .map((e) => PopupMenuItem<Function>(
-                  value: e.$3,
-                  child: Row(
-                    children: [
-                      PhosphorIcon(e.$1),
-                      const SizedBox(width: 8),
-                      Text(e.$2),
-                    ],
-                  ),
+            .map((e) => MenuItemButton(
+                  leadingIcon: PhosphorIcon(e.$1),
+                  child: Text(e.$2),
+                  onPressed: () => e.$3(context),
                 ))
             .toList(),
-        onSelected: (value) => value(context),
       ),
     );
   }

@@ -35,8 +35,9 @@ class EventTile extends StatelessWidget {
       title: Text(event.name),
       subtitle: MarkdownText(event.description),
       onTap: () => _editEvent(context),
-      trailing: PopupMenuButton<Function>(
-        itemBuilder: (ctx) => [
+      trailing: MenuAnchor(
+        builder: defaultMenuButton(),
+        menuChildren: [
           (
             PhosphorIconsLight.calendar,
             AppLocalizations.of(context).events,
@@ -48,18 +49,12 @@ class EventTile extends StatelessWidget {
             _deleteEvent,
           ),
         ]
-            .map((e) => PopupMenuItem<Function>(
-                  value: e.$3,
-                  child: Row(
-                    children: [
-                      PhosphorIcon(e.$1),
-                      const SizedBox(width: 8),
-                      Text(e.$2),
-                    ],
-                  ),
+            .map((e) => MenuItemButton(
+                  leadingIcon: PhosphorIcon(e.$1),
+                  onPressed: () => e.$3(context),
+                  child: Text(e.$2),
                 ))
             .toList(),
-        onSelected: (value) => value(context),
       ),
     );
   }

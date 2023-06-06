@@ -30,7 +30,7 @@ class BasePath {
 Response errorResponse(ErrorType errorType) {
   return Response.json(
     body: {
-      'message': errorType.getDisplayString(),
+      'message': errorType.name,
       'type': errorType.name,
     },
     statusCode: errorType.httpCode,
