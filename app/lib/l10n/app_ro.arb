@@ -268,5 +268,6 @@
       }
     }
   },
-  "deleteLabelDescription": "Sigur doriți să ștergeți eticheta {name}?"
+  "deleteLabelDescription": "Sigur doriți să ștergeți eticheta {name}?",
+  "label": "Label"
 }
