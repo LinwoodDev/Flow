@@ -268,5 +268,6 @@
       }
     }
   },
-  "deleteLabelDescription": "Вы уверены, что хотите удалить метку {name}?"
+  "deleteLabelDescription": "Вы уверены, что хотите удалить метку {name}?",
+  "label": "Label"
 }
