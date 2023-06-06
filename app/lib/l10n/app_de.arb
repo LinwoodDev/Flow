@@ -268,5 +268,6 @@
       }
     }
   },
-  "deleteLabelDescription": "Sind Sie sicher, dass Sie die Bezeichnung {name} löschen möchten?"
+  "deleteLabelDescription": "Sind Sie sicher, dass Sie die Bezeichnung {name} löschen möchten?",
+  "label": "Label"
 }
