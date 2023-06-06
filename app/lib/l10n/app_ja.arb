@@ -268,5 +268,6 @@
       }
     }
   },
-  "deleteLabelDescription": "ラベル {name} を削除してもよろしいですか？"
+  "deleteLabelDescription": "ラベル {name} を削除してもよろしいですか？",
+  "label": "Label"
 }
