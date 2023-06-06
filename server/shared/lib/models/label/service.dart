@@ -12,6 +12,8 @@ abstract class LabelService extends ModelService {
     String search = '',
   });
 
+  FutureOr<Label?> getLabel(Multihash id);
+
   FutureOr<Label?> createLabel(Label label);
 
   FutureOr<bool> updateLabel(Label label);

@@ -11,4 +11,7 @@ class EventNoteDatabaseConnector extends NoteDatabaseConnector<Event> {
 
   @override
   String get tableName => "eventNotes";
+
+  @override
+  Event decode(Map<String, dynamic> data) => Event.fromDatabase(data);
 }

@@ -12,4 +12,8 @@ class CalendarItemNoteDatabaseConnector
 
   @override
   String get tableName => "calendarItemNotes";
+
+  @override
+  CalendarItem decode(Map<String, dynamic> data) =>
+      CalendarItem.fromDatabase(data);
 }

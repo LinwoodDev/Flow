@@ -38,6 +38,17 @@ class LabelDatabaseService extends LabelService with TableService {
   }
 
   @override
+  Future<Label?> getLabel(Multihash id) async {
+    final result = await db?.query(
+      'labels',
+      where: 'id = ?',
+      whereArgs: [id.fullBytes],
+    );
+    if (result == null || result.isEmpty) return null;
+    return Label.fromDatabase(result.first);
+  }
+
+  @override
   Future<bool> deleteLabel(Multihash id) async {
     return await db?.delete(
           'labels',

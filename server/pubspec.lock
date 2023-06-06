@@ -229,8 +229,8 @@ packages:
     dependency: transitive
     description:
       path: "packages/dart_leap"
-      ref: "92d779ef92954e6e9afd8a4493b3ab5c7674b6e2"
-      resolved-ref: "92d779ef92954e6e9afd8a4493b3ab5c7674b6e2"
+      ref: "47a223756447b027f6e0d2f7e537f4a1ca4bbce7"
+      resolved-ref: "47a223756447b027f6e0d2f7e537f4a1ca4bbce7"
       url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "1.0.0"

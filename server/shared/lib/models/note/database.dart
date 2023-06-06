@@ -14,7 +14,7 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
   String get connectedTableName;
   String get connectedIdName;
 
-  T _decode(Map<String, dynamic> data);
+  T decode(Map<String, dynamic> data);
 
   @override
   Future<void> create(Database db) async {
@@ -31,6 +31,7 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
 
   @override
   Future<void> connect(Multihash connectId, Multihash noteId) async {
+    if (await isNoteConnected(connectId, noteId)) return;
     await db?.insert(tableName, {
       'noteId': noteId.fullBytes,
       connectedIdName: connectId.fullBytes,
@@ -78,13 +79,13 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
   Future<List<T>> getConnected(Multihash noteId,
       {int offset = 0, int limit = 50}) async {
     final result = await db?.query(
-      tableName,
+      '$tableName JOIN $connectedTableName ON $connectedTableName.id = $connectedIdName',
       where: 'noteId = ?',
       whereArgs: [noteId.fullBytes],
       offset: offset,
       limit: limit,
     );
-    return result?.map(_decode).toList() ?? [];
+    return result?.map(decode).toList() ?? [];
   }
 
   @override

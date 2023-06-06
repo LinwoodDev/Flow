@@ -27,7 +27,7 @@ abstract class LabelNoteConnector extends NoteConnector<Label> {
 class LabelNoteDatabaseConnector extends NoteDatabaseConnector<Label>
     implements LabelNoteConnector {
   @override
-  String get connectedIdName => "itemId";
+  String get connectedIdName => "labelId";
 
   @override
   String get connectedTableName => "labels";
@@ -95,4 +95,7 @@ class LabelNoteDatabaseConnector extends NoteDatabaseConnector<Label>
         }).toList() ??
         [];
   }
+
+  @override
+  Label decode(Map<String, dynamic> data) => Label.fromDatabase(data);
 }
