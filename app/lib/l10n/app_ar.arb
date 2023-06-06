@@ -268,5 +268,6 @@
       }
     }
   },
-  "deleteLabelDescription": "هل أنت متأكد من أنك تريد حذف التسمية {name}؟"
+  "deleteLabelDescription": "هل أنت متأكد من أنك تريد حذف التسمية {name}؟",
+  "label": "Label"
 }
