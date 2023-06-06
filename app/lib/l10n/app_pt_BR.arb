@@ -268,5 +268,6 @@
       }
     }
   },
-  "deleteLabelDescription": "Você tem certeza que deseja excluir a etiqueta {name}?"
+  "deleteLabelDescription": "Você tem certeza que deseja excluir a etiqueta {name}?",
+  "label": "Label"
 }
