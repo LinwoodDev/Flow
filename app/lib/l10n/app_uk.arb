@@ -268,5 +268,6 @@
       }
     }
   },
-  "deleteLabelDescription": "Ви дійсно бажаєте видалити мітку {name}?"
+  "deleteLabelDescription": "Ви дійсно бажаєте видалити мітку {name}?",
+  "label": "Label"
 }
