@@ -268,5 +268,6 @@
       }
     }
   },
-  "deleteLabelDescription": "Είστε βέβαιοι ότι θέλετε να διαγράψετε την ετικέτα {name}?"
+  "deleteLabelDescription": "Είστε βέβαιοι ότι θέλετε να διαγράψετε την ετικέτα {name}?",
+  "label": "Label"
 }
