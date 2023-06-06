@@ -268,5 +268,6 @@
       }
     }
   },
-  "deleteLabelDescription": "Jste si jisti, že chcete odstranit štítek {name}?"
+  "deleteLabelDescription": "Jste si jisti, že chcete odstranit štítek {name}?",
+  "label": "Label"
 }
