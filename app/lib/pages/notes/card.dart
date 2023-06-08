@@ -253,7 +253,7 @@ class _NoteCardState extends State<NoteCard> {
                               Align(
                                 child: IconButton(
                                   icon: const PhosphorIcon(
-                                      PhosphorIconsLight.plusSquare),
+                                      PhosphorIconsLight.plusCircle),
                                   onPressed: () async {
                                     final label =
                                         await showDialog<SourcedModel<Label>>(

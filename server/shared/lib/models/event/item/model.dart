@@ -75,8 +75,8 @@ class CalendarItem with _$CalendarItem, DescriptiveModel {
   }
 
   bool collidesWith(CalendarItem date) {
-    return (date.end == null || (date.start?.isBefore(date.end!) ?? true)) &&
-        (date.start == null || (date.end?.isAfter(date.start!) ?? true));
+    return (end == null || (date.start?.isBefore(end!) ?? true)) &&
+        (start == null || (date.end?.isAfter(start!) ?? true));
   }
 
   Map<String, dynamic> toDatabase() => {

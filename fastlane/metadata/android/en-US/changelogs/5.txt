@@ -7,4 +7,5 @@
 * Fix dashboard scrolling and spacing issues
 * Fix primary card in notes
 * Fix end drawer
+* Fix collideswith
 * Upgrade to flutter 3.10
