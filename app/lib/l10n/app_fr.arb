@@ -269,5 +269,5 @@
     }
   },
   "deleteLabelDescription": "Êtes-vous sûr de vouloir supprimer l'étiquette {name}?",
-  "label": "Label"
+  "label": "Étiquette"
 }
