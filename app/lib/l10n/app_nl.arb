@@ -269,5 +269,5 @@
     }
   },
   "deleteLabelDescription": "Weet u zeker dat u het label {name} wilt verwijderen?",
-  "label": "Label"
+  "label": "Omschrijving"
 }
