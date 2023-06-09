@@ -269,5 +269,5 @@
     }
   },
   "deleteLabelDescription": "您确定要删除标签 {name} 吗？",
-  "label": "Label"
+  "label": "标签"
 }
