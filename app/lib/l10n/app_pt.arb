@@ -269,5 +269,5 @@
     }
   },
   "deleteLabelDescription": "Você tem certeza que deseja excluir a etiqueta {name}?",
-  "label": "Label"
+  "label": "Descrição"
 }
