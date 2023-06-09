@@ -269,5 +269,5 @@
     }
   },
   "deleteLabelDescription": "ラベル {name} を削除してもよろしいですか？",
-  "label": "Label"
+  "label": "ラベル"
 }
