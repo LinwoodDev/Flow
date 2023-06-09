@@ -269,5 +269,5 @@
     }
   },
   "deleteLabelDescription": "Oletko varma, että haluat poistaa tunnisteen {name}?",
-  "label": "Label"
+  "label": "Tunniste"
 }
