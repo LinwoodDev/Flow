@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:lib5/lib5.dart';
 import 'package:shared/models/label/model.dart';
 
 import 'package:shared/models/note/database.dart';
+import 'package:sqflite_common/sqlite_api.dart';
 
 import 'model.dart';
 import 'service.dart';
@@ -94,6 +97,14 @@ class LabelNoteDatabaseConnector extends NoteDatabaseConnector<Label>
           return Note.fromDatabase(e);
         }).toList() ??
         [];
+  }
+
+  @override
+  FutureOr<void> migrate(Database db, int version) async {
+    if (version < 2) {
+      await create(db);
+    }
+    return super.migrate(db, version);
   }
 
   @override
