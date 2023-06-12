@@ -8,4 +8,5 @@
 * Fix primary card in notes
 * Fix end drawer
 * Fix collideswith
+* Fix month view
 * Upgrade to flutter 3.10

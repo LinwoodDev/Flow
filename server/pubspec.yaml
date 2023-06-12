@@ -11,7 +11,7 @@ dependencies:
   jaspr: ^0.5.0
   shared:
     path: shared
-  sqflite_common: ^2.4.5
+  sqflite_common: ^2.4.5+1
   sqflite_common_ffi: ^2.2.5
 
 dev_dependencies:
