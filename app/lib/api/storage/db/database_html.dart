@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:sqflite_common/sqlite_api.dart';
 import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart'
     show SqfliteFfiWebOptions, createDatabaseFactoryFfiWeb;
+import 'package:sqlite3/sqlite3.dart' hide Database;
 import 'package:sqlite3/wasm.dart' show IndexedDbFileSystem;
 
 const indexedDbName = 'sqflite_databases';
@@ -31,9 +32,12 @@ Future<Database> openDatabase({
 
 Future<Uint8List> exportDatabase(Database database) async {
   final fs = await IndexedDbFileSystem.open(dbName: indexedDbName);
-  final path = "/${database.path}";
-  final size = fs.sizeOfFile(path);
+  final file = fs
+      .xOpen(Sqlite3Filename(database.path), SqlFlag.SQLITE_OPEN_READONLY)
+      .file;
+  final size = file.xFileSize();
   final target = Uint8List(size);
-  fs.read(path, target, 0);
+  file.xRead(target, 0);
+  file.xClose();
   return target;
 }

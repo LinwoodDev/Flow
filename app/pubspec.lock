@@ -482,10 +482,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: fe2d5f3e44fb243961edfc600a6198ecd67fc2c05b0a64d9fc09b51552071e36
+      sha256: da08429b5c1026cc78bd60c60bfff34f0b273b29feddeab00d3f5b56fb6f35ed
       url: "https://pub.dev"
     source: hosted
-    version: "8.0.2"
+    version: "8.0.5"
   graphs:
     dependency: transitive
     description:
@@ -1040,18 +1040,18 @@ packages:
     dependency: "direct main"
     description:
       name: sqflite_common_ffi_web
-      sha256: "59885fbdd4ed51b9515061c14f4790458b62b08660deab9804b87ff6d4f7fff2"
+      sha256: eb8cd50fa1451e8fa5edf5860d68d504572afaf1e68079933f95e95bf273d445
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.5+1"
+    version: "0.3.6"
   sqlite3:
     dependency: "direct main"
     description:
       name: sqlite3
-      sha256: "281b672749af2edf259fc801f0fcba092257425bcd32a0ce1c8237130bc934c7"
+      sha256: f7511ddd6a2dda8ded9d849f8a925bb6020e0faa59db2443debc18d484e59401
       url: "https://pub.dev"
     source: hosted
-    version: "1.11.2"
+    version: "2.0.0"
   sqlite3_flutter_libs:
     dependency: "direct main"
     description:

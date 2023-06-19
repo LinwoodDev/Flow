@@ -56,6 +56,8 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
         _now.second,
       );
 
+  int _getDaysInView() => 6 * 7;
+
   Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
       _fetchCalendarItems() async {
     if (!mounted) return [];
@@ -66,7 +68,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
         widget.filter.source!: _cubit.getService(widget.filter.source!)
       };
     }
-    final days = (_date.getDaysInMonth() / 7).ceil() * 7;
+    final days = _getDaysInView();
     final appointments = <List<SourcedConnectedModel<CalendarItem, Event?>>>[
       for (int i = 0; i < days; i++) []
     ];
@@ -200,7 +202,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                     child: GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: (_date.getDaysInMonth() / 7).ceil() * 7 + 7,
+                      itemCount: appointments.length + 7,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 7,
                         childAspectRatio: constraints.maxWidth / 7 / 100,
@@ -233,8 +235,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                             );
                           });
                         }
-                        var current = index - 7;
-                        current = current;
+                        final current = index - 7;
                         final day = _date.nextStartOfWeek.addDays(current - 7);
                         return InkWell(
                           onTap: () async {
