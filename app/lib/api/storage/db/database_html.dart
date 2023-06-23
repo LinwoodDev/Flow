@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:sqflite_common/sqlite_api.dart';
 import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart'
     show SqfliteFfiWebOptions, createDatabaseFactoryFfiWeb;
-import 'package:sqlite3/sqlite3.dart' hide Database;
+import 'package:sqlite3/common.dart';
 import 'package:sqlite3/wasm.dart' show IndexedDbFileSystem;
 
 const indexedDbName = 'sqflite_databases';
