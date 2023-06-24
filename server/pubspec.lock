@@ -278,10 +278,10 @@ packages:
     dependency: transitive
     description:
       name: dwds
-      sha256: a20d88e3f64938a0adc71ba621bf8a1e37588a44a013081d6a3ef2c50714486f
+      sha256: e55cb1927b4686d6c747235b18ca270e85cab123186618610a2529478017a678
       url: "https://pub.dev"
     source: hosted
-    version: "19.0.0"
+    version: "19.0.1"
   equatable:
     dependency: transitive
     description:
@@ -821,10 +821,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: f3743ca475e0c9ef71df4ba15eb2d7684eecd5c8ba20a462462e4e8b561b2e11
+      sha256: c620a6f783fa22436da68e42db7ebbf18b8c44b9a46ab911f666ff09ffd9153f
       url: "https://pub.dev"
     source: hosted
-    version: "11.6.0"
+    version: "11.7.1"
   watcher:
     dependency: transitive
     description:
@@ -845,10 +845,10 @@ packages:
     dependency: "direct dev"
     description:
       name: webdev
-      sha256: "757747909f9f6941c7be53b3d70671c78eca337fbe02ed1eaf384f6d53c8adea"
+      sha256: b6a780c212e8429cafc74b918ec2a837c8dd44ce80691901dded19cbcc5d0aba
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.4"
+    version: "3.0.5"
   webkit_inspection_protocol:
     dependency: transitive
     description:
