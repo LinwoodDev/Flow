@@ -63,28 +63,26 @@ class _GroupSelectTileState extends State<GroupSelectTile> {
                 ? PhosphorIconsStyle.light
                 : PhosphorIconsStyle.fill)),
             onTap: () async {
+              SourcedModel<Group>? model;
               if (group != null) {
                 Navigator.of(context).pop();
-                final model = await showDialog<SourcedModel<Group>>(
+                model = await showDialog<SourcedModel<Group>>(
                   context: context,
                   builder: (context) => GroupDialog(
                     group: group,
                     source: widget.source,
                   ),
                 );
-                if (model != null) {
-                  _onChanged(model.model.id);
-                }
               } else {
-                final model = await showDialog<SourcedModel<Group>>(
+                model = await showDialog<SourcedModel<Group>>(
                   context: context,
                   builder: (context) => GroupSelectDialog(
                     source: widget.source,
                   ),
                 );
-                if (model != null) {
-                  _onChanged(model.model.id);
-                }
+              }
+              if (model != null) {
+                _onChanged(model.model.id);
               }
             },
             trailing: _value == null
