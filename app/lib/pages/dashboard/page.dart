@@ -23,8 +23,7 @@ class _DashboardPageState extends State<DashboardPage> {
           constraints: const BoxConstraints(maxWidth: 1000),
           child: LayoutBuilder(
             builder: (context, constraints) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+              return ListView(
                 children: [
                   Card(
                       child: Padding(
@@ -35,24 +34,21 @@ class _DashboardPageState extends State<DashboardPage> {
                       textAlign: TextAlign.center,
                     ),
                   )),
-                  Expanded(
-                    child: Wrap(
-                      alignment: WrapAlignment.center,
-                      children: [
-                        const DashboardNotesCard(),
-                        const DashboardEventsCard(),
-                      ]
-                          .map((e) => ConstrainedBox(
-                                constraints:
-                                    const BoxConstraints(maxWidth: 500),
-                                child: Card(
-                                    child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: e,
-                                )),
-                              ))
-                          .toList(),
-                    ),
+                  Wrap(
+                    alignment: WrapAlignment.center,
+                    children: [
+                      const DashboardNotesCard(),
+                      const DashboardEventsCard(),
+                    ]
+                        .map((e) => ConstrainedBox(
+                              constraints: const BoxConstraints(maxWidth: 500),
+                              child: Card(
+                                  child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: e,
+                              )),
+                            ))
+                        .toList(),
                   ),
                 ],
               );
