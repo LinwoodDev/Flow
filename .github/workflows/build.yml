@@ -26,7 +26,9 @@ jobs:
           channel: 'any'
       - name: 📦 Get dependencies
         run: |
+          flutter clean
           flutter pub get
+          flutter doctor -v
       - name: Import files
         if: ${{ github.event_name != 'pull_request' }}
         env:
@@ -40,14 +42,12 @@ jobs:
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
-          flutter doctor -v
           flutter build apk -v --release --flavor development --dart-define=flavor=development
           cp build/app/outputs/flutter-apk/app-development-release.apk linwood-flow-android.apk
       - name: 🏭 Build production
         if: ${{ github.ref == 'refs/tags/stable' }}
         run: |
-          flutter doctor -v
-          flutter build apk -v --release --flavor production --dart-define=flavor=production
+          flutter build apk -v --release --flavor production
           cp build/app/outputs/flutter-apk/app-production-release.apk linwood-flow-android.apk
       - name: Archive
         uses: actions/upload-artifact@v3
@@ -75,7 +75,9 @@ jobs:
         run: flutter config --enable-windows-desktop
       - name: 📦 Get dependencies
         run: |
+          flutter clean
           flutter pub get
+          flutter doctor -v
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
@@ -92,6 +94,9 @@ jobs:
           Get-Content pubspec.yaml | Select-String -Pattern 'version:\s(.+)\+'  | % {Set-Item -Path Env:FLOW_VERSION -Value "$($_.matches.groups[1])"}
           & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:FLOW_VERSION FlowSetup.iss
         # flutter pub run msix:create
+      - name: Copy portable start script
+        run: |
+          cp scripts/start.bat build/windows/runner/Release/
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
@@ -147,7 +152,9 @@ jobs:
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
         run: |
+          flutter clean
           flutter pub get
+          flutter doctor -v
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
@@ -170,7 +177,7 @@ jobs:
       #    mv linwood-flow*.rpm linwood-flow-linux.rpm
       - name: Build .AppImage executable
         run: |
-          wget -O appimage-builder-x86_64.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.0.0-beta.1/appimage-builder-1.0.0-677acbd-x86_64.AppImage
+          wget -O appimage-builder-x86_64.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.1.0/appimage-builder-1.1.0-x86_64.AppImage
           chmod +x appimage-builder-x86_64.AppImage
           sudo mv appimage-builder-x86_64.AppImage /usr/local/bin/appimage-builder
           appimage-builder --recipe AppImageBuilder.yml --skip-test
@@ -181,7 +188,11 @@ jobs:
           cp -r linux/debian/usr/share build/linux/x64/release/bundle/usr
       - name: Rename AppImage
         run: |
-          mv ./*.AppImage* linwood-flow-linux.AppImage
+          ls
+          mv ./*.AppImage linwood-flow-linux.AppImage
+      - name: Copy portable start script
+        run: |
+          cp scripts/start.sh build/linux/x64/release/bundle
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
@@ -250,7 +261,9 @@ jobs:
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
         run: |
+          flutter clean
           flutter pub get
+          flutter doctor -v
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
@@ -292,38 +305,58 @@ jobs:
         with:
           name: linux-alternative-portable
           path: app/build/linux/x64/release/bundle
-  # build-macos:
-  #   runs-on: macos-latest
-  #   defaults:
-  #     run:
-  #       working-directory: app
-  #   steps:
-  #     - name: ⬆️ Checkout
-  #       uses: actions/checkout@v3
-  #     - name: Get flutter version
-  #       run: |
-  #         FLUTTER_VERSION=$(cat FLUTTER_VERSION)
-  #         echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
-  #     - uses: subosito/flutter-action@v2
-  #       with:
-  #         flutter-version: ${{ env.FLUTTER_VERSION }}
-  #         channel: 'any'
-  #     - name: ✅ Enable platforms
-  #       run: flutter config --enable-macos-desktop
-  #     - name: 📦 Get dependencies
-  #       run: |
-  #         flutter pub get
-  #     - name: 🏭 Build
-  #       run: |
-  #         flutter clean
-  #         flutter doctor -v
-  #         flutter build macos -v
-  #     - name: Archive
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: macos-build
-  #         path: |
-  #           app/build/macos/Build/Products/Release/flow.app
+  #build-macos:
+  #  runs-on: macos-latest
+  #  defaults:
+  #    run:
+  #      working-directory: app
+  #  steps:
+  #    - name: ⬆️ Checkout
+  #      uses: actions/checkout@v3
+  #    - name: Get flutter version
+  #      run: |
+  #        FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
+  #        echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
+  #    - uses: subosito/flutter-action@v2
+  #      with:
+  #        flutter-version: ${{ env.FLUTTER_VERSION }}
+  #        channel: 'any'
+  #    - name: ✅ Enable platforms
+  #      run: flutter config --enable-macos-desktop
+  #    - name: 📦 Get dependencies
+  #      run: |
+  #        flutter clean
+  #        flutter pub get
+  #        flutter doctor -v
+  #    - name: 🏭 Build
+  #      run: |
+  #        flutter build macos -v
+  #    - name: Archive
+  #      uses: actions/upload-artifact@v3
+  #      with:
+  #        name: macos-build
+  #        path: |
+  #          app/build/macos/Build/Products/Release/flow.app
+  #build-snap:
+  #  name: Build Snap
+  #  runs-on: ubuntu-latest
+  #  strategy:
+  #    matrix:
+  #      architecture:
+  #        - amd64
+  #  steps:
+  #    - uses: actions/checkout@v3
+  #    - uses: docker/setup-qemu-action@v2
+  #      with:
+  #        image: tonistiigi/binfmt@sha256:df15403e06a03c2f461c1f7938b171fda34a5849eb63a70e2a2109ed5a778bde
+  #    - uses: diddlesnaps/snapcraft-multiarch-action@v1
+  #      id: build
+  #      with:
+  #        architecture: ${{ matrix.architecture }}
+  #    - uses: actions/upload-artifact@v3
+  #      with:
+  #        name: flow-snap
+  #        path: ${{ steps.build.outputs.snap }}    
   deploy:
     runs-on: ubuntu-22.04
     if: github.event_name == 'push'
@@ -335,7 +368,7 @@ jobs:
       - build-windows
       - build-linux
       - build-flatpak
-      # - build-macos
+      #- build-macos
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
@@ -386,16 +419,16 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: windows-setup
-      # - uses: actions/download-artifact@v3
-      #   with:
-      #     name: macos-build
-      #     path: macos-build/
+      #- uses: actions/download-artifact@v3
+      #  with:
+      #    name: macos-build
+      #    path: macos-build/
       - name: 📦 Zip artifacts
         run: |
           zip -r linwood-flow-windows.zip windows-build/*
           tar -C linux-build -czf linwood-flow-linux.tar.gz .
           tar -C linux-alternative-portable -czf linwood-flow-linux-alternative.tar.gz .
-        #  tar -C macos-build -czf linwood-flow-macos.tar.gz .
+      #    tar -C macos-build -czf linwood-flow-macos.tar.gz .
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
@@ -505,7 +538,7 @@ jobs:
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.1.2"
+          ruby-version: "3.2.1"
           bundler-cache: true
           working-directory: app/android
       - name: 🚀 Deploy to Play Store

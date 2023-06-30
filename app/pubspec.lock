@@ -101,10 +101,10 @@ packages:
     dependency: "direct dev"
     description:
       name: build_runner
-      sha256: "5e1929ad37d48bd382b124266cb8e521de5548d406a45a5ae6656c13dab73e37"
+      sha256: "10c6bcdbf9d049a0b666702cf1cee4ddfdc38f02a19d35ae392863b47519848b"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.5"
+    version: "2.4.6"
   build_runner_core:
     dependency: transitive
     description:
@@ -347,10 +347,10 @@ packages:
     dependency: "direct dev"
     description:
       name: flutter_lints
-      sha256: aeb0b80a8b3709709c9cc496cdc027c5b3216796bc0af0ce1007eaf24464fd4c
+      sha256: "2118df84ef0c3ca93f96123a616ae8540879991b8b57af2f81b76a7ada49b2a4"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -368,10 +368,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_markdown
-      sha256: dc6d5258653f6857135b32896ccda7f7af0c54dcec832495ad6835154c6c77c0
+      sha256: "9e0202b5339cd88ac0f109abae8502681bfab0b13a8e02a0e7158124610b5d98"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.15"
+    version: "0.6.15+1"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
