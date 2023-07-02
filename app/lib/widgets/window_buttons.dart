@@ -80,7 +80,7 @@ class _FlowWindowButtonsState extends State<FlowWindowButtons>
                   Card(
                     elevation: 50,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [

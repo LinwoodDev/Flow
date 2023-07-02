@@ -333,6 +333,7 @@ class CalendarDayDialog extends StatelessWidget {
               await showCalendarCreate(
                 context: context,
                 event: event,
+                time: date,
               );
               if (context.mounted) {
                 Navigator.of(context).pop();
