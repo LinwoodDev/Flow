@@ -9,6 +9,7 @@ import 'package:shared/models/event/item/model.dart';
 import 'package:shared/models/event/model.dart';
 import 'package:shared/models/model.dart';
 
+import '../../cubits/settings.dart';
 import 'day.dart';
 import 'filter.dart';
 
@@ -31,7 +32,7 @@ class CalendarWeekView extends StatefulWidget {
 class _CalendarWeekViewState extends State<CalendarWeekView> {
   late final FlowCubit _cubit;
   int _week = 0, _year = 0;
-  late Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
+  late Future<(int, List<List<SourcedConnectedModel<CalendarItem, Event?>>>)>
       _appointments;
   final _columnScrollController = ScrollController(),
       _rowScrollController = ScrollController();
@@ -49,9 +50,15 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
   DateTime get _date =>
       DateTime(_year, 1, 1).nextStartOfWeek.addDays((_week - 1) * 7);
 
-  Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
+  Future<(int, List<List<SourcedConnectedModel<CalendarItem, Event?>>>)>
       _fetchCalendarItems() async {
-    if (!mounted) return [];
+    final startOfWeek = context.read<SettingsCubit>().state.startOfWeek;
+    if (!mounted) {
+      return (
+        startOfWeek,
+        <List<SourcedConnectedModel<CalendarItem, Event?>>>[]
+      );
+    }
 
     var sources = _cubit.getCurrentServicesMap();
     if (widget.filter.source != null) {
@@ -62,10 +69,11 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
     final appointments = <List<SourcedConnectedModel<CalendarItem, Event?>>>[
       for (int i = 0; i < 7; i++) []
     ];
+    final date = _date.addDays(startOfWeek);
     for (final source in sources.entries) {
       for (int i = 0; i < 7; i++) {
         final fetchedDay = await source.value.calendarItem?.getCalendarItems(
-          date: _date.addDays(i),
+          date: date.addDays(i),
           status: EventStatus.values
               .where(
                   (element) => !widget.filter.hiddenStatuses.contains(element))
@@ -80,7 +88,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
             .addAll(fetchedDay.map((e) => SourcedModel(source.key, e)));
       }
     }
-    return appointments;
+    return (startOfWeek, appointments);
   }
 
   void _addWeek(int add) {
@@ -187,10 +195,13 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                     controller: _rowScrollController,
                     scrollDirection: Axis.horizontal,
                     child: FutureBuilder<
-                            List<
-                                List<
-                                    SourcedConnectedModel<CalendarItem,
-                                        Event?>>>>(
+                            (
+                              int,
+                              List<
+                                  List<
+                                      SourcedConnectedModel<CalendarItem,
+                                          Event?>>>
+                            )>(
                         future: _appointments,
                         builder: (context, snapshot) {
                           if (snapshot.hasError) {
@@ -200,12 +211,13 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                             return const Center(
                                 child: CircularProgressIndicator());
                           }
-                          final events = snapshot.data!;
+                          final (startOfWeek, events) = snapshot.data!;
                           return Row(
                             mainAxisSize: MainAxisSize.min,
                             children:
                                 events.asMap().entries.map<Widget>((entry) {
-                              final date = _date.addDays(entry.key);
+                              final date =
+                                  _date.addDays(entry.key + startOfWeek);
                               return Column(
                                 children: [
                                   // Weekday

@@ -254,10 +254,10 @@ packages:
     dependency: "direct main"
     description:
       name: dynamic_color
-      sha256: "74dff1435a695887ca64899b8990004f8d1232b0e84bfc4faa1fdda7c6f57cc1"
+      sha256: de4798a7069121aee12d5895315680258415de9b00e717723a1bd73d58f0126d
       url: "https://pub.dev"
     source: hosted
-    version: "1.6.5"
+    version: "1.6.6"
   equatable:
     dependency: transitive
     description:
@@ -368,10 +368,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_markdown
-      sha256: "9e0202b5339cd88ac0f109abae8502681bfab0b13a8e02a0e7158124610b5d98"
+      sha256: "4b1bfbb802d76320a1a46d9ce984106135093efd9d969765d07c2125af107bdf"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.15+1"
+    version: "0.6.17"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -450,10 +450,10 @@ packages:
     dependency: "direct dev"
     description:
       name: freezed
-      sha256: a9520490532087cf38bf3f7de478ab6ebeb5f68bb1eb2641546d92719b224445
+      sha256: "1abef0aa34d4e5b97c9b34f75f980091d718224496a854419710c1b5454021cc"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.5"
+    version: "2.4.0"
   freezed_annotation:
     dependency: "direct main"
     description:
@@ -482,10 +482,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "1531542666c2d052c44bbf6e2b48011bf3771da0404b94c60eabec1228a62906"
+      sha256: b33a88c67816312597e5e0f5906c5139a0b9bd9bb137346e872c788da7af8ea0
       url: "https://pub.dev"
     source: hosted
-    version: "9.0.0"
+    version: "9.0.3"
   graphs:
     dependency: transitive
     description:
@@ -1144,10 +1144,10 @@ packages:
     dependency: "direct main"
     description:
       name: url_launcher
-      sha256: eb1e00ab44303d50dd487aab67ebc575456c146c6af44422f9c13889984c00f3
+      sha256: "781bd58a1eb16069412365c98597726cd8810ae27435f04b3b4d3a470bacd61e"
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.11"
+    version: "6.1.12"
   url_launcher_android:
     dependency: transitive
     description:
