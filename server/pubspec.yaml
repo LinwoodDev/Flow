@@ -15,12 +15,12 @@ dependencies:
   sqflite_common_ffi: ^2.2.5
 
 dev_dependencies:
-  build_runner: ^2.4.5
-  build_web_compilers: ^4.0.3
+  build_runner: ^2.4.6
+  build_web_compilers: ^4.0.4
   jaspr_builder: ^0.5.0
   lints: ^2.1.1
   mocktail: ^0.3.0
-  test: ^1.24.3
+  test: ^1.24.4
   very_good_analysis: ^5.0.0+1
   webdev: ^3.0.5
 dependency_overrides:
