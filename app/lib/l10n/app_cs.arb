@@ -269,5 +269,6 @@
     }
   },
   "deleteLabelDescription": "Jste si jisti, že chcete odstranit štítek {name}?",
-  "label": "Popisek"
+  "label": "Popisek",
+  "startOfWeek": "Start of week"
 }
