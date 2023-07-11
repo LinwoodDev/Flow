@@ -269,5 +269,6 @@
     }
   },
   "deleteLabelDescription": "Ви дійсно бажаєте видалити мітку {name}?",
-  "label": "Мітка"
+  "label": "Мітка",
+  "startOfWeek": "Start of week"
 }
