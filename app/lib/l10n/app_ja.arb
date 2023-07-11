@@ -269,5 +269,6 @@
     }
   },
   "deleteLabelDescription": "ラベル {name} を削除してもよろしいですか？",
-  "label": "ラベル"
+  "label": "ラベル",
+  "startOfWeek": "Start of week"
 }
