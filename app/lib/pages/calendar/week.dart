@@ -31,8 +31,8 @@ class CalendarWeekView extends StatefulWidget {
 
 class _CalendarWeekViewState extends State<CalendarWeekView> {
   late final FlowCubit _cubit;
-  int _week = 0, _year = 0;
-  late Future<(int, List<List<SourcedConnectedModel<CalendarItem, Event?>>>)>
+  int _week = 0, _year = 0, _startOfWeek = 0;
+  late Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
       _appointments;
   final _columnScrollController = ScrollController(),
       _rowScrollController = ScrollController();
@@ -45,19 +45,17 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
     final now = DateTime.now();
     _week = now.week;
     _year = now.year;
+    _startOfWeek = context.read<SettingsCubit>().state.startOfWeek;
   }
 
-  DateTime get _date =>
-      DateTime(_year, 1, 1).nextStartOfWeek.addDays((_week - 1) * 7);
+  DateTime get _date => DateTime(_year, 1, 1)
+      .nextStartOfWeek
+      .addDays((_week - 1) * 7 + _startOfWeek);
 
-  Future<(int, List<List<SourcedConnectedModel<CalendarItem, Event?>>>)>
+  Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
       _fetchCalendarItems() async {
-    final startOfWeek = context.read<SettingsCubit>().state.startOfWeek;
     if (!mounted) {
-      return (
-        startOfWeek,
-        <List<SourcedConnectedModel<CalendarItem, Event?>>>[]
-      );
+      return [];
     }
 
     var sources = _cubit.getCurrentServicesMap();
@@ -69,7 +67,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
     final appointments = <List<SourcedConnectedModel<CalendarItem, Event?>>>[
       for (int i = 0; i < 7; i++) []
     ];
-    final date = _date.addDays(startOfWeek);
+    final date = _date;
     for (final source in sources.entries) {
       for (int i = 0; i < 7; i++) {
         final fetchedDay = await source.value.calendarItem?.getCalendarItems(
@@ -88,7 +86,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
             .addAll(fetchedDay.map((e) => SourcedModel(source.key, e)));
       }
     }
-    return (startOfWeek, appointments);
+    return appointments;
   }
 
   void _addWeek(int add) {
@@ -114,6 +112,8 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
 
   @override
   Widget build(BuildContext context) {
+    final now = DateTime.now().addDays(-_startOfWeek);
+
     return LayoutBuilder(
       builder: (context, constraints) => CreateEventScaffold(
         onCreated: _refresh,
@@ -141,11 +141,10 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                     IconButton(
                       icon:
                           const PhosphorIcon(PhosphorIconsLight.calendarBlank),
-                      isSelected: _date.year == DateTime.now().year &&
-                          _date.week == DateTime.now().week,
+                      isSelected:
+                          _date.year == now.year && _date.week == now.week,
                       onPressed: () {
                         setState(() {
-                          final now = DateTime.now();
                           _week = now.week;
                           _year = now.year;
                           _appointments = _fetchCalendarItems();
@@ -195,13 +194,10 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                     controller: _rowScrollController,
                     scrollDirection: Axis.horizontal,
                     child: FutureBuilder<
-                            (
-                              int,
-                              List<
-                                  List<
-                                      SourcedConnectedModel<CalendarItem,
-                                          Event?>>>
-                            )>(
+                            List<
+                                List<
+                                    SourcedConnectedModel<CalendarItem,
+                                        Event?>>>>(
                         future: _appointments,
                         builder: (context, snapshot) {
                           if (snapshot.hasError) {
@@ -211,13 +207,13 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                             return const Center(
                                 child: CircularProgressIndicator());
                           }
-                          final (startOfWeek, events) = snapshot.data!;
+                          final events = snapshot.data!;
                           return Row(
                             mainAxisSize: MainAxisSize.min,
                             children:
                                 events.asMap().entries.map<Widget>((entry) {
                               final date =
-                                  _date.addDays(entry.key + startOfWeek);
+                                  _date.addDays(entry.key + _startOfWeek);
                               return Column(
                                 children: [
                                   // Weekday

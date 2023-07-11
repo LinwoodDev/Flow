@@ -69,32 +69,49 @@ class _CalendarPageState extends State<CalendarPage>
 
   @override
   Widget build(BuildContext context) {
-    return FlowNavigation(
-      title: AppLocalizations.of(context).calendar,
-      actions: [
-        IconButton(
-          icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
-          onPressed: () => showSearch(
-              context: context,
-              delegate: _CalendarSearchDelegate(_calendarView)),
+    return LayoutBuilder(builder: (context, constraints) {
+      final isSmall = constraints.maxWidth < 900;
+      return FlowNavigation(
+        title: AppLocalizations.of(context).calendar,
+        actions: [
+          if (isSmall) ...[
+            MenuAnchor(
+              builder: defaultMenuButton(
+                  _calendarView.icon(PhosphorIconsStyle.light)),
+              menuChildren: _CalendarView.values
+                  .map((e) => MenuItemButton(
+                        leadingIcon:
+                            PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
+                        child: Text(e.getLocalizedName(context)),
+                        onPressed: () => setState(() => _calendarView = e),
+                      ))
+                  .toList(),
+            )
+          ] else ...[
+            SegmentedButton(
+                segments: _CalendarView.values
+                    .map((e) => ButtonSegment(
+                        value: e,
+                        icon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
+                        label: Text(e.getLocalizedName(context))))
+                    .toList(),
+                onSelectionChanged: (value) =>
+                    setState(() => _calendarView = value.first),
+                selected: {_calendarView}),
+          ],
+          IconButton(
+            icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
+            onPressed: () => showSearch(
+                context: context,
+                delegate: _CalendarSearchDelegate(_calendarView)),
+          ),
+        ],
+        body: CalendarBodyView(
+          filter: widget.filter,
+          view: _calendarView,
         ),
-        MenuAnchor(
-          builder:
-              defaultMenuButton(_calendarView.icon(PhosphorIconsStyle.light)),
-          menuChildren: _CalendarView.values
-              .map((e) => MenuItemButton(
-                    leadingIcon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
-                    child: Text(e.getLocalizedName(context)),
-                    onPressed: () => setState(() => _calendarView = e),
-                  ))
-              .toList(),
-        ),
-      ],
-      body: CalendarBodyView(
-        filter: widget.filter,
-        view: _calendarView,
-      ),
-    );
+      );
+    });
   }
 }
 

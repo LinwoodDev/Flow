@@ -3,6 +3,7 @@
 * Add ical remote storage
 * Add weekdays in list view
 * Add setting to set start of week
+* Add large layout for calendar
 * Use phosphor icons
 * Improve title bar
 * Fix dashboard scrolling and spacing issues
