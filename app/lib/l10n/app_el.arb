@@ -269,5 +269,6 @@
     }
   },
   "deleteLabelDescription": "Είστε βέβαιοι ότι θέλετε να διαγράψετε την ετικέτα {name}?",
-  "label": "Ετικέτα"
+  "label": "Ετικέτα",
+  "startOfWeek": "Start of week"
 }
