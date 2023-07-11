@@ -40,7 +40,7 @@ class SourcesService {
     await local.setup('local');
     remotes.clear();
     for (var storage in settingsCubit.state.remotes) {
-      _connectRemote(storage,
+      await _connectRemote(storage,
           await secureStorage.read(key: 'remote ${storage.toFilename()}'));
     }
     synchronize();

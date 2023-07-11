@@ -22,6 +22,7 @@ mixin _$FlowSettings {
   String get design => throw _privateConstructorUsedError;
   SyncMode get syncMode => throw _privateConstructorUsedError;
   List<RemoteStorage> get remotes => throw _privateConstructorUsedError;
+  int get startOfWeek => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FlowSettingsCopyWith<FlowSettings> get copyWith =>
@@ -40,7 +41,8 @@ abstract class $FlowSettingsCopyWith<$Res> {
       bool nativeTitleBar,
       String design,
       SyncMode syncMode,
-      List<RemoteStorage> remotes});
+      List<RemoteStorage> remotes,
+      int startOfWeek});
 }
 
 /// @nodoc
@@ -62,6 +64,7 @@ class _$FlowSettingsCopyWithImpl<$Res, $Val extends FlowSettings>
     Object? design = null,
     Object? syncMode = null,
     Object? remotes = null,
+    Object? startOfWeek = null,
   }) {
     return _then(_value.copyWith(
       locale: null == locale
@@ -88,6 +91,10 @@ class _$FlowSettingsCopyWithImpl<$Res, $Val extends FlowSettings>
           ? _value.remotes
           : remotes // ignore: cast_nullable_to_non_nullable
               as List<RemoteStorage>,
+      startOfWeek: null == startOfWeek
+          ? _value.startOfWeek
+          : startOfWeek // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -106,7 +113,8 @@ abstract class _$$_FlowSettingsCopyWith<$Res>
       bool nativeTitleBar,
       String design,
       SyncMode syncMode,
-      List<RemoteStorage> remotes});
+      List<RemoteStorage> remotes,
+      int startOfWeek});
 }
 
 /// @nodoc
@@ -126,6 +134,7 @@ class __$$_FlowSettingsCopyWithImpl<$Res>
     Object? design = null,
     Object? syncMode = null,
     Object? remotes = null,
+    Object? startOfWeek = null,
   }) {
     return _then(_$_FlowSettings(
       locale: null == locale
@@ -152,6 +161,10 @@ class __$$_FlowSettingsCopyWithImpl<$Res>
           ? _value._remotes
           : remotes // ignore: cast_nullable_to_non_nullable
               as List<RemoteStorage>,
+      startOfWeek: null == startOfWeek
+          ? _value.startOfWeek
+          : startOfWeek // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -165,7 +178,8 @@ class _$_FlowSettings extends _FlowSettings {
       this.nativeTitleBar = false,
       this.design = '',
       this.syncMode = SyncMode.noMobile,
-      final List<RemoteStorage> remotes = const []})
+      final List<RemoteStorage> remotes = const [],
+      this.startOfWeek = 0})
       : _remotes = remotes,
         super._();
 
@@ -194,8 +208,12 @@ class _$_FlowSettings extends _FlowSettings {
   }
 
   @override
+  @JsonKey()
+  final int startOfWeek;
+
+  @override
   String toString() {
-    return 'FlowSettings(locale: $locale, themeMode: $themeMode, nativeTitleBar: $nativeTitleBar, design: $design, syncMode: $syncMode, remotes: $remotes)';
+    return 'FlowSettings(locale: $locale, themeMode: $themeMode, nativeTitleBar: $nativeTitleBar, design: $design, syncMode: $syncMode, remotes: $remotes, startOfWeek: $startOfWeek)';
   }
 
   @override
@@ -211,7 +229,9 @@ class _$_FlowSettings extends _FlowSettings {
             (identical(other.design, design) || other.design == design) &&
             (identical(other.syncMode, syncMode) ||
                 other.syncMode == syncMode) &&
-            const DeepCollectionEquality().equals(other._remotes, _remotes));
+            const DeepCollectionEquality().equals(other._remotes, _remotes) &&
+            (identical(other.startOfWeek, startOfWeek) ||
+                other.startOfWeek == startOfWeek));
   }
 
   @override
@@ -222,7 +242,8 @@ class _$_FlowSettings extends _FlowSettings {
       nativeTitleBar,
       design,
       syncMode,
-      const DeepCollectionEquality().hash(_remotes));
+      const DeepCollectionEquality().hash(_remotes),
+      startOfWeek);
 
   @JsonKey(ignore: true)
   @override
@@ -238,7 +259,8 @@ abstract class _FlowSettings extends FlowSettings {
       final bool nativeTitleBar,
       final String design,
       final SyncMode syncMode,
-      final List<RemoteStorage> remotes}) = _$_FlowSettings;
+      final List<RemoteStorage> remotes,
+      final int startOfWeek}) = _$_FlowSettings;
   const _FlowSettings._() : super._();
 
   @override
@@ -253,6 +275,8 @@ abstract class _FlowSettings extends FlowSettings {
   SyncMode get syncMode;
   @override
   List<RemoteStorage> get remotes;
+  @override
+  int get startOfWeek;
   @override
   @JsonKey(ignore: true)
   _$$_FlowSettingsCopyWith<_$_FlowSettings> get copyWith =>

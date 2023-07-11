@@ -21,6 +21,7 @@ class FlowSettings with _$FlowSettings {
     @Default('') String design,
     @Default(SyncMode.noMobile) SyncMode syncMode,
     @Default([]) List<RemoteStorage> remotes,
+    @Default(0) int startOfWeek,
   }) = _FlowSettings;
 
   factory FlowSettings.fromPrefs(SharedPreferences prefs) => FlowSettings(
@@ -36,6 +37,7 @@ class FlowSettings with _$FlowSettings {
                 ?.map((e) => RemoteStorage.fromJson(json.decode(e)))
                 .toList() ??
             [],
+        startOfWeek: prefs.getInt('startOfWeek') ?? 0,
       );
 
   Future<void> save() async {
@@ -47,6 +49,7 @@ class FlowSettings with _$FlowSettings {
     prefs.setString('syncMode', syncMode.name);
     prefs.setStringList(
         'remotes', remotes.map((e) => json.encode(e.toJson())).toList());
+    prefs.setInt('startOfWeek', startOfWeek);
   }
 }
 
@@ -94,6 +97,11 @@ class SettingsCubit extends Cubit<FlowSettings> {
   Future<void> removeStorage(String name) {
     emit(state.copyWith(
         remotes: state.remotes.where((e) => e.toFilename() != name).toList()));
+    return state.save();
+  }
+
+  Future<void> setStartOfWeek(int startOfWeek) {
+    emit(state.copyWith(startOfWeek: startOfWeek));
     return state.save();
   }
 }

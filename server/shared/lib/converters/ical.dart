@@ -39,9 +39,7 @@ class ICalConverter {
             currentItem = currentItem.copyWith(description: value);
             break;
           case 'DTSTART':
-            currentItem = currentItem.copyWith(
-                start:
-                    DateTime.parse(value).subtract(const Duration(minutes: 1)));
+            currentItem = currentItem.copyWith(start: DateTime.parse(value));
             break;
           case 'DTEND':
             currentItem = currentItem.copyWith(end: DateTime.parse(value));

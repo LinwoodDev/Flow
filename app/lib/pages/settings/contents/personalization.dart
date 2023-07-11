@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flow/cubits/settings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:intl/intl.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow/helpers/theme_mode.dart';
@@ -22,6 +23,13 @@ class PersonalizationSettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = Localizations.localeOf(context).languageCode;
+    final weekDayFormatter = DateFormat.EEEE(locale);
+    final startOfWeek = DateTime.now().nextStartOfWeek;
+    String getWeekDay(int day) {
+      return weekDayFormatter.format(startOfWeek.add(Duration(days: day)));
+    }
+
     return BlocBuilder<SettingsCubit, FlowSettings>(
         builder: (context, state) => Column(
               children: [
@@ -145,6 +153,27 @@ class PersonalizationSettingsView extends StatelessWidget {
                           },
                         );
                       }),
+                const VerticalDivider(),
+                ListTile(
+                  title: Text(AppLocalizations.of(context).startOfWeek),
+                  leading: const PhosphorIcon(PhosphorIconsLight.calendar),
+                  subtitle: Text(getWeekDay(state.startOfWeek)),
+                  onTap: () => showLeapBottomSheet(
+                    context: context,
+                    title: AppLocalizations.of(context).startOfWeek,
+                    childrenBuilder: (context) => List.generate(
+                      7,
+                      (index) => ListTile(
+                        title: Text(getWeekDay(index)),
+                        selected: state.startOfWeek == index,
+                        onTap: () {
+                          context.read<SettingsCubit>().setStartOfWeek(index);
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ));
   }
