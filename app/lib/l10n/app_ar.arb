@@ -269,5 +269,6 @@
     }
   },
   "deleteLabelDescription": "هل أنت متأكد من أنك تريد حذف التسمية {name}؟",
-  "label": "تسمية"
+  "label": "تسمية",
+  "startOfWeek": "Start of week"
 }
