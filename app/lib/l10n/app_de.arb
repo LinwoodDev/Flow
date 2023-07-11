@@ -269,5 +269,6 @@
     }
   },
   "deleteLabelDescription": "Sind Sie sicher, dass Sie die Bezeichnung {name} löschen möchten?",
-  "label": "Label"
+  "label": "Label",
+  "startOfWeek": "Start of week"
 }
