@@ -269,5 +269,6 @@
     }
   },
   "deleteLabelDescription": "Oletko varma, että haluat poistaa tunnisteen {name}?",
-  "label": "Tunniste"
+  "label": "Tunniste",
+  "startOfWeek": "Start of week"
 }
