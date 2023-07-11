@@ -269,5 +269,6 @@
     }
   },
   "deleteLabelDescription": "Sigur doriți să ștergeți eticheta {name}?",
-  "label": "Etichetă"
+  "label": "Etichetă",
+  "startOfWeek": "Start of week"
 }
