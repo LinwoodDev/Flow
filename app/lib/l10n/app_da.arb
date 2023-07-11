@@ -269,5 +269,6 @@
     }
   },
   "deleteLabelDescription": "Er du sikker på, at du vil slette etiketten {name}?",
-  "label": "Etiket"
+  "label": "Etiket",
+  "startOfWeek": "Start of week"
 }
