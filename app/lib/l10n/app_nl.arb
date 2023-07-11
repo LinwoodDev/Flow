@@ -269,5 +269,6 @@
     }
   },
   "deleteLabelDescription": "Weet u zeker dat u het label {name} wilt verwijderen?",
-  "label": "Omschrijving"
+  "label": "Omschrijving",
+  "startOfWeek": "Start of week"
 }
