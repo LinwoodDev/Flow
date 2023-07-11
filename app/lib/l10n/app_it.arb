@@ -269,5 +269,6 @@
     }
   },
   "deleteLabelDescription": "Sei sicuro di voler eliminare l'etichetta {name}?",
-  "label": "Etichetta"
+  "label": "Etichetta",
+  "startOfWeek": "Start of week"
 }
