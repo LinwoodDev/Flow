@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:shared/models/event/item/model.dart';
-import 'package:shared/models/event/model.dart';
-import 'package:shared/models/model.dart';
+import 'package:flow_api/models/event/item/model.dart';
+import 'package:flow_api/models/event/model.dart';
+import 'package:flow_api/models/model.dart';
 
 import '../../cubits/flow.dart';
 import '../../helpers/sourced_paging_controller.dart';

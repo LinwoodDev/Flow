@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flow/cubits/flow.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:shared/models/model.dart';
-import 'package:shared/services/source.dart';
+import 'package:flow_api/models/model.dart';
+import 'package:flow_api/services/source.dart';
 
 class SourcedPagingController<T>
     extends PagingController<SourcedModel<int>, SourcedModel<T>> {

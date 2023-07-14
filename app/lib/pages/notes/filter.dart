@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lib5/lib5.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/models/note/model.dart';
+import 'package:flow_api/models/note/model.dart';
 
 part 'filter.freezed.dart';
 

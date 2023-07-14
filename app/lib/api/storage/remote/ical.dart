@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:shared/converters/ical.dart';
-import 'package:shared/models/event/database.dart';
-import 'package:shared/models/event/item/database.dart';
-import 'package:shared/models/event/model.dart';
-import 'package:shared/services/database.dart';
+import 'package:flow_api/converters/ical.dart';
+import 'package:flow_api/models/event/database.dart';
+import 'package:flow_api/models/event/item/database.dart';
+import 'package:flow_api/models/event/model.dart';
+import 'package:flow_api/services/database.dart';
 
 import 'model.dart';
 import 'service.dart';

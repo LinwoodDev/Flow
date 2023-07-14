@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/models/note/model.dart';
-import 'package:shared/models/note/service.dart';
+import 'package:flow_api/models/note/model.dart';
+import 'package:flow_api/models/note/service.dart';
 
 import '../../widgets/source_dropdown.dart';
 

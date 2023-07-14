@@ -10,8 +10,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lib5/lib5.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/models/note/model.dart';
-import 'package:shared/models/model.dart';
+import 'package:flow_api/models/note/model.dart';
+import 'package:flow_api/models/model.dart';
 
 import '../../cubits/flow.dart';
 import '../../helpers/sourced_paging_controller.dart';

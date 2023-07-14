@@ -6,8 +6,8 @@ import 'package:flow/api/storage/remote/service.dart';
 import 'package:flow/cubits/settings.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:shared/services/database.dart';
-import 'package:shared/services/source.dart';
+import 'package:flow_api/services/database.dart';
+import 'package:flow_api/services/source.dart';
 
 class SourcesService {
   final SettingsCubit settingsCubit;

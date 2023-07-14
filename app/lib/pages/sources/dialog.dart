@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/converters/ical.dart';
+import 'package:flow_api/converters/ical.dart';
 
 import 'caldav.dart';
 import 'ical.dart';

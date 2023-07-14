@@ -4,8 +4,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/models/model.dart';
-import 'package:shared/models/place/model.dart';
+import 'package:flow_api/models/model.dart';
+import 'package:flow_api/models/place/model.dart';
 
 import '../../cubits/flow.dart';
 import '../../widgets/markdown_field.dart';

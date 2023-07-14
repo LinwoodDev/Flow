@@ -5,10 +5,10 @@ import 'package:flow/api/storage/remote/model.dart';
 import 'package:flow/api/storage/remote/sia.dart';
 import 'package:flow/models/request.dart';
 import 'package:http/http.dart';
-import 'package:shared/models/cached.dart';
-import 'package:shared/models/model.dart';
-import 'package:shared/services/database.dart';
-import 'package:shared/services/source.dart';
+import 'package:flow_api/models/cached.dart';
+import 'package:flow_api/models/model.dart';
+import 'package:flow_api/services/database.dart';
+import 'package:flow_api/services/source.dart';
 import 'package:sqflite_common/sqlite_api.dart' show Database;
 
 import 'ical.dart';

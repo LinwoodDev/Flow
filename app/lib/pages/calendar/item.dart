@@ -6,10 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/models/event/item/model.dart';
-import 'package:shared/models/event/item/service.dart';
-import 'package:shared/models/event/model.dart';
-import 'package:shared/models/model.dart';
+import 'package:flow_api/models/event/item/model.dart';
+import 'package:flow_api/models/event/item/service.dart';
+import 'package:flow_api/models/event/model.dart';
+import 'package:flow_api/models/model.dart';
 
 import '../../widgets/source_dropdown.dart';
 import '../events/note.dart';

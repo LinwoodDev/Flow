@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared/models/event/model.dart';
+import 'package:flow_api/models/event/model.dart';
 
 class ImportDialog extends StatelessWidget {
   final List<Event> events;

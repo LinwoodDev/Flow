@@ -7,12 +7,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared/models/label/model.dart';
-import 'package:shared/models/model.dart';
-import 'package:shared/models/note/label.dart';
-import 'package:shared/models/note/model.dart';
-import 'package:shared/models/note/service.dart';
-import 'package:shared/services/source.dart';
+import 'package:flow_api/models/label/model.dart';
+import 'package:flow_api/models/model.dart';
+import 'package:flow_api/models/note/label.dart';
+import 'package:flow_api/models/note/model.dart';
+import 'package:flow_api/models/note/service.dart';
+import 'package:flow_api/services/source.dart';
 
 import '../../cubits/flow.dart';
 import 'label.dart';
