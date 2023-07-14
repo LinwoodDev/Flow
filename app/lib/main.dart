@@ -14,7 +14,7 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:lib5/lib5.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:flow_api/models/model.dart';
-import 'package:flow_api_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:window_manager/window_manager.dart';
 

@@ -32,7 +32,7 @@ dependencies:
   http: ^1.1.0
   url_launcher: ^6.1.12
   path_provider: ^2.0.15
-  api:
+  flow_api:
     path: ../api
   material_leap:
     git:
