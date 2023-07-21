@@ -270,5 +270,5 @@
   },
   "deleteLabelDescription": "ラベル {name} を削除してもよろしいですか？",
   "label": "ラベル",
-  "startOfWeek": "Start of week"
+  "startOfWeek": "週の始まり"
 }
