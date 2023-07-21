@@ -17,7 +17,7 @@ flutter pub får
 flutter bygge web
 ```
 
-All the files are in the `app/build/web` directory.
+Alle filene finnes i `app/build/web` mappen.
 
 ## Docker
 
