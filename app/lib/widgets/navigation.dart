@@ -248,7 +248,7 @@ class _FlowDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final location = GoRouterState.of(context).location;
+    final location = GoRouterState.of(context).uri.toString();
     return Material(
       child: LayoutBuilder(builder: (context, constraints) {
         return SingleChildScrollView(
