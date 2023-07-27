@@ -268,5 +268,7 @@
       }
     }
   },
-  "deleteLabelDescription": "Czy na pewno chcesz usunąć etykietę {name}?"
+  "deleteLabelDescription": "Czy na pewno chcesz usunąć etykietę {name}?",
+  "label": "Etykieta",
+  "startOfWeek": "Początek tygodnia"
 }
