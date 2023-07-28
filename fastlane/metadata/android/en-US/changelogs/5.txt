@@ -14,3 +14,5 @@
 * Fix ical importer for start date time
 * Fix internet permission on android
 * Upgrade to flutter 3.10
+
+View all changes in the blog: https://linwood.dev/flow/0.2

@@ -41,11 +41,11 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
   void initState() {
     super.initState();
     _cubit = context.read<FlowCubit>();
-    _appointments = _fetchCalendarItems();
     final now = DateTime.now();
     _week = now.week;
     _year = now.year;
     _startOfWeek = context.read<SettingsCubit>().state.startOfWeek;
+    _appointments = _fetchCalendarItems();
   }
 
   DateTime get _date => DateTime(_year, 1, 1)
@@ -212,8 +212,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                             mainAxisSize: MainAxisSize.min,
                             children:
                                 events.asMap().entries.map<Widget>((entry) {
-                              final date =
-                                  _date.addDays(entry.key + _startOfWeek);
+                              final date = _date.addDays(entry.key);
                               return Column(
                                 children: [
                                   // Weekday

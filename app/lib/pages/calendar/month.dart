@@ -33,9 +33,9 @@ class CalendarMonthView extends StatefulWidget {
 
 class _CalendarMonthViewState extends State<CalendarMonthView> {
   late final FlowCubit _cubit;
-  int _month = 0, _year = 0;
+  int _month = 0, _year = 0, _startOfWeek = 0;
   late final DateTime _now;
-  late Future<(int, List<List<SourcedConnectedModel<CalendarItem, Event?>>>)>
+  late Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
       _appointments;
 
   @override
@@ -45,6 +45,8 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
     _cubit = context.read<FlowCubit>();
     _month = _now.month;
     _year = _now.year;
+    _startOfWeek = context.read<SettingsCubit>().state.startOfWeek;
+
     _appointments = _fetchCalendarItems();
   }
 
@@ -55,18 +57,14 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
         _now.hour,
         _now.minute,
         _now.second,
-      ).nextStartOfWeek.addDays(-7);
+      ).nextStartOfWeek.addDays(-7 + _startOfWeek);
 
   int _getDaysInView() => 6 * 7;
 
-  Future<(int, List<List<SourcedConnectedModel<CalendarItem, Event?>>>)>
+  Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
       _fetchCalendarItems() async {
-    final startOfWeek = context.read<SettingsCubit>().state.startOfWeek;
     if (!mounted) {
-      return (
-        startOfWeek,
-        <List<SourcedConnectedModel<CalendarItem, Event?>>>[]
-      );
+      return [];
     }
 
     var sources = _cubit.getCurrentServicesMap();
@@ -79,7 +77,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
     final appointments = <List<SourcedConnectedModel<CalendarItem, Event?>>>[
       for (int i = 0; i < days; i++) []
     ];
-    final date = _date.addDays(days);
+    final date = _date;
     for (final source in sources.entries) {
       for (int i = 0; i < days; i++) {
         final fetchedDay = await source.value.calendarItem?.getCalendarItems(
@@ -98,7 +96,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
             .addAll(fetchedDay.map((e) => SourcedModel(source.key, e)));
       }
     }
-    return (startOfWeek, appointments);
+    return appointments;
   }
 
   void _addMonth(int add) {
@@ -196,10 +194,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
           ]),
           Expanded(
             child: FutureBuilder<
-                    (
-                      int,
-                      List<List<SourcedConnectedModel<CalendarItem, Event?>>>
-                    )>(
+                    List<List<SourcedConnectedModel<CalendarItem, Event?>>>>(
                 future: _appointments,
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
@@ -208,7 +203,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                   if (!snapshot.hasData) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  final (startOfWeek, appointments) = snapshot.data!;
+                  final appointments = snapshot.data!;
                   return SingleChildScrollView(
                     child: GridView.builder(
                       shrinkWrap: true,
@@ -222,7 +217,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                         if (index < 7) {
                           return LayoutBuilder(builder: (context, constraints) {
                             final current = _date.nextStartOfWeek
-                                .addDays(index + startOfWeek);
+                                .addDays(index + _startOfWeek);
                             var text = DateFormat.EEEE(locale).format(
                               current,
                             );
@@ -248,7 +243,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                         }
                         final current = index - 7;
                         final day = _date.nextStartOfWeek
-                            .addDays(current - 7 + startOfWeek);
+                            .addDays(current - 7 + _startOfWeek);
                         return InkWell(
                           onTap: () async {
                             await showDialog(
