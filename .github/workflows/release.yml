@@ -175,6 +175,7 @@ jobs:
           git push origin develop
   bump-version:
     runs-on: ubuntu-22.04
+    if: ${{ github.ref == 'refs/heads/main' }}
     needs:
       - update-changelog
       - release
