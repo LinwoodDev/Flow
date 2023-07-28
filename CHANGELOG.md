@@ -2,6 +2,27 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 0.2.0 (2023-07-28)
+
+* Add virtual window frame
+* Add links to dashboard
+* Add ical remote storage
+* Add weekdays in list view
+* Add setting to set start of week
+* Add large layout for calendar
+* Use phosphor icons
+* Improve title bar
+* Fix dashboard scrolling and spacing issues
+* Fix primary card in notes
+* Fix end drawer
+* Fix collideswith
+* Fix month view
+* Fix ical importer for start date time
+* Fix internet permission on android
+* Upgrade to flutter 3.10
+
+View all changes in the blog: https://linwood.dev/flow/0.2
+
 ## 0.1.3 (2023-05-01)
 
 * Add weekday to week view
