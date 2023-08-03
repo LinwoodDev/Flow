@@ -2,7 +2,7 @@
 <div align="center">
   <img alt="Linwood Flow Logo" src="https://raw.githubusercontent.com/LinwoodDev/Flow/develop/app/images/logo.png" width="350px">
 
-> **The app is in development and not ready for production use. Click [here](https://linwood.dev/blog/tag/flow) to read the devlogs.**
+> **The app is in development and not ready for production use. Click [here](https://linwood.dev/blog/flow) to read the devlogs.**
 
 # Linwood Flow
 
