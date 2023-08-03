@@ -28,8 +28,8 @@ DefaultGroupName={#MyAppPublisher}\{#MyAppName}
 DisableProgramGroupPage=yes
 LicenseFile=..\LICENSE
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
-;PrivilegesRequired=lowest
-PrivilegesRequiredOverridesAllowed=
+PrivilegesRequired=lowest
+PrivilegesRequiredOverridesAllowed=dialog
 OutputDir=build\windows
 OutputBaseFilename=linwood-flow-windows-setup
 SetupIconFile={#RunnerSourceDir}\resources\app_icon.ico

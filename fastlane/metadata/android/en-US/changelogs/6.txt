@@ -1,0 +1,1 @@
+* Disable PrivilegesRequired in windows setup ([#23](https://github.com/LinwoodDev/Flow/issues/23))
