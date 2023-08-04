@@ -192,6 +192,7 @@ jobs:
           mv ./*.AppImage linwood-flow-linux.AppImage
       - name: Copy portable start script
         run: |
+          chmod +x scripts/start.sh
           cp scripts/start.sh build/linux/x64/release/bundle
       - name: Archive
         uses: actions/upload-artifact@v3
@@ -274,6 +275,9 @@ jobs:
         run: |
           flutter doctor -v
           flutter build linux -v --release --dart-define=flavor=production
+      - name: 🏭 Make binary executable
+        run: |
+          chmod +x build/linux/x64/release/bundle/butterfly
       - name: Copy nessessary files
         run: |
           cp images/logo.svg build/linux/x64/release/bundle/dev.linwood.flow.svg
