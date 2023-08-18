@@ -93,7 +93,7 @@ class _CalendarPageState extends State<CalendarPage>
                     .map((e) => ButtonSegment(
                         value: e,
                         icon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
-                        label: Text(e.getLocalizedName(context))))
+                        tooltip: e.getLocalizedName(context)))
                     .toList(),
                 onSelectionChanged: (value) =>
                     setState(() => _calendarView = value.first),
