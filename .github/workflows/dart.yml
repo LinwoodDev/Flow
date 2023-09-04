@@ -13,7 +13,7 @@ jobs:
         working-directory: ${{ matrix.project }}
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Get flutter version
         working-directory: ./
         run: |
@@ -23,7 +23,7 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'any'
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Print Dart SDK version
         run: |
           dart --version

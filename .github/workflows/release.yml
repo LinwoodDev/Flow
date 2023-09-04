@@ -17,7 +17,7 @@ jobs:
   update-changelog:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.CI_PAT }}
           fetch-depth: 0
@@ -65,7 +65,7 @@ jobs:
       version: ${{ steps.setup.outputs.FLOW_VERSION }}
       build_number: ${{ steps.setup.outputs.FLOW_BUILD_NUMBER }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.CI_PAT }}
           ref: ${{ github.ref }}
@@ -97,7 +97,7 @@ jobs:
           FLOW_VERSION="${{ env.FLOW_VERSION }}"
           git tag -fa v${{ env.FLOW_VERSION }} -m "Release ${FLOW_VERSION}"
           git push origin v${FLOW_VERSION} -f
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.CI_PAT }}
           fetch-depth: 0
@@ -133,7 +133,7 @@ jobs:
       - update-changelog
       - release
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.CI_PAT }}
           fetch-depth: 0
@@ -183,14 +183,14 @@ jobs:
     steps:
       - name: Checkout main
         if: ${{ github.ref == 'refs/heads/develop' }}
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.CI_PAT }}
           fetch-depth: 0
           ref: main
       - name: Checkout develop
         if: ${{ github.ref == 'refs/heads/main' }}
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.CI_PAT }}
           fetch-depth: 0
@@ -235,7 +235,7 @@ jobs:
     runs-on: ubuntu-22.04
     needs: [release]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.CI_PAT }}
       - name: Get information
