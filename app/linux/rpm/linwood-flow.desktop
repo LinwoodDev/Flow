@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Linwood Flow
+Comment=Free, opensource time and event management software
+Exec=/usr/bin/linwood-flow %f
+Icon=/usr/share/linwood-flow/data/flutter_assets/images/logo.svg
+Terminal=false
+Type=Application
+Categories=Productivity;
