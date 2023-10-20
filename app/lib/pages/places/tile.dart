@@ -14,12 +14,12 @@ import 'place.dart';
 
 class PlaceTile extends StatelessWidget {
   const PlaceTile({
-    Key? key,
+    super.key,
     required this.source,
     required this.place,
     required this.flowCubit,
     required this.pagingController,
-  }) : super(key: key);
+  });
 
   final FlowCubit flowCubit;
   final Place place;

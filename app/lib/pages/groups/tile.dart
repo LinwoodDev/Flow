@@ -15,12 +15,12 @@ import 'group.dart';
 
 class GroupTile extends StatelessWidget {
   const GroupTile({
-    Key? key,
+    super.key,
     required this.source,
     required this.group,
     required this.flowCubit,
     required this.pagingController,
-  }) : super(key: key);
+  });
 
   final FlowCubit flowCubit;
   final Group group;

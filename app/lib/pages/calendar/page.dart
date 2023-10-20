@@ -77,7 +77,9 @@ class _CalendarPageState extends State<CalendarPage>
           if (isSmall) ...[
             MenuAnchor(
               builder: defaultMenuButton(
-                  _calendarView.icon(PhosphorIconsStyle.light)),
+                icon:
+                    PhosphorIcon(_calendarView.icon(PhosphorIconsStyle.light)),
+              ),
               menuChildren: _CalendarView.values
                   .map((e) => MenuItemButton(
                         leadingIcon:

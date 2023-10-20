@@ -57,7 +57,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
         _now.hour,
         _now.minute,
         _now.second,
-      ).nextStartOfWeek.addDays(-7 + _startOfWeek);
+      ).nextStartOfWeek.addDays(_startOfWeek - 7);
 
   int _getDaysInView() => 6 * 7;
 
@@ -150,8 +150,8 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                     IconButton(
                       icon:
                           const PhosphorIcon(PhosphorIconsLight.calendarBlank),
-                      isSelected: _date.year == DateTime.now().year &&
-                          _date.month == DateTime.now().month,
+                      isSelected: _year == DateTime.now().year &&
+                          _month == DateTime.now().month,
                       onPressed: () {
                         setState(() {
                           final now = DateTime.now();
@@ -163,7 +163,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                     ),
                     GestureDetector(
                       child: Text(
-                        DateFormat.yMMMM(locale).format(_date),
+                        DateFormat.yMMMM(locale).format(_date.addDays(7)),
                         textAlign: TextAlign.center,
                       ),
                       onTap: () async {

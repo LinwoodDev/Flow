@@ -1,2 +1,2 @@
 #!/bin/sh
-./flow --path ./Data
+./flow --path ./UserData

@@ -9,7 +9,7 @@ import '../../cubits/flow.dart';
 import '../../widgets/markdown_field.dart';
 
 class DashboardNotesCard extends StatefulWidget {
-  const DashboardNotesCard({Key? key}) : super(key: key);
+  const DashboardNotesCard({super.key});
 
   @override
   State<DashboardNotesCard> createState() => _DashboardNotesCardState();

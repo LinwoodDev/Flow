@@ -14,12 +14,12 @@ import 'user.dart';
 
 class UserTile extends StatelessWidget {
   const UserTile({
-    Key? key,
+    super.key,
     required this.source,
     required this.user,
     required this.flowCubit,
     required this.pagingController,
-  }) : super(key: key);
+  });
 
   final FlowCubit flowCubit;
   final User user;
