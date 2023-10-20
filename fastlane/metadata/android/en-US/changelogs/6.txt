@@ -1,7 +1,8 @@
+* Add macos and rpm builds
 * Make calendar views switcher smaller
 * Disable PrivilegesRequired in windows setup ([#23](https://github.com/LinwoodDev/Flow/issues/23))* Fix portable build
 * Fix portable build
   * Fix file name in start.sh
   * Add executable permission on linux
   * Fix start.sh
-* Upgrade to flutter 3.13
+* Upgrade to flutter 3.16

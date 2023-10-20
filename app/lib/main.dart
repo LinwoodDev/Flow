@@ -83,7 +83,7 @@ Page<void> Function(BuildContext, GoRouterState) _fadeTransitionBuilder(
 }
 
 class FlowApp extends StatelessWidget {
-  FlowApp({Key? key}) : super(key: key);
+  FlowApp({super.key});
 
   @override
   Widget build(BuildContext context) {
