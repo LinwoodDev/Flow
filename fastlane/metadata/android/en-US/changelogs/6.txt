@@ -7,3 +7,4 @@
   * Add executable permission on linux
   * Fix start.sh
 * Upgrade to flutter 3.16
+* Upgrade to agb 8

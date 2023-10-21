@@ -14,7 +14,6 @@ Future<void> setup(
     await windowManager.ensureInitialized();
 
     final windowOptions = WindowOptions(
-      size: const Size(800, 600),
       minimumSize: const Size(420, 300),
       titleBarStyle: settingsCubit.state.nativeTitleBar
           ? TitleBarStyle.normal

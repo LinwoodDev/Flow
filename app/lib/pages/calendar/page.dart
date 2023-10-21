@@ -229,9 +229,9 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FlowCubit, FlowState>(builder: (context, state) {
-      return _getView();
-    });
+    return BlocBuilder<FlowCubit, FlowState>(
+      builder: (context, state) => _getView(),
+    );
   }
 
   void _onFilterChanged(value) {
