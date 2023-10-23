@@ -8,7 +8,7 @@
 
 ## Reporting a Vulnerability
 
-Please use [the bug tracker](https://github.com/LinwoodDev/Flow/issues) or use <bug@linwood.dev> if there are a critical bug.
+Please use [the bug tracker](https://github.com/LinwoodDev/Flow/issues) or use <bug@linwood.dev> if there is a critical bug.
 
 ## Branches
 
