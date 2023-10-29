@@ -148,11 +148,13 @@ class NotesBodyView extends StatefulWidget {
 class _NotesBodyViewState extends State<NotesBodyView> {
   late final FlowCubit _flowCubit;
   late final SourcedPagingController<Note> _controller;
+  late final Future<Note?> _parent;
   late NoteFilter _filter;
 
   @override
   void initState() {
     _flowCubit = context.read<FlowCubit>();
+    _parent = _fetchParent();
     _controller = SourcedPagingController(_flowCubit);
     _controller.addFetchListener((source, service, offset, limit) async {
       if (_filter.source != null && _filter.source != source) return null;
@@ -177,15 +179,19 @@ class _NotesBodyViewState extends State<NotesBodyView> {
               search: widget.search);
       if (notes == null) return null;
       if (source != widget.parent?.source) return notes;
-      final parent = await service.note?.getNote(widget.parent!.model);
-      if (parent == null) return notes;
-      return [
-        parent,
-        ...notes,
-      ];
+      return notes;
     });
     _filter = widget.filter;
     super.initState();
+  }
+
+  Future<Note?> _fetchParent() async {
+    if (widget.parent == null) return null;
+    final parent = await _flowCubit
+        .getService(widget.parent!.source)
+        .note
+        ?.getNote(widget.parent!.model);
+    return parent;
   }
 
   @override
@@ -214,6 +220,24 @@ class _NotesBodyViewState extends State<NotesBodyView> {
     return Scaffold(
       body: Column(
         children: [
+          FutureBuilder<Note?>(
+              future: _parent,
+              builder: (context, snapshot) {
+                final data = snapshot.data;
+                if (data == null) return Container();
+                return Column(
+                  children: [
+                    NoteCard(
+                      controller: _controller,
+                      source: widget.parent!.source,
+                      primary: true,
+                      note: data,
+                    ),
+                    const SizedBox(height: 8),
+                    const Divider(),
+                  ],
+                );
+              }),
           NoteFilterView(
             initialFilter: _filter,
             onChanged: (filter) {
@@ -229,24 +253,11 @@ class _NotesBodyViewState extends State<NotesBodyView> {
               pagingController: _controller,
               builderDelegate: buildMaterialPagedDelegate<SourcedModel<Note>>(
                 _controller,
-                (ctx, item, index) {
-                  final primary = item.source == widget.parent?.source &&
-                      item.model.id == widget.parent?.model;
-                  return Column(
-                    children: [
-                      NoteCard(
-                        controller: _controller,
-                        source: item.source,
-                        note: item.model,
-                        primary: primary,
-                      ),
-                      if (primary) ...[
-                        const SizedBox(height: 8),
-                        const Divider(),
-                      ]
-                    ],
-                  );
-                },
+                (ctx, item, index) => NoteCard(
+                  controller: _controller,
+                  source: item.source,
+                  note: item.model,
+                ),
               ),
             ),
           ),
