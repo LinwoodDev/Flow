@@ -33,7 +33,6 @@ class SourceDropdown<T> extends StatelessWidget {
         })
         .whereNotNull()
         .toList());
-    final remotes = services.keys.map((e) => cubit.sourcesService.getRemote(e));
     return Column(
       children: [
         const SizedBox(height: 16),

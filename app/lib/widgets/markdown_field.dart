@@ -5,14 +5,16 @@ import 'package:url_launcher/url_launcher_string.dart';
 import 'package:markdown/markdown.dart' as md;
 
 class MarkdownField extends StatefulWidget {
-  final String value;
+  final String? value;
   final InputDecoration decoration;
+  final TextEditingController? controller;
   final ValueChanged<String>? onChanged, onChangeEnd;
   final List<Widget> actions;
 
   const MarkdownField(
       {super.key,
-      required this.value,
+      this.value,
+      this.controller,
       this.onChanged,
       this.onChangeEnd,
       this.decoration = const InputDecoration(),
@@ -23,14 +25,15 @@ class MarkdownField extends StatefulWidget {
 }
 
 class _MarkdownFieldState extends State<MarkdownField> {
-  final TextEditingController _controller = TextEditingController();
+  late final TextEditingController _controller;
   bool _editMode = false;
   final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    _controller.text = widget.value;
+    _controller =
+        widget.controller ?? TextEditingController(text: widget.value);
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus) {
         _exitEditMode();
@@ -42,7 +45,7 @@ class _MarkdownFieldState extends State<MarkdownField> {
   void didUpdateWidget(MarkdownField oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.value != widget.value) {
-      _controller.text = widget.value;
+      _controller.text = widget.value ?? _controller.text;
     }
   }
 
