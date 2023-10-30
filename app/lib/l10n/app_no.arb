@@ -270,5 +270,14 @@
   },
   "deleteLabelDescription": "Er du sikker på at du vil slette etiketten {name}?",
   "label": "Etikett",
-  "startOfWeek": "Start på uken"
+  "startOfWeek": "Start på uken",
+  "headlineNumber": "Headline {number}",
+  "@headlineNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
