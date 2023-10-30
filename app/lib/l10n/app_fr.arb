@@ -270,5 +270,14 @@
   },
   "deleteLabelDescription": "Êtes-vous sûr de vouloir supprimer l'étiquette {name}?",
   "label": "Étiquette",
-  "startOfWeek": "Début de la semaine"
+  "startOfWeek": "Début de la semaine",
+  "headlineNumber": "Headline {number}",
+  "@headlineNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
