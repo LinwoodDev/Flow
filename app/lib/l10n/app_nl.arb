@@ -270,5 +270,14 @@
   },
   "deleteLabelDescription": "Weet u zeker dat u het label {name} wilt verwijderen?",
   "label": "Omschrijving",
-  "startOfWeek": "Begin van de week"
+  "startOfWeek": "Begin van de week",
+  "headlineNumber": "Headline {number}",
+  "@headlineNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
