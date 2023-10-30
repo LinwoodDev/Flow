@@ -270,5 +270,14 @@
   },
   "deleteLabelDescription": "Oletko varma, että haluat poistaa tunnisteen {name}?",
   "label": "Tunniste",
-  "startOfWeek": "Viikon alku"
+  "startOfWeek": "Viikon alku",
+  "headlineNumber": "Headline {number}",
+  "@headlineNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
