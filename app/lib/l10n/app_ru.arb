@@ -270,5 +270,14 @@
   },
   "deleteLabelDescription": "Вы уверены, что хотите удалить метку {name}?",
   "label": "Метка",
-  "startOfWeek": "Начало недели"
+  "startOfWeek": "Начало недели",
+  "headlineNumber": "Headline {number}",
+  "@headlineNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
