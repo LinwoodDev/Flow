@@ -270,5 +270,14 @@
   },
   "deleteLabelDescription": "ラベル {name} を削除してもよろしいですか？",
   "label": "ラベル",
-  "startOfWeek": "週の始まり"
+  "startOfWeek": "週の始まり",
+  "headlineNumber": "Headline {number}",
+  "@headlineNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
