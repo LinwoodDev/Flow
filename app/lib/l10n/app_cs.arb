@@ -270,5 +270,14 @@
   },
   "deleteLabelDescription": "Jste si jisti, že chcete odstranit štítek {name}?",
   "label": "Popisek",
-  "startOfWeek": "Začátek týdne"
+  "startOfWeek": "Začátek týdne",
+  "headlineNumber": "Headline {number}",
+  "@headlineNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
