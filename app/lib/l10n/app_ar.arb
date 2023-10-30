@@ -270,5 +270,14 @@
   },
   "deleteLabelDescription": "هل أنت متأكد من أنك تريد حذف التسمية {name}؟",
   "label": "تسمية",
-  "startOfWeek": "بداية الأسبوع"
+  "startOfWeek": "بداية الأسبوع",
+  "headlineNumber": "Headline {number}",
+  "@headlineNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
