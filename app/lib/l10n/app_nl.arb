@@ -271,7 +271,7 @@
   "deleteLabelDescription": "Weet u zeker dat u het label {name} wilt verwijderen?",
   "label": "Omschrijving",
   "startOfWeek": "Begin van de week",
-  "headlineNumber": "Headline {number}",
+  "headlineNumber": "Kop {number}",
   "@headlineNumber": {
     "placeholders": {
       "number": {
