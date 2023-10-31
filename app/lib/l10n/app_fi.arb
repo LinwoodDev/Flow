@@ -271,7 +271,7 @@
   "deleteLabelDescription": "Oletko varma, että haluat poistaa tunnisteen {name}?",
   "label": "Tunniste",
   "startOfWeek": "Viikon alku",
-  "headlineNumber": "Headline {number}",
+  "headlineNumber": "Otsikko {number}",
   "@headlineNumber": {
     "placeholders": {
       "number": {
