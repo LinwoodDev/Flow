@@ -100,6 +100,7 @@ class _CalendarPageState extends State<CalendarPage>
                 onSelectionChanged: (value) =>
                     setState(() => _calendarView = value.first),
                 selected: {_calendarView}),
+            const SizedBox(width: 8),
           ],
           IconButton(
             icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),

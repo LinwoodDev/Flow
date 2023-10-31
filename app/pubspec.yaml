@@ -30,14 +30,14 @@ dependencies:
   intl: ^0.18.1
   animations: ^2.0.8
   http: ^1.1.0
-  url_launcher: ^6.1.14
+  url_launcher: ^6.2.0
   path_provider: ^2.1.1
   flow_api:
     path: ../api
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs
-      ref: 9202194cb08a303018742a83ad137ed64df83966
+      ref: 37def3d9bcb1ba3ebfbb801f416caac75bcf855c
       path: packages/material_leap
   phosphor_flutter: 
     git:
