@@ -2,6 +2,7 @@
 * Make calendar views switcher smaller
 * Allow editing in date time field
 * Disable PrivilegesRequired in windows setup ([#23](https://github.com/LinwoodDev/Flow/issues/23))* Fix portable build
+* Upgrade dropdowns to material 3
 * Fix showing wrong month in month view ([#28](https://github.com/LinwoodDev/Flow/issues/28))
 * Fix portable build
   * Fix file name in start.sh

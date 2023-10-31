@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:collection/collection.dart';
 import 'package:flow/helpers/sourced_paging_controller.dart';
 import 'package:flow/widgets/color.dart';
 import 'package:flow/widgets/markdown_field.dart';
@@ -36,8 +39,10 @@ class NoteCard extends StatefulWidget {
   State<NoteCard> createState() => _NoteCardState();
 }
 
+enum PastePositing { line, selection }
+
 class _NoteCardState extends State<NoteCard> {
-  late final TextEditingController _nameController;
+  late final TextEditingController _nameController, _descriptionController;
   late Note _newNote;
   late final FlowCubit _cubit;
   late final SourceService _sourceService;
@@ -52,6 +57,8 @@ class _NoteCardState extends State<NoteCard> {
   void initState() {
     super.initState();
     _nameController = TextEditingController(text: widget.note.name);
+    _descriptionController =
+        TextEditingController(text: widget.note.description);
     _newNote = widget.note;
     _cubit = context.read<FlowCubit>();
     _sourceService = _cubit.getService(widget.source);
@@ -83,6 +90,26 @@ class _NoteCardState extends State<NoteCard> {
     if (mounted) {
       setState(() => _loading = false);
     }
+  }
+
+  void _addDescription(PastePositing position, String text) {
+    var description = _descriptionController.text;
+    final selection = _descriptionController.selection;
+    if (!selection.isValid) return;
+    final start = selection.baseOffset;
+    final lineStart = max(0, description.lastIndexOf("\n", start));
+    description = switch (position) {
+      PastePositing.line => description.substring(0, lineStart) +
+          text +
+          description.substring(lineStart),
+      PastePositing.selection => description.substring(0, start) +
+          text +
+          description.substring(selection.extentOffset),
+    };
+    _descriptionController.text = description;
+    _descriptionController.selection = TextSelection.collapsed(
+      offset: start + text.length,
+    );
   }
 
   @override
@@ -302,12 +329,32 @@ class _NoteCardState extends State<NoteCard> {
               ]),
             ),
             const SizedBox(height: 16),
+            if (widget.primary)
+              SizedBox(
+                height: 50,
+                child: ListView(scrollDirection: Axis.horizontal, children: [
+                  ...[
+                    PhosphorIconsLight.textHOne,
+                    PhosphorIconsLight.textHTwo,
+                    PhosphorIconsLight.textHThree,
+                    PhosphorIconsLight.textHFour,
+                    PhosphorIconsLight.textHFive,
+                    PhosphorIconsLight.textHSix
+                  ].mapIndexed((index, element) => IconButton(
+                        icon: PhosphorIcon(element),
+                        onPressed: () => _addDescription(
+                          PastePositing.line,
+                          "${"#" * (index + 1)} ",
+                        ),
+                      ))
+                ]),
+              ),
             MarkdownField(
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context).description,
                 border: const OutlineInputBorder(),
               ),
-              value: _newNote.description,
+              controller: _descriptionController,
               onChangeEnd: (value) {
                 _newNote = _newNote.copyWith(description: value);
                 _updateNote();

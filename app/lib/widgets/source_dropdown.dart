@@ -33,27 +33,19 @@ class SourceDropdown<T> extends StatelessWidget {
         })
         .whereNotNull()
         .toList());
-    final remotes = services.keys.map((e) => cubit.sourcesService.getRemote(e));
     return Column(
       children: [
         const SizedBox(height: 16),
-        DropdownButtonFormField<String>(
-          value: value,
-          items: services.entries.map<DropdownMenuItem<String>>((value) {
+        DropdownMenu<String>(
+          initialSelection: value,
+          dropdownMenuEntries: services.entries.map((value) {
             final remote = cubit.sourcesService.getRemote(value.key);
-            return DropdownMenuItem<String>(
+            return DropdownMenuEntry<String>(
               value: value.key,
-              child: Text(
-                  remote?.displayName ?? AppLocalizations.of(context).local),
+              label: remote?.displayName ?? AppLocalizations.of(context).local,
             );
           }).toList(),
-          selectedItemBuilder: (context) {
-            return [
-              ...remotes.map<Widget>((value) =>
-                  Text(value?.uri.host ?? AppLocalizations.of(context).local))
-            ];
-          },
-          onChanged: (value) {
+          onSelected: (value) {
             final service = services[value];
             onChanged(
               service == null
@@ -64,11 +56,9 @@ class SourceDropdown<T> extends StatelessWidget {
                     ),
             );
           },
-          decoration: InputDecoration(
-            labelText: AppLocalizations.of(context).source,
-            icon: const PhosphorIcon(PhosphorIconsLight.cloud),
-            border: const OutlineInputBorder(),
-          ),
+          label: Text(AppLocalizations.of(context).source),
+          leadingIcon: const PhosphorIcon(PhosphorIconsLight.cloud),
+          expandedInsets: const EdgeInsets.all(4),
         ),
       ],
     );

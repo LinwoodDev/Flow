@@ -213,32 +213,25 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             },
                           ),
                           const SizedBox(height: 16),
-                          DropdownButtonFormField<EventStatus>(
-                            value: _item.status,
-                            items: EventStatus.values
-                                .map<DropdownMenuItem<EventStatus>>((value) {
-                              return DropdownMenuItem<EventStatus>(
-                                value: value,
-                                child: Row(
-                                  children: [
-                                    PhosphorIcon(
-                                        value.icon(PhosphorIconsStyle.light),
-                                        color: value.getColor()),
-                                    const SizedBox(width: 8),
-                                    Text(value.getLocalizedName(context)),
-                                  ],
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (EventStatus? value) {
+                          DropdownMenu<EventStatus>(
+                            initialSelection: _item.status,
+                            dropdownMenuEntries: EventStatus.values
+                                .map((value) => DropdownMenuEntry<EventStatus>(
+                                      value: value,
+                                      leadingIcon: PhosphorIcon(
+                                          value.icon(PhosphorIconsStyle.light),
+                                          color: value.getColor()),
+                                      label: value.getLocalizedName(context),
+                                    ))
+                                .toList(),
+                            onSelected: (EventStatus? value) {
                               _item =
                                   _item.copyWith(status: value ?? _item.status);
                             },
-                            decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context).status,
-                              icon: const PhosphorIcon(PhosphorIconsLight.info),
-                              border: const OutlineInputBorder(),
-                            ),
+                            label: Text(AppLocalizations.of(context).status),
+                            leadingIcon:
+                                const PhosphorIcon(PhosphorIconsLight.info),
+                            expandedInsets: const EdgeInsets.all(4),
                           ),
                           const SizedBox(height: 16),
                           TextFormField(

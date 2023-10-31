@@ -205,10 +205,10 @@ packages:
     dependency: transitive
     description:
       name: coverage
-      sha256: "0cec992efb6feaa6141779723bf0119d5f511ebd658aa5225d9bac53cb7e609e"
+      sha256: ac86d3abab0f165e4b8f561280ff4e066bceaac83c424dd19f1ae2c2fcd12ca9
       url: "https://pub.dev"
     source: hosted
-    version: "1.7.0"
+    version: "1.7.1"
   crypto:
     dependency: transitive
     description:
@@ -246,10 +246,10 @@ packages:
     dependency: transitive
     description:
       name: dev_test
-      sha256: "71b1bd01bb2068794aa6aab9e45ecd5257b5f3b5ca52903b12fcb5d56fe862bb"
+      sha256: "8a4aaca13079c6ca8f96124eb9c4fb45b71629ea9f2af052e42634aacae573ae"
       url: "https://pub.dev"
     source: hosted
-    version: "0.16.2+3"
+    version: "0.16.3"
   dynamic_color:
     dependency: "direct main"
     description:
@@ -383,10 +383,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_plugin_android_lifecycle
-      sha256: f185ac890306b5779ecbd611f52502d8d4d63d27703ef73161ca0407e815f02c
+      sha256: b068ffc46f82a55844acfa4fdbb61fad72fa2aef0905548419d97f0f95c456da
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.16"
+    version: "2.0.17"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -489,10 +489,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: a206cc4621a644531a2e05e7774616ab4d9d85eab1f3b0e255f3102937fccab1
+      sha256: e156bc1b2088eb5ece9351bccd48c3e1719a4858eacbd44e59162e98a68205d1
       url: "https://pub.dev"
     source: hosted
-    version: "12.0.0"
+    version: "12.0.1"
   graphs:
     dependency: transitive
     description:
@@ -714,10 +714,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_android
-      sha256: "6b8b19bd80da4f11ce91b2d1fb931f3006911477cec227cce23d3253d80df3f1"
+      sha256: e595b98692943b4881b219f0a9e3945118d3c16bd7e2813f98ec6e532d905f72
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "2.2.1"
   path_provider_foundation:
     dependency: transitive
     description:
@@ -795,10 +795,10 @@ packages:
     dependency: transitive
     description:
       name: process_run
-      sha256: ceacfac6d566a36c895d64edc7e429efb2d6b6303b5e28d5c13bc59fe6e8974e
+      sha256: "1cb96f835ec02ba1a35af4e6f99f937618023b6d2ffba88f0c0f1041af2e9f12"
       url: "https://pub.dev"
     source: hosted
-    version: "0.13.1"
+    version: "0.13.2"
   provider:
     dependency: transitive
     description:
@@ -1096,10 +1096,10 @@ packages:
     dependency: transitive
     description:
       name: test
-      sha256: d983a57c33dde6d44b1fb8635f67c91f4b41d26cf227c147963affa97d63563d
+      sha256: a1f7595805820fcc05e5c52e3a231aedd0b72972cb333e8c738a8b1239448b6f
       url: "https://pub.dev"
     source: hosted
-    version: "1.24.8"
+    version: "1.24.9"
   test_api:
     dependency: "direct overridden"
     description:
@@ -1112,10 +1112,10 @@ packages:
     dependency: transitive
     description:
       name: test_core
-      sha256: "2f866bf4b20c11327ac166ee6036bddafb7fe9e35505ff8324f788e66913f967"
+      sha256: a757b14fc47507060a162cc2530d9a4a2f92f5100a952c7443b5cad5ef5b106a
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.8"
+    version: "0.5.9"
   timing:
     dependency: transitive
     description:
@@ -1136,10 +1136,10 @@ packages:
     dependency: "direct main"
     description:
       name: url_launcher
-      sha256: fa6675dc49dea33b0f228bca6f9ad5445c25b51284ca5f88c0d49ab770a0450a
+      sha256: b1c9e98774adf8820c96fbc7ae3601231d324a7d5ebd8babe27b6dfac91357ba
       url: "https://pub.dev"
     source: hosted
-    version: "6.2.0"
+    version: "6.2.1"
   url_launcher_android:
     dependency: transitive
     description:
@@ -1208,10 +1208,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: a13d5503b4facefc515c8c587ce3cf69577a7b064a9f1220e005449cf1f64aad
+      sha256: b3d56ff4341b8f182b96aceb2fa20e3dcb336b9f867bc0eafc0de10f1048e957
       url: "https://pub.dev"
     source: hosted
-    version: "12.0.0"
+    version: "13.0.0"
   watcher:
     dependency: transitive
     description:

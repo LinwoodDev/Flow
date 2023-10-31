@@ -270,5 +270,14 @@
   },
   "deleteLabelDescription": "Are you sure you want to delete the label {name}?",
   "label": "Label",
-  "startOfWeek": "Start of week"
+  "startOfWeek": "Start of week",
+  "headlineNumber": "Headline {number}",
+  "@headlineNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
