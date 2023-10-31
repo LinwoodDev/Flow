@@ -271,7 +271,7 @@
   "deleteLabelDescription": "Você tem certeza que deseja excluir a etiqueta {name}?",
   "label": "Descrição",
   "startOfWeek": "Início da semana",
-  "headlineNumber": "Headline {number}",
+  "headlineNumber": "Título {number}",
   "@headlineNumber": {
     "placeholders": {
       "number": {
