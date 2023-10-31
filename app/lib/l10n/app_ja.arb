@@ -271,7 +271,7 @@
   "deleteLabelDescription": "ラベル {name} を削除してもよろしいですか？",
   "label": "ラベル",
   "startOfWeek": "週の始まり",
-  "headlineNumber": "Headline {number}",
+  "headlineNumber": "見出し {number}",
   "@headlineNumber": {
     "placeholders": {
       "number": {
