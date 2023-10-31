@@ -271,7 +271,7 @@
   "deleteLabelDescription": "Вы уверены, что хотите удалить метку {name}?",
   "label": "Метка",
   "startOfWeek": "Начало недели",
-  "headlineNumber": "Headline {number}",
+  "headlineNumber": "Заголовок {number}",
   "@headlineNumber": {
     "placeholders": {
       "number": {
