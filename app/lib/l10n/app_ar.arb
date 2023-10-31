@@ -271,7 +271,7 @@
   "deleteLabelDescription": "هل أنت متأكد من أنك تريد حذف التسمية {name}؟",
   "label": "تسمية",
   "startOfWeek": "بداية الأسبوع",
-  "headlineNumber": "Headline {number}",
+  "headlineNumber": "العنوان {number}",
   "@headlineNumber": {
     "placeholders": {
       "number": {
