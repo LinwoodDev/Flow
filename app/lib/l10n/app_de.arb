@@ -271,7 +271,7 @@
   "deleteLabelDescription": "Sind Sie sicher, dass Sie die Bezeichnung {name} löschen möchten?",
   "label": "Label",
   "startOfWeek": "Beginn der Woche",
-  "headlineNumber": "Headline {number}",
+  "headlineNumber": "Überschrift {number}",
   "@headlineNumber": {
     "placeholders": {
       "number": {
