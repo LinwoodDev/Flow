@@ -271,7 +271,7 @@
   "deleteLabelDescription": "Sigur doriți să ștergeți eticheta {name}?",
   "label": "Etichetă",
   "startOfWeek": "Începutul săptămânii",
-  "headlineNumber": "Headline {number}",
+  "headlineNumber": "{number} Titlu",
   "@headlineNumber": {
     "placeholders": {
       "number": {
