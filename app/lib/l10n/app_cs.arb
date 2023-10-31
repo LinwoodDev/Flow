@@ -271,7 +271,7 @@
   "deleteLabelDescription": "Jste si jisti, že chcete odstranit štítek {name}?",
   "label": "Popisek",
   "startOfWeek": "Začátek týdne",
-  "headlineNumber": "Headline {number}",
+  "headlineNumber": "Nadpis {number}",
   "@headlineNumber": {
     "placeholders": {
       "number": {
