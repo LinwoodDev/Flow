@@ -271,7 +271,7 @@
   "deleteLabelDescription": "Är du säker på att du vill ta bort etiketten {name}?",
   "label": "Etikett",
   "startOfWeek": "Början av veckan",
-  "headlineNumber": "Headline {number}",
+  "headlineNumber": "Rubrik {number}",
   "@headlineNumber": {
     "placeholders": {
       "number": {
