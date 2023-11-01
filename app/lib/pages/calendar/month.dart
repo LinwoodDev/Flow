@@ -233,7 +233,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                                     .textTheme
                                     .headlineSmall
                                     ?.copyWith(
-                                      color: current.isSameDay(DateTime.now())
+                                      color: current.weekday == _now.weekday
                                           ? Theme.of(context).primaryColor
                                           : null,
                                     ),
