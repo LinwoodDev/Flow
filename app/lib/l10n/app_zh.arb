@@ -270,5 +270,14 @@
   },
   "deleteLabelDescription": "您确定要删除标签 {name} 吗？",
   "label": "标签",
-  "startOfWeek": "一周开始"
+  "startOfWeek": "一周开始",
+  "headlineNumber": "Headline {number}",
+  "@headlineNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

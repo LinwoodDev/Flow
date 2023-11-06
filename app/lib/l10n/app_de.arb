@@ -270,5 +270,14 @@
   },
   "deleteLabelDescription": "Sind Sie sicher, dass Sie die Bezeichnung {name} löschen möchten?",
   "label": "Label",
-  "startOfWeek": "Beginn der Woche"
+  "startOfWeek": "Beginn der Woche",
+  "headlineNumber": "Überschrift {number}",
+  "@headlineNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

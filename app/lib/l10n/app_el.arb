@@ -270,5 +270,14 @@
   },
   "deleteLabelDescription": "Είστε βέβαιοι ότι θέλετε να διαγράψετε την ετικέτα {name}?",
   "label": "Ετικέτα",
-  "startOfWeek": "Έναρξη της εβδομάδας"
+  "startOfWeek": "Έναρξη της εβδομάδας",
+  "headlineNumber": "Headline {number}",
+  "@headlineNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

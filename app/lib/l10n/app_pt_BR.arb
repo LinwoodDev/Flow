@@ -22,7 +22,7 @@
   "theme": "Tema",
   "classic": "Clássico",
   "systemDefault": "Padrão do Sistema",
-  "light": "Fino",
+  "light": "Claro",
   "dark": "Escuro",
   "createPlace": "Criar lugar",
   "cancel": "cancelar",
@@ -270,5 +270,14 @@
   },
   "deleteLabelDescription": "Você tem certeza que deseja excluir a etiqueta {name}?",
   "label": "Descrição",
-  "startOfWeek": "Início da semana"
+  "startOfWeek": "Início da semana",
+  "headlineNumber": "Título {number}",
+  "@headlineNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

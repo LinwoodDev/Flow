@@ -270,5 +270,14 @@
   },
   "deleteLabelDescription": "Sigur doriți să ștergeți eticheta {name}?",
   "label": "Etichetă",
-  "startOfWeek": "Începutul săptămânii"
+  "startOfWeek": "Începutul săptămânii",
+  "headlineNumber": "{number} Titlu",
+  "@headlineNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

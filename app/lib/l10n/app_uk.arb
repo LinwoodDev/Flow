@@ -270,5 +270,14 @@
   },
   "deleteLabelDescription": "Ви дійсно бажаєте видалити мітку {name}?",
   "label": "Мітка",
-  "startOfWeek": "Початок тижня"
+  "startOfWeek": "Початок тижня",
+  "headlineNumber": "Headline {number}",
+  "@headlineNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
