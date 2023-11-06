@@ -97,11 +97,11 @@ class _NoteCardState extends State<NoteCard> {
     final selection = _descriptionController.selection;
     if (!selection.isValid) return;
     final start = selection.baseOffset;
-    final lineStart = max(0, description.lastIndexOf("\n", start));
+    final lineStart = description.lastIndexOf("\n", start - 1);
     description = switch (position) {
-      PastePositing.line => description.substring(0, lineStart) +
+      PastePositing.line => description.substring(0, lineStart + 1) +
           text +
-          description.substring(lineStart),
+          description.substring(lineStart + 1),
       PastePositing.selection => description.substring(0, start) +
           text +
           description.substring(selection.extentOffset),
