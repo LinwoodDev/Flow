@@ -279,5 +279,10 @@
         "example": "1"
       }
     }
-  }
+  },
+  "bold": "Bold",
+  "italic": "Italic",
+  "strikethrough": "Strikethrough",
+  "code": "Code",
+  "link": "Link"
 }
