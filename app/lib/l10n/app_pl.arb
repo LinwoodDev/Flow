@@ -282,7 +282,7 @@
   },
   "bold": "Bold",
   "italic": "Italic",
-  "strikethrough": "Strikethrough",
-  "code": "Code",
+  "strikethrough": "Przekreślenie",
+  "code": "Kod",
   "link": "Link"
 }
