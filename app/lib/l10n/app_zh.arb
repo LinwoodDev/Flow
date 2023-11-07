@@ -282,7 +282,7 @@
   },
   "bold": "Bold",
   "italic": "Italic",
-  "strikethrough": "Strikethrough",
-  "code": "Code",
-  "link": "Link"
+  "strikethrough": "删除线",
+  "code": "代码",
+  "link": "链接"
 }
