@@ -53,6 +53,8 @@ class _NoteCardState extends State<NoteCard> {
 
   bool _loading = false;
 
+  final _formattingScrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -71,6 +73,15 @@ class _NoteCardState extends State<NoteCard> {
         _updateNote();
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _descriptionController.dispose();
+    _nameFocus.dispose();
+    _formattingScrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -96,15 +107,18 @@ class _NoteCardState extends State<NoteCard> {
     var description = _descriptionController.text;
     final selection = _descriptionController.selection;
     if (!selection.isValid) return;
-    final start = selection.baseOffset;
-    final lineStart = description.lastIndexOf("\n", start - 1);
+    final start = max(1, selection.start);
+    final end = max(1, selection.end);
+    final lineStart = description.lastIndexOf("\n", start - 1) + 1;
     description = switch (position) {
-      PastePositing.line => description.substring(0, lineStart + 1) +
+      PastePositing.line => description.substring(0, lineStart) +
           text +
-          description.substring(lineStart + 1),
+          description.substring(lineStart),
       PastePositing.selection => description.substring(0, start) +
           text +
-          description.substring(selection.extentOffset),
+          description.substring(start, end) +
+          text +
+          description.substring(end),
     };
     _descriptionController.text = description;
     _descriptionController.selection = TextSelection.collapsed(
@@ -332,22 +346,63 @@ class _NoteCardState extends State<NoteCard> {
             if (widget.primary)
               SizedBox(
                 height: 50,
-                child: ListView(scrollDirection: Axis.horizontal, children: [
-                  ...[
-                    PhosphorIconsLight.textHOne,
-                    PhosphorIconsLight.textHTwo,
-                    PhosphorIconsLight.textHThree,
-                    PhosphorIconsLight.textHFour,
-                    PhosphorIconsLight.textHFive,
-                    PhosphorIconsLight.textHSix
-                  ].mapIndexed((index, element) => IconButton(
-                        icon: PhosphorIcon(element),
-                        onPressed: () => _addDescription(
-                          PastePositing.line,
-                          "${"#" * (index + 1)} ",
-                        ),
-                      ))
-                ]),
+                child: Scrollbar(
+                  controller: _formattingScrollController,
+                  child: ListView(
+                      controller: _formattingScrollController,
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        ...[
+                          PhosphorIconsLight.textHOne,
+                          PhosphorIconsLight.textHTwo,
+                          PhosphorIconsLight.textHThree,
+                          PhosphorIconsLight.textHFour,
+                          PhosphorIconsLight.textHFive,
+                          PhosphorIconsLight.textHSix
+                        ].mapIndexed((index, element) => IconButton(
+                              icon: PhosphorIcon(element),
+                              onPressed: () => _addDescription(
+                                PastePositing.line,
+                                "${"#" * (index + 1)} ",
+                              ),
+                            )),
+                        const SizedBox(width: 8),
+                        ...[
+                          (
+                            '**',
+                            PhosphorIconsLight.textB,
+                            AppLocalizations.of(context).bold
+                          ),
+                          (
+                            '*',
+                            PhosphorIconsLight.textItalic,
+                            AppLocalizations.of(context).italic
+                          ),
+                          (
+                            '~~',
+                            PhosphorIconsLight.textStrikethrough,
+                            AppLocalizations.of(context).strikethrough
+                          ),
+                          (
+                            '`',
+                            PhosphorIconsLight.code,
+                            AppLocalizations.of(context).code
+                          ),
+                          (
+                            '[',
+                            PhosphorIconsLight.link,
+                            AppLocalizations.of(context).link
+                          ),
+                        ].map((e) => IconButton(
+                              icon: PhosphorIcon(e.$2),
+                              tooltip: e.$3,
+                              onPressed: () => _addDescription(
+                                PastePositing.selection,
+                                e.$1,
+                              ),
+                            )),
+                      ]),
+                ),
               ),
             MarkdownField(
               decoration: InputDecoration(
