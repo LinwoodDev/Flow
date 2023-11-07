@@ -282,7 +282,7 @@
   },
   "bold": "Bold",
   "italic": "Italic",
-  "strikethrough": "Strikethrough",
+  "strikethrough": "Doorhalen",
   "code": "Code",
-  "link": "Link"
+  "link": "Koppeling"
 }
