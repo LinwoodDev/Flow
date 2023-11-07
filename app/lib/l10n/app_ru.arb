@@ -282,7 +282,7 @@
   },
   "bold": "Bold",
   "italic": "Italic",
-  "strikethrough": "Strikethrough",
-  "code": "Code",
-  "link": "Link"
+  "strikethrough": "Зачёркнутый",
+  "code": "Код",
+  "link": "Ссылка"
 }
