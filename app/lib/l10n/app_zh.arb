@@ -284,5 +284,8 @@
   "italic": "Italic",
   "strikethrough": "删除线",
   "code": "代码",
-  "link": "链接"
+  "link": "链接",
+  "codeBlock": "Code block",
+  "quote": "Quote",
+  "numberedList": "Numbered list"
 }
