@@ -103,7 +103,7 @@ class _NoteCardState extends State<NoteCard> {
     }
   }
 
-  void _addDescription(PastePositing position, String text) {
+  void _addDescription(PastePositing position, String text, [String? endText]) {
     var description = _descriptionController.text;
     final selection = _descriptionController.selection;
     if (!selection.isValid) return;
@@ -117,7 +117,7 @@ class _NoteCardState extends State<NoteCard> {
       PastePositing.selection => description.substring(0, start) +
           text +
           description.substring(start, end) +
-          text +
+          (endText ?? text) +
           description.substring(end),
     };
     _descriptionController.text = description;
@@ -366,6 +366,35 @@ class _NoteCardState extends State<NoteCard> {
                                 "${"#" * (index + 1)} ",
                               ),
                             )),
+                        ...[
+                          (
+                            '```',
+                            PhosphorIconsLight.codeSimple,
+                            AppLocalizations.of(context).codeBlock
+                          ),
+                          (
+                            '>',
+                            PhosphorIconsLight.quotes,
+                            AppLocalizations.of(context).quote
+                          ),
+                          (
+                            '- ',
+                            PhosphorIconsLight.list,
+                            AppLocalizations.of(context).list
+                          ),
+                          (
+                            '1. ',
+                            PhosphorIconsLight.listNumbers,
+                            AppLocalizations.of(context).numberedList
+                          ),
+                        ].map((e) => IconButton(
+                              icon: PhosphorIcon(e.$2),
+                              tooltip: e.$3,
+                              onPressed: () => _addDescription(
+                                PastePositing.line,
+                                e.$1,
+                              ),
+                            )),
                         const SizedBox(width: 8),
                         ...[
                           (
@@ -388,11 +417,6 @@ class _NoteCardState extends State<NoteCard> {
                             PhosphorIconsLight.code,
                             AppLocalizations.of(context).code
                           ),
-                          (
-                            '[',
-                            PhosphorIconsLight.link,
-                            AppLocalizations.of(context).link
-                          ),
                         ].map((e) => IconButton(
                               icon: PhosphorIcon(e.$2),
                               tooltip: e.$3,
@@ -401,6 +425,15 @@ class _NoteCardState extends State<NoteCard> {
                                 e.$1,
                               ),
                             )),
+                        IconButton(
+                          icon: const PhosphorIcon(PhosphorIconsLight.link),
+                          tooltip: AppLocalizations.of(context).link,
+                          onPressed: () => _addDescription(
+                            PastePositing.selection,
+                            '[',
+                            ']()',
+                          ),
+                        ),
                       ]),
                 ),
               ),

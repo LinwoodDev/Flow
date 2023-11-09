@@ -69,7 +69,7 @@ dependencies:
   connectivity_plus: ^5.0.1
   rxdart: ^0.27.7
   flutter_secure_storage: ^9.0.0
-  flutter_markdown: ^0.6.17+2
+  flutter_markdown: ^0.6.18+2
   markdown: ^7.1.1
   args: ^2.4.2
   lib5: ^0.1.0
