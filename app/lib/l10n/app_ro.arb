@@ -284,5 +284,8 @@
   "italic": "Italic",
   "strikethrough": "Tăiat",
   "code": "Cod",
-  "link": "Link-ul"
+  "link": "Link-ul",
+  "codeBlock": "Code block",
+  "quote": "Quote",
+  "numberedList": "Numbered list"
 }
