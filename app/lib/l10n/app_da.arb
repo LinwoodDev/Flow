@@ -284,5 +284,8 @@
   "italic": "Italic",
   "strikethrough": "Gennemstreget",
   "code": "Kode",
-  "link": "Link"
+  "link": "Link",
+  "codeBlock": "Code block",
+  "quote": "Quote",
+  "numberedList": "Numbered list"
 }
