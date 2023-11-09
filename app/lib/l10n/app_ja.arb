@@ -284,5 +284,8 @@
   "italic": "Italic",
   "strikethrough": "取り消し線",
   "code": "コード",
-  "link": "リンク"
+  "link": "リンク",
+  "codeBlock": "Code block",
+  "quote": "Quote",
+  "numberedList": "Numbered list"
 }
