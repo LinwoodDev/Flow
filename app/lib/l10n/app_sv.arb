@@ -284,5 +284,8 @@
   "italic": "Italic",
   "strikethrough": "Genomstruken",
   "code": "Kod",
-  "link": "Länk"
+  "link": "Länk",
+  "codeBlock": "Code block",
+  "quote": "Quote",
+  "numberedList": "Numbered list"
 }
