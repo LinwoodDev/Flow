@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flow/pages/notes/card.dart';
 import 'package:flow/pages/notes/labels.dart';
 import 'package:flow/pages/notes/note.dart';
 import 'package:flow/widgets/builder_delegate.dart';
@@ -16,7 +17,7 @@ import 'package:flow_api/models/model.dart';
 import '../../cubits/flow.dart';
 import '../../helpers/sourced_paging_controller.dart';
 import 'filter.dart';
-import 'card.dart';
+import 'view.dart';
 
 class NotesPage extends StatefulWidget {
   final NoteFilter filter;
@@ -227,10 +228,9 @@ class _NotesBodyViewState extends State<NotesBodyView> {
                 if (data == null) return Container();
                 return Column(
                   children: [
-                    NoteCard(
+                    NoteView(
                       controller: _controller,
                       source: widget.parent!.source,
-                      primary: true,
                       note: data,
                     ),
                     const SizedBox(height: 8),
@@ -253,8 +253,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
               pagingController: _controller,
               builderDelegate: buildMaterialPagedDelegate<SourcedModel<Note>>(
                 _controller,
-                (ctx, item, index) => NoteCard(
-                  controller: _controller,
+                (ctx, item, index) => NoteListTile(
                   source: item.source,
                   note: item.model,
                 ),

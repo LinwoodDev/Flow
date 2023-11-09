@@ -1,3 +1,4 @@
+import 'package:flow/pages/notes/card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -6,7 +7,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/note/model.dart';
 
 import '../../cubits/flow.dart';
-import '../../widgets/markdown_field.dart';
 
 class DashboardNotesCard extends StatefulWidget {
   const DashboardNotesCard({super.key});
@@ -16,11 +16,13 @@ class DashboardNotesCard extends StatefulWidget {
 }
 
 class _DashboardNotesCardState extends State<DashboardNotesCard> {
-  Future<List<Note>> _getNotes(BuildContext context) async {
-    final sources = context.read<FlowCubit>().getCurrentServices();
-    final notes = <Note>[];
-    for (final source in sources) {
-      notes.addAll(await source.note?.getNotes() ?? []);
+  Future<List<(Note, String)>> _getNotes(BuildContext context) async {
+    final sources = context.read<FlowCubit>().getCurrentServicesMap();
+    final notes = <(Note, String)>[];
+    for (final source in sources.entries) {
+      notes.addAll((await source.value.note?.getNotes() ?? [])
+          .map((e) => (e, source.key))
+          .toList());
     }
     return notes;
   }
@@ -50,7 +52,7 @@ class _DashboardNotesCardState extends State<DashboardNotesCard> {
           ],
         ),
         const SizedBox(height: 20),
-        FutureBuilder<List<Note>>(
+        FutureBuilder<List<(Note, String)>>(
             future: _getNotes(context),
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
@@ -62,13 +64,10 @@ class _DashboardNotesCardState extends State<DashboardNotesCard> {
               final notes = snapshot.data!;
               return Column(
                 children: notes
-                    .map((e) => ListTile(
-                        title: Text(e.name),
-                        subtitle: MarkdownText(e.description),
-                        onTap: () =>
-                            GoRouter.of(context).push('/notes/${e.id}').then(
-                                  (value) => setState(() {}),
-                                )))
+                    .map((e) => NoteListTile(
+                          note: e.$1,
+                          source: e.$2,
+                        ))
                     .toList(),
               );
             })
