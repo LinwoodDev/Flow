@@ -284,5 +284,8 @@
   "italic": "Italic",
   "strikethrough": "Úderná",
   "code": "Kód",
-  "link": "Odkaz"
+  "link": "Odkaz",
+  "codeBlock": "Code block",
+  "quote": "Quote",
+  "numberedList": "Numbered list"
 }
