@@ -284,5 +284,8 @@
   "italic": "Italic",
   "strikethrough": "Riscado",
   "code": "Código",
-  "link": "Vincular"
+  "link": "Vincular",
+  "codeBlock": "Code block",
+  "quote": "Quote",
+  "numberedList": "Numbered list"
 }
