@@ -284,5 +284,8 @@
   "italic": "Italic",
   "strikethrough": "Doorhalen",
   "code": "Code",
-  "link": "Koppeling"
+  "link": "Koppeling",
+  "codeBlock": "Code block",
+  "quote": "Quote",
+  "numberedList": "Numbered list"
 }
