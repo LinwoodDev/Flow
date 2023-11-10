@@ -2,6 +2,25 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 0.2.1 (2023-11-10)
+
+* Add macos and rpm builds
+* Make calendar views switcher smaller
+* Simplify notes view
+* Allow editing in date time field
+* Disable PrivilegesRequired in windows setup ([#23](https://github.com/LinwoodDev/Flow/issues/23))
+* Upgrade dropdowns to material 3
+* Fix notes dashboard links
+* Fix showing wrong month in month view ([#28](https://github.com/LinwoodDev/Flow/issues/28))
+* Fix portable build
+  * Fix file name in start.sh
+  * Add executable permission on linux
+  * Fix start.sh
+* Upgrade to flutter 3.16
+* Upgrade to agb 8
+
+View all changes in the blog: https://linwood.dev/flow/0.2
+
 ## 0.2.0 (2023-07-28)
 
 * Add virtual window frame
