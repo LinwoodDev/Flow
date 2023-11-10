@@ -285,7 +285,7 @@
   "strikethrough": "Przekreślenie",
   "code": "Kod",
   "link": "Link",
-  "codeBlock": "Code block",
-  "quote": "Quote",
-  "numberedList": "Numbered list"
+  "codeBlock": "Blok kodu",
+  "quote": "Oferta",
+  "numberedList": "Lista numerowana"
 }
