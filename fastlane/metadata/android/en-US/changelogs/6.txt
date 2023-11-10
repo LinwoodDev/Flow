@@ -12,3 +12,5 @@
   * Fix start.sh
 * Upgrade to flutter 3.16
 * Upgrade to agb 8
+
+View all changes in the blog: https://linwood.dev/flow/0.2
