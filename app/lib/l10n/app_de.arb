@@ -285,7 +285,7 @@
   "strikethrough": "Durchstreichen",
   "code": "Code",
   "link": "Link",
-  "codeBlock": "Code block",
-  "quote": "Quote",
-  "numberedList": "Numbered list"
+  "codeBlock": "Code-Block",
+  "quote": "Zitat",
+  "numberedList": "Nummerierte Liste"
 }
