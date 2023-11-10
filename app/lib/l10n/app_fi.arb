@@ -285,7 +285,7 @@
   "strikethrough": "Yliviivaus",
   "code": "Koodi",
   "link": "Linkki",
-  "codeBlock": "Code block",
-  "quote": "Quote",
-  "numberedList": "Numbered list"
+  "codeBlock": "Koodilohko",
+  "quote": "Tarjous",
+  "numberedList": "Numeroitu luettelo"
 }
