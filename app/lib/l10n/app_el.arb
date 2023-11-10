@@ -279,5 +279,13 @@
         "example": "1"
       }
     }
-  }
+  },
+  "bold": "Bold",
+  "italic": "Italic",
+  "strikethrough": "Επιγράμμιση",
+  "code": "Κωδικός",
+  "link": "Σύνδεσμος",
+  "codeBlock": "Ταμπλό κώδικα",
+  "quote": "Παράθεση",
+  "numberedList": "Αριθμημένη λίστα"
 }

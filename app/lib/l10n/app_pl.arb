@@ -279,5 +279,13 @@
         "example": "1"
       }
     }
-  }
+  },
+  "bold": "Bold",
+  "italic": "Italic",
+  "strikethrough": "Przekreślenie",
+  "code": "Kod",
+  "link": "Link",
+  "codeBlock": "Blok kodu",
+  "quote": "Oferta",
+  "numberedList": "Lista numerowana"
 }

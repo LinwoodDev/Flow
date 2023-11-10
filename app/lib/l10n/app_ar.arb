@@ -279,5 +279,13 @@
         "example": "1"
       }
     }
-  }
+  },
+  "bold": "Bold",
+  "italic": "Italic",
+  "strikethrough": "ضربة",
+  "code": "الكود",
+  "link": "رابط",
+  "codeBlock": "كتلة التعليمات البرمجية",
+  "quote": "اقتباس",
+  "numberedList": "قائمة مرقمة"
 }

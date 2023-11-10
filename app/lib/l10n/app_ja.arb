@@ -279,5 +279,13 @@
         "example": "1"
       }
     }
-  }
+  },
+  "bold": "Bold",
+  "italic": "Italic",
+  "strikethrough": "取り消し線",
+  "code": "コード",
+  "link": "リンク",
+  "codeBlock": "コードブロック",
+  "quote": "引用",
+  "numberedList": "番号付きリスト"
 }

@@ -279,5 +279,13 @@
         "example": "1"
       }
     }
-  }
+  },
+  "bold": "Bold",
+  "italic": "Italic",
+  "strikethrough": "删除线",
+  "code": "代码",
+  "link": "链接",
+  "codeBlock": "代码块",
+  "quote": "引用",
+  "numberedList": "编号列表"
 }
