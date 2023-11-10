@@ -285,7 +285,7 @@
   "strikethrough": "ضربة",
   "code": "الكود",
   "link": "رابط",
-  "codeBlock": "Code block",
-  "quote": "Quote",
-  "numberedList": "Numbered list"
+  "codeBlock": "كتلة التعليمات البرمجية",
+  "quote": "اقتباس",
+  "numberedList": "قائمة مرقمة"
 }
