@@ -285,7 +285,7 @@
   "strikethrough": "取り消し線",
   "code": "コード",
   "link": "リンク",
-  "codeBlock": "Code block",
-  "quote": "Quote",
-  "numberedList": "Numbered list"
+  "codeBlock": "コードブロック",
+  "quote": "引用",
+  "numberedList": "番号付きリスト"
 }
