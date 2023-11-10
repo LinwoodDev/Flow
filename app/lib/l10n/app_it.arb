@@ -279,5 +279,13 @@
         "example": "1"
       }
     }
-  }
+  },
+  "bold": "Bold",
+  "italic": "Italic",
+  "strikethrough": "Barrato",
+  "code": "Codice",
+  "link": "Link",
+  "codeBlock": "Blocco codice",
+  "quote": "Preventivo",
+  "numberedList": "Elenco numerato"
 }

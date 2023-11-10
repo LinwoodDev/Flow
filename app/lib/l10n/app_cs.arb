@@ -279,5 +279,13 @@
         "example": "1"
       }
     }
-  }
+  },
+  "bold": "Bold",
+  "italic": "Italic",
+  "strikethrough": "Úderná",
+  "code": "Kód",
+  "link": "Odkaz",
+  "codeBlock": "Blok kódu",
+  "quote": "Cenová nabídka",
+  "numberedList": "Číslovaný seznam"
 }

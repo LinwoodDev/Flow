@@ -279,5 +279,13 @@
         "example": "1"
       }
     }
-  }
+  },
+  "bold": "Bold",
+  "italic": "Italic",
+  "strikethrough": "Tachado",
+  "code": "Código",
+  "link": "Enlace",
+  "codeBlock": "Bloque de código",
+  "quote": "Cotización",
+  "numberedList": "Lista numerada"
 }

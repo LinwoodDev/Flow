@@ -279,5 +279,13 @@
         "example": "1"
       }
     }
-  }
+  },
+  "bold": "Bold",
+  "italic": "Italic",
+  "strikethrough": "Tăiat",
+  "code": "Cod",
+  "link": "Link-ul",
+  "codeBlock": "Bloc cod",
+  "quote": "Ofertă",
+  "numberedList": "Listă numerotată"
 }

@@ -279,5 +279,13 @@
         "example": "1"
       }
     }
-  }
+  },
+  "bold": "Bold",
+  "italic": "Italic",
+  "strikethrough": "Yliviivaus",
+  "code": "Koodi",
+  "link": "Linkki",
+  "codeBlock": "Koodilohko",
+  "quote": "Tarjous",
+  "numberedList": "Numeroitu luettelo"
 }

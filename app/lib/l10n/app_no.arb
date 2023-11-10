@@ -279,5 +279,13 @@
         "example": "1"
       }
     }
-  }
+  },
+  "bold": "Bold",
+  "italic": "Italic",
+  "strikethrough": "Gjennomstreking",
+  "code": "Kode",
+  "link": "Lenke",
+  "codeBlock": "Kode blokk",
+  "quote": "Sitat",
+  "numberedList": "Nummerert liste"
 }

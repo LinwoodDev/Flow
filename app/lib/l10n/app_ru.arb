@@ -279,5 +279,13 @@
         "example": "1"
       }
     }
-  }
+  },
+  "bold": "Bold",
+  "italic": "Italic",
+  "strikethrough": "Зачёркнутый",
+  "code": "Код",
+  "link": "Ссылка",
+  "codeBlock": "Блок кода",
+  "quote": "Цитата",
+  "numberedList": "Нумерованный список"
 }
