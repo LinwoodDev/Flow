@@ -285,7 +285,7 @@
   "strikethrough": "Genomstruken",
   "code": "Kod",
   "link": "Länk",
-  "codeBlock": "Code block",
-  "quote": "Quote",
-  "numberedList": "Numbered list"
+  "codeBlock": "Kod block",
+  "quote": "Offert",
+  "numberedList": "Numrerad lista"
 }
