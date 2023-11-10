@@ -285,7 +285,7 @@
   "strikethrough": "Επιγράμμιση",
   "code": "Κωδικός",
   "link": "Σύνδεσμος",
-  "codeBlock": "Code block",
-  "quote": "Quote",
-  "numberedList": "Numbered list"
+  "codeBlock": "Ταμπλό κώδικα",
+  "quote": "Παράθεση",
+  "numberedList": "Αριθμημένη λίστα"
 }
