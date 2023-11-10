@@ -285,7 +285,7 @@
   "strikethrough": "Закреслений",
   "code": "Код",
   "link": "Лінк",
-  "codeBlock": "Code block",
-  "quote": "Quote",
-  "numberedList": "Numbered list"
+  "codeBlock": "Блок коду",
+  "quote": "Цитувати",
+  "numberedList": "Нумерований список"
 }
