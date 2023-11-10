@@ -285,7 +285,7 @@
   "strikethrough": "Úderná",
   "code": "Kód",
   "link": "Odkaz",
-  "codeBlock": "Code block",
-  "quote": "Quote",
-  "numberedList": "Numbered list"
+  "codeBlock": "Blok kódu",
+  "quote": "Cenová nabídka",
+  "numberedList": "Číslovaný seznam"
 }
