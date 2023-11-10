@@ -285,7 +285,7 @@
   "strikethrough": "Riscado",
   "code": "Código",
   "link": "Vincular",
-  "codeBlock": "Code block",
-  "quote": "Quote",
-  "numberedList": "Numbered list"
+  "codeBlock": "Bloco de código",
+  "quote": "Cotação",
+  "numberedList": "Lista numerada"
 }
