@@ -285,7 +285,7 @@
   "strikethrough": "Barrato",
   "code": "Codice",
   "link": "Link",
-  "codeBlock": "Code block",
-  "quote": "Quote",
-  "numberedList": "Numbered list"
+  "codeBlock": "Blocco codice",
+  "quote": "Preventivo",
+  "numberedList": "Elenco numerato"
 }
