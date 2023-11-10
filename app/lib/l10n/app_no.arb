@@ -285,7 +285,7 @@
   "strikethrough": "Gjennomstreking",
   "code": "Kode",
   "link": "Lenke",
-  "codeBlock": "Code block",
-  "quote": "Quote",
-  "numberedList": "Numbered list"
+  "codeBlock": "Kode blokk",
+  "quote": "Sitat",
+  "numberedList": "Nummerert liste"
 }
