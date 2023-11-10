@@ -285,7 +285,7 @@
   "strikethrough": "Tăiat",
   "code": "Cod",
   "link": "Link-ul",
-  "codeBlock": "Code block",
-  "quote": "Quote",
-  "numberedList": "Numbered list"
+  "codeBlock": "Bloc cod",
+  "quote": "Ofertă",
+  "numberedList": "Listă numerotată"
 }
