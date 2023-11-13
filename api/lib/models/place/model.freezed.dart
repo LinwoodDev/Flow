@@ -83,9 +83,10 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
 }
 
 /// @nodoc
-abstract class _$$_PlaceCopyWith<$Res> implements $PlaceCopyWith<$Res> {
-  factory _$$_PlaceCopyWith(_$_Place value, $Res Function(_$_Place) then) =
-      __$$_PlaceCopyWithImpl<$Res>;
+abstract class _$$PlaceImplCopyWith<$Res> implements $PlaceCopyWith<$Res> {
+  factory _$$PlaceImplCopyWith(
+          _$PlaceImpl value, $Res Function(_$PlaceImpl) then) =
+      __$$PlaceImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -96,9 +97,11 @@ abstract class _$$_PlaceCopyWith<$Res> implements $PlaceCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_PlaceCopyWithImpl<$Res> extends _$PlaceCopyWithImpl<$Res, _$_Place>
-    implements _$$_PlaceCopyWith<$Res> {
-  __$$_PlaceCopyWithImpl(_$_Place _value, $Res Function(_$_Place) _then)
+class __$$PlaceImplCopyWithImpl<$Res>
+    extends _$PlaceCopyWithImpl<$Res, _$PlaceImpl>
+    implements _$$PlaceImplCopyWith<$Res> {
+  __$$PlaceImplCopyWithImpl(
+      _$PlaceImpl _value, $Res Function(_$PlaceImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -109,7 +112,7 @@ class __$$_PlaceCopyWithImpl<$Res> extends _$PlaceCopyWithImpl<$Res, _$_Place>
     Object? description = null,
     Object? address = null,
   }) {
-    return _then(_$_Place(
+    return _then(_$PlaceImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -132,16 +135,16 @@ class __$$_PlaceCopyWithImpl<$Res> extends _$PlaceCopyWithImpl<$Res, _$_Place>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Place extends _Place {
-  const _$_Place(
+class _$PlaceImpl extends _Place {
+  const _$PlaceImpl(
       {@MultihashConverter() this.id,
       this.name = '',
       this.description = '',
       this.address = ''})
       : super._();
 
-  factory _$_Place.fromJson(Map<String, dynamic> json) =>
-      _$$_PlaceFromJson(json);
+  factory _$PlaceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlaceImplFromJson(json);
 
   @override
   @MultihashConverter()
@@ -165,7 +168,7 @@ class _$_Place extends _Place {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Place &&
+            other is _$PlaceImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
@@ -180,12 +183,12 @@ class _$_Place extends _Place {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaceCopyWith<_$_Place> get copyWith =>
-      __$$_PlaceCopyWithImpl<_$_Place>(this, _$identity);
+  _$$PlaceImplCopyWith<_$PlaceImpl> get copyWith =>
+      __$$PlaceImplCopyWithImpl<_$PlaceImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlaceToJson(
+    return _$$PlaceImplToJson(
       this,
     );
   }
@@ -196,10 +199,10 @@ abstract class _Place extends Place implements DescriptiveModel {
       {@MultihashConverter() final Multihash? id,
       final String name,
       final String description,
-      final String address}) = _$_Place;
+      final String address}) = _$PlaceImpl;
   const _Place._() : super._();
 
-  factory _Place.fromJson(Map<String, dynamic> json) = _$_Place.fromJson;
+  factory _Place.fromJson(Map<String, dynamic> json) = _$PlaceImpl.fromJson;
 
   @override
   @MultihashConverter()
@@ -212,6 +215,6 @@ abstract class _Place extends Place implements DescriptiveModel {
   String get address;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaceCopyWith<_$_Place> get copyWith =>
+  _$$PlaceImplCopyWith<_$PlaceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

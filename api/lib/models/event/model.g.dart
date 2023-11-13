@@ -6,7 +6,7 @@ part of 'model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Event _$$_EventFromJson(Map<String, dynamic> json) => _$_Event(
+_$EventImpl _$$EventImplFromJson(Map<String, dynamic> json) => _$EventImpl(
       id: _$JsonConverterFromJson<List<int>, Multihash>(
           json['id'], const MultihashConverter().fromJson),
       parentId: _$JsonConverterFromJson<List<int>, Multihash>(
@@ -22,7 +22,8 @@ _$_Event _$$_EventFromJson(Map<String, dynamic> json) => _$_Event(
       extra: json['extra'] as String?,
     );
 
-Map<String, dynamic> _$$_EventToJson(_$_Event instance) => <String, dynamic>{
+Map<String, dynamic> _$$EventImplToJson(_$EventImpl instance) =>
+    <String, dynamic>{
       'id': _$JsonConverterToJson<List<int>, Multihash>(
           instance.id, const MultihashConverter().toJson),
       'parentId': _$JsonConverterToJson<List<int>, Multihash>(

@@ -8,13 +8,36 @@ part 'model.freezed.dart';
 part 'model.g.dart';
 
 @freezed
+class Notebook with _$Notebook {
+  const Notebook._();
+
+  @Implements<DescriptiveModel>()
+  const factory Notebook({
+    @MultihashConverter() Multihash? id,
+    @Default('') String name,
+    @Default('') String description,
+  }) = _Notebook;
+
+  factory Notebook.fromJson(Map<String, dynamic> json) =>
+      _$NotebookFromJson(json);
+
+  factory Notebook.fromDatabase(Map<String, dynamic> row) => Notebook.fromJson({
+        ...row,
+      });
+
+  Map<String, dynamic> toDatabase() => {
+        ...toJson(),
+      };
+}
+
+@freezed
 class Note with _$Note {
   const Note._();
 
   @Implements<DescriptiveModel>()
   const factory Note({
+    @MultihashConverter() required Multihash notebookId,
     @MultihashConverter() Multihash? id,
-    @MultihashConverter() Multihash? parentId,
     @Default('') String name,
     @Default('') String description,
     NoteStatus? status,

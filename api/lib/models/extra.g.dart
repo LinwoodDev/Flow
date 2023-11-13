@@ -6,15 +6,15 @@ part of 'extra.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$CalDavExtraProperties _$$CalDavExtraPropertiesFromJson(
+_$CalDavExtraPropertiesImpl _$$CalDavExtraPropertiesImplFromJson(
         Map<String, dynamic> json) =>
-    _$CalDavExtraProperties(
+    _$CalDavExtraPropertiesImpl(
       etag: json['etag'] as String,
       path: json['path'] as String,
     );
 
-Map<String, dynamic> _$$CalDavExtraPropertiesToJson(
-        _$CalDavExtraProperties instance) =>
+Map<String, dynamic> _$$CalDavExtraPropertiesImplToJson(
+        _$CalDavExtraPropertiesImpl instance) =>
     <String, dynamic>{
       'etag': instance.etag,
       'path': instance.path,

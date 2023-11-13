@@ -6,7 +6,7 @@ part of 'model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
+_$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       id: _$JsonConverterFromJson<List<int>, Multihash>(
           json['id'], const MultihashConverter().fromJson),
       groupId: _$JsonConverterFromJson<List<int>, Multihash>(
@@ -19,7 +19,8 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
           json['image'], const Uint8ListConverter().fromJson),
     );
 
-Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
+Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
+    <String, dynamic>{
       'id': _$JsonConverterToJson<List<int>, Multihash>(
           instance.id, const MultihashConverter().toJson),
       'groupId': _$JsonConverterToJson<List<int>, Multihash>(

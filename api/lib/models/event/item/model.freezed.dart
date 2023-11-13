@@ -278,11 +278,11 @@ class _$CalendarItemCopyWithImpl<$Res, $Val extends CalendarItem>
 }
 
 /// @nodoc
-abstract class _$$FixedCalendarItemCopyWith<$Res>
+abstract class _$$FixedCalendarItemImplCopyWith<$Res>
     implements $CalendarItemCopyWith<$Res> {
-  factory _$$FixedCalendarItemCopyWith(
-          _$FixedCalendarItem value, $Res Function(_$FixedCalendarItem) then) =
-      __$$FixedCalendarItemCopyWithImpl<$Res>;
+  factory _$$FixedCalendarItemImplCopyWith(_$FixedCalendarItemImpl value,
+          $Res Function(_$FixedCalendarItemImpl) then) =
+      __$$FixedCalendarItemImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -297,11 +297,11 @@ abstract class _$$FixedCalendarItemCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$FixedCalendarItemCopyWithImpl<$Res>
-    extends _$CalendarItemCopyWithImpl<$Res, _$FixedCalendarItem>
-    implements _$$FixedCalendarItemCopyWith<$Res> {
-  __$$FixedCalendarItemCopyWithImpl(
-      _$FixedCalendarItem _value, $Res Function(_$FixedCalendarItem) _then)
+class __$$FixedCalendarItemImplCopyWithImpl<$Res>
+    extends _$CalendarItemCopyWithImpl<$Res, _$FixedCalendarItemImpl>
+    implements _$$FixedCalendarItemImplCopyWith<$Res> {
+  __$$FixedCalendarItemImplCopyWithImpl(_$FixedCalendarItemImpl _value,
+      $Res Function(_$FixedCalendarItemImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -316,7 +316,7 @@ class __$$FixedCalendarItemCopyWithImpl<$Res>
     Object? start = freezed,
     Object? end = freezed,
   }) {
-    return _then(_$FixedCalendarItem(
+    return _then(_$FixedCalendarItemImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -355,8 +355,8 @@ class __$$FixedCalendarItemCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$FixedCalendarItem extends FixedCalendarItem {
-  const _$FixedCalendarItem(
+class _$FixedCalendarItemImpl extends FixedCalendarItem {
+  const _$FixedCalendarItemImpl(
       {@MultihashConverter() this.id,
       this.name = '',
       this.description = '',
@@ -369,8 +369,8 @@ class _$FixedCalendarItem extends FixedCalendarItem {
       : $type = $type ?? 'fixed',
         super._();
 
-  factory _$FixedCalendarItem.fromJson(Map<String, dynamic> json) =>
-      _$$FixedCalendarItemFromJson(json);
+  factory _$FixedCalendarItemImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FixedCalendarItemImplFromJson(json);
 
   @override
   @MultihashConverter()
@@ -409,7 +409,7 @@ class _$FixedCalendarItem extends FixedCalendarItem {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$FixedCalendarItem &&
+            other is _$FixedCalendarItemImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
@@ -430,8 +430,9 @@ class _$FixedCalendarItem extends FixedCalendarItem {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$FixedCalendarItemCopyWith<_$FixedCalendarItem> get copyWith =>
-      __$$FixedCalendarItemCopyWithImpl<_$FixedCalendarItem>(this, _$identity);
+  _$$FixedCalendarItemImplCopyWith<_$FixedCalendarItemImpl> get copyWith =>
+      __$$FixedCalendarItemImplCopyWithImpl<_$FixedCalendarItemImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -613,7 +614,7 @@ class _$FixedCalendarItem extends FixedCalendarItem {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$FixedCalendarItemToJson(
+    return _$$FixedCalendarItemImplToJson(
       this,
     );
   }
@@ -628,11 +629,11 @@ abstract class FixedCalendarItem extends CalendarItem {
       @MultihashConverter() final Multihash? eventId,
       final EventStatus status,
       @DateTimeConverter() final DateTime? start,
-      @DateTimeConverter() final DateTime? end}) = _$FixedCalendarItem;
+      @DateTimeConverter() final DateTime? end}) = _$FixedCalendarItemImpl;
   const FixedCalendarItem._() : super._();
 
   factory FixedCalendarItem.fromJson(Map<String, dynamic> json) =
-      _$FixedCalendarItem.fromJson;
+      _$FixedCalendarItemImpl.fromJson;
 
   @override
   @MultihashConverter()
@@ -656,16 +657,17 @@ abstract class FixedCalendarItem extends CalendarItem {
   DateTime? get end;
   @override
   @JsonKey(ignore: true)
-  _$$FixedCalendarItemCopyWith<_$FixedCalendarItem> get copyWith =>
+  _$$FixedCalendarItemImplCopyWith<_$FixedCalendarItemImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$RepeatingCalendarItemCopyWith<$Res>
+abstract class _$$RepeatingCalendarItemImplCopyWith<$Res>
     implements $CalendarItemCopyWith<$Res> {
-  factory _$$RepeatingCalendarItemCopyWith(_$RepeatingCalendarItem value,
-          $Res Function(_$RepeatingCalendarItem) then) =
-      __$$RepeatingCalendarItemCopyWithImpl<$Res>;
+  factory _$$RepeatingCalendarItemImplCopyWith(
+          _$RepeatingCalendarItemImpl value,
+          $Res Function(_$RepeatingCalendarItemImpl) then) =
+      __$$RepeatingCalendarItemImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -686,11 +688,11 @@ abstract class _$$RepeatingCalendarItemCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$RepeatingCalendarItemCopyWithImpl<$Res>
-    extends _$CalendarItemCopyWithImpl<$Res, _$RepeatingCalendarItem>
-    implements _$$RepeatingCalendarItemCopyWith<$Res> {
-  __$$RepeatingCalendarItemCopyWithImpl(_$RepeatingCalendarItem _value,
-      $Res Function(_$RepeatingCalendarItem) _then)
+class __$$RepeatingCalendarItemImplCopyWithImpl<$Res>
+    extends _$CalendarItemCopyWithImpl<$Res, _$RepeatingCalendarItemImpl>
+    implements _$$RepeatingCalendarItemImplCopyWith<$Res> {
+  __$$RepeatingCalendarItemImplCopyWithImpl(_$RepeatingCalendarItemImpl _value,
+      $Res Function(_$RepeatingCalendarItemImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -711,7 +713,7 @@ class __$$RepeatingCalendarItemCopyWithImpl<$Res>
     Object? until = freezed,
     Object? exceptions = null,
   }) {
-    return _then(_$RepeatingCalendarItem(
+    return _then(_$RepeatingCalendarItemImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -774,8 +776,8 @@ class __$$RepeatingCalendarItemCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$RepeatingCalendarItem extends RepeatingCalendarItem {
-  const _$RepeatingCalendarItem(
+class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
+  const _$RepeatingCalendarItemImpl(
       {@MultihashConverter() this.id,
       this.name = '',
       this.description = '',
@@ -795,8 +797,8 @@ class _$RepeatingCalendarItem extends RepeatingCalendarItem {
         $type = $type ?? 'repeating',
         super._();
 
-  factory _$RepeatingCalendarItem.fromJson(Map<String, dynamic> json) =>
-      _$$RepeatingCalendarItemFromJson(json);
+  factory _$RepeatingCalendarItemImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RepeatingCalendarItemImplFromJson(json);
 
   @override
   @MultihashConverter()
@@ -858,7 +860,7 @@ class _$RepeatingCalendarItem extends RepeatingCalendarItem {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RepeatingCalendarItem &&
+            other is _$RepeatingCalendarItemImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
@@ -903,9 +905,9 @@ class _$RepeatingCalendarItem extends RepeatingCalendarItem {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$RepeatingCalendarItemCopyWith<_$RepeatingCalendarItem> get copyWith =>
-      __$$RepeatingCalendarItemCopyWithImpl<_$RepeatingCalendarItem>(
-          this, _$identity);
+  _$$RepeatingCalendarItemImplCopyWith<_$RepeatingCalendarItemImpl>
+      get copyWith => __$$RepeatingCalendarItemImplCopyWithImpl<
+          _$RepeatingCalendarItemImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1088,7 +1090,7 @@ class _$RepeatingCalendarItem extends RepeatingCalendarItem {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$RepeatingCalendarItemToJson(
+    return _$$RepeatingCalendarItemImplToJson(
       this,
     );
   }
@@ -1109,11 +1111,11 @@ abstract class RepeatingCalendarItem extends CalendarItem {
       final int variation,
       final int count,
       @DateTimeConverter() final DateTime? until,
-      final List<int> exceptions}) = _$RepeatingCalendarItem;
+      final List<int> exceptions}) = _$RepeatingCalendarItemImpl;
   const RepeatingCalendarItem._() : super._();
 
   factory RepeatingCalendarItem.fromJson(Map<String, dynamic> json) =
-      _$RepeatingCalendarItem.fromJson;
+      _$RepeatingCalendarItemImpl.fromJson;
 
   @override
   @MultihashConverter()
@@ -1144,16 +1146,16 @@ abstract class RepeatingCalendarItem extends CalendarItem {
   List<int> get exceptions;
   @override
   @JsonKey(ignore: true)
-  _$$RepeatingCalendarItemCopyWith<_$RepeatingCalendarItem> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$RepeatingCalendarItemImplCopyWith<_$RepeatingCalendarItemImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AutoCalendarItemCopyWith<$Res>
+abstract class _$$AutoCalendarItemImplCopyWith<$Res>
     implements $CalendarItemCopyWith<$Res> {
-  factory _$$AutoCalendarItemCopyWith(
-          _$AutoCalendarItem value, $Res Function(_$AutoCalendarItem) then) =
-      __$$AutoCalendarItemCopyWithImpl<$Res>;
+  factory _$$AutoCalendarItemImplCopyWith(_$AutoCalendarItemImpl value,
+          $Res Function(_$AutoCalendarItemImpl) then) =
+      __$$AutoCalendarItemImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1171,11 +1173,11 @@ abstract class _$$AutoCalendarItemCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$AutoCalendarItemCopyWithImpl<$Res>
-    extends _$CalendarItemCopyWithImpl<$Res, _$AutoCalendarItem>
-    implements _$$AutoCalendarItemCopyWith<$Res> {
-  __$$AutoCalendarItemCopyWithImpl(
-      _$AutoCalendarItem _value, $Res Function(_$AutoCalendarItem) _then)
+class __$$AutoCalendarItemImplCopyWithImpl<$Res>
+    extends _$CalendarItemCopyWithImpl<$Res, _$AutoCalendarItemImpl>
+    implements _$$AutoCalendarItemImplCopyWith<$Res> {
+  __$$AutoCalendarItemImplCopyWithImpl(_$AutoCalendarItemImpl _value,
+      $Res Function(_$AutoCalendarItemImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1193,7 +1195,7 @@ class __$$AutoCalendarItemCopyWithImpl<$Res>
     Object? searchStart = freezed,
     Object? autoDuration = null,
   }) {
-    return _then(_$AutoCalendarItem(
+    return _then(_$AutoCalendarItemImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -1244,8 +1246,8 @@ class __$$AutoCalendarItemCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AutoCalendarItem extends AutoCalendarItem {
-  const _$AutoCalendarItem(
+class _$AutoCalendarItemImpl extends AutoCalendarItem {
+  const _$AutoCalendarItemImpl(
       {@MultihashConverter() this.id,
       this.name = '',
       this.description = '',
@@ -1261,8 +1263,8 @@ class _$AutoCalendarItem extends AutoCalendarItem {
       : $type = $type ?? 'auto',
         super._();
 
-  factory _$AutoCalendarItem.fromJson(Map<String, dynamic> json) =>
-      _$$AutoCalendarItemFromJson(json);
+  factory _$AutoCalendarItemImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AutoCalendarItemImplFromJson(json);
 
   @override
   @MultihashConverter()
@@ -1310,7 +1312,7 @@ class _$AutoCalendarItem extends AutoCalendarItem {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AutoCalendarItem &&
+            other is _$AutoCalendarItemImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
@@ -1337,8 +1339,9 @@ class _$AutoCalendarItem extends AutoCalendarItem {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AutoCalendarItemCopyWith<_$AutoCalendarItem> get copyWith =>
-      __$$AutoCalendarItemCopyWithImpl<_$AutoCalendarItem>(this, _$identity);
+  _$$AutoCalendarItemImplCopyWith<_$AutoCalendarItemImpl> get copyWith =>
+      __$$AutoCalendarItemImplCopyWithImpl<_$AutoCalendarItemImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1521,7 +1524,7 @@ class _$AutoCalendarItem extends AutoCalendarItem {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AutoCalendarItemToJson(
+    return _$$AutoCalendarItemImplToJson(
       this,
     );
   }
@@ -1539,11 +1542,11 @@ abstract class AutoCalendarItem extends CalendarItem {
       @DateTimeConverter() final DateTime? end,
       @MultihashConverter() final Multihash? autoGroupId,
       @DateTimeConverter() final DateTime? searchStart,
-      final int autoDuration}) = _$AutoCalendarItem;
+      final int autoDuration}) = _$AutoCalendarItemImpl;
   const AutoCalendarItem._() : super._();
 
   factory AutoCalendarItem.fromJson(Map<String, dynamic> json) =
-      _$AutoCalendarItem.fromJson;
+      _$AutoCalendarItemImpl.fromJson;
 
   @override
   @MultihashConverter()
@@ -1572,6 +1575,6 @@ abstract class AutoCalendarItem extends CalendarItem {
   int get autoDuration;
   @override
   @JsonKey(ignore: true)
-  _$$AutoCalendarItemCopyWith<_$AutoCalendarItem> get copyWith =>
+  _$$AutoCalendarItemImplCopyWith<_$AutoCalendarItemImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -6,7 +6,7 @@ part of 'model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Group _$$_GroupFromJson(Map<String, dynamic> json) => _$_Group(
+_$GroupImpl _$$GroupImplFromJson(Map<String, dynamic> json) => _$GroupImpl(
       id: _$JsonConverterFromJson<List<int>, Multihash>(
           json['id'], const MultihashConverter().fromJson),
       name: json['name'] as String? ?? '',
@@ -15,7 +15,8 @@ _$_Group _$$_GroupFromJson(Map<String, dynamic> json) => _$_Group(
           json['parentId'], const MultihashConverter().fromJson),
     );
 
-Map<String, dynamic> _$$_GroupToJson(_$_Group instance) => <String, dynamic>{
+Map<String, dynamic> _$$GroupImplToJson(_$GroupImpl instance) =>
+    <String, dynamic>{
       'id': _$JsonConverterToJson<List<int>, Multihash>(
           instance.id, const MultihashConverter().toJson),
       'name': instance.name,

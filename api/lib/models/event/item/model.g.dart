@@ -6,8 +6,9 @@ part of 'model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$FixedCalendarItem _$$FixedCalendarItemFromJson(Map<String, dynamic> json) =>
-    _$FixedCalendarItem(
+_$FixedCalendarItemImpl _$$FixedCalendarItemImplFromJson(
+        Map<String, dynamic> json) =>
+    _$FixedCalendarItemImpl(
       id: _$JsonConverterFromJson<List<int>, Multihash>(
           json['id'], const MultihashConverter().fromJson),
       name: json['name'] as String? ?? '',
@@ -22,7 +23,8 @@ _$FixedCalendarItem _$$FixedCalendarItemFromJson(Map<String, dynamic> json) =>
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$FixedCalendarItemToJson(_$FixedCalendarItem instance) =>
+Map<String, dynamic> _$$FixedCalendarItemImplToJson(
+        _$FixedCalendarItemImpl instance) =>
     <String, dynamic>{
       'id': _$JsonConverterToJson<List<int>, Multihash>(
           instance.id, const MultihashConverter().toJson),
@@ -55,9 +57,9 @@ Json? _$JsonConverterToJson<Json, Value>(
 ) =>
     value == null ? null : toJson(value);
 
-_$RepeatingCalendarItem _$$RepeatingCalendarItemFromJson(
+_$RepeatingCalendarItemImpl _$$RepeatingCalendarItemImplFromJson(
         Map<String, dynamic> json) =>
-    _$RepeatingCalendarItem(
+    _$RepeatingCalendarItemImpl(
       id: _$JsonConverterFromJson<List<int>, Multihash>(
           json['id'], const MultihashConverter().fromJson),
       name: json['name'] as String? ?? '',
@@ -83,8 +85,8 @@ _$RepeatingCalendarItem _$$RepeatingCalendarItemFromJson(
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$RepeatingCalendarItemToJson(
-        _$RepeatingCalendarItem instance) =>
+Map<String, dynamic> _$$RepeatingCalendarItemImplToJson(
+        _$RepeatingCalendarItemImpl instance) =>
     <String, dynamic>{
       'id': _$JsonConverterToJson<List<int>, Multihash>(
           instance.id, const MultihashConverter().toJson),
@@ -112,8 +114,9 @@ const _$RepeatTypeEnumMap = {
   RepeatType.yearly: 'yearly',
 };
 
-_$AutoCalendarItem _$$AutoCalendarItemFromJson(Map<String, dynamic> json) =>
-    _$AutoCalendarItem(
+_$AutoCalendarItemImpl _$$AutoCalendarItemImplFromJson(
+        Map<String, dynamic> json) =>
+    _$AutoCalendarItemImpl(
       id: _$JsonConverterFromJson<List<int>, Multihash>(
           json['id'], const MultihashConverter().fromJson),
       name: json['name'] as String? ?? '',
@@ -133,7 +136,8 @@ _$AutoCalendarItem _$$AutoCalendarItemFromJson(Map<String, dynamic> json) =>
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$AutoCalendarItemToJson(_$AutoCalendarItem instance) =>
+Map<String, dynamic> _$$AutoCalendarItemImplToJson(
+        _$AutoCalendarItemImpl instance) =>
     <String, dynamic>{
       'id': _$JsonConverterToJson<List<int>, Multihash>(
           instance.id, const MultihashConverter().toJson),

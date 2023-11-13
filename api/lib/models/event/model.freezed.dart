@@ -121,9 +121,10 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
 }
 
 /// @nodoc
-abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
-  factory _$$_EventCopyWith(_$_Event value, $Res Function(_$_Event) then) =
-      __$$_EventCopyWithImpl<$Res>;
+abstract class _$$EventImplCopyWith<$Res> implements $EventCopyWith<$Res> {
+  factory _$$EventImplCopyWith(
+          _$EventImpl value, $Res Function(_$EventImpl) then) =
+      __$$EventImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -139,9 +140,11 @@ abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
-    implements _$$_EventCopyWith<$Res> {
-  __$$_EventCopyWithImpl(_$_Event _value, $Res Function(_$_Event) _then)
+class __$$EventImplCopyWithImpl<$Res>
+    extends _$EventCopyWithImpl<$Res, _$EventImpl>
+    implements _$$EventImplCopyWith<$Res> {
+  __$$EventImplCopyWithImpl(
+      _$EventImpl _value, $Res Function(_$EventImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -157,7 +160,7 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
     Object? location = null,
     Object? extra = freezed,
   }) {
-    return _then(_$_Event(
+    return _then(_$EventImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -200,8 +203,8 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Event extends _Event {
-  const _$_Event(
+class _$EventImpl extends _Event {
+  const _$EventImpl(
       {@MultihashConverter() this.id,
       @MultihashConverter() this.parentId,
       @MultihashConverter() this.groupId,
@@ -213,8 +216,8 @@ class _$_Event extends _Event {
       this.extra})
       : super._();
 
-  factory _$_Event.fromJson(Map<String, dynamic> json) =>
-      _$$_EventFromJson(json);
+  factory _$EventImpl.fromJson(Map<String, dynamic> json) =>
+      _$$EventImplFromJson(json);
 
   @override
   @MultihashConverter()
@@ -252,7 +255,7 @@ class _$_Event extends _Event {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Event &&
+            other is _$EventImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.parentId, parentId) ||
                 other.parentId == parentId) &&
@@ -275,12 +278,12 @@ class _$_Event extends _Event {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_EventCopyWith<_$_Event> get copyWith =>
-      __$$_EventCopyWithImpl<_$_Event>(this, _$identity);
+  _$$EventImplCopyWith<_$EventImpl> get copyWith =>
+      __$$EventImplCopyWithImpl<_$EventImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_EventToJson(
+    return _$$EventImplToJson(
       this,
     );
   }
@@ -296,10 +299,10 @@ abstract class _Event extends Event implements DescriptiveModel {
       final String name,
       final String description,
       final String location,
-      final String? extra}) = _$_Event;
+      final String? extra}) = _$EventImpl;
   const _Event._() : super._();
 
-  factory _Event.fromJson(Map<String, dynamic> json) = _$_Event.fromJson;
+  factory _Event.fromJson(Map<String, dynamic> json) = _$EventImpl.fromJson;
 
   @override
   @MultihashConverter()
@@ -325,6 +328,6 @@ abstract class _Event extends Event implements DescriptiveModel {
   String? get extra;
   @override
   @JsonKey(ignore: true)
-  _$$_EventCopyWith<_$_Event> get copyWith =>
+  _$$EventImplCopyWith<_$EventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
