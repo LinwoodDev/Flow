@@ -6,8 +6,8 @@ part of 'config.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ConfigFile _$$_ConfigFileFromJson(Map<String, dynamic> json) =>
-    _$_ConfigFile(
+_$ConfigFileImpl _$$ConfigFileImplFromJson(Map<String, dynamic> json) =>
+    _$ConfigFileImpl(
       remotes: (json['remotes'] as List<dynamic>?)
           ?.map((e) => RemoteStorage.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -17,7 +17,7 @@ _$_ConfigFile _$$_ConfigFileFromJson(Map<String, dynamic> json) =>
           const {},
     );
 
-Map<String, dynamic> _$$_ConfigFileToJson(_$_ConfigFile instance) =>
+Map<String, dynamic> _$$ConfigFileImplToJson(_$ConfigFileImpl instance) =>
     <String, dynamic>{
       'remotes': instance.remotes,
       'passwords': instance.passwords,

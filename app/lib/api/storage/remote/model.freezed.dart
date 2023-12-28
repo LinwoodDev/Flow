@@ -130,22 +130,22 @@ class _$RemoteStorageCopyWithImpl<$Res, $Val extends RemoteStorage>
 }
 
 /// @nodoc
-abstract class _$$CalDavStorageCopyWith<$Res>
+abstract class _$$CalDavStorageImplCopyWith<$Res>
     implements $RemoteStorageCopyWith<$Res> {
-  factory _$$CalDavStorageCopyWith(
-          _$CalDavStorage value, $Res Function(_$CalDavStorage) then) =
-      __$$CalDavStorageCopyWithImpl<$Res>;
+  factory _$$CalDavStorageImplCopyWith(
+          _$CalDavStorageImpl value, $Res Function(_$CalDavStorageImpl) then) =
+      __$$CalDavStorageImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String url, String username});
 }
 
 /// @nodoc
-class __$$CalDavStorageCopyWithImpl<$Res>
-    extends _$RemoteStorageCopyWithImpl<$Res, _$CalDavStorage>
-    implements _$$CalDavStorageCopyWith<$Res> {
-  __$$CalDavStorageCopyWithImpl(
-      _$CalDavStorage _value, $Res Function(_$CalDavStorage) _then)
+class __$$CalDavStorageImplCopyWithImpl<$Res>
+    extends _$RemoteStorageCopyWithImpl<$Res, _$CalDavStorageImpl>
+    implements _$$CalDavStorageImplCopyWith<$Res> {
+  __$$CalDavStorageImplCopyWithImpl(
+      _$CalDavStorageImpl _value, $Res Function(_$CalDavStorageImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -154,7 +154,7 @@ class __$$CalDavStorageCopyWithImpl<$Res>
     Object? url = null,
     Object? username = null,
   }) {
-    return _then(_$CalDavStorage(
+    return _then(_$CalDavStorageImpl(
       url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
@@ -169,14 +169,14 @@ class __$$CalDavStorageCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CalDavStorage extends CalDavStorage {
-  const _$CalDavStorage(
+class _$CalDavStorageImpl extends CalDavStorage {
+  const _$CalDavStorageImpl(
       {required this.url, required this.username, final String? $type})
       : $type = $type ?? 'calDav',
         super._();
 
-  factory _$CalDavStorage.fromJson(Map<String, dynamic> json) =>
-      _$$CalDavStorageFromJson(json);
+  factory _$CalDavStorageImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CalDavStorageImplFromJson(json);
 
   @override
   final String url;
@@ -195,7 +195,7 @@ class _$CalDavStorage extends CalDavStorage {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CalDavStorage &&
+            other is _$CalDavStorageImpl &&
             (identical(other.url, url) || other.url == url) &&
             (identical(other.username, username) ||
                 other.username == username));
@@ -208,8 +208,8 @@ class _$CalDavStorage extends CalDavStorage {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CalDavStorageCopyWith<_$CalDavStorage> get copyWith =>
-      __$$CalDavStorageCopyWithImpl<_$CalDavStorage>(this, _$identity);
+  _$$CalDavStorageImplCopyWith<_$CalDavStorageImpl> get copyWith =>
+      __$$CalDavStorageImplCopyWithImpl<_$CalDavStorageImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -287,7 +287,7 @@ class _$CalDavStorage extends CalDavStorage {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CalDavStorageToJson(
+    return _$$CalDavStorageImplToJson(
       this,
     );
   }
@@ -296,11 +296,11 @@ class _$CalDavStorage extends CalDavStorage {
 abstract class CalDavStorage extends RemoteStorage {
   const factory CalDavStorage(
       {required final String url,
-      required final String username}) = _$CalDavStorage;
+      required final String username}) = _$CalDavStorageImpl;
   const CalDavStorage._() : super._();
 
   factory CalDavStorage.fromJson(Map<String, dynamic> json) =
-      _$CalDavStorage.fromJson;
+      _$CalDavStorageImpl.fromJson;
 
   @override
   String get url;
@@ -308,27 +308,27 @@ abstract class CalDavStorage extends RemoteStorage {
   String get username;
   @override
   @JsonKey(ignore: true)
-  _$$CalDavStorageCopyWith<_$CalDavStorage> get copyWith =>
+  _$$CalDavStorageImplCopyWith<_$CalDavStorageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ICalStorageCopyWith<$Res>
+abstract class _$$ICalStorageImplCopyWith<$Res>
     implements $RemoteStorageCopyWith<$Res> {
-  factory _$$ICalStorageCopyWith(
-          _$ICalStorage value, $Res Function(_$ICalStorage) then) =
-      __$$ICalStorageCopyWithImpl<$Res>;
+  factory _$$ICalStorageImplCopyWith(
+          _$ICalStorageImpl value, $Res Function(_$ICalStorageImpl) then) =
+      __$$ICalStorageImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String url, String username});
 }
 
 /// @nodoc
-class __$$ICalStorageCopyWithImpl<$Res>
-    extends _$RemoteStorageCopyWithImpl<$Res, _$ICalStorage>
-    implements _$$ICalStorageCopyWith<$Res> {
-  __$$ICalStorageCopyWithImpl(
-      _$ICalStorage _value, $Res Function(_$ICalStorage) _then)
+class __$$ICalStorageImplCopyWithImpl<$Res>
+    extends _$RemoteStorageCopyWithImpl<$Res, _$ICalStorageImpl>
+    implements _$$ICalStorageImplCopyWith<$Res> {
+  __$$ICalStorageImplCopyWithImpl(
+      _$ICalStorageImpl _value, $Res Function(_$ICalStorageImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -337,7 +337,7 @@ class __$$ICalStorageCopyWithImpl<$Res>
     Object? url = null,
     Object? username = null,
   }) {
-    return _then(_$ICalStorage(
+    return _then(_$ICalStorageImpl(
       url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
@@ -352,14 +352,14 @@ class __$$ICalStorageCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ICalStorage extends ICalStorage {
-  const _$ICalStorage(
+class _$ICalStorageImpl extends ICalStorage {
+  const _$ICalStorageImpl(
       {required this.url, required this.username, final String? $type})
       : $type = $type ?? 'iCal',
         super._();
 
-  factory _$ICalStorage.fromJson(Map<String, dynamic> json) =>
-      _$$ICalStorageFromJson(json);
+  factory _$ICalStorageImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ICalStorageImplFromJson(json);
 
   @override
   final String url;
@@ -378,7 +378,7 @@ class _$ICalStorage extends ICalStorage {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ICalStorage &&
+            other is _$ICalStorageImpl &&
             (identical(other.url, url) || other.url == url) &&
             (identical(other.username, username) ||
                 other.username == username));
@@ -391,8 +391,8 @@ class _$ICalStorage extends ICalStorage {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ICalStorageCopyWith<_$ICalStorage> get copyWith =>
-      __$$ICalStorageCopyWithImpl<_$ICalStorage>(this, _$identity);
+  _$$ICalStorageImplCopyWith<_$ICalStorageImpl> get copyWith =>
+      __$$ICalStorageImplCopyWithImpl<_$ICalStorageImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -470,7 +470,7 @@ class _$ICalStorage extends ICalStorage {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ICalStorageToJson(
+    return _$$ICalStorageImplToJson(
       this,
     );
   }
@@ -479,11 +479,11 @@ class _$ICalStorage extends ICalStorage {
 abstract class ICalStorage extends RemoteStorage {
   const factory ICalStorage(
       {required final String url,
-      required final String username}) = _$ICalStorage;
+      required final String username}) = _$ICalStorageImpl;
   const ICalStorage._() : super._();
 
   factory ICalStorage.fromJson(Map<String, dynamic> json) =
-      _$ICalStorage.fromJson;
+      _$ICalStorageImpl.fromJson;
 
   @override
   String get url;
@@ -491,27 +491,27 @@ abstract class ICalStorage extends RemoteStorage {
   String get username;
   @override
   @JsonKey(ignore: true)
-  _$$ICalStorageCopyWith<_$ICalStorage> get copyWith =>
+  _$$ICalStorageImplCopyWith<_$ICalStorageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$WebDavStorageCopyWith<$Res>
+abstract class _$$WebDavStorageImplCopyWith<$Res>
     implements $RemoteStorageCopyWith<$Res> {
-  factory _$$WebDavStorageCopyWith(
-          _$WebDavStorage value, $Res Function(_$WebDavStorage) then) =
-      __$$WebDavStorageCopyWithImpl<$Res>;
+  factory _$$WebDavStorageImplCopyWith(
+          _$WebDavStorageImpl value, $Res Function(_$WebDavStorageImpl) then) =
+      __$$WebDavStorageImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String url, String username});
 }
 
 /// @nodoc
-class __$$WebDavStorageCopyWithImpl<$Res>
-    extends _$RemoteStorageCopyWithImpl<$Res, _$WebDavStorage>
-    implements _$$WebDavStorageCopyWith<$Res> {
-  __$$WebDavStorageCopyWithImpl(
-      _$WebDavStorage _value, $Res Function(_$WebDavStorage) _then)
+class __$$WebDavStorageImplCopyWithImpl<$Res>
+    extends _$RemoteStorageCopyWithImpl<$Res, _$WebDavStorageImpl>
+    implements _$$WebDavStorageImplCopyWith<$Res> {
+  __$$WebDavStorageImplCopyWithImpl(
+      _$WebDavStorageImpl _value, $Res Function(_$WebDavStorageImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -520,7 +520,7 @@ class __$$WebDavStorageCopyWithImpl<$Res>
     Object? url = null,
     Object? username = null,
   }) {
-    return _then(_$WebDavStorage(
+    return _then(_$WebDavStorageImpl(
       url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
@@ -535,14 +535,14 @@ class __$$WebDavStorageCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$WebDavStorage extends WebDavStorage {
-  const _$WebDavStorage(
+class _$WebDavStorageImpl extends WebDavStorage {
+  const _$WebDavStorageImpl(
       {required this.url, required this.username, final String? $type})
       : $type = $type ?? 'webDav',
         super._();
 
-  factory _$WebDavStorage.fromJson(Map<String, dynamic> json) =>
-      _$$WebDavStorageFromJson(json);
+  factory _$WebDavStorageImpl.fromJson(Map<String, dynamic> json) =>
+      _$$WebDavStorageImplFromJson(json);
 
   @override
   final String url;
@@ -561,7 +561,7 @@ class _$WebDavStorage extends WebDavStorage {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WebDavStorage &&
+            other is _$WebDavStorageImpl &&
             (identical(other.url, url) || other.url == url) &&
             (identical(other.username, username) ||
                 other.username == username));
@@ -574,8 +574,8 @@ class _$WebDavStorage extends WebDavStorage {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$WebDavStorageCopyWith<_$WebDavStorage> get copyWith =>
-      __$$WebDavStorageCopyWithImpl<_$WebDavStorage>(this, _$identity);
+  _$$WebDavStorageImplCopyWith<_$WebDavStorageImpl> get copyWith =>
+      __$$WebDavStorageImplCopyWithImpl<_$WebDavStorageImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -653,7 +653,7 @@ class _$WebDavStorage extends WebDavStorage {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$WebDavStorageToJson(
+    return _$$WebDavStorageImplToJson(
       this,
     );
   }
@@ -662,11 +662,11 @@ class _$WebDavStorage extends WebDavStorage {
 abstract class WebDavStorage extends RemoteStorage {
   const factory WebDavStorage(
       {required final String url,
-      required final String username}) = _$WebDavStorage;
+      required final String username}) = _$WebDavStorageImpl;
   const WebDavStorage._() : super._();
 
   factory WebDavStorage.fromJson(Map<String, dynamic> json) =
-      _$WebDavStorage.fromJson;
+      _$WebDavStorageImpl.fromJson;
 
   @override
   String get url;
@@ -674,27 +674,27 @@ abstract class WebDavStorage extends RemoteStorage {
   String get username;
   @override
   @JsonKey(ignore: true)
-  _$$WebDavStorageCopyWith<_$WebDavStorage> get copyWith =>
+  _$$WebDavStorageImplCopyWith<_$WebDavStorageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SiaStorageCopyWith<$Res>
+abstract class _$$SiaStorageImplCopyWith<$Res>
     implements $RemoteStorageCopyWith<$Res> {
-  factory _$$SiaStorageCopyWith(
-          _$SiaStorage value, $Res Function(_$SiaStorage) then) =
-      __$$SiaStorageCopyWithImpl<$Res>;
+  factory _$$SiaStorageImplCopyWith(
+          _$SiaStorageImpl value, $Res Function(_$SiaStorageImpl) then) =
+      __$$SiaStorageImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String url, String username});
 }
 
 /// @nodoc
-class __$$SiaStorageCopyWithImpl<$Res>
-    extends _$RemoteStorageCopyWithImpl<$Res, _$SiaStorage>
-    implements _$$SiaStorageCopyWith<$Res> {
-  __$$SiaStorageCopyWithImpl(
-      _$SiaStorage _value, $Res Function(_$SiaStorage) _then)
+class __$$SiaStorageImplCopyWithImpl<$Res>
+    extends _$RemoteStorageCopyWithImpl<$Res, _$SiaStorageImpl>
+    implements _$$SiaStorageImplCopyWith<$Res> {
+  __$$SiaStorageImplCopyWithImpl(
+      _$SiaStorageImpl _value, $Res Function(_$SiaStorageImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -703,7 +703,7 @@ class __$$SiaStorageCopyWithImpl<$Res>
     Object? url = null,
     Object? username = null,
   }) {
-    return _then(_$SiaStorage(
+    return _then(_$SiaStorageImpl(
       url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
@@ -718,14 +718,14 @@ class __$$SiaStorageCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SiaStorage extends SiaStorage {
-  const _$SiaStorage(
+class _$SiaStorageImpl extends SiaStorage {
+  const _$SiaStorageImpl(
       {required this.url, required this.username, final String? $type})
       : $type = $type ?? 'sia',
         super._();
 
-  factory _$SiaStorage.fromJson(Map<String, dynamic> json) =>
-      _$$SiaStorageFromJson(json);
+  factory _$SiaStorageImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SiaStorageImplFromJson(json);
 
   @override
   final String url;
@@ -744,7 +744,7 @@ class _$SiaStorage extends SiaStorage {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SiaStorage &&
+            other is _$SiaStorageImpl &&
             (identical(other.url, url) || other.url == url) &&
             (identical(other.username, username) ||
                 other.username == username));
@@ -757,8 +757,8 @@ class _$SiaStorage extends SiaStorage {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SiaStorageCopyWith<_$SiaStorage> get copyWith =>
-      __$$SiaStorageCopyWithImpl<_$SiaStorage>(this, _$identity);
+  _$$SiaStorageImplCopyWith<_$SiaStorageImpl> get copyWith =>
+      __$$SiaStorageImplCopyWithImpl<_$SiaStorageImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -836,7 +836,7 @@ class _$SiaStorage extends SiaStorage {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$SiaStorageToJson(
+    return _$$SiaStorageImplToJson(
       this,
     );
   }
@@ -845,11 +845,11 @@ class _$SiaStorage extends SiaStorage {
 abstract class SiaStorage extends RemoteStorage {
   const factory SiaStorage(
       {required final String url,
-      required final String username}) = _$SiaStorage;
+      required final String username}) = _$SiaStorageImpl;
   const SiaStorage._() : super._();
 
   factory SiaStorage.fromJson(Map<String, dynamic> json) =
-      _$SiaStorage.fromJson;
+      _$SiaStorageImpl.fromJson;
 
   @override
   String get url;
@@ -857,6 +857,6 @@ abstract class SiaStorage extends RemoteStorage {
   String get username;
   @override
   @JsonKey(ignore: true)
-  _$$SiaStorageCopyWith<_$SiaStorage> get copyWith =>
+  _$$SiaStorageImplCopyWith<_$SiaStorageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

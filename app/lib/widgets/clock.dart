@@ -42,6 +42,7 @@ class _ClockViewState extends State<ClockView> {
         secondHandColor: colorScheme.secondary,
         indicatorColor: colorScheme.onSurface,
         backgroundColor: colorScheme.surface,
+        labelColor: colorScheme.tertiary,
       ),
     );
   }
@@ -55,6 +56,7 @@ class _ClockPainter extends CustomPainter {
     required this.secondHandColor,
     required this.indicatorColor,
     required this.backgroundColor,
+    required this.labelColor,
   });
 
   final DateTime dateTime;
@@ -62,17 +64,24 @@ class _ClockPainter extends CustomPainter {
       minuteHandColor,
       secondHandColor,
       indicatorColor,
-      backgroundColor;
+      backgroundColor,
+      labelColor;
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawColor(backgroundColor, BlendMode.color);
-
     final center = size.center(Offset.zero);
     final radius = size.shortestSide / 2;
+    canvas.drawCircle(
+      center,
+      radius,
+      Paint()
+        ..color = backgroundColor
+        ..style = PaintingStyle.fill,
+    );
 
-    final indicatorPaint = Paint()..color = indicatorColor;
-    canvas.drawCircle(center, 10, indicatorPaint);
+    final indicatorPaint = Paint()
+      ..color = indicatorColor
+      ..strokeWidth = 2;
     var textStyle = TextStyle(
       color: indicatorColor,
       fontSize: 18,
@@ -85,7 +94,8 @@ class _ClockPainter extends CustomPainter {
     for (var i = 0; i < 12; i++) {
       final angle = (i - 2) * 2 * pi / 12;
       final line = Offset.fromDirection(angle, radius);
-      canvas.drawLine(center + line * 0.9, center + line, indicatorPaint);
+      canvas.drawLine(
+          center + line * 0.8, center + line * 0.95, indicatorPaint);
       final textSpan = TextSpan(
         text: '${i + 1}',
         style: textStyle,
@@ -93,7 +103,7 @@ class _ClockPainter extends CustomPainter {
       textPainter.text = textSpan;
       textPainter.layout();
       final textOffset =
-          center + line * 0.8 - textPainter.size.center(Offset.zero);
+          center + line * 0.7 - textPainter.size.center(Offset.zero);
       textPainter.paint(canvas, textOffset);
     }
 
@@ -125,7 +135,9 @@ class _ClockPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round;
     drawHand(secondAngle, secondHandPaint, 0.9);
 
-    textStyle = textStyle.copyWith(fontSize: 20, fontWeight: FontWeight.bold);
+    canvas.drawCircle(center, 5, indicatorPaint);
+    textStyle = textStyle.copyWith(
+        fontSize: 20, fontWeight: FontWeight.bold, color: labelColor);
     textPainter.text = TextSpan(
       text: '${dateTime.hour}:${dateTime.minute}:${dateTime.second}',
       style: textStyle,

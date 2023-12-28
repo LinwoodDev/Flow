@@ -6,55 +6,56 @@ part of 'model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$CalDavStorage _$$CalDavStorageFromJson(Map<String, dynamic> json) =>
-    _$CalDavStorage(
+_$CalDavStorageImpl _$$CalDavStorageImplFromJson(Map<String, dynamic> json) =>
+    _$CalDavStorageImpl(
       url: json['url'] as String,
       username: json['username'] as String,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$CalDavStorageToJson(_$CalDavStorage instance) =>
+Map<String, dynamic> _$$CalDavStorageImplToJson(_$CalDavStorageImpl instance) =>
     <String, dynamic>{
       'url': instance.url,
       'username': instance.username,
       'runtimeType': instance.$type,
     };
 
-_$ICalStorage _$$ICalStorageFromJson(Map<String, dynamic> json) =>
-    _$ICalStorage(
+_$ICalStorageImpl _$$ICalStorageImplFromJson(Map<String, dynamic> json) =>
+    _$ICalStorageImpl(
       url: json['url'] as String,
       username: json['username'] as String,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$ICalStorageToJson(_$ICalStorage instance) =>
+Map<String, dynamic> _$$ICalStorageImplToJson(_$ICalStorageImpl instance) =>
     <String, dynamic>{
       'url': instance.url,
       'username': instance.username,
       'runtimeType': instance.$type,
     };
 
-_$WebDavStorage _$$WebDavStorageFromJson(Map<String, dynamic> json) =>
-    _$WebDavStorage(
+_$WebDavStorageImpl _$$WebDavStorageImplFromJson(Map<String, dynamic> json) =>
+    _$WebDavStorageImpl(
       url: json['url'] as String,
       username: json['username'] as String,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$WebDavStorageToJson(_$WebDavStorage instance) =>
+Map<String, dynamic> _$$WebDavStorageImplToJson(_$WebDavStorageImpl instance) =>
     <String, dynamic>{
       'url': instance.url,
       'username': instance.username,
       'runtimeType': instance.$type,
     };
 
-_$SiaStorage _$$SiaStorageFromJson(Map<String, dynamic> json) => _$SiaStorage(
+_$SiaStorageImpl _$$SiaStorageImplFromJson(Map<String, dynamic> json) =>
+    _$SiaStorageImpl(
       url: json['url'] as String,
       username: json['username'] as String,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$SiaStorageToJson(_$SiaStorage instance) =>
+Map<String, dynamic> _$$SiaStorageImplToJson(_$SiaStorageImpl instance) =>
     <String, dynamic>{
       'url': instance.url,
       'username': instance.username,

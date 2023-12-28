@@ -98,11 +98,11 @@ class _$APIRequestCopyWithImpl<$Res, $Val extends APIRequest>
 }
 
 /// @nodoc
-abstract class _$$_APIRequestCopyWith<$Res>
+abstract class _$$APIRequestImplCopyWith<$Res>
     implements $APIRequestCopyWith<$Res> {
-  factory _$$_APIRequestCopyWith(
-          _$_APIRequest value, $Res Function(_$_APIRequest) then) =
-      __$$_APIRequestCopyWithImpl<$Res>;
+  factory _$$APIRequestImplCopyWith(
+          _$APIRequestImpl value, $Res Function(_$APIRequestImpl) then) =
+      __$$APIRequestImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -115,11 +115,11 @@ abstract class _$$_APIRequestCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_APIRequestCopyWithImpl<$Res>
-    extends _$APIRequestCopyWithImpl<$Res, _$_APIRequest>
-    implements _$$_APIRequestCopyWith<$Res> {
-  __$$_APIRequestCopyWithImpl(
-      _$_APIRequest _value, $Res Function(_$_APIRequest) _then)
+class __$$APIRequestImplCopyWithImpl<$Res>
+    extends _$APIRequestCopyWithImpl<$Res, _$APIRequestImpl>
+    implements _$$APIRequestImplCopyWith<$Res> {
+  __$$APIRequestImplCopyWithImpl(
+      _$APIRequestImpl _value, $Res Function(_$APIRequestImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -132,7 +132,7 @@ class __$$_APIRequestCopyWithImpl<$Res>
     Object? headers = null,
     Object? body = null,
   }) {
-    return _then(_$_APIRequest(
+    return _then(_$APIRequestImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -163,8 +163,8 @@ class __$$_APIRequestCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_APIRequest extends _APIRequest {
-  const _$_APIRequest(
+class _$APIRequestImpl extends _APIRequest {
+  const _$APIRequestImpl(
       {this.id = -1,
       required this.method,
       required this.authority,
@@ -174,8 +174,8 @@ class _$_APIRequest extends _APIRequest {
       : _headers = headers,
         super._();
 
-  factory _$_APIRequest.fromJson(Map<String, dynamic> json) =>
-      _$$_APIRequestFromJson(json);
+  factory _$APIRequestImpl.fromJson(Map<String, dynamic> json) =>
+      _$$APIRequestImplFromJson(json);
 
   @override
   @JsonKey()
@@ -208,7 +208,7 @@ class _$_APIRequest extends _APIRequest {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_APIRequest &&
+            other is _$APIRequestImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.method, method) || other.method == method) &&
             (identical(other.authority, authority) ||
@@ -226,12 +226,12 @@ class _$_APIRequest extends _APIRequest {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_APIRequestCopyWith<_$_APIRequest> get copyWith =>
-      __$$_APIRequestCopyWithImpl<_$_APIRequest>(this, _$identity);
+  _$$APIRequestImplCopyWith<_$APIRequestImpl> get copyWith =>
+      __$$APIRequestImplCopyWithImpl<_$APIRequestImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_APIRequestToJson(
+    return _$$APIRequestImplToJson(
       this,
     );
   }
@@ -244,11 +244,11 @@ abstract class _APIRequest extends APIRequest {
       required final String authority,
       required final String path,
       final Map<String, String> headers,
-      final String body}) = _$_APIRequest;
+      final String body}) = _$APIRequestImpl;
   const _APIRequest._() : super._();
 
   factory _APIRequest.fromJson(Map<String, dynamic> json) =
-      _$_APIRequest.fromJson;
+      _$APIRequestImpl.fromJson;
 
   @override
   int get id;
@@ -264,6 +264,6 @@ abstract class _APIRequest extends APIRequest {
   String get body;
   @override
   @JsonKey(ignore: true)
-  _$$_APIRequestCopyWith<_$_APIRequest> get copyWith =>
+  _$$APIRequestImplCopyWith<_$APIRequestImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

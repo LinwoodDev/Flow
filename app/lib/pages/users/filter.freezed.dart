@@ -63,22 +63,22 @@ class _$UserFilterCopyWithImpl<$Res, $Val extends UserFilter>
 }
 
 /// @nodoc
-abstract class _$$_UserFilterCopyWith<$Res>
+abstract class _$$UserFilterImplCopyWith<$Res>
     implements $UserFilterCopyWith<$Res> {
-  factory _$$_UserFilterCopyWith(
-          _$_UserFilter value, $Res Function(_$_UserFilter) then) =
-      __$$_UserFilterCopyWithImpl<$Res>;
+  factory _$$UserFilterImplCopyWith(
+          _$UserFilterImpl value, $Res Function(_$UserFilterImpl) then) =
+      __$$UserFilterImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? source, Multihash? group});
 }
 
 /// @nodoc
-class __$$_UserFilterCopyWithImpl<$Res>
-    extends _$UserFilterCopyWithImpl<$Res, _$_UserFilter>
-    implements _$$_UserFilterCopyWith<$Res> {
-  __$$_UserFilterCopyWithImpl(
-      _$_UserFilter _value, $Res Function(_$_UserFilter) _then)
+class __$$UserFilterImplCopyWithImpl<$Res>
+    extends _$UserFilterCopyWithImpl<$Res, _$UserFilterImpl>
+    implements _$$UserFilterImplCopyWith<$Res> {
+  __$$UserFilterImplCopyWithImpl(
+      _$UserFilterImpl _value, $Res Function(_$UserFilterImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -87,7 +87,7 @@ class __$$_UserFilterCopyWithImpl<$Res>
     Object? source = freezed,
     Object? group = freezed,
   }) {
-    return _then(_$_UserFilter(
+    return _then(_$UserFilterImpl(
       source: freezed == source
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
@@ -102,8 +102,8 @@ class __$$_UserFilterCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UserFilter implements _UserFilter {
-  const _$_UserFilter({this.source, this.group});
+class _$UserFilterImpl implements _UserFilter {
+  const _$UserFilterImpl({this.source, this.group});
 
   @override
   final String? source;
@@ -119,7 +119,7 @@ class _$_UserFilter implements _UserFilter {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UserFilter &&
+            other is _$UserFilterImpl &&
             (identical(other.source, source) || other.source == source) &&
             (identical(other.group, group) || other.group == group));
   }
@@ -130,13 +130,13 @@ class _$_UserFilter implements _UserFilter {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UserFilterCopyWith<_$_UserFilter> get copyWith =>
-      __$$_UserFilterCopyWithImpl<_$_UserFilter>(this, _$identity);
+  _$$UserFilterImplCopyWith<_$UserFilterImpl> get copyWith =>
+      __$$UserFilterImplCopyWithImpl<_$UserFilterImpl>(this, _$identity);
 }
 
 abstract class _UserFilter implements UserFilter {
   const factory _UserFilter({final String? source, final Multihash? group}) =
-      _$_UserFilter;
+      _$UserFilterImpl;
 
   @override
   String? get source;
@@ -144,6 +144,6 @@ abstract class _UserFilter implements UserFilter {
   Multihash? get group;
   @override
   @JsonKey(ignore: true)
-  _$$_UserFilterCopyWith<_$_UserFilter> get copyWith =>
+  _$$UserFilterImplCopyWith<_$UserFilterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

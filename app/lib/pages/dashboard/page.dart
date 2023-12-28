@@ -38,7 +38,6 @@ class _DashboardPageState extends State<DashboardPage> {
                       child: const ClockView(),
                     ),
                   )),
-                  const SizedBox(height: 16),
                   Card(
                       child: Padding(
                     padding: const EdgeInsets.all(16.0),

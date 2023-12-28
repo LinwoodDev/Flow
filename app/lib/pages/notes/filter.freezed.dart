@@ -93,11 +93,11 @@ class _$NoteFilterCopyWithImpl<$Res, $Val extends NoteFilter>
 }
 
 /// @nodoc
-abstract class _$$_NoteFilterCopyWith<$Res>
+abstract class _$$NoteFilterImplCopyWith<$Res>
     implements $NoteFilterCopyWith<$Res> {
-  factory _$$_NoteFilterCopyWith(
-          _$_NoteFilter value, $Res Function(_$_NoteFilter) then) =
-      __$$_NoteFilterCopyWithImpl<$Res>;
+  factory _$$NoteFilterImplCopyWith(
+          _$NoteFilterImpl value, $Res Function(_$NoteFilterImpl) then) =
+      __$$NoteFilterImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -110,11 +110,11 @@ abstract class _$$_NoteFilterCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_NoteFilterCopyWithImpl<$Res>
-    extends _$NoteFilterCopyWithImpl<$Res, _$_NoteFilter>
-    implements _$$_NoteFilterCopyWith<$Res> {
-  __$$_NoteFilterCopyWithImpl(
-      _$_NoteFilter _value, $Res Function(_$_NoteFilter) _then)
+class __$$NoteFilterImplCopyWithImpl<$Res>
+    extends _$NoteFilterCopyWithImpl<$Res, _$NoteFilterImpl>
+    implements _$$NoteFilterImplCopyWith<$Res> {
+  __$$NoteFilterImplCopyWithImpl(
+      _$NoteFilterImpl _value, $Res Function(_$NoteFilterImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -127,7 +127,7 @@ class __$$_NoteFilterCopyWithImpl<$Res>
     Object? selectedLabel = freezed,
     Object? source = freezed,
   }) {
-    return _then(_$_NoteFilter(
+    return _then(_$NoteFilterImpl(
       showDone: null == showDone
           ? _value.showDone
           : showDone // ignore: cast_nullable_to_non_nullable
@@ -158,8 +158,8 @@ class __$$_NoteFilterCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NoteFilter extends _NoteFilter {
-  const _$_NoteFilter(
+class _$NoteFilterImpl extends _NoteFilter {
+  const _$NoteFilterImpl(
       {this.showDone = true,
       this.showInProgress = true,
       this.showTodo = true,
@@ -194,7 +194,7 @@ class _$_NoteFilter extends _NoteFilter {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NoteFilter &&
+            other is _$NoteFilterImpl &&
             (identical(other.showDone, showDone) ||
                 other.showDone == showDone) &&
             (identical(other.showInProgress, showInProgress) ||
@@ -215,8 +215,8 @@ class _$_NoteFilter extends _NoteFilter {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NoteFilterCopyWith<_$_NoteFilter> get copyWith =>
-      __$$_NoteFilterCopyWithImpl<_$_NoteFilter>(this, _$identity);
+  _$$NoteFilterImplCopyWith<_$NoteFilterImpl> get copyWith =>
+      __$$NoteFilterImplCopyWithImpl<_$NoteFilterImpl>(this, _$identity);
 }
 
 abstract class _NoteFilter extends NoteFilter {
@@ -226,7 +226,7 @@ abstract class _NoteFilter extends NoteFilter {
       final bool showTodo,
       final bool showNote,
       final Multihash? selectedLabel,
-      final String? source}) = _$_NoteFilter;
+      final String? source}) = _$NoteFilterImpl;
   const _NoteFilter._() : super._();
 
   @override
@@ -243,6 +243,6 @@ abstract class _NoteFilter extends NoteFilter {
   String? get source;
   @override
   @JsonKey(ignore: true)
-  _$$_NoteFilterCopyWith<_$_NoteFilter> get copyWith =>
+  _$$NoteFilterImplCopyWith<_$NoteFilterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

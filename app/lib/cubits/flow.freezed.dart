@@ -56,21 +56,22 @@ class _$FlowStateCopyWithImpl<$Res, $Val extends FlowState>
 }
 
 /// @nodoc
-abstract class _$$_FlowStateCopyWith<$Res> implements $FlowStateCopyWith<$Res> {
-  factory _$$_FlowStateCopyWith(
-          _$_FlowState value, $Res Function(_$_FlowState) then) =
-      __$$_FlowStateCopyWithImpl<$Res>;
+abstract class _$$FlowStateImplCopyWith<$Res>
+    implements $FlowStateCopyWith<$Res> {
+  factory _$$FlowStateImplCopyWith(
+          _$FlowStateImpl value, $Res Function(_$FlowStateImpl) then) =
+      __$$FlowStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<String> disabledSources});
 }
 
 /// @nodoc
-class __$$_FlowStateCopyWithImpl<$Res>
-    extends _$FlowStateCopyWithImpl<$Res, _$_FlowState>
-    implements _$$_FlowStateCopyWith<$Res> {
-  __$$_FlowStateCopyWithImpl(
-      _$_FlowState _value, $Res Function(_$_FlowState) _then)
+class __$$FlowStateImplCopyWithImpl<$Res>
+    extends _$FlowStateCopyWithImpl<$Res, _$FlowStateImpl>
+    implements _$$FlowStateImplCopyWith<$Res> {
+  __$$FlowStateImplCopyWithImpl(
+      _$FlowStateImpl _value, $Res Function(_$FlowStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -78,7 +79,7 @@ class __$$_FlowStateCopyWithImpl<$Res>
   $Res call({
     Object? disabledSources = null,
   }) {
-    return _then(_$_FlowState(
+    return _then(_$FlowStateImpl(
       disabledSources: null == disabledSources
           ? _value._disabledSources
           : disabledSources // ignore: cast_nullable_to_non_nullable
@@ -89,8 +90,8 @@ class __$$_FlowStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_FlowState implements _FlowState {
-  const _$_FlowState({final List<String> disabledSources = const []})
+class _$FlowStateImpl implements _FlowState {
+  const _$FlowStateImpl({final List<String> disabledSources = const []})
       : _disabledSources = disabledSources;
 
   final List<String> _disabledSources;
@@ -111,7 +112,7 @@ class _$_FlowState implements _FlowState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FlowState &&
+            other is _$FlowStateImpl &&
             const DeepCollectionEquality()
                 .equals(other._disabledSources, _disabledSources));
   }
@@ -123,17 +124,18 @@ class _$_FlowState implements _FlowState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FlowStateCopyWith<_$_FlowState> get copyWith =>
-      __$$_FlowStateCopyWithImpl<_$_FlowState>(this, _$identity);
+  _$$FlowStateImplCopyWith<_$FlowStateImpl> get copyWith =>
+      __$$FlowStateImplCopyWithImpl<_$FlowStateImpl>(this, _$identity);
 }
 
 abstract class _FlowState implements FlowState {
-  const factory _FlowState({final List<String> disabledSources}) = _$_FlowState;
+  const factory _FlowState({final List<String> disabledSources}) =
+      _$FlowStateImpl;
 
   @override
   List<String> get disabledSources;
   @override
   @JsonKey(ignore: true)
-  _$$_FlowStateCopyWith<_$_FlowState> get copyWith =>
+  _$$FlowStateImplCopyWith<_$FlowStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -57,7 +57,7 @@ class DataSettingsView extends StatelessWidget {
               childrenBuilder: (ctx) {
                 final settingsCubit = context.read<SettingsCubit>();
                 void changeSyncMode(SyncMode syncMode) {
-                  settingsCubit.setSyncMode(syncMode);
+                  settingsCubit.changeSyncMode(syncMode);
                   Navigator.of(context).pop();
                 }
 

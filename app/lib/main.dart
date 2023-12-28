@@ -100,13 +100,17 @@ class FlowApp extends StatelessWidget {
         buildWhen: (previous, current) =>
             previous.design != current.design ||
             previous.themeMode != current.themeMode ||
-            previous.locale != current.locale,
+            previous.locale != current.locale ||
+            previous.density != current.density ||
+            previous.highContrast != current.highContrast,
         builder: (context, state) => MaterialApp.router(
               debugShowCheckedModeBanner: false,
               routerConfig: _router,
               title: applicationName,
-              theme: getThemeData(state.design, false, lightDynamic),
-              darkTheme: getThemeData(state.design, true, darkDynamic),
+              theme: getThemeData(state.design, false,
+                  state.density.toFlutter(), lightDynamic, state.highContrast),
+              darkTheme: getThemeData(state.design, true,
+                  state.density.toFlutter(), lightDynamic, state.highContrast),
               themeMode: state.themeMode,
               locale: state.locale.isEmpty ? null : Locale(state.locale),
               localizationsDelegates: const [
