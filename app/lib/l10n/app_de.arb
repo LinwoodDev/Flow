@@ -287,5 +287,10 @@
   "link": "Link",
   "codeBlock": "Code-Block",
   "quote": "Zitat",
-  "numberedList": "Nummerierte Liste"
+  "numberedList": "Nummerierte Liste",
+  "density": "Density",
+  "compact": "Compact",
+  "comfortable": "Comfortable",
+  "standard": "Standard",
+  "highContrast": "High contrast"
 }
