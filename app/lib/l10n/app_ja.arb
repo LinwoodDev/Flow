@@ -287,5 +287,10 @@
   "link": "リンク",
   "codeBlock": "コードブロック",
   "quote": "引用",
-  "numberedList": "番号付きリスト"
+  "numberedList": "番号付きリスト",
+  "density": "Density",
+  "compact": "Compact",
+  "comfortable": "Comfortable",
+  "standard": "Standard",
+  "highContrast": "High contrast"
 }
