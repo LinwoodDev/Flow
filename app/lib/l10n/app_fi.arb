@@ -287,5 +287,10 @@
   "link": "Linkki",
   "codeBlock": "Koodilohko",
   "quote": "Tarjous",
-  "numberedList": "Numeroitu luettelo"
+  "numberedList": "Numeroitu luettelo",
+  "density": "Density",
+  "compact": "Compact",
+  "comfortable": "Comfortable",
+  "standard": "Standard",
+  "highContrast": "High contrast"
 }
