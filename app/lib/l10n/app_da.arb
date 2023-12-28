@@ -287,5 +287,10 @@
   "link": "Link",
   "codeBlock": "Kode blok",
   "quote": "Tilbud",
-  "numberedList": "Nummereret liste"
+  "numberedList": "Nummereret liste",
+  "density": "Density",
+  "compact": "Compact",
+  "comfortable": "Comfortable",
+  "standard": "Standard",
+  "highContrast": "High contrast"
 }
