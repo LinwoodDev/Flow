@@ -287,5 +287,10 @@
   "link": "Link",
   "codeBlock": "Blok kodu",
   "quote": "Oferta",
-  "numberedList": "Lista numerowana"
+  "numberedList": "Lista numerowana",
+  "density": "Density",
+  "compact": "Compact",
+  "comfortable": "Comfortable",
+  "standard": "Standard",
+  "highContrast": "High contrast"
 }
