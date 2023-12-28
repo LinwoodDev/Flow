@@ -287,5 +287,10 @@
   "link": "رابط",
   "codeBlock": "كتلة التعليمات البرمجية",
   "quote": "اقتباس",
-  "numberedList": "قائمة مرقمة"
+  "numberedList": "قائمة مرقمة",
+  "density": "Density",
+  "compact": "Compact",
+  "comfortable": "Comfortable",
+  "standard": "Standard",
+  "highContrast": "High contrast"
 }
