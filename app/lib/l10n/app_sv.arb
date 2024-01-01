@@ -288,9 +288,9 @@
   "codeBlock": "Kod block",
   "quote": "Offert",
   "numberedList": "Numrerad lista",
-  "density": "Density",
-  "compact": "Compact",
-  "comfortable": "Comfortable",
+  "density": "Densitet",
+  "compact": "Kompakt",
+  "comfortable": "Bekväm",
   "standard": "Standard",
-  "highContrast": "High contrast"
+  "highContrast": "Hög kontrast"
 }
