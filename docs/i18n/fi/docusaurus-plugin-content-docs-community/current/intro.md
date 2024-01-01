@@ -1,25 +1,25 @@
 ---
 id: "community"
 slug: "/community"
-sidebar_label: "Koti"
+sidebar_label: "Home"
 sidebar_position: 0
-title: "Yhteisö"
+title: "Community"
 ---
 
-Tervetuloa yhteisön osioon.
+Welcome to the community section.
 
-## Kiitokset
+## Acknowledgements
 
-Erityinen kiitos kuuluu seuraaville:
+A special thanks goes to:
 
 * [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
 * [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
 * [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
 
-Kaikki muut lisenssit löytyvät asetuksista.
+All other licenses can you found in the settings.
 
-## Hyödyllisiä linkkejä
+## Useful links
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
-* [Matriisi](https://go.linwood.dev/matrix)
+* [Matrix](https://go.linwood.dev/matrix)

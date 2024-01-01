@@ -1,24 +1,24 @@
 ---
 id: "community"
 slug: "/community"
-sidebar_label: "المنزل"
+sidebar_label: "Home"
 sidebar_position: 0
-title: "المجتمع"
+title: "Community"
 ---
 
-مرحبا بكم في قسم المجتمع.
+Welcome to the community section.
 
-## الإشادة
+## Acknowledgements
 
-ويوجه الشكر الخاص إلى:
+A special thanks goes to:
 
 * [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
 * [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
 * [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
 
-يمكن العثور على جميع التراخيص الأخرى في الإعدادات.
+All other licenses can you found in the settings.
 
-## روابط مفيدة
+## Useful links
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [ديسكورد](https://go.linwood.dev/discord)
