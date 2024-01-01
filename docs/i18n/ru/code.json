@@ -335,23 +335,23 @@
     "description": "The title of the tag list page"
   },
   "theme.admonition.warning": {
-    "message": "warning",
+    "message": "предупреждение",
     "description": "The default label used for the Warning admonition (:::warning)"
   },
   "theme.DocSidebarItem.expandCategoryAriaLabel": {
-    "message": "Expand sidebar category '{label}'",
+    "message": "Развернуть категорию боковой панели '{label}'",
     "description": "The ARIA label to expand the sidebar category"
   },
   "theme.DocSidebarItem.collapseCategoryAriaLabel": {
-    "message": "Collapse sidebar category '{label}'",
+    "message": "Свернуть боковую панель категории '{label}'",
     "description": "The ARIA label to collapse the sidebar category"
   },
   "theme.unlistedContent.title": {
-    "message": "Unlisted page",
+    "message": "Страница не внесена",
     "description": "The unlisted content banner title"
   },
   "theme.unlistedContent.message": {
-    "message": "This page is unlisted. Search engines will not index it, and only users having a direct link can access it.",
+    "message": "Эта страница удалена. Поисковые системы не будут индексировать ее, и только пользователи, имеющие прямую ссылку, имеют доступ к ней.",
     "description": "The unlisted content banner message"
   }
 }
