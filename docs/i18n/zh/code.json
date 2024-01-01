@@ -335,7 +335,7 @@
     "description": "The title of the tag list page"
   },
   "theme.admonition.warning": {
-    "message": "warning",
+    "message": "警告",
     "description": "The default label used for the Warning admonition (:::warning)"
   },
   "theme.DocSidebarItem.expandCategoryAriaLabel": {
@@ -347,11 +347,11 @@
     "description": "The ARIA label to collapse the sidebar category"
   },
   "theme.unlistedContent.title": {
-    "message": "Unlisted page",
+    "message": "未列出页面",
     "description": "The unlisted content banner title"
   },
   "theme.unlistedContent.message": {
-    "message": "This page is unlisted. Search engines will not index it, and only users having a direct link can access it.",
+    "message": "此页面未列出。搜索引擎不会索引它，只有拥有直接链接的用户才能访问它。",
     "description": "The unlisted content banner message"
   }
 }
