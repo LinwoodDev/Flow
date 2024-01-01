@@ -288,9 +288,9 @@
   "codeBlock": "كتلة التعليمات البرمجية",
   "quote": "اقتباس",
   "numberedList": "قائمة مرقمة",
-  "density": "Density",
-  "compact": "Compact",
-  "comfortable": "Comfortable",
-  "standard": "Standard",
-  "highContrast": "High contrast"
+  "density": "الكثافة",
+  "compact": "مدمج",
+  "comfortable": "مريح",
+  "standard": "قياسي",
+  "highContrast": "تباين عالي"
 }
