@@ -288,9 +288,9 @@
   "codeBlock": "Блок коду",
   "quote": "Цитувати",
   "numberedList": "Нумерований список",
-  "density": "Density",
-  "compact": "Compact",
-  "comfortable": "Comfortable",
-  "standard": "Standard",
-  "highContrast": "High contrast"
+  "density": "Густина",
+  "compact": "Компактний",
+  "comfortable": "Комфортний",
+  "standard": "Стандартна",
+  "highContrast": "Високий контраст"
 }
