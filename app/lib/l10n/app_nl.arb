@@ -288,9 +288,9 @@
   "codeBlock": "Code blok",
   "quote": "Offerte",
   "numberedList": "Genummerde lijst",
-  "density": "Density",
-  "compact": "Compact",
-  "comfortable": "Comfortable",
-  "standard": "Standard",
-  "highContrast": "High contrast"
+  "density": "Dichtheid",
+  "compact": "Compacte",
+  "comfortable": "Comfortabel",
+  "standard": "Standaard",
+  "highContrast": "Hoog contrast"
 }
