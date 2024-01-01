@@ -288,9 +288,9 @@
   "codeBlock": "Kode blok",
   "quote": "Tilbud",
   "numberedList": "Nummereret liste",
-  "density": "Density",
-  "compact": "Compact",
-  "comfortable": "Comfortable",
+  "density": "Tæthed",
+  "compact": "Kompakt",
+  "comfortable": "Behageligt",
   "standard": "Standard",
-  "highContrast": "High contrast"
+  "highContrast": "Høj kontrast"
 }
