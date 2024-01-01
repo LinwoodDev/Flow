@@ -335,23 +335,23 @@
     "description": "The title of the tag list page"
   },
   "theme.admonition.warning": {
-    "message": "warning",
+    "message": "попередження",
     "description": "The default label used for the Warning admonition (:::warning)"
   },
   "theme.DocSidebarItem.expandCategoryAriaLabel": {
-    "message": "Expand sidebar category '{label}'",
+    "message": "Розгорнути бічну панель категорії '{label}'",
     "description": "The ARIA label to expand the sidebar category"
   },
   "theme.DocSidebarItem.collapseCategoryAriaLabel": {
-    "message": "Collapse sidebar category '{label}'",
+    "message": "Згорнути бічну панель категорії '{label}'",
     "description": "The ARIA label to collapse the sidebar category"
   },
   "theme.unlistedContent.title": {
-    "message": "Unlisted page",
+    "message": "Поза списком",
     "description": "The unlisted content banner title"
   },
   "theme.unlistedContent.message": {
-    "message": "This page is unlisted. Search engines will not index it, and only users having a direct link can access it.",
+    "message": "Ця сторінка зникає. Пошук не буде індексувати її лише користувачі, які мають пряме посилання, можуть отримати доступ до цієї сторінки.",
     "description": "The unlisted content banner message"
   }
 }
