@@ -335,23 +335,23 @@
     "description": "The title of the tag list page"
   },
   "theme.admonition.warning": {
-    "message": "warning",
+    "message": "警告",
     "description": "The default label used for the Warning admonition (:::warning)"
   },
   "theme.DocSidebarItem.expandCategoryAriaLabel": {
-    "message": "Expand sidebar category '{label}'",
+    "message": "サイドバーカテゴリ '{label} ' を展開",
     "description": "The ARIA label to expand the sidebar category"
   },
   "theme.DocSidebarItem.collapseCategoryAriaLabel": {
-    "message": "Collapse sidebar category '{label}'",
+    "message": "サイドバーカテゴリ「{label}」を閉じる",
     "description": "The ARIA label to collapse the sidebar category"
   },
   "theme.unlistedContent.title": {
-    "message": "Unlisted page",
+    "message": "リストされていないページ",
     "description": "The unlisted content banner title"
   },
   "theme.unlistedContent.message": {
-    "message": "This page is unlisted. Search engines will not index it, and only users having a direct link can access it.",
+    "message": "このページはリストされていません。検索エンジンはインデックスを作成せず、ダイレクトリンクを持つユーザーのみがアクセスできます。",
     "description": "The unlisted content banner message"
   }
 }
