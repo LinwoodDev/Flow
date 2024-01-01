@@ -288,9 +288,9 @@
   "codeBlock": "Ταμπλό κώδικα",
   "quote": "Παράθεση",
   "numberedList": "Αριθμημένη λίστα",
-  "density": "Density",
-  "compact": "Compact",
-  "comfortable": "Comfortable",
-  "standard": "Standard",
-  "highContrast": "High contrast"
+  "density": "Πυκνότητα",
+  "compact": "Συμπαγής",
+  "comfortable": "Άνετο",
+  "standard": "Τυπικό",
+  "highContrast": "Υψηλή αντίθεση"
 }
