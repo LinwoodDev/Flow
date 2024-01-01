@@ -335,7 +335,7 @@
     "description": "The title of the tag list page"
   },
   "theme.admonition.warning": {
-    "message": "warning",
+    "message": "προειδοποίηση",
     "description": "The default label used for the Warning admonition (:::warning)"
   },
   "theme.DocSidebarItem.expandCategoryAriaLabel": {
@@ -347,11 +347,11 @@
     "description": "The ARIA label to collapse the sidebar category"
   },
   "theme.unlistedContent.title": {
-    "message": "Unlisted page",
+    "message": "Μη καταχωρημένη σελίδα",
     "description": "The unlisted content banner title"
   },
   "theme.unlistedContent.message": {
-    "message": "This page is unlisted. Search engines will not index it, and only users having a direct link can access it.",
+    "message": "Αυτή η σελίδα δεν είναι καταχωρημένη. Οι μηχανές αναζήτησης δεν θα την ευρετηριάσουν, και μόνο οι χρήστες που έχουν άμεση σύνδεση μπορούν να έχουν πρόσβαση σε αυτήν.",
     "description": "The unlisted content banner message"
   }
 }
