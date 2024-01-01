@@ -288,9 +288,9 @@
   "codeBlock": "コードブロック",
   "quote": "引用",
   "numberedList": "番号付きリスト",
-  "density": "Density",
-  "compact": "Compact",
-  "comfortable": "Comfortable",
-  "standard": "Standard",
-  "highContrast": "High contrast"
+  "density": "解像度:",
+  "compact": "コンパクト化",
+  "comfortable": "快適さ",
+  "standard": "標準",
+  "highContrast": "高コントラストformat@@0"
 }
