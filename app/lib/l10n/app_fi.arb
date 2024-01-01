@@ -288,9 +288,9 @@
   "codeBlock": "Koodilohko",
   "quote": "Tarjous",
   "numberedList": "Numeroitu luettelo",
-  "density": "Density",
-  "compact": "Compact",
-  "comfortable": "Comfortable",
-  "standard": "Standard",
-  "highContrast": "High contrast"
+  "density": "Tiheys",
+  "compact": "Kompakti",
+  "comfortable": "Mukava",
+  "standard": "Normaali",
+  "highContrast": "Korkea kontrasti"
 }
