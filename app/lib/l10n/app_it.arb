@@ -288,9 +288,9 @@
   "codeBlock": "Blocco codice",
   "quote": "Preventivo",
   "numberedList": "Elenco numerato",
-  "density": "Density",
-  "compact": "Compact",
-  "comfortable": "Comfortable",
+  "density": "Densità",
+  "compact": "Compatto",
+  "comfortable": "Confortevole",
   "standard": "Standard",
-  "highContrast": "High contrast"
+  "highContrast": "Alto contrasto"
 }
