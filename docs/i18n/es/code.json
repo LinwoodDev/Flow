@@ -335,23 +335,23 @@
     "description": "The title of the tag list page"
   },
   "theme.admonition.warning": {
-    "message": "warning",
+    "message": "advertencia",
     "description": "The default label used for the Warning admonition (:::warning)"
   },
   "theme.DocSidebarItem.expandCategoryAriaLabel": {
-    "message": "Expand sidebar category '{label}'",
+    "message": "Expandir la categoría de barra lateral '{label}'",
     "description": "The ARIA label to expand the sidebar category"
   },
   "theme.DocSidebarItem.collapseCategoryAriaLabel": {
-    "message": "Collapse sidebar category '{label}'",
+    "message": "Colapsar la barra lateral categoría '{label}'",
     "description": "The ARIA label to collapse the sidebar category"
   },
   "theme.unlistedContent.title": {
-    "message": "Unlisted page",
+    "message": "Página no enumerada",
     "description": "The unlisted content banner title"
   },
   "theme.unlistedContent.message": {
-    "message": "This page is unlisted. Search engines will not index it, and only users having a direct link can access it.",
+    "message": "Esta página no está en la lista. Los motores de búsqueda no lo indexarán, y sólo los usuarios que tengan un enlace directo pueden acceder a ella.",
     "description": "The unlisted content banner message"
   }
 }
