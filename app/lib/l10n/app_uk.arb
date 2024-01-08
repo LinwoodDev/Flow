@@ -287,5 +287,10 @@
   "link": "Лінк",
   "codeBlock": "Блок коду",
   "quote": "Цитувати",
-  "numberedList": "Нумерований список"
+  "numberedList": "Нумерований список",
+  "density": "Густина",
+  "compact": "Компактний",
+  "comfortable": "Комфортний",
+  "standard": "Стандартна",
+  "highContrast": "Високий контраст"
 }

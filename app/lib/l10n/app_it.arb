@@ -287,5 +287,10 @@
   "link": "Link",
   "codeBlock": "Blocco codice",
   "quote": "Preventivo",
-  "numberedList": "Elenco numerato"
+  "numberedList": "Elenco numerato",
+  "density": "Densità",
+  "compact": "Compatto",
+  "comfortable": "Confortevole",
+  "standard": "Standard",
+  "highContrast": "Alto contrasto"
 }

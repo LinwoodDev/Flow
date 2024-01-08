@@ -250,10 +250,6 @@
     "message": "Attiva/disattiva a capo automatico",
     "description": "The title attribute for toggle word wrapping button of code block lines"
   },
-  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
-    "message": "Attiva/disattiva la categoria della barra laterale pieghevole '{label}'",
-    "description": "The ARIA label to toggle the collapsible sidebar category"
-  },
   "theme.NavBar.navAriaLabel": {
     "message": "Principale",
     "description": "The ARIA label for the main navigation"
@@ -337,5 +333,25 @@
   "theme.tags.tagsPageTitle": {
     "message": "Etichette",
     "description": "The title of the tag list page"
+  },
+  "theme.admonition.warning": {
+    "message": "avviso",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "Espandi categoria barra laterale '{label}'",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "Comprimi categoria barra laterale '{label}'",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.unlistedContent.title": {
+    "message": "Pagina non elencata",
+    "description": "The unlisted content banner title"
+  },
+  "theme.unlistedContent.message": {
+    "message": "Questa pagina non è elencata. I motori di ricerca non la indicizzeranno, e solo gli utenti che hanno un collegamento diretto possono accedervi.",
+    "description": "The unlisted content banner message"
   }
 }

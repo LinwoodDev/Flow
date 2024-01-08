@@ -287,5 +287,10 @@
   "link": "Odkaz",
   "codeBlock": "Blok kódu",
   "quote": "Cenová nabídka",
-  "numberedList": "Číslovaný seznam"
+  "numberedList": "Číslovaný seznam",
+  "density": "Hustota",
+  "compact": "Kompaktní",
+  "comfortable": "Komfortní",
+  "standard": "Standardní",
+  "highContrast": "Vysoký kontrast"
 }

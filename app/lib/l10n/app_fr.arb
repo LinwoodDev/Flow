@@ -287,5 +287,10 @@
   "link": "Lier",
   "codeBlock": "Bloc de code",
   "quote": "Devis",
-  "numberedList": "Liste numérotée"
+  "numberedList": "Liste numérotée",
+  "density": "Densité",
+  "compact": "Compact",
+  "comfortable": "Confortable",
+  "standard": "Standard",
+  "highContrast": "Contraste élevé"
 }

@@ -287,5 +287,10 @@
   "link": "Lenke",
   "codeBlock": "Kode blokk",
   "quote": "Sitat",
-  "numberedList": "Nummerert liste"
+  "numberedList": "Nummerert liste",
+  "density": "Tetthet",
+  "compact": "Kompakt",
+  "comfortable": "Komfortabel",
+  "standard": "Vanlig",
+  "highContrast": "Høy kontrast"
 }

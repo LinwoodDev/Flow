@@ -287,5 +287,10 @@
   "link": "Σύνδεσμος",
   "codeBlock": "Ταμπλό κώδικα",
   "quote": "Παράθεση",
-  "numberedList": "Αριθμημένη λίστα"
+  "numberedList": "Αριθμημένη λίστα",
+  "density": "Πυκνότητα",
+  "compact": "Συμπαγής",
+  "comfortable": "Άνετο",
+  "standard": "Τυπικό",
+  "highContrast": "Υψηλή αντίθεση"
 }

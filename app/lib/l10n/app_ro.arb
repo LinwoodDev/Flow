@@ -287,5 +287,10 @@
   "link": "Link-ul",
   "codeBlock": "Bloc cod",
   "quote": "Ofertă",
-  "numberedList": "Listă numerotată"
+  "numberedList": "Listă numerotată",
+  "density": "Densitate",
+  "compact": "Compact",
+  "comfortable": "Comfortable",
+  "standard": "Standard",
+  "highContrast": "Contrast mare"
 }

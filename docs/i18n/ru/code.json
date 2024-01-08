@@ -250,10 +250,6 @@
     "message": "Переключить перенос слов",
     "description": "The title attribute for toggle word wrapping button of code block lines"
   },
-  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
-    "message": "Переключить свертываемую категорию боковой панели '{label} ' '",
-    "description": "The ARIA label to toggle the collapsible sidebar category"
-  },
   "theme.NavBar.navAriaLabel": {
     "message": "Главный",
     "description": "The ARIA label for the main navigation"
@@ -337,5 +333,25 @@
   "theme.tags.tagsPageTitle": {
     "message": "Теги",
     "description": "The title of the tag list page"
+  },
+  "theme.admonition.warning": {
+    "message": "предупреждение",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "Развернуть категорию боковой панели '{label}'",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "Свернуть боковую панель категории '{label}'",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.unlistedContent.title": {
+    "message": "Страница не внесена",
+    "description": "The unlisted content banner title"
+  },
+  "theme.unlistedContent.message": {
+    "message": "Эта страница удалена. Поисковые системы не будут индексировать ее, и только пользователи, имеющие прямую ссылку, имеют доступ к ней.",
+    "description": "The unlisted content banner message"
   }
 }
