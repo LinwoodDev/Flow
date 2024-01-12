@@ -144,7 +144,7 @@ class _$NotebookImpl extends _Notebook {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NotebookImpl &&
@@ -202,7 +202,7 @@ Note _$NoteFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Note {
   @MultihashConverter()
-  Multihash get notebookId => throw _privateConstructorUsedError;
+  Multihash? get notebookId => throw _privateConstructorUsedError;
   @MultihashConverter()
   Multihash? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -221,7 +221,7 @@ abstract class $NoteCopyWith<$Res> {
       _$NoteCopyWithImpl<$Res, Note>;
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash notebookId,
+      {@MultihashConverter() Multihash? notebookId,
       @MultihashConverter() Multihash? id,
       String name,
       String description,
@@ -242,7 +242,7 @@ class _$NoteCopyWithImpl<$Res, $Val extends Note>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? notebookId = null,
+    Object? notebookId = freezed,
     Object? id = freezed,
     Object? name = null,
     Object? description = null,
@@ -250,10 +250,10 @@ class _$NoteCopyWithImpl<$Res, $Val extends Note>
     Object? priority = null,
   }) {
     return _then(_value.copyWith(
-      notebookId: null == notebookId
+      notebookId: freezed == notebookId
           ? _value.notebookId
           : notebookId // ignore: cast_nullable_to_non_nullable
-              as Multihash,
+              as Multihash?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -286,7 +286,7 @@ abstract class _$$NoteImplCopyWith<$Res> implements $NoteCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash notebookId,
+      {@MultihashConverter() Multihash? notebookId,
       @MultihashConverter() Multihash? id,
       String name,
       String description,
@@ -304,7 +304,7 @@ class __$$NoteImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? notebookId = null,
+    Object? notebookId = freezed,
     Object? id = freezed,
     Object? name = null,
     Object? description = null,
@@ -312,10 +312,10 @@ class __$$NoteImplCopyWithImpl<$Res>
     Object? priority = null,
   }) {
     return _then(_$NoteImpl(
-      notebookId: null == notebookId
+      notebookId: freezed == notebookId
           ? _value.notebookId
           : notebookId // ignore: cast_nullable_to_non_nullable
-              as Multihash,
+              as Multihash?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -344,7 +344,7 @@ class __$$NoteImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$NoteImpl extends _Note {
   const _$NoteImpl(
-      {@MultihashConverter() required this.notebookId,
+      {@MultihashConverter() this.notebookId,
       @MultihashConverter() this.id,
       this.name = '',
       this.description = '',
@@ -357,7 +357,7 @@ class _$NoteImpl extends _Note {
 
   @override
   @MultihashConverter()
-  final Multihash notebookId;
+  final Multihash? notebookId;
   @override
   @MultihashConverter()
   final Multihash? id;
@@ -379,7 +379,7 @@ class _$NoteImpl extends _Note {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NoteImpl &&
@@ -415,7 +415,7 @@ class _$NoteImpl extends _Note {
 
 abstract class _Note extends Note implements DescriptiveModel {
   const factory _Note(
-      {@MultihashConverter() required final Multihash notebookId,
+      {@MultihashConverter() final Multihash? notebookId,
       @MultihashConverter() final Multihash? id,
       final String name,
       final String description,
@@ -427,7 +427,7 @@ abstract class _Note extends Note implements DescriptiveModel {
 
   @override
   @MultihashConverter()
-  Multihash get notebookId;
+  Multihash? get notebookId;
   @override
   @MultihashConverter()
   Multihash? get id;

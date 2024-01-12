@@ -406,7 +406,7 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FixedCalendarItemImpl &&
@@ -857,7 +857,7 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RepeatingCalendarItemImpl &&
@@ -1309,7 +1309,7 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AutoCalendarItemImpl &&

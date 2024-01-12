@@ -266,9 +266,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
         onPressed: () => showDialog<Note>(
             context: context,
             builder: (context) => NoteDialog(
-                  note: Note(
-                    parentId: widget.parent?.model,
-                  ),
+                  note: const Note(),
                   source: widget.parent?.source,
                   create: true,
                 )).then((_) => _controller.refresh()),

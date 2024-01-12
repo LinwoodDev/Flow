@@ -36,7 +36,7 @@ class Note with _$Note {
 
   @Implements<DescriptiveModel>()
   const factory Note({
-    @MultihashConverter() required Multihash notebookId,
+    @MultihashConverter() Multihash? notebookId,
     @MultihashConverter() Multihash? id,
     @Default('') String name,
     @Default('') String description,

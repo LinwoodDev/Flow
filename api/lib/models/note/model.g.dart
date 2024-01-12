@@ -35,8 +35,8 @@ Json? _$JsonConverterToJson<Json, Value>(
     value == null ? null : toJson(value);
 
 _$NoteImpl _$$NoteImplFromJson(Map<String, dynamic> json) => _$NoteImpl(
-      notebookId:
-          const MultihashConverter().fromJson(json['notebookId'] as List<int>),
+      notebookId: _$JsonConverterFromJson<List<int>, Multihash>(
+          json['notebookId'], const MultihashConverter().fromJson),
       id: _$JsonConverterFromJson<List<int>, Multihash>(
           json['id'], const MultihashConverter().fromJson),
       name: json['name'] as String? ?? '',
@@ -47,7 +47,8 @@ _$NoteImpl _$$NoteImplFromJson(Map<String, dynamic> json) => _$NoteImpl(
 
 Map<String, dynamic> _$$NoteImplToJson(_$NoteImpl instance) =>
     <String, dynamic>{
-      'notebookId': const MultihashConverter().toJson(instance.notebookId),
+      'notebookId': _$JsonConverterToJson<List<int>, Multihash>(
+          instance.notebookId, const MultihashConverter().toJson),
       'id': _$JsonConverterToJson<List<int>, Multihash>(
           instance.id, const MultihashConverter().toJson),
       'name': instance.name,

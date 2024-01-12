@@ -165,7 +165,7 @@ class _$PlaceImpl extends _Place {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PlaceImpl &&
