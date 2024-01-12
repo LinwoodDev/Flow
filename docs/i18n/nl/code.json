@@ -250,10 +250,6 @@
     "message": "Schakelen tussen woordwrap",
     "description": "The title attribute for toggle word wrapping button of code block lines"
   },
-  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
-    "message": "De inklapbare sidebar categorie '{label}' in-/uitschakelen",
-    "description": "The ARIA label to toggle the collapsible sidebar category"
-  },
   "theme.NavBar.navAriaLabel": {
     "message": "Algemeen",
     "description": "The ARIA label for the main navigation"
@@ -337,5 +333,25 @@
   "theme.tags.tagsPageTitle": {
     "message": "Labels",
     "description": "The title of the tag list page"
+  },
+  "theme.admonition.warning": {
+    "message": "waarschuwing",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "Zijbalk categorie '{label} ' uitvouwen",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "Zijbalk categorie{label} samenvouwen",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.unlistedContent.title": {
+    "message": "Niet-genoteerde pagina",
+    "description": "The unlisted content banner title"
+  },
+  "theme.unlistedContent.message": {
+    "message": "Deze pagina is niet vermeld. Zoekmachines zullen het niet indexeren en alleen gebruikers met een directe link kunnen het bekijken.",
+    "description": "The unlisted content banner message"
   }
 }

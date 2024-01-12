@@ -100,13 +100,17 @@ class FlowApp extends StatelessWidget {
         buildWhen: (previous, current) =>
             previous.design != current.design ||
             previous.themeMode != current.themeMode ||
-            previous.locale != current.locale,
+            previous.locale != current.locale ||
+            previous.density != current.density ||
+            previous.highContrast != current.highContrast,
         builder: (context, state) => MaterialApp.router(
               debugShowCheckedModeBanner: false,
               routerConfig: _router,
               title: applicationName,
-              theme: getThemeData(state.design, false, lightDynamic),
-              darkTheme: getThemeData(state.design, true, darkDynamic),
+              theme: getThemeData(state.design, false,
+                  state.density.toFlutter(), lightDynamic, state.highContrast),
+              darkTheme: getThemeData(state.design, true,
+                  state.density.toFlutter(), lightDynamic, state.highContrast),
               themeMode: state.themeMode,
               locale: state.locale.isEmpty ? null : Locale(state.locale),
               localizationsDelegates: const [
@@ -125,91 +129,94 @@ class FlowApp extends StatelessWidget {
           builder: (context, state, child) => FlowRootNavigation(child: child),
           routes: [
             GoRoute(
-              path: '/',
-              pageBuilder: _fadeTransitionBuilder(
-                  (context, state) => const DashboardPage()),
-            ),
-            GoRoute(
-              path: '/calendar',
-              pageBuilder: _fadeTransitionBuilder(
-                (context, state) => CalendarPage(
-                  filter: state.extra is CalendarFilter
-                      ? state.extra as CalendarFilter
-                      : const CalendarFilter(),
-                ),
-              ),
-            ),
-            GoRoute(
-              path: '/events',
-              pageBuilder: _fadeTransitionBuilder(
-                (context, state) => const EventsPage(),
-              ),
-            ),
-            GoRoute(
-              path: '/groups',
-              pageBuilder: _fadeTransitionBuilder(
-                (context, state) => const GroupsPage(),
-              ),
-            ),
-            GoRoute(
-                path: '/notes',
+                path: '/',
                 pageBuilder: _fadeTransitionBuilder(
-                  (context, state) => const NotesPage(),
-                ),
+                    (context, state) => const DashboardPage()),
                 routes: [
                   GoRoute(
-                    path: ':source/:id',
-                    name: 'subnote',
+                    path: '/calendar',
                     pageBuilder: _fadeTransitionBuilder(
-                      (context, state) => NotesPage(
-                        parent: SourcedModel(
-                          state.pathParameters['source']!,
-                          Multihash.fromBase64Url(state.pathParameters['id']!),
-                        ),
+                      (context, state) => CalendarPage(
+                        filter: state.extra is CalendarFilter
+                            ? state.extra as CalendarFilter
+                            : const CalendarFilter(),
                       ),
                     ),
                   ),
                   GoRoute(
-                    path: ':id',
-                    name: 'subnote-local',
+                    path: '/events',
                     pageBuilder: _fadeTransitionBuilder(
-                      (context, state) => NotesPage(
-                        parent: SourcedModel(
-                          '',
-                          Multihash.fromBase64Url(state.pathParameters['id']!),
+                      (context, state) => const EventsPage(),
+                    ),
+                  ),
+                  GoRoute(
+                    path: '/groups',
+                    pageBuilder: _fadeTransitionBuilder(
+                      (context, state) => const GroupsPage(),
+                    ),
+                  ),
+                  GoRoute(
+                      path: '/notes',
+                      pageBuilder: _fadeTransitionBuilder(
+                        (context, state) => const NotesPage(),
+                      ),
+                      routes: [
+                        GoRoute(
+                          path: ':source/:id',
+                          name: 'subnote',
+                          pageBuilder: _fadeTransitionBuilder(
+                            (context, state) => NotesPage(
+                              parent: SourcedModel(
+                                state.pathParameters['source']!,
+                                Multihash.fromBase64Url(
+                                    state.pathParameters['id']!),
+                              ),
+                            ),
+                          ),
                         ),
+                        GoRoute(
+                          path: ':id',
+                          name: 'subnote-local',
+                          pageBuilder: _fadeTransitionBuilder(
+                            (context, state) => NotesPage(
+                              parent: SourcedModel(
+                                '',
+                                Multihash.fromBase64Url(
+                                    state.pathParameters['id']!),
+                              ),
+                            ),
+                          ),
+                        )
+                      ]),
+                  GoRoute(
+                    path: '/places',
+                    pageBuilder: _fadeTransitionBuilder(
+                      (context, state) => const PlacesPage(),
+                    ),
+                  ),
+                  GoRoute(
+                    path: '/users',
+                    pageBuilder: _fadeTransitionBuilder(
+                      (context, state) => UsersPage(
+                        filter: state.extra is UserFilter
+                            ? state.extra as UserFilter
+                            : const UserFilter(),
                       ),
                     ),
-                  )
+                  ),
+                  GoRoute(
+                    path: '/sources',
+                    pageBuilder: _fadeTransitionBuilder(
+                      (context, state) => const SourcesPage(),
+                    ),
+                  ),
+                  GoRoute(
+                    path: '/settings',
+                    pageBuilder: _fadeTransitionBuilder(
+                      (context, state) => const SettingsPage(),
+                    ),
+                  ),
                 ]),
-            GoRoute(
-              path: '/places',
-              pageBuilder: _fadeTransitionBuilder(
-                (context, state) => const PlacesPage(),
-              ),
-            ),
-            GoRoute(
-              path: '/users',
-              pageBuilder: _fadeTransitionBuilder(
-                (context, state) => UsersPage(
-                  filter: state.extra is UserFilter
-                      ? state.extra as UserFilter
-                      : const UserFilter(),
-                ),
-              ),
-            ),
-            GoRoute(
-              path: '/sources',
-              pageBuilder: _fadeTransitionBuilder(
-                (context, state) => const SourcesPage(),
-              ),
-            ),
-            GoRoute(
-              path: '/settings',
-              pageBuilder: _fadeTransitionBuilder(
-                (context, state) => const SettingsPage(),
-              ),
-            ),
           ]),
     ],
   );

@@ -1,4 +1,5 @@
 import 'package:flow/pages/dashboard/notes.dart';
+import 'package:flow/widgets/clock.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -25,6 +26,18 @@ class _DashboardPageState extends State<DashboardPage> {
             builder: (context, constraints) {
               return ListView(
                 children: [
+                  Card(
+                      child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(
+                          minHeight: 300,
+                          minWidth: 300,
+                          maxWidth: 600,
+                          maxHeight: 600),
+                      child: const ClockView(),
+                    ),
+                  )),
                   Card(
                       child: Padding(
                     padding: const EdgeInsets.all(16.0),

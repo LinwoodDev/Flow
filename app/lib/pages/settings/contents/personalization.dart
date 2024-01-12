@@ -21,6 +21,14 @@ class PersonalizationSettingsView extends StatelessWidget {
         AppLocalizations.of(context).systemDefault;
   }
 
+  String _getDensityName(BuildContext context, ThemeDensity density) =>
+      switch (density) {
+        ThemeDensity.system => AppLocalizations.of(context).systemDefault,
+        ThemeDensity.comfortable => AppLocalizations.of(context).comfortable,
+        ThemeDensity.compact => AppLocalizations.of(context).compact,
+        ThemeDensity.standard => AppLocalizations.of(context).standard,
+      };
+
   @override
   Widget build(BuildContext context) {
     final locale = Localizations.localeOf(context).languageCode;
@@ -71,7 +79,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                                 },
                               )
                             ]);
-                    if (design != null) cubit.setDesign(design);
+                    if (design != null) cubit.changeDesign(design);
                   },
                 ),
                 ListTile(
@@ -94,7 +102,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                                   },
                                 ))
                             .toList());
-                    if (theme != null) cubit.setThemeMode(theme);
+                    if (theme != null) cubit.changeThemeMode(theme);
                   },
                 ),
                 ListTile(
@@ -126,7 +134,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                                 )),
                       ],
                     );
-                    if (locale != null) cubit.setLocale(locale);
+                    if (locale != null) cubit.changeLocale(locale);
                   },
                 ),
                 if (!kIsWeb &&
@@ -146,13 +154,26 @@ class PersonalizationSettingsView extends StatelessWidget {
                           onChanged: (value) {
                             context
                                 .read<SettingsCubit>()
-                                .setNativeTitleBar(value);
+                                .changeNativeTitleBar(value);
                             windowManager.setTitleBarStyle(value
                                 ? TitleBarStyle.normal
                                 : TitleBarStyle.hidden);
                           },
                         );
                       }),
+                ListTile(
+                  leading: const PhosphorIcon(PhosphorIconsLight.gridNine),
+                  title: Text(AppLocalizations.of(context).density),
+                  subtitle: Text(_getDensityName(context, state.density)),
+                  onTap: () => _openDensityModal(context),
+                ),
+                SwitchListTile(
+                  secondary: const PhosphorIcon(PhosphorIconsLight.circleHalf),
+                  title: Text(AppLocalizations.of(context).highContrast),
+                  value: state.highContrast,
+                  onChanged: (value) =>
+                      context.read<SettingsCubit>().changeHighContrast(value),
+                ),
                 const VerticalDivider(),
                 ListTile(
                   title: Text(AppLocalizations.of(context).startOfWeek),
@@ -167,7 +188,9 @@ class PersonalizationSettingsView extends StatelessWidget {
                         title: Text(getWeekDay(index)),
                         selected: state.startOfWeek == index,
                         onTap: () {
-                          context.read<SettingsCubit>().setStartOfWeek(index);
+                          context
+                              .read<SettingsCubit>()
+                              .changeStartOfWeek(index);
                           Navigator.of(context).pop();
                         },
                       ),
@@ -176,6 +199,29 @@ class PersonalizationSettingsView extends StatelessWidget {
                 ),
               ],
             ));
+  }
+
+  void _openDensityModal(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    final density = cubit.state.density;
+
+    showLeapBottomSheet(
+        context: context,
+        title: AppLocalizations.of(context).density,
+        childrenBuilder: (context) {
+          void changeDensity(ThemeDensity density) {
+            cubit.changeDensity(density);
+            Navigator.of(context).pop();
+          }
+
+          return ThemeDensity.values
+              .map((e) => ListTile(
+                    title: Text(_getDensityName(context, e)),
+                    selected: e == density,
+                    onTap: () => changeDensity(e),
+                  ))
+              .toList();
+        });
   }
 }
 

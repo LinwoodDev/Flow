@@ -68,22 +68,22 @@ class _$ConfigFileCopyWithImpl<$Res, $Val extends ConfigFile>
 }
 
 /// @nodoc
-abstract class _$$_ConfigFileCopyWith<$Res>
+abstract class _$$ConfigFileImplCopyWith<$Res>
     implements $ConfigFileCopyWith<$Res> {
-  factory _$$_ConfigFileCopyWith(
-          _$_ConfigFile value, $Res Function(_$_ConfigFile) then) =
-      __$$_ConfigFileCopyWithImpl<$Res>;
+  factory _$$ConfigFileImplCopyWith(
+          _$ConfigFileImpl value, $Res Function(_$ConfigFileImpl) then) =
+      __$$ConfigFileImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<RemoteStorage>? remotes, Map<String, String> passwords});
 }
 
 /// @nodoc
-class __$$_ConfigFileCopyWithImpl<$Res>
-    extends _$ConfigFileCopyWithImpl<$Res, _$_ConfigFile>
-    implements _$$_ConfigFileCopyWith<$Res> {
-  __$$_ConfigFileCopyWithImpl(
-      _$_ConfigFile _value, $Res Function(_$_ConfigFile) _then)
+class __$$ConfigFileImplCopyWithImpl<$Res>
+    extends _$ConfigFileCopyWithImpl<$Res, _$ConfigFileImpl>
+    implements _$$ConfigFileImplCopyWith<$Res> {
+  __$$ConfigFileImplCopyWithImpl(
+      _$ConfigFileImpl _value, $Res Function(_$ConfigFileImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,7 +92,7 @@ class __$$_ConfigFileCopyWithImpl<$Res>
     Object? remotes = freezed,
     Object? passwords = null,
   }) {
-    return _then(_$_ConfigFile(
+    return _then(_$ConfigFileImpl(
       remotes: freezed == remotes
           ? _value._remotes
           : remotes // ignore: cast_nullable_to_non_nullable
@@ -107,15 +107,15 @@ class __$$_ConfigFileCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ConfigFile implements _ConfigFile {
-  const _$_ConfigFile(
+class _$ConfigFileImpl implements _ConfigFile {
+  const _$ConfigFileImpl(
       {final List<RemoteStorage>? remotes,
       final Map<String, String> passwords = const {}})
       : _remotes = remotes,
         _passwords = passwords;
 
-  factory _$_ConfigFile.fromJson(Map<String, dynamic> json) =>
-      _$$_ConfigFileFromJson(json);
+  factory _$ConfigFileImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ConfigFileImplFromJson(json);
 
   final List<RemoteStorage>? _remotes;
   @override
@@ -145,7 +145,7 @@ class _$_ConfigFile implements _ConfigFile {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ConfigFile &&
+            other is _$ConfigFileImpl &&
             const DeepCollectionEquality().equals(other._remotes, _remotes) &&
             const DeepCollectionEquality()
                 .equals(other._passwords, _passwords));
@@ -161,12 +161,12 @@ class _$_ConfigFile implements _ConfigFile {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ConfigFileCopyWith<_$_ConfigFile> get copyWith =>
-      __$$_ConfigFileCopyWithImpl<_$_ConfigFile>(this, _$identity);
+  _$$ConfigFileImplCopyWith<_$ConfigFileImpl> get copyWith =>
+      __$$ConfigFileImplCopyWithImpl<_$ConfigFileImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ConfigFileToJson(
+    return _$$ConfigFileImplToJson(
       this,
     );
   }
@@ -175,10 +175,10 @@ class _$_ConfigFile implements _ConfigFile {
 abstract class _ConfigFile implements ConfigFile {
   const factory _ConfigFile(
       {final List<RemoteStorage>? remotes,
-      final Map<String, String> passwords}) = _$_ConfigFile;
+      final Map<String, String> passwords}) = _$ConfigFileImpl;
 
   factory _ConfigFile.fromJson(Map<String, dynamic> json) =
-      _$_ConfigFile.fromJson;
+      _$ConfigFileImpl.fromJson;
 
   @override
   List<RemoteStorage>? get remotes;
@@ -186,6 +186,6 @@ abstract class _ConfigFile implements ConfigFile {
   Map<String, String> get passwords;
   @override
   @JsonKey(ignore: true)
-  _$$_ConfigFileCopyWith<_$_ConfigFile> get copyWith =>
+  _$$ConfigFileImplCopyWith<_$ConfigFileImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

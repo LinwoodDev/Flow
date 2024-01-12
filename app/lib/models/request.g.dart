@@ -6,8 +6,8 @@ part of 'request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_APIRequest _$$_APIRequestFromJson(Map<String, dynamic> json) =>
-    _$_APIRequest(
+_$APIRequestImpl _$$APIRequestImplFromJson(Map<String, dynamic> json) =>
+    _$APIRequestImpl(
       id: json['id'] as int? ?? -1,
       method: json['method'] as String,
       authority: json['authority'] as String,
@@ -19,7 +19,7 @@ _$_APIRequest _$$_APIRequestFromJson(Map<String, dynamic> json) =>
       body: json['body'] as String? ?? '',
     );
 
-Map<String, dynamic> _$$_APIRequestToJson(_$_APIRequest instance) =>
+Map<String, dynamic> _$$APIRequestImplToJson(_$APIRequestImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'method': instance.method,

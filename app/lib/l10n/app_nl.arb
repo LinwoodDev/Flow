@@ -287,5 +287,10 @@
   "link": "Koppeling",
   "codeBlock": "Code blok",
   "quote": "Offerte",
-  "numberedList": "Genummerde lijst"
+  "numberedList": "Genummerde lijst",
+  "density": "Dichtheid",
+  "compact": "Compacte",
+  "comfortable": "Comfortabel",
+  "standard": "Standaard",
+  "highContrast": "Hoog contrast"
 }

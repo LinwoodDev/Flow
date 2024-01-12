@@ -1,0 +1,4 @@
+* Add clock to dashboard
+* Add density setting
+* Add high contrast mode
+* Make dashboard the back page

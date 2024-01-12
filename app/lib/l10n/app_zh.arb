@@ -287,5 +287,10 @@
   "link": "链接",
   "codeBlock": "代码块",
   "quote": "引用",
-  "numberedList": "编号列表"
+  "numberedList": "编号列表",
+  "density": "密度",
+  "compact": "紧凑的",
+  "comfortable": "舒适的",
+  "standard": "标准的",
+  "highContrast": "高对比度"
 }

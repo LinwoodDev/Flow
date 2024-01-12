@@ -12,14 +12,14 @@ Benvenuti nella sezione della comunità.
 
 Un ringraziamento speciale va a:
 
-* <https://github.com/flutter/flutter> per fornire questo utile framework crossplatform ui
-* <https://github.com/leanflutter/window_manager> per tutte le utili funzionalità della finestra desktop
-* <https://github.com/facebook/docusaurus> per un framework di documentazione di reazione statica facile da usare
+* [Flutter](https://github.com/flutter/flutter) per fornire questo utile framework cross-platform ui
+* [window_manager](https://github.com/leanflutter/window_manager) per tutte le utili funzioni della finestra desktop
+* [Docusaurus](https://github.com/facebook/docusaurus) per un quadro di documentazione di reazione statica facile da usare
 
 Tutte le altre licenze possono essere trovate nelle impostazioni.
 
 ## Link utili
 
-* [GitHub](https://github.com/LinwoodDev/Flow)
+* [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
 * [Matrice](https://go.linwood.dev/matrix)

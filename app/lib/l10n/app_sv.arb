@@ -287,5 +287,10 @@
   "link": "Länk",
   "codeBlock": "Kod block",
   "quote": "Offert",
-  "numberedList": "Numrerad lista"
+  "numberedList": "Numrerad lista",
+  "density": "Densitet",
+  "compact": "Kompakt",
+  "comfortable": "Bekväm",
+  "standard": "Standard",
+  "highContrast": "Hög kontrast"
 }

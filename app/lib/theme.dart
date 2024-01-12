@@ -10,28 +10,47 @@ const kClassicTheme = FlexSchemeColor(
 const kClassicThemeData = FlexSchemeData(
     name: '', description: '', light: kClassicTheme, dark: kClassicTheme);
 
-ThemeData getThemeData(String name, bool dark, [ColorScheme? overridden]) {
+ThemeData getThemeData(String name, bool dark,
+    [VisualDensity? density,
+    ColorScheme? overridden,
+    bool highContrast = false]) {
   final color = getFlexThemeColor(name, dark);
   final override = overridden != null && name.isEmpty;
+  ThemeData theme;
   if (dark) {
-    return FlexThemeData.dark(
+    theme = FlexThemeData.dark(
       colors: override ? null : color,
       colorScheme: override ? overridden : null,
       useMaterial3: true,
       appBarElevation: 2,
       fontFamily: 'Comfortaa',
-      swapLegacyOnMaterial3: true,
-      fontFamilyFallback: ['Comfortaa'],
+      visualDensity: density,
+      darkIsTrueBlack: highContrast,
+    );
+  } else {
+    theme = FlexThemeData.light(
+      colors: override ? null : color,
+      colorScheme: override ? overridden : null,
+      useMaterial3: true,
+      appBarElevation: 0.5,
+      fontFamily: 'Comfortaa',
+      visualDensity: density,
+      lightIsWhite: highContrast,
     );
   }
-  return FlexThemeData.light(
-    colors: override ? null : color,
-    colorScheme: override ? overridden : null,
-    useMaterial3: true,
-    appBarElevation: 0.5,
-    fontFamily: 'Comfortaa',
-    swapLegacyOnMaterial3: true,
-    fontFamilyFallback: ['Comfortaa'],
+  return theme.copyWith(
+    tabBarTheme: const TabBarTheme(
+      tabAlignment: TabAlignment.center,
+    ),
+    dropdownMenuTheme: DropdownMenuThemeData(
+      inputDecorationTheme: defaultDropdownInputDecorationTheme(),
+    ),
+  );
+}
+
+InputDecorationTheme defaultDropdownInputDecorationTheme() {
+  return const InputDecorationTheme(
+    filled: true,
   );
 }
 

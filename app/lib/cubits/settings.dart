@@ -10,6 +10,20 @@ import '../api/storage/remote/model.dart';
 
 part 'settings.freezed.dart';
 
+enum ThemeDensity {
+  system,
+  compact,
+  comfortable,
+  standard;
+
+  VisualDensity toFlutter() => switch (this) {
+        ThemeDensity.comfortable => VisualDensity.comfortable,
+        ThemeDensity.compact => VisualDensity.compact,
+        ThemeDensity.standard => VisualDensity.standard,
+        ThemeDensity.system => VisualDensity.adaptivePlatformDensity,
+      };
+}
+
 @freezed
 class FlowSettings with _$FlowSettings {
   const FlowSettings._();
@@ -22,6 +36,8 @@ class FlowSettings with _$FlowSettings {
     @Default(SyncMode.noMobile) SyncMode syncMode,
     @Default([]) List<RemoteStorage> remotes,
     @Default(0) int startOfWeek,
+    @Default(ThemeDensity.system) ThemeDensity density,
+    @Default(false) bool highContrast,
   }) = _FlowSettings;
 
   factory FlowSettings.fromPrefs(SharedPreferences prefs) => FlowSettings(
@@ -38,18 +54,23 @@ class FlowSettings with _$FlowSettings {
                 .toList() ??
             [],
         startOfWeek: prefs.getInt('startOfWeek') ?? 0,
+        density:
+            ThemeDensity.values.byName(prefs.getString('density') ?? 'system'),
+        highContrast: prefs.getBool('highContrast') ?? false,
       );
 
   Future<void> save() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString('themeMode', themeMode.name);
-    prefs.setString('design', design);
-    prefs.setBool('nativeTitleBar', nativeTitleBar);
-    prefs.setString('locale', locale);
-    prefs.setString('syncMode', syncMode.name);
-    prefs.setStringList(
+    await prefs.setString('themeMode', themeMode.name);
+    await prefs.setString('design', design);
+    await prefs.setBool('nativeTitleBar', nativeTitleBar);
+    await prefs.setString('locale', locale);
+    await prefs.setString('syncMode', syncMode.name);
+    await prefs.setStringList(
         'remotes', remotes.map((e) => json.encode(e.toJson())).toList());
-    prefs.setInt('startOfWeek', startOfWeek);
+    await prefs.setInt('startOfWeek', startOfWeek);
+    await prefs.setString('density', density.name);
+    await prefs.setBool('highContrast', highContrast);
   }
 }
 
@@ -60,27 +81,27 @@ enum SyncStatus { synced, syncing, error }
 class SettingsCubit extends Cubit<FlowSettings> {
   SettingsCubit(SharedPreferences prefs) : super(FlowSettings.fromPrefs(prefs));
 
-  Future<void> setThemeMode(ThemeMode mode) {
+  Future<void> changeThemeMode(ThemeMode mode) {
     emit(state.copyWith(themeMode: mode));
     return state.save();
   }
 
-  Future<void> setDesign(String design) {
+  Future<void> changeDesign(String design) {
     emit(state.copyWith(design: design));
     return state.save();
   }
 
-  Future<void> setNativeTitleBar(bool nativeTitleBar) {
+  Future<void> changeNativeTitleBar(bool nativeTitleBar) {
     emit(state.copyWith(nativeTitleBar: nativeTitleBar));
     return state.save();
   }
 
-  Future<void> setLocale(String locale) {
+  Future<void> changeLocale(String locale) {
     emit(state.copyWith(locale: locale));
     return state.save();
   }
 
-  Future<void> setSyncMode(SyncMode syncMode) {
+  Future<void> changeSyncMode(SyncMode syncMode) {
     emit(state.copyWith(syncMode: syncMode));
     return state.save();
   }
@@ -100,8 +121,18 @@ class SettingsCubit extends Cubit<FlowSettings> {
     return state.save();
   }
 
-  Future<void> setStartOfWeek(int startOfWeek) {
+  Future<void> changeStartOfWeek(int startOfWeek) {
     emit(state.copyWith(startOfWeek: startOfWeek));
+    return state.save();
+  }
+
+  Future<void> changeDensity(ThemeDensity density) {
+    emit(state.copyWith(density: density));
+    return state.save();
+  }
+
+  Future<void> changeHighContrast(bool highContrast) {
+    emit(state.copyWith(highContrast: highContrast));
     return state.save();
   }
 }

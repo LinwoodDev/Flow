@@ -12,14 +12,14 @@ title: "Κοινότητα"
 
 Ιδιαίτερες ευχαριστίες απευθύνεται:
 
-* <https://github.com/flutter/flutter> για την παροχή αυτού του χρήσιμου crossplatform
-* <https://github.com/leanflutter/window_manager> για όλα αυτά τα χρήσιμα χαρακτηριστικά παραθύρου επιφάνειας εργασίας
-* <https://github.com/facebook/docusaurus> για ένα εύχρηστο πλαίσιο τεκμηρίωσης στατικής αντίδρασης
+* [Flutter](https://github.com/flutter/flutter) για την παροχή αυτού του χρήσιμου crossplatform
+* [window_manager](https://github.com/leanflutter/window_manager) για όλα αυτά τα χρήσιμα χαρακτηριστικά παραθύρων επιφάνειας εργασίας
+* [Docusaurus](https://github.com/facebook/docusaurus) για ένα εύχρηστο πλαίσιο τεκμηρίωσης στατικής αντίδρασης
 
 Όλες οι άλλες άδειες χρήσης μπορείτε να βρείτε στις ρυθμίσεις.
 
 ## Χρήσιμοι σύνδεσμοι
 
-* [GitHub](https://github.com/LinwoodDev/Flow)
+* [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
 * [Πίνακας](https://go.linwood.dev/matrix)

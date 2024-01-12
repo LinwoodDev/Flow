@@ -250,10 +250,6 @@
     "message": "Vaihda sana wrap",
     "description": "The title attribute for toggle word wrapping button of code block lines"
   },
-  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
-    "message": "Vaihda kaatuvan sivupalkin kategoria '{label}'",
-    "description": "The ARIA label to toggle the collapsible sidebar category"
-  },
   "theme.NavBar.navAriaLabel": {
     "message": "Ensisijainen",
     "description": "The ARIA label for the main navigation"
@@ -337,5 +333,25 @@
   "theme.tags.tagsPageTitle": {
     "message": "Tunnisteet",
     "description": "The title of the tag list page"
+  },
+  "theme.admonition.warning": {
+    "message": "varoitus",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "Laajenna sivupalkin luokka '{label}'",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "Tiivistä sivupalkin kategoria '{label}'",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.unlistedContent.title": {
+    "message": "Listaamaton sivu",
+    "description": "The unlisted content banner title"
+  },
+  "theme.unlistedContent.message": {
+    "message": "Tätä sivua ei ole listattu. Hakukoneet eivät indeksoi sitä, ja vain käyttäjät, joilla on suora linkki, voivat käyttää sitä.",
+    "description": "The unlisted content banner message"
   }
 }

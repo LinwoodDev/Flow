@@ -93,11 +93,11 @@ class _$CalendarFilterCopyWithImpl<$Res, $Val extends CalendarFilter>
 }
 
 /// @nodoc
-abstract class _$$_CalendarFilterCopyWith<$Res>
+abstract class _$$CalendarFilterImplCopyWith<$Res>
     implements $CalendarFilterCopyWith<$Res> {
-  factory _$$_CalendarFilterCopyWith(
-          _$_CalendarFilter value, $Res Function(_$_CalendarFilter) then) =
-      __$$_CalendarFilterCopyWithImpl<$Res>;
+  factory _$$CalendarFilterImplCopyWith(_$CalendarFilterImpl value,
+          $Res Function(_$CalendarFilterImpl) then) =
+      __$$CalendarFilterImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -110,11 +110,11 @@ abstract class _$$_CalendarFilterCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CalendarFilterCopyWithImpl<$Res>
-    extends _$CalendarFilterCopyWithImpl<$Res, _$_CalendarFilter>
-    implements _$$_CalendarFilterCopyWith<$Res> {
-  __$$_CalendarFilterCopyWithImpl(
-      _$_CalendarFilter _value, $Res Function(_$_CalendarFilter) _then)
+class __$$CalendarFilterImplCopyWithImpl<$Res>
+    extends _$CalendarFilterCopyWithImpl<$Res, _$CalendarFilterImpl>
+    implements _$$CalendarFilterImplCopyWith<$Res> {
+  __$$CalendarFilterImplCopyWithImpl(
+      _$CalendarFilterImpl _value, $Res Function(_$CalendarFilterImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -127,7 +127,7 @@ class __$$_CalendarFilterCopyWithImpl<$Res>
     Object? place = freezed,
     Object? past = null,
   }) {
-    return _then(_$_CalendarFilter(
+    return _then(_$CalendarFilterImpl(
       hiddenStatuses: null == hiddenStatuses
           ? _value._hiddenStatuses
           : hiddenStatuses // ignore: cast_nullable_to_non_nullable
@@ -158,8 +158,8 @@ class __$$_CalendarFilterCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CalendarFilter extends _CalendarFilter {
-  const _$_CalendarFilter(
+class _$CalendarFilterImpl extends _CalendarFilter {
+  const _$CalendarFilterImpl(
       {final List<EventStatus> hiddenStatuses = const [
         EventStatus.draft,
         EventStatus.cancelled
@@ -202,7 +202,7 @@ class _$_CalendarFilter extends _CalendarFilter {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CalendarFilter &&
+            other is _$CalendarFilterImpl &&
             const DeepCollectionEquality()
                 .equals(other._hiddenStatuses, _hiddenStatuses) &&
             (identical(other.source, source) || other.source == source) &&
@@ -225,8 +225,9 @@ class _$_CalendarFilter extends _CalendarFilter {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CalendarFilterCopyWith<_$_CalendarFilter> get copyWith =>
-      __$$_CalendarFilterCopyWithImpl<_$_CalendarFilter>(this, _$identity);
+  _$$CalendarFilterImplCopyWith<_$CalendarFilterImpl> get copyWith =>
+      __$$CalendarFilterImplCopyWithImpl<_$CalendarFilterImpl>(
+          this, _$identity);
 }
 
 abstract class _CalendarFilter extends CalendarFilter {
@@ -236,7 +237,7 @@ abstract class _CalendarFilter extends CalendarFilter {
       final Multihash? group,
       final Multihash? event,
       final Multihash? place,
-      final bool past}) = _$_CalendarFilter;
+      final bool past}) = _$CalendarFilterImpl;
   const _CalendarFilter._() : super._();
 
   @override
@@ -253,6 +254,6 @@ abstract class _CalendarFilter extends CalendarFilter {
   bool get past;
   @override
   @JsonKey(ignore: true)
-  _$$_CalendarFilterCopyWith<_$_CalendarFilter> get copyWith =>
+  _$$CalendarFilterImplCopyWith<_$CalendarFilterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -23,6 +23,8 @@ mixin _$FlowSettings {
   SyncMode get syncMode => throw _privateConstructorUsedError;
   List<RemoteStorage> get remotes => throw _privateConstructorUsedError;
   int get startOfWeek => throw _privateConstructorUsedError;
+  ThemeDensity get density => throw _privateConstructorUsedError;
+  bool get highContrast => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FlowSettingsCopyWith<FlowSettings> get copyWith =>
@@ -42,7 +44,9 @@ abstract class $FlowSettingsCopyWith<$Res> {
       String design,
       SyncMode syncMode,
       List<RemoteStorage> remotes,
-      int startOfWeek});
+      int startOfWeek,
+      ThemeDensity density,
+      bool highContrast});
 }
 
 /// @nodoc
@@ -65,6 +69,8 @@ class _$FlowSettingsCopyWithImpl<$Res, $Val extends FlowSettings>
     Object? syncMode = null,
     Object? remotes = null,
     Object? startOfWeek = null,
+    Object? density = null,
+    Object? highContrast = null,
   }) {
     return _then(_value.copyWith(
       locale: null == locale
@@ -95,16 +101,24 @@ class _$FlowSettingsCopyWithImpl<$Res, $Val extends FlowSettings>
           ? _value.startOfWeek
           : startOfWeek // ignore: cast_nullable_to_non_nullable
               as int,
+      density: null == density
+          ? _value.density
+          : density // ignore: cast_nullable_to_non_nullable
+              as ThemeDensity,
+      highContrast: null == highContrast
+          ? _value.highContrast
+          : highContrast // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_FlowSettingsCopyWith<$Res>
+abstract class _$$FlowSettingsImplCopyWith<$Res>
     implements $FlowSettingsCopyWith<$Res> {
-  factory _$$_FlowSettingsCopyWith(
-          _$_FlowSettings value, $Res Function(_$_FlowSettings) then) =
-      __$$_FlowSettingsCopyWithImpl<$Res>;
+  factory _$$FlowSettingsImplCopyWith(
+          _$FlowSettingsImpl value, $Res Function(_$FlowSettingsImpl) then) =
+      __$$FlowSettingsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -114,15 +128,17 @@ abstract class _$$_FlowSettingsCopyWith<$Res>
       String design,
       SyncMode syncMode,
       List<RemoteStorage> remotes,
-      int startOfWeek});
+      int startOfWeek,
+      ThemeDensity density,
+      bool highContrast});
 }
 
 /// @nodoc
-class __$$_FlowSettingsCopyWithImpl<$Res>
-    extends _$FlowSettingsCopyWithImpl<$Res, _$_FlowSettings>
-    implements _$$_FlowSettingsCopyWith<$Res> {
-  __$$_FlowSettingsCopyWithImpl(
-      _$_FlowSettings _value, $Res Function(_$_FlowSettings) _then)
+class __$$FlowSettingsImplCopyWithImpl<$Res>
+    extends _$FlowSettingsCopyWithImpl<$Res, _$FlowSettingsImpl>
+    implements _$$FlowSettingsImplCopyWith<$Res> {
+  __$$FlowSettingsImplCopyWithImpl(
+      _$FlowSettingsImpl _value, $Res Function(_$FlowSettingsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -135,8 +151,10 @@ class __$$_FlowSettingsCopyWithImpl<$Res>
     Object? syncMode = null,
     Object? remotes = null,
     Object? startOfWeek = null,
+    Object? density = null,
+    Object? highContrast = null,
   }) {
-    return _then(_$_FlowSettings(
+    return _then(_$FlowSettingsImpl(
       locale: null == locale
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
@@ -165,21 +183,31 @@ class __$$_FlowSettingsCopyWithImpl<$Res>
           ? _value.startOfWeek
           : startOfWeek // ignore: cast_nullable_to_non_nullable
               as int,
+      density: null == density
+          ? _value.density
+          : density // ignore: cast_nullable_to_non_nullable
+              as ThemeDensity,
+      highContrast: null == highContrast
+          ? _value.highContrast
+          : highContrast // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_FlowSettings extends _FlowSettings {
-  const _$_FlowSettings(
+class _$FlowSettingsImpl extends _FlowSettings {
+  const _$FlowSettingsImpl(
       {this.locale = '',
       this.themeMode = ThemeMode.system,
       this.nativeTitleBar = false,
       this.design = '',
       this.syncMode = SyncMode.noMobile,
       final List<RemoteStorage> remotes = const [],
-      this.startOfWeek = 0})
+      this.startOfWeek = 0,
+      this.density = ThemeDensity.system,
+      this.highContrast = false})
       : _remotes = remotes,
         super._();
 
@@ -210,17 +238,23 @@ class _$_FlowSettings extends _FlowSettings {
   @override
   @JsonKey()
   final int startOfWeek;
+  @override
+  @JsonKey()
+  final ThemeDensity density;
+  @override
+  @JsonKey()
+  final bool highContrast;
 
   @override
   String toString() {
-    return 'FlowSettings(locale: $locale, themeMode: $themeMode, nativeTitleBar: $nativeTitleBar, design: $design, syncMode: $syncMode, remotes: $remotes, startOfWeek: $startOfWeek)';
+    return 'FlowSettings(locale: $locale, themeMode: $themeMode, nativeTitleBar: $nativeTitleBar, design: $design, syncMode: $syncMode, remotes: $remotes, startOfWeek: $startOfWeek, density: $density, highContrast: $highContrast)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FlowSettings &&
+            other is _$FlowSettingsImpl &&
             (identical(other.locale, locale) || other.locale == locale) &&
             (identical(other.themeMode, themeMode) ||
                 other.themeMode == themeMode) &&
@@ -231,7 +265,10 @@ class _$_FlowSettings extends _FlowSettings {
                 other.syncMode == syncMode) &&
             const DeepCollectionEquality().equals(other._remotes, _remotes) &&
             (identical(other.startOfWeek, startOfWeek) ||
-                other.startOfWeek == startOfWeek));
+                other.startOfWeek == startOfWeek) &&
+            (identical(other.density, density) || other.density == density) &&
+            (identical(other.highContrast, highContrast) ||
+                other.highContrast == highContrast));
   }
 
   @override
@@ -243,13 +280,15 @@ class _$_FlowSettings extends _FlowSettings {
       design,
       syncMode,
       const DeepCollectionEquality().hash(_remotes),
-      startOfWeek);
+      startOfWeek,
+      density,
+      highContrast);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FlowSettingsCopyWith<_$_FlowSettings> get copyWith =>
-      __$$_FlowSettingsCopyWithImpl<_$_FlowSettings>(this, _$identity);
+  _$$FlowSettingsImplCopyWith<_$FlowSettingsImpl> get copyWith =>
+      __$$FlowSettingsImplCopyWithImpl<_$FlowSettingsImpl>(this, _$identity);
 }
 
 abstract class _FlowSettings extends FlowSettings {
@@ -260,7 +299,9 @@ abstract class _FlowSettings extends FlowSettings {
       final String design,
       final SyncMode syncMode,
       final List<RemoteStorage> remotes,
-      final int startOfWeek}) = _$_FlowSettings;
+      final int startOfWeek,
+      final ThemeDensity density,
+      final bool highContrast}) = _$FlowSettingsImpl;
   const _FlowSettings._() : super._();
 
   @override
@@ -278,7 +319,11 @@ abstract class _FlowSettings extends FlowSettings {
   @override
   int get startOfWeek;
   @override
+  ThemeDensity get density;
+  @override
+  bool get highContrast;
+  @override
   @JsonKey(ignore: true)
-  _$$_FlowSettingsCopyWith<_$_FlowSettings> get copyWith =>
+  _$$FlowSettingsImplCopyWith<_$FlowSettingsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

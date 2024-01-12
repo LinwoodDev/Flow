@@ -12,14 +12,14 @@ title: "Сообщество"
 
 Особая благодарность дает:
 
-* <https://github.com/flutter/flutter> для предоставления этой полезной кросплатформенной UI фреймворк
-* <https://github.com/leanflutter/window_manager> для всех функций рабочего стола
-* <https://github.com/facebook/docusaurus> для легкой в использовании статической реакционной документации фреймворка
+* [Flutter](https://github.com/flutter/flutter) для предоставления этой полезной кросплатформенной UI рамки
+* [window_manager](https://github.com/leanflutter/window_manager) для всех функций рабочего окна
+* [Docusaurus](https://github.com/facebook/docusaurus) для простой в использовании статической реактуальной документации
 
 Все остальные лицензии могут быть найдены в настройках.
 
 ## Полезные ссылки
 
-* [GitHub](https://github.com/LinwoodDev/Flow)
+* [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
 * [Матрица](https://go.linwood.dev/matrix)

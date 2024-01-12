@@ -69,22 +69,22 @@ class _$EventFilterCopyWithImpl<$Res, $Val extends EventFilter>
 }
 
 /// @nodoc
-abstract class _$$_EventFilterCopyWith<$Res>
+abstract class _$$EventFilterImplCopyWith<$Res>
     implements $EventFilterCopyWith<$Res> {
-  factory _$$_EventFilterCopyWith(
-          _$_EventFilter value, $Res Function(_$_EventFilter) then) =
-      __$$_EventFilterCopyWithImpl<$Res>;
+  factory _$$EventFilterImplCopyWith(
+          _$EventFilterImpl value, $Res Function(_$EventFilterImpl) then) =
+      __$$EventFilterImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? source, Multihash? group, Multihash? place});
 }
 
 /// @nodoc
-class __$$_EventFilterCopyWithImpl<$Res>
-    extends _$EventFilterCopyWithImpl<$Res, _$_EventFilter>
-    implements _$$_EventFilterCopyWith<$Res> {
-  __$$_EventFilterCopyWithImpl(
-      _$_EventFilter _value, $Res Function(_$_EventFilter) _then)
+class __$$EventFilterImplCopyWithImpl<$Res>
+    extends _$EventFilterCopyWithImpl<$Res, _$EventFilterImpl>
+    implements _$$EventFilterImplCopyWith<$Res> {
+  __$$EventFilterImplCopyWithImpl(
+      _$EventFilterImpl _value, $Res Function(_$EventFilterImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -94,7 +94,7 @@ class __$$_EventFilterCopyWithImpl<$Res>
     Object? group = freezed,
     Object? place = freezed,
   }) {
-    return _then(_$_EventFilter(
+    return _then(_$EventFilterImpl(
       source: freezed == source
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
@@ -113,8 +113,8 @@ class __$$_EventFilterCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_EventFilter extends _EventFilter {
-  const _$_EventFilter({this.source, this.group, this.place}) : super._();
+class _$EventFilterImpl extends _EventFilter {
+  const _$EventFilterImpl({this.source, this.group, this.place}) : super._();
 
   @override
   final String? source;
@@ -132,7 +132,7 @@ class _$_EventFilter extends _EventFilter {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_EventFilter &&
+            other is _$EventFilterImpl &&
             (identical(other.source, source) || other.source == source) &&
             (identical(other.group, group) || other.group == group) &&
             (identical(other.place, place) || other.place == place));
@@ -144,15 +144,15 @@ class _$_EventFilter extends _EventFilter {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_EventFilterCopyWith<_$_EventFilter> get copyWith =>
-      __$$_EventFilterCopyWithImpl<_$_EventFilter>(this, _$identity);
+  _$$EventFilterImplCopyWith<_$EventFilterImpl> get copyWith =>
+      __$$EventFilterImplCopyWithImpl<_$EventFilterImpl>(this, _$identity);
 }
 
 abstract class _EventFilter extends EventFilter {
   const factory _EventFilter(
       {final String? source,
       final Multihash? group,
-      final Multihash? place}) = _$_EventFilter;
+      final Multihash? place}) = _$EventFilterImpl;
   const _EventFilter._() : super._();
 
   @override
@@ -163,6 +163,6 @@ abstract class _EventFilter extends EventFilter {
   Multihash? get place;
   @override
   @JsonKey(ignore: true)
-  _$$_EventFilterCopyWith<_$_EventFilter> get copyWith =>
+  _$$EventFilterImplCopyWith<_$EventFilterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
