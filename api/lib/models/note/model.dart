@@ -62,20 +62,15 @@ enum NoteStatus {
 }
 
 extension NoteStatusExtension on NoteStatus {
-  bool? get done {
-    switch (this) {
-      case NoteStatus.todo:
-        return false;
-      case NoteStatus.inProgress:
-        return null;
-      case NoteStatus.done:
-        return true;
-    }
-  }
+  bool? get done => switch (this) {
+        NoteStatus.todo => false,
+        NoteStatus.inProgress => null,
+        NoteStatus.done => true,
+      };
 
-  static NoteStatus fromDone(bool? done) {
-    if (done == null) return NoteStatus.inProgress;
-    if (done) return NoteStatus.done;
-    return NoteStatus.todo;
-  }
+  static NoteStatus fromDone(bool? done) => switch (done) {
+        true => NoteStatus.done,
+        false => NoteStatus.todo,
+        null => NoteStatus.inProgress,
+      };
 }

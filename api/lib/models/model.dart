@@ -5,7 +5,7 @@ part 'model.freezed.dart';
 
 const kColorBlack = 0xFF000000;
 
-abstract class DescriptiveModel {
+mixin DescriptiveModel {
   Multihash? get id;
   String get name;
   String get description;

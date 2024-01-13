@@ -292,5 +292,6 @@
   "compact": "Compact",
   "comfortable": "Comfortable",
   "standard": "Standard",
-  "highContrast": "High contrast"
+  "highContrast": "High contrast",
+  "labels": "Labels"
 }
