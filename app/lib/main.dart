@@ -134,7 +134,7 @@ class FlowApp extends StatelessWidget {
                     (context, state) => const DashboardPage()),
                 routes: [
                   GoRoute(
-                    path: '/calendar',
+                    path: 'calendar',
                     pageBuilder: _fadeTransitionBuilder(
                       (context, state) => CalendarPage(
                         filter: state.extra is CalendarFilter
@@ -144,19 +144,19 @@ class FlowApp extends StatelessWidget {
                     ),
                   ),
                   GoRoute(
-                    path: '/events',
+                    path: 'events',
                     pageBuilder: _fadeTransitionBuilder(
                       (context, state) => const EventsPage(),
                     ),
                   ),
                   GoRoute(
-                    path: '/groups',
+                    path: 'groups',
                     pageBuilder: _fadeTransitionBuilder(
                       (context, state) => const GroupsPage(),
                     ),
                   ),
                   GoRoute(
-                      path: '/notes',
+                      path: 'notes',
                       pageBuilder: _fadeTransitionBuilder(
                         (context, state) => const NotesPage(),
                       ),
@@ -189,13 +189,13 @@ class FlowApp extends StatelessWidget {
                         )
                       ]),
                   GoRoute(
-                    path: '/places',
+                    path: 'places',
                     pageBuilder: _fadeTransitionBuilder(
                       (context, state) => const PlacesPage(),
                     ),
                   ),
                   GoRoute(
-                    path: '/users',
+                    path: 'users',
                     pageBuilder: _fadeTransitionBuilder(
                       (context, state) => UsersPage(
                         filter: state.extra is UserFilter
@@ -205,13 +205,13 @@ class FlowApp extends StatelessWidget {
                     ),
                   ),
                   GoRoute(
-                    path: '/sources',
+                    path: 'sources',
                     pageBuilder: _fadeTransitionBuilder(
                       (context, state) => const SourcesPage(),
                     ),
                   ),
                   GoRoute(
-                    path: '/settings',
+                    path: 'settings',
                     pageBuilder: _fadeTransitionBuilder(
                       (context, state) => const SettingsPage(),
                     ),

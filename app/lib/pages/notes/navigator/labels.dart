@@ -6,7 +6,7 @@ class _NoteLabelsView extends StatefulWidget {
   final Multihash? selected;
   final LabelChangedCallback? onChanged;
 
-  const _NoteLabelsView({super.key, this.selected, this.onChanged});
+  const _NoteLabelsView({this.selected, this.onChanged});
 
   @override
   State<_NoteLabelsView> createState() => _NoteLabelsViewState();
@@ -14,7 +14,6 @@ class _NoteLabelsView extends StatefulWidget {
 
 class _NoteLabelsViewState extends State<_NoteLabelsView> {
   late final SourcedPagingController<Label> _pagingController;
-  String _search = '';
   late final FlowCubit _cubit;
 
   @override
@@ -22,9 +21,8 @@ class _NoteLabelsViewState extends State<_NoteLabelsView> {
     super.initState();
     _cubit = context.read<FlowCubit>();
     _pagingController = SourcedPagingController(_cubit);
-    _pagingController.addFetchListener((source, service, offset, limit) async =>
-        await service.label
-            ?.getLabels(offset: offset, limit: limit, search: _search));
+    _pagingController.addFetchListener((source, service, offset, limit) =>
+        Future.value(service.label?.getLabels(offset: offset, limit: limit)));
   }
 
   @override
@@ -48,34 +46,45 @@ class _NoteLabelsViewState extends State<_NoteLabelsView> {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(children: [
-          TextFormField(
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context).search,
-              border: const OutlineInputBorder(),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  AppLocalizations.of(context).labels,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                IconButton(
+                  icon: const PhosphorIcon(PhosphorIconsLight.plus),
+                  onPressed: () => showDialog(
+                    context: context,
+                    builder: (context) => const LabelDialog(),
+                  ).then((value) => _pagingController.refresh()),
+                ),
+              ],
             ),
-            onChanged: (value) {
-              _search = value;
-              _pagingController.refresh();
-            },
-          ),
-          const SizedBox(height: 8),
-          Expanded(
-            child: PagedListView(
-              pagingController: _pagingController,
-              builderDelegate: buildMaterialPagedDelegate<SourcedModel<Label>>(
-                _pagingController,
-                (context, item, index) {
-                  final selected = widget.selected == item.model.id;
-                  return ListTile(
-                    title: Text(item.model.name),
-                    onTap: () {
-                      widget.onChanged?.call(item, !selected);
-                    },
-                    selected: selected,
-                    leading: ColorPoint(
-                        color: Color(item.model.color).withAlpha(255)),
-                    trailing: MenuAnchor(
+            SizedBox(
+              height: 50,
+              child: PagedListView(
+                scrollDirection: Axis.horizontal,
+                pagingController: _pagingController,
+                builderDelegate:
+                    buildMaterialPagedDelegate<SourcedModel<Label>>(
+                  _pagingController,
+                  (context, item, index) {
+                    final selected = widget.selected == item.model.id;
+                    return MenuAnchor(
+                      builder: (context, controller, child) => Tooltip(
+                        message: item.model.name,
+                        child: ColorButton(
+                          onTap: () => widget.onChanged?.call(item, !selected),
+                          selected: selected,
+                          color: Color(item.model.color).withAlpha(255),
+                          onLongPress: controller.toggle,
+                          onSecondaryTap: controller.toggle,
+                        ),
+                      ),
                       menuChildren: [
                         MenuItemButton(
                             leadingIcon:
@@ -124,28 +133,13 @@ class _NoteLabelsViewState extends State<_NoteLabelsView> {
                           ),
                         ),
                       ],
-                      builder: (context, controller, child) => IconButton(
-                        icon: const PhosphorIcon(
-                            PhosphorIconsLight.dotsThreeVertical),
-                        onPressed: () => controller.isOpen
-                            ? controller.close()
-                            : controller.open(),
-                      ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-          const Divider(),
-          OutlinedButton.icon(
-            icon: const PhosphorIcon(PhosphorIconsLight.plus),
-            label: Text(AppLocalizations.of(context).createLabel),
-            onPressed: () => showDialog(
-                    context: context, builder: (context) => const LabelDialog())
-                .then((value) => _pagingController.refresh()),
-          )
-        ]),
+          ],
+        ),
       ),
     );
   }

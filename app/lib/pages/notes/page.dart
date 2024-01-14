@@ -47,8 +47,8 @@ class _NotesPageState extends State<NotesPage> {
     return FlowNavigation(
       title: AppLocalizations.of(context).notes,
       endDrawer: NotesNavigatorDrawer(
-        selected: _filter.selectedLabel,
-        onChanged: (value, add) {
+        selectedLabel: _filter.selectedLabel,
+        onLabelChanged: (value, add) {
           final source = value.source;
           if (add) {
             setState(() {
