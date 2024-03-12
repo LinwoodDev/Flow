@@ -12,7 +12,7 @@ part of 'model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Label _$LabelFromJson(Map<String, dynamic> json) {
   return _Label.fromJson(json);
@@ -83,9 +83,10 @@ class _$LabelCopyWithImpl<$Res, $Val extends Label>
 }
 
 /// @nodoc
-abstract class _$$_LabelCopyWith<$Res> implements $LabelCopyWith<$Res> {
-  factory _$$_LabelCopyWith(_$_Label value, $Res Function(_$_Label) then) =
-      __$$_LabelCopyWithImpl<$Res>;
+abstract class _$$LabelImplCopyWith<$Res> implements $LabelCopyWith<$Res> {
+  factory _$$LabelImplCopyWith(
+          _$LabelImpl value, $Res Function(_$LabelImpl) then) =
+      __$$LabelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -96,9 +97,11 @@ abstract class _$$_LabelCopyWith<$Res> implements $LabelCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_LabelCopyWithImpl<$Res> extends _$LabelCopyWithImpl<$Res, _$_Label>
-    implements _$$_LabelCopyWith<$Res> {
-  __$$_LabelCopyWithImpl(_$_Label _value, $Res Function(_$_Label) _then)
+class __$$LabelImplCopyWithImpl<$Res>
+    extends _$LabelCopyWithImpl<$Res, _$LabelImpl>
+    implements _$$LabelImplCopyWith<$Res> {
+  __$$LabelImplCopyWithImpl(
+      _$LabelImpl _value, $Res Function(_$LabelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -109,7 +112,7 @@ class __$$_LabelCopyWithImpl<$Res> extends _$LabelCopyWithImpl<$Res, _$_Label>
     Object? description = null,
     Object? color = null,
   }) {
-    return _then(_$_Label(
+    return _then(_$LabelImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -132,16 +135,16 @@ class __$$_LabelCopyWithImpl<$Res> extends _$LabelCopyWithImpl<$Res, _$_Label>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Label extends _Label {
-  const _$_Label(
+class _$LabelImpl extends _Label {
+  const _$LabelImpl(
       {@MultihashConverter() this.id,
       this.name = '',
       this.description = '',
       this.color = kColorBlack})
       : super._();
 
-  factory _$_Label.fromJson(Map<String, dynamic> json) =>
-      _$$_LabelFromJson(json);
+  factory _$LabelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LabelImplFromJson(json);
 
   @override
   @MultihashConverter()
@@ -162,10 +165,10 @@ class _$_Label extends _Label {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Label &&
+            other is _$LabelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
@@ -180,12 +183,12 @@ class _$_Label extends _Label {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LabelCopyWith<_$_Label> get copyWith =>
-      __$$_LabelCopyWithImpl<_$_Label>(this, _$identity);
+  _$$LabelImplCopyWith<_$LabelImpl> get copyWith =>
+      __$$LabelImplCopyWithImpl<_$LabelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_LabelToJson(
+    return _$$LabelImplToJson(
       this,
     );
   }
@@ -196,10 +199,10 @@ abstract class _Label extends Label implements DescriptiveModel {
       {@MultihashConverter() final Multihash? id,
       final String name,
       final String description,
-      final int color}) = _$_Label;
+      final int color}) = _$LabelImpl;
   const _Label._() : super._();
 
-  factory _Label.fromJson(Map<String, dynamic> json) = _$_Label.fromJson;
+  factory _Label.fromJson(Map<String, dynamic> json) = _$LabelImpl.fromJson;
 
   @override
   @MultihashConverter()
@@ -212,6 +215,6 @@ abstract class _Label extends Label implements DescriptiveModel {
   int get color;
   @override
   @JsonKey(ignore: true)
-  _$$_LabelCopyWith<_$_Label> get copyWith =>
+  _$$LabelImplCopyWith<_$LabelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

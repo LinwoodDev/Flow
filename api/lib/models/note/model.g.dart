@@ -6,7 +6,7 @@ part of 'model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Note _$$_NoteFromJson(Map<String, dynamic> json) => _$_Note(
+_$NoteImpl _$$NoteImplFromJson(Map<String, dynamic> json) => _$NoteImpl(
       id: _$JsonConverterFromJson<List<int>, Multihash>(
           json['id'], const MultihashConverter().fromJson),
       parentId: _$JsonConverterFromJson<List<int>, Multihash>(
@@ -17,7 +17,8 @@ _$_Note _$$_NoteFromJson(Map<String, dynamic> json) => _$_Note(
       priority: json['priority'] as int? ?? 0,
     );
 
-Map<String, dynamic> _$$_NoteToJson(_$_Note instance) => <String, dynamic>{
+Map<String, dynamic> _$$NoteImplToJson(_$NoteImpl instance) =>
+    <String, dynamic>{
       'id': _$JsonConverterToJson<List<int>, Multihash>(
           instance.id, const MultihashConverter().toJson),
       'parentId': _$JsonConverterToJson<List<int>, Multihash>(

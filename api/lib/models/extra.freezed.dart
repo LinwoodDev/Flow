@@ -12,7 +12,7 @@ part of 'extra.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 ExtraProperties _$ExtraPropertiesFromJson(Map<String, dynamic> json) {
   return CalDavExtraProperties.fromJson(json);
@@ -99,22 +99,23 @@ class _$ExtraPropertiesCopyWithImpl<$Res, $Val extends ExtraProperties>
 }
 
 /// @nodoc
-abstract class _$$CalDavExtraPropertiesCopyWith<$Res>
+abstract class _$$CalDavExtraPropertiesImplCopyWith<$Res>
     implements $ExtraPropertiesCopyWith<$Res> {
-  factory _$$CalDavExtraPropertiesCopyWith(_$CalDavExtraProperties value,
-          $Res Function(_$CalDavExtraProperties) then) =
-      __$$CalDavExtraPropertiesCopyWithImpl<$Res>;
+  factory _$$CalDavExtraPropertiesImplCopyWith(
+          _$CalDavExtraPropertiesImpl value,
+          $Res Function(_$CalDavExtraPropertiesImpl) then) =
+      __$$CalDavExtraPropertiesImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String etag, String path});
 }
 
 /// @nodoc
-class __$$CalDavExtraPropertiesCopyWithImpl<$Res>
-    extends _$ExtraPropertiesCopyWithImpl<$Res, _$CalDavExtraProperties>
-    implements _$$CalDavExtraPropertiesCopyWith<$Res> {
-  __$$CalDavExtraPropertiesCopyWithImpl(_$CalDavExtraProperties _value,
-      $Res Function(_$CalDavExtraProperties) _then)
+class __$$CalDavExtraPropertiesImplCopyWithImpl<$Res>
+    extends _$ExtraPropertiesCopyWithImpl<$Res, _$CalDavExtraPropertiesImpl>
+    implements _$$CalDavExtraPropertiesImplCopyWith<$Res> {
+  __$$CalDavExtraPropertiesImplCopyWithImpl(_$CalDavExtraPropertiesImpl _value,
+      $Res Function(_$CalDavExtraPropertiesImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -123,7 +124,7 @@ class __$$CalDavExtraPropertiesCopyWithImpl<$Res>
     Object? etag = null,
     Object? path = null,
   }) {
-    return _then(_$CalDavExtraProperties(
+    return _then(_$CalDavExtraPropertiesImpl(
       etag: null == etag
           ? _value.etag
           : etag // ignore: cast_nullable_to_non_nullable
@@ -138,11 +139,11 @@ class __$$CalDavExtraPropertiesCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CalDavExtraProperties implements CalDavExtraProperties {
-  const _$CalDavExtraProperties({required this.etag, required this.path});
+class _$CalDavExtraPropertiesImpl implements CalDavExtraProperties {
+  const _$CalDavExtraPropertiesImpl({required this.etag, required this.path});
 
-  factory _$CalDavExtraProperties.fromJson(Map<String, dynamic> json) =>
-      _$$CalDavExtraPropertiesFromJson(json);
+  factory _$CalDavExtraPropertiesImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CalDavExtraPropertiesImplFromJson(json);
 
   @override
   final String etag;
@@ -155,10 +156,10 @@ class _$CalDavExtraProperties implements CalDavExtraProperties {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CalDavExtraProperties &&
+            other is _$CalDavExtraPropertiesImpl &&
             (identical(other.etag, etag) || other.etag == etag) &&
             (identical(other.path, path) || other.path == path));
   }
@@ -170,9 +171,9 @@ class _$CalDavExtraProperties implements CalDavExtraProperties {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CalDavExtraPropertiesCopyWith<_$CalDavExtraProperties> get copyWith =>
-      __$$CalDavExtraPropertiesCopyWithImpl<_$CalDavExtraProperties>(
-          this, _$identity);
+  _$$CalDavExtraPropertiesImplCopyWith<_$CalDavExtraPropertiesImpl>
+      get copyWith => __$$CalDavExtraPropertiesImplCopyWithImpl<
+          _$CalDavExtraPropertiesImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -232,7 +233,7 @@ class _$CalDavExtraProperties implements CalDavExtraProperties {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CalDavExtraPropertiesToJson(
+    return _$$CalDavExtraPropertiesImplToJson(
       this,
     );
   }
@@ -241,10 +242,10 @@ class _$CalDavExtraProperties implements CalDavExtraProperties {
 abstract class CalDavExtraProperties implements ExtraProperties {
   const factory CalDavExtraProperties(
       {required final String etag,
-      required final String path}) = _$CalDavExtraProperties;
+      required final String path}) = _$CalDavExtraPropertiesImpl;
 
   factory CalDavExtraProperties.fromJson(Map<String, dynamic> json) =
-      _$CalDavExtraProperties.fromJson;
+      _$CalDavExtraPropertiesImpl.fromJson;
 
   @override
   String get etag;
@@ -252,6 +253,6 @@ abstract class CalDavExtraProperties implements ExtraProperties {
   String get path;
   @override
   @JsonKey(ignore: true)
-  _$$CalDavExtraPropertiesCopyWith<_$CalDavExtraProperties> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$CalDavExtraPropertiesImplCopyWith<_$CalDavExtraPropertiesImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

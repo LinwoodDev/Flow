@@ -12,7 +12,7 @@ part of 'model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ConnectedModel<A, B> {
@@ -64,22 +64,22 @@ class _$ConnectedModelCopyWithImpl<A, B, $Res,
 }
 
 /// @nodoc
-abstract class _$$_ConnectedModelCopyWith<A, B, $Res>
+abstract class _$$ConnectedModelImplCopyWith<A, B, $Res>
     implements $ConnectedModelCopyWith<A, B, $Res> {
-  factory _$$_ConnectedModelCopyWith(_$_ConnectedModel<A, B> value,
-          $Res Function(_$_ConnectedModel<A, B>) then) =
-      __$$_ConnectedModelCopyWithImpl<A, B, $Res>;
+  factory _$$ConnectedModelImplCopyWith(_$ConnectedModelImpl<A, B> value,
+          $Res Function(_$ConnectedModelImpl<A, B>) then) =
+      __$$ConnectedModelImplCopyWithImpl<A, B, $Res>;
   @override
   @useResult
   $Res call({A source, B model});
 }
 
 /// @nodoc
-class __$$_ConnectedModelCopyWithImpl<A, B, $Res>
-    extends _$ConnectedModelCopyWithImpl<A, B, $Res, _$_ConnectedModel<A, B>>
-    implements _$$_ConnectedModelCopyWith<A, B, $Res> {
-  __$$_ConnectedModelCopyWithImpl(_$_ConnectedModel<A, B> _value,
-      $Res Function(_$_ConnectedModel<A, B>) _then)
+class __$$ConnectedModelImplCopyWithImpl<A, B, $Res>
+    extends _$ConnectedModelCopyWithImpl<A, B, $Res, _$ConnectedModelImpl<A, B>>
+    implements _$$ConnectedModelImplCopyWith<A, B, $Res> {
+  __$$ConnectedModelImplCopyWithImpl(_$ConnectedModelImpl<A, B> _value,
+      $Res Function(_$ConnectedModelImpl<A, B>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -88,7 +88,7 @@ class __$$_ConnectedModelCopyWithImpl<A, B, $Res>
     Object? source = freezed,
     Object? model = freezed,
   }) {
-    return _then(_$_ConnectedModel<A, B>(
+    return _then(_$ConnectedModelImpl<A, B>(
       freezed == source
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
@@ -103,8 +103,8 @@ class __$$_ConnectedModelCopyWithImpl<A, B, $Res>
 
 /// @nodoc
 
-class _$_ConnectedModel<A, B> extends _ConnectedModel<A, B> {
-  const _$_ConnectedModel(this.source, this.model) : super._();
+class _$ConnectedModelImpl<A, B> extends _ConnectedModel<A, B> {
+  const _$ConnectedModelImpl(this.source, this.model) : super._();
 
   @override
   final A source;
@@ -117,10 +117,10 @@ class _$_ConnectedModel<A, B> extends _ConnectedModel<A, B> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ConnectedModel<A, B> &&
+            other is _$ConnectedModelImpl<A, B> &&
             const DeepCollectionEquality().equals(other.source, source) &&
             const DeepCollectionEquality().equals(other.model, model));
   }
@@ -134,14 +134,15 @@ class _$_ConnectedModel<A, B> extends _ConnectedModel<A, B> {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ConnectedModelCopyWith<A, B, _$_ConnectedModel<A, B>> get copyWith =>
-      __$$_ConnectedModelCopyWithImpl<A, B, _$_ConnectedModel<A, B>>(
-          this, _$identity);
+  _$$ConnectedModelImplCopyWith<A, B, _$ConnectedModelImpl<A, B>>
+      get copyWith =>
+          __$$ConnectedModelImplCopyWithImpl<A, B, _$ConnectedModelImpl<A, B>>(
+              this, _$identity);
 }
 
 abstract class _ConnectedModel<A, B> extends ConnectedModel<A, B> {
   const factory _ConnectedModel(final A source, final B model) =
-      _$_ConnectedModel<A, B>;
+      _$ConnectedModelImpl<A, B>;
   const _ConnectedModel._() : super._();
 
   @override
@@ -150,6 +151,6 @@ abstract class _ConnectedModel<A, B> extends ConnectedModel<A, B> {
   B get model;
   @override
   @JsonKey(ignore: true)
-  _$$_ConnectedModelCopyWith<A, B, _$_ConnectedModel<A, B>> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ConnectedModelImplCopyWith<A, B, _$ConnectedModelImpl<A, B>>
+      get copyWith => throw _privateConstructorUsedError;
 }

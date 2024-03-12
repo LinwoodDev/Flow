@@ -6,7 +6,7 @@ part of 'model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Place _$$_PlaceFromJson(Map<String, dynamic> json) => _$_Place(
+_$PlaceImpl _$$PlaceImplFromJson(Map<String, dynamic> json) => _$PlaceImpl(
       id: _$JsonConverterFromJson<List<int>, Multihash>(
           json['id'], const MultihashConverter().fromJson),
       name: json['name'] as String? ?? '',
@@ -14,7 +14,8 @@ _$_Place _$$_PlaceFromJson(Map<String, dynamic> json) => _$_Place(
       address: json['address'] as String? ?? '',
     );
 
-Map<String, dynamic> _$$_PlaceToJson(_$_Place instance) => <String, dynamic>{
+Map<String, dynamic> _$$PlaceImplToJson(_$PlaceImpl instance) =>
+    <String, dynamic>{
       'id': _$JsonConverterToJson<List<int>, Multihash>(
           instance.id, const MultihashConverter().toJson),
       'name': instance.name,

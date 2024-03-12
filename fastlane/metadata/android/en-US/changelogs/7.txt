@@ -2,3 +2,5 @@
 * Add density setting
 * Add high contrast mode
 * Make dashboard the back page
+* Improve custom title bar window buttons
+* Upgrade to flutter 3.19

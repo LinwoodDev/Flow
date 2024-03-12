@@ -6,8 +6,8 @@ part of 'cached.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CachedData _$$_CachedDataFromJson(Map<String, dynamic> json) =>
-    _$_CachedData(
+_$CachedDataImpl _$$CachedDataImplFromJson(Map<String, dynamic> json) =>
+    _$CachedDataImpl(
       lastUpdated: json['lastUpdated'] == null
           ? null
           : DateTime.parse(json['lastUpdated'] as String),
@@ -25,7 +25,7 @@ _$_CachedData _$$_CachedDataFromJson(Map<String, dynamic> json) =>
           const [],
     );
 
-Map<String, dynamic> _$$_CachedDataToJson(_$_CachedData instance) =>
+Map<String, dynamic> _$$CachedDataImplToJson(_$CachedDataImpl instance) =>
     <String, dynamic>{
       'lastUpdated': instance.lastUpdated?.toIso8601String(),
       'events': instance.events,

@@ -6,7 +6,7 @@ part of 'model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Label _$$_LabelFromJson(Map<String, dynamic> json) => _$_Label(
+_$LabelImpl _$$LabelImplFromJson(Map<String, dynamic> json) => _$LabelImpl(
       id: _$JsonConverterFromJson<List<int>, Multihash>(
           json['id'], const MultihashConverter().fromJson),
       name: json['name'] as String? ?? '',
@@ -14,7 +14,8 @@ _$_Label _$$_LabelFromJson(Map<String, dynamic> json) => _$_Label(
       color: json['color'] as int? ?? kColorBlack,
     );
 
-Map<String, dynamic> _$$_LabelToJson(_$_Label instance) => <String, dynamic>{
+Map<String, dynamic> _$$LabelImplToJson(_$LabelImpl instance) =>
+    <String, dynamic>{
       'id': _$JsonConverterToJson<List<int>, Multihash>(
           instance.id, const MultihashConverter().toJson),
       'name': instance.name,

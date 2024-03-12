@@ -12,7 +12,7 @@ part of 'cached.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 CachedData _$CachedDataFromJson(Map<String, dynamic> json) {
   return _CachedData.fromJson(json);
@@ -84,11 +84,11 @@ class _$CachedDataCopyWithImpl<$Res, $Val extends CachedData>
 }
 
 /// @nodoc
-abstract class _$$_CachedDataCopyWith<$Res>
+abstract class _$$CachedDataImplCopyWith<$Res>
     implements $CachedDataCopyWith<$Res> {
-  factory _$$_CachedDataCopyWith(
-          _$_CachedData value, $Res Function(_$_CachedData) then) =
-      __$$_CachedDataCopyWithImpl<$Res>;
+  factory _$$CachedDataImplCopyWith(
+          _$CachedDataImpl value, $Res Function(_$CachedDataImpl) then) =
+      __$$CachedDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -99,11 +99,11 @@ abstract class _$$_CachedDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CachedDataCopyWithImpl<$Res>
-    extends _$CachedDataCopyWithImpl<$Res, _$_CachedData>
-    implements _$$_CachedDataCopyWith<$Res> {
-  __$$_CachedDataCopyWithImpl(
-      _$_CachedData _value, $Res Function(_$_CachedData) _then)
+class __$$CachedDataImplCopyWithImpl<$Res>
+    extends _$CachedDataCopyWithImpl<$Res, _$CachedDataImpl>
+    implements _$$CachedDataImplCopyWith<$Res> {
+  __$$CachedDataImplCopyWithImpl(
+      _$CachedDataImpl _value, $Res Function(_$CachedDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -114,7 +114,7 @@ class __$$_CachedDataCopyWithImpl<$Res>
     Object? items = null,
     Object? notes = null,
   }) {
-    return _then(_$_CachedData(
+    return _then(_$CachedDataImpl(
       lastUpdated: freezed == lastUpdated
           ? _value.lastUpdated
           : lastUpdated // ignore: cast_nullable_to_non_nullable
@@ -137,8 +137,8 @@ class __$$_CachedDataCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_CachedData extends _CachedData {
-  const _$_CachedData(
+class _$CachedDataImpl extends _CachedData {
+  const _$CachedDataImpl(
       {this.lastUpdated,
       final List<Event> events = const [],
       final List<CalendarItem> items = const [],
@@ -148,8 +148,8 @@ class _$_CachedData extends _CachedData {
         _notes = notes,
         super._();
 
-  factory _$_CachedData.fromJson(Map<String, dynamic> json) =>
-      _$$_CachedDataFromJson(json);
+  factory _$CachedDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CachedDataImplFromJson(json);
 
   @override
   final DateTime? lastUpdated;
@@ -186,10 +186,10 @@ class _$_CachedData extends _CachedData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CachedData &&
+            other is _$CachedDataImpl &&
             (identical(other.lastUpdated, lastUpdated) ||
                 other.lastUpdated == lastUpdated) &&
             const DeepCollectionEquality().equals(other._events, _events) &&
@@ -209,12 +209,12 @@ class _$_CachedData extends _CachedData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CachedDataCopyWith<_$_CachedData> get copyWith =>
-      __$$_CachedDataCopyWithImpl<_$_CachedData>(this, _$identity);
+  _$$CachedDataImplCopyWith<_$CachedDataImpl> get copyWith =>
+      __$$CachedDataImplCopyWithImpl<_$CachedDataImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CachedDataToJson(
+    return _$$CachedDataImplToJson(
       this,
     );
   }
@@ -225,11 +225,11 @@ abstract class _CachedData extends CachedData {
       {final DateTime? lastUpdated,
       final List<Event> events,
       final List<CalendarItem> items,
-      final List<Note> notes}) = _$_CachedData;
+      final List<Note> notes}) = _$CachedDataImpl;
   const _CachedData._() : super._();
 
   factory _CachedData.fromJson(Map<String, dynamic> json) =
-      _$_CachedData.fromJson;
+      _$CachedDataImpl.fromJson;
 
   @override
   DateTime? get lastUpdated;
@@ -241,6 +241,6 @@ abstract class _CachedData extends CachedData {
   List<Note> get notes;
   @override
   @JsonKey(ignore: true)
-  _$$_CachedDataCopyWith<_$_CachedData> get copyWith =>
+  _$$CachedDataImplCopyWith<_$CachedDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
