@@ -65,23 +65,6 @@ Future<void> main(List<String> args) async {
   );
 }
 
-Page<void> Function(BuildContext, GoRouterState) _fadeTransitionBuilder(
-    Widget Function(BuildContext, GoRouterState) child) {
-  return (context, state) => CustomTransitionPage<void>(
-        key: state.pageKey,
-        child: child(context, state),
-        transitionDuration: const Duration(milliseconds: 200),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-            FadeTransition(
-          opacity: CurvedAnimation(
-            parent: animation,
-            curve: Curves.easeInOut,
-          ),
-          child: child,
-        ),
-      );
-}
-
 class FlowApp extends StatelessWidget {
   FlowApp({super.key});
 
@@ -135,91 +118,70 @@ class FlowApp extends StatelessWidget {
           routes: [
             GoRoute(
                 path: '/',
-                pageBuilder: _fadeTransitionBuilder(
-                    (context, state) => const DashboardPage()),
+                builder: (context, state) => const DashboardPage(),
                 routes: [
                   GoRoute(
                     path: 'calendar',
-                    pageBuilder: _fadeTransitionBuilder(
-                      (context, state) => CalendarPage(
-                        filter: state.extra is CalendarFilter
-                            ? state.extra as CalendarFilter
-                            : const CalendarFilter(),
-                      ),
+                    builder: (context, state) => CalendarPage(
+                      filter: state.extra is CalendarFilter
+                          ? state.extra as CalendarFilter
+                          : const CalendarFilter(),
                     ),
                   ),
                   GoRoute(
                     path: 'events',
-                    pageBuilder: _fadeTransitionBuilder(
-                      (context, state) => const EventsPage(),
-                    ),
+                    builder: (context, state) => const EventsPage(),
                   ),
                   GoRoute(
                     path: 'groups',
-                    pageBuilder: _fadeTransitionBuilder(
-                      (context, state) => const GroupsPage(),
-                    ),
+                    builder: (context, state) => const GroupsPage(),
                   ),
                   GoRoute(
                       path: 'notes',
-                      pageBuilder: _fadeTransitionBuilder(
-                        (context, state) => const NotesPage(),
-                      ),
+                      builder: (context, state) => const NotesPage(),
                       routes: [
                         GoRoute(
                           path: ':source/:id',
                           name: 'subnote',
-                          pageBuilder: _fadeTransitionBuilder(
-                            (context, state) => NotesPage(
-                              parent: SourcedModel(
-                                state.pathParameters['source']!,
-                                Multihash.fromBase64Url(
-                                    state.pathParameters['id']!),
-                              ),
+                          builder: (context, state) => NotesPage(
+                            parent: SourcedModel(
+                              state.pathParameters['source']!,
+                              Multihash.fromBase64Url(
+                                  state.pathParameters['id']!),
                             ),
                           ),
                         ),
                         GoRoute(
                           path: ':id',
                           name: 'subnote-local',
-                          pageBuilder: _fadeTransitionBuilder(
-                            (context, state) => NotesPage(
-                              parent: SourcedModel(
-                                '',
-                                Multihash.fromBase64Url(
-                                    state.pathParameters['id']!),
-                              ),
+                          builder: (context, state) => NotesPage(
+                            parent: SourcedModel(
+                              '',
+                              Multihash.fromBase64Url(
+                                  state.pathParameters['id']!),
                             ),
                           ),
-                        )
+                        ),
                       ]),
                   GoRoute(
                     path: 'places',
-                    pageBuilder: _fadeTransitionBuilder(
-                      (context, state) => const PlacesPage(),
-                    ),
+                    builder: (context, state) => const PlacesPage(),
                   ),
                   GoRoute(
                     path: 'users',
-                    pageBuilder: _fadeTransitionBuilder(
-                      (context, state) => UsersPage(
-                        filter: state.extra is UserFilter
-                            ? state.extra as UserFilter
-                            : const UserFilter(),
-                      ),
+                    builder: (context, state) => UsersPage(
+                      filter: state.extra is UserFilter
+                          ? state.extra as UserFilter
+                          : const UserFilter(),
                     ),
                   ),
                   GoRoute(
                     path: 'sources',
-                    pageBuilder: _fadeTransitionBuilder(
-                      (context, state) => const SourcesPage(),
-                    ),
+                    builder: (context, state) => const SourcesPage(),
                   ),
                   GoRoute(
                     path: 'settings',
-                    pageBuilder: _fadeTransitionBuilder(
-                      (context, state) => const SettingsPage(),
-                    ),
+                    builder: (context, state) => const SettingsPage(),
                   ),
                 ]),
           ]),
