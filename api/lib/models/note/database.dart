@@ -221,12 +221,20 @@ class NoteDatabaseService extends NoteService with TableService {
   }
 
   @override
-  Future<Note?> getNote(Multihash id) async {
-    final result = await db?.query(
-      'notes',
-      where: 'id = ?',
-      whereArgs: [id.fullBytes],
-    );
+  Future<Note?> getNote(Multihash id, {bool fallback = false}) async {
+    final result = fallback
+        ? await db?.rawQuery(
+            """SELECT * FROM notes
+WHERE slug = ? OR slug = (SELECT MIN(slug) FROM notes)
+ORDER BY slug DESC
+LIMIT 1;""",
+            [id.fullBytes],
+          )
+        : await db?.query(
+            'notes',
+            where: 'id = ?',
+            whereArgs: [id.fullBytes],
+          );
     return result?.map(Note.fromDatabase).firstOrNull;
   }
 }

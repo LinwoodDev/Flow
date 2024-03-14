@@ -25,7 +25,7 @@ abstract class NoteService extends ModelService {
 
   FutureOr<bool> deleteNote(Multihash id);
 
-  FutureOr<Note?> getNote(Multihash id);
+  FutureOr<Note?> getNote(Multihash id, {bool fallback = false});
 }
 
 abstract class NoteConnector<T> extends ModelService {

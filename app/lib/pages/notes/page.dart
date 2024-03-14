@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flow/pages/notes/card.dart';
-import 'package:flow/pages/notes/labels.dart';
+import 'package:flow/pages/notes/navigator/drawer.dart';
 import 'package:flow/pages/notes/note.dart';
 import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flow/widgets/navigation.dart';
@@ -46,9 +46,9 @@ class _NotesPageState extends State<NotesPage> {
   Widget build(BuildContext context) {
     return FlowNavigation(
       title: AppLocalizations.of(context).notes,
-      endDrawer: LabelsDrawer(
-        selected: _filter.selectedLabel,
-        onChanged: (value, add) {
+      endDrawer: NotesNavigatorDrawer(
+        selectedLabel: _filter.selectedLabel,
+        onLabelChanged: (value, add) {
           final source = value.source;
           if (add) {
             setState(() {
@@ -266,9 +266,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
         onPressed: () => showDialog<Note>(
             context: context,
             builder: (context) => NoteDialog(
-                  note: Note(
-                    parentId: widget.parent?.model,
-                  ),
+                  note: const Note(),
                   source: widget.parent?.source,
                   create: true,
                 )).then((_) => _controller.refresh()),

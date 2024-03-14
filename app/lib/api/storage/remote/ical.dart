@@ -24,7 +24,7 @@ class IcalRemoteService extends RemoteService<ICalStorage> {
     final converter = ICalConverter();
     final name = remoteStorage.uri.host;
     converter.read(response.body.split('\n'),
-        Event(name: name, id: createUniqueMultihash()));
+        event: Event(name: name, id: createUniqueMultihash()));
     if (converter.data != null) import(converter.data!);
   }
 

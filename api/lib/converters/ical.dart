@@ -9,7 +9,7 @@ class ICalConverter {
 
   ICalConverter([this.data]);
 
-  void read(List<String> lines, [Event? event]) {
+  void read(List<String> lines, {Event? event, Notebook? notebook}) {
     final offset =
         lines.indexWhere((element) => element.trim() == 'BEGIN:VCALENDAR');
     if (offset == -1) {
@@ -19,6 +19,7 @@ class ICalConverter {
     Note? currentNote;
     final items = List<CalendarItem>.from(data?.items ?? []);
     var currentEvent = event ?? Event(id: createUniqueMultihash());
+    var currentNotebook = notebook ?? Notebook(id: createUniqueMultihash());
     final notes = List<Note>.from(data?.notes ?? []);
     for (int i = offset; i < lines.length; i++) {
       final line = lines[i];
@@ -73,7 +74,7 @@ class ICalConverter {
                 eventId: currentEvent.id,
               );
             } else if (value == 'VTODO') {
-              currentNote = Note();
+              currentNote = Note(notebookId: currentNotebook.id!);
             }
             continue;
           case 'END':

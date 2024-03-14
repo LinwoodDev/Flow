@@ -1,4 +1,3 @@
-import 'package:flow/widgets/color.dart';
 import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +35,7 @@ class LabelDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           StatefulBuilder(
-            builder: (context, setState) => ColorPoint(
+            builder: (context, setState) => ColorButton(
               onTap: () async {
                 final result = await showDialog<ColorPickerResponse>(
                     context: context,
@@ -46,6 +45,7 @@ class LabelDialog extends StatelessWidget {
                     currentLabel = currentLabel.copyWith(color: result.color));
               },
               color: Color(currentLabel.color).withAlpha(255),
+              size: 25,
             ),
           ),
           const SizedBox(width: 16),

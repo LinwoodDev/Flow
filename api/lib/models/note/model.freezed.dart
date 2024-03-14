@@ -14,6 +14,187 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+Notebook _$NotebookFromJson(Map<String, dynamic> json) {
+  return _Notebook.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Notebook {
+  @MultihashConverter()
+  Multihash? get id => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $NotebookCopyWith<Notebook> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $NotebookCopyWith<$Res> {
+  factory $NotebookCopyWith(Notebook value, $Res Function(Notebook) then) =
+      _$NotebookCopyWithImpl<$Res, Notebook>;
+  @useResult
+  $Res call(
+      {@MultihashConverter() Multihash? id, String name, String description});
+}
+
+/// @nodoc
+class _$NotebookCopyWithImpl<$Res, $Val extends Notebook>
+    implements $NotebookCopyWith<$Res> {
+  _$NotebookCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = null,
+    Object? description = null,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as Multihash?,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$NotebookImplCopyWith<$Res>
+    implements $NotebookCopyWith<$Res> {
+  factory _$$NotebookImplCopyWith(
+          _$NotebookImpl value, $Res Function(_$NotebookImpl) then) =
+      __$$NotebookImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@MultihashConverter() Multihash? id, String name, String description});
+}
+
+/// @nodoc
+class __$$NotebookImplCopyWithImpl<$Res>
+    extends _$NotebookCopyWithImpl<$Res, _$NotebookImpl>
+    implements _$$NotebookImplCopyWith<$Res> {
+  __$$NotebookImplCopyWithImpl(
+      _$NotebookImpl _value, $Res Function(_$NotebookImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = null,
+    Object? description = null,
+  }) {
+    return _then(_$NotebookImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as Multihash?,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$NotebookImpl extends _Notebook {
+  const _$NotebookImpl(
+      {@MultihashConverter() this.id, this.name = '', this.description = ''})
+      : super._();
+
+  factory _$NotebookImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NotebookImplFromJson(json);
+
+  @override
+  @MultihashConverter()
+  final Multihash? id;
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String description;
+
+  @override
+  String toString() {
+    return 'Notebook(id: $id, name: $name, description: $description)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NotebookImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name, description);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NotebookImplCopyWith<_$NotebookImpl> get copyWith =>
+      __$$NotebookImplCopyWithImpl<_$NotebookImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$NotebookImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Notebook extends Notebook implements DescriptiveModel {
+  const factory _Notebook(
+      {@MultihashConverter() final Multihash? id,
+      final String name,
+      final String description}) = _$NotebookImpl;
+  const _Notebook._() : super._();
+
+  factory _Notebook.fromJson(Map<String, dynamic> json) =
+      _$NotebookImpl.fromJson;
+
+  @override
+  @MultihashConverter()
+  Multihash? get id;
+  @override
+  String get name;
+  @override
+  String get description;
+  @override
+  @JsonKey(ignore: true)
+  _$$NotebookImplCopyWith<_$NotebookImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 Note _$NoteFromJson(Map<String, dynamic> json) {
   return _Note.fromJson(json);
 }
@@ -21,9 +202,9 @@ Note _$NoteFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Note {
   @MultihashConverter()
-  Multihash? get id => throw _privateConstructorUsedError;
+  Multihash? get notebookId => throw _privateConstructorUsedError;
   @MultihashConverter()
-  Multihash? get parentId => throw _privateConstructorUsedError;
+  Multihash? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   NoteStatus? get status => throw _privateConstructorUsedError;
@@ -40,8 +221,8 @@ abstract class $NoteCopyWith<$Res> {
       _$NoteCopyWithImpl<$Res, Note>;
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash? id,
-      @MultihashConverter() Multihash? parentId,
+      {@MultihashConverter() Multihash? notebookId,
+      @MultihashConverter() Multihash? id,
       String name,
       String description,
       NoteStatus? status,
@@ -61,21 +242,21 @@ class _$NoteCopyWithImpl<$Res, $Val extends Note>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? notebookId = freezed,
     Object? id = freezed,
-    Object? parentId = freezed,
     Object? name = null,
     Object? description = null,
     Object? status = freezed,
     Object? priority = null,
   }) {
     return _then(_value.copyWith(
+      notebookId: freezed == notebookId
+          ? _value.notebookId
+          : notebookId // ignore: cast_nullable_to_non_nullable
+              as Multihash?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
-      parentId: freezed == parentId
-          ? _value.parentId
-          : parentId // ignore: cast_nullable_to_non_nullable
               as Multihash?,
       name: null == name
           ? _value.name
@@ -105,8 +286,8 @@ abstract class _$$NoteImplCopyWith<$Res> implements $NoteCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash? id,
-      @MultihashConverter() Multihash? parentId,
+      {@MultihashConverter() Multihash? notebookId,
+      @MultihashConverter() Multihash? id,
       String name,
       String description,
       NoteStatus? status,
@@ -123,21 +304,21 @@ class __$$NoteImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? notebookId = freezed,
     Object? id = freezed,
-    Object? parentId = freezed,
     Object? name = null,
     Object? description = null,
     Object? status = freezed,
     Object? priority = null,
   }) {
     return _then(_$NoteImpl(
+      notebookId: freezed == notebookId
+          ? _value.notebookId
+          : notebookId // ignore: cast_nullable_to_non_nullable
+              as Multihash?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
-      parentId: freezed == parentId
-          ? _value.parentId
-          : parentId // ignore: cast_nullable_to_non_nullable
               as Multihash?,
       name: null == name
           ? _value.name
@@ -163,8 +344,8 @@ class __$$NoteImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$NoteImpl extends _Note {
   const _$NoteImpl(
-      {@MultihashConverter() this.id,
-      @MultihashConverter() this.parentId,
+      {@MultihashConverter() this.notebookId,
+      @MultihashConverter() this.id,
       this.name = '',
       this.description = '',
       this.status,
@@ -176,10 +357,10 @@ class _$NoteImpl extends _Note {
 
   @override
   @MultihashConverter()
-  final Multihash? id;
+  final Multihash? notebookId;
   @override
   @MultihashConverter()
-  final Multihash? parentId;
+  final Multihash? id;
   @override
   @JsonKey()
   final String name;
@@ -194,7 +375,7 @@ class _$NoteImpl extends _Note {
 
   @override
   String toString() {
-    return 'Note(id: $id, parentId: $parentId, name: $name, description: $description, status: $status, priority: $priority)';
+    return 'Note(notebookId: $notebookId, id: $id, name: $name, description: $description, status: $status, priority: $priority)';
   }
 
   @override
@@ -202,9 +383,9 @@ class _$NoteImpl extends _Note {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NoteImpl &&
+            (identical(other.notebookId, notebookId) ||
+                other.notebookId == notebookId) &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.parentId, parentId) ||
-                other.parentId == parentId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -216,7 +397,7 @@ class _$NoteImpl extends _Note {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, parentId, name, description, status, priority);
+      runtimeType, notebookId, id, name, description, status, priority);
 
   @JsonKey(ignore: true)
   @override
@@ -234,8 +415,8 @@ class _$NoteImpl extends _Note {
 
 abstract class _Note extends Note implements DescriptiveModel {
   const factory _Note(
-      {@MultihashConverter() final Multihash? id,
-      @MultihashConverter() final Multihash? parentId,
+      {@MultihashConverter() final Multihash? notebookId,
+      @MultihashConverter() final Multihash? id,
       final String name,
       final String description,
       final NoteStatus? status,
@@ -246,10 +427,10 @@ abstract class _Note extends Note implements DescriptiveModel {
 
   @override
   @MultihashConverter()
-  Multihash? get id;
+  Multihash? get notebookId;
   @override
   @MultihashConverter()
-  Multihash? get parentId;
+  Multihash? get id;
   @override
   String get name;
   @override

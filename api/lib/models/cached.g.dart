@@ -15,6 +15,10 @@ _$CachedDataImpl _$$CachedDataImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => Event.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      notebooks: (json['notebooks'] as List<dynamic>?)
+              ?.map((e) => Notebook.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       items: (json['items'] as List<dynamic>?)
               ?.map((e) => CalendarItem.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -29,6 +33,7 @@ Map<String, dynamic> _$$CachedDataImplToJson(_$CachedDataImpl instance) =>
     <String, dynamic>{
       'lastUpdated': instance.lastUpdated?.toIso8601String(),
       'events': instance.events,
+      'notebooks': instance.notebooks,
       'items': instance.items,
       'notes': instance.notes,
     };

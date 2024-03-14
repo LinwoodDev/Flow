@@ -14,6 +14,7 @@ class CachedData with _$CachedData {
   const factory CachedData({
     DateTime? lastUpdated,
     @Default([]) List<Event> events,
+    @Default([]) List<Notebook> notebooks,
     @Default([]) List<CalendarItem> items,
     @Default([]) List<Note> notes,
   }) = _CachedData;
@@ -27,6 +28,10 @@ class CachedData with _$CachedData {
       events: [
         ...events,
         ...other.events.where((e) => !events.any((e2) => e2.id == e.id))
+      ],
+      notebooks: [
+        ...notebooks,
+        ...other.notebooks.where((e) => !notebooks.any((e2) => e2.id == e.id))
       ],
       items: [
         ...items,

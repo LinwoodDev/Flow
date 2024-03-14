@@ -8,13 +8,36 @@ part 'model.freezed.dart';
 part 'model.g.dart';
 
 @freezed
+class Notebook with _$Notebook {
+  const Notebook._();
+
+  @Implements<DescriptiveModel>()
+  const factory Notebook({
+    @MultihashConverter() Multihash? id,
+    @Default('') String name,
+    @Default('') String description,
+  }) = _Notebook;
+
+  factory Notebook.fromJson(Map<String, dynamic> json) =>
+      _$NotebookFromJson(json);
+
+  factory Notebook.fromDatabase(Map<String, dynamic> row) => Notebook.fromJson({
+        ...row,
+      });
+
+  Map<String, dynamic> toDatabase() => {
+        ...toJson(),
+      };
+}
+
+@freezed
 class Note with _$Note {
   const Note._();
 
   @Implements<DescriptiveModel>()
   const factory Note({
+    @MultihashConverter() Multihash? notebookId,
     @MultihashConverter() Multihash? id,
-    @MultihashConverter() Multihash? parentId,
     @Default('') String name,
     @Default('') String description,
     NoteStatus? status,
@@ -39,20 +62,15 @@ enum NoteStatus {
 }
 
 extension NoteStatusExtension on NoteStatus {
-  bool? get done {
-    switch (this) {
-      case NoteStatus.todo:
-        return false;
-      case NoteStatus.inProgress:
-        return null;
-      case NoteStatus.done:
-        return true;
-    }
-  }
+  bool? get done => switch (this) {
+        NoteStatus.todo => false,
+        NoteStatus.inProgress => null,
+        NoteStatus.done => true,
+      };
 
-  static NoteStatus fromDone(bool? done) {
-    if (done == null) return NoteStatus.inProgress;
-    if (done) return NoteStatus.done;
-    return NoteStatus.todo;
-  }
+  static NoteStatus fromDone(bool? done) => switch (done) {
+        true => NoteStatus.done,
+        false => NoteStatus.todo,
+        null => NoteStatus.inProgress,
+      };
 }
