@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' as intl;
 
 class ClockView extends StatefulWidget {
   const ClockView({super.key});
@@ -85,7 +86,7 @@ class _ClockPainter extends CustomPainter {
     var textStyle = TextStyle(
       color: indicatorColor,
       fontSize: 18,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
     );
     final textPainter = TextPainter(
       textDirection: TextDirection.ltr,
@@ -117,21 +118,21 @@ class _ClockPainter extends CustomPainter {
         dateTime.hour * 2 * pi / 12 + dateTime.minute * 2 * pi / (12 * 60);
     final hourHandPaint = Paint()
       ..color = hourHandColor
-      ..strokeWidth = 5
+      ..strokeWidth = 9
       ..strokeCap = StrokeCap.round;
     drawHand(hourAngle, hourHandPaint, 0.5);
 
     final minuteAngle = dateTime.minute * 2 * pi / 60;
     final minuteHandPaint = Paint()
       ..color = minuteHandColor
-      ..strokeWidth = 3
+      ..strokeWidth = 5
       ..strokeCap = StrokeCap.round;
     drawHand(minuteAngle, minuteHandPaint, 0.7);
 
     final secondAngle = dateTime.second * 2 * pi / 60;
     final secondHandPaint = Paint()
       ..color = secondHandColor
-      ..strokeWidth = 1
+      ..strokeWidth = 3
       ..strokeCap = StrokeCap.round;
     drawHand(secondAngle, secondHandPaint, 0.9);
 
@@ -139,7 +140,7 @@ class _ClockPainter extends CustomPainter {
     textStyle = textStyle.copyWith(
         fontSize: 20, fontWeight: FontWeight.bold, color: labelColor);
     textPainter.text = TextSpan(
-      text: '${dateTime.hour}:${dateTime.minute}:${dateTime.second}',
+      text: intl.DateFormat.Hms().format(dateTime),
       style: textStyle,
     );
     textPainter.layout();
