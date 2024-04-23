@@ -292,5 +292,6 @@
   "compact": "紧凑的",
   "comfortable": "舒适的",
   "standard": "标准的",
-  "highContrast": "高对比度"
+  "highContrast": "高对比度",
+  "systemLocale": "System locale"
 }
