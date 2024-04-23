@@ -292,5 +292,6 @@
   "compact": "Compact",
   "comfortable": "Comfortable",
   "standard": "Standard",
-  "highContrast": "Contrast mare"
+  "highContrast": "Contrast mare",
+  "systemLocale": "System locale"
 }
