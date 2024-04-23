@@ -292,5 +292,6 @@
   "compact": "مدمج",
   "comfortable": "مريح",
   "standard": "قياسي",
-  "highContrast": "تباين عالي"
+  "highContrast": "تباين عالي",
+  "systemLocale": "System locale"
 }
