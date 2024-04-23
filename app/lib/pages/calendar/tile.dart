@@ -75,9 +75,11 @@ class CalendarListTile extends StatelessWidget {
       leading: Tooltip(
         message: model.status.getLocalizedName(context),
         child: PhosphorIcon(
-          model.status.icon(main.type == CalendarItemType.appointment
-              ? PhosphorIconsStyle.bold
-              : PhosphorIconsStyle.light),
+          model.status.icon(switch (main.type) {
+            CalendarItemType.appointment => PhosphorIconsStyle.fill,
+            CalendarItemType.moment => PhosphorIconsStyle.duotone,
+            CalendarItemType.pending => PhosphorIconsStyle.light,
+          }),
           color: model.status.getColor(),
         ),
       ),

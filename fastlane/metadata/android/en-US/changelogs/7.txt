@@ -3,6 +3,7 @@
 * Add high contrast mode
 * Add classic theme
 * Make dashboard the back page
+* Improve icon style for different calendar item types
 * Improve custom title bar window buttons
 * Use default page transition instead of fade
 * Upgrade to flutter 3.19
