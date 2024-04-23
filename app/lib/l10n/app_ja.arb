@@ -292,5 +292,6 @@
   "compact": "コンパクト化",
   "comfortable": "快適さ",
   "standard": "標準",
-  "highContrast": "高コントラストformat@@0"
+  "highContrast": "高コントラストformat@@0",
+  "systemLocale": "System locale"
 }
