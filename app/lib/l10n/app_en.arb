@@ -293,5 +293,6 @@
   "comfortable": "Comfortable",
   "standard": "Standard",
   "highContrast": "High contrast",
-  "labels": "Labels"
+  "labels": "Labels",
+  "systemLocale": "System locale"
 }

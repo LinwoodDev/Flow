@@ -31,8 +31,8 @@ class SourcesService {
     if (mode == SyncMode.always) {
       return true;
     }
-    return await Connectivity().checkConnectivity() !=
-        ConnectivityResult.mobile;
+    return !(await Connectivity().checkConnectivity())
+        .contains(ConnectivityResult.mobile);
   }
 
   Future<void> setup() async {
