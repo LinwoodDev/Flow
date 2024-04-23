@@ -292,5 +292,6 @@
   "compact": "Компактний",
   "comfortable": "Комфортний",
   "standard": "Стандартна",
-  "highContrast": "Високий контраст"
+  "highContrast": "Високий контраст",
+  "systemLocale": "System locale"
 }
