@@ -292,5 +292,6 @@
   "compact": "Συμπαγής",
   "comfortable": "Άνετο",
   "standard": "Τυπικό",
-  "highContrast": "Υψηλή αντίθεση"
+  "highContrast": "Υψηλή αντίθεση",
+  "systemLocale": "System locale"
 }
