@@ -292,5 +292,6 @@
   "compact": "Kompakti",
   "comfortable": "Mukava",
   "standard": "Normaali",
-  "highContrast": "Korkea kontrasti"
+  "highContrast": "Korkea kontrasti",
+  "systemLocale": "System locale"
 }
