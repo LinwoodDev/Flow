@@ -292,5 +292,6 @@
   "compact": "Kompaktní",
   "comfortable": "Komfortní",
   "standard": "Standardní",
-  "highContrast": "Vysoký kontrast"
+  "highContrast": "Vysoký kontrast",
+  "systemLocale": "System locale"
 }
