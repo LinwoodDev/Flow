@@ -16,10 +16,10 @@ import 'package:window_manager/window_manager.dart';
 class PersonalizationSettingsView extends StatelessWidget {
   const PersonalizationSettingsView({super.key});
 
-  String _getLocalizedName(BuildContext context, String name) {
-    return LocaleNames.of(context)?.nameOf(name) ??
-        AppLocalizations.of(context).systemDefault;
-  }
+  String _getLocaleName(BuildContext context, String locale) => locale
+          .isNotEmpty
+      ? LocaleNames.of(context)?.nameOf(locale.replaceAll('-', '_')) ?? locale
+      : AppLocalizations.of(context).systemLocale;
 
   String _getDensityName(BuildContext context, ThemeDensity density) =>
       switch (density) {
@@ -57,8 +57,8 @@ class PersonalizationSettingsView extends StatelessWidget {
                         title: AppLocalizations.of(context).design,
                         childrenBuilder: (context) => [
                               ListTile(
-                                title:
-                                    Text(AppLocalizations.of(context).classic),
+                                title: Text(
+                                    AppLocalizations.of(context).systemDefault),
                                 leading:
                                     _ThemeBox(theme: getThemeData('', false)),
                                 onTap: () => Navigator.pop(context, ''),
@@ -108,7 +108,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                 ListTile(
                   title: Text(AppLocalizations.of(context).language),
                   leading: const PhosphorIcon(PhosphorIconsLight.translate),
-                  subtitle: Text(_getLocalizedName(context, state.locale)),
+                  subtitle: Text(_getLocaleName(context, state.locale)),
                   onTap: () async {
                     final cubit = context.read<SettingsCubit>();
 
@@ -117,7 +117,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                       title: AppLocalizations.of(context).language,
                       childrenBuilder: (context) => [
                         ListTile(
-                          title: Text(_getLocalizedName(context, '')),
+                          title: Text(_getLocaleName(context, '')),
                           selected: state.locale.isEmpty,
                           onTap: () {
                             Navigator.of(context).pop('');
@@ -126,7 +126,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                         ...AppLocalizations.supportedLocales
                             .map((e) => e.toString())
                             .map((e) => ListTile(
-                                  title: Text(_getLocalizedName(context, e)),
+                                  title: Text(_getLocaleName(context, e)),
                                   selected: state.locale == e,
                                   onTap: () {
                                     Navigator.of(context).pop(e);
