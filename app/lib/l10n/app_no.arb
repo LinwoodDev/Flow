@@ -292,5 +292,6 @@
   "compact": "Kompakt",
   "comfortable": "Komfortabel",
   "standard": "Vanlig",
-  "highContrast": "Høy kontrast"
+  "highContrast": "Høy kontrast",
+  "systemLocale": "System locale"
 }
