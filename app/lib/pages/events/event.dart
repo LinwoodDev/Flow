@@ -54,6 +54,10 @@ class EventDialog extends StatelessWidget {
                   onChanged: (connected) {
                     currentSource = connected?.source ?? '';
                     currentService = connected?.model;
+                    currentEvent = currentEvent.copyWith(
+                      groupId: null,
+                      placeId: null,
+                    );
                   },
                 ),
                 const SizedBox(height: 16),
@@ -80,22 +84,20 @@ class EventDialog extends StatelessWidget {
                 onChanged: (value) =>
                     currentEvent = currentEvent.copyWith(description: value),
               ),
-              if (!create) ...[
-                const SizedBox(height: 16),
-                GroupSelectTile(
-                  source: source!,
-                  onChanged: (value) {
-                    currentEvent = currentEvent.copyWith(groupId: value);
-                  },
-                ),
-                const SizedBox(height: 16),
-                PlaceSelectTile(
-                  source: source!,
-                  onChanged: (value) {
-                    currentEvent = currentEvent.copyWith(placeId: value);
-                  },
-                ),
-              ],
+              const SizedBox(height: 16),
+              GroupSelectTile(
+                source: currentSource,
+                onChanged: (value) {
+                  currentEvent = currentEvent.copyWith(groupId: value);
+                },
+              ),
+              const SizedBox(height: 16),
+              PlaceSelectTile(
+                source: currentSource,
+                onChanged: (value) {
+                  currentEvent = currentEvent.copyWith(placeId: value);
+                },
+              ),
               const SizedBox(height: 8),
               StatefulBuilder(
                   builder: (context, setState) => CheckboxListTile(

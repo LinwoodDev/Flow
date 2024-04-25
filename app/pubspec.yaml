@@ -37,18 +37,18 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs
-      ref: f6161499b096f1d0bf55acbd0f6d8a58330a40e6
+      ref: 9338503df442df2e9a156511de1e93dfee8c4257
       path: packages/material_leap
   phosphor_flutter: 
     git:
       url: https://github.com/CodeDoctorDE/phosphor-flutter
       ref: f370dd2c25d3ea51ffb8f1c7c183bc9f33889c82
   path: ^1.8.3
-  go_router: ^13.2.4
+  go_router: ^14.0.0
   flex_color_scheme: ^7.3.1
   flutter_bloc: ^8.1.5
   freezed_annotation: ^2.4.1
-  json_annotation: ^4.8.1
+  json_annotation: ^4.9.0
   shared_preferences: ^2.2.3
   file_picker: ^8.0.2
   collection: ^1.17.1

@@ -20,8 +20,9 @@ _$FixedCalendarItemImpl _$$FixedCalendarItemImplFromJson(
           json['eventId'], const MultihashConverter().fromJson),
       status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
           EventStatus.confirmed,
-      start: const DateTimeConverter().fromJson(json['start'] as int?),
-      end: const DateTimeConverter().fromJson(json['end'] as int?),
+      start:
+          const DateTimeConverter().fromJson((json['start'] as num?)?.toInt()),
+      end: const DateTimeConverter().fromJson((json['end'] as num?)?.toInt()),
       $type: json['runtimeType'] as String?,
     );
 
@@ -75,17 +76,19 @@ _$RepeatingCalendarItemImpl _$$RepeatingCalendarItemImplFromJson(
           json['eventId'], const MultihashConverter().fromJson),
       status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
           EventStatus.confirmed,
-      start: const DateTimeConverter().fromJson(json['start'] as int?),
-      end: const DateTimeConverter().fromJson(json['end'] as int?),
+      start:
+          const DateTimeConverter().fromJson((json['start'] as num?)?.toInt()),
+      end: const DateTimeConverter().fromJson((json['end'] as num?)?.toInt()),
       repeatType:
           $enumDecodeNullable(_$RepeatTypeEnumMap, json['repeatType']) ??
               RepeatType.daily,
-      interval: json['interval'] as int? ?? 1,
-      variation: json['variation'] as int? ?? 0,
-      count: json['count'] as int? ?? 0,
-      until: const DateTimeConverter().fromJson(json['until'] as int?),
+      interval: (json['interval'] as num?)?.toInt() ?? 1,
+      variation: (json['variation'] as num?)?.toInt() ?? 0,
+      count: (json['count'] as num?)?.toInt() ?? 0,
+      until:
+          const DateTimeConverter().fromJson((json['until'] as num?)?.toInt()),
       exceptions: (json['exceptions'] as List<dynamic>?)
-              ?.map((e) => e as int)
+              ?.map((e) => (e as num).toInt())
               .toList() ??
           const [],
       $type: json['runtimeType'] as String?,
@@ -136,13 +139,14 @@ _$AutoCalendarItemImpl _$$AutoCalendarItemImplFromJson(
           json['eventId'], const MultihashConverter().fromJson),
       status: $enumDecodeNullable(_$EventStatusEnumMap, json['status']) ??
           EventStatus.confirmed,
-      start: const DateTimeConverter().fromJson(json['start'] as int?),
-      end: const DateTimeConverter().fromJson(json['end'] as int?),
+      start:
+          const DateTimeConverter().fromJson((json['start'] as num?)?.toInt()),
+      end: const DateTimeConverter().fromJson((json['end'] as num?)?.toInt()),
       autoGroupId: _$JsonConverterFromJson<List<int>, Multihash>(
           json['autoGroupId'], const MultihashConverter().fromJson),
-      searchStart:
-          const DateTimeConverter().fromJson(json['searchStart'] as int?),
-      autoDuration: json['autoDuration'] as int? ?? 60,
+      searchStart: const DateTimeConverter()
+          .fromJson((json['searchStart'] as num?)?.toInt()),
+      autoDuration: (json['autoDuration'] as num?)?.toInt() ?? 60,
       $type: json['runtimeType'] as String?,
     );
 
