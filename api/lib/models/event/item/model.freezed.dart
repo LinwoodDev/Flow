@@ -37,6 +37,8 @@ mixin _$CalendarItem {
   String get description => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
   @MultihashConverter()
+  Multihash? get placeId => throw _privateConstructorUsedError;
+  @MultihashConverter()
   Multihash? get eventId => throw _privateConstructorUsedError;
   EventStatus get status => throw _privateConstructorUsedError;
   @DateTimeConverter()
@@ -50,6 +52,7 @@ mixin _$CalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -60,6 +63,7 @@ mixin _$CalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -76,6 +80,7 @@ mixin _$CalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -93,6 +98,7 @@ mixin _$CalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -103,6 +109,7 @@ mixin _$CalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -119,6 +126,7 @@ mixin _$CalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -136,6 +144,7 @@ mixin _$CalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -146,6 +155,7 @@ mixin _$CalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -162,6 +172,7 @@ mixin _$CalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -212,6 +223,7 @@ abstract class $CalendarItemCopyWith<$Res> {
       String name,
       String description,
       String location,
+      @MultihashConverter() Multihash? placeId,
       @MultihashConverter() Multihash? eventId,
       EventStatus status,
       @DateTimeConverter() DateTime? start,
@@ -235,6 +247,7 @@ class _$CalendarItemCopyWithImpl<$Res, $Val extends CalendarItem>
     Object? name = null,
     Object? description = null,
     Object? location = null,
+    Object? placeId = freezed,
     Object? eventId = freezed,
     Object? status = null,
     Object? start = freezed,
@@ -257,6 +270,10 @@ class _$CalendarItemCopyWithImpl<$Res, $Val extends CalendarItem>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
+      placeId: freezed == placeId
+          ? _value.placeId
+          : placeId // ignore: cast_nullable_to_non_nullable
+              as Multihash?,
       eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
@@ -290,6 +307,7 @@ abstract class _$$FixedCalendarItemImplCopyWith<$Res>
       String name,
       String description,
       String location,
+      @MultihashConverter() Multihash? placeId,
       @MultihashConverter() Multihash? eventId,
       EventStatus status,
       @DateTimeConverter() DateTime? start,
@@ -311,6 +329,7 @@ class __$$FixedCalendarItemImplCopyWithImpl<$Res>
     Object? name = null,
     Object? description = null,
     Object? location = null,
+    Object? placeId = freezed,
     Object? eventId = freezed,
     Object? status = null,
     Object? start = freezed,
@@ -333,6 +352,10 @@ class __$$FixedCalendarItemImplCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
+      placeId: freezed == placeId
+          ? _value.placeId
+          : placeId // ignore: cast_nullable_to_non_nullable
+              as Multihash?,
       eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
@@ -361,6 +384,7 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
       this.name = '',
       this.description = '',
       this.location = '',
+      @MultihashConverter() this.placeId,
       @MultihashConverter() this.eventId,
       this.status = EventStatus.confirmed,
       @DateTimeConverter() this.start,
@@ -386,6 +410,9 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
   final String location;
   @override
   @MultihashConverter()
+  final Multihash? placeId;
+  @override
+  @MultihashConverter()
   final Multihash? eventId;
   @override
   @JsonKey()
@@ -402,7 +429,7 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
 
   @override
   String toString() {
-    return 'CalendarItem.fixed(id: $id, name: $name, description: $description, location: $location, eventId: $eventId, status: $status, start: $start, end: $end)';
+    return 'CalendarItem.fixed(id: $id, name: $name, description: $description, location: $location, placeId: $placeId, eventId: $eventId, status: $status, start: $start, end: $end)';
   }
 
   @override
@@ -416,6 +443,7 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
                 other.description == description) &&
             (identical(other.location, location) ||
                 other.location == location) &&
+            (identical(other.placeId, placeId) || other.placeId == placeId) &&
             (identical(other.eventId, eventId) || other.eventId == eventId) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.start, start) || other.start == start) &&
@@ -425,7 +453,7 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, description, location,
-      eventId, status, start, end);
+      placeId, eventId, status, start, end);
 
   @JsonKey(ignore: true)
   @override
@@ -442,6 +470,7 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -452,6 +481,7 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -468,6 +498,7 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -477,7 +508,8 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
             int autoDuration)
         auto,
   }) {
-    return fixed(id, name, description, location, eventId, status, start, end);
+    return fixed(
+        id, name, description, location, placeId, eventId, status, start, end);
   }
 
   @override
@@ -488,6 +520,7 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -498,6 +531,7 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -514,6 +548,7 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -524,7 +559,7 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
         auto,
   }) {
     return fixed?.call(
-        id, name, description, location, eventId, status, start, end);
+        id, name, description, location, placeId, eventId, status, start, end);
   }
 
   @override
@@ -535,6 +570,7 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -545,6 +581,7 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -561,6 +598,7 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -572,8 +610,8 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
     required TResult orElse(),
   }) {
     if (fixed != null) {
-      return fixed(
-          id, name, description, location, eventId, status, start, end);
+      return fixed(id, name, description, location, placeId, eventId, status,
+          start, end);
     }
     return orElse();
   }
@@ -626,6 +664,7 @@ abstract class FixedCalendarItem extends CalendarItem {
       final String name,
       final String description,
       final String location,
+      @MultihashConverter() final Multihash? placeId,
       @MultihashConverter() final Multihash? eventId,
       final EventStatus status,
       @DateTimeConverter() final DateTime? start,
@@ -644,6 +683,9 @@ abstract class FixedCalendarItem extends CalendarItem {
   String get description;
   @override
   String get location;
+  @override
+  @MultihashConverter()
+  Multihash? get placeId;
   @override
   @MultihashConverter()
   Multihash? get eventId;
@@ -675,6 +717,7 @@ abstract class _$$RepeatingCalendarItemImplCopyWith<$Res>
       String name,
       String description,
       String location,
+      @MultihashConverter() Multihash? placeId,
       @MultihashConverter() Multihash? eventId,
       EventStatus status,
       @DateTimeConverter() DateTime? start,
@@ -702,6 +745,7 @@ class __$$RepeatingCalendarItemImplCopyWithImpl<$Res>
     Object? name = null,
     Object? description = null,
     Object? location = null,
+    Object? placeId = freezed,
     Object? eventId = freezed,
     Object? status = null,
     Object? start = freezed,
@@ -730,6 +774,10 @@ class __$$RepeatingCalendarItemImplCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
+      placeId: freezed == placeId
+          ? _value.placeId
+          : placeId // ignore: cast_nullable_to_non_nullable
+              as Multihash?,
       eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
@@ -782,6 +830,7 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
       this.name = '',
       this.description = '',
       this.location = '',
+      @MultihashConverter() this.placeId,
       @MultihashConverter() this.eventId,
       this.status = EventStatus.confirmed,
       @DateTimeConverter() this.start,
@@ -812,6 +861,9 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
   @override
   @JsonKey()
   final String location;
+  @override
+  @MultihashConverter()
+  final Multihash? placeId;
   @override
   @MultihashConverter()
   final Multihash? eventId;
@@ -853,7 +905,7 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
 
   @override
   String toString() {
-    return 'CalendarItem.repeating(id: $id, name: $name, description: $description, location: $location, eventId: $eventId, status: $status, start: $start, end: $end, repeatType: $repeatType, interval: $interval, variation: $variation, count: $count, until: $until, exceptions: $exceptions)';
+    return 'CalendarItem.repeating(id: $id, name: $name, description: $description, location: $location, placeId: $placeId, eventId: $eventId, status: $status, start: $start, end: $end, repeatType: $repeatType, interval: $interval, variation: $variation, count: $count, until: $until, exceptions: $exceptions)';
   }
 
   @override
@@ -867,6 +919,7 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
                 other.description == description) &&
             (identical(other.location, location) ||
                 other.location == location) &&
+            (identical(other.placeId, placeId) || other.placeId == placeId) &&
             (identical(other.eventId, eventId) || other.eventId == eventId) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.start, start) || other.start == start) &&
@@ -891,6 +944,7 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
       name,
       description,
       location,
+      placeId,
       eventId,
       status,
       start,
@@ -917,6 +971,7 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -927,6 +982,7 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -943,6 +999,7 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -952,8 +1009,8 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
             int autoDuration)
         auto,
   }) {
-    return repeating(id, name, description, location, eventId, status, start,
-        end, repeatType, interval, variation, count, until, exceptions);
+    return repeating(id, name, description, location, placeId, eventId, status,
+        start, end, repeatType, interval, variation, count, until, exceptions);
   }
 
   @override
@@ -964,6 +1021,7 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -974,6 +1032,7 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -990,6 +1049,7 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -999,8 +1059,22 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
             int autoDuration)?
         auto,
   }) {
-    return repeating?.call(id, name, description, location, eventId, status,
-        start, end, repeatType, interval, variation, count, until, exceptions);
+    return repeating?.call(
+        id,
+        name,
+        description,
+        location,
+        placeId,
+        eventId,
+        status,
+        start,
+        end,
+        repeatType,
+        interval,
+        variation,
+        count,
+        until,
+        exceptions);
   }
 
   @override
@@ -1011,6 +1085,7 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -1021,6 +1096,7 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -1037,6 +1113,7 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -1048,8 +1125,22 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
     required TResult orElse(),
   }) {
     if (repeating != null) {
-      return repeating(id, name, description, location, eventId, status, start,
-          end, repeatType, interval, variation, count, until, exceptions);
+      return repeating(
+          id,
+          name,
+          description,
+          location,
+          placeId,
+          eventId,
+          status,
+          start,
+          end,
+          repeatType,
+          interval,
+          variation,
+          count,
+          until,
+          exceptions);
     }
     return orElse();
   }
@@ -1102,6 +1193,7 @@ abstract class RepeatingCalendarItem extends CalendarItem {
       final String name,
       final String description,
       final String location,
+      @MultihashConverter() final Multihash? placeId,
       @MultihashConverter() final Multihash? eventId,
       final EventStatus status,
       @DateTimeConverter() final DateTime? start,
@@ -1126,6 +1218,9 @@ abstract class RepeatingCalendarItem extends CalendarItem {
   String get description;
   @override
   String get location;
+  @override
+  @MultihashConverter()
+  Multihash? get placeId;
   @override
   @MultihashConverter()
   Multihash? get eventId;
@@ -1163,6 +1258,7 @@ abstract class _$$AutoCalendarItemImplCopyWith<$Res>
       String name,
       String description,
       String location,
+      @MultihashConverter() Multihash? placeId,
       @MultihashConverter() Multihash? eventId,
       EventStatus status,
       @DateTimeConverter() DateTime? start,
@@ -1187,6 +1283,7 @@ class __$$AutoCalendarItemImplCopyWithImpl<$Res>
     Object? name = null,
     Object? description = null,
     Object? location = null,
+    Object? placeId = freezed,
     Object? eventId = freezed,
     Object? status = null,
     Object? start = freezed,
@@ -1212,6 +1309,10 @@ class __$$AutoCalendarItemImplCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
+      placeId: freezed == placeId
+          ? _value.placeId
+          : placeId // ignore: cast_nullable_to_non_nullable
+              as Multihash?,
       eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
@@ -1252,6 +1353,7 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
       this.name = '',
       this.description = '',
       this.location = '',
+      @MultihashConverter() this.placeId,
       @MultihashConverter() this.eventId,
       this.status = EventStatus.confirmed,
       @DateTimeConverter() this.start,
@@ -1280,6 +1382,9 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
   final String location;
   @override
   @MultihashConverter()
+  final Multihash? placeId;
+  @override
+  @MultihashConverter()
   final Multihash? eventId;
   @override
   @JsonKey()
@@ -1305,7 +1410,7 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
 
   @override
   String toString() {
-    return 'CalendarItem.auto(id: $id, name: $name, description: $description, location: $location, eventId: $eventId, status: $status, start: $start, end: $end, autoGroupId: $autoGroupId, searchStart: $searchStart, autoDuration: $autoDuration)';
+    return 'CalendarItem.auto(id: $id, name: $name, description: $description, location: $location, placeId: $placeId, eventId: $eventId, status: $status, start: $start, end: $end, autoGroupId: $autoGroupId, searchStart: $searchStart, autoDuration: $autoDuration)';
   }
 
   @override
@@ -1319,6 +1424,7 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
                 other.description == description) &&
             (identical(other.location, location) ||
                 other.location == location) &&
+            (identical(other.placeId, placeId) || other.placeId == placeId) &&
             (identical(other.eventId, eventId) || other.eventId == eventId) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.start, start) || other.start == start) &&
@@ -1333,8 +1439,20 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description, location,
-      eventId, status, start, end, autoGroupId, searchStart, autoDuration);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      description,
+      location,
+      placeId,
+      eventId,
+      status,
+      start,
+      end,
+      autoGroupId,
+      searchStart,
+      autoDuration);
 
   @JsonKey(ignore: true)
   @override
@@ -1351,6 +1469,7 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -1361,6 +1480,7 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -1377,6 +1497,7 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -1386,8 +1507,8 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
             int autoDuration)
         auto,
   }) {
-    return auto(id, name, description, location, eventId, status, start, end,
-        autoGroupId, searchStart, autoDuration);
+    return auto(id, name, description, location, placeId, eventId, status,
+        start, end, autoGroupId, searchStart, autoDuration);
   }
 
   @override
@@ -1398,6 +1519,7 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -1408,6 +1530,7 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -1424,6 +1547,7 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -1433,8 +1557,8 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
             int autoDuration)?
         auto,
   }) {
-    return auto?.call(id, name, description, location, eventId, status, start,
-        end, autoGroupId, searchStart, autoDuration);
+    return auto?.call(id, name, description, location, placeId, eventId, status,
+        start, end, autoGroupId, searchStart, autoDuration);
   }
 
   @override
@@ -1445,6 +1569,7 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -1455,6 +1580,7 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -1471,6 +1597,7 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
             String name,
             String description,
             String location,
+            @MultihashConverter() Multihash? placeId,
             @MultihashConverter() Multihash? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
@@ -1482,8 +1609,8 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
     required TResult orElse(),
   }) {
     if (auto != null) {
-      return auto(id, name, description, location, eventId, status, start, end,
-          autoGroupId, searchStart, autoDuration);
+      return auto(id, name, description, location, placeId, eventId, status,
+          start, end, autoGroupId, searchStart, autoDuration);
     }
     return orElse();
   }
@@ -1536,6 +1663,7 @@ abstract class AutoCalendarItem extends CalendarItem {
       final String name,
       final String description,
       final String location,
+      @MultihashConverter() final Multihash? placeId,
       @MultihashConverter() final Multihash? eventId,
       final EventStatus status,
       @DateTimeConverter() final DateTime? start,
@@ -1557,6 +1685,9 @@ abstract class AutoCalendarItem extends CalendarItem {
   String get description;
   @override
   String get location;
+  @override
+  @MultihashConverter()
+  Multihash? get placeId;
   @override
   @MultihashConverter()
   Multihash? get eventId;

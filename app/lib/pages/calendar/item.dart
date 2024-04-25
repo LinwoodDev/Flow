@@ -1,5 +1,6 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/event.dart';
+import 'package:flow/pages/places/select.dart';
 import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -257,6 +258,14 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             onChanged: (value) =>
                                 _item = _item.copyWith(description: value),
                             value: _item.description,
+                          ),
+                          const SizedBox(height: 16),
+                          PlaceSelectTile(
+                            source: _source,
+                            value: _item.placeId,
+                            onChanged: (value) {
+                              _item = _item.copyWith(placeId: value);
+                            },
                           ),
                           const SizedBox(height: 8),
                           TextFormField(
