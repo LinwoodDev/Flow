@@ -14,7 +14,7 @@ _$NoteImpl _$$NoteImplFromJson(Map<String, dynamic> json) => _$NoteImpl(
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       status: $enumDecodeNullable(_$NoteStatusEnumMap, json['status']),
-      priority: json['priority'] as int? ?? 0,
+      priority: (json['priority'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$$NoteImplToJson(_$NoteImpl instance) =>

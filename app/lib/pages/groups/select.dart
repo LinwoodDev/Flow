@@ -45,6 +45,16 @@ class _GroupSelectTileState extends State<GroupSelectTile> {
   }
 
   @override
+  void didUpdateWidget(covariant GroupSelectTile oldWidget) {
+    if (oldWidget.value != widget.value || oldWidget.source != widget.source) {
+      setState(() {
+        _value = widget.value;
+      });
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<Group?>(
         future: Future.value(_value == null
