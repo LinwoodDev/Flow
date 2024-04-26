@@ -51,7 +51,7 @@ export function DownloadAppButton({ className }: { className?: string }) {
             <li>
                 <Link
                     className="dropdown__link"
-                    to="https://web.butterfly.linwood.dev">
+                    to="https://web.flow.linwood.dev">
                     <Translate description="homepage web button">
                         Open the web app
                     </Translate>

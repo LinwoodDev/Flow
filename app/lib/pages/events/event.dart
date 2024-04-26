@@ -103,6 +103,8 @@ class EventDialog extends StatelessWidget {
               const SizedBox(height: 8),
               StatefulBuilder(
                   builder: (context, setState) => CheckboxListTile(
+                        secondary:
+                            const Icon(PhosphorIconsLight.circleHalfTilt),
                         title: Text(AppLocalizations.of(context).blocked),
                         value: currentEvent.blocked,
                         onChanged: (value) => setState(

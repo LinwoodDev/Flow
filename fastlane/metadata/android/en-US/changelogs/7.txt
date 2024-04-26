@@ -6,6 +6,7 @@
 * Make dashboard the back page
 * Improve icon style for different calendar item types
 * Improve custom title bar window buttons
+* Improve material 3 colors of chips
 * Use default page transition instead of fade
 * Upgrade to flutter 3.19
 * Fix locale translations

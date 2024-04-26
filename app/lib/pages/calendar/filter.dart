@@ -81,16 +81,9 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                 final selected = !_filter.hiddenStatuses.contains(status);
                 return InputChip(
                   label: Text(status.getLocalizedName(context)),
-                  avatar: PhosphorIcon(status.icon(PhosphorIconsStyle.light),
-                      color: selected
-                          ? Theme.of(context).colorScheme.onPrimaryContainer
-                          : Theme.of(context).iconTheme.color),
+                  avatar: PhosphorIcon(status.icon(PhosphorIconsStyle.light)),
                   selected: selected,
                   selectedColor: status.getColor(),
-                  labelStyle: TextStyle(
-                      color: selected
-                          ? Theme.of(context).colorScheme.onPrimaryContainer
-                          : null),
                   showCheckmark: false,
                   onSelected: (value) {
                     setState(() {
@@ -116,18 +109,9 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
             ),
             InputChip(
               label: Text(AppLocalizations.of(context).event),
-              avatar: PhosphorIcon(PhosphorIconsLight.calendar,
-                  color: _filter.event != null
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : Theme.of(context).iconTheme.color),
+              avatar: const PhosphorIcon(PhosphorIconsLight.calendar),
               selected: _filter.event != null,
-              selectedColor: Theme.of(context).colorScheme.primaryContainer,
-              labelStyle: TextStyle(
-                  color: _filter.event != null
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : null),
               showCheckmark: false,
-              deleteIconColor: Theme.of(context).colorScheme.onPrimaryContainer,
               onDeleted: _filter.event == null
                   ? null
                   : () {
@@ -158,18 +142,9 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
             ),
             InputChip(
               label: Text(AppLocalizations.of(context).group),
-              avatar: PhosphorIcon(PhosphorIconsLight.folder,
-                  color: _filter.group != null
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : Theme.of(context).iconTheme.color),
+              avatar: const PhosphorIcon(PhosphorIconsLight.folder),
               selected: _filter.group != null,
-              selectedColor: Theme.of(context).colorScheme.primaryContainer,
-              labelStyle: TextStyle(
-                  color: _filter.group != null
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : null),
               showCheckmark: false,
-              deleteIconColor: Theme.of(context).colorScheme.onPrimaryContainer,
               onDeleted: _filter.group == null
                   ? null
                   : () {
@@ -200,18 +175,9 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
             ),
             InputChip(
               label: Text(AppLocalizations.of(context).place),
-              avatar: PhosphorIcon(PhosphorIconsLight.mapPin,
-                  color: _filter.place != null
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : Theme.of(context).iconTheme.color),
+              avatar: const PhosphorIcon(PhosphorIconsLight.mapPin),
               selected: _filter.place != null,
-              selectedColor: Theme.of(context).colorScheme.primaryContainer,
-              labelStyle: TextStyle(
-                  color: _filter.place != null
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : null),
               showCheckmark: false,
-              deleteIconColor: Theme.of(context).colorScheme.onPrimaryContainer,
               onDeleted: _filter.place == null
                   ? null
                   : () {
@@ -242,16 +208,9 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
             if (widget.past)
               InputChip(
                 label: Text(AppLocalizations.of(context).past),
-                avatar: PhosphorIcon(PhosphorIconsLight.clockCounterClockwise,
-                    color: _filter.past
-                        ? Theme.of(context).colorScheme.onPrimaryContainer
-                        : Theme.of(context).iconTheme.color),
+                avatar: const PhosphorIcon(
+                    PhosphorIconsLight.clockCounterClockwise),
                 selected: _filter.past,
-                selectedColor: Theme.of(context).colorScheme.primaryContainer,
-                labelStyle: TextStyle(
-                    color: _filter.past
-                        ? Theme.of(context).colorScheme.onPrimaryContainer
-                        : null),
                 showCheckmark: false,
                 onSelected: (value) {
                   setState(() {
