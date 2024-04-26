@@ -353,5 +353,9 @@
   "theme.unlistedContent.message": {
     "message": "هذه الصفحة غير مدرجة في القائمة. محركات البحث لن تفهرسها، ولا يمكن الوصول إليها إلا للمستخدمين الذين لديهم رابط مباشر.",
     "description": "The unlisted content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} عناصر",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   }
 }
