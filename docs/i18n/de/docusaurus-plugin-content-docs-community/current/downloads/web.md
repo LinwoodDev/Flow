@@ -15,11 +15,11 @@ Dies ist eine progressive Web-Anwendung. Sie können es in Ihrem Browser install
 ## Links
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--info button--lg margin--sm" href="https://flow.linwood.dev">
-  Haupt
+<a className="button button--outline button--info button--lg margin--sm" href="https://web.flow.linwood.dev">
+  Main
 </a>
 <a className="button button--outline button--danger button--lg margin--sm" href="https://preview.flow.linwood.dev">
-  Vorschau
+  Preview
 </a>
 </div>
 
