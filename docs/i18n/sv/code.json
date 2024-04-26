@@ -353,5 +353,9 @@
   "theme.unlistedContent.message": {
     "message": "Denna sida är inte listad. Sökmotorer kommer inte att indexera den, och endast användare som har en direktlänk kan komma åt den.",
     "description": "The unlisted content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} objekt",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   }
 }
