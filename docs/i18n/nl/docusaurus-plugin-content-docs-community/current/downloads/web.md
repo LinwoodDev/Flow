@@ -15,11 +15,11 @@ Dit is een progressieve webapplicatie. U kunt deze installeren in uw browser en 
 ## Koppelingen
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--info button--lg margin--sm" href="https://flow.linwood.dev">
-  Hoofd
+<a className="button button--outline button--info button--lg margin--sm" href="https://web.flow.linwood.dev">
+  Main
 </a>
 <a className="button button--outline button--danger button--lg margin--sm" href="https://preview.flow.linwood.dev">
-  Voorbeeld
+  Preview
 </a>
 </div>
 
