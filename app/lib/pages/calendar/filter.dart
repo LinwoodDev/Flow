@@ -50,7 +50,7 @@ class CalendarFilterView extends StatefulWidget {
     super.key,
     this.initialFilter,
     required this.onChanged,
-    this.past = true,
+    this.past = false,
   });
 
   @override

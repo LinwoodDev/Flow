@@ -151,6 +151,7 @@ class _CalendarListViewState extends State<CalendarListView> {
           CalendarFilterView(
             initialFilter: widget.filter,
             onChanged: (value) => widget.onFilterChanged(value),
+            past: true,
           ),
           const SizedBox(height: 8),
           Expanded(

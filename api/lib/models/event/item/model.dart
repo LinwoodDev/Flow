@@ -11,7 +11,7 @@ part 'model.g.dart';
 enum CalendarItemType { appointment, moment, pending }
 
 @freezed
-class CalendarItem with _$CalendarItem, DescriptiveModel {
+class CalendarItem with _$CalendarItem implements DescriptiveModel {
   const CalendarItem._();
 
   const factory CalendarItem.fixed({
