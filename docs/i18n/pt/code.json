@@ -353,5 +353,9 @@
   "theme.unlistedContent.message": {
     "message": "Esta página não está listada. Motores de busca não irão indexá-la, e somente usuários com um link direto podem acessá-la.",
     "description": "The unlisted content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} itens",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   }
 }
