@@ -353,5 +353,9 @@
   "theme.unlistedContent.message": {
     "message": "Această pagină nu este listată. Motoarele de căutare nu o vor indexa, și numai utilizatorii care au un link direct îl pot accesa.",
     "description": "The unlisted content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} obiecte",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   }
 }
