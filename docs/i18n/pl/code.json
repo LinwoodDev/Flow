@@ -353,5 +353,9 @@
   "theme.unlistedContent.message": {
     "message": "Ta strona jest niewymieniona. Wyszukiwarki nie będą indeksować jej i tylko użytkownicy posiadający bezpośredni link mogą mieć do niej dostęp.",
     "description": "The unlisted content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} przedmiotów",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   }
 }
