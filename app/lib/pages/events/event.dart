@@ -87,6 +87,7 @@ class EventDialog extends StatelessWidget {
               const SizedBox(height: 16),
               GroupSelectTile(
                 source: currentSource,
+                value: currentEvent.groupId,
                 onChanged: (value) {
                   currentEvent = currentEvent.copyWith(groupId: value);
                 },
@@ -94,6 +95,7 @@ class EventDialog extends StatelessWidget {
               const SizedBox(height: 16),
               PlaceSelectTile(
                 source: currentSource,
+                value: currentEvent.placeId,
                 onChanged: (value) {
                   currentEvent = currentEvent.copyWith(placeId: value);
                 },
