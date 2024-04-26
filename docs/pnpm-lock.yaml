@@ -51,6 +51,12 @@ importers:
         specifier: ^1.0.37
         version: 1.0.37
     devDependencies:
+      '@docusaurus/module-type-aliases':
+        specifier: 3.2.1
+        version: 3.2.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@docusaurus/tsconfig':
+        specifier: 3.2.1
+        version: 3.2.1
       markdownlint-cli2:
         specifier: ^0.13.0
         version: 0.13.0
@@ -947,6 +953,9 @@ packages:
   '@docusaurus/theme-translations@3.2.1':
     resolution: {integrity: sha512-jAUMkIkFfY+OAhJhv6mV8zlwY6J4AQxJPTgLdR2l+Otof9+QdJjHNh/ifVEu9q0lp3oSPlJj9l05AaP7Ref+cg==}
     engines: {node: '>=18.0'}
+
+  '@docusaurus/tsconfig@3.2.1':
+    resolution: {integrity: sha512-+biUwtsYW3oChLxYezzA+NIgS3Q9KDRl7add/YT54RXs9Q4rKInebxdHdG6JFs5BaTg45gyjDu0rvNVcGeHODg==}
 
   '@docusaurus/types@3.2.1':
     resolution: {integrity: sha512-n/toxBzL2oxTtRTOFiGKsHypzn/Pm+sXyw+VSk1UbqbXQiHOwHwts55bpKwbcUgA530Is6kix3ELiFOv9GAMfw==}
@@ -6623,6 +6632,8 @@ snapshots:
     dependencies:
       fs-extra: 11.2.0
       tslib: 2.6.2
+
+  '@docusaurus/tsconfig@3.2.1': {}
 
   '@docusaurus/types@3.2.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:

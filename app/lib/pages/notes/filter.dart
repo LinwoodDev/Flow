@@ -73,16 +73,8 @@ class _NoteFilterViewState extends State<NoteFilterView> {
           children: <Widget>[
             InputChip(
               label: Text(AppLocalizations.of(context).done),
-              avatar: PhosphorIcon(PhosphorIconsLight.checkSquare,
-                  color: _filter.showDone
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : Theme.of(context).iconTheme.color),
+              avatar: const PhosphorIcon(PhosphorIconsLight.checkSquare),
               selected: _filter.showDone,
-              selectedColor: Theme.of(context).colorScheme.primaryContainer,
-              labelStyle: TextStyle(
-                  color: _filter.showDone
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : null),
               showCheckmark: false,
               onSelected: (value) {
                 setState(() {
@@ -93,16 +85,8 @@ class _NoteFilterViewState extends State<NoteFilterView> {
             ),
             InputChip(
               label: Text(AppLocalizations.of(context).inProgress),
-              avatar: PhosphorIcon(PhosphorIconsLight.minusSquare,
-                  color: _filter.showInProgress
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : Theme.of(context).iconTheme.color),
+              avatar: const PhosphorIcon(PhosphorIconsLight.minusSquare),
               selected: _filter.showInProgress,
-              selectedColor: Theme.of(context).colorScheme.primaryContainer,
-              labelStyle: TextStyle(
-                  color: _filter.showInProgress
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : null),
               showCheckmark: false,
               onSelected: (value) {
                 setState(() {
@@ -113,16 +97,8 @@ class _NoteFilterViewState extends State<NoteFilterView> {
             ),
             InputChip(
               label: Text(AppLocalizations.of(context).todo),
-              avatar: PhosphorIcon(PhosphorIconsLight.square,
-                  color: _filter.showTodo
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : Theme.of(context).iconTheme.color),
+              avatar: const PhosphorIcon(PhosphorIconsLight.square),
               selected: _filter.showTodo,
-              selectedColor: Theme.of(context).colorScheme.primaryContainer,
-              labelStyle: TextStyle(
-                  color: _filter.showTodo
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : null),
               showCheckmark: false,
               onSelected: (value) {
                 setState(() {
@@ -133,16 +109,8 @@ class _NoteFilterViewState extends State<NoteFilterView> {
             ),
             InputChip(
               label: Text(AppLocalizations.of(context).note),
-              avatar: PhosphorIcon(PhosphorIconsLight.note,
-                  color: _filter.showNote
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : Theme.of(context).iconTheme.color),
+              avatar: const PhosphorIcon(PhosphorIconsLight.note),
               selected: _filter.showNote,
-              selectedColor: Theme.of(context).colorScheme.primaryContainer,
-              labelStyle: TextStyle(
-                  color: _filter.showNote
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : null),
               showCheckmark: false,
               onSelected: (value) {
                 setState(() {
