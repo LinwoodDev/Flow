@@ -353,5 +353,9 @@
   "theme.unlistedContent.message": {
     "message": "Tato stránka není uvedena. Vyhledávače ji nebudou indexovat a k ní mají přístup pouze uživatelé, kteří mají přímý odkaz.",
     "description": "The unlisted content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} položek",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   }
 }
