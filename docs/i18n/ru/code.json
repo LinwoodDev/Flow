@@ -353,5 +353,9 @@
   "theme.unlistedContent.message": {
     "message": "Эта страница удалена. Поисковые системы не будут индексировать ее, и только пользователи, имеющие прямую ссылку, имеют доступ к ней.",
     "description": "The unlisted content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} элементов",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   }
 }
