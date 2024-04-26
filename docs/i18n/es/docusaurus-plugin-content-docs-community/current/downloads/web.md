@@ -15,11 +15,11 @@ Esta es una aplicación web progresiva. Puedes instalarlo en tu navegador y usar
 ## Enlaces
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--info button--lg margin--sm" href="https://flow.linwood.dev">
-  Principal
+<a className="button button--outline button--info button--lg margin--sm" href="https://web.flow.linwood.dev">
+  Main
 </a>
 <a className="button button--outline button--danger button--lg margin--sm" href="https://preview.flow.linwood.dev">
-  Vista previa
+  Preview
 </a>
 </div>
 
