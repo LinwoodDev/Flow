@@ -128,9 +128,17 @@ class NoteDatabaseService extends NoteService with TableService {
         description TEXT,
         status VARCHAR(20),
         priority INTEGER NOT NULL DEFAULT 0,
+        notebookId BLOB(16),
         parentId BLOB(16)
       )
     """);
+  }
+
+  @override
+  Future<void> migrate(Database db, int version) async {
+    if (version < 3) {
+      await db.execute("ALTER TABLE notes ADD notebookId BLOB(16)");
+    }
   }
 
   @override
@@ -200,9 +208,6 @@ class NoteDatabaseService extends NoteService with TableService {
     );
     return result?.map((row) => Note.fromDatabase(row)).toList() ?? [];
   }
-
-  @override
-  FutureOr<void> migrate(Database db, int version) {}
 
   @override
   FutureOr<bool> updateNote(Note note) async {

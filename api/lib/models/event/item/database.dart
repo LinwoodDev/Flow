@@ -24,6 +24,8 @@ class CalendarItemDatabaseService extends CalendarItemService
         description TEXT NOT NULL DEFAULT '',
         location VARCHAR(100) NOT NULL DEFAULT '',
         eventId BLOB(16),
+        groupId BLOB(16),
+        placeId BLOB(16),
         start INTEGER,
         end INTEGER,
         status VARCHAR(20) NOT NULL DEFAULT 'confirmed',
@@ -42,7 +44,14 @@ class CalendarItemDatabaseService extends CalendarItemService
   }
 
   @override
-  FutureOr<void> migrate(Database db, int version) {}
+  Future<void> migrate(Database db, int version) async {
+    if (version < 3) {
+      await db.transaction((txn) async {
+        await txn.execute("ALTER TABLE calendarItems ADD groupId BLOB(16)");
+        await txn.execute("ALTER TABLE calendarItems ADD placeId BLOB(16)");
+      });
+    }
+  }
 
   @override
   Future<List<ConnectedModel<CalendarItem, Event?>>> getCalendarItems(

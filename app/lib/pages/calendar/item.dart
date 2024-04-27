@@ -1,5 +1,6 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/event.dart';
+import 'package:flow/pages/groups/select.dart';
 import 'package:flow/pages/places/select.dart';
 import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
@@ -199,6 +200,8 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                                 _source = connected?.source ?? '';
                                 _item = _item.copyWith(
                                   eventId: null,
+                                  groupId: null,
+                                  placeId: null,
                                 );
                                 _service = connected?.model;
                               },
@@ -260,6 +263,13 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             value: _item.description,
                           ),
                           const SizedBox(height: 16),
+                          GroupSelectTile(
+                            source: _source,
+                            value: _item.groupId,
+                            onChanged: (value) {
+                              _item = _item.copyWith(groupId: value);
+                            },
+                          ),
                           PlaceSelectTile(
                             source: _source,
                             value: _item.placeId,
