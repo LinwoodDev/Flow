@@ -10,6 +10,7 @@ abstract class NoteService extends ModelService {
     int offset = 0,
     int limit = 50,
     Multihash? parent,
+    Multihash? notebook,
     Set<NoteStatus?> statuses = const {
       NoteStatus.todo,
       NoteStatus.inProgress,

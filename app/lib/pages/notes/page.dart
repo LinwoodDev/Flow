@@ -1,10 +1,9 @@
-import 'dart:typed_data';
-
 import 'package:flow/pages/notes/card.dart';
 import 'package:flow/pages/notes/navigator/drawer.dart';
 import 'package:flow/pages/notes/note.dart';
 import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flow/widgets/navigation.dart';
+import 'package:flow_api/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -47,6 +46,7 @@ class _NotesPageState extends State<NotesPage> {
     return FlowNavigation(
       title: AppLocalizations.of(context).notes,
       endDrawer: NotesNavigatorDrawer(
+        note: widget.parent?.model,
         selectedLabel: _filter.selectedLabel,
         onLabelChanged: (value, add) {
           final source = value.source;
@@ -167,7 +167,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
               statuses: _filter.statuses,
               parent: widget.parent?.source == source
                   ? widget.parent?.model
-                  : Multihash(Uint8List.fromList([])),
+                  : createEmptyMultihash(),
               search: widget.search,
             )
           : await service.note?.getNotes(
@@ -176,7 +176,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
               statuses: _filter.statuses,
               parent: widget.parent?.source == source
                   ? widget.parent?.model
-                  : Multihash(Uint8List.fromList([])),
+                  : createEmptyMultihash(),
               search: widget.search);
       if (notes == null) return null;
       if (source != widget.parent?.source) return notes;

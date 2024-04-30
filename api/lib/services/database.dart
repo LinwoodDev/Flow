@@ -114,3 +114,7 @@ Multihash createUniqueMultihash() {
           List.generate(8, (i) => random.nextInt(255)));
   return Multihash(uuid);
 }
+
+Multihash createEmptyMultihash() {
+  return Multihash(Uint8List.fromList([]));
+}

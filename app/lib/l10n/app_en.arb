@@ -294,5 +294,6 @@
   "standard": "Standard",
   "highContrast": "High contrast",
   "labels": "Labels",
-  "systemLocale": "System locale"
+  "systemLocale": "System locale",
+  "notebooks": "Notebooks"
 }

@@ -165,6 +165,7 @@ class NoteDatabaseService extends NoteService with TableService {
     int offset = 0,
     int limit = 50,
     Multihash? parent,
+    Multihash? notebook,
     Set<Multihash> labels = const {},
     Set<NoteStatus?> statuses = const {
       NoteStatus.todo,
@@ -190,6 +191,10 @@ class NoteDatabaseService extends NoteService with TableService {
         where =
             where == null ? 'parentId IS NULL' : '$where AND parentId IS NULL';
       }
+    }
+    if (notebook != null) {
+      where = where == null ? 'notebookId = ?' : '$where AND notebookId = ?';
+      whereArgs = [...?whereArgs, notebook.fullBytes];
     }
     var statusStatement =
         "status IN (${statuses.whereNotNull().map((e) => "'${e.name}'").join(',')})";

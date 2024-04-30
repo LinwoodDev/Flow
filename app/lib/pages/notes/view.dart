@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:flow/helpers/sourced_paging_controller.dart';
+import 'package:flow/pages/notes/select.dart';
 import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +18,6 @@ import 'package:flow_api/services/source.dart';
 
 import '../../cubits/flow.dart';
 import 'label.dart';
-import 'select.dart';
 
 class NoteView extends StatefulWidget {
   final String source;
