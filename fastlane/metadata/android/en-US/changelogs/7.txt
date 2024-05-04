@@ -8,5 +8,6 @@
 * Improve custom title bar window buttons
 * Improve material 3 colors of chips
 * Use default page transition instead of fade
+* Unify select dialogs
 * Upgrade to flutter 3.19
 * Fix locale translations

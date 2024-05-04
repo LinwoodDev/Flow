@@ -7,7 +7,7 @@ part 'model.freezed.dart';
 part 'model.g.dart';
 
 @freezed
-class Label with _$Label {
+class Label with _$Label, IdentifiedModel, NamedModel, DescriptiveModel {
   const Label._();
 
   @Implements<DescriptiveModel>()

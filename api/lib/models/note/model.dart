@@ -8,7 +8,7 @@ part 'model.freezed.dart';
 part 'model.g.dart';
 
 @freezed
-class Notebook with _$Notebook {
+class Notebook with _$Notebook, IdentifiedModel, NamedModel, DescriptiveModel {
   const Notebook._();
 
   @Implements<DescriptiveModel>()
@@ -31,7 +31,7 @@ class Notebook with _$Notebook {
 }
 
 @freezed
-class Note with _$Note {
+class Note with _$Note, IdentifiedModel, NamedModel, DescriptiveModel {
   const Note._();
 
   @Implements<DescriptiveModel>()
