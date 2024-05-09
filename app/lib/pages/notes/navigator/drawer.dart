@@ -1,6 +1,6 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/sourced_paging_controller.dart';
-import 'package:flow/pages/notes/card.dart';
+import 'package:flow/pages/notes/tile.dart';
 import 'package:flow/pages/notes/filter.dart';
 import 'package:flow/pages/notes/label.dart';
 import 'package:flow/pages/notes/notebook.dart';

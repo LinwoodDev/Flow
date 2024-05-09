@@ -17,6 +17,7 @@ class NotesListView extends StatelessWidget {
         (ctx, item, index) => NoteListTile(
           note: item.model,
           source: item.source,
+          controller: controller,
         ),
       ),
     );

@@ -155,7 +155,8 @@ class _NotesBodyViewState extends State<NotesBodyView> {
   void didUpdateWidget(covariant NotesBodyView oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.search != widget.search) {
+    if (oldWidget.search != widget.search ||
+        oldWidget.parent != widget.parent) {
       _controller.refresh();
     }
     if (oldWidget.filter != widget.filter) {

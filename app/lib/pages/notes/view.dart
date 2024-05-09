@@ -325,104 +325,103 @@ class _NoteViewState extends State<NoteView> {
                 ),
               ]),
             ),
-            const SizedBox(height: 16),
-            SizedBox(
-              height: 50,
-              child: Scrollbar(
-                controller: _formattingScrollController,
-                child: ListView(
-                    controller: _formattingScrollController,
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      ...[
-                        PhosphorIconsLight.textHOne,
-                        PhosphorIconsLight.textHTwo,
-                        PhosphorIconsLight.textHThree,
-                        PhosphorIconsLight.textHFour,
-                        PhosphorIconsLight.textHFive,
-                        PhosphorIconsLight.textHSix
-                      ].mapIndexed((index, element) => IconButton(
-                            icon: PhosphorIcon(element),
-                            onPressed: () => _addDescription(
-                              PastePositing.line,
-                              "${"#" * (index + 1)} ",
-                            ),
-                          )),
-                      ...[
-                        (
-                          '```',
-                          PhosphorIconsLight.codeSimple,
-                          AppLocalizations.of(context).codeBlock
-                        ),
-                        (
-                          '>',
-                          PhosphorIconsLight.quotes,
-                          AppLocalizations.of(context).quote
-                        ),
-                        (
-                          '- ',
-                          PhosphorIconsLight.list,
-                          AppLocalizations.of(context).list
-                        ),
-                        (
-                          '1. ',
-                          PhosphorIconsLight.listNumbers,
-                          AppLocalizations.of(context).numberedList
-                        ),
-                      ].map((e) => IconButton(
-                            icon: PhosphorIcon(e.$2),
-                            tooltip: e.$3,
-                            onPressed: () => _addDescription(
-                              PastePositing.line,
-                              e.$1,
-                            ),
-                          )),
-                      const SizedBox(width: 8),
-                      ...[
-                        (
-                          '**',
-                          PhosphorIconsLight.textB,
-                          AppLocalizations.of(context).bold
-                        ),
-                        (
-                          '*',
-                          PhosphorIconsLight.textItalic,
-                          AppLocalizations.of(context).italic
-                        ),
-                        (
-                          '~~',
-                          PhosphorIconsLight.textStrikethrough,
-                          AppLocalizations.of(context).strikethrough
-                        ),
-                        (
-                          '`',
-                          PhosphorIconsLight.code,
-                          AppLocalizations.of(context).code
-                        ),
-                      ].map((e) => IconButton(
-                            icon: PhosphorIcon(e.$2),
-                            tooltip: e.$3,
-                            onPressed: () => _addDescription(
-                              PastePositing.selection,
-                              e.$1,
-                            ),
-                          )),
-                      IconButton(
-                        icon: const PhosphorIcon(PhosphorIconsLight.link),
-                        tooltip: AppLocalizations.of(context).link,
-                        onPressed: () => _addDescription(
-                          PastePositing.selection,
-                          '[',
-                          ']()',
-                        ),
-                      ),
-                    ]),
-              ),
-            ),
             MarkdownField(
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context).description,
                 border: const OutlineInputBorder(),
+              ),
+              toolbar: SizedBox(
+                height: 50,
+                child: Scrollbar(
+                  controller: _formattingScrollController,
+                  child: ListView(
+                      controller: _formattingScrollController,
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        ...[
+                          PhosphorIconsLight.textHOne,
+                          PhosphorIconsLight.textHTwo,
+                          PhosphorIconsLight.textHThree,
+                          PhosphorIconsLight.textHFour,
+                          PhosphorIconsLight.textHFive,
+                          PhosphorIconsLight.textHSix
+                        ].mapIndexed((index, element) => IconButton(
+                              icon: PhosphorIcon(element),
+                              onPressed: () => _addDescription(
+                                PastePositing.line,
+                                "${"#" * (index + 1)} ",
+                              ),
+                            )),
+                        ...[
+                          (
+                            '```',
+                            PhosphorIconsLight.codeSimple,
+                            AppLocalizations.of(context).codeBlock
+                          ),
+                          (
+                            '>',
+                            PhosphorIconsLight.quotes,
+                            AppLocalizations.of(context).quote
+                          ),
+                          (
+                            '- ',
+                            PhosphorIconsLight.list,
+                            AppLocalizations.of(context).list
+                          ),
+                          (
+                            '1. ',
+                            PhosphorIconsLight.listNumbers,
+                            AppLocalizations.of(context).numberedList
+                          ),
+                        ].map((e) => IconButton(
+                              icon: PhosphorIcon(e.$2),
+                              tooltip: e.$3,
+                              onPressed: () => _addDescription(
+                                PastePositing.line,
+                                e.$1,
+                              ),
+                            )),
+                        const SizedBox(width: 8),
+                        ...[
+                          (
+                            '**',
+                            PhosphorIconsLight.textB,
+                            AppLocalizations.of(context).bold
+                          ),
+                          (
+                            '*',
+                            PhosphorIconsLight.textItalic,
+                            AppLocalizations.of(context).italic
+                          ),
+                          (
+                            '~~',
+                            PhosphorIconsLight.textStrikethrough,
+                            AppLocalizations.of(context).strikethrough
+                          ),
+                          (
+                            '`',
+                            PhosphorIconsLight.code,
+                            AppLocalizations.of(context).code
+                          ),
+                        ].map((e) => IconButton(
+                              icon: PhosphorIcon(e.$2),
+                              tooltip: e.$3,
+                              onPressed: () => _addDescription(
+                                PastePositing.selection,
+                                e.$1,
+                              ),
+                            )),
+                        IconButton(
+                          icon: const PhosphorIcon(PhosphorIconsLight.link),
+                          tooltip: AppLocalizations.of(context).link,
+                          onPressed: () => _addDescription(
+                            PastePositing.selection,
+                            '[',
+                            ']()',
+                          ),
+                        ),
+                      ]),
+                ),
               ),
               controller: _descriptionController,
               onChangeEnd: (value) {

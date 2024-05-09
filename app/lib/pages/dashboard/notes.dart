@@ -1,4 +1,4 @@
-import 'package:flow/pages/notes/card.dart';
+import 'package:flow/pages/notes/tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -20,7 +20,7 @@ class _DashboardNotesCardState extends State<DashboardNotesCard> {
     final sources = context.read<FlowCubit>().getCurrentServicesMap();
     final notes = <(Note, String)>[];
     for (final source in sources.entries) {
-      notes.addAll((await source.value.note?.getNotes() ?? [])
+      notes.addAll((await source.value.note?.getNotes(limit: 5) ?? [])
           .map((e) => (e, source.key))
           .toList());
     }
