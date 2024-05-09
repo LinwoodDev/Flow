@@ -16,6 +16,13 @@ class NoteListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      leading: note.status == null
+          ? null
+          : Checkbox(
+              tristate: true,
+              value: note.status?.done,
+              onChanged: null,
+            ),
       title: Text(note.name),
       subtitle: MarkdownText(note.description),
       onTap: () {

@@ -1,17 +1,23 @@
 part of 'drawer.dart';
 
 class _NotebooksView extends StatelessWidget {
-  final SourcedModel<Notebook?>? model;
+  final SourcedModel<Multihash?>? model;
+  final ValueChanged<SourcedModel<Multihash>?> onChanged;
 
   const _NotebooksView({
     this.model,
+    required this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
     return SelectTile(
       source: model?.source,
-      onChanged: (model) {},
+      value: model?.model,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      onChanged: onChanged,
       onModelFetch: (source, service, id) async =>
           service.note?.getNotebook(id),
       title: AppLocalizations.of(context).notebooks,

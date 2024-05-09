@@ -38,6 +38,7 @@ class Note with _$Note, IdentifiedModel, NamedModel, DescriptiveModel {
   const factory Note({
     @MultihashConverter() Multihash? notebookId,
     @MultihashConverter() Multihash? id,
+    @MultihashConverter() Multihash? parentId,
     @Default('') String name,
     @Default('') String description,
     NoteStatus? status,

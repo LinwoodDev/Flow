@@ -27,11 +27,13 @@ class SelectTile<T extends NamedModel> extends StatefulWidget {
   final ModelSelectBuilder<T> selectBuilder;
   final ModelSelectBuilder<T> dialogBuilder;
   final String title;
+  final ShapeBorder? shape;
 
   const SelectTile({
     super.key,
     required this.source,
     this.value,
+    this.shape,
     required this.onChanged,
     required this.onModelFetch,
     required this.title,
@@ -77,6 +79,7 @@ class _SelectTileState<T extends NamedModel> extends State<SelectTile<T>> {
               ? null
               : SourcedModel(_value!.source, model);
           return ListTile(
+            shape: widget.shape,
             title: Text(widget.title),
             subtitle: Text(model?.name ?? AppLocalizations.of(context).notSet),
             leading: widget.leadingBuilder(context, sourcedModel),

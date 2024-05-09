@@ -1,5 +1,7 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/sourced_paging_controller.dart';
+import 'package:flow/pages/notes/card.dart';
+import 'package:flow/pages/notes/filter.dart';
 import 'package:flow/pages/notes/label.dart';
 import 'package:flow/pages/notes/notebook.dart';
 import 'package:flow/widgets/builder_delegate.dart';
@@ -16,46 +18,88 @@ import 'package:material_leap/material_leap.dart';
 import 'package:material_leap/widgets.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-part 'children.dart';
+part '../list.dart';
 part 'labels.dart';
 part 'notebooks.dart';
 
-class NotesNavigatorDrawer extends StatelessWidget {
-  final String source;
-  final Notebook? notebook;
-  final Multihash? note, selectedLabel;
-  final LabelChangedCallback? onLabelChanged;
+class NotesNavigatorDrawer extends StatefulWidget {
+  final Multihash? note;
+  final ValueChanged<NoteFilter>? onFilterChanged;
+  final NoteFilter filter;
 
   const NotesNavigatorDrawer({
     super.key,
-    this.source = '',
     this.note,
-    this.notebook,
-    this.selectedLabel,
-    this.onLabelChanged,
+    this.onFilterChanged,
+    required this.filter,
   });
+
+  @override
+  State<NotesNavigatorDrawer> createState() => _NotesNavigatorDrawerState();
+}
+
+class _NotesNavigatorDrawerState extends State<NotesNavigatorDrawer> {
+  late final SourcedPagingController<Note> _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = SourcedPagingController(context.read<FlowCubit>());
+    _controller.addFetchListener(
+        (source, service, offset, limit) async => service.note?.getNotes(
+              offset: offset,
+              limit: limit,
+              notebook: widget.filter.notebook,
+              parent: widget.note,
+            ));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final sourcedNotebook =
-        notebook == null ? null : SourcedModel(source, notebook);
+        widget.filter.notebook == null || widget.filter.source == null
+            ? null
+            : SourcedModel(widget.filter.source!, widget.filter.notebook);
     return DefaultTabController(
       length: 2,
       child: Column(
         children: [
-          _NotebooksView(
-            model: sourcedNotebook,
-          ),
-          _NoteLabelsView(
-            onChanged: onLabelChanged,
-            selected: selectedLabel,
-          ),
-          Expanded(
-            child: _NoteChildrenView(
-              parent: note,
-              notebook: sourcedNotebook,
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                children: [
+                  if (widget.note == null) ...[
+                    _NotebooksView(
+                      model: sourcedNotebook,
+                      onChanged: (value) =>
+                          widget.onFilterChanged?.call(widget.filter.copyWith(
+                        notebook: value?.model,
+                        source: value?.source,
+                      )),
+                    ),
+                    const Divider(height: 32),
+                  ],
+                  _NoteLabelsView(
+                    onChanged: widget.onFilterChanged,
+                    filter: widget.filter,
+                  ),
+                ],
+              ),
             ),
           ),
+          if (widget.note != null)
+            Expanded(
+              child: NotesListView(
+                controller: _controller,
+              ),
+            ),
         ],
       ),
     );

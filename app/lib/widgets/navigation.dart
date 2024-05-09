@@ -140,7 +140,7 @@ class FlowNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      final isMobile = MediaQuery.of(context).size.width < 768;
+      final isMobile = MediaQuery.of(context).size.width < 820;
       final showEndDrawerButton = isMobile && endDrawer != null;
       const drawer = _FlowDrawer();
       PreferredSizeWidget appBar = AppBar(
@@ -199,7 +199,7 @@ class FlowNavigation extends StatelessWidget {
                     Expanded(child: body),
                     if (!isMobile && endDrawer != null)
                       SizedBox(
-                        width: 250,
+                        width: 275,
                         child: endDrawer!,
                       )
                   ],

@@ -15,6 +15,7 @@ class NoteFilter with _$NoteFilter {
     @Default(true) bool showTodo,
     @Default(true) bool showNote,
     Multihash? selectedLabel,
+    Multihash? notebook,
     String? source,
   }) = _NoteFilter;
 

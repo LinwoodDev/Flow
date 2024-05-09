@@ -122,24 +122,24 @@ class CalendarItemDatabaseService extends CalendarItemService
       where = where == null ? 'eventId = ?' : '$where AND eventId = ?';
       whereArgs = [...?whereArgs, eventId.fullBytes];
     }
+    const eventPrefix = "event_";
     final result = await db?.query(
       "calendarItems LEFT JOIN events ON events.id = calendarItems.eventId",
       columns: [
-        "events.id AS event_id",
-        "events.parentId AS event_parentId",
-        "events.groupId AS event_groupId",
-        "events.placeId AS event_placeId",
-        "events.blocked AS event_blocked",
-        "events.name AS event_name",
-        "events.description AS event_description",
-        "events.location AS event_location",
-        "events.extra AS event_extra",
+        "events.id AS ${eventPrefix}id",
+        "events.parentId AS ${eventPrefix}parentId",
+        "events.groupId AS ${eventPrefix}groupId",
+        "events.placeId AS ${eventPrefix}placeId",
+        "events.blocked AS ${eventPrefix}blocked",
+        "events.name AS ${eventPrefix}name",
+        "events.description AS ${eventPrefix}description",
+        "events.location AS ${eventPrefix}location",
+        "events.extra AS ${eventPrefix}extra",
         "calendarItems.*",
       ],
       where: where,
       whereArgs: whereArgs,
     );
-    const eventPrefix = "event_";
     return result?.map((e) {
           return ConnectedModel<CalendarItem, Event?>(
             CalendarItem.fromDatabase(e),

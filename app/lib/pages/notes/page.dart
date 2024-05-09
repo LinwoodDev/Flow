@@ -1,13 +1,10 @@
-import 'package:flow/pages/notes/card.dart';
 import 'package:flow/pages/notes/navigator/drawer.dart';
 import 'package:flow/pages/notes/note.dart';
-import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flow_api/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lib5/lib5.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/note/model.dart';
@@ -47,25 +44,10 @@ class _NotesPageState extends State<NotesPage> {
       title: AppLocalizations.of(context).notes,
       endDrawer: NotesNavigatorDrawer(
         note: widget.parent?.model,
-        selectedLabel: _filter.selectedLabel,
-        onLabelChanged: (value, add) {
-          final source = value.source;
-          if (add) {
-            setState(() {
-              _filter = _filter.copyWith(
-                selectedLabel: value.model.id,
-                source: source,
-              );
-            });
-          } else {
-            setState(() {
-              _filter = _filter.copyWith(
-                selectedLabel: null,
-                source: null,
-              );
-            });
-          }
-        },
+        filter: _filter,
+        onFilterChanged: (value) => setState(() {
+          _filter = value;
+        }),
       ),
       actions: [
         IconButton(
@@ -159,6 +141,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
     _controller = SourcedPagingController(_flowCubit);
     _controller.addFetchListener((source, service, offset, limit) async {
       if (_filter.source != null && _filter.source != source) return null;
+      if (widget.parent != null && widget.search.isEmpty) return null;
       final notes = _filter.selectedLabel != null
           ? await service.labelNote?.getNotes(
               _filter.selectedLabel!,
@@ -197,8 +180,8 @@ class _NotesBodyViewState extends State<NotesBodyView> {
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
+    _controller.dispose();
   }
 
   @override
@@ -221,23 +204,6 @@ class _NotesBodyViewState extends State<NotesBodyView> {
     return Scaffold(
       body: Column(
         children: [
-          FutureBuilder<Note?>(
-              future: _parent,
-              builder: (context, snapshot) {
-                final data = snapshot.data;
-                if (data == null) return Container();
-                return Column(
-                  children: [
-                    NoteView(
-                      controller: _controller,
-                      source: widget.parent!.source,
-                      note: data,
-                    ),
-                    const SizedBox(height: 8),
-                    const Divider(),
-                  ],
-                );
-              }),
           NoteFilterView(
             initialFilter: _filter,
             onChanged: (filter) {
@@ -247,17 +213,27 @@ class _NotesBodyViewState extends State<NotesBodyView> {
               _controller.refresh();
             },
           ),
+          FutureBuilder<Note?>(
+              future: _parent,
+              builder: (context, snapshot) {
+                final data = snapshot.data;
+                if (data == null) return Container();
+                return Column(
+                  children: [
+                    const Divider(),
+                    const SizedBox(height: 8),
+                    NoteView(
+                      controller: _controller,
+                      source: widget.parent!.source,
+                      note: data,
+                    ),
+                  ],
+                );
+              }),
           const SizedBox(height: 8),
           Expanded(
-            child: PagedListView(
-              pagingController: _controller,
-              builderDelegate: buildMaterialPagedDelegate<SourcedModel<Note>>(
-                _controller,
-                (ctx, item, index) => NoteListTile(
-                  source: item.source,
-                  note: item.model,
-                ),
-              ),
+            child: NotesListView(
+              controller: _controller,
             ),
           ),
         ],
@@ -266,7 +242,9 @@ class _NotesBodyViewState extends State<NotesBodyView> {
         onPressed: () => showDialog<Note>(
             context: context,
             builder: (context) => NoteDialog(
-                  note: const Note(),
+                  note: Note(
+                    parentId: widget.parent?.model,
+                  ),
                   source: widget.parent?.source,
                   create: true,
                 )).then((_) => _controller.refresh()),

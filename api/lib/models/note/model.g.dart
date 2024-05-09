@@ -39,6 +39,8 @@ _$NoteImpl _$$NoteImplFromJson(Map<String, dynamic> json) => _$NoteImpl(
           json['notebookId'], const MultihashConverter().fromJson),
       id: _$JsonConverterFromJson<List<int>, Multihash>(
           json['id'], const MultihashConverter().fromJson),
+      parentId: _$JsonConverterFromJson<List<int>, Multihash>(
+          json['parentId'], const MultihashConverter().fromJson),
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       status: $enumDecodeNullable(_$NoteStatusEnumMap, json['status']),
@@ -51,6 +53,8 @@ Map<String, dynamic> _$$NoteImplToJson(_$NoteImpl instance) =>
           instance.notebookId, const MultihashConverter().toJson),
       'id': _$JsonConverterToJson<List<int>, Multihash>(
           instance.id, const MultihashConverter().toJson),
+      'parentId': _$JsonConverterToJson<List<int>, Multihash>(
+          instance.parentId, const MultihashConverter().toJson),
       'name': instance.name,
       'description': instance.description,
       'status': _$NoteStatusEnumMap[instance.status],
