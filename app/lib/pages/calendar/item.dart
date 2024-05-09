@@ -213,7 +213,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             source: _source,
                             value: _item.eventId,
                             onChanged: (value) {
-                              _item = _item.copyWith(eventId: value);
+                              _item = _item.copyWith(eventId: value?.model);
                             },
                           ),
                           const SizedBox(height: 16),
@@ -267,14 +267,14 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             source: _source,
                             value: _item.groupId,
                             onChanged: (value) {
-                              _item = _item.copyWith(groupId: value);
+                              _item = _item.copyWith(groupId: value?.model);
                             },
                           ),
                           PlaceSelectTile(
                             source: _source,
                             value: _item.placeId,
                             onChanged: (value) {
-                              _item = _item.copyWith(placeId: value);
+                              _item = _item.copyWith(placeId: value?.model);
                             },
                           ),
                           const SizedBox(height: 8),

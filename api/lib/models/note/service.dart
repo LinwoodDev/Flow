@@ -27,6 +27,20 @@ abstract class NoteService extends ModelService {
   FutureOr<bool> deleteNote(Multihash id);
 
   FutureOr<Note?> getNote(Multihash id, {bool fallback = false});
+
+  FutureOr<List<Notebook>> getNotebooks({
+    int offset = 0,
+    int limit = 50,
+    String search = '',
+  });
+
+  FutureOr<Notebook?> createNotebook(Notebook notebook);
+
+  FutureOr<bool> updateNotebook(Notebook notebook);
+
+  FutureOr<bool> deleteNotebook(Multihash id);
+
+  FutureOr<Notebook?> getNotebook(Multihash id);
 }
 
 abstract class NoteConnector<T> extends ModelService {

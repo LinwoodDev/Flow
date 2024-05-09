@@ -1,55 +1,60 @@
 import 'package:flow/widgets/markdown_field.dart';
+import 'package:flow_api/models/note/model.dart';
+import 'package:flow_api/models/note/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:flow_api/models/user/model.dart';
-import 'package:flow_api/models/user/service.dart';
+import 'package:flow_api/models/model.dart';
 
 import '../../cubits/flow.dart';
 import '../../widgets/source_dropdown.dart';
-import '../groups/select.dart';
 
-class UserDialog extends StatelessWidget {
+class NotebookDialog extends StatelessWidget {
   final String? source;
-  final User? user;
+  final Notebook? notebook;
   final bool create;
-  const UserDialog({super.key, this.source, this.user, this.create = false});
+
+  const NotebookDialog({
+    super.key,
+    this.source,
+    this.notebook,
+    this.create = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final create = this.create || user == null || source == null;
-    var currentUser = user ?? const User();
+    final create = this.create || notebook == null || source == null;
+    var currentNotebook = notebook ?? const Notebook();
     var currentSource = source ?? '';
     var currentService =
-        context.read<FlowCubit>().getService(currentSource).user;
+        context.read<FlowCubit>().getService(currentSource).note;
     return AlertDialog(
-      title: Text(source == null
-          ? AppLocalizations.of(context).createUser
-          : AppLocalizations.of(context).editUser),
+      title: Text(create
+          ? AppLocalizations.of(context).createNotebook
+          : AppLocalizations.of(context).editNotebook),
       content: SizedBox(
         width: 500,
         child: Column(children: [
           if (source == null) ...[
-            SourceDropdown<UserService>(
+            SourceDropdown<NoteService>(
               value: currentSource,
-              buildService: (e) => e.user,
+              buildService: (e) => e.note,
               onChanged: (connected) {
                 currentSource = connected?.source ?? '';
-                currentService = connected?.model;
               },
             ),
+            const SizedBox(height: 16),
           ],
-          const SizedBox(height: 16),
           TextFormField(
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context).name,
               filled: true,
               icon: const PhosphorIcon(PhosphorIconsLight.fileText),
             ),
-            initialValue: currentUser.name,
+            initialValue: currentNotebook.name,
             onChanged: (value) {
-              currentUser = currentUser.copyWith(name: value);
+              currentNotebook = currentNotebook.copyWith(name: value);
             },
           ),
           const SizedBox(height: 16),
@@ -59,21 +64,11 @@ class UserDialog extends StatelessWidget {
               border: const OutlineInputBorder(),
               icon: const PhosphorIcon(PhosphorIconsLight.fileText),
             ),
-            value: currentUser.description,
+            value: currentNotebook.description,
             onChanged: (value) {
-              currentUser = currentUser.copyWith(description: value);
+              currentNotebook = currentNotebook.copyWith(description: value);
             },
-          ),
-          if (!create) ...[
-            const SizedBox(height: 16),
-            GroupSelectTile(
-              value: currentUser.groupId,
-              source: currentSource,
-              onChanged: (value) {
-                currentUser = currentUser.copyWith(groupId: value?.model);
-              },
-            ),
-          ],
+          )
         ]),
       ),
       scrollable: true,
@@ -84,17 +79,19 @@ class UserDialog extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () async {
-            if (source == null) {
-              final created = await currentService?.createUser(currentUser);
+            if (create) {
+              final created =
+                  await currentService?.createNotebook(currentNotebook);
               if (created == null) {
                 return;
               }
-              currentUser = created;
+              currentNotebook = created;
             } else {
-              await currentService?.updateUser(currentUser);
+              await currentService?.updateNotebook(currentNotebook);
             }
             if (context.mounted) {
-              Navigator.of(context).pop(currentUser);
+              Navigator.of(context)
+                  .pop(SourcedModel(currentSource, currentNotebook));
             }
           },
           child: Text(AppLocalizations.of(context).create),

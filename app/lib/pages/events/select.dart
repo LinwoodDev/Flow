@@ -8,13 +8,13 @@ import 'package:flow_api/models/model.dart';
 import 'event.dart';
 
 class EventSelectTile extends StatelessWidget {
-  final String source;
+  final String? source;
   final Multihash? value;
-  final ValueChanged<Multihash?> onChanged;
+  final ValueChanged<SourcedModel<Multihash>?> onChanged;
 
   const EventSelectTile({
     super.key,
-    required this.source,
+    this.source,
     this.value,
     required this.onChanged,
   });
@@ -30,12 +30,12 @@ class EventSelectTile extends StatelessWidget {
           ? PhosphorIconsLight.calendar
           : PhosphorIconsFill.calendar),
       dialogBuilder: (context, sourcedModel) => EventDialog(
-        source: sourcedModel.source,
-        event: sourcedModel.model,
-        create: sourcedModel.model == null,
+        source: sourcedModel?.source,
+        event: sourcedModel?.model,
+        create: sourcedModel?.model == null,
       ),
       selectBuilder: (context, model) => EventSelectDialog(
-        selected: model.toIdentifierModel(),
+        selected: model?.toIdentifierModel(),
         source: source,
       ),
     );

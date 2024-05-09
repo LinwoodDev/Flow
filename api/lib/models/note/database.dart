@@ -119,9 +119,19 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
 }
 
 class NoteDatabaseService extends NoteService with TableService {
+  Future<void> _createNotebookDatabase() async {
+    await db?.execute("""
+      CREATE TABLE IF NOT EXISTS notebooks (
+        id BLOB(16) PRIMARY KEY,
+        name VARCHAR(100) NOT NULL DEFAULT '',
+        description TEXT
+      )
+    """);
+  }
+
   @override
-  Future<void> create(Database db) {
-    return db.execute("""
+  Future<void> create(Database db) async {
+    await db.execute("""
       CREATE TABLE IF NOT EXISTS notes (
         id BLOB(16) PRIMARY KEY,
         name VARCHAR(100) NOT NULL DEFAULT '',
@@ -132,12 +142,14 @@ class NoteDatabaseService extends NoteService with TableService {
         parentId BLOB(16)
       )
     """);
+    await _createNotebookDatabase();
   }
 
   @override
   Future<void> migrate(Database db, int version) async {
     if (version < 3) {
       await db.execute("ALTER TABLE notes ADD notebookId BLOB(16)");
+      await _createNotebookDatabase();
     }
   }
 
@@ -246,5 +258,58 @@ LIMIT 1;""",
             whereArgs: [id.fullBytes],
           );
     return result?.map(Note.fromDatabase).firstOrNull;
+  }
+
+  @override
+  Future<Notebook?> createNotebook(Notebook notebook) async {
+    final id = notebook.id ?? createUniqueMultihash();
+    notebook = notebook.copyWith(id: id);
+    final row = await db?.insert('notebooks', notebook.toDatabase());
+    if (row == null) return null;
+    return notebook;
+  }
+
+  @override
+  Future<bool> deleteNotebook(Multihash id) async {
+    return await db?.delete(
+          'notebooks',
+          where: 'id = ?',
+          whereArgs: [id.fullBytes],
+        ) ==
+        1;
+  }
+
+  @override
+  Future<Notebook?> getNotebook(Multihash id) async {
+    final result = await db?.query(
+      'notebooks',
+      where: 'id = ?',
+      whereArgs: [id.fullBytes],
+    );
+    return result?.map(Notebook.fromDatabase).firstOrNull;
+  }
+
+  @override
+  Future<List<Notebook>> getNotebooks(
+      {int offset = 0, int limit = 50, String search = ''}) async {
+    final result = await db?.query(
+      'notebooks',
+      where: 'name LIKE ?',
+      whereArgs: ['%$search%'],
+      offset: offset,
+      limit: limit,
+    );
+    return result?.map(Notebook.fromDatabase).toList() ?? [];
+  }
+
+  @override
+  Future<bool> updateNotebook(Notebook notebook) async {
+    return await db?.update(
+          'notebooks',
+          notebook.toDatabase()..remove('id'),
+          where: 'id = ?',
+          whereArgs: [notebook.id?.fullBytes],
+        ) ==
+        1;
   }
 }

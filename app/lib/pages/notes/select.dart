@@ -8,13 +8,13 @@ import 'package:flow_api/models/model.dart';
 import 'label.dart';
 
 class LabelSelectTile extends StatelessWidget {
-  final String source;
+  final String? source;
   final Multihash? value;
-  final ValueChanged<Multihash?> onChanged;
+  final ValueChanged<SourcedModel<Multihash>?> onChanged;
 
   const LabelSelectTile({
     super.key,
-    required this.source,
+    this.source,
     this.value,
     required this.onChanged,
   });
@@ -29,12 +29,12 @@ class LabelSelectTile extends StatelessWidget {
       leadingBuilder: (context, model) => PhosphorIcon(
           model.model == null ? PhosphorIconsLight.tag : PhosphorIconsFill.tag),
       dialogBuilder: (context, sourcedModel) => LabelDialog(
-        source: sourcedModel.source,
-        label: sourcedModel.model,
-        create: sourcedModel.model == null,
+        source: sourcedModel?.source,
+        label: sourcedModel?.model,
+        create: sourcedModel?.model == null,
       ),
       selectBuilder: (context, model) => LabelSelectDialog(
-        selected: model.toIdentifierModel(),
+        selected: model?.toIdentifierModel(),
         source: source,
       ),
     );

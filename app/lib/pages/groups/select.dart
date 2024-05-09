@@ -10,7 +10,7 @@ import 'group.dart';
 class GroupSelectTile extends StatelessWidget {
   final String source;
   final Multihash? value;
-  final ValueChanged<Multihash?> onChanged;
+  final ValueChanged<SourcedModel<Multihash>?> onChanged;
 
   const GroupSelectTile({
     super.key,
@@ -30,12 +30,12 @@ class GroupSelectTile extends StatelessWidget {
           ? PhosphorIconsLight.users
           : PhosphorIconsFill.users),
       dialogBuilder: (context, sourcedModel) => GroupDialog(
-        source: sourcedModel.source,
-        group: sourcedModel.model,
-        create: sourcedModel.model == null,
+        source: sourcedModel?.source,
+        group: sourcedModel?.model,
+        create: sourcedModel?.model == null,
       ),
       selectBuilder: (context, model) => GroupSelectDialog(
-        selected: model.toIdentifierModel(),
+        selected: model?.toIdentifierModel(),
         source: source,
       ),
     );

@@ -8,13 +8,13 @@ import 'package:flow_api/models/model.dart';
 import 'place.dart';
 
 class PlaceSelectTile extends StatelessWidget {
-  final String source;
+  final String? source;
   final Multihash? value;
-  final ValueChanged<Multihash?> onChanged;
+  final ValueChanged<SourcedModel<Multihash>?> onChanged;
 
   const PlaceSelectTile({
     super.key,
-    required this.source,
+    this.source,
     this.value,
     required this.onChanged,
   });
@@ -30,12 +30,12 @@ class PlaceSelectTile extends StatelessWidget {
           ? PhosphorIconsLight.mapPin
           : PhosphorIconsFill.mapPin),
       dialogBuilder: (context, sourcedModel) => PlaceDialog(
-        source: sourcedModel.source,
-        place: sourcedModel.model,
-        create: sourcedModel.model == null,
+        source: sourcedModel?.source,
+        place: sourcedModel?.model,
+        create: sourcedModel?.model == null,
       ),
       selectBuilder: (context, model) => PlaceSelectDialog(
-        selected: model.toIdentifierModel(),
+        selected: model?.toIdentifierModel(),
         source: source,
       ),
     );

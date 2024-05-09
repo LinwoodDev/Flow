@@ -16,12 +16,12 @@ typedef ModelFetchCallback<T> = Future<T?> Function(
 typedef ModelWidgetBuilder<T> = Widget? Function(
     BuildContext context, SourcedModel<T?> model);
 typedef ModelSelectBuilder<T> = Widget Function(
-    BuildContext context, SourcedModel<T?> model);
+    BuildContext context, SourcedModel<T?>? model);
 
 class SelectTile<T extends NamedModel> extends StatefulWidget {
-  final String source;
+  final String? source;
   final Multihash? value;
-  final ValueChanged<Multihash?> onChanged;
+  final ValueChanged<SourcedModel<Multihash>?> onChanged;
   final ModelFetchCallback<T> onModelFetch;
   final ModelWidgetBuilder<T> leadingBuilder;
   final ModelSelectBuilder<T> selectBuilder;
@@ -45,15 +45,17 @@ class SelectTile<T extends NamedModel> extends StatefulWidget {
 }
 
 class _SelectTileState<T extends NamedModel> extends State<SelectTile<T>> {
-  Multihash? _value;
+  SourcedModel<Multihash>? _value;
 
   @override
   void initState() {
     super.initState();
-    _value = widget.value;
+    _value = widget.source != null && widget.value != null
+        ? SourcedModel(widget.source!, widget.value!)
+        : null;
   }
 
-  void _onChanged(Multihash? value) {
+  void _onChanged(SourcedModel<Multihash>? value) {
     setState(() {
       _value = value;
     });
@@ -65,11 +67,13 @@ class _SelectTileState<T extends NamedModel> extends State<SelectTile<T>> {
     return FutureBuilder<T?>(
         future: Future.value(_value == null
             ? null
-            : widget.onModelFetch(widget.source,
-                context.read<FlowCubit>().getService(widget.source), _value!)),
+            : widget.onModelFetch(
+                _value!.source,
+                context.read<FlowCubit>().getService(_value!.source),
+                _value!.model)),
         builder: (context, snapshot) {
           final model = snapshot.data;
-          final sourcedModel = SourcedModel(widget.source, model);
+          final sourcedModel = SourcedModel(_value!.source, model);
           return ListTile(
             title: Text(widget.title),
             subtitle: Text(model?.name ?? AppLocalizations.of(context).notSet),
@@ -81,14 +85,11 @@ class _SelectTileState<T extends NamedModel> extends State<SelectTile<T>> {
                   context: context,
                   builder: (context) => widget.dialogBuilder(
                     context,
-                    SourcedModel(
-                      widget.source,
-                      model,
-                    ),
+                    sourcedModel,
                   ),
                 );
                 if (newModel != null) {
-                  _onChanged(newModel.model.id);
+                  _onChanged(newModel.toIdentifierModel());
                 }
               } else {
                 final newModel = await showDialog<SourcedModel<T>>(
@@ -99,7 +100,7 @@ class _SelectTileState<T extends NamedModel> extends State<SelectTile<T>> {
                   ),
                 );
                 if (newModel != null) {
-                  _onChanged(newModel.model.id);
+                  _onChanged(newModel.toIdentifierModel());
                 }
               }
             },
@@ -111,14 +112,16 @@ class _SelectTileState<T extends NamedModel> extends State<SelectTile<T>> {
                         context: context,
                         builder: (context) => widget.dialogBuilder(
                           context,
-                          SourcedModel(
-                            widget.source,
-                            null,
-                          ),
+                          widget.source == null
+                              ? null
+                              : SourcedModel(
+                                  widget.source!,
+                                  null,
+                                ),
                         ),
                       );
                       if (selected == null) return;
-                      _onChanged(selected.model.id);
+                      _onChanged(selected.toIdentifierModel());
                     },
                   )
                 : IconButton(
