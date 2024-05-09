@@ -92,8 +92,10 @@ class _NoteLabelsViewState extends State<_NoteLabelsView> {
                             child: Text(AppLocalizations.of(context).edit),
                             onPressed: () => showDialog(
                                     context: context,
-                                    builder: (context) =>
-                                        LabelDialog(label: item.model))
+                                    builder: (context) => LabelDialog(
+                                          source: item.source,
+                                          label: item.model,
+                                        ))
                                 .then((value) => _pagingController.refresh())),
                         MenuItemButton(
                           leadingIcon:

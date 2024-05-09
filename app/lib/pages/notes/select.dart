@@ -26,8 +26,9 @@ class LabelSelectTile extends StatelessWidget {
       onChanged: onChanged,
       onModelFetch: (source, service, id) async => service.label?.getLabel(id),
       title: AppLocalizations.of(context).label,
-      leadingBuilder: (context, model) => PhosphorIcon(
-          model.model == null ? PhosphorIconsLight.tag : PhosphorIconsFill.tag),
+      leadingBuilder: (context, model) => PhosphorIcon(model?.model == null
+          ? PhosphorIconsLight.tag
+          : PhosphorIconsFill.tag),
       dialogBuilder: (context, sourcedModel) => LabelDialog(
         source: sourcedModel?.source,
         label: sourcedModel?.model,

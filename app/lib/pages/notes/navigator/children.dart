@@ -20,9 +20,7 @@ class _NoteChildrenViewState extends State<_NoteChildrenView> {
   void initState() {
     super.initState();
 
-    _controller = SourcedPagingController(
-      context.read<FlowCubit>(),
-    );
+    _controller = SourcedPagingController(context.read<FlowCubit>());
     _controller.addFetchListener((source, service, offset, limit) async {
       final notebook = widget.notebook;
       if (notebook != null && notebook.source != source) return [];

@@ -43,31 +43,17 @@ class NotesNavigatorDrawer extends StatelessWidget {
       length: 2,
       child: Column(
         children: [
+          _NotebooksView(
+            model: sourcedNotebook,
+          ),
           _NoteLabelsView(
             onChanged: onLabelChanged,
             selected: selectedLabel,
           ),
-          TabBar(tabs: [
-            HorizontalTab(
-              label: Text(AppLocalizations.of(context).notes),
-              icon: const PhosphorIcon(PhosphorIconsLight.article),
-            ),
-            HorizontalTab(
-              label: Text(AppLocalizations.of(context).notebooks),
-              icon: const PhosphorIcon(PhosphorIconsLight.fileArchive),
-            ),
-          ]),
           Expanded(
-            child: TabBarView(
-              children: [
-                _NoteChildrenView(
-                  parent: note,
-                  notebook: sourcedNotebook,
-                ),
-                _NotebooksView(
-                  model: sourcedNotebook,
-                ),
-              ],
+            child: _NoteChildrenView(
+              parent: note,
+              notebook: sourcedNotebook,
             ),
           ),
         ],

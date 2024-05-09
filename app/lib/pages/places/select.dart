@@ -26,7 +26,7 @@ class PlaceSelectTile extends StatelessWidget {
       onChanged: onChanged,
       onModelFetch: (source, service, id) async => service.place?.getPlace(id),
       title: AppLocalizations.of(context).place,
-      leadingBuilder: (context, model) => PhosphorIcon(model.model == null
+      leadingBuilder: (context, model) => PhosphorIcon(model?.model == null
           ? PhosphorIconsLight.mapPin
           : PhosphorIconsFill.mapPin),
       dialogBuilder: (context, sourcedModel) => PlaceDialog(

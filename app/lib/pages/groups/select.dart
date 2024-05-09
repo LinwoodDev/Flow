@@ -26,7 +26,7 @@ class GroupSelectTile extends StatelessWidget {
       onChanged: onChanged,
       onModelFetch: (source, service, id) async => service.group?.getGroup(id),
       title: AppLocalizations.of(context).group,
-      leadingBuilder: (context, model) => PhosphorIcon(model.model == null
+      leadingBuilder: (context, model) => PhosphorIcon(model?.model == null
           ? PhosphorIconsLight.users
           : PhosphorIconsFill.users),
       dialogBuilder: (context, sourcedModel) => GroupDialog(

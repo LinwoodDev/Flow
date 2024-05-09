@@ -16,7 +16,7 @@ class _NotebooksView extends StatelessWidget {
           service.note?.getNotebook(id),
       title: AppLocalizations.of(context).notebooks,
       leadingBuilder: (context, model) => PhosphorIcon(
-        model.model == null ? PhosphorIconsLight.book : PhosphorIconsFill.book,
+        model?.model == null ? PhosphorIconsLight.book : PhosphorIconsFill.book,
       ),
       dialogBuilder: (context, model) => NotebookDialog(
         source: model?.source,

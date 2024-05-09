@@ -14,7 +14,7 @@ import '../../widgets/builder_delegate.dart';
 typedef ModelFetchCallback<T> = Future<T?> Function(
     String source, SourceService service, Multihash id);
 typedef ModelWidgetBuilder<T> = Widget? Function(
-    BuildContext context, SourcedModel<T?> model);
+    BuildContext context, SourcedModel<T?>? model);
 typedef ModelSelectBuilder<T> = Widget Function(
     BuildContext context, SourcedModel<T?>? model);
 
@@ -73,7 +73,9 @@ class _SelectTileState<T extends NamedModel> extends State<SelectTile<T>> {
                 _value!.model)),
         builder: (context, snapshot) {
           final model = snapshot.data;
-          final sourcedModel = SourcedModel(_value!.source, model);
+          final sourcedModel = _value?.source == null
+              ? null
+              : SourcedModel(_value!.source, model);
           return ListTile(
             title: Text(widget.title),
             subtitle: Text(model?.name ?? AppLocalizations.of(context).notSet),

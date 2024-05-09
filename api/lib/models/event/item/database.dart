@@ -125,20 +125,30 @@ class CalendarItemDatabaseService extends CalendarItemService
     final result = await db?.query(
       "calendarItems LEFT JOIN events ON events.id = calendarItems.eventId",
       columns: [
-        "events.*",
+        "events.id AS event_id",
+        "events.parentId AS event_parentId",
+        "events.groupId AS event_groupId",
+        "events.placeId AS event_placeId",
+        "events.blocked AS event_blocked",
+        "events.name AS event_name",
+        "events.description AS event_description",
+        "events.location AS event_location",
+        "events.extra AS event_extra",
         "calendarItems.*",
       ],
       where: where,
       whereArgs: whereArgs,
     );
-    const itemsPrefix = "calendarItems.";
+    const eventPrefix = "event_";
     return result?.map((e) {
           return ConnectedModel<CalendarItem, Event?>(
-            CalendarItem.fromDatabase(Map.fromEntries(e.entries
-                .where((element) => element.key.startsWith(itemsPrefix))
-                .map((e) =>
-                    MapEntry(e.key.substring(itemsPrefix.length), e.value)))),
-            e['id'] == null ? null : Event.fromDatabase(e),
+            CalendarItem.fromDatabase(e),
+            e['${eventPrefix}id'] == null
+                ? null
+                : Event.fromDatabase(Map.fromEntries(e.entries
+                    .where((element) => element.key.startsWith(eventPrefix))
+                    .map((e) => MapEntry(
+                        e.key.substring(eventPrefix.length), e.value)))),
           );
         }).toList() ??
         [];
