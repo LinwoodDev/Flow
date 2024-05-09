@@ -119,7 +119,7 @@ class _NativeWindowArea extends StatelessWidget {
 }
 
 class FlowNavigation extends StatelessWidget {
-  final String title;
+  final String? title;
   final Widget body;
   final PreferredSizeWidget? bottom;
   final Widget? endDrawer;
@@ -145,7 +145,7 @@ class FlowNavigation extends StatelessWidget {
       const drawer = _FlowDrawer();
       PreferredSizeWidget appBar = AppBar(
         bottom: bottom,
-        title: Text(title),
+        title: title == null ? null : Text(title!),
         toolbarHeight: kAppBarHeight,
         actions: [
           ...actions,
@@ -183,7 +183,7 @@ class FlowNavigation extends StatelessWidget {
           children: [
             Expanded(
               child: Scaffold(
-                appBar: appBar,
+                appBar: title == null ? null : appBar,
                 key: _scaffoldKey,
                 drawer: isMobile
                     ? const Drawer(

@@ -22,50 +22,27 @@ part '../list.dart';
 part 'labels.dart';
 part 'notebooks.dart';
 
-class NotesNavigatorDrawer extends StatefulWidget {
+class NotesNavigatorDrawer extends StatelessWidget {
   final Multihash? note;
   final ValueChanged<NoteFilter>? onFilterChanged;
   final NoteFilter filter;
+  final bool isSearching;
+  final SourcedPagingController<Note> controller;
 
   const NotesNavigatorDrawer({
     super.key,
     this.note,
     this.onFilterChanged,
     required this.filter,
+    required this.controller,
+    required this.isSearching,
   });
 
   @override
-  State<NotesNavigatorDrawer> createState() => _NotesNavigatorDrawerState();
-}
-
-class _NotesNavigatorDrawerState extends State<NotesNavigatorDrawer> {
-  late final SourcedPagingController<Note> _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = SourcedPagingController(context.read<FlowCubit>());
-    _controller.addFetchListener(
-        (source, service, offset, limit) async => service.note?.getNotes(
-              offset: offset,
-              limit: limit,
-              notebook: widget.filter.notebook,
-              parent: widget.note,
-            ));
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final sourcedNotebook =
-        widget.filter.notebook == null || widget.filter.source == null
-            ? null
-            : SourcedModel(widget.filter.source!, widget.filter.notebook);
+    final sourcedNotebook = filter.notebook == null || filter.source == null
+        ? null
+        : SourcedModel(filter.source!, filter.notebook);
     return DefaultTabController(
       length: 2,
       child: Column(
@@ -75,11 +52,11 @@ class _NotesNavigatorDrawerState extends State<NotesNavigatorDrawer> {
               padding: const EdgeInsets.all(8),
               child: Column(
                 children: [
-                  if (widget.note == null) ...[
+                  if (note == null) ...[
                     _NotebooksView(
                       model: sourcedNotebook,
                       onChanged: (value) =>
-                          widget.onFilterChanged?.call(widget.filter.copyWith(
+                          onFilterChanged?.call(filter.copyWith(
                         notebook: value?.model,
                         source: value?.source,
                       )),
@@ -87,17 +64,17 @@ class _NotesNavigatorDrawerState extends State<NotesNavigatorDrawer> {
                     const Divider(height: 32),
                   ],
                   _NoteLabelsView(
-                    onChanged: widget.onFilterChanged,
-                    filter: widget.filter,
+                    onChanged: onFilterChanged,
+                    filter: filter,
                   ),
                 ],
               ),
             ),
           ),
-          if (widget.note != null)
+          if (note != null && !isSearching)
             Expanded(
               child: NotesListView(
-                controller: _controller,
+                controller: controller,
               ),
             ),
         ],

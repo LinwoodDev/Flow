@@ -15,7 +15,7 @@ import '../../helpers/sourced_paging_controller.dart';
 import 'filter.dart';
 import 'view.dart';
 
-class NotesPage extends StatefulWidget {
+class NotesPage extends StatelessWidget {
   final NoteFilter filter;
   final SourcedModel<Multihash>? parent;
 
@@ -26,45 +26,10 @@ class NotesPage extends StatefulWidget {
   });
 
   @override
-  _NotesPageState createState() => _NotesPageState();
-}
-
-class _NotesPageState extends State<NotesPage> {
-  late NoteFilter _filter;
-
-  @override
-  void initState() {
-    super.initState();
-    _filter = widget.filter;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return FlowNavigation(
-      title: AppLocalizations.of(context).notes,
-      endDrawer: NotesNavigatorDrawer(
-        note: widget.parent?.model,
-        filter: _filter,
-        onFilterChanged: (value) => setState(() {
-          _filter = value;
-        }),
-      ),
-      actions: [
-        IconButton(
-          icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
-          onPressed: () => showSearch(
-            context: context,
-            delegate: _NotesSearchDelegate(
-              _filter,
-              widget.parent,
-            ),
-          ),
-        ),
-      ],
-      body: NotesBodyView(
-        filter: _filter,
-        parent: widget.parent,
-      ),
+    return NotesBodyView(
+      filter: filter,
+      parent: parent,
     );
   }
 }
@@ -103,6 +68,7 @@ class _NotesSearchDelegate extends SearchDelegate {
       search: query,
       filter: filter,
       parent: parent,
+      showAppBar: false,
     );
   }
 
@@ -116,12 +82,14 @@ class NotesBodyView extends StatefulWidget {
   final String search;
   final NoteFilter filter;
   final SourcedModel<Multihash>? parent;
+  final bool showAppBar;
 
   const NotesBodyView({
     super.key,
     this.search = '',
     this.filter = const NoteFilter(),
     this.parent,
+    this.showAppBar = true,
   });
 
   @override
@@ -141,7 +109,6 @@ class _NotesBodyViewState extends State<NotesBodyView> {
     _controller = SourcedPagingController(_flowCubit);
     _controller.addFetchListener((source, service, offset, limit) async {
       if (_filter.source != null && _filter.source != source) return null;
-      if (widget.parent != null && widget.search.isEmpty) return null;
       final notes = _filter.selectedLabel != null
           ? await service.labelNote?.getNotes(
               _filter.selectedLabel!,
@@ -201,7 +168,29 @@ class _NotesBodyViewState extends State<NotesBodyView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return FlowNavigation(
+      title: widget.showAppBar ? AppLocalizations.of(context).notes : null,
+      endDrawer: NotesNavigatorDrawer(
+        note: widget.parent?.model,
+        filter: _filter,
+        controller: _controller,
+        isSearching: widget.search.isNotEmpty,
+        onFilterChanged: (value) => setState(() {
+          _filter = value;
+        }),
+      ),
+      actions: [
+        IconButton(
+          icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
+          onPressed: () => showSearch(
+            context: context,
+            delegate: _NotesSearchDelegate(
+              _filter,
+              widget.parent,
+            ),
+          ),
+        ),
+      ],
       body: Column(
         children: [
           NoteFilterView(
@@ -230,12 +219,14 @@ class _NotesBodyViewState extends State<NotesBodyView> {
                   ],
                 );
               }),
-          const SizedBox(height: 8),
-          Expanded(
-            child: NotesListView(
-              controller: _controller,
+          if (widget.parent == null || widget.search.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Expanded(
+              child: NotesListView(
+                controller: _controller,
+              ),
             ),
-          ),
+          ],
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
