@@ -293,5 +293,9 @@
   "comfortable": "Komfortní",
   "standard": "Standardní",
   "highContrast": "Vysoký kontrast",
-  "systemLocale": "Systémová lokalizace"
+  "labels": "Labels",
+  "systemLocale": "Systémová lokalizace",
+  "notebooks": "Notebooks",
+  "createNotebook": "Create notebook",
+  "editNotebook": "Edit notebook"
 }
