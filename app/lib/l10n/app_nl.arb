@@ -293,5 +293,9 @@
   "comfortable": "Comfortabel",
   "standard": "Standaard",
   "highContrast": "Hoog contrast",
-  "systemLocale": "Systeem lokalisatie"
+  "labels": "Labels",
+  "systemLocale": "Systeem lokalisatie",
+  "notebooks": "Notebooks",
+  "createNotebook": "Create notebook",
+  "editNotebook": "Edit notebook"
 }
