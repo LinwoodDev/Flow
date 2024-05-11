@@ -293,9 +293,9 @@
   "comfortable": "Удобный",
   "standard": "Стандартный",
   "highContrast": "Высокий контраст",
-  "labels": "Labels",
+  "labels": "Метки",
   "systemLocale": "Системный язык",
-  "notebooks": "Notebooks",
-  "createNotebook": "Create notebook",
-  "editNotebook": "Edit notebook"
+  "notebooks": "Ноутбуки",
+  "createNotebook": "Создать блокнот",
+  "editNotebook": "Редактировать блокнот"
 }
