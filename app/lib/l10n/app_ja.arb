@@ -293,9 +293,9 @@
   "comfortable": "快適さ",
   "standard": "標準",
   "highContrast": "高コントラストformat@@0",
-  "labels": "Labels",
+  "labels": "ラベル",
   "systemLocale": "システムロケール：",
-  "notebooks": "Notebooks",
-  "createNotebook": "Create notebook",
-  "editNotebook": "Edit notebook"
+  "notebooks": "ノート",
+  "createNotebook": "ノートブックを作成",
+  "editNotebook": "ノートブックを編集"
 }
