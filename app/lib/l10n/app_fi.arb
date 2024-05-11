@@ -293,5 +293,9 @@
   "comfortable": "Mukava",
   "standard": "Normaali",
   "highContrast": "Korkea kontrasti",
-  "systemLocale": "Järjestelmän kieli"
+  "labels": "Labels",
+  "systemLocale": "Järjestelmän kieli",
+  "notebooks": "Notebooks",
+  "createNotebook": "Create notebook",
+  "editNotebook": "Edit notebook"
 }
