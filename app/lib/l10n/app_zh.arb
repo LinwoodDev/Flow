@@ -293,5 +293,9 @@
   "comfortable": "舒适的",
   "standard": "标准的",
   "highContrast": "高对比度",
-  "systemLocale": "系统区域设置"
+  "labels": "Labels",
+  "systemLocale": "系统区域设置",
+  "notebooks": "Notebooks",
+  "createNotebook": "Create notebook",
+  "editNotebook": "Edit notebook"
 }
