@@ -293,9 +293,9 @@
   "comfortable": "Komfortabel",
   "standard": "Vanlig",
   "highContrast": "Høy kontrast",
-  "labels": "Labels",
+  "labels": "Etiketter",
   "systemLocale": "System nasjonale innstillinger",
-  "notebooks": "Notebooks",
-  "createNotebook": "Create notebook",
-  "editNotebook": "Edit notebook"
+  "notebooks": "Notatbøker",
+  "createNotebook": "Opprett notatbok",
+  "editNotebook": "Rediger notatbok"
 }
