@@ -293,5 +293,9 @@
   "comfortable": "Behageligt",
   "standard": "Standard",
   "highContrast": "Høj kontrast",
-  "systemLocale": "System landestandard"
+  "labels": "Labels",
+  "systemLocale": "System landestandard",
+  "notebooks": "Notebooks",
+  "createNotebook": "Create notebook",
+  "editNotebook": "Edit notebook"
 }
