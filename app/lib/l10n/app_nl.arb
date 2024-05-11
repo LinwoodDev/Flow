@@ -295,7 +295,7 @@
   "highContrast": "Hoog contrast",
   "labels": "Labels",
   "systemLocale": "Systeem lokalisatie",
-  "notebooks": "Notebooks",
-  "createNotebook": "Create notebook",
-  "editNotebook": "Edit notebook"
+  "notebooks": "Notitieboekjes",
+  "createNotebook": "Notitieboekje maken",
+  "editNotebook": "Notitieboekje bewerken"
 }
