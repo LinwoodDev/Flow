@@ -293,9 +293,9 @@
   "comfortable": "Bequemer",
   "standard": "Standard",
   "highContrast": "Hoher Kontrast",
-  "labels": "Labels",
+  "labels": "Etiketten",
   "systemLocale": "Systemsprache",
-  "notebooks": "Notebooks",
-  "createNotebook": "Create notebook",
-  "editNotebook": "Edit notebook"
+  "notebooks": "Notizbücher",
+  "createNotebook": "Notizbuch erstellen",
+  "editNotebook": "Notizbuch bearbeiten"
 }
