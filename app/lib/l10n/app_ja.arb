@@ -293,5 +293,9 @@
   "comfortable": "快適さ",
   "standard": "標準",
   "highContrast": "高コントラストformat@@0",
-  "systemLocale": "システムロケール："
+  "labels": "Labels",
+  "systemLocale": "システムロケール：",
+  "notebooks": "Notebooks",
+  "createNotebook": "Create notebook",
+  "editNotebook": "Edit notebook"
 }
