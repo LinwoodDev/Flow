@@ -11,7 +11,7 @@ part 'model.freezed.dart';
 part 'model.g.dart';
 
 @freezed
-class Event with _$Event {
+class Event with _$Event, IdentifiedModel, NamedModel, DescriptiveModel {
   const Event._();
 
   @Implements<DescriptiveModel>()

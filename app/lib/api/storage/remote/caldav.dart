@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flow_api/models/note/model.dart';
 import 'package:http/http.dart' as http;
 import 'package:lib5/lib5.dart';
 import 'package:flow_api/converters/ical.dart';
@@ -63,12 +64,16 @@ class CalDavRemoteService extends RemoteService<CalDavStorage> {
       if (text == null) continue;
       final etag = prop?.getElement("d:getetag")?.innerText;
       if (etag == null) continue;
+      final name = href.substring(href.lastIndexOf('/') + 1);
       converter.read(
-          text.split('\n'),
-          Event(
-                  name: href.substring(href.lastIndexOf('/') + 1),
-                  id: createUniqueMultihash())
-              .addExtra(ExtraProperties.calDav(etag: etag, path: href)));
+        text.split('\n'),
+        event: Event(name: name, id: createUniqueMultihash())
+            .addExtra(ExtraProperties.calDav(etag: etag, path: href)),
+        notebook: Notebook(
+          id: createUniqueMultihash(),
+          name: name,
+        ),
+      );
     }
     if (converter.data != null) import(converter.data!);
   }

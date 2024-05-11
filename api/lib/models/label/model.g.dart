@@ -11,7 +11,7 @@ _$LabelImpl _$$LabelImplFromJson(Map<String, dynamic> json) => _$LabelImpl(
           json['id'], const MultihashConverter().fromJson),
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      color: json['color'] as int? ?? kColorBlack,
+      color: (json['color'] as num?)?.toInt() ?? kColorBlack,
     );
 
 Map<String, dynamic> _$$LabelImplToJson(_$LabelImpl instance) =>

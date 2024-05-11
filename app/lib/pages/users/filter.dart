@@ -50,18 +50,9 @@ class _UserFilterViewState extends State<UserFilterView> {
           children: <Widget>[
             InputChip(
               label: Text(AppLocalizations.of(context).group),
-              avatar: PhosphorIcon(PhosphorIconsLight.fileText,
-                  color: _filter.group != null
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : Theme.of(context).iconTheme.color),
+              avatar: const PhosphorIcon(PhosphorIconsLight.fileText),
               selected: _filter.group != null,
-              selectedColor: Theme.of(context).colorScheme.primaryContainer,
-              labelStyle: TextStyle(
-                  color: _filter.group != null
-                      ? Theme.of(context).colorScheme.onPrimaryContainer
-                      : null),
               showCheckmark: false,
-              deleteIconColor: Theme.of(context).colorScheme.onPrimaryContainer,
               onDeleted: _filter.group == null
                   ? null
                   : () {

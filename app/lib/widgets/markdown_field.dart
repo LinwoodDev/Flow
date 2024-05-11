@@ -10,6 +10,7 @@ class MarkdownField extends StatefulWidget {
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged, onChangeEnd;
   final List<Widget> actions;
+  final SizedBox? toolbar;
 
   const MarkdownField(
       {super.key,
@@ -17,6 +18,7 @@ class MarkdownField extends StatefulWidget {
       this.controller,
       this.onChanged,
       this.onChangeEnd,
+      this.toolbar,
       this.decoration = const InputDecoration(),
       this.actions = const []});
 
@@ -60,36 +62,46 @@ class _MarkdownFieldState extends State<MarkdownField> {
       Expanded(
         child: SizedBox(
           child: _editMode
-              ? TextFormField(
-                  decoration: widget.decoration.copyWith(
-                    helperText:
-                        AppLocalizations.of(context).markdownIsSupported,
-                  ),
-                  maxLines: null,
-                  minLines: 3,
-                  onChanged: widget.onChanged,
-                  controller: _controller,
-                  onFieldSubmitted: (_) => _exitEditMode(),
-                  onEditingComplete: _exitEditMode,
-                  onTapOutside: (_) => _exitEditMode,
-                  focusNode: _focusNode,
+              ? Column(
+                  children: [
+                    if (widget.toolbar != null) widget.toolbar!,
+                    TextFormField(
+                      decoration: widget.decoration.copyWith(
+                        helperText:
+                            AppLocalizations.of(context).markdownIsSupported,
+                      ),
+                      maxLines: null,
+                      minLines: 3,
+                      onChanged: widget.onChanged,
+                      controller: _controller,
+                      onFieldSubmitted: (_) => _exitEditMode(),
+                      onEditingComplete: _exitEditMode,
+                      onTapOutside: (_) => _exitEditMode,
+                      focusNode: _focusNode,
+                    ),
+                  ],
                 )
-              : GestureDetector(
-                  onDoubleTap: () {
-                    setState(() => _editMode = true);
-                    _focusNode.requestFocus();
-                  },
-                  child: InputDecorator(
-                    decoration: widget.decoration,
-                    child: AnimatedBuilder(
-                      animation: _controller,
-                      builder: (context, child) => MarkdownText(
-                        _controller.text,
-                        border: false,
-                        onTap: () => setState(() => _editMode = true),
+              : Column(
+                  children: [
+                    SizedBox(height: widget.toolbar?.height),
+                    GestureDetector(
+                      onDoubleTap: () {
+                        setState(() => _editMode = true);
+                        _focusNode.requestFocus();
+                      },
+                      child: InputDecorator(
+                        decoration: widget.decoration,
+                        child: AnimatedBuilder(
+                          animation: _controller,
+                          builder: (context, child) => MarkdownText(
+                            _controller.text,
+                            border: false,
+                            onTap: () => setState(() => _editMode = true),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
         ),
       ),

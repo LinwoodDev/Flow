@@ -11,7 +11,8 @@ part 'model.g.dart';
 enum CalendarItemType { appointment, moment, pending }
 
 @freezed
-class CalendarItem with _$CalendarItem, DescriptiveModel {
+class CalendarItem
+    with _$CalendarItem, IdentifiedModel, NamedModel, DescriptiveModel {
   const CalendarItem._();
 
   const factory CalendarItem.fixed({
@@ -19,6 +20,8 @@ class CalendarItem with _$CalendarItem, DescriptiveModel {
     @Default('') String name,
     @Default('') String description,
     @Default('') String location,
+    @MultihashConverter() Multihash? groupId,
+    @MultihashConverter() Multihash? placeId,
     @MultihashConverter() Multihash? eventId,
     @Default(EventStatus.confirmed) EventStatus status,
     @DateTimeConverter() DateTime? start,
@@ -30,6 +33,8 @@ class CalendarItem with _$CalendarItem, DescriptiveModel {
     @Default('') String name,
     @Default('') String description,
     @Default('') String location,
+    @MultihashConverter() Multihash? groupId,
+    @MultihashConverter() Multihash? placeId,
     @MultihashConverter() Multihash? eventId,
     @Default(EventStatus.confirmed) EventStatus status,
     @DateTimeConverter() DateTime? start,
@@ -47,6 +52,8 @@ class CalendarItem with _$CalendarItem, DescriptiveModel {
     @Default('') String name,
     @Default('') String description,
     @Default('') String location,
+    @MultihashConverter() Multihash? groupId,
+    @MultihashConverter() Multihash? placeId,
     @MultihashConverter() Multihash? eventId,
     @Default(EventStatus.confirmed) EventStatus status,
     @DateTimeConverter() DateTime? start,

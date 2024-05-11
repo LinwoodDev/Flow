@@ -8,7 +8,7 @@ part of 'request.dart';
 
 _$APIRequestImpl _$$APIRequestImplFromJson(Map<String, dynamic> json) =>
     _$APIRequestImpl(
-      id: json['id'] as int? ?? -1,
+      id: (json['id'] as num?)?.toInt() ?? -1,
       method: json['method'] as String,
       authority: json['authority'] as String,
       path: json['path'] as String,

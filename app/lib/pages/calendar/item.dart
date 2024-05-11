@@ -1,5 +1,7 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/event.dart';
+import 'package:flow/pages/groups/select.dart';
+import 'package:flow/pages/places/select.dart';
 import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -198,6 +200,8 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                                 _source = connected?.source ?? '';
                                 _item = _item.copyWith(
                                   eventId: null,
+                                  groupId: null,
+                                  placeId: null,
                                 );
                                 _service = connected?.model;
                               },
@@ -209,7 +213,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             source: _source,
                             value: _item.eventId,
                             onChanged: (value) {
-                              _item = _item.copyWith(eventId: value);
+                              _item = _item.copyWith(eventId: value?.model);
                             },
                           ),
                           const SizedBox(height: 16),
@@ -257,6 +261,21 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             onChanged: (value) =>
                                 _item = _item.copyWith(description: value),
                             value: _item.description,
+                          ),
+                          const SizedBox(height: 16),
+                          GroupSelectTile(
+                            source: _source,
+                            value: _item.groupId,
+                            onChanged: (value) {
+                              _item = _item.copyWith(groupId: value?.model);
+                            },
+                          ),
+                          PlaceSelectTile(
+                            source: _source,
+                            value: _item.placeId,
+                            onChanged: (value) {
+                              _item = _item.copyWith(placeId: value?.model);
+                            },
                           ),
                           const SizedBox(height: 8),
                           TextFormField(

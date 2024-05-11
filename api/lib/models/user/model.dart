@@ -9,7 +9,7 @@ part 'model.freezed.dart';
 part 'model.g.dart';
 
 @freezed
-class User with _$User {
+class User with _$User, IdentifiedModel, NamedModel, DescriptiveModel {
   const User._();
 
   @Implements<DescriptiveModel>()

@@ -48,7 +48,7 @@ class PersonalizationSettingsView extends StatelessWidget {
                   title: Text(AppLocalizations.of(context).design),
                   leading: const PhosphorIcon(PhosphorIconsLight.palette),
                   subtitle: Text(state.design.isEmpty
-                      ? AppLocalizations.of(context).classic
+                      ? AppLocalizations.of(context).systemDefault
                       : state.design.toDisplayString()),
                   onTap: () async {
                     final cubit = context.read<SettingsCubit>();

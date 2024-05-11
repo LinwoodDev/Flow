@@ -54,6 +54,10 @@ class EventDialog extends StatelessWidget {
                   onChanged: (connected) {
                     currentSource = connected?.source ?? '';
                     currentService = connected?.model;
+                    currentEvent = currentEvent.copyWith(
+                      groupId: null,
+                      placeId: null,
+                    );
                   },
                 ),
                 const SizedBox(height: 16),
@@ -80,25 +84,27 @@ class EventDialog extends StatelessWidget {
                 onChanged: (value) =>
                     currentEvent = currentEvent.copyWith(description: value),
               ),
-              if (!create) ...[
-                const SizedBox(height: 16),
-                GroupSelectTile(
-                  source: source!,
-                  onChanged: (value) {
-                    currentEvent = currentEvent.copyWith(groupId: value);
-                  },
-                ),
-                const SizedBox(height: 16),
-                PlaceSelectTile(
-                  source: source!,
-                  onChanged: (value) {
-                    currentEvent = currentEvent.copyWith(placeId: value);
-                  },
-                ),
-              ],
+              const SizedBox(height: 16),
+              GroupSelectTile(
+                source: currentSource,
+                value: currentEvent.groupId,
+                onChanged: (value) {
+                  currentEvent = currentEvent.copyWith(groupId: value?.model);
+                },
+              ),
+              const SizedBox(height: 16),
+              PlaceSelectTile(
+                source: currentSource,
+                value: currentEvent.placeId,
+                onChanged: (value) {
+                  currentEvent = currentEvent.copyWith(placeId: value?.model);
+                },
+              ),
               const SizedBox(height: 8),
               StatefulBuilder(
                   builder: (context, setState) => CheckboxListTile(
+                        secondary:
+                            const Icon(PhosphorIconsLight.circleHalfTilt),
                         title: Text(AppLocalizations.of(context).blocked),
                         value: currentEvent.blocked,
                         onChanged: (value) => setState(

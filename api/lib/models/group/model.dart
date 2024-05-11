@@ -8,7 +8,7 @@ part 'model.freezed.dart';
 part 'model.g.dart';
 
 @freezed
-class Group with _$Group {
+class Group with _$Group, IdentifiedModel, NamedModel, DescriptiveModel {
   const Group._();
 
   @Implements<DescriptiveModel>()

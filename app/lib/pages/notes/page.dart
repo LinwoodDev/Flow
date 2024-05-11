@@ -1,14 +1,10 @@
-import 'dart:typed_data';
-
-import 'package:flow/pages/notes/card.dart';
-import 'package:flow/pages/notes/labels.dart';
+import 'package:flow/pages/notes/navigator/drawer.dart';
 import 'package:flow/pages/notes/note.dart';
-import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flow/widgets/navigation.dart';
+import 'package:flow_api/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lib5/lib5.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/note/model.dart';
@@ -19,7 +15,7 @@ import '../../helpers/sourced_paging_controller.dart';
 import 'filter.dart';
 import 'view.dart';
 
-class NotesPage extends StatefulWidget {
+class NotesPage extends StatelessWidget {
   final NoteFilter filter;
   final SourcedModel<Multihash>? parent;
 
@@ -30,59 +26,10 @@ class NotesPage extends StatefulWidget {
   });
 
   @override
-  _NotesPageState createState() => _NotesPageState();
-}
-
-class _NotesPageState extends State<NotesPage> {
-  late NoteFilter _filter;
-
-  @override
-  void initState() {
-    super.initState();
-    _filter = widget.filter;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return FlowNavigation(
-      title: AppLocalizations.of(context).notes,
-      endDrawer: LabelsDrawer(
-        selected: _filter.selectedLabel,
-        onChanged: (value, add) {
-          final source = value.source;
-          if (add) {
-            setState(() {
-              _filter = _filter.copyWith(
-                selectedLabel: value.model.id,
-                source: source,
-              );
-            });
-          } else {
-            setState(() {
-              _filter = _filter.copyWith(
-                selectedLabel: null,
-                source: null,
-              );
-            });
-          }
-        },
-      ),
-      actions: [
-        IconButton(
-          icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
-          onPressed: () => showSearch(
-            context: context,
-            delegate: _NotesSearchDelegate(
-              _filter,
-              widget.parent,
-            ),
-          ),
-        ),
-      ],
-      body: NotesBodyView(
-        filter: _filter,
-        parent: widget.parent,
-      ),
+    return NotesBodyView(
+      filter: filter,
+      parent: parent,
     );
   }
 }
@@ -121,6 +68,7 @@ class _NotesSearchDelegate extends SearchDelegate {
       search: query,
       filter: filter,
       parent: parent,
+      showAppBar: false,
     );
   }
 
@@ -134,12 +82,14 @@ class NotesBodyView extends StatefulWidget {
   final String search;
   final NoteFilter filter;
   final SourcedModel<Multihash>? parent;
+  final bool showAppBar;
 
   const NotesBodyView({
     super.key,
     this.search = '',
     this.filter = const NoteFilter(),
     this.parent,
+    this.showAppBar = true,
   });
 
   @override
@@ -167,7 +117,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
               statuses: _filter.statuses,
               parent: widget.parent?.source == source
                   ? widget.parent?.model
-                  : Multihash(Uint8List.fromList([])),
+                  : createEmptyMultihash(),
               search: widget.search,
             )
           : await service.note?.getNotes(
@@ -176,7 +126,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
               statuses: _filter.statuses,
               parent: widget.parent?.source == source
                   ? widget.parent?.model
-                  : Multihash(Uint8List.fromList([])),
+                  : createEmptyMultihash(),
               search: widget.search);
       if (notes == null) return null;
       if (source != widget.parent?.source) return notes;
@@ -197,15 +147,16 @@ class _NotesBodyViewState extends State<NotesBodyView> {
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
+    _controller.dispose();
   }
 
   @override
   void didUpdateWidget(covariant NotesBodyView oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.search != widget.search) {
+    if (oldWidget.search != widget.search ||
+        oldWidget.parent != widget.parent) {
       _controller.refresh();
     }
     if (oldWidget.filter != widget.filter) {
@@ -218,26 +169,31 @@ class _NotesBodyViewState extends State<NotesBodyView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return FlowNavigation(
+      title: widget.showAppBar ? AppLocalizations.of(context).notes : null,
+      endDrawer: NotesNavigatorDrawer(
+        note: widget.parent?.model,
+        filter: _filter,
+        controller: _controller,
+        isSearching: widget.search.isNotEmpty,
+        onFilterChanged: (value) => setState(() {
+          _filter = value;
+        }),
+      ),
+      actions: [
+        IconButton(
+          icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
+          onPressed: () => showSearch(
+            context: context,
+            delegate: _NotesSearchDelegate(
+              _filter,
+              widget.parent,
+            ),
+          ),
+        ),
+      ],
       body: Column(
         children: [
-          FutureBuilder<Note?>(
-              future: _parent,
-              builder: (context, snapshot) {
-                final data = snapshot.data;
-                if (data == null) return Container();
-                return Column(
-                  children: [
-                    NoteView(
-                      controller: _controller,
-                      source: widget.parent!.source,
-                      note: data,
-                    ),
-                    const SizedBox(height: 8),
-                    const Divider(),
-                  ],
-                );
-              }),
           NoteFilterView(
             initialFilter: _filter,
             onChanged: (filter) {
@@ -247,19 +203,31 @@ class _NotesBodyViewState extends State<NotesBodyView> {
               _controller.refresh();
             },
           ),
-          const SizedBox(height: 8),
-          Expanded(
-            child: PagedListView(
-              pagingController: _controller,
-              builderDelegate: buildMaterialPagedDelegate<SourcedModel<Note>>(
-                _controller,
-                (ctx, item, index) => NoteListTile(
-                  source: item.source,
-                  note: item.model,
-                ),
+          FutureBuilder<Note?>(
+              future: _parent,
+              builder: (context, snapshot) {
+                final data = snapshot.data;
+                if (data == null) return Container();
+                return Column(
+                  children: [
+                    const Divider(),
+                    const SizedBox(height: 8),
+                    NoteView(
+                      controller: _controller,
+                      source: widget.parent!.source,
+                      note: data,
+                    ),
+                  ],
+                );
+              }),
+          if (widget.parent == null || widget.search.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Expanded(
+              child: NotesListView(
+                controller: _controller,
               ),
             ),
-          ),
+          ],
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(

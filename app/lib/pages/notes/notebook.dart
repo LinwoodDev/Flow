@@ -1,66 +1,45 @@
 import 'package:flow/widgets/markdown_field.dart';
+import 'package:flow_api/models/note/model.dart';
+import 'package:flow_api/models/note/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/model.dart';
-import 'package:flow_api/models/label/model.dart';
-import 'package:flow_api/models/label/service.dart';
 
 import '../../cubits/flow.dart';
 import '../../widgets/source_dropdown.dart';
 
-class LabelDialog extends StatelessWidget {
+class NotebookDialog extends StatelessWidget {
   final String? source;
-  final Label? label;
+  final Notebook? notebook;
   final bool create;
 
-  const LabelDialog({
+  const NotebookDialog({
     super.key,
     this.source,
-    this.label,
+    this.notebook,
     this.create = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    final create = this.create || label == null || source == null;
-    var currentLabel = label ?? const Label();
+    final create = this.create || notebook == null || source == null;
+    var currentNotebook = notebook ?? const Notebook();
     var currentSource = source ?? '';
     var currentService =
-        context.read<FlowCubit>().getService(currentSource).label;
+        context.read<FlowCubit>().getService(currentSource).note;
     return AlertDialog(
-      title: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          StatefulBuilder(
-            builder: (context, setState) => ColorButton(
-              onTap: () async {
-                final result = await showDialog<ColorPickerResponse>(
-                    context: context,
-                    builder: (context) => const ColorPicker());
-                if (result == null) return;
-                setState(() =>
-                    currentLabel = currentLabel.copyWith(color: result.color));
-              },
-              color: Color(currentLabel.color).withAlpha(255),
-              size: 25,
-            ),
-          ),
-          const SizedBox(width: 16),
-          Text(create
-              ? AppLocalizations.of(context).createLabel
-              : AppLocalizations.of(context).editLabel),
-        ],
-      ),
+      title: Text(create
+          ? AppLocalizations.of(context).createNotebook
+          : AppLocalizations.of(context).editNotebook),
       content: SizedBox(
         width: 500,
         child: Column(children: [
           if (source == null) ...[
-            SourceDropdown<LabelService>(
+            SourceDropdown<NoteService>(
               value: currentSource,
-              buildService: (e) => e.label,
+              buildService: (e) => e.note,
               onChanged: (connected) {
                 currentSource = connected?.source ?? '';
               },
@@ -73,9 +52,9 @@ class LabelDialog extends StatelessWidget {
               filled: true,
               icon: const PhosphorIcon(PhosphorIconsLight.fileText),
             ),
-            initialValue: currentLabel.name,
+            initialValue: currentNotebook.name,
             onChanged: (value) {
-              currentLabel = currentLabel.copyWith(name: value);
+              currentNotebook = currentNotebook.copyWith(name: value);
             },
           ),
           const SizedBox(height: 16),
@@ -85,9 +64,9 @@ class LabelDialog extends StatelessWidget {
               border: const OutlineInputBorder(),
               icon: const PhosphorIcon(PhosphorIconsLight.fileText),
             ),
-            value: currentLabel.description,
+            value: currentNotebook.description,
             onChanged: (value) {
-              currentLabel = currentLabel.copyWith(description: value);
+              currentNotebook = currentNotebook.copyWith(description: value);
             },
           )
         ]),
@@ -101,20 +80,21 @@ class LabelDialog extends StatelessWidget {
         ElevatedButton(
           onPressed: () async {
             if (create) {
-              final created = await currentService?.createLabel(currentLabel);
+              final created =
+                  await currentService?.createNotebook(currentNotebook);
               if (created == null) {
                 return;
               }
-              currentLabel = created;
+              currentNotebook = created;
             } else {
-              await currentService?.updateLabel(currentLabel);
+              await currentService?.updateNotebook(currentNotebook);
             }
             if (context.mounted) {
               Navigator.of(context)
-                  .pop(SourcedModel(currentSource, currentLabel));
+                  .pop(SourcedModel(currentSource, currentNotebook));
             }
           },
-          child: Text(AppLocalizations.of(context).save),
+          child: Text(AppLocalizations.of(context).create),
         ),
       ],
     );

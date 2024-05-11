@@ -24,6 +24,8 @@ class CalendarItemDatabaseService extends CalendarItemService
         description TEXT NOT NULL DEFAULT '',
         location VARCHAR(100) NOT NULL DEFAULT '',
         eventId BLOB(16),
+        groupId BLOB(16),
+        placeId BLOB(16),
         start INTEGER,
         end INTEGER,
         status VARCHAR(20) NOT NULL DEFAULT 'confirmed',
@@ -42,7 +44,14 @@ class CalendarItemDatabaseService extends CalendarItemService
   }
 
   @override
-  FutureOr<void> migrate(Database db, int version) {}
+  Future<void> migrate(Database db, int version) async {
+    if (version < 3) {
+      await db.transaction((txn) async {
+        await txn.execute("ALTER TABLE calendarItems ADD groupId BLOB(16)");
+        await txn.execute("ALTER TABLE calendarItems ADD placeId BLOB(16)");
+      });
+    }
+  }
 
   @override
   Future<List<ConnectedModel<CalendarItem, Event?>>> getCalendarItems(
@@ -65,15 +74,11 @@ class CalendarItemDatabaseService extends CalendarItemService
     }
     if (start != null) {
       where = where == null ? 'start >= ?' : '$where AND start >= ?';
-      whereArgs = whereArgs == null
-          ? [start.secondsSinceEpoch]
-          : [...whereArgs, start.secondsSinceEpoch];
+      whereArgs = [...?whereArgs, start.secondsSinceEpoch];
     }
     if (end != null) {
       where = where == null ? 'end <= ?' : '$where AND end <= ?';
-      whereArgs = whereArgs == null
-          ? [end.secondsSinceEpoch]
-          : [...whereArgs, end.secondsSinceEpoch];
+      whereArgs = [...?whereArgs, end.secondsSinceEpoch];
     }
     if (date != null) {
       var startCalendarItem = date.onlyDate();
@@ -82,24 +87,15 @@ class CalendarItemDatabaseService extends CalendarItemService
       where = where == null
           ? '(start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))'
           : '$where AND (start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))';
-      whereArgs = whereArgs == null
-          ? [
-              startCalendarItem.secondsSinceEpoch,
-              endCalendarItem.secondsSinceEpoch,
-              startCalendarItem.secondsSinceEpoch,
-              endCalendarItem.secondsSinceEpoch,
-              startCalendarItem.secondsSinceEpoch,
-              endCalendarItem.secondsSinceEpoch,
-            ]
-          : [
-              ...whereArgs,
-              startCalendarItem.secondsSinceEpoch,
-              endCalendarItem.secondsSinceEpoch,
-              startCalendarItem.secondsSinceEpoch,
-              endCalendarItem.secondsSinceEpoch,
-              startCalendarItem.secondsSinceEpoch,
-              endCalendarItem.secondsSinceEpoch,
-            ];
+      whereArgs = [
+        ...?whereArgs,
+        startCalendarItem.secondsSinceEpoch,
+        endCalendarItem.secondsSinceEpoch,
+        startCalendarItem.secondsSinceEpoch,
+        endCalendarItem.secondsSinceEpoch,
+        startCalendarItem.secondsSinceEpoch,
+        endCalendarItem.secondsSinceEpoch,
+      ];
     }
     if (pending) {
       where = where == null
@@ -110,61 +106,49 @@ class CalendarItemDatabaseService extends CalendarItemService
       where = where == null
           ? '(name LIKE ? OR description LIKE ?)'
           : '$where AND (name LIKE ? OR description LIKE ?)';
-      whereArgs = whereArgs == null
-          ? ['%$search%', '%$search%']
-          : [...whereArgs, '%$search%', '%$search%'];
+      whereArgs = [...?whereArgs, '%$search%', '%$search%'];
     }
     if (groupId != null) {
-      where = where == null ? 'groupId = ?' : '$where AND groupId = ?';
-      whereArgs = whereArgs == null
-          ? [groupId.fullBytes]
-          : [...whereArgs, groupId.fullBytes];
+      final statement = "(groupId = ? OR events.groupId = ?)";
+      where = where == null ? statement : '$where AND $statement';
+      whereArgs = [...?whereArgs, groupId.fullBytes, groupId.fullBytes];
     }
     if (placeId != null) {
-      where = where == null ? 'placeId = ?' : '$where AND placeId = ?';
-      whereArgs = whereArgs == null
-          ? [placeId.fullBytes]
-          : [...whereArgs, placeId.fullBytes];
+      final statement = "(placeId = ? OR events.placeId = ?)";
+      where = where == null ? statement : '$where AND $statement';
+      whereArgs = [...?whereArgs, placeId.fullBytes, placeId.fullBytes];
     }
     if (eventId != null) {
       where = where == null ? 'eventId = ?' : '$where AND eventId = ?';
-      whereArgs = whereArgs == null
-          ? [eventId.fullBytes]
-          : [...whereArgs, eventId.fullBytes];
+      whereArgs = [...?whereArgs, eventId.fullBytes];
     }
+    const eventPrefix = "event_";
     final result = await db?.query(
       "calendarItems LEFT JOIN events ON events.id = calendarItems.eventId",
       columns: [
-        "events.*",
-        "calendarItems.runtimeType AS calendarItemruntimeType",
-        "calendarItems.id AS calendarItemid",
-        "calendarItems.name AS calendarItemname",
-        "calendarItems.description AS calendarItemdescription",
-        "calendarItems.location AS calendarItemlocation",
-        "calendarItems.eventId AS calendarItemeventId",
-        "calendarItems.start AS calendarItemstart",
-        "calendarItems.end AS calendarItemend",
-        "calendarItems.status AS calendarItemstatus",
-        "calendarItems.repeatType AS calendarItemrepeatType",
-        "calendarItems.interval AS calendarIteminterval",
-        "calendarItems.variation AS calendarItemvariation",
-        "calendarItems.count AS calendarItemcount",
-        "calendarItems.until AS calendarItemuntil",
-        "calendarItems.exceptions AS calendarItemexceptions",
-        "calendarItems.autoGroupId AS calendarItemautoGroupId",
-        "calendarItems.searchStart AS calendarItemsearchStart",
-        "calendarItems.autoDuration AS calendarItemautoDuration",
+        "events.id AS ${eventPrefix}id",
+        "events.parentId AS ${eventPrefix}parentId",
+        "events.groupId AS ${eventPrefix}groupId",
+        "events.placeId AS ${eventPrefix}placeId",
+        "events.blocked AS ${eventPrefix}blocked",
+        "events.name AS ${eventPrefix}name",
+        "events.description AS ${eventPrefix}description",
+        "events.location AS ${eventPrefix}location",
+        "events.extra AS ${eventPrefix}extra",
+        "calendarItems.*",
       ],
       where: where,
       whereArgs: whereArgs,
     );
     return result?.map((e) {
           return ConnectedModel<CalendarItem, Event?>(
-            CalendarItem.fromDatabase(Map.fromEntries(e.entries
-                .where((element) => element.key.startsWith('calendarItem'))
-                .map((e) => MapEntry(
-                    e.key.substring("calendarItem".length), e.value)))),
-            e['id'] == null ? null : Event.fromDatabase(e),
+            CalendarItem.fromDatabase(e),
+            e['${eventPrefix}id'] == null
+                ? null
+                : Event.fromDatabase(Map.fromEntries(e.entries
+                    .where((element) => element.key.startsWith(eventPrefix))
+                    .map((e) => MapEntry(
+                        e.key.substring(eventPrefix.length), e.value)))),
           );
         }).toList() ??
         [];
