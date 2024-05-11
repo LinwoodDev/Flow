@@ -114,7 +114,7 @@ class LabelDialog extends StatelessWidget {
                   .pop(SourcedModel(currentSource, currentLabel));
             }
           },
-          child: Text(AppLocalizations.of(context).create),
+          child: Text(AppLocalizations.of(context).save),
         ),
       ],
     );
