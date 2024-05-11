@@ -293,5 +293,9 @@
   "comfortable": "Comfortable",
   "standard": "Standard",
   "highContrast": "Contrast mare",
-  "systemLocale": "Localizare sistem"
+  "labels": "Labels",
+  "systemLocale": "Localizare sistem",
+  "notebooks": "Notebooks",
+  "createNotebook": "Create notebook",
+  "editNotebook": "Edit notebook"
 }
