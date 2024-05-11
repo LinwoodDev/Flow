@@ -293,9 +293,9 @@
   "comfortable": "مريح",
   "standard": "قياسي",
   "highContrast": "تباين عالي",
-  "labels": "Labels",
+  "labels": "التسميات",
   "systemLocale": "محلي النظام",
-  "notebooks": "Notebooks",
-  "createNotebook": "Create notebook",
-  "editNotebook": "Edit notebook"
+  "notebooks": "الحواشي",
+  "createNotebook": "إنشاء دفتر ملاحظات",
+  "editNotebook": "تحرير دفتر الملاحظات"
 }
