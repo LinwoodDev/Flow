@@ -293,9 +293,9 @@
   "comfortable": "Άνετο",
   "standard": "Τυπικό",
   "highContrast": "Υψηλή αντίθεση",
-  "labels": "Labels",
+  "labels": "Ετικέτες",
   "systemLocale": "Τοπική ρύθμιση συστήματος",
-  "notebooks": "Notebooks",
-  "createNotebook": "Create notebook",
-  "editNotebook": "Edit notebook"
+  "notebooks": "Σημειωματάριο",
+  "createNotebook": "Δημιουργία σημειωματάριο",
+  "editNotebook": "Επεξεργασία σημειωματικού"
 }
