@@ -293,9 +293,9 @@
   "comfortable": "Confortável",
   "standard": "Padrão",
   "highContrast": "Alto contraste",
-  "labels": "Labels",
+  "labels": "Marcadores",
   "systemLocale": "Localização do sistema",
-  "notebooks": "Notebooks",
-  "createNotebook": "Create notebook",
-  "editNotebook": "Edit notebook"
+  "notebooks": "Cadernos",
+  "createNotebook": "Criar caderno",
+  "editNotebook": "Editar caderno"
 }
