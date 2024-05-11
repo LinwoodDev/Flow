@@ -2,11 +2,16 @@
 * Add density setting
 * Add high contrast mode
 * Add classic theme
+* Add notebooks
 * Allow changing group and place in event creation dialog
 * Make dashboard the back page
 * Improve icon style for different calendar item types
 * Improve custom title bar window buttons
 * Improve material 3 colors of chips
+* Improve child notes layout
 * Use default page transition instead of fade
+* Unify select dialogs
 * Upgrade to flutter 3.19
 * Fix locale translations
+
+Read more here: https://linwood.dev/flow/0.3

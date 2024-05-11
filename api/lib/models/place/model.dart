@@ -8,7 +8,7 @@ part 'model.freezed.dart';
 part 'model.g.dart';
 
 @freezed
-class Place with _$Place {
+class Place with _$Place, IdentifiedModel, NamedModel, DescriptiveModel {
   const Place._();
 
   @Implements<DescriptiveModel>()

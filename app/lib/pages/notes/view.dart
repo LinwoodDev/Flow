@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:flow/helpers/sourced_paging_controller.dart';
-import 'package:flow/widgets/color.dart';
+import 'package:flow/pages/notes/select.dart';
 import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +18,6 @@ import 'package:flow_api/services/source.dart';
 
 import '../../cubits/flow.dart';
 import 'label.dart';
-import 'select.dart';
 
 class NoteView extends StatefulWidget {
   final String source;
@@ -261,8 +260,9 @@ class _NoteViewState extends State<NoteView> {
                                     .map((e) => Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: InputChip(
-                                            avatar: ColorPoint(
-                                                color: Color(e.color)),
+                                            avatar: ColorButton(
+                                              color: Color(e.color),
+                                            ),
                                             label: Text(e.name),
                                             onDeleted: () async {
                                               await _labelNoteService
@@ -325,104 +325,103 @@ class _NoteViewState extends State<NoteView> {
                 ),
               ]),
             ),
-            const SizedBox(height: 16),
-            SizedBox(
-              height: 50,
-              child: Scrollbar(
-                controller: _formattingScrollController,
-                child: ListView(
-                    controller: _formattingScrollController,
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      ...[
-                        PhosphorIconsLight.textHOne,
-                        PhosphorIconsLight.textHTwo,
-                        PhosphorIconsLight.textHThree,
-                        PhosphorIconsLight.textHFour,
-                        PhosphorIconsLight.textHFive,
-                        PhosphorIconsLight.textHSix
-                      ].mapIndexed((index, element) => IconButton(
-                            icon: PhosphorIcon(element),
-                            onPressed: () => _addDescription(
-                              PastePositing.line,
-                              "${"#" * (index + 1)} ",
-                            ),
-                          )),
-                      ...[
-                        (
-                          '```',
-                          PhosphorIconsLight.codeSimple,
-                          AppLocalizations.of(context).codeBlock
-                        ),
-                        (
-                          '>',
-                          PhosphorIconsLight.quotes,
-                          AppLocalizations.of(context).quote
-                        ),
-                        (
-                          '- ',
-                          PhosphorIconsLight.list,
-                          AppLocalizations.of(context).list
-                        ),
-                        (
-                          '1. ',
-                          PhosphorIconsLight.listNumbers,
-                          AppLocalizations.of(context).numberedList
-                        ),
-                      ].map((e) => IconButton(
-                            icon: PhosphorIcon(e.$2),
-                            tooltip: e.$3,
-                            onPressed: () => _addDescription(
-                              PastePositing.line,
-                              e.$1,
-                            ),
-                          )),
-                      const SizedBox(width: 8),
-                      ...[
-                        (
-                          '**',
-                          PhosphorIconsLight.textB,
-                          AppLocalizations.of(context).bold
-                        ),
-                        (
-                          '*',
-                          PhosphorIconsLight.textItalic,
-                          AppLocalizations.of(context).italic
-                        ),
-                        (
-                          '~~',
-                          PhosphorIconsLight.textStrikethrough,
-                          AppLocalizations.of(context).strikethrough
-                        ),
-                        (
-                          '`',
-                          PhosphorIconsLight.code,
-                          AppLocalizations.of(context).code
-                        ),
-                      ].map((e) => IconButton(
-                            icon: PhosphorIcon(e.$2),
-                            tooltip: e.$3,
-                            onPressed: () => _addDescription(
-                              PastePositing.selection,
-                              e.$1,
-                            ),
-                          )),
-                      IconButton(
-                        icon: const PhosphorIcon(PhosphorIconsLight.link),
-                        tooltip: AppLocalizations.of(context).link,
-                        onPressed: () => _addDescription(
-                          PastePositing.selection,
-                          '[',
-                          ']()',
-                        ),
-                      ),
-                    ]),
-              ),
-            ),
             MarkdownField(
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context).description,
                 border: const OutlineInputBorder(),
+              ),
+              toolbar: SizedBox(
+                height: 50,
+                child: Scrollbar(
+                  controller: _formattingScrollController,
+                  child: ListView(
+                      controller: _formattingScrollController,
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        ...[
+                          PhosphorIconsLight.textHOne,
+                          PhosphorIconsLight.textHTwo,
+                          PhosphorIconsLight.textHThree,
+                          PhosphorIconsLight.textHFour,
+                          PhosphorIconsLight.textHFive,
+                          PhosphorIconsLight.textHSix
+                        ].mapIndexed((index, element) => IconButton(
+                              icon: PhosphorIcon(element),
+                              onPressed: () => _addDescription(
+                                PastePositing.line,
+                                "${"#" * (index + 1)} ",
+                              ),
+                            )),
+                        ...[
+                          (
+                            '```',
+                            PhosphorIconsLight.codeSimple,
+                            AppLocalizations.of(context).codeBlock
+                          ),
+                          (
+                            '>',
+                            PhosphorIconsLight.quotes,
+                            AppLocalizations.of(context).quote
+                          ),
+                          (
+                            '- ',
+                            PhosphorIconsLight.list,
+                            AppLocalizations.of(context).list
+                          ),
+                          (
+                            '1. ',
+                            PhosphorIconsLight.listNumbers,
+                            AppLocalizations.of(context).numberedList
+                          ),
+                        ].map((e) => IconButton(
+                              icon: PhosphorIcon(e.$2),
+                              tooltip: e.$3,
+                              onPressed: () => _addDescription(
+                                PastePositing.line,
+                                e.$1,
+                              ),
+                            )),
+                        const SizedBox(width: 8),
+                        ...[
+                          (
+                            '**',
+                            PhosphorIconsLight.textB,
+                            AppLocalizations.of(context).bold
+                          ),
+                          (
+                            '*',
+                            PhosphorIconsLight.textItalic,
+                            AppLocalizations.of(context).italic
+                          ),
+                          (
+                            '~~',
+                            PhosphorIconsLight.textStrikethrough,
+                            AppLocalizations.of(context).strikethrough
+                          ),
+                          (
+                            '`',
+                            PhosphorIconsLight.code,
+                            AppLocalizations.of(context).code
+                          ),
+                        ].map((e) => IconButton(
+                              icon: PhosphorIcon(e.$2),
+                              tooltip: e.$3,
+                              onPressed: () => _addDescription(
+                                PastePositing.selection,
+                                e.$1,
+                              ),
+                            )),
+                        IconButton(
+                          icon: const PhosphorIcon(PhosphorIconsLight.link),
+                          tooltip: AppLocalizations.of(context).link,
+                          onPressed: () => _addDescription(
+                            PastePositing.selection,
+                            '[',
+                            ']()',
+                          ),
+                        ),
+                      ]),
+                ),
               ),
               controller: _descriptionController,
               onChangeEnd: (value) {

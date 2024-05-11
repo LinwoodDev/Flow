@@ -21,6 +21,7 @@ mixin _$NoteFilter {
   bool get showTodo => throw _privateConstructorUsedError;
   bool get showNote => throw _privateConstructorUsedError;
   Multihash? get selectedLabel => throw _privateConstructorUsedError;
+  Multihash? get notebook => throw _privateConstructorUsedError;
   String? get source => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -40,6 +41,7 @@ abstract class $NoteFilterCopyWith<$Res> {
       bool showTodo,
       bool showNote,
       Multihash? selectedLabel,
+      Multihash? notebook,
       String? source});
 }
 
@@ -61,6 +63,7 @@ class _$NoteFilterCopyWithImpl<$Res, $Val extends NoteFilter>
     Object? showTodo = null,
     Object? showNote = null,
     Object? selectedLabel = freezed,
+    Object? notebook = freezed,
     Object? source = freezed,
   }) {
     return _then(_value.copyWith(
@@ -84,6 +87,10 @@ class _$NoteFilterCopyWithImpl<$Res, $Val extends NoteFilter>
           ? _value.selectedLabel
           : selectedLabel // ignore: cast_nullable_to_non_nullable
               as Multihash?,
+      notebook: freezed == notebook
+          ? _value.notebook
+          : notebook // ignore: cast_nullable_to_non_nullable
+              as Multihash?,
       source: freezed == source
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
@@ -106,6 +113,7 @@ abstract class _$$NoteFilterImplCopyWith<$Res>
       bool showTodo,
       bool showNote,
       Multihash? selectedLabel,
+      Multihash? notebook,
       String? source});
 }
 
@@ -125,6 +133,7 @@ class __$$NoteFilterImplCopyWithImpl<$Res>
     Object? showTodo = null,
     Object? showNote = null,
     Object? selectedLabel = freezed,
+    Object? notebook = freezed,
     Object? source = freezed,
   }) {
     return _then(_$NoteFilterImpl(
@@ -148,6 +157,10 @@ class __$$NoteFilterImplCopyWithImpl<$Res>
           ? _value.selectedLabel
           : selectedLabel // ignore: cast_nullable_to_non_nullable
               as Multihash?,
+      notebook: freezed == notebook
+          ? _value.notebook
+          : notebook // ignore: cast_nullable_to_non_nullable
+              as Multihash?,
       source: freezed == source
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
@@ -165,6 +178,7 @@ class _$NoteFilterImpl extends _NoteFilter {
       this.showTodo = true,
       this.showNote = true,
       this.selectedLabel,
+      this.notebook,
       this.source})
       : super._();
 
@@ -183,11 +197,13 @@ class _$NoteFilterImpl extends _NoteFilter {
   @override
   final Multihash? selectedLabel;
   @override
+  final Multihash? notebook;
+  @override
   final String? source;
 
   @override
   String toString() {
-    return 'NoteFilter(showDone: $showDone, showInProgress: $showInProgress, showTodo: $showTodo, showNote: $showNote, selectedLabel: $selectedLabel, source: $source)';
+    return 'NoteFilter(showDone: $showDone, showInProgress: $showInProgress, showTodo: $showTodo, showNote: $showNote, selectedLabel: $selectedLabel, notebook: $notebook, source: $source)';
   }
 
   @override
@@ -205,12 +221,14 @@ class _$NoteFilterImpl extends _NoteFilter {
                 other.showNote == showNote) &&
             (identical(other.selectedLabel, selectedLabel) ||
                 other.selectedLabel == selectedLabel) &&
+            (identical(other.notebook, notebook) ||
+                other.notebook == notebook) &&
             (identical(other.source, source) || other.source == source));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, showDone, showInProgress,
-      showTodo, showNote, selectedLabel, source);
+      showTodo, showNote, selectedLabel, notebook, source);
 
   @JsonKey(ignore: true)
   @override
@@ -226,6 +244,7 @@ abstract class _NoteFilter extends NoteFilter {
       final bool showTodo,
       final bool showNote,
       final Multihash? selectedLabel,
+      final Multihash? notebook,
       final String? source}) = _$NoteFilterImpl;
   const _NoteFilter._() : super._();
 
@@ -239,6 +258,8 @@ abstract class _NoteFilter extends NoteFilter {
   bool get showNote;
   @override
   Multihash? get selectedLabel;
+  @override
+  Multihash? get notebook;
   @override
   String? get source;
   @override

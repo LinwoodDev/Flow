@@ -70,7 +70,7 @@ class UserDialog extends StatelessWidget {
               value: currentUser.groupId,
               source: currentSource,
               onChanged: (value) {
-                currentUser = currentUser.copyWith(groupId: value);
+                currentUser = currentUser.copyWith(groupId: value?.model);
               },
             ),
           ],

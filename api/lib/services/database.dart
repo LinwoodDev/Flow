@@ -25,7 +25,7 @@ typedef DatabaseFactory = Future<Database> Function({
   FutureOr<void> Function(Database, int)? onCreate,
 });
 
-const databaseVersion = 2;
+const databaseVersion = 3;
 
 class DatabaseService extends SourceService {
   late final Database db;
@@ -113,4 +113,8 @@ Multihash createUniqueMultihash() {
       encodeEndian(DateTime.now().millisecondsSinceEpoch, 8) +
           List.generate(8, (i) => random.nextInt(255)));
   return Multihash(uuid);
+}
+
+Multihash createEmptyMultihash() {
+  return Multihash(Uint8List.fromList([]));
 }

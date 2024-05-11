@@ -13,7 +13,12 @@ class NoteDialog extends StatefulWidget {
   final String? source;
   final Note? note;
   final bool create;
-  const NoteDialog({super.key, this.create = false, this.note, this.source});
+  const NoteDialog({
+    super.key,
+    this.create = false,
+    this.note,
+    this.source,
+  });
 
   @override
   State<NoteDialog> createState() => _NoteDialogState();

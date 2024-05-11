@@ -89,7 +89,7 @@ class EventDialog extends StatelessWidget {
                 source: currentSource,
                 value: currentEvent.groupId,
                 onChanged: (value) {
-                  currentEvent = currentEvent.copyWith(groupId: value);
+                  currentEvent = currentEvent.copyWith(groupId: value?.model);
                 },
               ),
               const SizedBox(height: 16),
@@ -97,7 +97,7 @@ class EventDialog extends StatelessWidget {
                 source: currentSource,
                 value: currentEvent.placeId,
                 onChanged: (value) {
-                  currentEvent = currentEvent.copyWith(placeId: value);
+                  currentEvent = currentEvent.copyWith(placeId: value?.model);
                 },
               ),
               const SizedBox(height: 8),

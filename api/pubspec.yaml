@@ -4,7 +4,7 @@ description: A starting point for Dart libraries or applications.
 # homepage: https://www.example.com
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   meta: ^1.11.0
@@ -23,5 +23,5 @@ dev_dependencies:
   build_runner: ^2.4.9
   freezed: ^2.5.2
   json_serializable: ^6.7.0
-  lints: ^3.0.0
+  lints: ^4.0.0
   test: ^1.25.4

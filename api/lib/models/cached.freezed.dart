@@ -22,6 +22,7 @@ CachedData _$CachedDataFromJson(Map<String, dynamic> json) {
 mixin _$CachedData {
   DateTime? get lastUpdated => throw _privateConstructorUsedError;
   List<Event> get events => throw _privateConstructorUsedError;
+  List<Notebook> get notebooks => throw _privateConstructorUsedError;
   List<CalendarItem> get items => throw _privateConstructorUsedError;
   List<Note> get notes => throw _privateConstructorUsedError;
 
@@ -40,6 +41,7 @@ abstract class $CachedDataCopyWith<$Res> {
   $Res call(
       {DateTime? lastUpdated,
       List<Event> events,
+      List<Notebook> notebooks,
       List<CalendarItem> items,
       List<Note> notes});
 }
@@ -59,6 +61,7 @@ class _$CachedDataCopyWithImpl<$Res, $Val extends CachedData>
   $Res call({
     Object? lastUpdated = freezed,
     Object? events = null,
+    Object? notebooks = null,
     Object? items = null,
     Object? notes = null,
   }) {
@@ -71,6 +74,10 @@ class _$CachedDataCopyWithImpl<$Res, $Val extends CachedData>
           ? _value.events
           : events // ignore: cast_nullable_to_non_nullable
               as List<Event>,
+      notebooks: null == notebooks
+          ? _value.notebooks
+          : notebooks // ignore: cast_nullable_to_non_nullable
+              as List<Notebook>,
       items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -94,6 +101,7 @@ abstract class _$$CachedDataImplCopyWith<$Res>
   $Res call(
       {DateTime? lastUpdated,
       List<Event> events,
+      List<Notebook> notebooks,
       List<CalendarItem> items,
       List<Note> notes});
 }
@@ -111,6 +119,7 @@ class __$$CachedDataImplCopyWithImpl<$Res>
   $Res call({
     Object? lastUpdated = freezed,
     Object? events = null,
+    Object? notebooks = null,
     Object? items = null,
     Object? notes = null,
   }) {
@@ -123,6 +132,10 @@ class __$$CachedDataImplCopyWithImpl<$Res>
           ? _value._events
           : events // ignore: cast_nullable_to_non_nullable
               as List<Event>,
+      notebooks: null == notebooks
+          ? _value._notebooks
+          : notebooks // ignore: cast_nullable_to_non_nullable
+              as List<Notebook>,
       items: null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
@@ -141,9 +154,11 @@ class _$CachedDataImpl extends _CachedData {
   const _$CachedDataImpl(
       {this.lastUpdated,
       final List<Event> events = const [],
+      final List<Notebook> notebooks = const [],
       final List<CalendarItem> items = const [],
       final List<Note> notes = const []})
       : _events = events,
+        _notebooks = notebooks,
         _items = items,
         _notes = notes,
         super._();
@@ -160,6 +175,15 @@ class _$CachedDataImpl extends _CachedData {
     if (_events is EqualUnmodifiableListView) return _events;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_events);
+  }
+
+  final List<Notebook> _notebooks;
+  @override
+  @JsonKey()
+  List<Notebook> get notebooks {
+    if (_notebooks is EqualUnmodifiableListView) return _notebooks;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_notebooks);
   }
 
   final List<CalendarItem> _items;
@@ -182,7 +206,7 @@ class _$CachedDataImpl extends _CachedData {
 
   @override
   String toString() {
-    return 'CachedData(lastUpdated: $lastUpdated, events: $events, items: $items, notes: $notes)';
+    return 'CachedData(lastUpdated: $lastUpdated, events: $events, notebooks: $notebooks, items: $items, notes: $notes)';
   }
 
   @override
@@ -193,6 +217,8 @@ class _$CachedDataImpl extends _CachedData {
             (identical(other.lastUpdated, lastUpdated) ||
                 other.lastUpdated == lastUpdated) &&
             const DeepCollectionEquality().equals(other._events, _events) &&
+            const DeepCollectionEquality()
+                .equals(other._notebooks, _notebooks) &&
             const DeepCollectionEquality().equals(other._items, _items) &&
             const DeepCollectionEquality().equals(other._notes, _notes));
   }
@@ -203,6 +229,7 @@ class _$CachedDataImpl extends _CachedData {
       runtimeType,
       lastUpdated,
       const DeepCollectionEquality().hash(_events),
+      const DeepCollectionEquality().hash(_notebooks),
       const DeepCollectionEquality().hash(_items),
       const DeepCollectionEquality().hash(_notes));
 
@@ -224,6 +251,7 @@ abstract class _CachedData extends CachedData {
   const factory _CachedData(
       {final DateTime? lastUpdated,
       final List<Event> events,
+      final List<Notebook> notebooks,
       final List<CalendarItem> items,
       final List<Note> notes}) = _$CachedDataImpl;
   const _CachedData._() : super._();
@@ -235,6 +263,8 @@ abstract class _CachedData extends CachedData {
   DateTime? get lastUpdated;
   @override
   List<Event> get events;
+  @override
+  List<Notebook> get notebooks;
   @override
   List<CalendarItem> get items;
   @override
