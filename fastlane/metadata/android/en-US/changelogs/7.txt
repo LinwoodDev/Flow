@@ -13,5 +13,6 @@
 * Unify select dialogs
 * Upgrade to flutter 3.19
 * Fix locale translations
+* Fix week system in calendar week view
 
 Read more here: https://linwood.dev/flow/0.3

@@ -31,7 +31,7 @@ class CalendarWeekView extends StatefulWidget {
 
 class _CalendarWeekViewState extends State<CalendarWeekView> {
   late final FlowCubit _cubit;
-  int _week = 0, _year = 0, _startOfWeek = 0;
+  int _week = 0, _year = 0;
   late Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
       _appointments;
   final _columnScrollController = ScrollController(),
@@ -44,13 +44,11 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
     final now = DateTime.now();
     _week = now.week;
     _year = now.year;
-    _startOfWeek = context.read<SettingsCubit>().state.startOfWeek;
     _appointments = _fetchCalendarItems();
   }
 
-  DateTime get _date => DateTime(_year, 1, 1)
-      .nextStartOfWeek
-      .addDays((_week - 1) * 7 + _startOfWeek);
+  DateTime get _date =>
+      DateTime(_year, 1, 1).nextStartOfWeek.addDays((_week - 2) * 7);
 
   Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
       _fetchCalendarItems() async {
@@ -91,7 +89,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
 
   void _addWeek(int add) {
     setState(() {
-      final dateTime = DateTime(_year, 1, 1).addDays((_week + add) * 7);
+      final dateTime = _date.addDays(add * 7);
       _week = dateTime.week;
       _year = dateTime.year;
       _appointments = _fetchCalendarItems();
@@ -112,7 +110,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
 
   @override
   Widget build(BuildContext context) {
-    final now = DateTime.now().addDays(-_startOfWeek);
+    final now = DateTime.now();
 
     return LayoutBuilder(
       builder: (context, constraints) => CreateEventScaffold(
