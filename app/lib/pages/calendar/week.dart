@@ -31,7 +31,7 @@ class CalendarWeekView extends StatefulWidget {
 
 class _CalendarWeekViewState extends State<CalendarWeekView> {
   late final FlowCubit _cubit;
-  int _week = 0, _year = 0;
+  int _week = 0, _year = 0, _startOfWeek = DateTime.monday;
   late Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
       _appointments;
   final _columnScrollController = ScrollController(),
@@ -42,13 +42,15 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
     super.initState();
     _cubit = context.read<FlowCubit>();
     final now = DateTime.now();
-    _week = now.week;
+    _week = now.getWeek(_startOfWeek);
     _year = now.year;
     _appointments = _fetchCalendarItems();
+    _startOfWeek = context.read<SettingsCubit>().state.startOfWeek + 1;
   }
 
-  DateTime get _date =>
-      DateTime(_year, 1, 1).nextStartOfWeek.addDays((_week - 2) * 7);
+  DateTime get _date => DateTime(_year, 1, 1)
+      .getStartOfWeek(_startOfWeek)
+      .addDays((_week - 1) * 7);
 
   Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
       _fetchCalendarItems() async {
@@ -90,7 +92,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
   void _addWeek(int add) {
     setState(() {
       final dateTime = _date.addDays(add * 7);
-      _week = dateTime.week;
+      _week = dateTime.getWeek(_startOfWeek);
       _year = dateTime.year;
       _appointments = _fetchCalendarItems();
     });
@@ -139,11 +141,12 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                     IconButton(
                       icon:
                           const PhosphorIcon(PhosphorIconsLight.calendarBlank),
-                      isSelected:
-                          _date.year == now.year && _date.week == now.week,
+                      isSelected: _date.year == now.year &&
+                          _date.getWeek(_startOfWeek) ==
+                              now.getWeek(_startOfWeek),
                       onPressed: () {
                         setState(() {
-                          _week = now.week;
+                          _week = now.getWeek(_startOfWeek);
                           _year = now.year;
                           _appointments = _fetchCalendarItems();
                         });
@@ -163,7 +166,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                         );
                         if (date != null) {
                           setState(() {
-                            _week = date.week;
+                            _week = date.getWeek(_startOfWeek);
                             _year = date.year;
                             _appointments = _fetchCalendarItems();
                           });

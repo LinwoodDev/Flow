@@ -33,7 +33,7 @@ class PersonalizationSettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = Localizations.localeOf(context).languageCode;
     final weekDayFormatter = DateFormat.EEEE(locale);
-    final startOfWeek = DateTime.now().nextStartOfWeek;
+    final startOfWeek = DateTime.now().startOfWeek;
     String getWeekDay(int day) {
       return weekDayFormatter.format(startOfWeek.add(Duration(days: day)));
     }

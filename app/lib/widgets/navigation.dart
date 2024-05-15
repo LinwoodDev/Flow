@@ -233,7 +233,7 @@ class _FlowDrawer extends StatelessWidget {
             leading: PhosphorIcon(map['icon']),
             onTap: () => GoRouter.of(context).go(map['link']),
             selected: currentSelected,
-            selectedColor: Theme.of(context).colorScheme.onBackground,
+            selectedColor: Theme.of(context).colorScheme.onSurface,
             selectedTileColor: currentSelected
                 ? Theme.of(context).colorScheme.primaryContainer.withAlpha(200)
                 : null,
