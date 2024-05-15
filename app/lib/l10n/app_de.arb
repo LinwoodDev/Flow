@@ -292,5 +292,10 @@
   "compact": "Kompakt",
   "comfortable": "Bequemer",
   "standard": "Standard",
-  "highContrast": "Hoher Kontrast"
+  "highContrast": "Hoher Kontrast",
+  "labels": "Etiketten",
+  "systemLocale": "Systemsprache",
+  "notebooks": "Notizbücher",
+  "createNotebook": "Notizbuch erstellen",
+  "editNotebook": "Notizbuch bearbeiten"
 }

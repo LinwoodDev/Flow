@@ -353,5 +353,9 @@
   "theme.unlistedContent.message": {
     "message": "Tätä sivua ei ole listattu. Hakukoneet eivät indeksoi sitä, ja vain käyttäjät, joilla on suora linkki, voivat käyttää sitä.",
     "description": "The unlisted content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} kohdetta",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   }
 }

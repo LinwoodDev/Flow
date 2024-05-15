@@ -292,5 +292,10 @@
   "compact": "Kompakti",
   "comfortable": "Mukava",
   "standard": "Normaali",
-  "highContrast": "Korkea kontrasti"
+  "highContrast": "Korkea kontrasti",
+  "labels": "Tunnisteet",
+  "systemLocale": "Järjestelmän kieli",
+  "notebooks": "Muistikirjat",
+  "createNotebook": "Luo muistikirja",
+  "editNotebook": "Muokkaa muistikirjaa"
 }

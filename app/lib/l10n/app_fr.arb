@@ -292,5 +292,10 @@
   "compact": "Compact",
   "comfortable": "Confortable",
   "standard": "Standard",
-  "highContrast": "Contraste élevé"
+  "highContrast": "Contraste élevé",
+  "labels": "Étiquettes",
+  "systemLocale": "Paramètres régionaux du système",
+  "notebooks": "Carnets",
+  "createNotebook": "Créer un bloc-notes",
+  "editNotebook": "Modifier le bloc-notes"
 }

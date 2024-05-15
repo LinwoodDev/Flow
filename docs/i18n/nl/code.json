@@ -353,5 +353,9 @@
   "theme.unlistedContent.message": {
     "message": "Deze pagina is niet vermeld. Zoekmachines zullen het niet indexeren en alleen gebruikers met een directe link kunnen het bekijken.",
     "description": "The unlisted content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} artikelen",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   }
 }

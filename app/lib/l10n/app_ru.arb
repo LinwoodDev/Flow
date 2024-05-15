@@ -292,5 +292,10 @@
   "compact": "Компактный",
   "comfortable": "Удобный",
   "standard": "Стандартный",
-  "highContrast": "Высокий контраст"
+  "highContrast": "Высокий контраст",
+  "labels": "Метки",
+  "systemLocale": "Системный язык",
+  "notebooks": "Ноутбуки",
+  "createNotebook": "Создать блокнот",
+  "editNotebook": "Редактировать блокнот"
 }

@@ -292,5 +292,10 @@
   "compact": "Compact",
   "comfortable": "Comfortable",
   "standard": "Standard",
-  "highContrast": "Contrast mare"
+  "highContrast": "Contrast mare",
+  "labels": "Etichete",
+  "systemLocale": "Localizare sistem",
+  "notebooks": "Notebook-uri",
+  "createNotebook": "Creare caiet",
+  "editNotebook": "Editare caiet"
 }

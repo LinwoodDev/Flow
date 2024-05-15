@@ -292,5 +292,10 @@
   "compact": "Kompaktní",
   "comfortable": "Komfortní",
   "standard": "Standardní",
-  "highContrast": "Vysoký kontrast"
+  "highContrast": "Vysoký kontrast",
+  "labels": "Popisky",
+  "systemLocale": "Systémová lokalizace",
+  "notebooks": "Sešity",
+  "createNotebook": "Vytvořit sešit",
+  "editNotebook": "Upravit sešit"
 }

@@ -292,5 +292,10 @@
   "compact": "Kompakt",
   "comfortable": "Bekväm",
   "standard": "Standard",
-  "highContrast": "Hög kontrast"
+  "highContrast": "Hög kontrast",
+  "labels": "Etiketter",
+  "systemLocale": "Systemets språk",
+  "notebooks": "Anteckningsböcker",
+  "createNotebook": "Skapa anteckningsbok",
+  "editNotebook": "Redigera anteckningsbok"
 }

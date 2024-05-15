@@ -292,5 +292,10 @@
   "compact": "Compacte",
   "comfortable": "Comfortabel",
   "standard": "Standaard",
-  "highContrast": "Hoog contrast"
+  "highContrast": "Hoog contrast",
+  "labels": "Labels",
+  "systemLocale": "Systeem lokalisatie",
+  "notebooks": "Notitieboekjes",
+  "createNotebook": "Notitieboekje maken",
+  "editNotebook": "Notitieboekje bewerken"
 }

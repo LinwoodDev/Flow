@@ -353,5 +353,9 @@
   "theme.unlistedContent.message": {
     "message": "此页面未列出。搜索引擎不会索引它，只有拥有直接链接的用户才能访问它。",
     "description": "The unlisted content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} 项",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   }
 }

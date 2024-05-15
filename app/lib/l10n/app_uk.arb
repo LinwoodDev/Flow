@@ -292,5 +292,10 @@
   "compact": "Компактний",
   "comfortable": "Комфортний",
   "standard": "Стандартна",
-  "highContrast": "Високий контраст"
+  "highContrast": "Високий контраст",
+  "labels": "Мітки",
+  "systemLocale": "Мова локалізації системи",
+  "notebooks": "Ноутбуки",
+  "createNotebook": "Створити зошит",
+  "editNotebook": "Редагувати блокнот"
 }

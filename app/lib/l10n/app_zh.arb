@@ -292,5 +292,10 @@
   "compact": "紧凑的",
   "comfortable": "舒适的",
   "standard": "标准的",
-  "highContrast": "高对比度"
+  "highContrast": "高对比度",
+  "labels": "标签",
+  "systemLocale": "系统区域设置",
+  "notebooks": "笔记本",
+  "createNotebook": "创建笔记本",
+  "editNotebook": "编辑笔记本"
 }

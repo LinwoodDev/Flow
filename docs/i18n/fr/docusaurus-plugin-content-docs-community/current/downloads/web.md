@@ -15,11 +15,11 @@ Ceci est une application web progressive. Vous pouvez l'installer sur votre navi
 ## Liens
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--info button--lg margin--sm" href="https://flow.linwood.dev">
-  Principal
+<a className="button button--outline button--info button--lg margin--sm" href="https://web.flow.linwood.dev">
+  Main
 </a>
 <a className="button button--outline button--danger button--lg margin--sm" href="https://preview.flow.linwood.dev">
-  Aperçu
+  Preview
 </a>
 </div>
 

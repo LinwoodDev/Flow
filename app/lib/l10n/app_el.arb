@@ -292,5 +292,10 @@
   "compact": "Συμπαγής",
   "comfortable": "Άνετο",
   "standard": "Τυπικό",
-  "highContrast": "Υψηλή αντίθεση"
+  "highContrast": "Υψηλή αντίθεση",
+  "labels": "Ετικέτες",
+  "systemLocale": "Τοπική ρύθμιση συστήματος",
+  "notebooks": "Σημειωματάριο",
+  "createNotebook": "Δημιουργία σημειωματάριο",
+  "editNotebook": "Επεξεργασία σημειωματικού"
 }

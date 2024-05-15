@@ -353,5 +353,9 @@
   "theme.unlistedContent.message": {
     "message": "Denne side er ikke angivet. Søgemaskiner vil ikke indeksere det, og kun brugere, der har et direkte link, kan få adgang til det.",
     "description": "The unlisted content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} varer",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   }
 }

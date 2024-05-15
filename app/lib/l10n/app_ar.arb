@@ -292,5 +292,10 @@
   "compact": "مدمج",
   "comfortable": "مريح",
   "standard": "قياسي",
-  "highContrast": "تباين عالي"
+  "highContrast": "تباين عالي",
+  "labels": "التسميات",
+  "systemLocale": "محلي النظام",
+  "notebooks": "الحواشي",
+  "createNotebook": "إنشاء دفتر ملاحظات",
+  "editNotebook": "تحرير دفتر الملاحظات"
 }

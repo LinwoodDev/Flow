@@ -15,11 +15,11 @@ T채m채 on progressiivinen web-sovellus. Voit asentaa sen selaimellesi ja k채ytt�
 ## Linkit
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--info button--lg margin--sm" href="https://flow.linwood.dev">
-  P채채sivu
+<a className="button button--outline button--info button--lg margin--sm" href="https://web.flow.linwood.dev">
+  Main
 </a>
 <a className="button button--outline button--danger button--lg margin--sm" href="https://preview.flow.linwood.dev">
-  Esikatsele
+  Preview
 </a>
 </div>
 
