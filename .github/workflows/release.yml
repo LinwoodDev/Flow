@@ -108,7 +108,7 @@ jobs:
           tag_name: v${{ env.FLOW_VERSION }}
           name: v${{ env.FLOW_VERSION }}
           token: ${{ secrets.CI_PAT }}
-          body_path: fastlane/metadata/android/en-US/changelogs/${{ env.FLOW_BUILD_NUMBER }}.txt
+          body_path: metadata/en-US/changelogs/${{ env.FLOW_BUILD_NUMBER }}.txt
       - name: Retag stable
         if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
         run: |
@@ -248,7 +248,7 @@ jobs:
           FLOW_BUILD_NUMBER="${BASH_REMATCH[2]}"
           echo "FLOW_BUILD_NUMBER=${FLOW_BUILD_NUMBER}" >> $GITHUB_ENV
           echo 'FLOW_CHANGELOG<<EOF' >> $GITHUB_ENV
-          cat fastlane/metadata/android/en-US/changelogs/${FLOW_BUILD_NUMBER}.txt >> $GITHUB_ENV
+          cat metadata/en-US/changelogs/${FLOW_BUILD_NUMBER}.txt >> $GITHUB_ENV
           echo '' >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
       - name: Discord Webhook Action
