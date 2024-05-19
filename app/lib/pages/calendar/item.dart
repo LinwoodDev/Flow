@@ -59,7 +59,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
         case CalendarItemType.appointment:
           _item = _item.copyWith(
             start: _item.start ?? DateTime.now(),
-            end: _item.end ??
+            end: (_item.start == _item.end ? null : _item.end) ??
                 (_item.start ?? DateTime.now()).add(const Duration(hours: 1)),
           );
           break;

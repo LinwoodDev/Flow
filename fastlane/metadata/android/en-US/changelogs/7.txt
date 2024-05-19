@@ -15,5 +15,6 @@
 * Upgrade to flutter 3.19
 * Fix locale translations
 * Fix week system in calendar week view
+* Fix switching from moment to appointment doesn't update the dialog
 
 Read more here: https://linwood.dev/flow/0.3
