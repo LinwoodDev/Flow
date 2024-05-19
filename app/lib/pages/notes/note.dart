@@ -3,6 +3,7 @@ import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/note/model.dart';
 import 'package:flow_api/models/note/service.dart';
@@ -42,94 +43,87 @@ class _NoteDialogState extends State<NoteDialog> {
   Widget build(BuildContext context) {
     final create =
         widget.create || widget.note == null || widget.source == null;
-    return AlertDialog(
-      title: Row(
-        children: [
-          Expanded(
-            child: Text(
-              create
-                  ? AppLocalizations.of(context).createNote
-                  : AppLocalizations.of(context).editNote,
-            ),
-          ),
-          if (_newNote.status != null)
-            Checkbox(
-              value: _newNote.status?.done,
-              tristate: true,
-              onChanged: (value) {
-                setState(() {
-                  _newNote = _newNote.copyWith(
-                      status: NoteStatusExtension.fromDone(value));
-                });
-              },
-            ),
-        ],
+    return ResponsiveAlertDialog(
+      title: Text(
+        create
+            ? AppLocalizations.of(context).createNote
+            : AppLocalizations.of(context).editNote,
       ),
-      scrollable: true,
-      content: SizedBox(
-        width: 400,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (widget.source == null) ...[
-              SourceDropdown<NoteService>(
-                value: _newSource,
-                onChanged: (connected) {
-                  _newSource = connected?.source ?? '';
-                  _service = connected?.model;
-                },
-                buildService: (e) => e.note,
-              ),
-              const SizedBox(height: 16),
-            ],
-            TextFormField(
-              decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).name,
-                icon: const PhosphorIcon(PhosphorIconsLight.textT),
-                filled: true,
-              ),
-              initialValue: _newNote.name,
-              onChanged: (value) {
-                _newNote = _newNote.copyWith(name: value);
-              },
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).priority,
-                icon: const PhosphorIcon(PhosphorIconsLight.arrowSquareUp),
-                border: const OutlineInputBorder(),
-              ),
-              initialValue: _newNote.priority.toString(),
-              keyboardType: TextInputType.number,
-              onChanged: (value) {
+      constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
+      headerActions: [
+        if (_newNote.status != null)
+          Checkbox(
+            value: _newNote.status?.done,
+            tristate: true,
+            onChanged: (value) {
+              setState(() {
                 _newNote = _newNote.copyWith(
-                    priority: int.tryParse(value) ?? _newNote.priority);
+                    status: NoteStatusExtension.fromDone(value));
+              });
+            },
+          ),
+      ],
+      content: ListView(
+        shrinkWrap: true,
+        children: [
+          if (widget.source == null) ...[
+            SourceDropdown<NoteService>(
+              value: _newSource,
+              onChanged: (connected) {
+                _newSource = connected?.source ?? '';
+                _service = connected?.model;
               },
+              buildService: (e) => e.note,
             ),
             const SizedBox(height: 16),
-            MarkdownField(
-              decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).description,
-                icon: const PhosphorIcon(PhosphorIconsLight.fileText),
-                border: const OutlineInputBorder(),
-              ),
-              value: _newNote.description,
-              onChanged: (value) {
-                _newNote = _newNote.copyWith(description: value);
-              },
-            ),
-            const SizedBox(height: 16),
-            CheckboxListTile(
-              title: Text(AppLocalizations.of(context).todo),
-              value: _newNote.status != null,
-              onChanged: (value) {
-                setState(() => _newNote = _newNote.copyWith(
-                    status: value == true ? NoteStatus.todo : null));
-              },
-            ),
           ],
-        ),
+          TextFormField(
+            decoration: InputDecoration(
+              labelText: AppLocalizations.of(context).name,
+              icon: const PhosphorIcon(PhosphorIconsLight.textT),
+              filled: true,
+            ),
+            initialValue: _newNote.name,
+            onChanged: (value) {
+              _newNote = _newNote.copyWith(name: value);
+            },
+          ),
+          const SizedBox(height: 16),
+          TextFormField(
+            decoration: InputDecoration(
+              labelText: AppLocalizations.of(context).priority,
+              icon: const PhosphorIcon(PhosphorIconsLight.arrowSquareUp),
+              border: const OutlineInputBorder(),
+            ),
+            initialValue: _newNote.priority.toString(),
+            keyboardType: TextInputType.number,
+            onChanged: (value) {
+              _newNote = _newNote.copyWith(
+                  priority: int.tryParse(value) ?? _newNote.priority);
+            },
+          ),
+          const SizedBox(height: 16),
+          MarkdownField(
+            decoration: InputDecoration(
+              labelText: AppLocalizations.of(context).description,
+              icon: const PhosphorIcon(PhosphorIconsLight.fileText),
+              border: const OutlineInputBorder(),
+            ),
+            value: _newNote.description,
+            onChanged: (value) {
+              _newNote = _newNote.copyWith(description: value);
+            },
+          ),
+          const SizedBox(height: 16),
+          CheckboxListTile(
+            title: Text(AppLocalizations.of(context).todo),
+            value: _newNote.status != null,
+            onChanged: (value) {
+              setState(() => _newNote = _newNote.copyWith(
+                  status: value == true ? NoteStatus.todo : null));
+            },
+          ),
+        ],
       ),
       actions: [
         TextButton(

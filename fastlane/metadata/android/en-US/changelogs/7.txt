@@ -9,6 +9,7 @@
 * Improve custom title bar window buttons
 * Improve material 3 colors of chips
 * Improve child notes layout
+* Improve dialogs to go full screen on mobile
 * Use default page transition instead of fade
 * Unify select dialogs
 * Upgrade to flutter 3.19

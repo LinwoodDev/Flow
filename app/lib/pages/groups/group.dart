@@ -4,6 +4,7 @@ import 'package:flow/widgets/source_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/group/model.dart';
 import 'package:flow_api/models/group/service.dart';
@@ -29,49 +30,47 @@ class GroupDialog extends StatelessWidget {
     var currentService =
         context.read<FlowCubit>().getService(currentSource).group;
     final nameController = TextEditingController(text: currentGroup.name);
-    return AlertDialog(
+    return ResponsiveAlertDialog(
       title: Text(create
           ? AppLocalizations.of(context).createGroup
           : AppLocalizations.of(context).editGroup),
-      content: SizedBox(
-        width: 500,
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          if (source == null) ...[
-            SourceDropdown<GroupService>(
-              value: currentSource,
-              buildService: (e) => e.group,
-              onChanged: (connected) {
-                currentSource = connected?.source ?? '';
-                currentService = connected?.model;
-              },
-            ),
-            const SizedBox(height: 16),
-          ],
-          TextField(
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context).name,
-              icon: const PhosphorIcon(PhosphorIconsLight.fileText),
-              filled: true,
-            ),
-            controller: nameController,
-            onChanged: (value) {
-              currentGroup = currentGroup.copyWith(name: value);
+      constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
+      content: ListView(shrinkWrap: true, children: [
+        if (source == null) ...[
+          SourceDropdown<GroupService>(
+            value: currentSource,
+            buildService: (e) => e.group,
+            onChanged: (connected) {
+              currentSource = connected?.source ?? '';
+              currentService = connected?.model;
             },
           ),
           const SizedBox(height: 16),
-          MarkdownField(
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context).description,
-              border: const OutlineInputBorder(),
-              icon: const PhosphorIcon(PhosphorIconsLight.fileText),
-            ),
-            value: currentGroup.description,
-            onChanged: (value) {
-              currentGroup = currentGroup.copyWith(description: value);
-            },
-          )
-        ]),
-      ),
+        ],
+        TextField(
+          decoration: InputDecoration(
+            labelText: AppLocalizations.of(context).name,
+            icon: const PhosphorIcon(PhosphorIconsLight.fileText),
+            filled: true,
+          ),
+          controller: nameController,
+          onChanged: (value) {
+            currentGroup = currentGroup.copyWith(name: value);
+          },
+        ),
+        const SizedBox(height: 16),
+        MarkdownField(
+          decoration: InputDecoration(
+            labelText: AppLocalizations.of(context).description,
+            border: const OutlineInputBorder(),
+            icon: const PhosphorIcon(PhosphorIconsLight.fileText),
+          ),
+          value: currentGroup.description,
+          onChanged: (value) {
+            currentGroup = currentGroup.copyWith(description: value);
+          },
+        )
+      ]),
       actions: [
         TextButton(
           onPressed: () {

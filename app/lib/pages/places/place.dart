@@ -2,6 +2,7 @@ import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/model.dart';
 import 'package:flow_api/models/place/model.dart';
@@ -29,49 +30,46 @@ class PlaceDialog extends StatelessWidget {
     var currentSource = source ?? '';
     var currentService =
         context.read<FlowCubit>().getService(currentSource).place;
-    return AlertDialog(
+    return ResponsiveAlertDialog(
       title: Text(create
           ? AppLocalizations.of(context).createPlace
           : AppLocalizations.of(context).editPlace),
-      content: SizedBox(
-        width: 500,
-        child: Column(children: [
-          if (source == null) ...[
-            SourceDropdown<PlaceService>(
-              value: currentSource,
-              buildService: (e) => e.place,
-              onChanged: (connected) {
-                currentSource = connected?.source ?? '';
-              },
-            ),
-            const SizedBox(height: 16),
-          ],
-          TextFormField(
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context).name,
-              filled: true,
-              icon: const PhosphorIcon(PhosphorIconsLight.fileText),
-            ),
-            initialValue: currentPlace.name,
-            onChanged: (value) {
-              currentPlace = currentPlace.copyWith(name: value);
+      constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
+      content: ListView(shrinkWrap: true, children: [
+        if (source == null) ...[
+          SourceDropdown<PlaceService>(
+            value: currentSource,
+            buildService: (e) => e.place,
+            onChanged: (connected) {
+              currentSource = connected?.source ?? '';
             },
           ),
           const SizedBox(height: 16),
-          MarkdownField(
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context).description,
-              border: const OutlineInputBorder(),
-              icon: const PhosphorIcon(PhosphorIconsLight.fileText),
-            ),
-            value: currentPlace.description,
-            onChanged: (value) {
-              currentPlace = currentPlace.copyWith(description: value);
-            },
-          )
-        ]),
-      ),
-      scrollable: true,
+        ],
+        TextFormField(
+          decoration: InputDecoration(
+            labelText: AppLocalizations.of(context).name,
+            filled: true,
+            icon: const PhosphorIcon(PhosphorIconsLight.fileText),
+          ),
+          initialValue: currentPlace.name,
+          onChanged: (value) {
+            currentPlace = currentPlace.copyWith(name: value);
+          },
+        ),
+        const SizedBox(height: 16),
+        MarkdownField(
+          decoration: InputDecoration(
+            labelText: AppLocalizations.of(context).description,
+            border: const OutlineInputBorder(),
+            icon: const PhosphorIcon(PhosphorIconsLight.fileText),
+          ),
+          value: currentPlace.description,
+          onChanged: (value) {
+            currentPlace = currentPlace.copyWith(description: value);
+          },
+        )
+      ]),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
