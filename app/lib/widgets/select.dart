@@ -85,7 +85,6 @@ class _SelectTileState<T extends NamedModel> extends State<SelectTile<T>> {
             leading: widget.leadingBuilder(context, sourcedModel),
             onTap: () async {
               if (model != null) {
-                Navigator.of(context).pop();
                 final newModel = await showDialog<SourcedModel<T>>(
                   context: context,
                   builder: (context) => widget.dialogBuilder(

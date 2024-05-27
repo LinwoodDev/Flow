@@ -17,6 +17,7 @@ abstract class LabelNoteConnector extends NoteConnector<Label> {
     int offset = 0,
     int limit = 50,
     Multihash? parent,
+    Multihash? notebook,
     Set<NoteStatus?> statuses = const {
       NoteStatus.todo,
       NoteStatus.inProgress,
@@ -44,6 +45,7 @@ class LabelNoteDatabaseConnector extends NoteDatabaseConnector<Label>
     int offset = 0,
     int limit = 50,
     Multihash? parent,
+    Multihash? notebook,
     Set<NoteStatus?> statuses = const {
       NoteStatus.todo,
       NoteStatus.inProgress,
@@ -65,6 +67,16 @@ class LabelNoteDatabaseConnector extends NoteDatabaseConnector<Label>
       } else {
         where =
             where == null ? 'parentId IS NULL' : '$where AND parentId IS NULL';
+      }
+    }
+    if (notebook != null) {
+      if (notebook.fullBytes.isNotEmpty) {
+        where = where == null ? 'notebookId = ?' : '$where AND notebookId = ?';
+        whereArgs.add(notebook.fullBytes);
+      } else {
+        where = where == null
+            ? 'notebookId IS NULL'
+            : '$where AND notebookId IS NULL';
       }
     }
     var statusStatement =

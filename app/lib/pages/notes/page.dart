@@ -114,6 +114,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
               _filter.selectedLabel!,
               offset: offset,
               limit: limit,
+              notebook: _filter.notebook,
               statuses: _filter.statuses,
               parent: widget.parent?.source == source
                   ? widget.parent?.model
@@ -123,6 +124,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
           : await service.note?.getNotes(
               offset: offset,
               limit: limit,
+              notebook: _filter.notebook,
               statuses: _filter.statuses,
               parent: widget.parent?.source == source
                   ? widget.parent?.model
@@ -176,9 +178,12 @@ class _NotesBodyViewState extends State<NotesBodyView> {
         filter: _filter,
         controller: _controller,
         isSearching: widget.search.isNotEmpty,
-        onFilterChanged: (value) => setState(() {
-          _filter = value;
-        }),
+        onFilterChanged: (value) {
+          setState(() {
+            _filter = value;
+            _controller.refresh();
+          });
+        },
       ),
       actions: [
         IconButton(
@@ -236,6 +241,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
             builder: (context) => NoteDialog(
                   note: Note(
                     parentId: widget.parent?.model,
+                    notebookId: _filter.notebook,
                   ),
                   source: widget.parent?.source,
                   create: true,

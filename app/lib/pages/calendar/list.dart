@@ -33,18 +33,17 @@ class CalendarListView extends StatefulWidget {
 
 class _CalendarListViewState extends State<CalendarListView> {
   late FlowCubit _cubit;
-  final PagingController<
+  late final PagingController<
       ConnectedModel<int, ConnectedModel<Map<String, int>, Map<String, int>>>,
-      List<
-          SourcedConnectedModel<CalendarItem,
-              Event?>>> _controller = PagingController(
-      firstPageKey: const ConnectedModel(-1, ConnectedModel({}, {})));
+      List<SourcedConnectedModel<CalendarItem, Event?>>> _controller;
   static const _pageSize = 50;
 
   @override
   void initState() {
     super.initState();
     _cubit = context.read<FlowCubit>();
+    _controller = PagingController(
+        firstPageKey: const ConnectedModel(-1, ConnectedModel({}, {})));
     _controller.addPageRequestListener(_requestPage);
   }
 
