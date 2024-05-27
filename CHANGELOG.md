@@ -2,6 +2,30 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 0.3.0 (2024-05-27)
+
+* Add clock to dashboard
+* Add density setting
+* Add high contrast mode
+* Add classic theme
+* Add notebooks
+* Allow changing group and place in event creation dialog
+* Make dashboard the back page
+* Improve icon style for different calendar item types
+* Improve custom title bar window buttons
+* Improve material 3 colors of chips
+* Improve child notes layout
+* Improve dialogs to go full screen on mobile
+* Use default page transition instead of fade
+* Unify select dialogs
+* Fix locale translations
+* Fix week system in calendar week view
+* Fix switching from moment to appointment doesn't update the dialog
+* Fix list view has duplicated items
+* Upgrade to flutter 3.19 and 3.22
+
+Read more here: https://linwood.dev/flow/0.3
+
 ## 0.2.1 (2023-11-10)
 
 * Add macos and rpm builds
