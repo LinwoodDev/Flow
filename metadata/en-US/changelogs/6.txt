@@ -10,6 +10,7 @@
   * Fix file name in start.sh
   * Add executable permission on linux
   * Fix start.sh
+* Fix list view has duplicated items
 * Upgrade to flutter 3.16
 * Upgrade to agb 8
 

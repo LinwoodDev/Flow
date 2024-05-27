@@ -204,8 +204,8 @@ class _NotesBodyViewState extends State<NotesBodyView> {
             onChanged: (filter) {
               setState(() {
                 _filter = filter;
+                _controller.refresh();
               });
-              _controller.refresh();
             },
           ),
           FutureBuilder<Note?>(
