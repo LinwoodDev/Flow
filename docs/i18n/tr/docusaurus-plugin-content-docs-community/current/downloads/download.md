@@ -41,7 +41,7 @@ title: Downloads
 
 ## Useful links
 
-- [Changelog](changelog)
+- [Değişim kaydı](changelog)
 - [Older releases](https://github.com/LinwoodDev/Flow/releases)
 - [Latest release](https://github.com/LinwoodDev/Flow/releases/latest)
 - [Support](https://discord.linwood.dev)
