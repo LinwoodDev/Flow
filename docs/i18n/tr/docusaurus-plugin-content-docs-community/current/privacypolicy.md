@@ -1,5 +1,5 @@
 ---
-title: "Privacy Policy"
+title: "Gizlilik Politikası"
 slug: /privacypolicy
 ---
 
