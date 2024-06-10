@@ -34,7 +34,7 @@ title: Downloads
     Building your own
   </Link>
   <Link className="grid-button button--panel button--success" href="/downloads/selfhosting">
-    <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><title>Server</title><rect width="256" height="256" fill="none"></rect><path d="M80,128a80,80,0,1,1,80,80H72A56,56,0,0,1,72,96a57.5,57.5,0,0,1,13.9,1.7"></path></svg>
+    <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><title>Sunucu</title><rect width="256" height="256" fill="none"></rect><path d="M80,128a80,80,0,1,1,80,80H72A56,56,0,0,1,72,96a57.5,57.5,0,0,1,13.9,1.7"></path></svg>
     Selfhosting
   </Link>
 </div>
