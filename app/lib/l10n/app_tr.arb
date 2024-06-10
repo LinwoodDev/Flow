@@ -105,7 +105,7 @@
   "note": "Not",
   "delete": "Sil",
   "edit": "Düzenle",
-  "deleteGroup": "Delete group {name}",
+  "deleteGroup": "{name} grubunu sil",
   "@deleteGroup": {
     "placeholders": {
       "name": {
@@ -114,7 +114,7 @@
       }
     }
   },
-  "deleteGroupDescription": "Are you sure you want to delete the group {name}?",
+  "deleteGroupDescription": "{name} grubunu silmek istediğinize emin misiniz?",
   "@deleteGroupDescription": {
     "placeholders": {
       "name": {
@@ -123,7 +123,7 @@
       }
     }
   },
-  "groupName": "Group {name}",
+  "groupName": "{name} grubu",
   "@groupName": {
     "placeholders": {
       "name": {
@@ -132,20 +132,20 @@
       }
     }
   },
-  "noData": "There is no data to display.",
-  "noEvents": "There are no events to display.",
-  "group": "Group",
-  "search": "Search",
-  "events": "Events",
-  "past": "Past",
-  "decentralized": "Decentralized",
-  "decentralizedDescription": "The decentralized interface allows you to access your data from any decentralized server. You can use it to synchronize your data with other devices or services.",
-  "importFile": "Import file",
-  "importFileDescription": "Import a file from your device. You can import a database file from another Linwood Flow instance or a regular calendar file.",
-  "icalDescription": "The iCal interface allows you to access your data from any iCal server. It can only read data and does not support writing. You can use it to synchronize your data with other devices or services that do not support CalDAV.",
-  "place": "Place",
-  "editPlace": "Edit place",
-  "deletePlace": "Delete place {name}",
+  "noData": "Görüntülenecek veri yok.",
+  "noEvents": "Gösterilecek etkinlik yok.",
+  "group": "Grup",
+  "search": "Ara",
+  "events": "Etkinlikler",
+  "past": "Geçmiş",
+  "decentralized": "Merkeziyetsiz",
+  "decentralizedDescription": "Merkezi olmayan arayüz, verilerinize herhangi bir merkezi olmayan sunucudan erişmenizi sağlar. Verilerinizi diğer cihazlarla veya hizmetlerle senkronize etmek için kullanabilirsiniz.",
+  "importFile": "Dosyayı içeri aktar",
+  "importFileDescription": "Cihazınızdan bir dosya içe aktarın. Başka bir Linwood Flow örneğinden bir veritabanı dosyasını veya normal bir takvim dosyasını içe aktarabilirsiniz.",
+  "icalDescription": "iCal arayüzü, verilerinize herhangi bir iCal sunucusundan erişmenizi sağlar. Yalnızca veri okuyabilir ve yazmayı desteklemez. Verilerinizi CalDAV'ı desteklemeyen diğer cihazlarla veya hizmetlerle senkronize etmek için kullanabilirsiniz.",
+  "place": "Yer",
+  "editPlace": "Yer düzenle",
+  "deletePlace": "{name} yerini sil",
   "@deletePlace": {
     "placeholders": {
       "name": {
@@ -154,7 +154,7 @@
       }
     }
   },
-  "deletePlaceDescription": "Are you sure you want to delete the place {name}?",
+  "deletePlaceDescription": "{name} yerini silmek istediğinize emin misiniz?",
   "@deletePlaceDescription": {
     "placeholders": {
       "name": {
@@ -163,11 +163,11 @@
       }
     }
   },
-  "priority": "Priority",
-  "assignEvent": "Assign event",
-  "noEvent": "No event",
-  "parentGroup": "Parent group",
-  "deleteUser": "Delete user {name}",
+  "priority": "Periyot",
+  "assignEvent": "Etkinlik ata",
+  "noEvent": "Etkinlik yok",
+  "parentGroup": "Ebeveyn grubu",
+  "deleteUser": "{name} kullanıcısını sil",
   "@deleteUser": {
     "placeholders": {
       "name": {
@@ -176,9 +176,9 @@
       }
     }
   },
-  "createUser": "Create user",
-  "editUser": "Edit user",
-  "deleteUserDescription": "Are you sure you want to delete the user {name}?",
+  "createUser": "Kullanıcı oluştur",
+  "editUser": "Kullanıcıyı düzenle",
+  "deleteUserDescription": "{name} kullanıcısını silmek istediğinize emin misiniz?",
   "@deleteUserDescription": {
     "placeholders": {
       "name": {
@@ -187,12 +187,12 @@
       }
     }
   },
-  "pending": "Pending",
-  "removeEvent": "Remove event",
-  "event": "Event",
-  "nativeTitleBar": "Native title bar",
-  "blocked": "Blocked",
-  "countEvents": "{count, plural, =0 {No events} one {1 event} other {{count} events}}",
+  "pending": "Bekliyor",
+  "removeEvent": "Etkinliği kaldır",
+  "event": "Etkinlik",
+  "nativeTitleBar": "Yerel başlık çubuğu",
+  "blocked": "Engellendi",
+  "countEvents": "{count, plural,=0 {Etkinlik yok} one {1 etkinlik} other {{count} etkinlik}}",
   "@countEvents": {
     "placeholders": {
       "count": {
@@ -201,26 +201,26 @@
       }
     }
   },
-  "import": "Import",
-  "confirmImport": "Are you sure you want to import it?",
-  "welcome": "Welcome",
+  "import": "İçe aktar",
+  "confirmImport": "İçe aktarmak istediğinize emin misiniz?",
+  "welcome": "Hoş geldiniz ",
   "url": "URL",
-  "username": "Username",
-  "password": "Password",
-  "connect": "Connect",
-  "data": "Data",
-  "syncing": "Syncing",
-  "synced": "Synced",
-  "error": "Error",
-  "always": "Always",
-  "noMobile": "No mobile",
-  "manual": "Manual",
-  "syncMode": "Sync mode",
-  "todo": "Todo",
-  "appointment": "Appointment",
-  "moment": "Moment",
-  "time": "Time",
-  "deleteEvent": "Delete event {name}",
+  "username": "Kullanıcı adı",
+  "password": "Şifre",
+  "connect": "Bağla",
+  "data": "Veri",
+  "syncing": "Eşitleniyor",
+  "synced": "Eşitlendi",
+  "error": "Hata",
+  "always": "Her zaman",
+  "noMobile": "Mobil yok",
+  "manual": "Elle",
+  "syncMode": "Eşitleme modu",
+  "todo": "Yapılacak",
+  "appointment": "Randevu",
+  "moment": "An",
+  "time": "Saat",
+  "deleteEvent": "{name} etkinliğini sil",
   "@deleteEvent": {
     "placeholders": {
       "name": {
@@ -229,7 +229,7 @@
       }
     }
   },
-  "deleteEventDescription": "Are you sure you want to delete the event {name}?",
+  "deleteEventDescription": "{name} etkinliğini silmek istediğinize emin misiniz?",
   "@deleteEventDescription": {
     "placeholders": {
       "name": {
@@ -238,28 +238,28 @@
       }
     }
   },
-  "createAppointment": "Create appointment",
-  "editAppointment": "Edit appointment",
-  "createMoment": "Create moment",
-  "editMoment": "Edit moment",
-  "convertToNote": "Convert to note",
-  "convertToTodo": "Convert to todo",
+  "createAppointment": "Randevu oluştur",
+  "editAppointment": "Randevuyu düzenle",
+  "createMoment": "Etkinlik oluştur",
+  "editMoment": "Anı düzenle",
+  "convertToNote": "Nota dönüştür",
+  "convertToTodo": "Yapılacaklara dönüştür",
   "open": "Open",
   "limited": "Limited",
   "notSet": "Not set",
   "createPending": "Create pending",
-  "editPending": "Edit pending",
-  "convertTo": "Convert to",
-  "comingSoon": "Coming soon",
-  "notSupported": "Not supported",
-  "databaseVersion": "Database version",
-  "minimize": "Minimize",
-  "maximize": "Maximize",
-  "restore": "Restore",
-  "markdownIsSupported": "Markdown is supported",
-  "createLabel": "Create label",
-  "editLabel": "Edit label",
-  "deleteLabel": "Delete label {name}",
+  "editPending": "Düzenleme beklemede",
+  "convertTo": "Şuna dönüştür",
+  "comingSoon": "Yakında",
+  "notSupported": "Desteklenmiyor",
+  "databaseVersion": "Veritabanı sürümü",
+  "minimize": "Küçült",
+  "maximize": "Büyüt",
+  "restore": "Geri Yükle",
+  "markdownIsSupported": "Markdown desteklenir",
+  "createLabel": "Etiket oluştur",
+  "editLabel": "Etiketi düzenle",
+  "deleteLabel": "{name} etiketini sil",
   "@deleteLabel": {
     "placeholders": {
       "name": {
@@ -268,10 +268,10 @@
       }
     }
   },
-  "deleteLabelDescription": "Are you sure you want to delete the label {name}?",
-  "label": "Label",
-  "startOfWeek": "Start of week",
-  "headlineNumber": "Headline {number}",
+  "deleteLabelDescription": "{name} etiketini silmek istediğinize emin misiniz?",
+  "label": "Etiket",
+  "startOfWeek": "Haftanın başlangıcı",
+  "headlineNumber": "{number} başlığı",
   "@headlineNumber": {
     "placeholders": {
       "number": {
@@ -280,22 +280,22 @@
       }
     }
   },
-  "bold": "Bold",
-  "italic": "Italic",
-  "strikethrough": "Strikethrough",
-  "code": "Code",
-  "link": "Link",
-  "codeBlock": "Code block",
-  "quote": "Quote",
-  "numberedList": "Numbered list",
-  "density": "Density",
-  "compact": "Compact",
-  "comfortable": "Comfortable",
-  "standard": "Standard",
-  "highContrast": "High contrast",
-  "labels": "Labels",
-  "systemLocale": "System locale",
-  "notebooks": "Notebooks",
-  "createNotebook": "Create notebook",
-  "editNotebook": "Edit notebook"
+  "bold": "Kalın",
+  "italic": "İtalik",
+  "strikethrough": "Üstü çizili",
+  "code": "Kod",
+  "link": "Bağlantı",
+  "codeBlock": "Kod bloğu",
+  "quote": "Alıntı",
+  "numberedList": "Numaralı liste",
+  "density": "Genişlik",
+  "compact": "Sıkıştır",
+  "comfortable": "Geniş",
+  "standard": "Standart",
+  "highContrast": "Yüksek kontrast",
+  "labels": "Etiketler",
+  "systemLocale": "Sistem varsayılanı",
+  "notebooks": "Not Defterleri",
+  "createNotebook": "Not defteri oluştur",
+  "editNotebook": "Not defterini düzenle"
 }
