@@ -1,6 +1,6 @@
 ---
-title: "Build your own"
-sidebar_position: 1
+title: "Kendiniz inşa edin"
+sidebar_position:
 ---
 
 1. Install git and flutter (beta)
