@@ -28,7 +28,7 @@
     "description": "The label of footer link with label=App linking to https://github.com/LinwoodDev/Flow/tree/develop/app"
   },
   "link.item.label.Server": {
-    "message": "Server",
+    "message": "Sunucu",
     "description": "The label of footer link with label=Server linking to https://github.com/LinwoodDev/Flow/tree/develop/server"
   },
   "link.item.label.Docs": {
