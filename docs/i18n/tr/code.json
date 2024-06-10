@@ -20,7 +20,7 @@
     "description": "homepage web button"
   },
   "Downloads": {
-    "message": "Downloads",
+    "message": "İndirilenler",
     "description": "homepage downloads button"
   },
   "Time management": {
@@ -219,7 +219,7 @@
     "description": "The sentence used to display when a page has been last updated, and by who"
   },
   "theme.navbar.mobileVersionsDropdown.label": {
-    "message": "Versions",
+    "message": "Sürümler",
     "description": "The label for the navbar versions dropdown on mobile view"
   },
   "theme.tags.tagsListLabel": {
