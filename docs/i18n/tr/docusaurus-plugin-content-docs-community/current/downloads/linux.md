@@ -9,9 +9,9 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
 
 ![Kararlı sürüm](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2FFlow%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly sürüm](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2FFlow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-:::note
+:::not
 
-Please use the flatpak version if possible. Otherwise you need to install `libsecret-1-dev` and `libjsoncpp-dev`.
+Mümkünse lütfen Flatpak sürümünü kullanın. Aksi takdirde `libsecret-1-dev` ve `libjsoncpp-dev`'i kurmanız gerekir.
 
 :::
 
@@ -23,7 +23,7 @@ Please use the flatpak version if possible. Otherwise you need to install `libse
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/Flow/releases/download/stable/linwood-flow-linux.tar.gz">
-        Portable
+        Taşınabilir
       </DownloadButton>
     </li>
     <li>
@@ -43,7 +43,7 @@ Please use the flatpak version if possible. Otherwise you need to install `libse
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/Flow/releases/download/nightly/linwood-flow-linux.tar.gz">
-        Portable
+        Taşınabilir
       </DownloadButton>
     </li>
     <li>
