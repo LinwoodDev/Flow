@@ -26,7 +26,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
     </li>
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodDev/Flow/releases/download/stable/linwood-flow-windows.zip">
-        Portable
+        Taşınabilir
       </DownloadButton>
     </li>
   </ul>
@@ -41,7 +41,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
     </li>
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodDev/Flow/releases/download/nightly/linwood-flow-windows.zip">
-        Portable
+        Taşınabilir
       </DownloadButton>
     </li>
   </ul>
