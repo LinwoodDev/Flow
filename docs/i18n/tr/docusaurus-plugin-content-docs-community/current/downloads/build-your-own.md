@@ -3,13 +3,13 @@ title: "Kendiniz inşa edin"
 sidebar_position:
 ---
 
-1. Install git and flutter (beta)
-2. Clone the repository
-3. Navigate to the app directory
-4. Use the flutter tool to compile the application
+1. Git ve flutter'ı yükleyin (beta)
+2. Depoyu klonla
+3. Uygulama dizinine gidin
+4. Uygulamayı derlemek için flutter aracını kullanın
    * `flutter build apk`
    * `flutter build appbundle`
    * `flutter build web`
    * `flutter build linux`
    * `flutter build windows`
-5. The compiled files are in the build directory
+5. Derlenen dosyalar derleme dizinindedir
