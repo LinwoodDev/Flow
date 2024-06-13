@@ -271,7 +271,7 @@
   "deleteLabelDescription": "Ви дійсно бажаєте видалити мітку {name}?",
   "label": "Мітка",
   "startOfWeek": "Початок тижня",
-  "headlineNumber": "Headline {number}",
+  "headlineNumber": "Заголовок {number}",
   "@headlineNumber": {
     "placeholders": {
       "number": {
