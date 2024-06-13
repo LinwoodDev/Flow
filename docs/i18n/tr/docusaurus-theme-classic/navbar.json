@@ -8,7 +8,7 @@
     "description": "The alt text of navbar logo"
   },
   "item.label.Tutorial": {
-    "message": "Tutorial",
+    "message": "Eğitim",
     "description": "Navbar item with label Tutorial"
   },
   "item.label.Downloads": {
@@ -16,11 +16,11 @@
     "description": "Navbar item with label Downloads"
   },
   "item.label.Community": {
-    "message": "Community",
+    "message": "Topluluk",
     "description": "Navbar item with label Community"
   },
   "item.label.More": {
-    "message": "More",
+    "message": "Daha fazla",
     "description": "Navbar item with label More"
   },
   "item.label.Matrix": {
