@@ -19,7 +19,7 @@ Please use the flatpak version if possible. Otherwise you need to install `libse
 
 <div className="row margin-bottom--lg padding--sm">
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--info button--lg">Stable</button>
+  <button className="button button--outline button--info button--lg">Ổn định</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/Flow/releases/download/stable/linwood-flow-linux.tar.gz">
