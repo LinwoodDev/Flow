@@ -28,8 +28,8 @@ Windows, sertifikasız yazılım yüklerken kullanıcıları uyarır.
 
 Uygulamayı yüklemek için "Daha fazla bilgi" seçeneğine tıklamanız gerekir.
 
-![Smart screen more info](/img/smart-screen-more-info.png)
+![Smart screen daha fazla bilgi](/img/smart-screen-more-info.png)
 
-Then, click on "Run anyway".
+Ardından, "Yine de çalıştır" ı tıklayın.
 
 </div>
