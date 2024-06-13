@@ -1,7 +1,7 @@
 ---
-title: Changelog
+title: Nhật ký thay đổi
 hide_title: true
-sidebar_label: Changelog
+sidebar_label: Nhật ký thay đổi
 ---
 
 ```mdx-code-block
