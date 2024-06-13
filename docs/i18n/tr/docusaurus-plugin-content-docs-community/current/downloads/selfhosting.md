@@ -1,5 +1,5 @@
 ---
-title: "Selfhosting"
+title: "Bireysel barındırma"
 sidebar_position: 5
 ---
 
@@ -7,9 +7,9 @@ sidebar_position: 5
 
 It is very easy to host your own flow web server.
 
-## Simple server
+## Basit sunucu
 
-Install flutter and build the app using:
+Flutter'ı yükleyin ve aşağıdakileri kullanarak uygulamayı oluşturun:
 
 ```bash
 cd app
@@ -17,7 +17,7 @@ flutter pub get
 flutter build web
 ```
 
-All the files are in the `app/build/web` directory.
+Bütün klasörler `app/build/web` yolu içerisindedir.
 
 ## Docker
 
