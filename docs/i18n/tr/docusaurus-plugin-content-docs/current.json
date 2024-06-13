@@ -4,7 +4,7 @@
     "description": "The label for version current"
   },
   "sidebar.tutorialSidebar.category.server": {
-    "message": "server",
+    "message": "sunucu",
     "description": "The label for category server in sidebar tutorialSidebar"
   }
 }
