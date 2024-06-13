@@ -17,7 +17,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
 
 <div className="row margin-bottom--lg padding--sm">
 <DownloadButton className="button button--outline button--info button--lg margin--sm" href="https://github.com/LinwoodDev/Flow/releases/download/stable/linwood-flow-android.apk">
-  Stable
+  Ổn định
 </DownloadButton>
 <DownloadButton className="button button--outline button--danger button--lg margin--sm" href="https://github.com/LinwoodDev/Flow/releases/download/nightly/linwood-flow-android.apk">
   Nightly
