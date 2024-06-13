@@ -25,4 +25,4 @@ Bu ilerici bir web uygulamasıdır. Tarayıcınıza yükleyebilir ve çevrimdı�
 
 ## Sürümler
 
-The main and the preview (develop) versions of Flow are not the same as the stable and nightly versions. They are not directly associated with a release. They are updated as soon as a new commit is pushed to the repository.
+The main and the preview (develop) versions of Flow are not the same as the stable and nightly versions. Doğrudan bir sürümle ilişkili değildirler. Depoya yeni bir öneri gönderilir gönderilmez güncellenirler.
