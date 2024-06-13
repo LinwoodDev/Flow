@@ -11,7 +11,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
 
 ## Minimum sistem gereksinimleri
 
-* Windows 10 or higher.
+* Windows 10 veya üstü.
 
 ## Binary
 
@@ -21,7 +21,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
   <ul className="dropdown__menu">
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodDev/Flow/releases/download/stable/linwood-flow-windows-setup.exe">
-        Setup
+        Kurulum
       </DownloadButton>
     </li>
     <li>
@@ -36,7 +36,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
   <ul className="dropdown__menu">
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodDev/Flow/releases/download/nightly/linwood-flow-windows-setup.exe">
-        Setup
+        Kurulum
       </DownloadButton>
     </li>
     <li>
