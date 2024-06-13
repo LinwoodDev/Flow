@@ -4,11 +4,11 @@
     "description": "The title of the footer links column with title=Community in the footer"
   },
   "link.title.Source code": {
-    "message": "Source code",
+    "message": "原始碼",
     "description": "The title of the footer links column with title=Source code in the footer"
   },
   "link.title.Legal": {
-    "message": "Legal",
+    "message": "法律資訊",
     "description": "The title of the footer links column with title=Legal in the footer"
   },
   "link.item.label.Discord": {
@@ -24,7 +24,7 @@
     "description": "The label of footer link with label=Twitter linking to https://twitter.com/LinwoodDev"
   },
   "link.item.label.App": {
-    "message": "App",
+    "message": "應用程式",
     "description": "The label of footer link with label=App linking to https://github.com/LinwoodDev/Flow/tree/develop/app"
   },
   "link.item.label.Server": {
@@ -32,7 +32,7 @@
     "description": "The label of footer link with label=Server linking to https://github.com/LinwoodDev/Flow/tree/develop/server"
   },
   "link.item.label.Docs": {
-    "message": "Docs",
+    "message": "文件",
     "description": "The label of footer link with label=Docs linking to https://github.com/LinwoodDev/Flow/tree/develop/docs"
   },
   "link.item.label.Shared": {
@@ -40,19 +40,19 @@
     "description": "The label of footer link with label=Shared linking to https://github.com/LinwoodDev/Flow/tree/develop/shared"
   },
   "link.item.label.Contribution guide": {
-    "message": "Contribution guide",
+    "message": "貢獻指南",
     "description": "The label of footer link with label=Contribution guide linking to https://github.com/LinwoodDev/Flow/blob/develop/CONTRIBUTING.md"
   },
   "link.item.label.Imprint": {
-    "message": "Imprint",
+    "message": "發行頁面",
     "description": "The label of footer link with label=Imprint linking to https://go.linwood.dev/imprint"
   },
   "link.item.label.Privacy Policy of the app": {
-    "message": "Privacy Policy of the app",
+    "message": "應用程式的隱私政策",
     "description": "The label of footer link with label=Privacy Policy of the app linking to /privacypolicy"
   },
   "link.item.label.Privacy Policy of the website": {
-    "message": "Privacy Policy of the website",
+    "message": "網站的隱私政策",
     "description": "The label of footer link with label=Privacy Policy of the website linking to https://go.linwood.dev/privacypolicy"
   },
   "copyright": {
@@ -60,7 +60,7 @@
     "description": "The footer copyright"
   },
   "logo.alt": {
-    "message": "Linwood Logo",
+    "message": "Linwood 標誌",
     "description": "The alt text of footer logo"
   },
   "link.item.label.Mastodon": {
