@@ -41,7 +41,7 @@ title: Downloads
 
 ## Useful links
 
-- [Changelog](changelog)
-- [Older releases](https://github.com/LinwoodDev/Flow/releases)
-- [Latest release](https://github.com/LinwoodDev/Flow/releases/latest)
-- [Support](https://discord.linwood.dev)
+- [Nhật ký thay đổi](changelog)
+- [Bản phát hành cũ hơn](https://github.com/LinwoodDev/Flow/releases)
+- [Bản phát hành mới nhất](https://github.com/LinwoodDev/Flow/releases/latest)
+- [Hỗ trợ](https://discord.linwood.dev)

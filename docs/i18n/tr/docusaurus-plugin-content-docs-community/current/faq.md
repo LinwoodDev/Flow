@@ -1,8 +1,8 @@
 ---
 id: "faq"
 slug: "/faq"
-title: "Frequently Asked Questions"
-sidebar_label: "FAQ"
+title: "Sıkça Sorulan Sorular"
+sidebar_label: "S.S.S."
 ---
 
-Here are some frequently asked questions.
+Daha sık sorulan soruları görüntüleyin…

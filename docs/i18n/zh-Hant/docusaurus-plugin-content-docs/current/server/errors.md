@@ -1,6 +1,6 @@
 # Error list
 
-| Error code | HTTP status code | Description         |
+| Error code | HTTP status code | 說明                  |
 | ---------- | ---------------- | ------------------- |
 | `0`        | `404`            | Page not found      |
 | `1`        | `404`            | Invalid api version |

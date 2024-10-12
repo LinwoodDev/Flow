@@ -1,7 +1,7 @@
 ---
-title: Changelog
+title: Değişim kaydı
 hide_title: true
-sidebar_label: Changelog
+sidebar_label: Değişim kaydı
 ---
 
 ```mdx-code-block
