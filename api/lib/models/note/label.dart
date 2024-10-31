@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:collection/collection.dart';
 import 'package:lib5/lib5.dart';
 import 'package:flow_api/models/label/model.dart';
 
@@ -80,7 +79,7 @@ class LabelNoteDatabaseConnector extends NoteDatabaseConnector<Label>
       }
     }
     var statusStatement =
-        "status IN (${statuses.whereNotNull().map((e) => "'${e.name}'").join(',')})";
+        "status IN (${statuses.nonNulls.map((e) => "'${e.name}'").join(',')})";
     if (statuses.contains(null)) {
       statusStatement = "$statusStatement OR status IS NULL";
     }

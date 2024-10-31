@@ -209,7 +209,7 @@ class NoteDatabaseService extends NoteService with TableService {
       whereArgs = [...?whereArgs, notebook.fullBytes];
     }
     var statusStatement =
-        "status IN (${statuses.whereNotNull().map((e) => "'${e.name}'").join(',')})";
+        "status IN (${statuses.nonNulls.map((e) => "'${e.name}'").join(',')})";
     if (statuses.contains(null)) {
       statusStatement = "$statusStatement OR status IS NULL";
     }

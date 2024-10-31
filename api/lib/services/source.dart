@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:collection/collection.dart';
 import 'package:flow_api/models/event/item/service.dart';
 import 'package:flow_api/models/event/service.dart';
 import 'package:flow_api/models/group/service.dart';
@@ -40,7 +39,7 @@ abstract class SourceService {
         user,
         place,
         label
-      ].whereNotNull().toList();
+      ].nonNulls.toList();
 
   Future<void> import(CachedData data, [bool clear = true]) async {
     event?.clear();
