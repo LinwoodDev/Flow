@@ -15,20 +15,15 @@ on:
 
 jobs:
   update-changelog:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.CI_PAT }}
           fetch-depth: 0
-      - name: Get flutter version
-        run: |
-          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
-          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2.16.0
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "any"
+          flutter-version-file: app/pubspec.yaml
       - name: Setup git
         id: setup
         run: |
@@ -58,7 +53,7 @@ jobs:
           git merge main --strategy-option ours
           git push origin develop
   release:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - update-changelog
     outputs:
@@ -70,14 +65,9 @@ jobs:
           token: ${{ secrets.CI_PAT }}
           ref: ${{ github.ref }}
           fetch-depth: 0
-      - name: Get flutter version
-        run: |
-          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
-          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2.16.0
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "any"
+          flutter-version-file: app/pubspec.yaml
       - name: Setup git
         id: setup
         shell: bash
@@ -128,7 +118,7 @@ jobs:
           git merge develop --strategy-option ours
           git push origin main
   set-next-version:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - update-changelog
       - release
@@ -137,14 +127,9 @@ jobs:
         with:
           token: ${{ secrets.CI_PAT }}
           fetch-depth: 0
-      - name: Get flutter version
-        run: |
-          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
-          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2.16.0
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "any"
+          flutter-version-file: app/pubspec.yaml
       - name: Setup git
         id: setup
         run: |
@@ -174,8 +159,7 @@ jobs:
           git merge main --strategy-option ours
           git push origin develop
   bump-version:
-    runs-on: ubuntu-22.04
-    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-24.04
     needs:
       - update-changelog
       - release
@@ -206,14 +190,9 @@ jobs:
           echo "FLOW_BUILD_NUMBER=${FLOW_BUILD_NUMBER}" >> $GITHUB_ENV
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
-      - name: Get flutter version
-        run: |
-          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
-          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2.16.0
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "any"
+          flutter-version-file: app/pubspec.yaml
       - name: Bump version
         run: |
           git fetch
@@ -232,7 +211,7 @@ jobs:
           git merge main --strategy-option ours
           git push origin develop
   notify:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [release]
     steps:
       - uses: actions/checkout@v4
@@ -261,7 +240,7 @@ jobs:
           embed-url: https://github.com/LinwoodDev/Flow/releases/tag/v${{ env.FLOW_VERSION }}
           content: |
             Version ${{ env.FLOW_VERSION }} released!
-            Download it here: https://docs.flow.linwood.dev/downloads
+            Download it here: https://flow.linwood.dev/downloads
             https://github.com/LinwoodDev/flow/releases/tag/v${{ env.FLOW_VERSION }}
       - name: Discord Webhook Action
         uses: tsickert/discord-webhook@v6.0.0
@@ -273,6 +252,6 @@ jobs:
           embed-url: https://github.com/LinwoodDev/Flow/releases/tag/v${{ env.FLOW_VERSION }}
           content: |
             Pre-release version ${{ env.FLOW_VERSION }} released!
-            Download it here: https://docs.flow.linwood.dev/downloads
+            Download it here: https://flow.linwood.dev/downloads
             Please note that this is a pre-release version and is not intended for production use.
-            Read more about it here: https://docs.flow.linwood.dev/nightly
+            Read more about it here: https://flow.linwood.dev/community/nightly

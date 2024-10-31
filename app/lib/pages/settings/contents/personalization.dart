@@ -54,7 +54,8 @@ class PersonalizationSettingsView extends StatelessWidget {
                     final cubit = context.read<SettingsCubit>();
                     final design = await showLeapBottomSheet<String>(
                         context: context,
-                        title: AppLocalizations.of(context).design,
+                        titleBuilder: (ctx) =>
+                            Text(AppLocalizations.of(context).design),
                         childrenBuilder: (context) => [
                               ListTile(
                                 title: Text(
@@ -91,7 +92,8 @@ class PersonalizationSettingsView extends StatelessWidget {
 
                     final theme = await showLeapBottomSheet<ThemeMode>(
                         context: context,
-                        title: AppLocalizations.of(context).theme,
+                        titleBuilder: (ctx) =>
+                            Text(AppLocalizations.of(context).theme),
                         childrenBuilder: (context) => ThemeMode.values
                             .map((e) => ListTile(
                                   title: Text(e.getDisplayString(context)),
@@ -114,7 +116,8 @@ class PersonalizationSettingsView extends StatelessWidget {
 
                     final locale = await showLeapBottomSheet<String>(
                       context: context,
-                      title: AppLocalizations.of(context).language,
+                      titleBuilder: (ctx) =>
+                          Text(AppLocalizations.of(context).language),
                       childrenBuilder: (context) => [
                         ListTile(
                           title: Text(_getLocaleName(context, '')),
@@ -181,7 +184,8 @@ class PersonalizationSettingsView extends StatelessWidget {
                   subtitle: Text(getWeekDay(state.startOfWeek)),
                   onTap: () => showLeapBottomSheet(
                     context: context,
-                    title: AppLocalizations.of(context).startOfWeek,
+                    titleBuilder: (ctx) =>
+                        Text(AppLocalizations.of(context).startOfWeek),
                     childrenBuilder: (context) => List.generate(
                       7,
                       (index) => ListTile(
@@ -207,7 +211,7 @@ class PersonalizationSettingsView extends StatelessWidget {
 
     showLeapBottomSheet(
         context: context,
-        title: AppLocalizations.of(context).density,
+        titleBuilder: (ctx) => Text(AppLocalizations.of(context).density),
         childrenBuilder: (context) {
           void changeDensity(ThemeDensity density) {
             cubit.changeDensity(density);

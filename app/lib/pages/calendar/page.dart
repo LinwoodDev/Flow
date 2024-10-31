@@ -291,7 +291,7 @@ Future<void> showCalendarCreate(
   if (context.mounted) {
     final calendarItem = await showLeapBottomSheet<CalendarItem>(
       context: context,
-      title: AppLocalizations.of(context).create,
+      titleBuilder: (ctx) => Text(AppLocalizations.of(context).create),
       childrenBuilder: (ctx) => [
         ListTile(
           title: Text(AppLocalizations.of(context).appointment),

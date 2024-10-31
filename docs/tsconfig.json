@@ -1,12 +1,3 @@
 {
-  "extends": "@docusaurus/tsconfig",
-  "compilerOptions": {
-    "moduleResolution": "node",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"],
-      "@docusaurus/theme-common/internal": ["node_modules/@docusaurus/theme-common/src/internal.ts"]
-    }
-  },
-  "include": ["./src/**/*.ts","./src/**/*.tsx", "src/theme/MDXComponents.js"]
+  "extends": "astro/tsconfigs/strict"
 }

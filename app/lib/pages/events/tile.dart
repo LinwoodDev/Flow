@@ -122,7 +122,7 @@ Future<SourcedModel<Event>?> showEventModalBottomSheet(
       service.event?.getEvents(offset: offset, limit: limit));
   final shouldCreate = await showLeapBottomSheet<bool>(
       context: context,
-      title: AppLocalizations.of(context).events,
+      titleBuilder: (ctx) => Text(AppLocalizations.of(context).events),
       actionsBuilder: (ctx) => [
             TextButton.icon(
               icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),

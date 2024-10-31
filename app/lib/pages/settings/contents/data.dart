@@ -52,7 +52,8 @@ class DataSettingsView extends StatelessWidget {
           leading: PhosphorIcon(state.syncMode.icon(PhosphorIconsStyle.light)),
           subtitle: Text(state.syncMode.getLocalizedName(context)),
           onTap: () async => showLeapBottomSheet(
-              title: AppLocalizations.of(context).syncMode,
+              titleBuilder: (ctx) =>
+                  Text(AppLocalizations.of(context).syncMode),
               context: context,
               childrenBuilder: (ctx) {
                 final settingsCubit = context.read<SettingsCubit>();
