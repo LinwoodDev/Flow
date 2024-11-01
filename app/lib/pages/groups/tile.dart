@@ -29,35 +29,35 @@ class GroupTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(group.name),
-      subtitle: MarkdownText(group.description),
-      onTap: () => _editGroup(context),
-      trailing: MenuAnchor(
-        builder: defaultMenuButton(),
-        menuChildren: [
-          (
-            PhosphorIconsLight.calendar,
-            AppLocalizations.of(context).events,
-            _openEvents,
-          ),
-          (
-            PhosphorIconsLight.users,
-            AppLocalizations.of(context).users,
-            _openUsers,
-          ),
-          (
-            PhosphorIconsLight.trash,
-            AppLocalizations.of(context).delete,
-            _deleteGroup,
-          ),
-        ]
-            .map((e) => MenuItemButton(
-                  leadingIcon: PhosphorIcon(e.$1),
-                  child: Text(e.$2),
-                  onPressed: () => e.$3(context),
-                ))
-            .toList(),
+    return ContextRegion(
+      menuChildren: [
+        (
+          PhosphorIconsLight.calendar,
+          AppLocalizations.of(context).events,
+          _openEvents,
+        ),
+        (
+          PhosphorIconsLight.users,
+          AppLocalizations.of(context).users,
+          _openUsers,
+        ),
+        (
+          PhosphorIconsLight.trash,
+          AppLocalizations.of(context).delete,
+          _deleteGroup,
+        ),
+      ]
+          .map((e) => MenuItemButton(
+                leadingIcon: PhosphorIcon(e.$1),
+                child: Text(e.$2),
+                onPressed: () => e.$3(context),
+              ))
+          .toList(),
+      builder: (context, button, controller) => ListTile(
+        title: Text(group.name),
+        subtitle: MarkdownText(group.description),
+        onTap: () => _editGroup(context),
+        trailing: button,
       ),
     );
   }

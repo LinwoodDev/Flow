@@ -24,7 +24,9 @@ mixin _$NoteFilter {
   Multihash? get notebook => throw _privateConstructorUsedError;
   String? get source => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NoteFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NoteFilterCopyWith<NoteFilter> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -55,6 +57,8 @@ class _$NoteFilterCopyWithImpl<$Res, $Val extends NoteFilter>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NoteFilter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -125,6 +129,8 @@ class __$$NoteFilterImplCopyWithImpl<$Res>
       _$NoteFilterImpl _value, $Res Function(_$NoteFilterImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NoteFilter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -230,7 +236,9 @@ class _$NoteFilterImpl extends _NoteFilter {
   int get hashCode => Object.hash(runtimeType, showDone, showInProgress,
       showTodo, showNote, selectedLabel, notebook, source);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NoteFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NoteFilterImplCopyWith<_$NoteFilterImpl> get copyWith =>
@@ -262,8 +270,11 @@ abstract class _NoteFilter extends NoteFilter {
   Multihash? get notebook;
   @override
   String? get source;
+
+  /// Create a copy of NoteFilter
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NoteFilterImplCopyWith<_$NoteFilterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

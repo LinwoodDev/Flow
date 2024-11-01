@@ -28,30 +28,30 @@ class UserTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(user.name),
-      subtitle: MarkdownText(user.description),
-      onTap: () => _editUser(context),
-      trailing: MenuAnchor(
-        builder: defaultMenuButton(),
-        menuChildren: [
-          (
-            PhosphorIconsLight.calendar,
-            AppLocalizations.of(context).events,
-            _openEvents,
-          ),
-          (
-            PhosphorIconsLight.trash,
-            AppLocalizations.of(context).delete,
-            _deleteUser,
-          ),
-        ]
-            .map((e) => MenuItemButton(
-                  onPressed: () => e.$3(context),
-                  leadingIcon: PhosphorIcon(e.$1),
-                  child: Text(e.$2),
-                ))
-            .toList(),
+    return ContextRegion(
+      menuChildren: [
+        (
+          PhosphorIconsLight.calendar,
+          AppLocalizations.of(context).events,
+          _openEvents,
+        ),
+        (
+          PhosphorIconsLight.trash,
+          AppLocalizations.of(context).delete,
+          _deleteUser,
+        ),
+      ]
+          .map((e) => MenuItemButton(
+                onPressed: () => e.$3(context),
+                leadingIcon: PhosphorIcon(e.$1),
+                child: Text(e.$2),
+              ))
+          .toList(),
+      builder: (context, button, controller) => ListTile(
+        title: Text(user.name),
+        subtitle: MarkdownText(user.description),
+        onTap: () => _editUser(context),
+        trailing: button,
       ),
     );
   }

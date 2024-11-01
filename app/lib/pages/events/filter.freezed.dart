@@ -20,7 +20,9 @@ mixin _$EventFilter {
   Multihash? get group => throw _privateConstructorUsedError;
   Multihash? get place => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EventFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $EventFilterCopyWith<EventFilter> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,6 +46,8 @@ class _$EventFilterCopyWithImpl<$Res, $Val extends EventFilter>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of EventFilter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -87,6 +91,8 @@ class __$$EventFilterImplCopyWithImpl<$Res>
       _$EventFilterImpl _value, $Res Function(_$EventFilterImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of EventFilter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -141,7 +147,9 @@ class _$EventFilterImpl extends _EventFilter {
   @override
   int get hashCode => Object.hash(runtimeType, source, group, place);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EventFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EventFilterImplCopyWith<_$EventFilterImpl> get copyWith =>
@@ -161,8 +169,11 @@ abstract class _EventFilter extends EventFilter {
   Multihash? get group;
   @override
   Multihash? get place;
+
+  /// Create a copy of EventFilter
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EventFilterImplCopyWith<_$EventFilterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -23,8 +23,12 @@ mixin _$ConfigFile {
   List<RemoteStorage>? get remotes => throw _privateConstructorUsedError;
   Map<String, String> get passwords => throw _privateConstructorUsedError;
 
+  /// Serializes this ConfigFile to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ConfigFile
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ConfigFileCopyWith<ConfigFile> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +52,8 @@ class _$ConfigFileCopyWithImpl<$Res, $Val extends ConfigFile>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ConfigFile
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -86,6 +92,8 @@ class __$$ConfigFileImplCopyWithImpl<$Res>
       _$ConfigFileImpl _value, $Res Function(_$ConfigFileImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ConfigFile
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -151,14 +159,16 @@ class _$ConfigFileImpl implements _ConfigFile {
                 .equals(other._passwords, _passwords));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_remotes),
       const DeepCollectionEquality().hash(_passwords));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ConfigFile
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ConfigFileImplCopyWith<_$ConfigFileImpl> get copyWith =>
@@ -184,8 +194,11 @@ abstract class _ConfigFile implements ConfigFile {
   List<RemoteStorage>? get remotes;
   @override
   Map<String, String> get passwords;
+
+  /// Create a copy of ConfigFile
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ConfigFileImplCopyWith<_$ConfigFileImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

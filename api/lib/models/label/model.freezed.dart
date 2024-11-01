@@ -26,8 +26,12 @@ mixin _$Label {
   String get description => throw _privateConstructorUsedError;
   int get color => throw _privateConstructorUsedError;
 
+  /// Serializes this Label to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Label
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $LabelCopyWith<Label> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -53,6 +57,8 @@ class _$LabelCopyWithImpl<$Res, $Val extends Label>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Label
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -104,6 +110,8 @@ class __$$LabelImplCopyWithImpl<$Res>
       _$LabelImpl _value, $Res Function(_$LabelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Label
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -176,11 +184,13 @@ class _$LabelImpl extends _Label {
             (identical(other.color, color) || other.color == color));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, description, color);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Label
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LabelImplCopyWith<_$LabelImpl> get copyWith =>
@@ -213,8 +223,11 @@ abstract class _Label extends Label implements DescriptiveModel {
   String get description;
   @override
   int get color;
+
+  /// Create a copy of Label
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LabelImplCopyWith<_$LabelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

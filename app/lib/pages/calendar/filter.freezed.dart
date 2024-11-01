@@ -23,7 +23,9 @@ mixin _$CalendarFilter {
   Multihash? get place => throw _privateConstructorUsedError;
   bool get past => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CalendarFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CalendarFilterCopyWith<CalendarFilter> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -53,6 +55,8 @@ class _$CalendarFilterCopyWithImpl<$Res, $Val extends CalendarFilter>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CalendarFilter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -117,6 +121,8 @@ class __$$CalendarFilterImplCopyWithImpl<$Res>
       _$CalendarFilterImpl _value, $Res Function(_$CalendarFilterImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CalendarFilter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -222,7 +228,9 @@ class _$CalendarFilterImpl extends _CalendarFilter {
       place,
       past);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CalendarFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CalendarFilterImplCopyWith<_$CalendarFilterImpl> get copyWith =>
@@ -252,8 +260,11 @@ abstract class _CalendarFilter extends CalendarFilter {
   Multihash? get place;
   @override
   bool get past;
+
+  /// Create a copy of CalendarFilter
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CalendarFilterImplCopyWith<_$CalendarFilterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

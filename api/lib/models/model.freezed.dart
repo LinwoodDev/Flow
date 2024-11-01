@@ -19,7 +19,9 @@ mixin _$ConnectedModel<A, B> {
   A get source => throw _privateConstructorUsedError;
   B get model => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ConnectedModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ConnectedModelCopyWith<A, B, ConnectedModel<A, B>> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,6 +46,8 @@ class _$ConnectedModelCopyWithImpl<A, B, $Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ConnectedModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -82,6 +86,8 @@ class __$$ConnectedModelImplCopyWithImpl<A, B, $Res>
       $Res Function(_$ConnectedModelImpl<A, B>) _then)
       : super(_value, _then);
 
+  /// Create a copy of ConnectedModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -131,7 +137,9 @@ class _$ConnectedModelImpl<A, B> extends _ConnectedModel<A, B> {
       const DeepCollectionEquality().hash(source),
       const DeepCollectionEquality().hash(model));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ConnectedModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ConnectedModelImplCopyWith<A, B, _$ConnectedModelImpl<A, B>>
@@ -149,8 +157,11 @@ abstract class _ConnectedModel<A, B> extends ConnectedModel<A, B> {
   A get source;
   @override
   B get model;
+
+  /// Create a copy of ConnectedModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ConnectedModelImplCopyWith<A, B, _$ConnectedModelImpl<A, B>>
       get copyWith => throw _privateConstructorUsedError;
 }

@@ -26,7 +26,9 @@ mixin _$FlowSettings {
   ThemeDensity get density => throw _privateConstructorUsedError;
   bool get highContrast => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FlowSettings
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FlowSettingsCopyWith<FlowSettings> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -59,6 +61,8 @@ class _$FlowSettingsCopyWithImpl<$Res, $Val extends FlowSettings>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of FlowSettings
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -141,6 +145,8 @@ class __$$FlowSettingsImplCopyWithImpl<$Res>
       _$FlowSettingsImpl _value, $Res Function(_$FlowSettingsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FlowSettings
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -284,7 +290,9 @@ class _$FlowSettingsImpl extends _FlowSettings {
       density,
       highContrast);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FlowSettings
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FlowSettingsImplCopyWith<_$FlowSettingsImpl> get copyWith =>
@@ -322,8 +330,11 @@ abstract class _FlowSettings extends FlowSettings {
   ThemeDensity get density;
   @override
   bool get highContrast;
+
+  /// Create a copy of FlowSettings
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FlowSettingsImplCopyWith<_$FlowSettingsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

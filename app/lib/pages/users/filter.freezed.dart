@@ -19,7 +19,9 @@ mixin _$UserFilter {
   String? get source => throw _privateConstructorUsedError;
   Multihash? get group => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserFilterCopyWith<UserFilter> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -43,6 +45,8 @@ class _$UserFilterCopyWithImpl<$Res, $Val extends UserFilter>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserFilter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -81,6 +85,8 @@ class __$$UserFilterImplCopyWithImpl<$Res>
       _$UserFilterImpl _value, $Res Function(_$UserFilterImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UserFilter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -127,7 +133,9 @@ class _$UserFilterImpl implements _UserFilter {
   @override
   int get hashCode => Object.hash(runtimeType, source, group);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UserFilterImplCopyWith<_$UserFilterImpl> get copyWith =>
@@ -142,8 +150,11 @@ abstract class _UserFilter implements UserFilter {
   String? get source;
   @override
   Multihash? get group;
+
+  /// Create a copy of UserFilter
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserFilterImplCopyWith<_$UserFilterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$FlowState {
   List<String> get disabledSources => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FlowState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FlowStateCopyWith<FlowState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -41,6 +43,8 @@ class _$FlowStateCopyWithImpl<$Res, $Val extends FlowState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of FlowState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -74,6 +78,8 @@ class __$$FlowStateImplCopyWithImpl<$Res>
       _$FlowStateImpl _value, $Res Function(_$FlowStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FlowState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -121,7 +127,9 @@ class _$FlowStateImpl implements _FlowState {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_disabledSources));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FlowState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FlowStateImplCopyWith<_$FlowStateImpl> get copyWith =>
@@ -134,8 +142,11 @@ abstract class _FlowState implements FlowState {
 
   @override
   List<String> get disabledSources;
+
+  /// Create a copy of FlowState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FlowStateImplCopyWith<_$FlowStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

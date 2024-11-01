@@ -217,8 +217,13 @@ mixin _$CalendarItem {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  /// Serializes this CalendarItem to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CalendarItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CalendarItemCopyWith<CalendarItem> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -252,6 +257,8 @@ class _$CalendarItemCopyWithImpl<$Res, $Val extends CalendarItem>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CalendarItem
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -340,6 +347,8 @@ class __$$FixedCalendarItemImplCopyWithImpl<$Res>
       $Res Function(_$FixedCalendarItemImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CalendarItem
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -478,12 +487,14 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
             (identical(other.end, end) || other.end == end));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, description, location,
       groupId, placeId, eventId, status, start, end);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CalendarItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FixedCalendarItemImplCopyWith<_$FixedCalendarItemImpl> get copyWith =>
@@ -738,8 +749,11 @@ abstract class FixedCalendarItem extends CalendarItem {
   @override
   @DateTimeConverter()
   DateTime? get end;
+
+  /// Create a copy of CalendarItem
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FixedCalendarItemImplCopyWith<_$FixedCalendarItemImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -780,6 +794,8 @@ class __$$RepeatingCalendarItemImplCopyWithImpl<$Res>
       $Res Function(_$RepeatingCalendarItemImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CalendarItem
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -988,7 +1004,7 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
                 .equals(other._exceptions, _exceptions));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -1009,7 +1025,9 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
       until,
       const DeepCollectionEquality().hash(_exceptions));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CalendarItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RepeatingCalendarItemImplCopyWith<_$RepeatingCalendarItemImpl>
@@ -1322,8 +1340,11 @@ abstract class RepeatingCalendarItem extends CalendarItem {
   @DateTimeConverter()
   DateTime? get until;
   List<int> get exceptions;
+
+  /// Create a copy of CalendarItem
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RepeatingCalendarItemImplCopyWith<_$RepeatingCalendarItemImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -1360,6 +1381,8 @@ class __$$AutoCalendarItemImplCopyWithImpl<$Res>
       $Res Function(_$AutoCalendarItemImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CalendarItem
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1531,7 +1554,7 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
                 other.autoDuration == autoDuration));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -1549,7 +1572,9 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
       searchStart,
       autoDuration);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CalendarItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AutoCalendarItemImplCopyWith<_$AutoCalendarItemImpl> get copyWith =>
@@ -1812,8 +1837,11 @@ abstract class AutoCalendarItem extends CalendarItem {
   @DateTimeConverter()
   DateTime? get searchStart;
   int get autoDuration;
+
+  /// Create a copy of CalendarItem
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AutoCalendarItemImplCopyWith<_$AutoCalendarItemImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

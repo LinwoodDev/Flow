@@ -26,8 +26,12 @@ mixin _$CachedData {
   List<CalendarItem> get items => throw _privateConstructorUsedError;
   List<Note> get notes => throw _privateConstructorUsedError;
 
+  /// Serializes this CachedData to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CachedData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CachedDataCopyWith<CachedData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -56,6 +60,8 @@ class _$CachedDataCopyWithImpl<$Res, $Val extends CachedData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CachedData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -114,6 +120,8 @@ class __$$CachedDataImplCopyWithImpl<$Res>
       _$CachedDataImpl _value, $Res Function(_$CachedDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CachedData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -223,7 +231,7 @@ class _$CachedDataImpl extends _CachedData {
             const DeepCollectionEquality().equals(other._notes, _notes));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -233,7 +241,9 @@ class _$CachedDataImpl extends _CachedData {
       const DeepCollectionEquality().hash(_items),
       const DeepCollectionEquality().hash(_notes));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CachedData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CachedDataImplCopyWith<_$CachedDataImpl> get copyWith =>
@@ -269,8 +279,11 @@ abstract class _CachedData extends CachedData {
   List<CalendarItem> get items;
   @override
   List<Note> get notes;
+
+  /// Create a copy of CachedData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CachedDataImplCopyWith<_$CachedDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

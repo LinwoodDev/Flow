@@ -31,30 +31,30 @@ class EventTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(event.name),
-      subtitle: MarkdownText(event.description),
-      onTap: () => _editEvent(context),
-      trailing: MenuAnchor(
-        builder: defaultMenuButton(),
-        menuChildren: [
-          (
-            PhosphorIconsLight.calendar,
-            AppLocalizations.of(context).events,
-            _openEvents,
-          ),
-          (
-            PhosphorIconsLight.trash,
-            AppLocalizations.of(context).delete,
-            _deleteEvent,
-          ),
-        ]
-            .map((e) => MenuItemButton(
-                  leadingIcon: PhosphorIcon(e.$1),
-                  onPressed: () => e.$3(context),
-                  child: Text(e.$2),
-                ))
-            .toList(),
+    return ContextRegion(
+      menuChildren: [
+        (
+          PhosphorIconsLight.calendar,
+          AppLocalizations.of(context).events,
+          _openEvents,
+        ),
+        (
+          PhosphorIconsLight.trash,
+          AppLocalizations.of(context).delete,
+          _deleteEvent,
+        ),
+      ]
+          .map((e) => MenuItemButton(
+                leadingIcon: PhosphorIcon(e.$1),
+                onPressed: () => e.$3(context),
+                child: Text(e.$2),
+              ))
+          .toList(),
+      builder: (context, button, controller) => ListTile(
+        title: Text(event.name),
+        subtitle: MarkdownText(event.description),
+        onTap: () => _editEvent(context),
+        trailing: button,
       ),
     );
   }

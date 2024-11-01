@@ -25,8 +25,12 @@ mixin _$Notebook {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
 
+  /// Serializes this Notebook to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Notebook
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NotebookCopyWith<Notebook> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +54,8 @@ class _$NotebookCopyWithImpl<$Res, $Val extends Notebook>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Notebook
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -94,6 +100,8 @@ class __$$NotebookImplCopyWithImpl<$Res>
       _$NotebookImpl _value, $Res Function(_$NotebookImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Notebook
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -154,11 +162,13 @@ class _$NotebookImpl extends _Notebook {
                 other.description == description));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, description);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Notebook
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NotebookImplCopyWith<_$NotebookImpl> get copyWith =>
@@ -189,8 +199,11 @@ abstract class _Notebook extends Notebook implements DescriptiveModel {
   String get name;
   @override
   String get description;
+
+  /// Create a copy of Notebook
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NotebookImplCopyWith<_$NotebookImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -212,8 +225,12 @@ mixin _$Note {
   NoteStatus? get status => throw _privateConstructorUsedError;
   int get priority => throw _privateConstructorUsedError;
 
+  /// Serializes this Note to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Note
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NoteCopyWith<Note> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -242,6 +259,8 @@ class _$NoteCopyWithImpl<$Res, $Val extends Note>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Note
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -310,6 +329,8 @@ class __$$NoteImplCopyWithImpl<$Res>
   __$$NoteImplCopyWithImpl(_$NoteImpl _value, $Res Function(_$NoteImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Note
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -414,12 +435,14 @@ class _$NoteImpl extends _Note {
                 other.priority == priority));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, notebookId, id, parentId, name,
       description, status, priority);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Note
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NoteImplCopyWith<_$NoteImpl> get copyWith =>
@@ -463,8 +486,11 @@ abstract class _Note extends Note implements DescriptiveModel {
   NoteStatus? get status;
   @override
   int get priority;
+
+  /// Create a copy of Note
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NoteImplCopyWith<_$NoteImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

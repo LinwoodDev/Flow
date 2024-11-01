@@ -57,7 +57,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
         _now.hour,
         _now.minute,
         _now.second,
-      ).getStartOfWeek(_startOfWeek);
+      ).getStartOfWeek(_startOfWeek + 1);
 
   int _getDaysInView() => 6 * 7;
 
@@ -216,9 +216,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                       itemBuilder: (context, index) {
                         if (index < 7) {
                           return LayoutBuilder(builder: (context, constraints) {
-                            final current = _date
-                                .getStartOfWeek(_startOfWeek)
-                                .addDays(index);
+                            final current = _date.addDays(index);
                             var text = DateFormat.EEEE(locale).format(
                               current,
                             );
@@ -243,9 +241,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                           });
                         }
                         final current = index - 7;
-                        final day = _date
-                            .getStartOfWeek(_startOfWeek)
-                            .addDays(current - 7);
+                        final day = _date.addDays(current - 7);
                         return InkWell(
                           onTap: () async {
                             await showDialog(

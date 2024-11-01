@@ -54,8 +54,13 @@ mixin _$ExtraProperties {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  /// Serializes this ExtraProperties to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ExtraProperties
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ExtraPropertiesCopyWith<ExtraProperties> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -79,6 +84,8 @@ class _$ExtraPropertiesCopyWithImpl<$Res, $Val extends ExtraProperties>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ExtraProperties
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -118,6 +125,8 @@ class __$$CalDavExtraPropertiesImplCopyWithImpl<$Res>
       $Res Function(_$CalDavExtraPropertiesImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ExtraProperties
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -164,11 +173,13 @@ class _$CalDavExtraPropertiesImpl implements CalDavExtraProperties {
             (identical(other.path, path) || other.path == path));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, etag, path);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ExtraProperties
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CalDavExtraPropertiesImplCopyWith<_$CalDavExtraPropertiesImpl>
@@ -251,8 +262,11 @@ abstract class CalDavExtraProperties implements ExtraProperties {
   String get etag;
   @override
   String get path;
+
+  /// Create a copy of ExtraProperties
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CalDavExtraPropertiesImplCopyWith<_$CalDavExtraPropertiesImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

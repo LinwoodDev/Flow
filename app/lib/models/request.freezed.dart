@@ -27,8 +27,12 @@ mixin _$APIRequest {
   Map<String, String> get headers => throw _privateConstructorUsedError;
   String get body => throw _privateConstructorUsedError;
 
+  /// Serializes this APIRequest to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of APIRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $APIRequestCopyWith<APIRequest> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,6 +62,8 @@ class _$APIRequestCopyWithImpl<$Res, $Val extends APIRequest>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of APIRequest
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -122,6 +128,8 @@ class __$$APIRequestImplCopyWithImpl<$Res>
       _$APIRequestImpl _value, $Res Function(_$APIRequestImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of APIRequest
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -218,12 +226,14 @@ class _$APIRequestImpl extends _APIRequest {
             (identical(other.body, body) || other.body == body));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, method, authority, path,
       const DeepCollectionEquality().hash(_headers), body);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of APIRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$APIRequestImplCopyWith<_$APIRequestImpl> get copyWith =>
@@ -262,8 +272,11 @@ abstract class _APIRequest extends APIRequest {
   Map<String, String> get headers;
   @override
   String get body;
+
+  /// Create a copy of APIRequest
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$APIRequestImplCopyWith<_$APIRequestImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

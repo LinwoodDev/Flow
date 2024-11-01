@@ -85,8 +85,13 @@ mixin _$RemoteStorage {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  /// Serializes this RemoteStorage to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of RemoteStorage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $RemoteStorageCopyWith<RemoteStorage> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -110,6 +115,8 @@ class _$RemoteStorageCopyWithImpl<$Res, $Val extends RemoteStorage>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of RemoteStorage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -148,6 +155,8 @@ class __$$CalDavStorageImplCopyWithImpl<$Res>
       _$CalDavStorageImpl _value, $Res Function(_$CalDavStorageImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of RemoteStorage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -201,11 +210,13 @@ class _$CalDavStorageImpl extends CalDavStorage {
                 other.username == username));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, url, username);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RemoteStorage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CalDavStorageImplCopyWith<_$CalDavStorageImpl> get copyWith =>
@@ -306,8 +317,11 @@ abstract class CalDavStorage extends RemoteStorage {
   String get url;
   @override
   String get username;
+
+  /// Create a copy of RemoteStorage
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CalDavStorageImplCopyWith<_$CalDavStorageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -331,6 +345,8 @@ class __$$ICalStorageImplCopyWithImpl<$Res>
       _$ICalStorageImpl _value, $Res Function(_$ICalStorageImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of RemoteStorage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -384,11 +400,13 @@ class _$ICalStorageImpl extends ICalStorage {
                 other.username == username));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, url, username);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RemoteStorage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ICalStorageImplCopyWith<_$ICalStorageImpl> get copyWith =>
@@ -489,8 +507,11 @@ abstract class ICalStorage extends RemoteStorage {
   String get url;
   @override
   String get username;
+
+  /// Create a copy of RemoteStorage
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ICalStorageImplCopyWith<_$ICalStorageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -514,6 +535,8 @@ class __$$WebDavStorageImplCopyWithImpl<$Res>
       _$WebDavStorageImpl _value, $Res Function(_$WebDavStorageImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of RemoteStorage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -567,11 +590,13 @@ class _$WebDavStorageImpl extends WebDavStorage {
                 other.username == username));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, url, username);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RemoteStorage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$WebDavStorageImplCopyWith<_$WebDavStorageImpl> get copyWith =>
@@ -672,8 +697,11 @@ abstract class WebDavStorage extends RemoteStorage {
   String get url;
   @override
   String get username;
+
+  /// Create a copy of RemoteStorage
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$WebDavStorageImplCopyWith<_$WebDavStorageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -697,6 +725,8 @@ class __$$SiaStorageImplCopyWithImpl<$Res>
       _$SiaStorageImpl _value, $Res Function(_$SiaStorageImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of RemoteStorage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -750,11 +780,13 @@ class _$SiaStorageImpl extends SiaStorage {
                 other.username == username));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, url, username);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RemoteStorage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SiaStorageImplCopyWith<_$SiaStorageImpl> get copyWith =>
@@ -855,8 +887,11 @@ abstract class SiaStorage extends RemoteStorage {
   String get url;
   @override
   String get username;
+
+  /// Create a copy of RemoteStorage
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SiaStorageImplCopyWith<_$SiaStorageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
