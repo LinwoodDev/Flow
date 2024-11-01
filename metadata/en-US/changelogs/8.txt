@@ -1,0 +1,6 @@
+* Add right click menus
+* Fix month view start of the week
+* Upgrade project layout
+* Upgrade to flutter 3.24
+
+Read more here: https://linwood.dev/flow/0.3.1

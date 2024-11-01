@@ -80,4 +80,4 @@ jobs:
           chmod 600 sftp_key
           echo "$SFTP_KNOWN_HOSTS" > known_hosts
           chmod 600 known_hosts
-          rsync -avz --delete -e "ssh -i sftp_key -o UserKnownHostsFile=known_hosts" build/web/ $SFTP_USERNAME@$SFTP_HOST:/var/www/$WEB_DIR.butterfly.linwood
+          rsync -avz --delete -e "ssh -i sftp_key -o UserKnownHostsFile=known_hosts" build/web/ $SFTP_USERNAME@$SFTP_HOST:/var/www/$WEB_DIR.flow.linwood
