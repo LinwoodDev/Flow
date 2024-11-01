@@ -6,9 +6,26 @@ import starlight from "@astrojs/starlight";
 export default defineConfig({
   integrations: [
     starlight({
-      title: "My Docs",
+      title: "Linwood Flow",
+      customCss: [
+        // Relative path to your custom CSS file
+        "./src/styles/custom.css",
+      ],
+      logo: {
+        src: "./public/img/docs.svg",
+      },
+      favicon: "./favicon.ico",
       social: {
-        github: "https://github.com/withastro/starlight",
+        mastodon: "https://floss.social/@linwood",
+        matrix: "https://linwood.dev/matrix",
+        discord: "https://linwood.dev/discord",
+        github: "https://github.com/LinwoodDev/Flow",
+      },
+      components: {
+        SocialIcons: "./src/components/CustomSocialIcons.astro",
+        Head: "./src/components/Head.astro",
+        Footer: "./src/components/Footer.astro",
+        ContentPanel: "./src/components/ContentPanel.astro",
       },
       sidebar: [
         {
