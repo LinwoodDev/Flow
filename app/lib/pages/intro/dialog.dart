@@ -14,7 +14,7 @@ class _IntroDialogState extends State<IntroDialog> {
   final _pages = [
     ...[
       {
-        "image": isNightly ? "images/nightly.png" : "images/logo.png",
+        "image": isNightly ? "images/logo.png" : "images/logo.png",
         "title": "Welcome to Linwood Flow",
         "description": "A feature rich event and time managment system"
       },

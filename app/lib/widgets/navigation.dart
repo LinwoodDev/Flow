@@ -263,7 +263,7 @@ class _FlowDrawer extends StatelessWidget {
                     leading: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Image.asset(
-                        isNightly ? "images/nightly.png" : "images/logo.png",
+                        isNightly ? "images/logo.png" : "images/logo.png",
                       ),
                     ),
                     toolbarHeight: kAppBarHeight,

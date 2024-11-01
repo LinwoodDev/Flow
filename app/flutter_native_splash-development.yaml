@@ -18,7 +18,7 @@ flutter_native_splash:
 
   # The image parameter allows you to specify an image used in the splash screen.  It must be a
   # png file and should be sized for 4x pixel density.
-  image: images/nightly.png
+  image: images/logo.png
 
   # The color_dark, background_image_dark, and image_dark are parameters that set the background
   # and image when the device is in dark mode. If they are not specified, the app will use the
@@ -27,7 +27,7 @@ flutter_native_splash:
   # set.
   color_dark: "#353535"
   #background_image_dark: "assets/dark-background.png"
-  image_dark: images/nightly.png
+  image_dark: images/logo.png
 
   # The android, ios and web parameters can be used to disable generating a splash screen on a given
   # platform.

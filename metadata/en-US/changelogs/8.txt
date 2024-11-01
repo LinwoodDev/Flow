@@ -1,4 +1,5 @@
 * Add right click menus
+* Add new icons ([#22](https://github.com/LinwoodDev/Flow/issues/22))
 * Fix month view start of the week
 * Upgrade project layout
 * Upgrade to flutter 3.24
