@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from "astro/config";
+import { getSidebarTranslatedLabel } from "./src/translations";
 import starlight from "@astrojs/starlight";
 
 // https://astro.build/config
@@ -29,13 +30,168 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: "Guides",
+          ...getSidebarTranslatedLabel("Guides"),
           items: [
-            // Each item here is one entry in the navigation menu.
-            { label: "Intro", slug: "docs/v1/intro" },
+            {
+              ...getSidebarTranslatedLabel("Introduction"),
+              link: "/docs/v1/intro",
+            },
+          ],
+        },
+        {
+          ...getSidebarTranslatedLabel("Downloads"),
+          link: "/downloads/",
+        },
+        {
+          ...getSidebarTranslatedLabel("Community"),
+          items: [
+            {
+              ...getSidebarTranslatedLabel("Home"),
+              link: "/community/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Branding"),
+              link: "/community/branding/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Changelog"),
+              link: "/changelog/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Contributing"),
+              link: "/community/contributing/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Code of conduct"),
+              link: "/community/code-of-conduct/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Embedding"),
+              link: "/community/embed/",
+            },
+            {
+              ...getSidebarTranslatedLabel("FAQ"),
+              link: "/community/faq/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Versions"),
+              link: "/community/versions/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Nightly builds"),
+              link: "/community/nightly/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Privacy policy"),
+              link: "/privacypolicy/",
+            },
           ],
         },
       ],
+      locales: {
+        root: {
+          label: "English",
+          lang: "en",
+        },
+        af: {
+          label: "Afrikaans",
+        },
+        ar: {
+          label: "Arabic",
+        },
+        ca: {
+          label: "Catalan",
+        },
+        cs: {
+          label: "Czech",
+        },
+        da: {
+          label: "Danish",
+        },
+        de: {
+          label: "German",
+        },
+        el: {
+          label: "Greek",
+        },
+        es: {
+          label: "Spanish",
+        },
+        fi: {
+          label: "Finnish",
+        },
+        fr: {
+          label: "French",
+        },
+        he: {
+          label: "Hebrew",
+        },
+        hi: {
+          label: "Hindi",
+        },
+        hu: {
+          label: "Hungarian",
+        },
+        it: {
+          label: "Italian",
+        },
+        ja: {
+          label: "Japanese",
+        },
+        ko: {
+          label: "Korean",
+        },
+        nl: {
+          label: "Dutch",
+        },
+        no: {
+          label: "Norwegian",
+        },
+        or: {
+          label: "Oriya",
+        },
+        pl: {
+          label: "Polish",
+        },
+        pt: {
+          label: "Portuguese",
+        },
+        "pt-br": {
+          label: "Portuguese (Brazil)",
+          lang: "pt-BR",
+        },
+        ro: {
+          label: "Romanian",
+        },
+        ru: {
+          label: "Russian",
+        },
+        sr: {
+          label: "Serbian",
+        },
+        sv: {
+          label: "Swedish",
+        },
+        th: {
+          label: "Thai",
+        },
+        tr: {
+          label: "Turkish",
+        },
+        uk: {
+          label: "Ukrainian",
+        },
+        vi: {
+          label: "Vietnamese",
+        },
+        zh: {
+          label: "Chinese",
+        },
+        "zh-hant": {
+          label: "Chinese (Traditional)",
+          lang: "zh-Hant",
+        },
+      },
     }),
   ],
 });

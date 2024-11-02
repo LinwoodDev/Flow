@@ -4,7 +4,7 @@
 
 > **The app is in development and not ready for production use. Click [here](https://linwood.dev/flow) to read the devlogs.**
 
-# Linwood Flow
+# Flow
 
 > Free, opensource time and event management software
 
@@ -33,7 +33,7 @@ Linwood Flow is a free, opensource time and event management software. You can c
 
 ## Features
 
-* **⚡ Simple and intuitive:** Every tool is in the right place. Open the app and start managing your time. Invite people to your events and share your calendar with them.
+* **⚡ Simple and intuitive:** Every tool is in the right place. Open the app and start managing your time.
 * **📝 Support your favorite formats:** Import and export your old notes and events. Set the app as your default calendar app and use it with your favorite apps.
 * **📱 Works on every device:** The app is available for android, windows, linux, and in the web. You can use it on your phone, tablet, or computer.
 * **💻 Choose where your data is stored:** You can choose to store your data locally, in your favorite cloud (caldav) or decentralized using S5. You can also export your data to a file and import it again.
