@@ -241,7 +241,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                           });
                         }
                         final current = index - 7;
-                        final day = _date.addDays(current - 7);
+                        final day = _date.addDays(current);
                         return InkWell(
                           onTap: () async {
                             await showDialog(
