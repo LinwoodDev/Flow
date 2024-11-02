@@ -18,6 +18,6 @@
   },
   "packageManager": "pnpm@9.12.3",
   "devDependencies": {
-    "sass": "^1.80.5"
+    "sass": "^1.80.6"
   }
 }

@@ -264,10 +264,12 @@ class _FlowDrawer extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Image.asset(
                         isNightly ? "images/logo.png" : "images/logo.png",
+                        height: 64,
+                        width: 64,
                       ),
                     ),
                     toolbarHeight: kAppBarHeight,
-                    leadingWidth: 32,
+                    leadingWidth: 42,
                     title: const Text(
                       shortApplicationName,
                       textAlign: TextAlign.center,
