@@ -2,9 +2,15 @@
 import { defineConfig } from "astro/config";
 import { getSidebarTranslatedLabel } from "./src/translations";
 import starlight from "@astrojs/starlight";
+import remarkHeadingID from "remark-heading-id";
+import remarkGemoji from "remark-gemoji";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://flow.linwood.dev",
+  markdown: {
+    remarkPlugins: [remarkHeadingID, remarkGemoji],
+  },
   integrations: [
     starlight({
       title: "Linwood Flow",
@@ -64,10 +70,6 @@ export default defineConfig({
             {
               ...getSidebarTranslatedLabel("Code of conduct"),
               link: "/community/code-of-conduct/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Embedding"),
-              link: "/community/embed/",
             },
             {
               ...getSidebarTranslatedLabel("FAQ"),
