@@ -4,16 +4,16 @@
 
 > **The app is in development and not ready for production use. Click [here](https://linwood.dev/flow) to read the devlogs.**
 
-# Linwood Flow
+# Flow
 
 > Free, opensource time and event management software
 
-[![Latest release)](https://img.shields.io/github/v/release/LinwoodDev/Flow?color=7C4DFF&style=for-the-badge&logo=github&logoColor=7C4DFF)](https://github.com/LinwoodDev/Flow/releases)
-[![GitHub License badge](https://img.shields.io/github/license/LinwoodDev/Flow?color=7C4DFF&style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiBmaWxsPSIjN2M0ZGZmIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI%2BPHJlY3Qgd2lkdGg9IjI1NiIgaGVpZ2h0PSIyNTYiIGZpbGw9Im5vbmUiPjwvcmVjdD48cmVjdCB4PSIzMiIgeT0iNDgiIHdpZHRoPSIxOTIiIGhlaWdodD0iMTYwIiByeD0iOCIgc3Ryb2tlLXdpZHRoPSIxNiIgc3Ryb2tlPSIjN2M0ZGZmIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGZpbGw9Im5vbmUiPjwvcmVjdD48bGluZSB4MT0iNzYiIHkxPSI5NiIgeDI9IjE4MCIgeTI9Ijk2IiBmaWxsPSJub25lIiBzdHJva2U9IiM3YzRkZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxNiI%2BPC9saW5lPjxsaW5lIHgxPSI3NiIgeTE9IjEyOCIgeDI9IjE4MCIgeTI9IjEyOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjN2M0ZGZmIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMTYiPjwvbGluZT48bGluZSB4MT0iNzYiIHkxPSIxNjAiIHgyPSIxODAiIHkyPSIxNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzdjNGRmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjE2Ij48L2xpbmU%2BPC9zdmc%2B)](https://github.com/LinwoodDev/Flow/blob/main/LICENSE)
-[![GitHub Repo stars](https://img.shields.io/github/stars/LinwoodDev/Flow?color=7C4DFF&logo=github&logoColor=7C4DFF&style=for-the-badge)](https://github.com/LinwoodDev/Flow)
-[![Matrix badge](https://img.shields.io/matrix/linwood:matrix.org?style=for-the-badge&color=7C4DFF&logo=matrix&logoColor=7C4DFF&label=Matrix)](https://linwood.dev/matrix)
-[![Discord badge](https://img.shields.io/discord/735424757142519848?style=for-the-badge&color=7C4DFF&logo=discord&logoColor=7C4DFF&label=Discord)](https://discord.linwood.dev)
-[![Download](https://img.shields.io/github/downloads/LinwoodDev/Flow/total?color=7C4DFF&style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiBmaWxsPSIjN2M0ZGZmIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI%2BPHJlY3Qgd2lkdGg9IjI1NiIgaGVpZ2h0PSIyNTYiIGZpbGw9Im5vbmUiPjwvcmVjdD48cG9seWxpbmUgcG9pbnRzPSI4NiAxMTAuMDExIDEyOCAxNTIgMTcwIDExMC4wMTEiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzdjNGRmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjE2Ij48L3BvbHlsaW5lPjxsaW5lIHgxPSIxMjgiIHkxPSI0MCIgeDI9IjEyOCIgeTI9IjE1MS45NzA1NyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjN2M0ZGZmIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMTYiPjwvbGluZT48cGF0aCBkPSJNMjE2LDE1MnY1NmE4LDgsMCwwLDEtOCw4SDQ4YTgsOCwwLDAsMS04LThWMTUyIiBmaWxsPSJub25lIiBzdHJva2U9IiM3YzRkZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxNiI%2BPC9wYXRoPjwvc3ZnPg%3D%3D)](https://docs.flow.linwood.dev/downloads)
+[![Latest release)](https://img.shields.io/github/v/release/LinwoodDev/Flow?color=35CDEF&style=for-the-badge&logo=github&logoColor=35CDEF)](https://github.com/LinwoodDev/Flow/releases)
+[![GitHub License badge](https://img.shields.io/github/license/LinwoodDev/Flow?color=35CDEF&style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzM1Y2RlZiIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yMTYsNDBINDBBMTYsMTYsMCwwLDAsMjQsNTZWMjAwYTE2LDE2LDAsMCwwLDE2LDE2SDIxNmExNiwxNiwwLDAsMCwxNi0xNlY1NkExNiwxNiwwLDAsMCwyMTYsNDBabTAsMTYwSDQwVjU2SDIxNlYyMDBaTTE4NCw5NmE4LDgsMCwwLDEtOCw4SDgwYTgsOCwwLDAsMSwwLTE2aDk2QTgsOCwwLDAsMSwxODQsOTZabTAsMzJhOCw4LDAsMCwxLTgsOEg4MGE4LDgsMCwwLDEsMC0xNmg5NkE4LDgsMCwwLDEsMTg0LDEyOFptMCwzMmE4LDgsMCwwLDEtOCw4SDgwYTgsOCwwLDAsMSwwLTE2aDk2QTgsOCwwLDAsMSwxODQsMTYwWiI%2BPC9wYXRoPjwvc3ZnPg%3D%3D)](https://github.com/LinwoodDev/Flow/blob/main/LICENSE)
+[![GitHub Repo stars](https://img.shields.io/github/stars/LinwoodDev/Flow?color=35CDEF&logo=github&logoColor=35CDEF&style=for-the-badge)](https://github.com/LinwoodDev/Flow)
+[![Matrix badge](https://img.shields.io/matrix/linwood:matrix.org?style=for-the-badge&color=35CDEF&logo=matrix&logoColor=35CDEF&label=Matrix)](https://linwood.dev/matrix)
+[![Discord badge](https://img.shields.io/discord/735424757142519848?style=for-the-badge&color=35CDEF&logo=discord&logoColor=35CDEF&label=Discord)](https://discord.linwood.dev)
+[![Download](https://img.shields.io/github/downloads/LinwoodDev/Flow/total?color=35CDEF&style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzM1Y2RlZiIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yMjQsMTQ0djY0YTgsOCwwLDAsMS04LDhINDBhOCw4LDAsMCwxLTgtOFYxNDRhOCw4LDAsMCwxLDE2LDB2NTZIMjA4VjE0NGE4LDgsMCwwLDEsMTYsMFptLTEwMS42Niw1LjY2YTgsOCwwLDAsMCwxMS4zMiwwbDQwLTQwYTgsOCwwLDAsMC0xMS4zMi0xMS4zMkwxMzYsMTI0LjY5VjMyYTgsOCwwLDAsMC0xNiwwdjkyLjY5TDkzLjY2LDk4LjM0YTgsOCwwLDAsMC0xMS4zMiwxMS4zMloiPjwvcGF0aD48L3N2Zz4%3D)](https://docs.flow.linwood.dev/downloads)
 
 </div>
 
@@ -33,7 +33,7 @@ Linwood Flow is a free, opensource time and event management software. You can c
 
 ## Features
 
-* **⚡ Simple and intuitive:** Every tool is in the right place. Open the app and start managing your time. Invite people to your events and share your calendar with them.
+* **⚡ Simple and intuitive:** Every tool is in the right place. Open the app and start managing your time.
 * **📝 Support your favorite formats:** Import and export your old notes and events. Set the app as your default calendar app and use it with your favorite apps.
 * **📱 Works on every device:** The app is available for android, windows, linux, and in the web. You can use it on your phone, tablet, or computer.
 * **💻 Choose where your data is stored:** You can choose to store your data locally, in your favorite cloud (caldav) or decentralized using S5. You can also export your data to a file and import it again.
