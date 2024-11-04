@@ -20,6 +20,7 @@
   },
   "packageManager": "pnpm@9.12.3",
   "devDependencies": {
+    "@types/remark-heading-id": "^1.0.0",
     "sass": "^1.80.6"
   }
 }
