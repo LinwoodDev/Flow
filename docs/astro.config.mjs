@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 import { getSidebarTranslatedLabel } from "./src/translations";
 import starlight from "@astrojs/starlight";
+// @ts-ignore
 import remarkHeadingID from "remark-heading-id";
 import remarkGemoji from "remark-gemoji";
 

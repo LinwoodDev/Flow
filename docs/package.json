@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/starlight": "^0.28.5",
-    "astro": "^4.16.8",
+    "@astrojs/starlight": "^0.28.6",
+    "astro": "^4.16.9",
     "remark-gemoji": "^8.0.0",
     "remark-heading-id": "^1.0.1",
     "sharp": "^0.33.5",
@@ -20,7 +20,6 @@
   },
   "packageManager": "pnpm@9.12.3",
   "devDependencies": {
-    "@types/remark-heading-id": "^1.0.0",
     "sass": "^1.80.6"
   }
 }
