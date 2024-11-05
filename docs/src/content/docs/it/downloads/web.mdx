@@ -1,0 +1,26 @@
+---
+title: Web
+---
+
+![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2FFlow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+
+import { CardGrid } from '@astrojs/starlight/components';
+import DownloadButton from '/src/components/DownloadButton.astro';
+
+:::note
+
+Questa è un'applicazione web progressiva. Puoi installarlo sul tuo browser e usarlo offline.
+Tutti i dati sono memorizzati nel browser.
+
+:::
+
+## Collegamenti
+
+<CardGrid>
+  <DownloadButton href="https://preview.flow.linwood.dev" title="Preview" />
+</CardGrid>
+
+## Versioni
+
+Le versioni principali e quelle di anteprima (sviluppo) di Flow non sono le stesse delle versioni stabili e notturne.
+Non sono direttamente associati a una liberazione. Essi vengono aggiornati non appena un nuovo commit viene inviato al repository.
