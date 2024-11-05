@@ -1,0 +1,26 @@
+---
+title: ウェブ
+---
+
+![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2FFlow%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+
+import { CardGrid } from '@astrojs/starlight/components';
+import DownloadButton from '/src/components/DownloadButton.astro';
+
+:::note
+
+これはプログレッシブウェブアプリケーションです。 ブラウザにインストールしてオフラインで使用できます。
+すべてのデータはブラウザに保存されます。
+
+:::
+
+## リンク
+
+<CardGrid>
+  <DownloadButton href="https://preview.flow.linwood.dev" title="Preview" />
+</CardGrid>
+
+## バージョン
+
+Flow のメインバージョンとプレビュー版(開発版)は、安定版と夜版とは異なります。
+これらはリリースと直接関連付けられていません。 新しいコミットがリポジトリにプッシュされるとすぐに更新されます。
