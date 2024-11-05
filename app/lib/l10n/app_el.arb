@@ -271,7 +271,7 @@
   "deleteLabelDescription": "Είστε βέβαιοι ότι θέλετε να διαγράψετε την ετικέτα {name}?",
   "label": "Ετικέτα",
   "startOfWeek": "Έναρξη της εβδομάδας",
-  "headlineNumber": "Headline {number}",
+  "headlineNumber": "Επικεφαλίδα {number}",
   "@headlineNumber": {
     "placeholders": {
       "number": {
