@@ -609,6 +609,7 @@ jobs:
             linwood-flow-android-arm64.apk
             linwood-flow-android-x86_64.apk
             linwood-flow-ios.ipa
+            checksums.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-to-play-store:

@@ -68,4 +68,4 @@ To get started, visit [the contributing guide](CONTRIBUTING.md).
 ## License
 
 The code is open source and licensed under the [AGPL-3.0](./LICENSE) license.
-All images in `app/images/` except `powered-by-vercel.svg` and all images in `docs/` are licensed under the [CC-BY-4.0](./BRANDING_LICENSE) license.
+All images in `app/images/` and all images in `docs/` are licensed under the [CC-BY-SA-4.0](./BRANDING_LICENSE) license.
