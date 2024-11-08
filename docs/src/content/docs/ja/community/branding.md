@@ -1,0 +1,41 @@
+---
+title: Branding
+---
+
+These assets are licensed under the [CC-BY-SA-4.0](https://github.com/LinwoodDev/Flow/blob/develop/BRANDING_LICENSE).
+
+## ロゴ
+
+![Logo](/img/logo.svg)
+
+[SVG](/img/logo.svg) [PNG](/img/logo.png)
+
+## バナー
+
+![Banner](/img/banner.svg)
+
+[SVG](/img/banner.svg) [PNG](/img/banner.png)
+
+## ドキュメント
+
+![Documentation](/img/docs.svg)
+
+[SVG](/img/docs.svg) [PNG](/img/docs.png)
+
+## 色
+
+- Primary: `#c4840d`
+- Accent: `#7b8f96`
+
+## フォント
+
+- Website: `Barlow`
+- App: `Comfortaa`
+
+## スクリーンショット
+
+> Firefoxのレスポンシブデザインモードで使用
+
+- 電話番号: Galaxy S20 Ultra
+- 7インチタブレット: Nexus 7
+- 10インチタブレット: Nexus 10

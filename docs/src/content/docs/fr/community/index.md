@@ -1,0 +1,22 @@
+---
+title: Communauté
+---
+
+Bienvenue dans la section de la communauté.
+
+## Remerciements
+
+Un remerciement spécial va à:
+
+- [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
+- [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
+- [Starlight](https://github.com/withastro/starlight) for an easy-to-use static react documentation framework
+- [Phosphor Icons](https://phosphoricons.com/) for the beautiful icons
+
+Toutes les autres licences peuvent être trouvées dans les paramètres.
+
+## Liens utiles
+
+- [GitHub](https://github.com/LinwoodDev/Flow)
+- [Discord](https://go.linwood.dev/discord)
+- [Matrix](https://go.linwood.dev/matrix)
