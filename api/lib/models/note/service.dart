@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:flow_api/services/source.dart';
 
 import 'model.dart';
@@ -9,8 +9,8 @@ abstract class NoteService extends ModelService {
   FutureOr<List<Note>> getNotes({
     int offset = 0,
     int limit = 50,
-    Multihash? parent,
-    Multihash? notebook,
+    Uint8List? parent,
+    Uint8List? notebook,
     Set<NoteStatus?> statuses = const {
       NoteStatus.todo,
       NoteStatus.inProgress,
@@ -24,9 +24,9 @@ abstract class NoteService extends ModelService {
 
   FutureOr<bool> updateNote(Note note);
 
-  FutureOr<bool> deleteNote(Multihash id);
+  FutureOr<bool> deleteNote(Uint8List id);
 
-  FutureOr<Note?> getNote(Multihash id, {bool fallback = false});
+  FutureOr<Note?> getNote(Uint8List id, {bool fallback = false});
 
   FutureOr<List<Notebook>> getNotebooks({
     int offset = 0,
@@ -38,24 +38,24 @@ abstract class NoteService extends ModelService {
 
   FutureOr<bool> updateNotebook(Notebook notebook);
 
-  FutureOr<bool> deleteNotebook(Multihash id);
+  FutureOr<bool> deleteNotebook(Uint8List id);
 
-  FutureOr<Notebook?> getNotebook(Multihash id);
+  FutureOr<Notebook?> getNotebook(Uint8List id);
 }
 
 abstract class NoteConnector<T> extends ModelService {
-  FutureOr<void> connect(Multihash connectId, Multihash noteId);
-  FutureOr<void> disconnect(Multihash connectId, Multihash noteId);
+  FutureOr<void> connect(Uint8List connectId, Uint8List noteId);
+  FutureOr<void> disconnect(Uint8List connectId, Uint8List noteId);
   FutureOr<List<Note>> getNotes(
-    Multihash connectId, {
+    Uint8List connectId, {
     int offset = 0,
     int limit = 50,
   });
   FutureOr<List<T>> getConnected(
-    Multihash noteId, {
+    Uint8List noteId, {
     int offset = 0,
     int limit = 50,
   });
-  FutureOr<bool> isNoteConnected(Multihash connectId, Multihash noteId);
-  FutureOr<bool?> notesDone(Multihash connectId);
+  FutureOr<bool> isNoteConnected(Uint8List connectId, Uint8List noteId);
+  FutureOr<bool?> notesDone(Uint8List connectId);
 }

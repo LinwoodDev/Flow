@@ -7,14 +7,14 @@ part of 'model.dart';
 // **************************************************************************
 
 _$EventImpl _$$EventImplFromJson(Map<String, dynamic> json) => _$EventImpl(
-      id: _$JsonConverterFromJson<List<int>, Multihash>(
-          json['id'], const MultihashConverter().fromJson),
-      parentId: _$JsonConverterFromJson<List<int>, Multihash>(
-          json['parentId'], const MultihashConverter().fromJson),
-      groupId: _$JsonConverterFromJson<List<int>, Multihash>(
-          json['groupId'], const MultihashConverter().fromJson),
-      placeId: _$JsonConverterFromJson<List<int>, Multihash>(
-          json['placeId'], const MultihashConverter().fromJson),
+      id: _$JsonConverterFromJson<List<int>, Uint8List>(
+          json['id'], const Uint8ListConverter().fromJson),
+      parentId: _$JsonConverterFromJson<List<int>, Uint8List>(
+          json['parentId'], const Uint8ListConverter().fromJson),
+      groupId: _$JsonConverterFromJson<List<int>, Uint8List>(
+          json['groupId'], const Uint8ListConverter().fromJson),
+      placeId: _$JsonConverterFromJson<List<int>, Uint8List>(
+          json['placeId'], const Uint8ListConverter().fromJson),
       blocked: json['blocked'] as bool? ?? true,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
@@ -24,14 +24,14 @@ _$EventImpl _$$EventImplFromJson(Map<String, dynamic> json) => _$EventImpl(
 
 Map<String, dynamic> _$$EventImplToJson(_$EventImpl instance) =>
     <String, dynamic>{
-      'id': _$JsonConverterToJson<List<int>, Multihash>(
-          instance.id, const MultihashConverter().toJson),
-      'parentId': _$JsonConverterToJson<List<int>, Multihash>(
-          instance.parentId, const MultihashConverter().toJson),
-      'groupId': _$JsonConverterToJson<List<int>, Multihash>(
-          instance.groupId, const MultihashConverter().toJson),
-      'placeId': _$JsonConverterToJson<List<int>, Multihash>(
-          instance.placeId, const MultihashConverter().toJson),
+      'id': _$JsonConverterToJson<List<int>, Uint8List>(
+          instance.id, const Uint8ListConverter().toJson),
+      'parentId': _$JsonConverterToJson<List<int>, Uint8List>(
+          instance.parentId, const Uint8ListConverter().toJson),
+      'groupId': _$JsonConverterToJson<List<int>, Uint8List>(
+          instance.groupId, const Uint8ListConverter().toJson),
+      'placeId': _$JsonConverterToJson<List<int>, Uint8List>(
+          instance.placeId, const Uint8ListConverter().toJson),
       'blocked': instance.blocked,
       'name': instance.name,
       'description': instance.description,

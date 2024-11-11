@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flow_api/models/note/model.dart';
 import 'package:http/http.dart' as http;
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:flow_api/converters/ical.dart';
 import 'package:flow_api/models/cached.dart';
 import 'package:flow_api/models/event/database.dart';
@@ -67,10 +67,10 @@ class CalDavRemoteService extends RemoteService<CalDavStorage> {
       final name = href.substring(href.lastIndexOf('/') + 1);
       converter.read(
         text.split('\n'),
-        event: Event(name: name, id: createUniqueMultihash())
+        event: Event(name: name, id: createUniqueUint8List())
             .addExtra(ExtraProperties.calDav(etag: etag, path: href)),
         notebook: Notebook(
-          id: createUniqueMultihash(),
+          id: createUniqueUint8List(),
           name: name,
         ),
       );
@@ -95,7 +95,7 @@ class CalendarItemCalDavRemoteService
 
   @override
   Future<CalendarItem?> createCalendarItem(CalendarItem item) async {
-    var object = item.eventId ?? createUniqueMultihash();
+    var object = item.eventId ?? createUniqueUint8List();
     if (await remote.event.getEvent(object) == null) {
       object = (await remote.event.createEvent(Event(
             name: item.name,
@@ -112,7 +112,7 @@ class CalendarItemCalDavRemoteService
   }
 
   @override
-  Future<bool> deleteCalendarItem(Multihash id) async {
+  Future<bool> deleteCalendarItem(Uint8List id) async {
     final item = await getCalendarItem(id);
     final result = await super.deleteCalendarItem(id);
     await _sendUpdatedCalendarObject(item);

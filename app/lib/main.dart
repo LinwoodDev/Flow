@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:args/args.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flow/cubits/flow.dart';
@@ -12,7 +14,6 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
-import 'package:lib5/lib5.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:flow_api/models/model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -149,8 +150,7 @@ class FlowApp extends StatelessWidget {
                           builder: (context, state) => NotesPage(
                             parent: SourcedModel(
                               state.pathParameters['source']!,
-                              Multihash.fromBase64Url(
-                                  state.pathParameters['id']!),
+                              base64Decode(state.pathParameters['id']!),
                             ),
                           ),
                         ),
@@ -160,8 +160,7 @@ class FlowApp extends StatelessWidget {
                           builder: (context, state) => NotesPage(
                             parent: SourcedModel(
                               '',
-                              Multihash.fromBase64Url(
-                                  state.pathParameters['id']!),
+                              base64Decode(state.pathParameters['id']!),
                             ),
                           ),
                         ),

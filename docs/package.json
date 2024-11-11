@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/starlight": "^0.28.6",
+    "@astrojs/starlight": "^0.29.0",
     "astro": "^4.16.10",
     "remark-gemoji": "^8.0.0",
     "remark-heading-id": "^1.0.1",

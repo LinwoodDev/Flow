@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:flow_api/models/label/model.dart';
 import 'package:flow_api/models/label/service.dart';
 import 'package:flow_api/services/database.dart';
@@ -30,7 +30,7 @@ class LabelDatabaseService extends LabelService with TableService {
 
   @override
   Future<Label?> createLabel(Label label) async {
-    final id = label.id ?? createUniqueMultihash();
+    final id = label.id ?? createUniqueUint8List();
     label = label.copyWith(id: id);
     final row = await db?.insert('labels', label.toDatabase());
     if (row == null) return null;
@@ -38,22 +38,22 @@ class LabelDatabaseService extends LabelService with TableService {
   }
 
   @override
-  Future<Label?> getLabel(Multihash id) async {
+  Future<Label?> getLabel(Uint8List id) async {
     final result = await db?.query(
       'labels',
       where: 'id = ?',
-      whereArgs: [id.fullBytes],
+      whereArgs: [id],
     );
     if (result == null || result.isEmpty) return null;
     return Label.fromDatabase(result.first);
   }
 
   @override
-  Future<bool> deleteLabel(Multihash id) async {
+  Future<bool> deleteLabel(Uint8List id) async {
     return await db?.delete(
           'labels',
           where: 'id = ?',
-          whereArgs: [id.fullBytes],
+          whereArgs: [id],
         ) ==
         1;
   }
@@ -87,7 +87,7 @@ class LabelDatabaseService extends LabelService with TableService {
           'labels',
           label.toDatabase()..remove('id'),
           where: 'id = ?',
-          whereArgs: [label.id?.fullBytes],
+          whereArgs: [label.id],
         ) ==
         1;
   }

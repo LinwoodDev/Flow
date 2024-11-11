@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:flow_api/services/database.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
@@ -26,7 +26,7 @@ class GroupDatabaseService extends GroupService with TableService {
 
   @override
   Future<Group?> createGroup(Group group) async {
-    final id = group.id ?? createUniqueMultihash();
+    final id = group.id ?? createUniqueUint8List();
     group = group.copyWith(id: id);
     final row = await db?.insert('groups', group.toDatabase());
     if (row == null) return null;
@@ -34,11 +34,11 @@ class GroupDatabaseService extends GroupService with TableService {
   }
 
   @override
-  Future<bool> deleteGroup(Multihash id) async {
+  Future<bool> deleteGroup(Uint8List id) async {
     return await db?.delete(
           'groups',
           where: 'id = ?',
-          whereArgs: [id.fullBytes],
+          whereArgs: [id],
         ) ==
         1;
   }
@@ -60,11 +60,11 @@ class GroupDatabaseService extends GroupService with TableService {
   }
 
   @override
-  Future<Group?> getGroup(Multihash id) async {
+  Future<Group?> getGroup(Uint8List id) async {
     final result = await db?.query(
       'groups',
       where: 'id = ?',
-      whereArgs: [id.fullBytes],
+      whereArgs: [id],
     );
     return result?.map(Group.fromDatabase).firstOrNull;
   }
@@ -75,7 +75,7 @@ class GroupDatabaseService extends GroupService with TableService {
           'groups',
           group.toDatabase()..remove('id'),
           where: 'id = ?',
-          whereArgs: [group.id?.fullBytes],
+          whereArgs: [group.id],
         ) ==
         1;
   }

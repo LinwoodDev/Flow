@@ -7,10 +7,10 @@ part of 'model.dart';
 // **************************************************************************
 
 _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
-      id: _$JsonConverterFromJson<List<int>, Multihash>(
-          json['id'], const MultihashConverter().fromJson),
-      groupId: _$JsonConverterFromJson<List<int>, Multihash>(
-          json['groupId'], const MultihashConverter().fromJson),
+      id: _$JsonConverterFromJson<List<int>, Uint8List>(
+          json['id'], const Uint8ListConverter().fromJson),
+      groupId: _$JsonConverterFromJson<List<int>, Uint8List>(
+          json['groupId'], const Uint8ListConverter().fromJson),
       name: json['name'] as String? ?? '',
       email: json['email'] as String? ?? '',
       description: json['description'] as String? ?? '',
@@ -21,10 +21,10 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
 
 Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
     <String, dynamic>{
-      'id': _$JsonConverterToJson<List<int>, Multihash>(
-          instance.id, const MultihashConverter().toJson),
-      'groupId': _$JsonConverterToJson<List<int>, Multihash>(
-          instance.groupId, const MultihashConverter().toJson),
+      'id': _$JsonConverterToJson<List<int>, Uint8List>(
+          instance.id, const Uint8ListConverter().toJson),
+      'groupId': _$JsonConverterToJson<List<int>, Uint8List>(
+          instance.groupId, const Uint8ListConverter().toJson),
       'name': instance.name,
       'email': instance.email,
       'description': instance.description,

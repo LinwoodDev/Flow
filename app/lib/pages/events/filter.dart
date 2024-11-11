@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/group/model.dart';
 import 'package:flow_api/models/model.dart';
@@ -18,8 +18,8 @@ class EventFilter with _$EventFilter {
 
   const factory EventFilter({
     String? source,
-    Multihash? group,
-    Multihash? place,
+    Uint8List? group,
+    Uint8List? place,
   }) = _EventFilter;
 
   EventFilter removeGroup() =>

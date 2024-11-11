@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flow/helpers/sourced_paging_controller.dart';
 import 'package:flow/widgets/markdown_field.dart';
 import 'package:flow_api/models/note/model.dart';
@@ -33,7 +35,7 @@ class NoteListTile extends StatelessWidget {
           source.isEmpty ? "subnote-local" : "subnote",
           pathParameters: {
             if (source.isNotEmpty) "source": source,
-            "id": note.id!.toBase64Url(),
+            "id": base64Encode(note.id!),
           },
         );
         controller?.refresh();

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:flow_api/services/source.dart';
 
 import 'model.dart';
@@ -10,12 +10,12 @@ abstract class UserService extends ModelService {
     int offset = 0,
     int limit = 50,
     String search = '',
-    Multihash? groupId,
+    Uint8List? groupId,
   });
 
   FutureOr<User?> createUser(User user);
 
   FutureOr<bool> updateUser(User user);
 
-  FutureOr<bool> deleteUser(Multihash id);
+  FutureOr<bool> deleteUser(Uint8List id);
 }

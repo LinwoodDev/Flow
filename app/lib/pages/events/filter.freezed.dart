@@ -17,8 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$EventFilter {
   String? get source => throw _privateConstructorUsedError;
-  Multihash? get group => throw _privateConstructorUsedError;
-  Multihash? get place => throw _privateConstructorUsedError;
+  Uint8List? get group => throw _privateConstructorUsedError;
+  Uint8List? get place => throw _privateConstructorUsedError;
 
   /// Create a copy of EventFilter
   /// with the given fields replaced by the non-null parameter values.
@@ -33,7 +33,7 @@ abstract class $EventFilterCopyWith<$Res> {
           EventFilter value, $Res Function(EventFilter) then) =
       _$EventFilterCopyWithImpl<$Res, EventFilter>;
   @useResult
-  $Res call({String? source, Multihash? group, Multihash? place});
+  $Res call({String? source, Uint8List? group, Uint8List? place});
 }
 
 /// @nodoc
@@ -63,11 +63,11 @@ class _$EventFilterCopyWithImpl<$Res, $Val extends EventFilter>
       group: freezed == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       place: freezed == place
           ? _value.place
           : place // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
     ) as $Val);
   }
 }
@@ -80,7 +80,7 @@ abstract class _$$EventFilterImplCopyWith<$Res>
       __$$EventFilterImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? source, Multihash? group, Multihash? place});
+  $Res call({String? source, Uint8List? group, Uint8List? place});
 }
 
 /// @nodoc
@@ -108,11 +108,11 @@ class __$$EventFilterImplCopyWithImpl<$Res>
       group: freezed == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       place: freezed == place
           ? _value.place
           : place // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
     ));
   }
 }
@@ -125,9 +125,9 @@ class _$EventFilterImpl extends _EventFilter {
   @override
   final String? source;
   @override
-  final Multihash? group;
+  final Uint8List? group;
   @override
-  final Multihash? place;
+  final Uint8List? place;
 
   @override
   String toString() {
@@ -159,16 +159,16 @@ class _$EventFilterImpl extends _EventFilter {
 abstract class _EventFilter extends EventFilter {
   const factory _EventFilter(
       {final String? source,
-      final Multihash? group,
-      final Multihash? place}) = _$EventFilterImpl;
+      final Uint8List? group,
+      final Uint8List? place}) = _$EventFilterImpl;
   const _EventFilter._() : super._();
 
   @override
   String? get source;
   @override
-  Multihash? get group;
+  Uint8List? get group;
   @override
-  Multihash? get place;
+  Uint8List? get place;
 
   /// Create a copy of EventFilter
   /// with the given fields replaced by the non-null parameter values.

@@ -18,8 +18,8 @@ class ICalConverter {
     CalendarItem? currentItem;
     Note? currentNote;
     final items = List<CalendarItem>.from(data?.items ?? []);
-    var currentEvent = event ?? Event(id: createUniqueMultihash());
-    var currentNotebook = notebook ?? Notebook(id: createUniqueMultihash());
+    var currentEvent = event ?? Event(id: createUniqueUint8List());
+    var currentNotebook = notebook ?? Notebook(id: createUniqueUint8List());
     final notes = List<Note>.from(data?.notes ?? []);
     for (int i = offset; i < lines.length; i++) {
       final line = lines[i];

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:flow_api/models/user/model.dart';
 import 'package:flow_api/models/user/service.dart';
 import 'package:flow_api/services/database.dart';
@@ -29,7 +29,7 @@ class UserDatabaseService extends UserService with TableService {
 
   @override
   Future<User?> createUser(User user) async {
-    final id = user.id ?? createUniqueMultihash();
+    final id = user.id ?? createUniqueUint8List();
     user = user.copyWith(id: id);
     final row = await db?.insert('users', user.toDatabase());
     if (row == null) return null;
@@ -37,11 +37,11 @@ class UserDatabaseService extends UserService with TableService {
   }
 
   @override
-  Future<bool> deleteUser(Multihash id) async {
+  Future<bool> deleteUser(Uint8List id) async {
     return await db?.delete(
           'users',
           where: 'id = ?',
-          whereArgs: [id.fullBytes],
+          whereArgs: [id],
         ) ==
         1;
   }
@@ -51,7 +51,7 @@ class UserDatabaseService extends UserService with TableService {
     int offset = 0,
     int limit = 50,
     String search = '',
-    Multihash? groupId,
+    Uint8List? groupId,
   }) async {
     String? where;
     List<Object>? whereArgs;
@@ -61,9 +61,7 @@ class UserDatabaseService extends UserService with TableService {
     }
     if (groupId != null) {
       where = where == null ? 'groupId = ?' : '$where AND groupId = ?';
-      whereArgs = whereArgs == null
-          ? [groupId.fullBytes]
-          : [...whereArgs, groupId.fullBytes];
+      whereArgs = whereArgs == null ? [groupId] : [...whereArgs, groupId];
     }
     final result = await db?.query(
       'users',
@@ -82,7 +80,7 @@ class UserDatabaseService extends UserService with TableService {
           'users',
           user.toDatabase()..remove('id'),
           where: 'id = ?',
-          whereArgs: [user.id?.fullBytes],
+          whereArgs: [user.id],
         ) ==
         1;
   }

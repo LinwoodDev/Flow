@@ -20,8 +20,8 @@ Place _$PlaceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Place {
-  @MultihashConverter()
-  Multihash? get id => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
@@ -41,7 +41,7 @@ abstract class $PlaceCopyWith<$Res> {
       _$PlaceCopyWithImpl<$Res, Place>;
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash? id,
+      {@Uint8ListConverter() Uint8List? id,
       String name,
       String description,
       String address});
@@ -71,7 +71,7 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -96,7 +96,7 @@ abstract class _$$PlaceImplCopyWith<$Res> implements $PlaceCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash? id,
+      {@Uint8ListConverter() Uint8List? id,
       String name,
       String description,
       String address});
@@ -124,7 +124,7 @@ class __$$PlaceImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -145,7 +145,7 @@ class __$$PlaceImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PlaceImpl extends _Place {
   const _$PlaceImpl(
-      {@MultihashConverter() this.id,
+      {@Uint8ListConverter() this.id,
       this.name = '',
       this.description = '',
       this.address = ''})
@@ -155,8 +155,8 @@ class _$PlaceImpl extends _Place {
       _$$PlaceImplFromJson(json);
 
   @override
-  @MultihashConverter()
-  final Multihash? id;
+  @Uint8ListConverter()
+  final Uint8List? id;
   @override
   @JsonKey()
   final String name;
@@ -206,7 +206,7 @@ class _$PlaceImpl extends _Place {
 
 abstract class _Place extends Place implements DescriptiveModel {
   const factory _Place(
-      {@MultihashConverter() final Multihash? id,
+      {@Uint8ListConverter() final Uint8List? id,
       final String name,
       final String description,
       final String address}) = _$PlaceImpl;
@@ -215,8 +215,8 @@ abstract class _Place extends Place implements DescriptiveModel {
   factory _Place.fromJson(Map<String, dynamic> json) = _$PlaceImpl.fromJson;
 
   @override
-  @MultihashConverter()
-  Multihash? get id;
+  @Uint8ListConverter()
+  Uint8List? get id;
   @override
   String get name;
   @override

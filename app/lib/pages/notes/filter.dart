@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/note/model.dart';
 
@@ -14,8 +14,8 @@ class NoteFilter with _$NoteFilter {
     @Default(true) bool showInProgress,
     @Default(true) bool showTodo,
     @Default(true) bool showNote,
-    Multihash? selectedLabel,
-    Multihash? notebook,
+    Uint8List? selectedLabel,
+    Uint8List? notebook,
     String? source,
   }) = _NoteFilter;
 

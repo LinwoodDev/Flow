@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lib5/lib5.dart';
 import 'package:flow_api/models/extra.dart';
 
 import '../../helpers/converter.dart';
@@ -16,10 +16,10 @@ class Event with _$Event, IdentifiedModel, NamedModel, DescriptiveModel {
 
   @Implements<DescriptiveModel>()
   const factory Event({
-    @MultihashConverter() Multihash? id,
-    @MultihashConverter() Multihash? parentId,
-    @MultihashConverter() Multihash? groupId,
-    @MultihashConverter() Multihash? placeId,
+    @Uint8ListConverter() Uint8List? id,
+    @Uint8ListConverter() Uint8List? parentId,
+    @Uint8ListConverter() Uint8List? groupId,
+    @Uint8ListConverter() Uint8List? placeId,
     @Default(true) bool blocked,
     @Default('') String name,
     @Default('') String description,

@@ -1,8 +1,8 @@
 part of 'drawer.dart';
 
 class _NotebooksView extends StatelessWidget {
-  final SourcedModel<Multihash?>? model;
-  final ValueChanged<SourcedModel<Multihash>?> onChanged;
+  final SourcedModel<Uint8List?>? model;
+  final ValueChanged<SourcedModel<Uint8List>?> onChanged;
 
   const _NotebooksView({
     this.model,
@@ -37,7 +37,7 @@ class _NotebooksView extends StatelessWidget {
 }
 
 class _NotebooksSelectDialog extends StatelessWidget {
-  final SourcedModel<Multihash>? selected;
+  final SourcedModel<Uint8List>? selected;
 
   const _NotebooksSelectDialog({
     this.selected,

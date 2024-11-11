@@ -20,14 +20,14 @@ Event _$EventFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Event {
-  @MultihashConverter()
-  Multihash? get id => throw _privateConstructorUsedError;
-  @MultihashConverter()
-  Multihash? get parentId => throw _privateConstructorUsedError;
-  @MultihashConverter()
-  Multihash? get groupId => throw _privateConstructorUsedError;
-  @MultihashConverter()
-  Multihash? get placeId => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get id => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get parentId => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get groupId => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get placeId => throw _privateConstructorUsedError;
   bool get blocked => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -49,10 +49,10 @@ abstract class $EventCopyWith<$Res> {
       _$EventCopyWithImpl<$Res, Event>;
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash? id,
-      @MultihashConverter() Multihash? parentId,
-      @MultihashConverter() Multihash? groupId,
-      @MultihashConverter() Multihash? placeId,
+      {@Uint8ListConverter() Uint8List? id,
+      @Uint8ListConverter() Uint8List? parentId,
+      @Uint8ListConverter() Uint8List? groupId,
+      @Uint8ListConverter() Uint8List? placeId,
       bool blocked,
       String name,
       String description,
@@ -89,19 +89,19 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       groupId: freezed == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       placeId: freezed == placeId
           ? _value.placeId
           : placeId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       blocked: null == blocked
           ? _value.blocked
           : blocked // ignore: cast_nullable_to_non_nullable
@@ -134,10 +134,10 @@ abstract class _$$EventImplCopyWith<$Res> implements $EventCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash? id,
-      @MultihashConverter() Multihash? parentId,
-      @MultihashConverter() Multihash? groupId,
-      @MultihashConverter() Multihash? placeId,
+      {@Uint8ListConverter() Uint8List? id,
+      @Uint8ListConverter() Uint8List? parentId,
+      @Uint8ListConverter() Uint8List? groupId,
+      @Uint8ListConverter() Uint8List? placeId,
       bool blocked,
       String name,
       String description,
@@ -172,19 +172,19 @@ class __$$EventImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       groupId: freezed == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       placeId: freezed == placeId
           ? _value.placeId
           : placeId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       blocked: null == blocked
           ? _value.blocked
           : blocked // ignore: cast_nullable_to_non_nullable
@@ -213,10 +213,10 @@ class __$$EventImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$EventImpl extends _Event {
   const _$EventImpl(
-      {@MultihashConverter() this.id,
-      @MultihashConverter() this.parentId,
-      @MultihashConverter() this.groupId,
-      @MultihashConverter() this.placeId,
+      {@Uint8ListConverter() this.id,
+      @Uint8ListConverter() this.parentId,
+      @Uint8ListConverter() this.groupId,
+      @Uint8ListConverter() this.placeId,
       this.blocked = true,
       this.name = '',
       this.description = '',
@@ -228,17 +228,17 @@ class _$EventImpl extends _Event {
       _$$EventImplFromJson(json);
 
   @override
-  @MultihashConverter()
-  final Multihash? id;
+  @Uint8ListConverter()
+  final Uint8List? id;
   @override
-  @MultihashConverter()
-  final Multihash? parentId;
+  @Uint8ListConverter()
+  final Uint8List? parentId;
   @override
-  @MultihashConverter()
-  final Multihash? groupId;
+  @Uint8ListConverter()
+  final Uint8List? groupId;
   @override
-  @MultihashConverter()
-  final Multihash? placeId;
+  @Uint8ListConverter()
+  final Uint8List? placeId;
   @override
   @JsonKey()
   final bool blocked;
@@ -301,10 +301,10 @@ class _$EventImpl extends _Event {
 
 abstract class _Event extends Event implements DescriptiveModel {
   const factory _Event(
-      {@MultihashConverter() final Multihash? id,
-      @MultihashConverter() final Multihash? parentId,
-      @MultihashConverter() final Multihash? groupId,
-      @MultihashConverter() final Multihash? placeId,
+      {@Uint8ListConverter() final Uint8List? id,
+      @Uint8ListConverter() final Uint8List? parentId,
+      @Uint8ListConverter() final Uint8List? groupId,
+      @Uint8ListConverter() final Uint8List? placeId,
       final bool blocked,
       final String name,
       final String description,
@@ -315,17 +315,17 @@ abstract class _Event extends Event implements DescriptiveModel {
   factory _Event.fromJson(Map<String, dynamic> json) = _$EventImpl.fromJson;
 
   @override
-  @MultihashConverter()
-  Multihash? get id;
+  @Uint8ListConverter()
+  Uint8List? get id;
   @override
-  @MultihashConverter()
-  Multihash? get parentId;
+  @Uint8ListConverter()
+  Uint8List? get parentId;
   @override
-  @MultihashConverter()
-  Multihash? get groupId;
+  @Uint8ListConverter()
+  Uint8List? get groupId;
   @override
-  @MultihashConverter()
-  Multihash? get placeId;
+  @Uint8ListConverter()
+  Uint8List? get placeId;
   @override
   bool get blocked;
   @override

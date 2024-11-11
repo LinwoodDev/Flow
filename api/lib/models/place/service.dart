@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:flow_api/services/source.dart';
 
 import 'model.dart';
@@ -12,11 +12,11 @@ abstract class PlaceService extends ModelService {
     String search = '',
   });
 
-  FutureOr<Place?> getPlace(Multihash id);
+  FutureOr<Place?> getPlace(Uint8List id);
 
   FutureOr<Place?> createPlace(Place place);
 
   FutureOr<bool> updatePlace(Place place);
 
-  FutureOr<bool> deletePlace(Multihash id);
+  FutureOr<bool> deletePlace(Uint8List id);
 }

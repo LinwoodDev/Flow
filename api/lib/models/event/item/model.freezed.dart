@@ -31,17 +31,17 @@ CalendarItem _$CalendarItemFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CalendarItem {
-  @MultihashConverter()
-  Multihash? get id => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
-  @MultihashConverter()
-  Multihash? get groupId => throw _privateConstructorUsedError;
-  @MultihashConverter()
-  Multihash? get placeId => throw _privateConstructorUsedError;
-  @MultihashConverter()
-  Multihash? get eventId => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get groupId => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get placeId => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get eventId => throw _privateConstructorUsedError;
   EventStatus get status => throw _privateConstructorUsedError;
   @DateTimeConverter()
   DateTime? get start => throw _privateConstructorUsedError;
@@ -50,25 +50,25 @@ mixin _$CalendarItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
         fixed,
     required TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -80,17 +80,17 @@ mixin _$CalendarItem {
             List<int> exceptions)
         repeating,
     required TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            @MultihashConverter() Multihash? autoGroupId,
+            @Uint8ListConverter() Uint8List? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)
         auto,
@@ -99,25 +99,25 @@ mixin _$CalendarItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult? Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -129,17 +129,17 @@ mixin _$CalendarItem {
             List<int> exceptions)?
         repeating,
     TResult? Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            @MultihashConverter() Multihash? autoGroupId,
+            @Uint8ListConverter() Uint8List? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)?
         auto,
@@ -148,25 +148,25 @@ mixin _$CalendarItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -178,17 +178,17 @@ mixin _$CalendarItem {
             List<int> exceptions)?
         repeating,
     TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            @MultihashConverter() Multihash? autoGroupId,
+            @Uint8ListConverter() Uint8List? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)?
         auto,
@@ -235,13 +235,13 @@ abstract class $CalendarItemCopyWith<$Res> {
       _$CalendarItemCopyWithImpl<$Res, CalendarItem>;
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash? id,
+      {@Uint8ListConverter() Uint8List? id,
       String name,
       String description,
       String location,
-      @MultihashConverter() Multihash? groupId,
-      @MultihashConverter() Multihash? placeId,
-      @MultihashConverter() Multihash? eventId,
+      @Uint8ListConverter() Uint8List? groupId,
+      @Uint8ListConverter() Uint8List? placeId,
+      @Uint8ListConverter() Uint8List? eventId,
       EventStatus status,
       @DateTimeConverter() DateTime? start,
       @DateTimeConverter() DateTime? end});
@@ -277,7 +277,7 @@ class _$CalendarItemCopyWithImpl<$Res, $Val extends CalendarItem>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -293,15 +293,15 @@ class _$CalendarItemCopyWithImpl<$Res, $Val extends CalendarItem>
       groupId: freezed == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       placeId: freezed == placeId
           ? _value.placeId
           : placeId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -327,13 +327,13 @@ abstract class _$$FixedCalendarItemImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash? id,
+      {@Uint8ListConverter() Uint8List? id,
       String name,
       String description,
       String location,
-      @MultihashConverter() Multihash? groupId,
-      @MultihashConverter() Multihash? placeId,
-      @MultihashConverter() Multihash? eventId,
+      @Uint8ListConverter() Uint8List? groupId,
+      @Uint8ListConverter() Uint8List? placeId,
+      @Uint8ListConverter() Uint8List? eventId,
       EventStatus status,
       @DateTimeConverter() DateTime? start,
       @DateTimeConverter() DateTime? end});
@@ -367,7 +367,7 @@ class __$$FixedCalendarItemImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -383,15 +383,15 @@ class __$$FixedCalendarItemImplCopyWithImpl<$Res>
       groupId: freezed == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       placeId: freezed == placeId
           ? _value.placeId
           : placeId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -412,13 +412,13 @@ class __$$FixedCalendarItemImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$FixedCalendarItemImpl extends FixedCalendarItem {
   const _$FixedCalendarItemImpl(
-      {@MultihashConverter() this.id,
+      {@Uint8ListConverter() this.id,
       this.name = '',
       this.description = '',
       this.location = '',
-      @MultihashConverter() this.groupId,
-      @MultihashConverter() this.placeId,
-      @MultihashConverter() this.eventId,
+      @Uint8ListConverter() this.groupId,
+      @Uint8ListConverter() this.placeId,
+      @Uint8ListConverter() this.eventId,
       this.status = EventStatus.confirmed,
       @DateTimeConverter() this.start,
       @DateTimeConverter() this.end,
@@ -430,8 +430,8 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
       _$$FixedCalendarItemImplFromJson(json);
 
   @override
-  @MultihashConverter()
-  final Multihash? id;
+  @Uint8ListConverter()
+  final Uint8List? id;
   @override
   @JsonKey()
   final String name;
@@ -442,14 +442,14 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
   @JsonKey()
   final String location;
   @override
-  @MultihashConverter()
-  final Multihash? groupId;
+  @Uint8ListConverter()
+  final Uint8List? groupId;
   @override
-  @MultihashConverter()
-  final Multihash? placeId;
+  @Uint8ListConverter()
+  final Uint8List? placeId;
   @override
-  @MultihashConverter()
-  final Multihash? eventId;
+  @Uint8ListConverter()
+  final Uint8List? eventId;
   @override
   @JsonKey()
   final EventStatus status;
@@ -505,25 +505,25 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
         fixed,
     required TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -535,17 +535,17 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
             List<int> exceptions)
         repeating,
     required TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            @MultihashConverter() Multihash? autoGroupId,
+            @Uint8ListConverter() Uint8List? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)
         auto,
@@ -558,25 +558,25 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult? Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -588,17 +588,17 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
             List<int> exceptions)?
         repeating,
     TResult? Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            @MultihashConverter() Multihash? autoGroupId,
+            @Uint8ListConverter() Uint8List? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)?
         auto,
@@ -611,25 +611,25 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -641,17 +641,17 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
             List<int> exceptions)?
         repeating,
     TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            @MultihashConverter() Multihash? autoGroupId,
+            @Uint8ListConverter() Uint8List? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)?
         auto,
@@ -708,13 +708,13 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
 
 abstract class FixedCalendarItem extends CalendarItem {
   const factory FixedCalendarItem(
-      {@MultihashConverter() final Multihash? id,
+      {@Uint8ListConverter() final Uint8List? id,
       final String name,
       final String description,
       final String location,
-      @MultihashConverter() final Multihash? groupId,
-      @MultihashConverter() final Multihash? placeId,
-      @MultihashConverter() final Multihash? eventId,
+      @Uint8ListConverter() final Uint8List? groupId,
+      @Uint8ListConverter() final Uint8List? placeId,
+      @Uint8ListConverter() final Uint8List? eventId,
       final EventStatus status,
       @DateTimeConverter() final DateTime? start,
       @DateTimeConverter() final DateTime? end}) = _$FixedCalendarItemImpl;
@@ -724,8 +724,8 @@ abstract class FixedCalendarItem extends CalendarItem {
       _$FixedCalendarItemImpl.fromJson;
 
   @override
-  @MultihashConverter()
-  Multihash? get id;
+  @Uint8ListConverter()
+  Uint8List? get id;
   @override
   String get name;
   @override
@@ -733,14 +733,14 @@ abstract class FixedCalendarItem extends CalendarItem {
   @override
   String get location;
   @override
-  @MultihashConverter()
-  Multihash? get groupId;
+  @Uint8ListConverter()
+  Uint8List? get groupId;
   @override
-  @MultihashConverter()
-  Multihash? get placeId;
+  @Uint8ListConverter()
+  Uint8List? get placeId;
   @override
-  @MultihashConverter()
-  Multihash? get eventId;
+  @Uint8ListConverter()
+  Uint8List? get eventId;
   @override
   EventStatus get status;
   @override
@@ -768,13 +768,13 @@ abstract class _$$RepeatingCalendarItemImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash? id,
+      {@Uint8ListConverter() Uint8List? id,
       String name,
       String description,
       String location,
-      @MultihashConverter() Multihash? groupId,
-      @MultihashConverter() Multihash? placeId,
-      @MultihashConverter() Multihash? eventId,
+      @Uint8ListConverter() Uint8List? groupId,
+      @Uint8ListConverter() Uint8List? placeId,
+      @Uint8ListConverter() Uint8List? eventId,
       EventStatus status,
       @DateTimeConverter() DateTime? start,
       @DateTimeConverter() DateTime? end,
@@ -820,7 +820,7 @@ class __$$RepeatingCalendarItemImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -836,15 +836,15 @@ class __$$RepeatingCalendarItemImplCopyWithImpl<$Res>
       groupId: freezed == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       placeId: freezed == placeId
           ? _value.placeId
           : placeId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -889,13 +889,13 @@ class __$$RepeatingCalendarItemImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
   const _$RepeatingCalendarItemImpl(
-      {@MultihashConverter() this.id,
+      {@Uint8ListConverter() this.id,
       this.name = '',
       this.description = '',
       this.location = '',
-      @MultihashConverter() this.groupId,
-      @MultihashConverter() this.placeId,
-      @MultihashConverter() this.eventId,
+      @Uint8ListConverter() this.groupId,
+      @Uint8ListConverter() this.placeId,
+      @Uint8ListConverter() this.eventId,
       this.status = EventStatus.confirmed,
       @DateTimeConverter() this.start,
       @DateTimeConverter() this.end,
@@ -914,8 +914,8 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
       _$$RepeatingCalendarItemImplFromJson(json);
 
   @override
-  @MultihashConverter()
-  final Multihash? id;
+  @Uint8ListConverter()
+  final Uint8List? id;
   @override
   @JsonKey()
   final String name;
@@ -926,14 +926,14 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
   @JsonKey()
   final String location;
   @override
-  @MultihashConverter()
-  final Multihash? groupId;
+  @Uint8ListConverter()
+  final Uint8List? groupId;
   @override
-  @MultihashConverter()
-  final Multihash? placeId;
+  @Uint8ListConverter()
+  final Uint8List? placeId;
   @override
-  @MultihashConverter()
-  final Multihash? eventId;
+  @Uint8ListConverter()
+  final Uint8List? eventId;
   @override
   @JsonKey()
   final EventStatus status;
@@ -1038,25 +1038,25 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
         fixed,
     required TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1068,17 +1068,17 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
             List<int> exceptions)
         repeating,
     required TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            @MultihashConverter() Multihash? autoGroupId,
+            @Uint8ListConverter() Uint8List? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)
         auto,
@@ -1106,25 +1106,25 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult? Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1136,17 +1136,17 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
             List<int> exceptions)?
         repeating,
     TResult? Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            @MultihashConverter() Multihash? autoGroupId,
+            @Uint8ListConverter() Uint8List? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)?
         auto,
@@ -1174,25 +1174,25 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1204,17 +1204,17 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
             List<int> exceptions)?
         repeating,
     TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            @MultihashConverter() Multihash? autoGroupId,
+            @Uint8ListConverter() Uint8List? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)?
         auto,
@@ -1286,13 +1286,13 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
 
 abstract class RepeatingCalendarItem extends CalendarItem {
   const factory RepeatingCalendarItem(
-      {@MultihashConverter() final Multihash? id,
+      {@Uint8ListConverter() final Uint8List? id,
       final String name,
       final String description,
       final String location,
-      @MultihashConverter() final Multihash? groupId,
-      @MultihashConverter() final Multihash? placeId,
-      @MultihashConverter() final Multihash? eventId,
+      @Uint8ListConverter() final Uint8List? groupId,
+      @Uint8ListConverter() final Uint8List? placeId,
+      @Uint8ListConverter() final Uint8List? eventId,
       final EventStatus status,
       @DateTimeConverter() final DateTime? start,
       @DateTimeConverter() final DateTime? end,
@@ -1308,8 +1308,8 @@ abstract class RepeatingCalendarItem extends CalendarItem {
       _$RepeatingCalendarItemImpl.fromJson;
 
   @override
-  @MultihashConverter()
-  Multihash? get id;
+  @Uint8ListConverter()
+  Uint8List? get id;
   @override
   String get name;
   @override
@@ -1317,14 +1317,14 @@ abstract class RepeatingCalendarItem extends CalendarItem {
   @override
   String get location;
   @override
-  @MultihashConverter()
-  Multihash? get groupId;
+  @Uint8ListConverter()
+  Uint8List? get groupId;
   @override
-  @MultihashConverter()
-  Multihash? get placeId;
+  @Uint8ListConverter()
+  Uint8List? get placeId;
   @override
-  @MultihashConverter()
-  Multihash? get eventId;
+  @Uint8ListConverter()
+  Uint8List? get eventId;
   @override
   EventStatus get status;
   @override
@@ -1358,17 +1358,17 @@ abstract class _$$AutoCalendarItemImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash? id,
+      {@Uint8ListConverter() Uint8List? id,
       String name,
       String description,
       String location,
-      @MultihashConverter() Multihash? groupId,
-      @MultihashConverter() Multihash? placeId,
-      @MultihashConverter() Multihash? eventId,
+      @Uint8ListConverter() Uint8List? groupId,
+      @Uint8ListConverter() Uint8List? placeId,
+      @Uint8ListConverter() Uint8List? eventId,
       EventStatus status,
       @DateTimeConverter() DateTime? start,
       @DateTimeConverter() DateTime? end,
-      @MultihashConverter() Multihash? autoGroupId,
+      @Uint8ListConverter() Uint8List? autoGroupId,
       @DateTimeConverter() DateTime? searchStart,
       int autoDuration});
 }
@@ -1404,7 +1404,7 @@ class __$$AutoCalendarItemImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1420,15 +1420,15 @@ class __$$AutoCalendarItemImplCopyWithImpl<$Res>
       groupId: freezed == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       placeId: freezed == placeId
           ? _value.placeId
           : placeId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -1444,7 +1444,7 @@ class __$$AutoCalendarItemImplCopyWithImpl<$Res>
       autoGroupId: freezed == autoGroupId
           ? _value.autoGroupId
           : autoGroupId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       searchStart: freezed == searchStart
           ? _value.searchStart
           : searchStart // ignore: cast_nullable_to_non_nullable
@@ -1461,17 +1461,17 @@ class __$$AutoCalendarItemImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AutoCalendarItemImpl extends AutoCalendarItem {
   const _$AutoCalendarItemImpl(
-      {@MultihashConverter() this.id,
+      {@Uint8ListConverter() this.id,
       this.name = '',
       this.description = '',
       this.location = '',
-      @MultihashConverter() this.groupId,
-      @MultihashConverter() this.placeId,
-      @MultihashConverter() this.eventId,
+      @Uint8ListConverter() this.groupId,
+      @Uint8ListConverter() this.placeId,
+      @Uint8ListConverter() this.eventId,
       this.status = EventStatus.confirmed,
       @DateTimeConverter() this.start,
       @DateTimeConverter() this.end,
-      @MultihashConverter() this.autoGroupId,
+      @Uint8ListConverter() this.autoGroupId,
       @DateTimeConverter() this.searchStart,
       this.autoDuration = 60,
       final String? $type})
@@ -1482,8 +1482,8 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
       _$$AutoCalendarItemImplFromJson(json);
 
   @override
-  @MultihashConverter()
-  final Multihash? id;
+  @Uint8ListConverter()
+  final Uint8List? id;
   @override
   @JsonKey()
   final String name;
@@ -1494,14 +1494,14 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
   @JsonKey()
   final String location;
   @override
-  @MultihashConverter()
-  final Multihash? groupId;
+  @Uint8ListConverter()
+  final Uint8List? groupId;
   @override
-  @MultihashConverter()
-  final Multihash? placeId;
+  @Uint8ListConverter()
+  final Uint8List? placeId;
   @override
-  @MultihashConverter()
-  final Multihash? eventId;
+  @Uint8ListConverter()
+  final Uint8List? eventId;
   @override
   @JsonKey()
   final EventStatus status;
@@ -1512,8 +1512,8 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
   @DateTimeConverter()
   final DateTime? end;
   @override
-  @MultihashConverter()
-  final Multihash? autoGroupId;
+  @Uint8ListConverter()
+  final Uint8List? autoGroupId;
   @override
   @DateTimeConverter()
   final DateTime? searchStart;
@@ -1585,25 +1585,25 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)
         fixed,
     required TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1615,17 +1615,17 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
             List<int> exceptions)
         repeating,
     required TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            @MultihashConverter() Multihash? autoGroupId,
+            @Uint8ListConverter() Uint8List? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)
         auto,
@@ -1638,25 +1638,25 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult? Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1668,17 +1668,17 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
             List<int> exceptions)?
         repeating,
     TResult? Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            @MultihashConverter() Multihash? autoGroupId,
+            @Uint8ListConverter() Uint8List? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)?
         auto,
@@ -1691,25 +1691,25 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end)?
         fixed,
     TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
@@ -1721,17 +1721,17 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
             List<int> exceptions)?
         repeating,
     TResult Function(
-            @MultihashConverter() Multihash? id,
+            @Uint8ListConverter() Uint8List? id,
             String name,
             String description,
             String location,
-            @MultihashConverter() Multihash? groupId,
-            @MultihashConverter() Multihash? placeId,
-            @MultihashConverter() Multihash? eventId,
+            @Uint8ListConverter() Uint8List? groupId,
+            @Uint8ListConverter() Uint8List? placeId,
+            @Uint8ListConverter() Uint8List? eventId,
             EventStatus status,
             @DateTimeConverter() DateTime? start,
             @DateTimeConverter() DateTime? end,
-            @MultihashConverter() Multihash? autoGroupId,
+            @Uint8ListConverter() Uint8List? autoGroupId,
             @DateTimeConverter() DateTime? searchStart,
             int autoDuration)?
         auto,
@@ -1788,17 +1788,17 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
 
 abstract class AutoCalendarItem extends CalendarItem {
   const factory AutoCalendarItem(
-      {@MultihashConverter() final Multihash? id,
+      {@Uint8ListConverter() final Uint8List? id,
       final String name,
       final String description,
       final String location,
-      @MultihashConverter() final Multihash? groupId,
-      @MultihashConverter() final Multihash? placeId,
-      @MultihashConverter() final Multihash? eventId,
+      @Uint8ListConverter() final Uint8List? groupId,
+      @Uint8ListConverter() final Uint8List? placeId,
+      @Uint8ListConverter() final Uint8List? eventId,
       final EventStatus status,
       @DateTimeConverter() final DateTime? start,
       @DateTimeConverter() final DateTime? end,
-      @MultihashConverter() final Multihash? autoGroupId,
+      @Uint8ListConverter() final Uint8List? autoGroupId,
       @DateTimeConverter() final DateTime? searchStart,
       final int autoDuration}) = _$AutoCalendarItemImpl;
   const AutoCalendarItem._() : super._();
@@ -1807,8 +1807,8 @@ abstract class AutoCalendarItem extends CalendarItem {
       _$AutoCalendarItemImpl.fromJson;
 
   @override
-  @MultihashConverter()
-  Multihash? get id;
+  @Uint8ListConverter()
+  Uint8List? get id;
   @override
   String get name;
   @override
@@ -1816,14 +1816,14 @@ abstract class AutoCalendarItem extends CalendarItem {
   @override
   String get location;
   @override
-  @MultihashConverter()
-  Multihash? get groupId;
+  @Uint8ListConverter()
+  Uint8List? get groupId;
   @override
-  @MultihashConverter()
-  Multihash? get placeId;
+  @Uint8ListConverter()
+  Uint8List? get placeId;
   @override
-  @MultihashConverter()
-  Multihash? get eventId;
+  @Uint8ListConverter()
+  Uint8List? get eventId;
   @override
   EventStatus get status;
   @override
@@ -1832,8 +1832,8 @@ abstract class AutoCalendarItem extends CalendarItem {
   @override
   @DateTimeConverter()
   DateTime? get end;
-  @MultihashConverter()
-  Multihash? get autoGroupId;
+  @Uint8ListConverter()
+  Uint8List? get autoGroupId;
   @DateTimeConverter()
   DateTime? get searchStart;
   int get autoDuration;

@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 
 import '../../helpers/converter.dart';
 import '../model.dart';
@@ -13,7 +13,7 @@ class Notebook with _$Notebook, IdentifiedModel, NamedModel, DescriptiveModel {
 
   @Implements<DescriptiveModel>()
   const factory Notebook({
-    @MultihashConverter() Multihash? id,
+    @Uint8ListConverter() Uint8List? id,
     @Default('') String name,
     @Default('') String description,
   }) = _Notebook;
@@ -36,9 +36,9 @@ class Note with _$Note, IdentifiedModel, NamedModel, DescriptiveModel {
 
   @Implements<DescriptiveModel>()
   const factory Note({
-    @MultihashConverter() Multihash? notebookId,
-    @MultihashConverter() Multihash? id,
-    @MultihashConverter() Multihash? parentId,
+    @Uint8ListConverter() Uint8List? notebookId,
+    @Uint8ListConverter() Uint8List? id,
+    @Uint8ListConverter() Uint8List? parentId,
     @Default('') String name,
     @Default('') String description,
     NoteStatus? status,

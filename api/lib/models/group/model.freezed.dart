@@ -20,12 +20,12 @@ Group _$GroupFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Group {
-  @MultihashConverter()
-  Multihash? get id => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  @MultihashConverter()
-  Multihash? get parentId => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get parentId => throw _privateConstructorUsedError;
 
   /// Serializes this Group to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,10 +42,10 @@ abstract class $GroupCopyWith<$Res> {
       _$GroupCopyWithImpl<$Res, Group>;
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash? id,
+      {@Uint8ListConverter() Uint8List? id,
       String name,
       String description,
-      @MultihashConverter() Multihash? parentId});
+      @Uint8ListConverter() Uint8List? parentId});
 }
 
 /// @nodoc
@@ -72,7 +72,7 @@ class _$GroupCopyWithImpl<$Res, $Val extends Group>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -84,7 +84,7 @@ class _$GroupCopyWithImpl<$Res, $Val extends Group>
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
     ) as $Val);
   }
 }
@@ -97,10 +97,10 @@ abstract class _$$GroupImplCopyWith<$Res> implements $GroupCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash? id,
+      {@Uint8ListConverter() Uint8List? id,
       String name,
       String description,
-      @MultihashConverter() Multihash? parentId});
+      @Uint8ListConverter() Uint8List? parentId});
 }
 
 /// @nodoc
@@ -125,7 +125,7 @@ class __$$GroupImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -137,7 +137,7 @@ class __$$GroupImplCopyWithImpl<$Res>
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
     ));
   }
 }
@@ -146,18 +146,18 @@ class __$$GroupImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$GroupImpl extends _Group {
   const _$GroupImpl(
-      {@MultihashConverter() this.id,
+      {@Uint8ListConverter() this.id,
       this.name = '',
       this.description = '',
-      @MultihashConverter() this.parentId})
+      @Uint8ListConverter() this.parentId})
       : super._();
 
   factory _$GroupImpl.fromJson(Map<String, dynamic> json) =>
       _$$GroupImplFromJson(json);
 
   @override
-  @MultihashConverter()
-  final Multihash? id;
+  @Uint8ListConverter()
+  final Uint8List? id;
   @override
   @JsonKey()
   final String name;
@@ -165,8 +165,8 @@ class _$GroupImpl extends _Group {
   @JsonKey()
   final String description;
   @override
-  @MultihashConverter()
-  final Multihash? parentId;
+  @Uint8ListConverter()
+  final Uint8List? parentId;
 
   @override
   String toString() {
@@ -208,24 +208,24 @@ class _$GroupImpl extends _Group {
 
 abstract class _Group extends Group implements DescriptiveModel {
   const factory _Group(
-      {@MultihashConverter() final Multihash? id,
+      {@Uint8ListConverter() final Uint8List? id,
       final String name,
       final String description,
-      @MultihashConverter() final Multihash? parentId}) = _$GroupImpl;
+      @Uint8ListConverter() final Uint8List? parentId}) = _$GroupImpl;
   const _Group._() : super._();
 
   factory _Group.fromJson(Map<String, dynamic> json) = _$GroupImpl.fromJson;
 
   @override
-  @MultihashConverter()
-  Multihash? get id;
+  @Uint8ListConverter()
+  Uint8List? get id;
   @override
   String get name;
   @override
   String get description;
   @override
-  @MultihashConverter()
-  Multihash? get parentId;
+  @Uint8ListConverter()
+  Uint8List? get parentId;
 
   /// Create a copy of Group
   /// with the given fields replaced by the non-null parameter values.

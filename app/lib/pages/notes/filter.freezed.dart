@@ -20,8 +20,8 @@ mixin _$NoteFilter {
   bool get showInProgress => throw _privateConstructorUsedError;
   bool get showTodo => throw _privateConstructorUsedError;
   bool get showNote => throw _privateConstructorUsedError;
-  Multihash? get selectedLabel => throw _privateConstructorUsedError;
-  Multihash? get notebook => throw _privateConstructorUsedError;
+  Uint8List? get selectedLabel => throw _privateConstructorUsedError;
+  Uint8List? get notebook => throw _privateConstructorUsedError;
   String? get source => throw _privateConstructorUsedError;
 
   /// Create a copy of NoteFilter
@@ -42,8 +42,8 @@ abstract class $NoteFilterCopyWith<$Res> {
       bool showInProgress,
       bool showTodo,
       bool showNote,
-      Multihash? selectedLabel,
-      Multihash? notebook,
+      Uint8List? selectedLabel,
+      Uint8List? notebook,
       String? source});
 }
 
@@ -90,11 +90,11 @@ class _$NoteFilterCopyWithImpl<$Res, $Val extends NoteFilter>
       selectedLabel: freezed == selectedLabel
           ? _value.selectedLabel
           : selectedLabel // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       notebook: freezed == notebook
           ? _value.notebook
           : notebook // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       source: freezed == source
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
@@ -116,8 +116,8 @@ abstract class _$$NoteFilterImplCopyWith<$Res>
       bool showInProgress,
       bool showTodo,
       bool showNote,
-      Multihash? selectedLabel,
-      Multihash? notebook,
+      Uint8List? selectedLabel,
+      Uint8List? notebook,
       String? source});
 }
 
@@ -162,11 +162,11 @@ class __$$NoteFilterImplCopyWithImpl<$Res>
       selectedLabel: freezed == selectedLabel
           ? _value.selectedLabel
           : selectedLabel // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       notebook: freezed == notebook
           ? _value.notebook
           : notebook // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       source: freezed == source
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
@@ -201,9 +201,9 @@ class _$NoteFilterImpl extends _NoteFilter {
   @JsonKey()
   final bool showNote;
   @override
-  final Multihash? selectedLabel;
+  final Uint8List? selectedLabel;
   @override
-  final Multihash? notebook;
+  final Uint8List? notebook;
   @override
   final String? source;
 
@@ -251,8 +251,8 @@ abstract class _NoteFilter extends NoteFilter {
       final bool showInProgress,
       final bool showTodo,
       final bool showNote,
-      final Multihash? selectedLabel,
-      final Multihash? notebook,
+      final Uint8List? selectedLabel,
+      final Uint8List? notebook,
       final String? source}) = _$NoteFilterImpl;
   const _NoteFilter._() : super._();
 
@@ -265,9 +265,9 @@ abstract class _NoteFilter extends NoteFilter {
   @override
   bool get showNote;
   @override
-  Multihash? get selectedLabel;
+  Uint8List? get selectedLabel;
   @override
-  Multihash? get notebook;
+  Uint8List? get notebook;
   @override
   String? get source;
 

@@ -3,7 +3,7 @@ import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/event/item/model.dart';
@@ -245,7 +245,7 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
 class CreateEventScaffold extends StatelessWidget {
   final VoidCallback onCreated;
   final Widget child;
-  final SourcedModel<Multihash>? event;
+  final SourcedModel<Uint8List>? event;
   const CreateEventScaffold({
     super.key,
     required this.onCreated,
@@ -269,7 +269,7 @@ class CreateEventScaffold extends StatelessWidget {
 
 Future<void> showCalendarCreate(
     {required BuildContext context,
-    SourcedModel<Multihash>? event,
+    SourcedModel<Uint8List>? event,
     DateTime? time}) async {
   final cubit = context.read<FlowCubit>();
   SourcedModel<Event>? eventResult;

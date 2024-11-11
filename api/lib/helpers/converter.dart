@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:dart_leap/dart_leap.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lib5/lib5.dart';
 
 class DateTimeConverter extends JsonConverter<DateTime?, int?> {
   const DateTimeConverter();
@@ -30,19 +29,5 @@ class Uint8ListConverter extends JsonConverter<Uint8List, List<int>> {
   @override
   List<int> toJson(Uint8List object) {
     return object.toList();
-  }
-}
-
-class MultihashConverter extends JsonConverter<Multihash, List<int>> {
-  const MultihashConverter();
-
-  @override
-  Multihash fromJson(List<int> json) {
-    return Multihash(Uint8List.fromList(json));
-  }
-
-  @override
-  List<int> toJson(Multihash object) {
-    return object.fullBytes;
   }
 }

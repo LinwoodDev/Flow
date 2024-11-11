@@ -1,5 +1,6 @@
+import 'dart:typed_data';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lib5/lib5.dart';
 
 import '../../../helpers/converter.dart';
 import '../../model.dart';
@@ -16,26 +17,26 @@ class CalendarItem
   const CalendarItem._();
 
   const factory CalendarItem.fixed({
-    @MultihashConverter() Multihash? id,
+    @Uint8ListConverter() Uint8List? id,
     @Default('') String name,
     @Default('') String description,
     @Default('') String location,
-    @MultihashConverter() Multihash? groupId,
-    @MultihashConverter() Multihash? placeId,
-    @MultihashConverter() Multihash? eventId,
+    @Uint8ListConverter() Uint8List? groupId,
+    @Uint8ListConverter() Uint8List? placeId,
+    @Uint8ListConverter() Uint8List? eventId,
     @Default(EventStatus.confirmed) EventStatus status,
     @DateTimeConverter() DateTime? start,
     @DateTimeConverter() DateTime? end,
   }) = FixedCalendarItem;
 
   const factory CalendarItem.repeating({
-    @MultihashConverter() Multihash? id,
+    @Uint8ListConverter() Uint8List? id,
     @Default('') String name,
     @Default('') String description,
     @Default('') String location,
-    @MultihashConverter() Multihash? groupId,
-    @MultihashConverter() Multihash? placeId,
-    @MultihashConverter() Multihash? eventId,
+    @Uint8ListConverter() Uint8List? groupId,
+    @Uint8ListConverter() Uint8List? placeId,
+    @Uint8ListConverter() Uint8List? eventId,
     @Default(EventStatus.confirmed) EventStatus status,
     @DateTimeConverter() DateTime? start,
     @DateTimeConverter() DateTime? end,
@@ -48,17 +49,17 @@ class CalendarItem
   }) = RepeatingCalendarItem;
 
   const factory CalendarItem.auto({
-    @MultihashConverter() Multihash? id,
+    @Uint8ListConverter() Uint8List? id,
     @Default('') String name,
     @Default('') String description,
     @Default('') String location,
-    @MultihashConverter() Multihash? groupId,
-    @MultihashConverter() Multihash? placeId,
-    @MultihashConverter() Multihash? eventId,
+    @Uint8ListConverter() Uint8List? groupId,
+    @Uint8ListConverter() Uint8List? placeId,
+    @Uint8ListConverter() Uint8List? eventId,
     @Default(EventStatus.confirmed) EventStatus status,
     @DateTimeConverter() DateTime? start,
     @DateTimeConverter() DateTime? end,
-    @MultihashConverter() Multihash? autoGroupId,
+    @Uint8ListConverter() Uint8List? autoGroupId,
     @DateTimeConverter() DateTime? searchStart,
     @Default(60) int autoDuration,
   }) = AutoCalendarItem;

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:flow_api/services/database.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
@@ -26,7 +26,7 @@ class PlaceDatabaseService extends PlaceService with TableService {
 
   @override
   Future<Place?> createPlace(Place place) async {
-    final id = place.id ?? createUniqueMultihash();
+    final id = place.id ?? createUniqueUint8List();
     place = place.copyWith(id: id);
     final row = await db?.insert('places', place.toDatabase());
     if (row == null) return null;
@@ -34,11 +34,11 @@ class PlaceDatabaseService extends PlaceService with TableService {
   }
 
   @override
-  Future<bool> deletePlace(Multihash id) async {
+  Future<bool> deletePlace(Uint8List id) async {
     return await db?.delete(
           'places',
           where: 'id = ?',
-          whereArgs: [id.fullBytes],
+          whereArgs: [id],
         ) ==
         1;
   }
@@ -60,11 +60,11 @@ class PlaceDatabaseService extends PlaceService with TableService {
   }
 
   @override
-  FutureOr<Place?> getPlace(Multihash id) async {
+  FutureOr<Place?> getPlace(Uint8List id) async {
     final result = await db?.query(
       'places',
       where: 'id = ?',
-      whereArgs: [id.fullBytes],
+      whereArgs: [id],
     );
     return result?.map(Place.fromDatabase).firstOrNull;
   }
@@ -75,7 +75,7 @@ class PlaceDatabaseService extends PlaceService with TableService {
           'places',
           place.toDatabase()..remove('id'),
           where: 'id = ?',
-          whereArgs: [place.id?.fullBytes],
+          whereArgs: [place.id],
         ) ==
         1;
   }

@@ -2,8 +2,6 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:lib5/lib5.dart';
-import 'package:lib5/util.dart';
 import 'package:flow_api/models/event/item/database.dart';
 import 'package:flow_api/models/label/database.dart';
 import 'package:flow_api/models/note/event.dart';
@@ -106,15 +104,24 @@ mixin TableService {
 
   FutureOr<void> clear() {}
 }
+Uint8List encodeEndian(int value, int length) {
+  final res = Uint8List(length);
 
-Multihash createUniqueMultihash() {
+  for (int i = 0; i < length; i++) {
+    res[i] = value & 0xff;
+    value = value >> 8;
+  }
+  return res;
+}
+
+Uint8List createUniqueUint8List() {
   final random = Random.secure();
   final uuid = Uint8List.fromList(
       encodeEndian(DateTime.now().millisecondsSinceEpoch, 8) +
           List.generate(8, (i) => random.nextInt(255)));
-  return Multihash(uuid);
+  return uuid;
 }
 
-Multihash createEmptyMultihash() {
-  return Multihash(Uint8List.fromList([]));
+Uint8List createEmptyUint8List() {
+  return Uint8List(0);
 }

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:flow_api/models/note/service.dart';
 import 'package:flow_api/services/database.dart';
 import 'package:sqflite_common/sqlite_api.dart';
@@ -30,30 +30,30 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
   }
 
   @override
-  Future<void> connect(Multihash connectId, Multihash noteId) async {
+  Future<void> connect(Uint8List connectId, Uint8List noteId) async {
     if (await isNoteConnected(connectId, noteId)) return;
     await db?.insert(tableName, {
-      'noteId': noteId.fullBytes,
-      connectedIdName: connectId.fullBytes,
+      'noteId': noteId,
+      connectedIdName: connectId,
     });
   }
 
   @override
-  Future<void> disconnect(Multihash connectId, Multihash noteId) async {
+  Future<void> disconnect(Uint8List connectId, Uint8List noteId) async {
     await db?.delete(
       tableName,
       where: 'noteId = ? AND $connectedIdName = ?',
-      whereArgs: [noteId.fullBytes, connectId.fullBytes],
+      whereArgs: [noteId, connectId],
     );
   }
 
   @override
-  Future<List<Note>> getNotes(Multihash connectId,
+  Future<List<Note>> getNotes(Uint8List connectId,
       {int offset = 0, int limit = 50}) async {
     final result = await db?.query(
       '$tableName JOIN notes ON notes.id = noteId',
       where: '$connectedIdName = ?',
-      whereArgs: [connectId.fullBytes],
+      whereArgs: [connectId],
       columns: [
         'notes.id AS noteid',
         'notes.name AS notename',
@@ -76,12 +76,12 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
   }
 
   @override
-  Future<List<T>> getConnected(Multihash noteId,
+  Future<List<T>> getConnected(Uint8List noteId,
       {int offset = 0, int limit = 50}) async {
     final result = await db?.query(
       '$tableName JOIN $connectedTableName ON $connectedTableName.id = $connectedIdName',
       where: 'noteId = ?',
-      whereArgs: [noteId.fullBytes],
+      whereArgs: [noteId],
       offset: offset,
       limit: limit,
     );
@@ -89,24 +89,24 @@ abstract class NoteDatabaseConnector<T> extends NoteConnector<T>
   }
 
   @override
-  Future<bool> isNoteConnected(Multihash connectId, Multihash noteId) async {
+  Future<bool> isNoteConnected(Uint8List connectId, Uint8List noteId) async {
     final result = await db?.query(
       tableName,
       where: 'noteId = ? AND $connectedIdName = ?',
-      whereArgs: [noteId.fullBytes, connectId.fullBytes],
+      whereArgs: [noteId, connectId],
     );
     return result?.isNotEmpty == true;
   }
 
   @override
-  Future<bool?> notesDone(Multihash connectId) async {
+  Future<bool?> notesDone(Uint8List connectId) async {
     final result = await db?.rawQuery(
         'SELECT COUNT(*) AS count FROM notes WHERE $connectedIdName = ? AND status = ?',
-        [connectId.fullBytes, NoteStatus.done.name]);
+        [connectId, NoteStatus.done.name]);
     final resultCount = result?.first['count'] as int? ?? 0;
     final all = await db?.rawQuery(
         'SELECT COUNT(*) AS count FROM notes WHERE $connectedIdName = ?',
-        [connectId.fullBytes]);
+        [connectId]);
     final allCount = all?.first['count'] as int? ?? 0;
     if (resultCount == allCount && allCount > 0) {
       return true;
@@ -155,7 +155,7 @@ class NoteDatabaseService extends NoteService with TableService {
 
   @override
   Future<Note?> createNote(Note note) async {
-    final id = note.id ?? createUniqueMultihash();
+    final id = note.id ?? createUniqueUint8List();
     note = note.copyWith(id: id);
     final row = await db?.insert('notes', note.toDatabase());
     if (row == null) return null;
@@ -163,11 +163,11 @@ class NoteDatabaseService extends NoteService with TableService {
   }
 
   @override
-  Future<bool> deleteNote(Multihash id) async {
+  Future<bool> deleteNote(Uint8List id) async {
     return await db?.delete(
           'notes',
           where: 'id = ?',
-          whereArgs: [id.fullBytes],
+          whereArgs: [id],
         ) ==
         1;
   }
@@ -176,9 +176,9 @@ class NoteDatabaseService extends NoteService with TableService {
   Future<List<Note>> getNotes({
     int offset = 0,
     int limit = 50,
-    Multihash? parent,
-    Multihash? notebook,
-    Set<Multihash> labels = const {},
+    Uint8List? parent,
+    Uint8List? notebook,
+    Set<Uint8List> labels = const {},
     Set<NoteStatus?> statuses = const {
       NoteStatus.todo,
       NoteStatus.inProgress,
@@ -194,11 +194,9 @@ class NoteDatabaseService extends NoteService with TableService {
       whereArgs = ['%$search%', '%$search%'];
     }
     if (parent != null) {
-      if (parent.fullBytes.isNotEmpty) {
+      if (parent.isNotEmpty) {
         where = where == null ? 'parentId = ?' : '$where AND parentId = ?';
-        whereArgs = whereArgs == null
-            ? [parent.fullBytes]
-            : [...whereArgs, parent.fullBytes];
+        whereArgs = whereArgs == null ? [parent] : [...whereArgs, parent];
       } else {
         where =
             where == null ? 'parentId IS NULL' : '$where AND parentId IS NULL';
@@ -206,7 +204,7 @@ class NoteDatabaseService extends NoteService with TableService {
     }
     if (notebook != null) {
       where = where == null ? 'notebookId = ?' : '$where AND notebookId = ?';
-      whereArgs = [...?whereArgs, notebook.fullBytes];
+      whereArgs = [...?whereArgs, notebook];
     }
     var statusStatement =
         "status IN (${statuses.nonNulls.map((e) => "'${e.name}'").join(',')})";
@@ -232,7 +230,7 @@ class NoteDatabaseService extends NoteService with TableService {
           'notes',
           note.toDatabase()..remove('id'),
           where: 'id = ?',
-          whereArgs: [note.id?.fullBytes],
+          whereArgs: [note.id],
         ) ==
         1;
   }
@@ -243,26 +241,26 @@ class NoteDatabaseService extends NoteService with TableService {
   }
 
   @override
-  Future<Note?> getNote(Multihash id, {bool fallback = false}) async {
+  Future<Note?> getNote(Uint8List id, {bool fallback = false}) async {
     final result = fallback
         ? await db?.rawQuery(
             """SELECT * FROM notes
 WHERE slug = ? OR slug = (SELECT MIN(slug) FROM notes)
 ORDER BY slug DESC
 LIMIT 1;""",
-            [id.fullBytes],
+            [id],
           )
         : await db?.query(
             'notes',
             where: 'id = ?',
-            whereArgs: [id.fullBytes],
+            whereArgs: [id],
           );
     return result?.map(Note.fromDatabase).firstOrNull;
   }
 
   @override
   Future<Notebook?> createNotebook(Notebook notebook) async {
-    final id = notebook.id ?? createUniqueMultihash();
+    final id = notebook.id ?? createUniqueUint8List();
     notebook = notebook.copyWith(id: id);
     final row = await db?.insert('notebooks', notebook.toDatabase());
     if (row == null) return null;
@@ -270,21 +268,21 @@ LIMIT 1;""",
   }
 
   @override
-  Future<bool> deleteNotebook(Multihash id) async {
+  Future<bool> deleteNotebook(Uint8List id) async {
     return await db?.delete(
           'notebooks',
           where: 'id = ?',
-          whereArgs: [id.fullBytes],
+          whereArgs: [id],
         ) ==
         1;
   }
 
   @override
-  Future<Notebook?> getNotebook(Multihash id) async {
+  Future<Notebook?> getNotebook(Uint8List id) async {
     final result = await db?.query(
       'notebooks',
       where: 'id = ?',
-      whereArgs: [id.fullBytes],
+      whereArgs: [id],
     );
     return result?.map(Notebook.fromDatabase).firstOrNull;
   }
@@ -308,7 +306,7 @@ LIMIT 1;""",
           'notebooks',
           notebook.toDatabase()..remove('id'),
           where: 'id = ?',
-          whereArgs: [notebook.id?.fullBytes],
+          whereArgs: [notebook.id],
         ) ==
         1;
   }

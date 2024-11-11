@@ -20,8 +20,8 @@ Notebook _$NotebookFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Notebook {
-  @MultihashConverter()
-  Multihash? get id => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
 
@@ -41,7 +41,7 @@ abstract class $NotebookCopyWith<$Res> {
       _$NotebookCopyWithImpl<$Res, Notebook>;
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash? id, String name, String description});
+      {@Uint8ListConverter() Uint8List? id, String name, String description});
 }
 
 /// @nodoc
@@ -67,7 +67,7 @@ class _$NotebookCopyWithImpl<$Res, $Val extends Notebook>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -89,7 +89,7 @@ abstract class _$$NotebookImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash? id, String name, String description});
+      {@Uint8ListConverter() Uint8List? id, String name, String description});
 }
 
 /// @nodoc
@@ -113,7 +113,7 @@ class __$$NotebookImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -130,15 +130,15 @@ class __$$NotebookImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$NotebookImpl extends _Notebook {
   const _$NotebookImpl(
-      {@MultihashConverter() this.id, this.name = '', this.description = ''})
+      {@Uint8ListConverter() this.id, this.name = '', this.description = ''})
       : super._();
 
   factory _$NotebookImpl.fromJson(Map<String, dynamic> json) =>
       _$$NotebookImplFromJson(json);
 
   @override
-  @MultihashConverter()
-  final Multihash? id;
+  @Uint8ListConverter()
+  final Uint8List? id;
   @override
   @JsonKey()
   final String name;
@@ -184,7 +184,7 @@ class _$NotebookImpl extends _Notebook {
 
 abstract class _Notebook extends Notebook implements DescriptiveModel {
   const factory _Notebook(
-      {@MultihashConverter() final Multihash? id,
+      {@Uint8ListConverter() final Uint8List? id,
       final String name,
       final String description}) = _$NotebookImpl;
   const _Notebook._() : super._();
@@ -193,8 +193,8 @@ abstract class _Notebook extends Notebook implements DescriptiveModel {
       _$NotebookImpl.fromJson;
 
   @override
-  @MultihashConverter()
-  Multihash? get id;
+  @Uint8ListConverter()
+  Uint8List? get id;
   @override
   String get name;
   @override
@@ -214,12 +214,12 @@ Note _$NoteFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Note {
-  @MultihashConverter()
-  Multihash? get notebookId => throw _privateConstructorUsedError;
-  @MultihashConverter()
-  Multihash? get id => throw _privateConstructorUsedError;
-  @MultihashConverter()
-  Multihash? get parentId => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get notebookId => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get id => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get parentId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   NoteStatus? get status => throw _privateConstructorUsedError;
@@ -240,9 +240,9 @@ abstract class $NoteCopyWith<$Res> {
       _$NoteCopyWithImpl<$Res, Note>;
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash? notebookId,
-      @MultihashConverter() Multihash? id,
-      @MultihashConverter() Multihash? parentId,
+      {@Uint8ListConverter() Uint8List? notebookId,
+      @Uint8ListConverter() Uint8List? id,
+      @Uint8ListConverter() Uint8List? parentId,
       String name,
       String description,
       NoteStatus? status,
@@ -276,15 +276,15 @@ class _$NoteCopyWithImpl<$Res, $Val extends Note>
       notebookId: freezed == notebookId
           ? _value.notebookId
           : notebookId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -313,9 +313,9 @@ abstract class _$$NoteImplCopyWith<$Res> implements $NoteCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash? notebookId,
-      @MultihashConverter() Multihash? id,
-      @MultihashConverter() Multihash? parentId,
+      {@Uint8ListConverter() Uint8List? notebookId,
+      @Uint8ListConverter() Uint8List? id,
+      @Uint8ListConverter() Uint8List? parentId,
       String name,
       String description,
       NoteStatus? status,
@@ -346,15 +346,15 @@ class __$$NoteImplCopyWithImpl<$Res>
       notebookId: freezed == notebookId
           ? _value.notebookId
           : notebookId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -379,9 +379,9 @@ class __$$NoteImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$NoteImpl extends _Note {
   const _$NoteImpl(
-      {@MultihashConverter() this.notebookId,
-      @MultihashConverter() this.id,
-      @MultihashConverter() this.parentId,
+      {@Uint8ListConverter() this.notebookId,
+      @Uint8ListConverter() this.id,
+      @Uint8ListConverter() this.parentId,
       this.name = '',
       this.description = '',
       this.status,
@@ -392,14 +392,14 @@ class _$NoteImpl extends _Note {
       _$$NoteImplFromJson(json);
 
   @override
-  @MultihashConverter()
-  final Multihash? notebookId;
+  @Uint8ListConverter()
+  final Uint8List? notebookId;
   @override
-  @MultihashConverter()
-  final Multihash? id;
+  @Uint8ListConverter()
+  final Uint8List? id;
   @override
-  @MultihashConverter()
-  final Multihash? parentId;
+  @Uint8ListConverter()
+  final Uint8List? parentId;
   @override
   @JsonKey()
   final String name;
@@ -458,9 +458,9 @@ class _$NoteImpl extends _Note {
 
 abstract class _Note extends Note implements DescriptiveModel {
   const factory _Note(
-      {@MultihashConverter() final Multihash? notebookId,
-      @MultihashConverter() final Multihash? id,
-      @MultihashConverter() final Multihash? parentId,
+      {@Uint8ListConverter() final Uint8List? notebookId,
+      @Uint8ListConverter() final Uint8List? id,
+      @Uint8ListConverter() final Uint8List? parentId,
       final String name,
       final String description,
       final NoteStatus? status,
@@ -470,14 +470,14 @@ abstract class _Note extends Note implements DescriptiveModel {
   factory _Note.fromJson(Map<String, dynamic> json) = _$NoteImpl.fromJson;
 
   @override
-  @MultihashConverter()
-  Multihash? get notebookId;
+  @Uint8ListConverter()
+  Uint8List? get notebookId;
   @override
-  @MultihashConverter()
-  Multihash? get id;
+  @Uint8ListConverter()
+  Uint8List? get id;
   @override
-  @MultihashConverter()
-  Multihash? get parentId;
+  @Uint8ListConverter()
+  Uint8List? get parentId;
   @override
   String get name;
   @override

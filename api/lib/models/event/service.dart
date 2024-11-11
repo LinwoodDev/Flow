@@ -1,19 +1,19 @@
 import 'dart:async';
+import 'dart:typed_data';
 
-import 'package:lib5/lib5.dart';
 import 'package:flow_api/services/source.dart';
 
 import 'item/model.dart';
 import 'model.dart';
 
 abstract class EventService extends ModelService {
-  FutureOr<Event?> getEvent(Multihash id);
+  FutureOr<Event?> getEvent(Uint8List id);
   FutureOr<Event?> getEventByItem(CalendarItem item) =>
       item.eventId == null ? null : getEvent(item.eventId!);
 
   FutureOr<List<Event>> getEvents({
-    Multihash? groupId,
-    Multihash? placeId,
+    Uint8List? groupId,
+    Uint8List? placeId,
     int offset = 0,
     int limit = 50,
     String search = '',
@@ -23,5 +23,5 @@ abstract class EventService extends ModelService {
 
   FutureOr<bool> updateEvent(Event event);
 
-  FutureOr<bool> deleteEvent(Multihash id);
+  FutureOr<bool> deleteEvent(Uint8List id);
 }

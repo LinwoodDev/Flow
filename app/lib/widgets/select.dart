@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/model.dart';
 import 'package:flow_api/services/source.dart';
@@ -12,7 +12,7 @@ import 'package:flow_api/services/source.dart';
 import '../../widgets/builder_delegate.dart';
 
 typedef ModelFetchCallback<T> = Future<T?> Function(
-    String source, SourceService service, Multihash id);
+    String source, SourceService service, Uint8List id);
 typedef ModelWidgetBuilder<T> = Widget? Function(
     BuildContext context, SourcedModel<T?>? model);
 typedef ModelSelectBuilder<T> = Widget Function(
@@ -20,8 +20,8 @@ typedef ModelSelectBuilder<T> = Widget Function(
 
 class SelectTile<T extends NamedModel> extends StatefulWidget {
   final String? source;
-  final Multihash? value;
-  final ValueChanged<SourcedModel<Multihash>?> onChanged;
+  final Uint8List? value;
+  final ValueChanged<SourcedModel<Uint8List>?> onChanged;
   final ModelFetchCallback<T> onModelFetch;
   final ModelWidgetBuilder<T> leadingBuilder;
   final ModelSelectBuilder<T> selectBuilder;
@@ -47,7 +47,7 @@ class SelectTile<T extends NamedModel> extends StatefulWidget {
 }
 
 class _SelectTileState<T extends NamedModel> extends State<SelectTile<T>> {
-  SourcedModel<Multihash>? _value;
+  SourcedModel<Uint8List>? _value;
 
   @override
   void initState() {
@@ -57,7 +57,7 @@ class _SelectTileState<T extends NamedModel> extends State<SelectTile<T>> {
         : null;
   }
 
-  void _onChanged(SourcedModel<Multihash>? value) {
+  void _onChanged(SourcedModel<Uint8List>? value) {
     setState(() {
       _value = value;
     });
@@ -145,7 +145,7 @@ typedef SelectFetchCallback<T> = Future<List<T>?> Function(
 class SelectDialog<T extends NamedModel> extends StatefulWidget {
   final String title;
   final String? source;
-  final SourcedModel<Multihash>? selected;
+  final SourcedModel<Uint8List>? selected;
   final SelectFetchCallback<T> onFetch;
 
   const SelectDialog({

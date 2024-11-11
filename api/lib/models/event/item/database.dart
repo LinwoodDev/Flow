@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'dart:typed_data';
 
-import 'package:lib5/lib5.dart';
 import 'package:dart_leap/dart_leap.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
@@ -56,9 +56,9 @@ class CalendarItemDatabaseService extends CalendarItemService
   @override
   Future<List<ConnectedModel<CalendarItem, Event?>>> getCalendarItems(
       {List<EventStatus>? status,
-      Multihash? eventId,
-      Multihash? groupId,
-      Multihash? placeId,
+      Uint8List? eventId,
+      Uint8List? groupId,
+      Uint8List? placeId,
       bool pending = false,
       int offset = 0,
       int limit = 50,
@@ -111,16 +111,16 @@ class CalendarItemDatabaseService extends CalendarItemService
     if (groupId != null) {
       final statement = "(groupId = ? OR events.groupId = ?)";
       where = where == null ? statement : '$where AND $statement';
-      whereArgs = [...?whereArgs, groupId.fullBytes, groupId.fullBytes];
+      whereArgs = [...?whereArgs, groupId, groupId];
     }
     if (placeId != null) {
       final statement = "(placeId = ? OR events.placeId = ?)";
       where = where == null ? statement : '$where AND $statement';
-      whereArgs = [...?whereArgs, placeId.fullBytes, placeId.fullBytes];
+      whereArgs = [...?whereArgs, placeId, placeId];
     }
     if (eventId != null) {
       where = where == null ? 'eventId = ?' : '$where AND eventId = ?';
-      whereArgs = [...?whereArgs, eventId.fullBytes];
+      whereArgs = [...?whereArgs, eventId];
     }
     const eventPrefix = "event_";
     final result = await db?.query(
@@ -156,7 +156,7 @@ class CalendarItemDatabaseService extends CalendarItemService
 
   @override
   Future<CalendarItem?> createCalendarItem(CalendarItem item) async {
-    final id = item.id ?? createUniqueMultihash();
+    final id = item.id ?? createUniqueUint8List();
     item = item.copyWith(id: id);
     final row = await db?.insert('calendarItems', item.toDatabase());
     if (row == null) return null;
@@ -169,27 +169,27 @@ class CalendarItemDatabaseService extends CalendarItemService
           'calendarItems',
           item.toDatabase(),
           where: 'id = ?',
-          whereArgs: [item.id?.fullBytes],
+          whereArgs: [item.id],
         ) ==
         1;
   }
 
   @override
-  Future<bool> deleteCalendarItem(Multihash id) async {
+  Future<bool> deleteCalendarItem(Uint8List id) async {
     return await db?.delete(
           'calendarItems',
           where: 'id = ?',
-          whereArgs: [id.fullBytes],
+          whereArgs: [id],
         ) ==
         1;
   }
 
   @override
-  FutureOr<CalendarItem?> getCalendarItem(Multihash id) async {
+  FutureOr<CalendarItem?> getCalendarItem(Uint8List id) async {
     final result = await db?.query(
       'calendarItems',
       where: 'id = ?',
-      whereArgs: [id.fullBytes],
+      whereArgs: [id],
     );
     return result?.map(CalendarItem.fromDatabase).first;
   }
@@ -207,15 +207,15 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
   CalendarItemDatabaseServiceLinker(this.service);
 
   @override
-  FutureOr<CalendarItem?> getCalendarItem(Multihash id) =>
+  FutureOr<CalendarItem?> getCalendarItem(Uint8List id) =>
       service.getCalendarItem(id);
 
   @override
   FutureOr<List<ConnectedModel<CalendarItem, Event?>>> getCalendarItems({
     List<EventStatus>? status,
-    Multihash? eventId,
-    Multihash? groupId,
-    Multihash? placeId,
+    Uint8List? eventId,
+    Uint8List? groupId,
+    Uint8List? placeId,
     bool pending = false,
     int offset = 0,
     int limit = 50,
@@ -247,7 +247,7 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
       service.updateCalendarItem(item);
 
   @override
-  FutureOr<bool> deleteCalendarItem(Multihash id) =>
+  FutureOr<bool> deleteCalendarItem(Uint8List id) =>
       service.deleteCalendarItem(id);
 
   @override

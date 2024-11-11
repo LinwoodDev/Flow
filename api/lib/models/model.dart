@@ -1,15 +1,17 @@
+import 'dart:convert';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 
 part 'model.freezed.dart';
 
 const kColorBlack = 0xFF000000;
 
 mixin IdentifiedModel {
-  Multihash? get id;
+  Uint8List? get id;
 
   String toDisplayString() {
-    return id?.toBase64Url() ?? '';
+    return base64Encode(id ?? []);
   }
 }
 
@@ -65,7 +67,7 @@ extension SourcedConnectedModelNullableExtension<A, B>
 
 extension ConnectedModelIdentifier<A, B extends IdentifiedModel?>
     on ConnectedModel<A, B> {
-  ConnectedModel<A, Multihash>? toIdentifierModel() {
+  ConnectedModel<A, Uint8List>? toIdentifierModel() {
     final id = model?.id;
     if (id == null) return null;
     return ConnectedModel(source, id);

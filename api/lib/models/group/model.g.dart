@@ -7,22 +7,22 @@ part of 'model.dart';
 // **************************************************************************
 
 _$GroupImpl _$$GroupImplFromJson(Map<String, dynamic> json) => _$GroupImpl(
-      id: _$JsonConverterFromJson<List<int>, Multihash>(
-          json['id'], const MultihashConverter().fromJson),
+      id: _$JsonConverterFromJson<List<int>, Uint8List>(
+          json['id'], const Uint8ListConverter().fromJson),
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      parentId: _$JsonConverterFromJson<List<int>, Multihash>(
-          json['parentId'], const MultihashConverter().fromJson),
+      parentId: _$JsonConverterFromJson<List<int>, Uint8List>(
+          json['parentId'], const Uint8ListConverter().fromJson),
     );
 
 Map<String, dynamic> _$$GroupImplToJson(_$GroupImpl instance) =>
     <String, dynamic>{
-      'id': _$JsonConverterToJson<List<int>, Multihash>(
-          instance.id, const MultihashConverter().toJson),
+      'id': _$JsonConverterToJson<List<int>, Uint8List>(
+          instance.id, const Uint8ListConverter().toJson),
       'name': instance.name,
       'description': instance.description,
-      'parentId': _$JsonConverterToJson<List<int>, Multihash>(
-          instance.parentId, const MultihashConverter().toJson),
+      'parentId': _$JsonConverterToJson<List<int>, Uint8List>(
+          instance.parentId, const Uint8ListConverter().toJson),
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(

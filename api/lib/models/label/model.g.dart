@@ -7,8 +7,8 @@ part of 'model.dart';
 // **************************************************************************
 
 _$LabelImpl _$$LabelImplFromJson(Map<String, dynamic> json) => _$LabelImpl(
-      id: _$JsonConverterFromJson<List<int>, Multihash>(
-          json['id'], const MultihashConverter().fromJson),
+      id: _$JsonConverterFromJson<List<int>, Uint8List>(
+          json['id'], const Uint8ListConverter().fromJson),
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       color: (json['color'] as num?)?.toInt() ?? kColorBlack,
@@ -16,8 +16,8 @@ _$LabelImpl _$$LabelImplFromJson(Map<String, dynamic> json) => _$LabelImpl(
 
 Map<String, dynamic> _$$LabelImplToJson(_$LabelImpl instance) =>
     <String, dynamic>{
-      'id': _$JsonConverterToJson<List<int>, Multihash>(
-          instance.id, const MultihashConverter().toJson),
+      'id': _$JsonConverterToJson<List<int>, Uint8List>(
+          instance.id, const Uint8ListConverter().toJson),
       'name': instance.name,
       'description': instance.description,
       'color': instance.color,

@@ -20,8 +20,8 @@ Label _$LabelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Label {
-  @MultihashConverter()
-  Multihash? get id => throw _privateConstructorUsedError;
+  @Uint8ListConverter()
+  Uint8List? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   int get color => throw _privateConstructorUsedError;
@@ -41,7 +41,7 @@ abstract class $LabelCopyWith<$Res> {
       _$LabelCopyWithImpl<$Res, Label>;
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash? id,
+      {@Uint8ListConverter() Uint8List? id,
       String name,
       String description,
       int color});
@@ -71,7 +71,7 @@ class _$LabelCopyWithImpl<$Res, $Val extends Label>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -96,7 +96,7 @@ abstract class _$$LabelImplCopyWith<$Res> implements $LabelCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@MultihashConverter() Multihash? id,
+      {@Uint8ListConverter() Uint8List? id,
       String name,
       String description,
       int color});
@@ -124,7 +124,7 @@ class __$$LabelImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -145,7 +145,7 @@ class __$$LabelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$LabelImpl extends _Label {
   const _$LabelImpl(
-      {@MultihashConverter() this.id,
+      {@Uint8ListConverter() this.id,
       this.name = '',
       this.description = '',
       this.color = kColorBlack})
@@ -155,8 +155,8 @@ class _$LabelImpl extends _Label {
       _$$LabelImplFromJson(json);
 
   @override
-  @MultihashConverter()
-  final Multihash? id;
+  @Uint8ListConverter()
+  final Uint8List? id;
   @override
   @JsonKey()
   final String name;
@@ -206,7 +206,7 @@ class _$LabelImpl extends _Label {
 
 abstract class _Label extends Label implements DescriptiveModel {
   const factory _Label(
-      {@MultihashConverter() final Multihash? id,
+      {@Uint8ListConverter() final Uint8List? id,
       final String name,
       final String description,
       final int color}) = _$LabelImpl;
@@ -215,8 +215,8 @@ abstract class _Label extends Label implements DescriptiveModel {
   factory _Label.fromJson(Map<String, dynamic> json) = _$LabelImpl.fromJson;
 
   @override
-  @MultihashConverter()
-  Multihash? get id;
+  @Uint8ListConverter()
+  Uint8List? get id;
   @override
   String get name;
   @override

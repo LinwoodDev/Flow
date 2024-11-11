@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lib5/lib5.dart';
 import 'package:flow_api/helpers/converter.dart';
 import 'package:flow_api/models/model.dart';
 
@@ -14,8 +13,8 @@ class User with _$User, IdentifiedModel, NamedModel, DescriptiveModel {
 
   @Implements<DescriptiveModel>()
   const factory User({
-    @MultihashConverter() Multihash? id,
-    @MultihashConverter() Multihash? groupId,
+    @Uint8ListConverter() Uint8List? id,
+    @Uint8ListConverter() Uint8List? groupId,
     @Default('') String name,
     @Default('') String email,
     @Default('') String description,

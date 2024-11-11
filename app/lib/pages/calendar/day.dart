@@ -6,7 +6,7 @@ import 'package:flow/cubits/flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/event/item/model.dart';
@@ -201,7 +201,7 @@ class SingleDayList extends StatefulWidget {
   final VoidCallback onChanged;
   final DateTime current;
   final double maxWidth;
-  final SourcedModel<Multihash>? event;
+  final SourcedModel<Uint8List>? event;
 
   static const _hourHeight = 100.0;
   static const _dividerHeight = 4.0;

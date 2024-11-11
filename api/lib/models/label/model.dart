@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:flow_api/helpers/converter.dart';
 import 'package:flow_api/models/model.dart';
 
@@ -12,7 +12,7 @@ class Label with _$Label, IdentifiedModel, NamedModel, DescriptiveModel {
 
   @Implements<DescriptiveModel>()
   const factory Label({
-    @MultihashConverter() Multihash? id,
+    @Uint8ListConverter() Uint8List? id,
     @Default('') String name,
     @Default('') String description,
     @Default(kColorBlack) int color,

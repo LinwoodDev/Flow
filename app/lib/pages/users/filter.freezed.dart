@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$UserFilter {
   String? get source => throw _privateConstructorUsedError;
-  Multihash? get group => throw _privateConstructorUsedError;
+  Uint8List? get group => throw _privateConstructorUsedError;
 
   /// Create a copy of UserFilter
   /// with the given fields replaced by the non-null parameter values.
@@ -32,7 +32,7 @@ abstract class $UserFilterCopyWith<$Res> {
           UserFilter value, $Res Function(UserFilter) then) =
       _$UserFilterCopyWithImpl<$Res, UserFilter>;
   @useResult
-  $Res call({String? source, Multihash? group});
+  $Res call({String? source, Uint8List? group});
 }
 
 /// @nodoc
@@ -61,7 +61,7 @@ class _$UserFilterCopyWithImpl<$Res, $Val extends UserFilter>
       group: freezed == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
     ) as $Val);
   }
 }
@@ -74,7 +74,7 @@ abstract class _$$UserFilterImplCopyWith<$Res>
       __$$UserFilterImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? source, Multihash? group});
+  $Res call({String? source, Uint8List? group});
 }
 
 /// @nodoc
@@ -101,7 +101,7 @@ class __$$UserFilterImplCopyWithImpl<$Res>
       group: freezed == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
-              as Multihash?,
+              as Uint8List?,
     ));
   }
 }
@@ -114,7 +114,7 @@ class _$UserFilterImpl implements _UserFilter {
   @override
   final String? source;
   @override
-  final Multihash? group;
+  final Uint8List? group;
 
   @override
   String toString() {
@@ -143,13 +143,13 @@ class _$UserFilterImpl implements _UserFilter {
 }
 
 abstract class _UserFilter implements UserFilter {
-  const factory _UserFilter({final String? source, final Multihash? group}) =
+  const factory _UserFilter({final String? source, final Uint8List? group}) =
       _$UserFilterImpl;
 
   @override
   String? get source;
   @override
-  Multihash? get group;
+  Uint8List? get group;
 
   /// Create a copy of UserFilter
   /// with the given fields replaced by the non-null parameter values.

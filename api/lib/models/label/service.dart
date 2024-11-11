@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:flow_api/services/source.dart';
 
 import 'model.dart';
@@ -12,11 +12,11 @@ abstract class LabelService extends ModelService {
     String search = '',
   });
 
-  FutureOr<Label?> getLabel(Multihash id);
+  FutureOr<Label?> getLabel(Uint8List id);
 
   FutureOr<Label?> createLabel(Label label);
 
   FutureOr<bool> updateLabel(Label label);
 
-  FutureOr<bool> deleteLabel(Multihash id);
+  FutureOr<bool> deleteLabel(Uint8List id);
 }

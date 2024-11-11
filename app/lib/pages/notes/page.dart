@@ -5,7 +5,7 @@ import 'package:flow_api/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/note/model.dart';
 import 'package:flow_api/models/model.dart';
@@ -17,7 +17,7 @@ import 'view.dart';
 
 class NotesPage extends StatelessWidget {
   final NoteFilter filter;
-  final SourcedModel<Multihash>? parent;
+  final SourcedModel<Uint8List>? parent;
 
   const NotesPage({
     super.key,
@@ -36,7 +36,7 @@ class NotesPage extends StatelessWidget {
 
 class _NotesSearchDelegate extends SearchDelegate {
   final NoteFilter filter;
-  final SourcedModel<Multihash>? parent;
+  final SourcedModel<Uint8List>? parent;
 
   _NotesSearchDelegate(this.filter, this.parent);
 
@@ -81,7 +81,7 @@ class _NotesSearchDelegate extends SearchDelegate {
 class NotesBodyView extends StatefulWidget {
   final String search;
   final NoteFilter filter;
-  final SourcedModel<Multihash>? parent;
+  final SourcedModel<Uint8List>? parent;
   final bool showAppBar;
 
   const NotesBodyView({
@@ -118,7 +118,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
               statuses: _filter.statuses,
               parent: widget.parent?.source == source
                   ? widget.parent?.model
-                  : createEmptyMultihash(),
+                  : createEmptyUint8List(),
               search: widget.search,
             )
           : await service.note?.getNotes(
@@ -128,7 +128,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
               statuses: _filter.statuses,
               parent: widget.parent?.source == source
                   ? widget.parent?.model
-                  : createEmptyMultihash(),
+                  : createEmptyUint8List(),
               search: widget.search);
       if (notes == null) return null;
       if (source != widget.parent?.source) return notes;

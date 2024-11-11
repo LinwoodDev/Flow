@@ -8,16 +8,16 @@ part of 'model.dart';
 
 _$NotebookImpl _$$NotebookImplFromJson(Map<String, dynamic> json) =>
     _$NotebookImpl(
-      id: _$JsonConverterFromJson<List<int>, Multihash>(
-          json['id'], const MultihashConverter().fromJson),
+      id: _$JsonConverterFromJson<List<int>, Uint8List>(
+          json['id'], const Uint8ListConverter().fromJson),
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$NotebookImplToJson(_$NotebookImpl instance) =>
     <String, dynamic>{
-      'id': _$JsonConverterToJson<List<int>, Multihash>(
-          instance.id, const MultihashConverter().toJson),
+      'id': _$JsonConverterToJson<List<int>, Uint8List>(
+          instance.id, const Uint8ListConverter().toJson),
       'name': instance.name,
       'description': instance.description,
     };
@@ -35,12 +35,12 @@ Json? _$JsonConverterToJson<Json, Value>(
     value == null ? null : toJson(value);
 
 _$NoteImpl _$$NoteImplFromJson(Map<String, dynamic> json) => _$NoteImpl(
-      notebookId: _$JsonConverterFromJson<List<int>, Multihash>(
-          json['notebookId'], const MultihashConverter().fromJson),
-      id: _$JsonConverterFromJson<List<int>, Multihash>(
-          json['id'], const MultihashConverter().fromJson),
-      parentId: _$JsonConverterFromJson<List<int>, Multihash>(
-          json['parentId'], const MultihashConverter().fromJson),
+      notebookId: _$JsonConverterFromJson<List<int>, Uint8List>(
+          json['notebookId'], const Uint8ListConverter().fromJson),
+      id: _$JsonConverterFromJson<List<int>, Uint8List>(
+          json['id'], const Uint8ListConverter().fromJson),
+      parentId: _$JsonConverterFromJson<List<int>, Uint8List>(
+          json['parentId'], const Uint8ListConverter().fromJson),
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       status: $enumDecodeNullable(_$NoteStatusEnumMap, json['status']),
@@ -49,12 +49,12 @@ _$NoteImpl _$$NoteImplFromJson(Map<String, dynamic> json) => _$NoteImpl(
 
 Map<String, dynamic> _$$NoteImplToJson(_$NoteImpl instance) =>
     <String, dynamic>{
-      'notebookId': _$JsonConverterToJson<List<int>, Multihash>(
-          instance.notebookId, const MultihashConverter().toJson),
-      'id': _$JsonConverterToJson<List<int>, Multihash>(
-          instance.id, const MultihashConverter().toJson),
-      'parentId': _$JsonConverterToJson<List<int>, Multihash>(
-          instance.parentId, const MultihashConverter().toJson),
+      'notebookId': _$JsonConverterToJson<List<int>, Uint8List>(
+          instance.notebookId, const Uint8ListConverter().toJson),
+      'id': _$JsonConverterToJson<List<int>, Uint8List>(
+          instance.id, const Uint8ListConverter().toJson),
+      'parentId': _$JsonConverterToJson<List<int>, Uint8List>(
+          instance.parentId, const Uint8ListConverter().toJson),
       'name': instance.name,
       'description': instance.description,
       'status': _$NoteStatusEnumMap[instance.status],

@@ -1,7 +1,7 @@
 import 'package:flow/widgets/select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/model.dart';
 
@@ -9,8 +9,8 @@ import 'group.dart';
 
 class GroupSelectTile extends StatelessWidget {
   final String source;
-  final Multihash? value;
-  final ValueChanged<SourcedModel<Multihash>?> onChanged;
+  final Uint8List? value;
+  final ValueChanged<SourcedModel<Uint8List>?> onChanged;
 
   const GroupSelectTile({
     super.key,
@@ -44,7 +44,7 @@ class GroupSelectTile extends StatelessWidget {
 
 class GroupSelectDialog extends StatelessWidget {
   final String? source;
-  final SourcedModel<Multihash>? selected;
+  final SourcedModel<Uint8List>? selected;
 
   const GroupSelectDialog({
     super.key,

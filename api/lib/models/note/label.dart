@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:flow_api/models/label/model.dart';
 
 import 'package:flow_api/models/note/database.dart';
@@ -12,11 +12,11 @@ import 'service.dart';
 abstract class LabelNoteConnector extends NoteConnector<Label> {
   @override
   Future<List<Note>> getNotes(
-    Multihash connectId, {
+    Uint8List connectId, {
     int offset = 0,
     int limit = 50,
-    Multihash? parent,
-    Multihash? notebook,
+    Uint8List? parent,
+    Uint8List? notebook,
     Set<NoteStatus?> statuses = const {
       NoteStatus.todo,
       NoteStatus.inProgress,
@@ -40,11 +40,11 @@ class LabelNoteDatabaseConnector extends NoteDatabaseConnector<Label>
 
   @override
   Future<List<Note>> getNotes(
-    Multihash connectId, {
+    Uint8List connectId, {
     int offset = 0,
     int limit = 50,
-    Multihash? parent,
-    Multihash? notebook,
+    Uint8List? parent,
+    Uint8List? notebook,
     Set<NoteStatus?> statuses = const {
       NoteStatus.todo,
       NoteStatus.inProgress,
@@ -60,18 +60,18 @@ class LabelNoteDatabaseConnector extends NoteDatabaseConnector<Label>
       whereArgs = ['%$search%', '%$search%'];
     }
     if (parent != null) {
-      if (parent.fullBytes.isNotEmpty) {
+      if (parent.isNotEmpty) {
         where = where == null ? 'parentId = ?' : '$where AND parentId = ?';
-        whereArgs.add(parent.fullBytes);
+        whereArgs.add(parent);
       } else {
         where =
             where == null ? 'parentId IS NULL' : '$where AND parentId IS NULL';
       }
     }
     if (notebook != null) {
-      if (notebook.fullBytes.isNotEmpty) {
+      if (notebook.isNotEmpty) {
         where = where == null ? 'notebookId = ?' : '$where AND notebookId = ?';
-        whereArgs.add(notebook.fullBytes);
+        whereArgs.add(notebook);
       } else {
         where = where == null
             ? 'notebookId IS NULL'
@@ -88,7 +88,7 @@ class LabelNoteDatabaseConnector extends NoteDatabaseConnector<Label>
     final result = await db?.query(
       '$tableName JOIN notes ON notes.id = noteId',
       where: '$where AND $connectedIdName = ?',
-      whereArgs: [...whereArgs, connectId.fullBytes],
+      whereArgs: [...whereArgs, connectId],
       columns: [
         'notes.id AS noteid',
         'notes.name AS notename',

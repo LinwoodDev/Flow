@@ -3,7 +3,7 @@ import 'package:flow/pages/calendar/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:lib5/lib5.dart';
+import 'dart:typed_data';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/event/item/model.dart';
@@ -306,7 +306,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
 class CalendarDayDialog extends StatelessWidget {
   final DateTime date;
   final List<SourcedConnectedModel<CalendarItem, Event?>> appointments;
-  final SourcedModel<Multihash>? event;
+  final SourcedModel<Uint8List>? event;
 
   const CalendarDayDialog({
     super.key,
