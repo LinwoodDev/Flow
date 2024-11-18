@@ -2,6 +2,18 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 0.3.1 (2024-11-18)
+
+* Add right click menus
+* Add new icons ([#22](https://github.com/LinwoodDev/Flow/issues/22))
+* Update app color to match the new icons
+* Make icon bigger
+* Fix month view start of the week
+* Upgrade project layout
+* Upgrade to flutter 3.24
+
+Read more here: https://linwood.dev/flow/0.3.1
+
 ## 0.3.0 (2024-05-27)
 
 * Add clock to dashboard
