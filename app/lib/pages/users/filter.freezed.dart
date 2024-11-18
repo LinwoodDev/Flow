@@ -127,11 +127,12 @@ class _$UserFilterImpl implements _UserFilter {
         (other.runtimeType == runtimeType &&
             other is _$UserFilterImpl &&
             (identical(other.source, source) || other.source == source) &&
-            (identical(other.group, group) || other.group == group));
+            const DeepCollectionEquality().equals(other.group, group));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, source, group);
+  int get hashCode => Object.hash(
+      runtimeType, source, const DeepCollectionEquality().hash(group));
 
   /// Create a copy of UserFilter
   /// with the given fields replaced by the non-null parameter values.

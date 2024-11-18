@@ -212,9 +212,9 @@ class _$CalendarFilterImpl extends _CalendarFilter {
             const DeepCollectionEquality()
                 .equals(other._hiddenStatuses, _hiddenStatuses) &&
             (identical(other.source, source) || other.source == source) &&
-            (identical(other.group, group) || other.group == group) &&
-            (identical(other.event, event) || other.event == event) &&
-            (identical(other.place, place) || other.place == place) &&
+            const DeepCollectionEquality().equals(other.group, group) &&
+            const DeepCollectionEquality().equals(other.event, event) &&
+            const DeepCollectionEquality().equals(other.place, place) &&
             (identical(other.past, past) || other.past == past));
   }
 
@@ -223,9 +223,9 @@ class _$CalendarFilterImpl extends _CalendarFilter {
       runtimeType,
       const DeepCollectionEquality().hash(_hiddenStatuses),
       source,
-      group,
-      event,
-      place,
+      const DeepCollectionEquality().hash(group),
+      const DeepCollectionEquality().hash(event),
+      const DeepCollectionEquality().hash(place),
       past);
 
   /// Create a copy of CalendarFilter

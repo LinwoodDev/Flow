@@ -178,17 +178,21 @@ class _$GroupImpl extends _Group {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GroupImpl &&
-            (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.parentId, parentId) ||
-                other.parentId == parentId));
+            const DeepCollectionEquality().equals(other.parentId, parentId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description, parentId);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      name,
+      description,
+      const DeepCollectionEquality().hash(parentId));
 
   /// Create a copy of Group
   /// with the given fields replaced by the non-null parameter values.

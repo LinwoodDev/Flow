@@ -473,15 +473,15 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FixedCalendarItemImpl &&
-            (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.location, location) ||
                 other.location == location) &&
-            (identical(other.groupId, groupId) || other.groupId == groupId) &&
-            (identical(other.placeId, placeId) || other.placeId == placeId) &&
-            (identical(other.eventId, eventId) || other.eventId == eventId) &&
+            const DeepCollectionEquality().equals(other.groupId, groupId) &&
+            const DeepCollectionEquality().equals(other.placeId, placeId) &&
+            const DeepCollectionEquality().equals(other.eventId, eventId) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.start, start) || other.start == start) &&
             (identical(other.end, end) || other.end == end));
@@ -489,8 +489,18 @@ class _$FixedCalendarItemImpl extends FixedCalendarItem {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description, location,
-      groupId, placeId, eventId, status, start, end);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      name,
+      description,
+      location,
+      const DeepCollectionEquality().hash(groupId),
+      const DeepCollectionEquality().hash(placeId),
+      const DeepCollectionEquality().hash(eventId),
+      status,
+      start,
+      end);
 
   /// Create a copy of CalendarItem
   /// with the given fields replaced by the non-null parameter values.
@@ -980,15 +990,15 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RepeatingCalendarItemImpl &&
-            (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.location, location) ||
                 other.location == location) &&
-            (identical(other.groupId, groupId) || other.groupId == groupId) &&
-            (identical(other.placeId, placeId) || other.placeId == placeId) &&
-            (identical(other.eventId, eventId) || other.eventId == eventId) &&
+            const DeepCollectionEquality().equals(other.groupId, groupId) &&
+            const DeepCollectionEquality().equals(other.placeId, placeId) &&
+            const DeepCollectionEquality().equals(other.eventId, eventId) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.start, start) || other.start == start) &&
             (identical(other.end, end) || other.end == end) &&
@@ -1008,13 +1018,13 @@ class _$RepeatingCalendarItemImpl extends RepeatingCalendarItem {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      id,
+      const DeepCollectionEquality().hash(id),
       name,
       description,
       location,
-      groupId,
-      placeId,
-      eventId,
+      const DeepCollectionEquality().hash(groupId),
+      const DeepCollectionEquality().hash(placeId),
+      const DeepCollectionEquality().hash(eventId),
       status,
       start,
       end,
@@ -1534,20 +1544,20 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AutoCalendarItemImpl &&
-            (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.location, location) ||
                 other.location == location) &&
-            (identical(other.groupId, groupId) || other.groupId == groupId) &&
-            (identical(other.placeId, placeId) || other.placeId == placeId) &&
-            (identical(other.eventId, eventId) || other.eventId == eventId) &&
+            const DeepCollectionEquality().equals(other.groupId, groupId) &&
+            const DeepCollectionEquality().equals(other.placeId, placeId) &&
+            const DeepCollectionEquality().equals(other.eventId, eventId) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.start, start) || other.start == start) &&
             (identical(other.end, end) || other.end == end) &&
-            (identical(other.autoGroupId, autoGroupId) ||
-                other.autoGroupId == autoGroupId) &&
+            const DeepCollectionEquality()
+                .equals(other.autoGroupId, autoGroupId) &&
             (identical(other.searchStart, searchStart) ||
                 other.searchStart == searchStart) &&
             (identical(other.autoDuration, autoDuration) ||
@@ -1558,17 +1568,17 @@ class _$AutoCalendarItemImpl extends AutoCalendarItem {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      id,
+      const DeepCollectionEquality().hash(id),
       name,
       description,
       location,
-      groupId,
-      placeId,
-      eventId,
+      const DeepCollectionEquality().hash(groupId),
+      const DeepCollectionEquality().hash(placeId),
+      const DeepCollectionEquality().hash(eventId),
       status,
       start,
       end,
-      autoGroupId,
+      const DeepCollectionEquality().hash(autoGroupId),
       searchStart,
       autoDuration);
 

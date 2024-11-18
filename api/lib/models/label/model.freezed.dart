@@ -177,7 +177,7 @@ class _$LabelImpl extends _Label {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LabelImpl &&
-            (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -186,7 +186,8 @@ class _$LabelImpl extends _Label {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description, color);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(id), name, description, color);
 
   /// Create a copy of Label
   /// with the given fields replaced by the non-null parameter values.

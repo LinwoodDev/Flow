@@ -140,12 +140,16 @@ class _$EventFilterImpl extends _EventFilter {
         (other.runtimeType == runtimeType &&
             other is _$EventFilterImpl &&
             (identical(other.source, source) || other.source == source) &&
-            (identical(other.group, group) || other.group == group) &&
-            (identical(other.place, place) || other.place == place));
+            const DeepCollectionEquality().equals(other.group, group) &&
+            const DeepCollectionEquality().equals(other.place, place));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, source, group, place);
+  int get hashCode => Object.hash(
+      runtimeType,
+      source,
+      const DeepCollectionEquality().hash(group),
+      const DeepCollectionEquality().hash(place));
 
   /// Create a copy of EventFilter
   /// with the given fields replaced by the non-null parameter values.

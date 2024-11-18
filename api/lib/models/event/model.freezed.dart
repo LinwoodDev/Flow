@@ -264,11 +264,10 @@ class _$EventImpl extends _Event {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$EventImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.parentId, parentId) ||
-                other.parentId == parentId) &&
-            (identical(other.groupId, groupId) || other.groupId == groupId) &&
-            (identical(other.placeId, placeId) || other.placeId == placeId) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.parentId, parentId) &&
+            const DeepCollectionEquality().equals(other.groupId, groupId) &&
+            const DeepCollectionEquality().equals(other.placeId, placeId) &&
             (identical(other.blocked, blocked) || other.blocked == blocked) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
@@ -280,8 +279,17 @@ class _$EventImpl extends _Event {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, parentId, groupId, placeId,
-      blocked, name, description, location, extra);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(parentId),
+      const DeepCollectionEquality().hash(groupId),
+      const DeepCollectionEquality().hash(placeId),
+      blocked,
+      name,
+      description,
+      location,
+      extra);
 
   /// Create a copy of Event
   /// with the given fields replaced by the non-null parameter values.

@@ -156,7 +156,7 @@ class _$NotebookImpl extends _Notebook {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NotebookImpl &&
-            (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description));
@@ -164,7 +164,8 @@ class _$NotebookImpl extends _Notebook {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(id), name, description);
 
   /// Create a copy of Notebook
   /// with the given fields replaced by the non-null parameter values.
@@ -422,11 +423,10 @@ class _$NoteImpl extends _Note {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NoteImpl &&
-            (identical(other.notebookId, notebookId) ||
-                other.notebookId == notebookId) &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.parentId, parentId) ||
-                other.parentId == parentId) &&
+            const DeepCollectionEquality()
+                .equals(other.notebookId, notebookId) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.parentId, parentId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -437,8 +437,15 @@ class _$NoteImpl extends _Note {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, notebookId, id, parentId, name,
-      description, status, priority);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(notebookId),
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(parentId),
+      name,
+      description,
+      status,
+      priority);
 
   /// Create a copy of Note
   /// with the given fields replaced by the non-null parameter values.

@@ -229,8 +229,8 @@ class _$UserImpl extends _User {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.groupId, groupId) || other.groupId == groupId) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.groupId, groupId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.description, description) ||
@@ -241,8 +241,15 @@ class _$UserImpl extends _User {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, groupId, name, email,
-      description, phone, const DeepCollectionEquality().hash(image));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(groupId),
+      name,
+      email,
+      description,
+      phone,
+      const DeepCollectionEquality().hash(image));
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.

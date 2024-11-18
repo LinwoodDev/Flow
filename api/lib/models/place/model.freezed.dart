@@ -177,7 +177,7 @@ class _$PlaceImpl extends _Place {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PlaceImpl &&
-            (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -186,7 +186,8 @@ class _$PlaceImpl extends _Place {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description, address);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(id), name, description, address);
 
   /// Create a copy of Place
   /// with the given fields replaced by the non-null parameter values.

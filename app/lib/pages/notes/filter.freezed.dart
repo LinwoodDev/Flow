@@ -225,16 +225,22 @@ class _$NoteFilterImpl extends _NoteFilter {
                 other.showTodo == showTodo) &&
             (identical(other.showNote, showNote) ||
                 other.showNote == showNote) &&
-            (identical(other.selectedLabel, selectedLabel) ||
-                other.selectedLabel == selectedLabel) &&
-            (identical(other.notebook, notebook) ||
-                other.notebook == notebook) &&
+            const DeepCollectionEquality()
+                .equals(other.selectedLabel, selectedLabel) &&
+            const DeepCollectionEquality().equals(other.notebook, notebook) &&
             (identical(other.source, source) || other.source == source));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, showDone, showInProgress,
-      showTodo, showNote, selectedLabel, notebook, source);
+  int get hashCode => Object.hash(
+      runtimeType,
+      showDone,
+      showInProgress,
+      showTodo,
+      showNote,
+      const DeepCollectionEquality().hash(selectedLabel),
+      const DeepCollectionEquality().hash(notebook),
+      source);
 
   /// Create a copy of NoteFilter
   /// with the given fields replaced by the non-null parameter values.
