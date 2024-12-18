@@ -1,0 +1,8 @@
+services:
+  flow:
+    build:
+      context: .
+    container_name: flow
+    #ports:
+    #  - "3000:80"
+    restart: always

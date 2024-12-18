@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -31,7 +30,7 @@ class SourceDropdown<T> extends StatelessWidget {
           if (service == null) return null;
           return MapEntry(e.key, service);
         })
-        .whereNotNull()
+        .nonNulls
         .toList());
     return Column(
       children: [

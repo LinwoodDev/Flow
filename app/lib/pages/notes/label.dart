@@ -39,7 +39,9 @@ class LabelDialog extends StatelessWidget {
               onTap: () async {
                 final result = await showDialog<ColorPickerResponse>(
                     context: context,
-                    builder: (context) => const ColorPicker());
+                    builder: (context) => ColorPicker(
+                          value: Color(currentLabel.color),
+                        ));
                 if (result == null) return;
                 setState(() =>
                     currentLabel = currentLabel.copyWith(color: result.color));

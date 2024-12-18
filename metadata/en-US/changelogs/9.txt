@@ -1,0 +1,6 @@
+* Add color wheel
+* Fix color picker not using current color
+* Fix docker file
+* Upgrade to flutter 3.27
+
+Read more here: https://linwood.dev/flow/0.3.2

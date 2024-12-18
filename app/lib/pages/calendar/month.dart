@@ -273,7 +273,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                                                 ? Theme.of(context)
                                                     .colorScheme
                                                     .onSurface
-                                                    .withOpacity(0.5)
+                                                    .withValues(alpha: 0.5)
                                                 : null,
                                       ),
                                 ),
