@@ -1,6 +1,7 @@
 * Add color wheel
 * Fix color picker not using current color
 * Fix docker file
+* Convert data classes to dart_mappable
 * Upgrade to flutter 3.27
 
 Read more here: https://linwood.dev/flow/0.3.2
