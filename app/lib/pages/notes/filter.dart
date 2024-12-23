@@ -1,25 +1,31 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:typed_data';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/note/model.dart';
 
-part 'filter.freezed.dart';
+part 'filter.mapper.dart';
 
-@freezed
-class NoteFilter with _$NoteFilter {
-  const factory NoteFilter({
-    @Default(true) bool showDone,
-    @Default(true) bool showInProgress,
-    @Default(true) bool showTodo,
-    @Default(true) bool showNote,
-    Uint8List? selectedLabel,
-    Uint8List? notebook,
-    String? source,
-  }) = _NoteFilter;
+@MappableClass()
+class NoteFilter with NoteFilterMappable {
+  final bool showDone;
+  final bool showInProgress;
+  final bool showTodo;
+  final bool showNote;
+  final Uint8List? selectedLabel;
+  final Uint8List? notebook;
+  final String? source;
 
-  const NoteFilter._();
+  const NoteFilter({
+    this.showDone = true,
+    this.showInProgress = true,
+    this.showTodo = true,
+    this.showNote = true,
+    this.selectedLabel,
+    this.notebook,
+    this.source,
+  });
 
   Set<NoteStatus?> get statuses {
     return {

@@ -1,17 +1,16 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
 import '../api/storage/remote/model.dart';
 
-part 'config.g.dart';
-part 'config.freezed.dart';
+part 'config.mapper.dart';
 
-@freezed
-class ConfigFile with _$ConfigFile {
-  const factory ConfigFile({
-    List<RemoteStorage>? remotes,
-    @Default({}) Map<String, String> passwords,
-  }) = _ConfigFile;
+@MappableClass()
+class ConfigFile with ConfigFileMappable {
+  final List<RemoteStorage>? remotes;
+  final Map<String, String> passwords;
 
-  factory ConfigFile.fromJson(Map<String, dynamic> json) =>
-      _$ConfigFileFromJson(json);
+  const ConfigFile({
+    this.remotes,
+    this.passwords = const {},
+  });
 }

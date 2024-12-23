@@ -1,37 +1,54 @@
 import 'dart:convert';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'model.freezed.dart';
-part 'model.g.dart';
+part 'model.mapper.dart';
 
-@freezed
-class RemoteStorage with _$RemoteStorage {
-  const RemoteStorage._();
+@MappableClass()
+sealed class RemoteStorage with RemoteStorageMappable {
+  final String url;
+  final String username;
 
-  const factory RemoteStorage.calDav({
-    required String url,
-    required String username,
-  }) = CalDavStorage;
-  const factory RemoteStorage.iCal({
-    required String url,
-    required String username,
-  }) = ICalStorage;
-  const factory RemoteStorage.webDav({
-    required String url,
-    required String username,
-  }) = WebDavStorage;
-  const factory RemoteStorage.sia({
-    required String url,
-    required String username,
-  }) = SiaStorage;
-
-  factory RemoteStorage.fromJson(Map<String, dynamic> json) =>
-      _$RemoteStorageFromJson(json);
+  const RemoteStorage({
+    required this.url,
+    required this.username,
+  });
 
   Uri get uri => Uri.parse(url);
 
   String get identifier => '$username@$url';
   String toFilename() => base64UrlEncode(utf8.encode(identifier));
   String get displayName => '$username@${uri.host}';
+}
+
+@MappableClass()
+final class CalDavStorage extends RemoteStorage with CalDavStorageMappable {
+  const CalDavStorage({
+    required super.url,
+    required super.username,
+  });
+}
+
+@MappableClass()
+final class ICalStorage extends RemoteStorage with ICalStorageMappable {
+  const ICalStorage({
+    required super.url,
+    required super.username,
+  });
+}
+
+@MappableClass()
+final class WebDavStorage extends RemoteStorage with WebDavStorageMappable {
+  const WebDavStorage({
+    required super.url,
+    required super.username,
+  });
+}
+
+@MappableClass()
+final class SiaStorage extends RemoteStorage with SiaStorageMappable {
+  const SiaStorage({
+    required super.url,
+    required super.username,
+  });
 }

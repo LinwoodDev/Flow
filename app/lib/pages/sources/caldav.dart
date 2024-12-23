@@ -72,7 +72,7 @@ class CalDavSourceDialog extends StatelessWidget {
         ElevatedButton(
           onPressed: () {
             context.read<SourcesService>().addRemote(
-                RemoteStorage.calDav(
+                CalDavStorage(
                     url: _urlController.text,
                     username: _usernameController.text),
                 _passwordController.text);

@@ -72,7 +72,7 @@ class ICalSourceDialog extends StatelessWidget {
         ElevatedButton(
           onPressed: () {
             context.read<SourcesService>().addRemote(
-                RemoteStorage.iCal(
+                ICalStorage(
                     url: _urlController.text,
                     username: _usernameController.text),
                 _passwordController.text);

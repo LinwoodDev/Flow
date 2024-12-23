@@ -1,17 +1,18 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flow/api/storage/remote/model.dart';
 import 'package:flow/api/storage/sources.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flow_api/services/source.dart';
 import 'package:collection/collection.dart';
 
-part 'flow.freezed.dart';
+part 'flow.mapper.dart';
 
-@freezed
-class FlowState with _$FlowState {
-  const factory FlowState({
-    @Default([]) List<String> disabledSources,
-  }) = _FlowState;
+@MappableClass()
+class FlowState with FlowStateMappable {
+  final List<String> disabledSources;
+  const FlowState({
+    this.disabledSources = const [],
+  });
 }
 
 class FlowCubit extends Cubit<FlowState> {

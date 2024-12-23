@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flow/api/storage/remote/caldav.dart';
 import 'package:flow/api/storage/remote/model.dart';
 import 'package:flow/api/storage/remote/sia.dart';
@@ -28,7 +26,7 @@ class RequestDatabaseService extends ModelService with TableService {
   Future<int?> createRequest(APIRequest request) async {
     return db?.insert('request', {
       'created': DateTime.now().millisecondsSinceEpoch,
-      'data': jsonEncode(request.toJson()),
+      'data': request.toJson(),
     });
   }
 
@@ -44,7 +42,7 @@ class RequestDatabaseService extends ModelService with TableService {
     return result
         .map((e) => ConnectedModel(
               DateTime.fromMillisecondsSinceEpoch(e['created'] as int),
-              APIRequest.fromJson(jsonDecode(e['data'] as String)),
+              APIRequestMapper.fromJson(e['data'] as String),
             ))
         .toList();
   }
@@ -87,15 +85,15 @@ abstract class RemoteService<T extends RemoteStorage> extends SourceService {
 
   factory RemoteService.fromStorage(
       RemoteDatabaseService local, T storage, String? password) {
-    return storage.map(
-      calDav: (value) =>
-          CalDavRemoteService(value, local, password) as RemoteService<T>,
-      iCal: (value) =>
-          IcalRemoteService(value, local, password) as RemoteService<T>,
-      webDav: (value) => throw UnimplementedError(),
-      sia: (value) =>
-          SiaRemoteService(value, local, password) as RemoteService<T>,
-    );
+    return switch (storage) {
+      CalDavStorage() =>
+        CalDavRemoteService(storage, local, password) as RemoteService<T>,
+      ICalStorage() =>
+        IcalRemoteService(storage, local, password) as RemoteService<T>,
+      WebDavStorage() => throw UnimplementedError(),
+      SiaStorage() =>
+        SiaRemoteService(storage, local, password) as RemoteService<T>,
+    };
   }
 
   Future<void> synchronize() async {

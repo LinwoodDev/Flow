@@ -1,24 +1,23 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:http/http.dart';
 
-part 'request.freezed.dart';
-part 'request.g.dart';
+part 'request.mapper.dart';
 
-@freezed
-class APIRequest with _$APIRequest {
-  const APIRequest._();
+@MappableClass()
+class APIRequest with APIRequestMappable {
+  final int id;
+  final String method, authority, path;
+  final Map<String, String> headers;
+  final String body;
 
-  const factory APIRequest({
-    @Default(-1) int id,
-    required String method,
-    required String authority,
-    required String path,
-    @Default({}) Map<String, String> headers,
-    @Default('') String body,
-  }) = _APIRequest;
-
-  factory APIRequest.fromJson(Map<String, dynamic> json) =>
-      _$APIRequestFromJson(json);
+  const APIRequest({
+    this.id = -1,
+    required this.method,
+    required this.authority,
+    required this.path,
+    this.headers = const {},
+    this.body = '',
+  });
 
   Future<Response> send([Client? client]) async {
     final currentClient = client ?? Client();

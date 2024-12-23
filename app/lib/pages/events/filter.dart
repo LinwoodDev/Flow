@@ -1,5 +1,5 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:typed_data';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -10,17 +10,19 @@ import 'package:flow_api/models/place/model.dart';
 import '../groups/select.dart';
 import '../places/select.dart';
 
-part 'filter.freezed.dart';
+part 'filter.mapper.dart';
 
-@freezed
-class EventFilter with _$EventFilter {
-  const EventFilter._();
+@MappableClass()
+class EventFilter with EventFilterMappable {
+  final String? source;
+  final Uint8List? group;
+  final Uint8List? place;
 
-  const factory EventFilter({
-    String? source,
-    Uint8List? group,
-    Uint8List? place,
-  }) = _EventFilter;
+  const EventFilter({
+    this.source,
+    this.group,
+    this.place,
+  });
 
   EventFilter removeGroup() =>
       copyWith(group: null, source: place != null ? source : null);

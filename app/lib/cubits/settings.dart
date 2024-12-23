@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/storage/remote/model.dart';
 
-part 'settings.freezed.dart';
+part 'settings.mapper.dart';
 
 enum ThemeDensity {
   system,
@@ -24,21 +24,29 @@ enum ThemeDensity {
       };
 }
 
-@freezed
-class FlowSettings with _$FlowSettings {
-  const FlowSettings._();
+@MappableClass()
+class FlowSettings with FlowSettingsMappable {
+  final String locale;
+  final ThemeMode themeMode;
+  final bool nativeTitleBar;
+  final String design;
+  final SyncMode syncMode;
+  final List<RemoteStorage> remotes;
+  final int startOfWeek;
+  final ThemeDensity density;
+  final bool highContrast;
 
-  const factory FlowSettings({
-    @Default('') String locale,
-    @Default(ThemeMode.system) ThemeMode themeMode,
-    @Default(false) bool nativeTitleBar,
-    @Default('') String design,
-    @Default(SyncMode.noMobile) SyncMode syncMode,
-    @Default([]) List<RemoteStorage> remotes,
-    @Default(0) int startOfWeek,
-    @Default(ThemeDensity.system) ThemeDensity density,
-    @Default(false) bool highContrast,
-  }) = _FlowSettings;
+  const FlowSettings({
+    this.locale = '',
+    this.themeMode = ThemeMode.system,
+    this.nativeTitleBar = false,
+    this.design = '',
+    this.syncMode = SyncMode.noMobile,
+    this.remotes = const [],
+    this.startOfWeek = 0,
+    this.density = ThemeDensity.system,
+    this.highContrast = false,
+  });
 
   factory FlowSettings.fromPrefs(SharedPreferences prefs) => FlowSettings(
         themeMode:
@@ -50,7 +58,7 @@ class FlowSettings with _$FlowSettings {
             SyncMode.values.byName(prefs.getString('syncMode') ?? 'noMobile'),
         remotes: prefs
                 .getStringList('remotes')
-                ?.map((e) => RemoteStorage.fromJson(json.decode(e)))
+                ?.map((e) => RemoteStorageMapper.fromJson(e))
                 .toList() ??
             [],
         startOfWeek: prefs.getInt('startOfWeek') ?? 0,

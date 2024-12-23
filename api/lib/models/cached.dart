@@ -6,6 +6,7 @@ import 'note/model.dart';
 
 part 'cached.mapper.dart';
 
+@MappableClass()
 class CachedData with CachedDataMappable {
   final DateTime? lastUpdated;
   final List<Event> events;

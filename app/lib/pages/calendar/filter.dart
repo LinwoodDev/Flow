@@ -1,8 +1,8 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flow/helpers/event.dart';
 import 'package:flow/pages/groups/select.dart';
 import 'package:flow/pages/places/select.dart';
 import 'package:flutter/material.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:typed_data';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/event/model.dart';
@@ -13,21 +13,25 @@ import 'package:flow_api/models/place/model.dart';
 
 import '../events/select.dart';
 
-part 'filter.freezed.dart';
+part 'filter.mapper.dart';
 
-@freezed
-class CalendarFilter with _$CalendarFilter {
-  const CalendarFilter._();
+@MappableClass()
+class CalendarFilter with CalendarFilterMappable {
+  final List<EventStatus> hiddenStatuses;
+  final String? source;
+  final Uint8List? group;
+  final Uint8List? event;
+  final Uint8List? place;
+  final bool past;
 
-  const factory CalendarFilter({
-    @Default([EventStatus.draft, EventStatus.cancelled])
-    List<EventStatus> hiddenStatuses,
-    String? source,
-    Uint8List? group,
-    Uint8List? event,
-    Uint8List? place,
-    @Default(false) bool past,
-  }) = _CalendarFilter;
+  const CalendarFilter({
+    this.hiddenStatuses = const [EventStatus.draft, EventStatus.cancelled],
+    this.source,
+    this.group,
+    this.event,
+    this.place,
+    this.past = false,
+  });
 
   SourcedModel<Uint8List>? get sourceEvent => event != null && source != null
       ? SourcedModel<Uint8List>(source!, event!)

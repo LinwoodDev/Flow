@@ -1,5 +1,5 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:typed_data';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -8,14 +8,17 @@ import 'package:flow_api/models/model.dart';
 
 import '../groups/select.dart';
 
-part 'filter.freezed.dart';
+part 'filter.mapper.dart';
 
-@freezed
-class UserFilter with _$UserFilter {
-  const factory UserFilter({
-    String? source,
-    Uint8List? group,
-  }) = _UserFilter;
+@MappableClass()
+class UserFilter with UserFilterMappable {
+  final String? source;
+  final Uint8List? group;
+
+  const UserFilter({
+    this.source,
+    this.group,
+  });
 }
 
 class UserFilterView extends StatefulWidget {
