@@ -53,12 +53,12 @@ class _NoteDialogState extends State<NoteDialog> {
       headerActions: [
         if (_newNote.status != null)
           Checkbox(
-            value: _newNote.status?.done,
+            value: _newNote.status?.isDone,
             tristate: true,
             onChanged: (value) {
               setState(() {
-                _newNote = _newNote.copyWith(
-                    status: NoteStatusExtension.fromDone(value));
+                _newNote =
+                    _newNote.copyWith(status: NoteStatus.fromDone(value));
               });
             },
           ),

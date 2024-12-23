@@ -297,7 +297,7 @@ Future<void> showCalendarCreate(
           title: Text(AppLocalizations.of(context).appointment),
           leading: const PhosphorIcon(PhosphorIconsLight.calendar),
           onTap: () async {
-            Navigator.of(ctx).pop(CalendarItem.fixed(
+            Navigator.of(ctx).pop(FixedCalendarItem(
               start: time,
               end: time?.add(const Duration(hours: 1)),
             ));
@@ -307,7 +307,7 @@ Future<void> showCalendarCreate(
           title: Text(AppLocalizations.of(context).moment),
           leading: const PhosphorIcon(PhosphorIconsLight.smiley),
           onTap: () async {
-            Navigator.of(ctx).pop(CalendarItem.fixed(
+            Navigator.of(ctx).pop(FixedCalendarItem(
               start: time,
               end: time,
             ));
@@ -317,7 +317,7 @@ Future<void> showCalendarCreate(
           title: Text(AppLocalizations.of(context).pending),
           leading: const PhosphorIcon(PhosphorIconsLight.clock),
           onTap: () async {
-            Navigator.of(ctx).pop(const CalendarItem.fixed());
+            Navigator.of(ctx).pop(const FixedCalendarItem());
           },
         ),
       ],

@@ -1,26 +1,25 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
 import 'event/item/model.dart';
 import 'event/model.dart';
 import 'note/model.dart';
 
-part 'cached.freezed.dart';
-part 'cached.g.dart';
+part 'cached.mapper.dart';
 
-@freezed
-class CachedData with _$CachedData {
-  const CachedData._();
+class CachedData with CachedDataMappable {
+  final DateTime? lastUpdated;
+  final List<Event> events;
+  final List<Notebook> notebooks;
+  final List<CalendarItem> items;
+  final List<Note> notes;
 
-  const factory CachedData({
-    DateTime? lastUpdated,
-    @Default([]) List<Event> events,
-    @Default([]) List<Notebook> notebooks,
-    @Default([]) List<CalendarItem> items,
-    @Default([]) List<Note> notes,
-  }) = _CachedData;
-
-  factory CachedData.fromJson(Map<String, dynamic> json) =>
-      _$CachedDataFromJson(json);
+  const CachedData({
+    this.lastUpdated,
+    this.events = const [],
+    this.notebooks = const [],
+    this.items = const [],
+    this.notes = const [],
+  });
 
   CachedData concat(CachedData other) {
     return CachedData(

@@ -1,30 +1,29 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'dart:typed_data';
-import 'package:flow_api/helpers/converter.dart';
 import 'package:flow_api/models/model.dart';
 
-part 'model.freezed.dart';
-part 'model.g.dart';
+part 'model.mapper.dart';
 
-@freezed
-class Label with _$Label, IdentifiedModel, NamedModel, DescriptiveModel {
-  const Label._();
+@MappableClass()
+class Label with LabelMappable, IdentifiedModel, NamedModel, DescriptiveModel {
+  @override
+  final Uint8List? id;
+  @override
+  final String name, description;
+  final int color;
 
-  @Implements<DescriptiveModel>()
-  const factory Label({
-    @Uint8ListConverter() Uint8List? id,
-    @Default('') String name,
-    @Default('') String description,
-    @Default(kColorBlack) int color,
-  }) = _Label;
+  const Label({
+    this.id,
+    this.name = '',
+    this.description = '',
+    this.color = kColorBlack,
+  });
 
-  factory Label.fromJson(Map<String, dynamic> json) => _$LabelFromJson(json);
-
-  factory Label.fromDatabase(Map<String, dynamic> row) => Label.fromJson({
+  factory Label.fromDatabase(Map<String, dynamic> row) => LabelMapper.fromMap({
         ...row,
       });
 
   Map<String, dynamic> toDatabase() => {
-        ...toJson(),
+        ...toMap(),
       };
 }

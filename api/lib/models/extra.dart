@@ -1,15 +1,19 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'extra.g.dart';
-part 'extra.freezed.dart';
+part 'extra.mapper.dart';
 
-@freezed
-class ExtraProperties with _$ExtraProperties {
-  const factory ExtraProperties.calDav({
-    required String etag,
-    required String path,
-  }) = CalDavExtraProperties;
+@MappableClass()
+sealed class ExtraProperties with ExtraPropertiesMappable {
+  const ExtraProperties();
+}
 
-  factory ExtraProperties.fromJson(Map<String, dynamic> json) =>
-      _$ExtraPropertiesFromJson(json);
+@MappableClass()
+final class CalDavExtraProperties extends ExtraProperties
+    with CalDavExtraPropertiesMappable {
+  final String etag, path;
+
+  const CalDavExtraProperties({
+    required this.etag,
+    required this.path,
+  });
 }

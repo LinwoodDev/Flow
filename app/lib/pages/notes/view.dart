@@ -136,20 +136,20 @@ class _NoteViewState extends State<NoteView> {
                 if (_newNote.status != null)
                   StatefulBuilder(builder: (context, setState) {
                     return Checkbox(
-                      value: _newNote.status?.done,
+                      value: _newNote.status?.isDone,
                       tristate: true,
                       onChanged: (_) {
                         bool? newState;
-                        if (_newNote.status?.done == null) {
+                        if (_newNote.status?.isDone == null) {
                           newState = true;
-                        } else if (_newNote.status?.done == true) {
+                        } else if (_newNote.status?.isDone == true) {
                           newState = false;
                         } else {
                           newState = null;
                         }
                         setState(() {
                           _newNote = _newNote.copyWith(
-                              status: NoteStatusExtension.fromDone(newState));
+                              status: NoteStatus.fromDone(newState));
                           _updateNote();
                         });
                       },

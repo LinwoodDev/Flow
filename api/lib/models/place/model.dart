@@ -1,31 +1,30 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'dart:typed_data';
 
-import '../../helpers/converter.dart';
 import '../model.dart';
 
-part 'model.freezed.dart';
-part 'model.g.dart';
+part 'model.mapper.dart';
 
-@freezed
-class Place with _$Place, IdentifiedModel, NamedModel, DescriptiveModel {
-  const Place._();
+@MappableClass()
+class Place with PlaceMappable, IdentifiedModel, NamedModel, DescriptiveModel {
+  @override
+  final Uint8List? id;
+  @override
+  final String name, description;
+  final String address;
 
-  @Implements<DescriptiveModel>()
-  const factory Place({
-    @Uint8ListConverter() Uint8List? id,
-    @Default('') String name,
-    @Default('') String description,
-    @Default('') String address,
-  }) = _Place;
+  const Place({
+    this.id,
+    this.name = '',
+    this.description = '',
+    this.address = '',
+  });
 
-  factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
-
-  factory Place.fromDatabase(Map<String, dynamic> row) => Place.fromJson({
+  factory Place.fromDatabase(Map<String, dynamic> row) => PlaceMapper.fromMap({
         ...row,
       });
 
   Map<String, dynamic> toDatabase() => {
-        ...toJson(),
+        ...toMap(),
       };
 }

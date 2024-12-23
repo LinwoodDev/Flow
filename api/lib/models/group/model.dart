@@ -1,31 +1,31 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'dart:typed_data';
 
-import '../../helpers/converter.dart';
 import '../model.dart';
 
-part 'model.freezed.dart';
-part 'model.g.dart';
+part 'model.mapper.dart';
 
-@freezed
-class Group with _$Group, IdentifiedModel, NamedModel, DescriptiveModel {
-  const Group._();
+@MappableClass()
+final class Group
+    with GroupMappable, IdentifiedModel, NamedModel, DescriptiveModel {
+  @override
+  final Uint8List? id;
+  @override
+  final String name, description;
+  final Uint8List? parentId;
 
-  @Implements<DescriptiveModel>()
-  const factory Group({
-    @Uint8ListConverter() Uint8List? id,
-    @Default('') String name,
-    @Default('') String description,
-    @Uint8ListConverter() Uint8List? parentId,
-  }) = _Group;
+  const Group({
+    this.id,
+    this.name = '',
+    this.description = '',
+    this.parentId,
+  });
 
-  factory Group.fromJson(Map<String, dynamic> json) => _$GroupFromJson(json);
-
-  factory Group.fromDatabase(Map<String, dynamic> row) => Group.fromJson({
+  factory Group.fromDatabase(Map<String, dynamic> row) => GroupMapper.fromMap({
         ...row,
       });
 
   Map<String, dynamic> toDatabase() => {
-        ...toJson(),
+        ...toMap(),
       };
 }

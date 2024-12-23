@@ -1,9 +1,10 @@
 import 'dart:convert';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:typed_data';
 
-part 'model.freezed.dart';
+import 'package:dart_mappable/dart_mappable.dart';
+
+part 'model.mapper.dart';
 
 const kColorBlack = 0xFF000000;
 
@@ -28,14 +29,15 @@ mixin DescriptiveModel on NamedModel {
   String get description;
 }
 
-@freezed
-class ConnectedModel<A, B> with _$ConnectedModel<A, B> {
-  const ConnectedModel._();
+@MappableClass()
+class ConnectedModel<A, B> with ConnectedModelMappable<A, B> {
+  final A source;
+  final B model;
 
-  const factory ConnectedModel(
-    A source,
-    B model,
-  ) = _ConnectedModel<A, B>;
+  const ConnectedModel(
+    this.source,
+    this.model,
+  );
 
   factory ConnectedModel.fromEntry(MapEntry<A, B> entry) =>
       ConnectedModel(entry.key, entry.value);

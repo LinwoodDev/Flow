@@ -1,34 +1,35 @@
 import 'dart:typed_data';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flow_api/helpers/converter.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flow_api/models/model.dart';
 
-part 'model.freezed.dart';
-part 'model.g.dart';
+part 'model.mapper.dart';
 
-@freezed
-class User with _$User, IdentifiedModel, NamedModel, DescriptiveModel {
-  const User._();
+@MappableClass()
+class User with UserMappable, IdentifiedModel, NamedModel, DescriptiveModel {
+  @override
+  final Uint8List? id;
+  final Uint8List? groupId;
+  @override
+  final String name, description;
+  final String email, phone;
+  final Uint8List? image;
 
-  @Implements<DescriptiveModel>()
-  const factory User({
-    @Uint8ListConverter() Uint8List? id,
-    @Uint8ListConverter() Uint8List? groupId,
-    @Default('') String name,
-    @Default('') String email,
-    @Default('') String description,
-    @Default('') String phone,
-    @Uint8ListConverter() Uint8List? image,
-  }) = _User;
+  const User({
+    this.id,
+    this.groupId,
+    this.name = '',
+    this.email = '',
+    this.description = '',
+    this.phone = '',
+    this.image,
+  });
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
-
-  factory User.fromDatabase(Map<String, dynamic> row) => User.fromJson({
+  factory User.fromDatabase(Map<String, dynamic> row) => UserMapper.fromMap({
         ...row,
       });
 
   Map<String, dynamic> toDatabase() => {
-        ...toJson(),
+        ...toMap(),
       };
 }

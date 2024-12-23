@@ -89,19 +89,19 @@ class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
                               ? null
                               : StatefulBuilder(
                                   builder: (context, setState) => Checkbox(
-                                    value: status?.done,
+                                    value: status?.isDone,
                                     tristate: true,
                                     onChanged: (_) async {
                                       bool? newState;
-                                      if (status?.done == null) {
+                                      if (status?.isDone == null) {
                                         newState = true;
-                                      } else if (status?.done == true) {
+                                      } else if (status?.isDone == true) {
                                         newState = false;
                                       } else {
                                         newState = null;
                                       }
-                                      final next = NoteStatusExtension.fromDone(
-                                          newState);
+                                      final next =
+                                          NoteStatus.fromDone(newState);
                                       _noteService?.updateNote(
                                           item.copyWith(status: next));
                                       setState(() => status = next);

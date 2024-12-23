@@ -47,7 +47,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
     _create = widget.create || widget.item == null || widget.source == null;
     _source = widget.source ?? '';
     _item = widget.item ??
-        CalendarItem.fixed(
+        FixedCalendarItem(
           eventId: widget.event?.id,
         );
     _service = context.read<FlowCubit>().getService(_source).calendarItem;

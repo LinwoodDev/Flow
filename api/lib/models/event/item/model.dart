@@ -1,76 +1,42 @@
 import 'dart:typed_data';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-import '../../../helpers/converter.dart';
 import '../../model.dart';
 import '../model.dart';
 
-part 'model.freezed.dart';
-part 'model.g.dart';
+part 'model.mapper.dart';
 
+@MappableEnum()
 enum CalendarItemType { appointment, moment, pending }
 
-@freezed
-class CalendarItem
-    with _$CalendarItem, IdentifiedModel, NamedModel, DescriptiveModel {
-  const CalendarItem._();
+@MappableClass()
+sealed class CalendarItem
+    with CalendarItemMappable, IdentifiedModel, NamedModel, DescriptiveModel {
+  @override
+  final Uint8List? id;
+  @override
+  final String name, description;
+  final String location;
+  final Uint8List? groupId, placeId, eventId;
+  final DateTime? start, end;
+  final EventStatus status;
 
-  const factory CalendarItem.fixed({
-    @Uint8ListConverter() Uint8List? id,
-    @Default('') String name,
-    @Default('') String description,
-    @Default('') String location,
-    @Uint8ListConverter() Uint8List? groupId,
-    @Uint8ListConverter() Uint8List? placeId,
-    @Uint8ListConverter() Uint8List? eventId,
-    @Default(EventStatus.confirmed) EventStatus status,
-    @DateTimeConverter() DateTime? start,
-    @DateTimeConverter() DateTime? end,
-  }) = FixedCalendarItem;
-
-  const factory CalendarItem.repeating({
-    @Uint8ListConverter() Uint8List? id,
-    @Default('') String name,
-    @Default('') String description,
-    @Default('') String location,
-    @Uint8ListConverter() Uint8List? groupId,
-    @Uint8ListConverter() Uint8List? placeId,
-    @Uint8ListConverter() Uint8List? eventId,
-    @Default(EventStatus.confirmed) EventStatus status,
-    @DateTimeConverter() DateTime? start,
-    @DateTimeConverter() DateTime? end,
-    @Default(RepeatType.daily) RepeatType repeatType,
-    @Default(1) int interval,
-    @Default(0) int variation,
-    @Default(0) int count,
-    @DateTimeConverter() DateTime? until,
-    @Default([]) List<int> exceptions,
-  }) = RepeatingCalendarItem;
-
-  const factory CalendarItem.auto({
-    @Uint8ListConverter() Uint8List? id,
-    @Default('') String name,
-    @Default('') String description,
-    @Default('') String location,
-    @Uint8ListConverter() Uint8List? groupId,
-    @Uint8ListConverter() Uint8List? placeId,
-    @Uint8ListConverter() Uint8List? eventId,
-    @Default(EventStatus.confirmed) EventStatus status,
-    @DateTimeConverter() DateTime? start,
-    @DateTimeConverter() DateTime? end,
-    @Uint8ListConverter() Uint8List? autoGroupId,
-    @DateTimeConverter() DateTime? searchStart,
-    @Default(60) int autoDuration,
-  }) = AutoCalendarItem;
-
-  factory CalendarItem.fromJson(Map<String, dynamic> json) =>
-      _$CalendarItemFromJson(json);
+  const CalendarItem({
+    this.id,
+    this.name = '',
+    this.description = '',
+    this.location = '',
+    this.groupId,
+    this.placeId,
+    this.eventId,
+    this.start,
+    this.end,
+    this.status = EventStatus.confirmed,
+  });
 
   factory CalendarItem.fromDatabase(Map<String, dynamic> row) =>
-      CalendarItem.fromJson({
-        ...row,
-      });
+      CalendarItemMapper.fromMap(row);
 
   CalendarItemType get type {
     if (start == null && end == null) {
@@ -88,6 +54,85 @@ class CalendarItem
   }
 
   Map<String, dynamic> toDatabase() => {
-        ...toJson(),
+        ...toMap(),
       };
+}
+
+@MappableClass()
+final class FixedCalendarItem extends CalendarItem
+    with FixedCalendarItemMappable {
+  const FixedCalendarItem({
+    super.id,
+    super.name,
+    super.description,
+    super.location,
+    super.groupId,
+    super.placeId,
+    super.eventId,
+    super.start,
+    super.end,
+    super.status,
+  });
+}
+
+@MappableClass()
+final class RepeatingCalendarItem extends CalendarItem
+    with RepeatingCalendarItemMappable {
+  final RepeatType repeatType;
+  final int interval, variation, count;
+  final DateTime? until;
+  final List<int> exceptions;
+
+  const RepeatingCalendarItem({
+    super.id,
+    super.name,
+    super.description,
+    super.location,
+    super.groupId,
+    super.placeId,
+    super.eventId,
+    super.start,
+    super.end,
+    super.status,
+    this.repeatType = RepeatType.daily,
+    this.interval = 1,
+    this.variation = 0,
+    this.count = 0,
+    this.until,
+    this.exceptions = const [],
+  });
+}
+
+@MappableClass()
+final class AutoCalendarItem extends CalendarItem
+    with AutoCalendarItemMappable {
+  final RepeatType repeatType;
+  final int interval, variation, count;
+  final DateTime? until;
+  final List<int> exceptions;
+  final Uint8List? autoGroupId;
+  final DateTime? searchStart;
+  final int autoDuration;
+
+  const AutoCalendarItem({
+    super.id,
+    super.name,
+    super.description,
+    super.location,
+    super.groupId,
+    super.placeId,
+    super.eventId,
+    super.status,
+    super.start,
+    super.end,
+    this.repeatType = RepeatType.daily,
+    this.interval = 1,
+    this.variation = 0,
+    this.count = 0,
+    this.until,
+    this.exceptions = const [],
+    this.autoGroupId,
+    this.searchStart,
+    this.autoDuration = 60,
+  });
 }

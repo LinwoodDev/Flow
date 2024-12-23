@@ -7,6 +7,7 @@ import 'package:flow/api/storage/sources.dart';
 import 'package:flow/pages/calendar/filter.dart';
 import 'package:flow/theme.dart';
 import 'package:flow/widgets/navigation.dart';
+import 'package:flow_api/helpers/setup.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,6 +40,8 @@ import 'setup.dart'
 String? dataPath;
 
 Future<void> main(List<String> args) async {
+  setupAPI();
+
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 

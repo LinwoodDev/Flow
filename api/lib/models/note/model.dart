@@ -1,69 +1,69 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'dart:typed_data';
 
-import '../../helpers/converter.dart';
 import '../model.dart';
 
-part 'model.freezed.dart';
-part 'model.g.dart';
+part 'model.mapper.dart';
 
-@freezed
-class Notebook with _$Notebook, IdentifiedModel, NamedModel, DescriptiveModel {
-  const Notebook._();
+@MappableClass()
+class Notebook
+    with NotebookMappable, IdentifiedModel, NamedModel, DescriptiveModel {
+  @override
+  final Uint8List? id;
+  @override
+  final String name, description;
+  const Notebook({
+    this.id,
+    this.name = '',
+    this.description = '',
+  });
 
-  @Implements<DescriptiveModel>()
-  const factory Notebook({
-    @Uint8ListConverter() Uint8List? id,
-    @Default('') String name,
-    @Default('') String description,
-  }) = _Notebook;
-
-  factory Notebook.fromJson(Map<String, dynamic> json) =>
-      _$NotebookFromJson(json);
-
-  factory Notebook.fromDatabase(Map<String, dynamic> row) => Notebook.fromJson({
+  factory Notebook.fromDatabase(Map<String, dynamic> row) =>
+      NotebookMapper.fromMap({
         ...row,
       });
 
   Map<String, dynamic> toDatabase() => {
-        ...toJson(),
+        ...toMap(),
       };
 }
 
-@freezed
-class Note with _$Note, IdentifiedModel, NamedModel, DescriptiveModel {
-  const Note._();
+@MappableClass()
+class Note with NoteMappable, IdentifiedModel, NamedModel, DescriptiveModel {
+  @override
+  final Uint8List? id;
+  final Uint8List? notebookId, parentId;
+  @override
+  final String name, description;
+  final NoteStatus? status;
+  final int priority;
 
-  @Implements<DescriptiveModel>()
-  const factory Note({
-    @Uint8ListConverter() Uint8List? notebookId,
-    @Uint8ListConverter() Uint8List? id,
-    @Uint8ListConverter() Uint8List? parentId,
-    @Default('') String name,
-    @Default('') String description,
-    NoteStatus? status,
-    @Default(0) int priority,
-  }) = _Note;
+  const Note({
+    this.notebookId,
+    this.id,
+    this.parentId,
+    this.name = '',
+    this.description = '',
+    this.status,
+    this.priority = 0,
+  });
 
-  factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
-
-  factory Note.fromDatabase(Map<String, dynamic> row) => Note.fromJson({
+  factory Note.fromDatabase(Map<String, dynamic> row) => NoteMapper.fromMap({
         ...row,
       });
 
   Map<String, dynamic> toDatabase() => {
-        ...toJson(),
+        ...toMap(),
       };
 }
 
+@MappableEnum()
 enum NoteStatus {
   todo,
   inProgress,
-  done,
-}
+  done;
 
-extension NoteStatusExtension on NoteStatus {
-  bool? get done => switch (this) {
+  bool? get isDone => switch (this) {
         NoteStatus.todo => false,
         NoteStatus.inProgress => null,
         NoteStatus.done => true,

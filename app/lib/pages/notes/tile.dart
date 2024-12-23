@@ -25,7 +25,7 @@ class NoteListTile extends StatelessWidget {
           ? null
           : Checkbox(
               tristate: true,
-              value: note.status?.done,
+              value: note.status?.isDone,
               onChanged: null,
             ),
       title: Text(note.name),

@@ -70,7 +70,7 @@ class ICalConverter {
             break;
           case 'BEGIN':
             if (value == 'VEVENT') {
-              currentItem = CalendarItem.fixed(
+              currentItem = FixedCalendarItem(
                 eventId: currentEvent.id,
               );
             } else if (value == 'VTODO') {

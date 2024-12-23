@@ -68,7 +68,7 @@ class CalDavRemoteService extends RemoteService<CalDavStorage> {
       converter.read(
         text.split('\n'),
         event: Event(name: name, id: createUniqueUint8List())
-            .addExtra(ExtraProperties.calDav(etag: etag, path: href)),
+            .addExtra(CalDavExtraProperties(etag: etag, path: href)),
         notebook: Notebook(
           id: createUniqueUint8List(),
           name: name,
