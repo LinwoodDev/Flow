@@ -81,11 +81,10 @@ class CalDavStorageMapper extends ClassMapperBase<CalDavStorage> {
   final String id = 'CalDavStorage';
 
   static String _$url(CalDavStorage v) => v.url;
-  static const Field<CalDavStorage, String> _f$url =
-      Field('url', _$url, opt: true);
+  static const Field<CalDavStorage, String> _f$url = Field('url', _$url);
   static String _$username(CalDavStorage v) => v.username;
   static const Field<CalDavStorage, String> _f$username =
-      Field('username', _$username, opt: true);
+      Field('username', _$username);
 
   @override
   final MappableFields<CalDavStorage> fields = const {
@@ -194,11 +193,10 @@ class ICalStorageMapper extends ClassMapperBase<ICalStorage> {
   final String id = 'ICalStorage';
 
   static String _$url(ICalStorage v) => v.url;
-  static const Field<ICalStorage, String> _f$url =
-      Field('url', _$url, opt: true);
+  static const Field<ICalStorage, String> _f$url = Field('url', _$url);
   static String _$username(ICalStorage v) => v.username;
   static const Field<ICalStorage, String> _f$username =
-      Field('username', _$username, opt: true);
+      Field('username', _$username);
 
   @override
   final MappableFields<ICalStorage> fields = const {
@@ -304,11 +302,10 @@ class WebDavStorageMapper extends ClassMapperBase<WebDavStorage> {
   final String id = 'WebDavStorage';
 
   static String _$url(WebDavStorage v) => v.url;
-  static const Field<WebDavStorage, String> _f$url =
-      Field('url', _$url, opt: true);
+  static const Field<WebDavStorage, String> _f$url = Field('url', _$url);
   static String _$username(WebDavStorage v) => v.username;
   static const Field<WebDavStorage, String> _f$username =
-      Field('username', _$username, opt: true);
+      Field('username', _$username);
 
   @override
   final MappableFields<WebDavStorage> fields = const {
@@ -417,11 +414,10 @@ class SiaStorageMapper extends ClassMapperBase<SiaStorage> {
   final String id = 'SiaStorage';
 
   static String _$url(SiaStorage v) => v.url;
-  static const Field<SiaStorage, String> _f$url =
-      Field('url', _$url, opt: true);
+  static const Field<SiaStorage, String> _f$url = Field('url', _$url);
   static String _$username(SiaStorage v) => v.username;
   static const Field<SiaStorage, String> _f$username =
-      Field('username', _$username, opt: true);
+      Field('username', _$username);
 
   @override
   final MappableFields<SiaStorage> fields = const {
