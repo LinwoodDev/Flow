@@ -260,8 +260,8 @@ class _NoteViewState extends State<NoteView> {
                                     .map((e) => Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: InputChip(
-                                            avatar: ColorButton(
-                                              color: Color(e.color),
+                                            avatar: ColorButton.srgb(
+                                              color: e.color,
                                             ),
                                             label: Text(e.name),
                                             onDeleted: () async {

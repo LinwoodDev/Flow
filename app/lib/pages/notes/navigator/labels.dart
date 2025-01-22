@@ -69,14 +69,14 @@ class _NoteLabelsViewState extends State<_NoteLabelsView> {
                       return MenuAnchor(
                         builder: (context, controller, child) => Tooltip(
                           message: item.model.name,
-                          child: ColorButton(
+                          child: ColorButton.srgb(
                             onTap: () =>
                                 widget.onChanged?.call(widget.filter.copyWith(
                               selectedLabel: selected ? null : item.model.id,
                               source: item.source,
                             )),
                             selected: selected,
-                            color: Color(item.model.color).withAlpha(255),
+                            color: item.model.color.withOpacity(1),
                             onLongPress: controller.toggle,
                             onSecondaryTap: controller.toggle,
                           ),

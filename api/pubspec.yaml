@@ -4,7 +4,7 @@ description: A starting point for Dart libraries or applications.
 # homepage: https://www.example.com
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.3.0 <4.0.0"
 
 dependencies:
   meta: ^1.11.0
@@ -16,8 +16,8 @@ dependencies:
   dart_mappable: ^4.3.0
   dart_leap:
     git:
-      url: https://github.com/LinwoodDev/dart_pkgs
-      ref: dfda6c2e3cef2e29511f97e9470fd4deb8e0c573
+      url: https://github.com/LinwoodDev/dart_pkgs.git
+      ref: db69a03082e6811c58dc2d0e5c23d04305e1623f
       path: packages/dart_leap
 dev_dependencies:
   build_runner: ^2.4.14

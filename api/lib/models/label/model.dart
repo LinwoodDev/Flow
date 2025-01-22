@@ -1,3 +1,4 @@
+import 'package:dart_leap/dart_leap.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'dart:typed_data';
 import 'package:flow_api/models/model.dart';
@@ -10,13 +11,13 @@ class Label with LabelMappable, IdentifiedModel, NamedModel, DescriptiveModel {
   final Uint8List? id;
   @override
   final String name, description;
-  final int color;
+  final SRGBColor color;
 
   const Label({
     this.id,
     this.name = '',
     this.description = '',
-    this.color = kColorBlack,
+    this.color = SRGBColor.black,
   });
 
   factory Label.fromDatabase(Map<String, dynamic> row) => LabelMapper.fromMap({

@@ -16,9 +16,7 @@ class SourcesService {
   final BehaviorSubject<SyncStatus> syncStatus =
       BehaviorSubject.seeded(SyncStatus.synced);
   final FlutterSecureStorage secureStorage = const FlutterSecureStorage(
-    aOptions: AndroidOptions(
-      encryptedSharedPreferences: true,
-    ),
+    aOptions: AndroidOptions(),
   );
 
   SourcesService(this.settingsCubit);

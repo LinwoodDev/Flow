@@ -35,18 +35,18 @@ class LabelDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           StatefulBuilder(
-            builder: (context, setState) => ColorButton(
+            builder: (context, setState) => ColorButton.srgb(
               onTap: () async {
                 final result = await showDialog<ColorPickerResponse>(
                     context: context,
                     builder: (context) => ColorPicker(
-                          value: Color(currentLabel.color),
+                          value: currentLabel.color,
                         ));
                 if (result == null) return;
-                setState(() =>
-                    currentLabel = currentLabel.copyWith(color: result.color));
+                setState(() => currentLabel =
+                    currentLabel.copyWith(color: result.toSRGB()));
               },
-              color: Color(currentLabel.color).withAlpha(255),
+              color: currentLabel.color.withOpacity(1),
               size: 25,
             ),
           ),

@@ -28,9 +28,9 @@ class LabelMapper extends ClassMapperBase<Label> {
   static String _$description(Label v) => v.description;
   static const Field<Label, String> _f$description =
       Field('description', _$description, opt: true, def: '');
-  static int _$color(Label v) => v.color;
-  static const Field<Label, int> _f$color =
-      Field('color', _$color, opt: true, def: kColorBlack);
+  static SRGBColor _$color(Label v) => v.color;
+  static const Field<Label, SRGBColor> _f$color =
+      Field('color', _$color, opt: true, def: SRGBColor.black);
 
   @override
   final MappableFields<Label> fields = const {
@@ -94,7 +94,7 @@ extension LabelValueCopy<$R, $Out> on ObjectCopyWith<$R, Label, $Out> {
 
 abstract class LabelCopyWith<$R, $In extends Label, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({Uint8List? id, String? name, String? description, int? color});
+  $R call({Uint8List? id, String? name, String? description, SRGBColor? color});
   LabelCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -109,7 +109,7 @@ class _LabelCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Label, $Out>
           {Object? id = $none,
           String? name,
           String? description,
-          int? color}) =>
+          SRGBColor? color}) =>
       $apply(FieldCopyWithData({
         if (id != $none) #id: id,
         if (name != null) #name: name,
