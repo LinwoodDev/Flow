@@ -1,8 +1,13 @@
 ---
-import type { Props } from '@astrojs/starlight/props';
-import StarlightHead from '@astrojs/starlight/components/Head.astro';
-import { ViewTransitions } from 'astro:transitions';
+import type { Props } from "@astrojs/starlight/props";
+import StarlightHead from "@astrojs/starlight/components/Head.astro";
+import { ClientRouter } from "astro:transitions";
+import { pwaInfo } from 'virtual:pwa-info';
 ---
 
-<StarlightHead {...Astro.props}><slot /></StarlightHead>
-<ViewTransitions />
+{pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
+<script src="/src/scripts/pwa.ts"></script>
+<StarlightHead {...Astro.props}>
+  <slot />
+</StarlightHead>
+<ClientRouter />
