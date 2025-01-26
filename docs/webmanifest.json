@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "id": "linwood-flow-docs",
+  "name": "Linwood Flow Documentation",
+  "short_name": "Flow Docs",
+  "description": "Documentation for the opensource Linwood Flow project.",
+  "orientation": "any",
+  "display": "fullscreen",
+  "background_color": "#18191a",
+  "theme_color": "#7c4dff",
+  "icons": [
+    {
+      "src": "img/pwa-64x64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "img/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "img/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "img/maskable-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

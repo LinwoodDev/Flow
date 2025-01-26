@@ -1,10 +1,11 @@
-// @ts-check
 import { defineConfig } from "astro/config";
-import { getSidebarTranslatedLabel } from "./src/translations";
 import starlight from "@astrojs/starlight";
-// @ts-ignore
+import react from "@astrojs/react";
+import { getSidebarTranslatedLabel } from "./src/translations";
 import remarkHeadingID from "remark-heading-id";
 import remarkGemoji from "remark-gemoji";
+import AstroPWA from "@vite-pwa/astro";
+import manifest from "./webmanifest.json";
 
 // https://astro.build/config
 export default defineConfig({
@@ -196,5 +197,22 @@ export default defineConfig({
         },
       },
     }),
+    AstroPWA({
+      workbox: {
+        skipWaiting: true,
+        clientsClaim: true,
+        navigateFallback: "/404",
+        ignoreURLParametersMatching: [/./],
+        globPatterns: [
+          "**/*.{html,js,css,png,svg,json,ttf,pf_fragment,pf_index,pf_meta,pagefind,wasm}",
+        ],
+      },
+      experimental: {
+        directoryAndTrailingSlashHandler: true,
+      },
+      registerType: "autoUpdate",
+      manifest,
+    }),
+    react(),
   ],
 });
