@@ -23,7 +23,7 @@ export default defineConfig({
       logo: {
         src: "./public/img/docs.svg",
       },
-      favicon: "./favicon.ico",
+      favicon: "./favicon.svg",
       social: {
         mastodon: "https://floss.social/@linwood",
         matrix: "https://linwood.dev/matrix",
