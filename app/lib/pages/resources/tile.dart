@@ -1,30 +1,30 @@
 import 'package:flow/helpers/sourced_paging_controller.dart';
+import 'package:flow/pages/resources/resource.dart';
+import 'package:flow_api/models/resource/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/model.dart';
-import 'package:flow_api/models/place/model.dart';
 
 import '../../cubits/flow.dart';
 import '../../widgets/markdown_field.dart';
 import '../calendar/filter.dart';
-import 'place.dart';
 
-class PlaceTile extends StatelessWidget {
-  const PlaceTile({
+class ResourceTile extends StatelessWidget {
+  const ResourceTile({
     super.key,
     required this.source,
-    required this.place,
+    required this.resource,
     required this.flowCubit,
     required this.pagingController,
   });
 
   final FlowCubit flowCubit;
-  final Place place;
+  final Resource resource;
   final String source;
-  final SourcedPagingController<Place> pagingController;
+  final SourcedPagingController<Resource> pagingController;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class PlaceTile extends StatelessWidget {
         (
           PhosphorIconsLight.trash,
           AppLocalizations.of(context).delete,
-          _deletePlace,
+          _deleteResource,
         ),
       ]
           .map((e) => MenuItemButton(
@@ -48,21 +48,21 @@ class PlaceTile extends StatelessWidget {
               ))
           .toList(),
       builder: (context, button, controller) => ListTile(
-        title: Text(place.name),
-        subtitle: MarkdownText(place.description),
-        onTap: () => _editPlace(context),
+        title: Text(resource.name),
+        subtitle: MarkdownText(resource.description),
+        onTap: () => _editResource(context),
         trailing: button,
       ),
     );
   }
 
-  void _deletePlace(BuildContext context) {
+  void _deleteResource(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context).deletePlace(place.name)),
-        content: Text(
-            AppLocalizations.of(context).deletePlaceDescription(place.name)),
+        title: Text(AppLocalizations.of(context).deleteResource(resource.name)),
+        content: Text(AppLocalizations.of(context)
+            .deleteResourceDescription(resource.name)),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -73,10 +73,13 @@ class PlaceTile extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               Navigator.of(context).pop();
-              await flowCubit.getService(source).place?.deletePlace(place.id!);
+              await flowCubit
+                  .getService(source)
+                  .resource
+                  ?.deleteResource(resource.id!);
               pagingController.itemList!.remove(SourcedModel(
                 source,
-                place,
+                resource,
               ));
               pagingController.refresh();
             },
@@ -93,17 +96,17 @@ class PlaceTile extends StatelessWidget {
     GoRouter.of(context).go(
       "/calendar",
       extra: CalendarFilter(
-        place: place.id,
+        resource: resource.id,
         source: source,
       ),
     );
   }
 
-  void _editPlace(BuildContext context) {
+  void _editResource(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => PlaceDialog(
-        place: place,
+      builder: (context) => ResourceDialog(
+        resource: resource,
         source: source,
       ),
     ).then((value) => pagingController.refresh());

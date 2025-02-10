@@ -11,7 +11,7 @@ import 'package:sqflite_common/sqlite_api.dart';
 import '../models/event/database.dart';
 import '../models/note/item.dart';
 import '../models/note/label.dart';
-import '../models/place/database.dart';
+import '../models/resource/database.dart';
 import '../models/user/database.dart';
 import '../models/group/database.dart';
 import '../models/note/database.dart';
@@ -46,7 +46,7 @@ class DatabaseService extends SourceService {
   @override
   final UserDatabaseService user = UserDatabaseService();
   @override
-  final PlaceDatabaseService place = PlaceDatabaseService();
+  final ResourceDatabaseService resource = ResourceDatabaseService();
   @override
   final LabelDatabaseService label = LabelDatabaseService();
 

@@ -11,7 +11,7 @@ import 'package:flow_api/models/model.dart';
 
 import '../../widgets/markdown_field.dart';
 import '../../widgets/source_dropdown.dart';
-import '../places/select.dart';
+import '../resources/select.dart';
 
 class EventDialog extends StatelessWidget {
   final String? source;
@@ -89,7 +89,7 @@ class EventDialog extends StatelessWidget {
             },
           ),
           const SizedBox(height: 16),
-          PlaceSelectTile(
+          ResourceSelectTile(
             source: currentSource,
             value: currentEvent.placeId,
             onChanged: (value) {

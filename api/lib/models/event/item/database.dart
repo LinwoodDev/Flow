@@ -51,6 +51,9 @@ class CalendarItemDatabaseService extends CalendarItemService
         await txn.execute("ALTER TABLE calendarItems ADD placeId BLOB(16)");
       });
     }
+    if (version < 4) {
+      await db.transaction((txn) async {});
+    }
   }
 
   @override
@@ -58,7 +61,7 @@ class CalendarItemDatabaseService extends CalendarItemService
       {List<EventStatus>? status,
       Uint8List? eventId,
       Uint8List? groupId,
-      Uint8List? placeId,
+      Uint8List? resourceId,
       bool pending = false,
       int offset = 0,
       int limit = 50,
@@ -113,10 +116,10 @@ class CalendarItemDatabaseService extends CalendarItemService
       where = where == null ? statement : '$where AND $statement';
       whereArgs = [...?whereArgs, groupId, groupId];
     }
-    if (placeId != null) {
+    if (resourceId != null) {
       final statement = "(placeId = ? OR events.placeId = ?)";
       where = where == null ? statement : '$where AND $statement';
-      whereArgs = [...?whereArgs, placeId, placeId];
+      whereArgs = [...?whereArgs, resourceId, resourceId];
     }
     if (eventId != null) {
       where = where == null ? 'eventId = ?' : '$where AND eventId = ?';
@@ -215,7 +218,7 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
     List<EventStatus>? status,
     Uint8List? eventId,
     Uint8List? groupId,
-    Uint8List? placeId,
+    Uint8List? resourceId,
     bool pending = false,
     int offset = 0,
     int limit = 50,
@@ -228,7 +231,7 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
         status: status,
         eventId: eventId,
         groupId: groupId,
-        placeId: placeId,
+        resourceId: resourceId,
         pending: pending,
         offset: offset,
         limit: limit,

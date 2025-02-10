@@ -115,7 +115,7 @@ class _CalendarListViewState extends State<CalendarListView> {
                     .toList(),
                 search: widget.search,
                 groupId: widget.filter.group,
-                placeId: widget.filter.place,
+                resourceId: widget.filter.resource,
                 eventId: widget.filter.event,
                 offset: source.value * _pageSize,
                 limit: _pageSize,

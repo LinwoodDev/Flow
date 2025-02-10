@@ -1,6 +1,9 @@
 * Add color wheel
 * Fix color picker not using current color
 * Fix docker file
+* Users can now be added to events and calendar items
+* Rename places to resources and allow for multiple resources
+
 * Convert data classes to dart_mappable
 * Upgrade to flutter 3.27
 * Use minSdkVersion 23 instead of 21 (The minimum version of android is 6.0 (Marshmallow))

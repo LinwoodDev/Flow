@@ -12,7 +12,7 @@ abstract class CalendarItemService extends ModelService {
     List<EventStatus>? status,
     Uint8List? eventId,
     Uint8List? groupId,
-    Uint8List? placeId,
+    Uint8List? resourceId,
     bool pending = false,
     int offset = 0,
     int limit = 50,
@@ -27,4 +27,10 @@ abstract class CalendarItemService extends ModelService {
   FutureOr<bool> updateCalendarItem(CalendarItem item);
 
   FutureOr<bool> deleteCalendarItem(Uint8List id);
+}
+
+abstract class CalendarItemResourceConnector<T> extends ModelService {
+  FutureOr<void> connect(Uint8List calendarItemId, Uint8List resourceId);
+  FutureOr<void> disconnect(Uint8List calendarItemId, Uint8List resourceId);
+  FutureOr<bool> isConnected(Uint8List calendarItemId, Uint8List resourceId);
 }

@@ -6,21 +6,23 @@ import '../model.dart';
 part 'model.mapper.dart';
 
 @MappableClass()
-class Place with PlaceMappable, IdentifiedModel, NamedModel, DescriptiveModel {
+class Resource
+    with ResourceMappable, IdentifiedModel, NamedModel, DescriptiveModel {
   @override
   final Uint8List? id;
   @override
   final String name, description;
   final String address;
 
-  const Place({
+  const Resource({
     this.id,
     this.name = '',
     this.description = '',
     this.address = '',
   });
 
-  factory Place.fromDatabase(Map<String, dynamic> row) => PlaceMapper.fromMap({
+  factory Resource.fromDatabase(Map<String, dynamic> row) =>
+      ResourceMapper.fromMap({
         ...row,
       });
 
