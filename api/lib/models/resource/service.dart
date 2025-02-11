@@ -20,3 +20,16 @@ abstract class ResourceService extends ModelService {
 
   FutureOr<bool> deleteResource(Uint8List id);
 }
+
+abstract class ResourceConnector<T> extends ModelConnector {
+  FutureOr<List<Resource>> getResources(
+    Uint8List connectId, {
+    int offset = 0,
+    int limit = 50,
+  });
+  FutureOr<List<T>> getConnected(
+    Uint8List resourceId, {
+    int offset = 0,
+    int limit = 50,
+  });
+}

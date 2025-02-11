@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flow_api/models/event/item/service.dart';
 import 'package:flow_api/models/event/service.dart';
@@ -24,6 +25,8 @@ abstract class SourceService {
   NoteConnector<Event>? get eventNote => null;
   NoteConnector<CalendarItem>? get calendarItemNote => null;
   ResourceService? get resource => null;
+  ResourceConnector<Event>? get eventResource => null;
+  ResourceConnector<CalendarItem>? get calendarItemResource => null;
   GroupService? get group => null;
   UserService? get user => null;
   LabelService? get label => null;
@@ -38,6 +41,8 @@ abstract class SourceService {
         group,
         user,
         resource,
+        eventResource,
+        calendarItemResource,
         label
       ].nonNulls.toList();
 
@@ -61,4 +66,10 @@ abstract class ModelService {
   FutureOr<void> clear();
 
   bool get isEditable => true;
+}
+
+abstract class ModelConnector extends ModelService {
+  FutureOr<void> connect(Uint8List connectId, Uint8List itemId);
+  FutureOr<void> disconnect(Uint8List connectId, Uint8List itemId);
+  FutureOr<bool> isConnected(Uint8List connectId, Uint8List itemId);
 }

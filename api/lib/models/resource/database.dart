@@ -23,7 +23,7 @@ class ResourceDatabaseService extends ResourceService with TableService {
 
   @override
   FutureOr<void> migrate(Database db, int version) async {
-    if (version < 5) {
+    if (version < 4) {
       await db.execute("ALTER TABLE places RENAME TO resources");
     }
   }
@@ -87,5 +87,55 @@ class ResourceDatabaseService extends ResourceService with TableService {
   @override
   Future<void> clear() async {
     await db?.delete('resources');
+  }
+}
+
+abstract class ResourceDatabaseConnector<T> extends DatabaseModelConnector
+    implements ResourceConnector<T> {
+  @override
+  String get itemIdName => 'resourceId';
+  @override
+  String get itemTableName => 'resources';
+
+  T decode(Map<String, dynamic> data);
+
+  @override
+  Future<List<Resource>> getResources(Uint8List connectId,
+      {int offset = 0, int limit = 50}) async {
+    final result = await db?.query(
+      '$tableName JOIN resources ON resources.id = resourceId',
+      where: '$connectedIdName = ?',
+      whereArgs: [connectId],
+      columns: [
+        'resources.id AS resourceid',
+        'resources.name AS resourcename',
+        'resources.description AS resourcedescription',
+        'resources.address AS resourceaddress',
+      ],
+      offset: offset,
+      limit: limit,
+    );
+    return result
+            ?.map((e) => Map.fromEntries(e.entries
+                .where((element) => element.key.startsWith('resource'))
+                .map((e) =>
+                    MapEntry(e.key.substring('resource'.length), e.value))))
+            .map((e) {
+          return Resource.fromDatabase(e);
+        }).toList() ??
+        [];
+  }
+
+  @override
+  Future<List<T>> getConnected(Uint8List noteId,
+      {int offset = 0, int limit = 50}) async {
+    final result = await db?.query(
+      '$tableName JOIN resources ON resources.id = resourceId',
+      where: 'noteId = ?',
+      whereArgs: [noteId],
+      offset: offset,
+      limit: limit,
+    );
+    return result?.map(decode).toList() ?? [];
   }
 }
