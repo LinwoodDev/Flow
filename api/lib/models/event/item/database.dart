@@ -25,7 +25,6 @@ class CalendarItemDatabaseService extends CalendarItemService
         location VARCHAR(100) NOT NULL DEFAULT '',
         eventId BLOB(16),
         groupId BLOB(16),
-        placeId BLOB(16),
         start INTEGER,
         end INTEGER,
         status VARCHAR(20) NOT NULL DEFAULT 'confirmed',
@@ -52,7 +51,7 @@ class CalendarItemDatabaseService extends CalendarItemService
       });
     }
     if (version < 4) {
-      await db.transaction((txn) async {});
+      await db.execute("ALTER TABLE events DROP COLUMN placeId");
     }
   }
 
@@ -61,7 +60,6 @@ class CalendarItemDatabaseService extends CalendarItemService
       {List<EventStatus>? status,
       Uint8List? eventId,
       Uint8List? groupId,
-      Uint8List? resourceId,
       bool pending = false,
       int offset = 0,
       int limit = 50,
@@ -116,11 +114,6 @@ class CalendarItemDatabaseService extends CalendarItemService
       where = where == null ? statement : '$where AND $statement';
       whereArgs = [...?whereArgs, groupId, groupId];
     }
-    if (resourceId != null) {
-      final statement = "(placeId = ? OR events.placeId = ?)";
-      where = where == null ? statement : '$where AND $statement';
-      whereArgs = [...?whereArgs, resourceId, resourceId];
-    }
     if (eventId != null) {
       where = where == null ? 'eventId = ?' : '$where AND eventId = ?';
       whereArgs = [...?whereArgs, eventId];
@@ -132,7 +125,6 @@ class CalendarItemDatabaseService extends CalendarItemService
         "events.id AS ${eventPrefix}id",
         "events.parentId AS ${eventPrefix}parentId",
         "events.groupId AS ${eventPrefix}groupId",
-        "events.placeId AS ${eventPrefix}placeId",
         "events.blocked AS ${eventPrefix}blocked",
         "events.name AS ${eventPrefix}name",
         "events.description AS ${eventPrefix}description",
@@ -218,7 +210,6 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
     List<EventStatus>? status,
     Uint8List? eventId,
     Uint8List? groupId,
-    Uint8List? resourceId,
     bool pending = false,
     int offset = 0,
     int limit = 50,
@@ -231,7 +222,6 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
         status: status,
         eventId: eventId,
         groupId: groupId,
-        resourceId: resourceId,
         pending: pending,
         offset: offset,
         limit: limit,

@@ -89,9 +89,6 @@ class CalendarItemMapper extends ClassMapperBase<CalendarItem> {
   static Uint8List? _$groupId(CalendarItem v) => v.groupId;
   static const Field<CalendarItem, Uint8List> _f$groupId =
       Field('groupId', _$groupId, opt: true);
-  static Uint8List? _$placeId(CalendarItem v) => v.placeId;
-  static const Field<CalendarItem, Uint8List> _f$placeId =
-      Field('placeId', _$placeId, opt: true);
   static Uint8List? _$eventId(CalendarItem v) => v.eventId;
   static const Field<CalendarItem, Uint8List> _f$eventId =
       Field('eventId', _$eventId, opt: true);
@@ -112,7 +109,6 @@ class CalendarItemMapper extends ClassMapperBase<CalendarItem> {
     #description: _f$description,
     #location: _f$location,
     #groupId: _f$groupId,
-    #placeId: _f$placeId,
     #eventId: _f$eventId,
     #start: _f$start,
     #end: _f$end,
@@ -149,7 +145,6 @@ abstract class CalendarItemCopyWith<$R, $In extends CalendarItem, $Out>
       String? description,
       String? location,
       Uint8List? groupId,
-      Uint8List? placeId,
       Uint8List? eventId,
       DateTime? start,
       DateTime? end,
@@ -188,9 +183,6 @@ class FixedCalendarItemMapper extends ClassMapperBase<FixedCalendarItem> {
   static Uint8List? _$groupId(FixedCalendarItem v) => v.groupId;
   static const Field<FixedCalendarItem, Uint8List> _f$groupId =
       Field('groupId', _$groupId, opt: true);
-  static Uint8List? _$placeId(FixedCalendarItem v) => v.placeId;
-  static const Field<FixedCalendarItem, Uint8List> _f$placeId =
-      Field('placeId', _$placeId, opt: true);
   static Uint8List? _$eventId(FixedCalendarItem v) => v.eventId;
   static const Field<FixedCalendarItem, Uint8List> _f$eventId =
       Field('eventId', _$eventId, opt: true);
@@ -211,7 +203,6 @@ class FixedCalendarItemMapper extends ClassMapperBase<FixedCalendarItem> {
     #description: _f$description,
     #location: _f$location,
     #groupId: _f$groupId,
-    #placeId: _f$placeId,
     #eventId: _f$eventId,
     #start: _f$start,
     #end: _f$end,
@@ -225,7 +216,6 @@ class FixedCalendarItemMapper extends ClassMapperBase<FixedCalendarItem> {
         description: data.dec(_f$description),
         location: data.dec(_f$location),
         groupId: data.dec(_f$groupId),
-        placeId: data.dec(_f$placeId),
         eventId: data.dec(_f$eventId),
         start: data.dec(_f$start),
         end: data.dec(_f$end),
@@ -294,7 +284,6 @@ abstract class FixedCalendarItemCopyWith<$R, $In extends FixedCalendarItem,
       String? description,
       String? location,
       Uint8List? groupId,
-      Uint8List? placeId,
       Uint8List? eventId,
       DateTime? start,
       DateTime? end,
@@ -318,7 +307,6 @@ class _FixedCalendarItemCopyWithImpl<$R, $Out>
           String? description,
           String? location,
           Object? groupId = $none,
-          Object? placeId = $none,
           Object? eventId = $none,
           Object? start = $none,
           Object? end = $none,
@@ -329,7 +317,6 @@ class _FixedCalendarItemCopyWithImpl<$R, $Out>
         if (description != null) #description: description,
         if (location != null) #location: location,
         if (groupId != $none) #groupId: groupId,
-        if (placeId != $none) #placeId: placeId,
         if (eventId != $none) #eventId: eventId,
         if (start != $none) #start: start,
         if (end != $none) #end: end,
@@ -342,7 +329,6 @@ class _FixedCalendarItemCopyWithImpl<$R, $Out>
       description: data.get(#description, or: $value.description),
       location: data.get(#location, or: $value.location),
       groupId: data.get(#groupId, or: $value.groupId),
-      placeId: data.get(#placeId, or: $value.placeId),
       eventId: data.get(#eventId, or: $value.eventId),
       start: data.get(#start, or: $value.start),
       end: data.get(#end, or: $value.end),
@@ -387,9 +373,6 @@ class RepeatingCalendarItemMapper
   static Uint8List? _$groupId(RepeatingCalendarItem v) => v.groupId;
   static const Field<RepeatingCalendarItem, Uint8List> _f$groupId =
       Field('groupId', _$groupId, opt: true);
-  static Uint8List? _$placeId(RepeatingCalendarItem v) => v.placeId;
-  static const Field<RepeatingCalendarItem, Uint8List> _f$placeId =
-      Field('placeId', _$placeId, opt: true);
   static Uint8List? _$eventId(RepeatingCalendarItem v) => v.eventId;
   static const Field<RepeatingCalendarItem, Uint8List> _f$eventId =
       Field('eventId', _$eventId, opt: true);
@@ -428,7 +411,6 @@ class RepeatingCalendarItemMapper
     #description: _f$description,
     #location: _f$location,
     #groupId: _f$groupId,
-    #placeId: _f$placeId,
     #eventId: _f$eventId,
     #start: _f$start,
     #end: _f$end,
@@ -448,7 +430,6 @@ class RepeatingCalendarItemMapper
         description: data.dec(_f$description),
         location: data.dec(_f$location),
         groupId: data.dec(_f$groupId),
-        placeId: data.dec(_f$placeId),
         eventId: data.dec(_f$eventId),
         start: data.dec(_f$start),
         end: data.dec(_f$end),
@@ -526,7 +507,6 @@ abstract class RepeatingCalendarItemCopyWith<
       String? description,
       String? location,
       Uint8List? groupId,
-      Uint8List? placeId,
       Uint8List? eventId,
       DateTime? start,
       DateTime? end,
@@ -560,7 +540,6 @@ class _RepeatingCalendarItemCopyWithImpl<$R, $Out>
           String? description,
           String? location,
           Object? groupId = $none,
-          Object? placeId = $none,
           Object? eventId = $none,
           Object? start = $none,
           Object? end = $none,
@@ -577,7 +556,6 @@ class _RepeatingCalendarItemCopyWithImpl<$R, $Out>
         if (description != null) #description: description,
         if (location != null) #location: location,
         if (groupId != $none) #groupId: groupId,
-        if (placeId != $none) #placeId: placeId,
         if (eventId != $none) #eventId: eventId,
         if (start != $none) #start: start,
         if (end != $none) #end: end,
@@ -596,7 +574,6 @@ class _RepeatingCalendarItemCopyWithImpl<$R, $Out>
       description: data.get(#description, or: $value.description),
       location: data.get(#location, or: $value.location),
       groupId: data.get(#groupId, or: $value.groupId),
-      placeId: data.get(#placeId, or: $value.placeId),
       eventId: data.get(#eventId, or: $value.eventId),
       start: data.get(#start, or: $value.start),
       end: data.get(#end, or: $value.end),
@@ -646,9 +623,6 @@ class AutoCalendarItemMapper extends ClassMapperBase<AutoCalendarItem> {
   static Uint8List? _$groupId(AutoCalendarItem v) => v.groupId;
   static const Field<AutoCalendarItem, Uint8List> _f$groupId =
       Field('groupId', _$groupId, opt: true);
-  static Uint8List? _$placeId(AutoCalendarItem v) => v.placeId;
-  static const Field<AutoCalendarItem, Uint8List> _f$placeId =
-      Field('placeId', _$placeId, opt: true);
   static Uint8List? _$eventId(AutoCalendarItem v) => v.eventId;
   static const Field<AutoCalendarItem, Uint8List> _f$eventId =
       Field('eventId', _$eventId, opt: true);
@@ -696,7 +670,6 @@ class AutoCalendarItemMapper extends ClassMapperBase<AutoCalendarItem> {
     #description: _f$description,
     #location: _f$location,
     #groupId: _f$groupId,
-    #placeId: _f$placeId,
     #eventId: _f$eventId,
     #status: _f$status,
     #start: _f$start,
@@ -719,7 +692,6 @@ class AutoCalendarItemMapper extends ClassMapperBase<AutoCalendarItem> {
         description: data.dec(_f$description),
         location: data.dec(_f$location),
         groupId: data.dec(_f$groupId),
-        placeId: data.dec(_f$placeId),
         eventId: data.dec(_f$eventId),
         status: data.dec(_f$status),
         start: data.dec(_f$start),
@@ -797,7 +769,6 @@ abstract class AutoCalendarItemCopyWith<$R, $In extends AutoCalendarItem, $Out>
       String? description,
       String? location,
       Uint8List? groupId,
-      Uint8List? placeId,
       Uint8List? eventId,
       EventStatus? status,
       DateTime? start,
@@ -834,7 +805,6 @@ class _AutoCalendarItemCopyWithImpl<$R, $Out>
           String? description,
           String? location,
           Object? groupId = $none,
-          Object? placeId = $none,
           Object? eventId = $none,
           EventStatus? status,
           Object? start = $none,
@@ -854,7 +824,6 @@ class _AutoCalendarItemCopyWithImpl<$R, $Out>
         if (description != null) #description: description,
         if (location != null) #location: location,
         if (groupId != $none) #groupId: groupId,
-        if (placeId != $none) #placeId: placeId,
         if (eventId != $none) #eventId: eventId,
         if (status != null) #status: status,
         if (start != $none) #start: start,
@@ -876,7 +845,6 @@ class _AutoCalendarItemCopyWithImpl<$R, $Out>
       description: data.get(#description, or: $value.description),
       location: data.get(#location, or: $value.location),
       groupId: data.get(#groupId, or: $value.groupId),
-      placeId: data.get(#placeId, or: $value.placeId),
       eventId: data.get(#eventId, or: $value.eventId),
       status: data.get(#status, or: $value.status),
       start: data.get(#start, or: $value.start),

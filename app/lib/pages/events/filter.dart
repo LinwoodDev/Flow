@@ -1,5 +1,4 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:flow_api/models/resource/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:typed_data';
@@ -8,7 +7,6 @@ import 'package:flow_api/models/group/model.dart';
 import 'package:flow_api/models/model.dart';
 
 import '../groups/select.dart';
-import '../resources/select.dart';
 
 part 'filter.mapper.dart';
 
@@ -16,18 +14,13 @@ part 'filter.mapper.dart';
 class EventFilter with EventFilterMappable {
   final String? source;
   final Uint8List? group;
-  final Uint8List? resource;
 
   const EventFilter({
     this.source,
     this.group,
-    this.resource,
   });
 
-  EventFilter removeGroup() =>
-      copyWith(group: null, source: resource != null ? source : null);
-  EventFilter removeResource() =>
-      copyWith(resource: null, source: group != null ? source : null);
+  EventFilter removeGroup() => copyWith(group: null, source: source);
 }
 
 class EventFilterView extends StatefulWidget {
@@ -87,39 +80,6 @@ class _EventFilterViewState extends State<EventFilterView> {
                   setState(() {
                     _filter = _filter.copyWith(
                         group: groupId.model.id, source: groupId.source);
-                  });
-                  widget.onChanged(_filter);
-                }
-              },
-            ),
-            InputChip(
-              label: Text(AppLocalizations.of(context).resource),
-              avatar: const PhosphorIcon(PhosphorIconsLight.cube),
-              selected: _filter.resource != null,
-              showCheckmark: false,
-              onDeleted: _filter.resource == null
-                  ? null
-                  : () {
-                      setState(() {
-                        _filter = _filter.removeResource();
-                      });
-                      widget.onChanged(_filter);
-                    },
-              onSelected: (value) async {
-                final resourceId = await showDialog<SourcedModel<Resource>>(
-                  context: context,
-                  builder: (context) => ResourceSelectDialog(
-                    selected: _filter.source != null && _filter.resource != null
-                        ? SourcedModel(_filter.source!, _filter.resource!)
-                        : null,
-                    source: _filter.source,
-                  ),
-                );
-                if (resourceId != null) {
-                  setState(() {
-                    _filter = _filter.copyWith(
-                        resource: resourceId.model.id,
-                        source: resourceId.source);
                   });
                   widget.onChanged(_filter);
                 }

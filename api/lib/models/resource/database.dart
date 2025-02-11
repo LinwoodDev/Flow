@@ -100,6 +100,13 @@ abstract class ResourceDatabaseConnector<T> extends DatabaseModelConnector
   T decode(Map<String, dynamic> data);
 
   @override
+  Future<void> migrate(Database db, int version) async {
+    if (version < 4) {
+      await create(db);
+    }
+  }
+
+  @override
   Future<List<Resource>> getResources(Uint8List connectId,
       {int offset = 0, int limit = 50}) async {
     final result = await db?.query(

@@ -65,7 +65,6 @@ class _CalendarDayViewState extends State<CalendarDayView> {
             .toList(),
         search: widget.search,
         groupId: widget.filter.group,
-        resourceId: widget.filter.resource,
         eventId: widget.filter.event,
       );
       if (fetched == null) continue;

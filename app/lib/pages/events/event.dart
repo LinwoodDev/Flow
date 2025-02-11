@@ -11,7 +11,6 @@ import 'package:flow_api/models/model.dart';
 
 import '../../widgets/markdown_field.dart';
 import '../../widgets/source_dropdown.dart';
-import '../resources/select.dart';
 
 class EventDialog extends StatelessWidget {
   final String? source;
@@ -52,7 +51,6 @@ class EventDialog extends StatelessWidget {
                 currentService = connected?.model;
                 currentEvent = currentEvent.copyWith(
                   groupId: null,
-                  placeId: null,
                 );
               },
             ),
@@ -86,14 +84,6 @@ class EventDialog extends StatelessWidget {
             value: currentEvent.groupId,
             onChanged: (value) {
               currentEvent = currentEvent.copyWith(groupId: value?.model);
-            },
-          ),
-          const SizedBox(height: 16),
-          ResourceSelectTile(
-            source: currentSource,
-            value: currentEvent.placeId,
-            onChanged: (value) {
-              currentEvent = currentEvent.copyWith(placeId: value?.model);
             },
           ),
           const SizedBox(height: 8),

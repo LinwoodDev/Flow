@@ -58,6 +58,18 @@ class ResourceDialog extends StatelessWidget {
           },
         ),
         const SizedBox(height: 16),
+        TextFormField(
+          decoration: InputDecoration(
+            labelText: AppLocalizations.of(context).location,
+            filled: true,
+            icon: const PhosphorIcon(PhosphorIconsLight.mapPin),
+          ),
+          initialValue: currentResource.address,
+          onChanged: (value) {
+            currentResource = currentResource.copyWith(address: value);
+          },
+        ),
+        const SizedBox(height: 16),
         MarkdownField(
           decoration: InputDecoration(
             labelText: AppLocalizations.of(context).description,
@@ -92,7 +104,7 @@ class ResourceDialog extends StatelessWidget {
                   .pop(SourcedModel(currentSource, currentResource));
             }
           },
-          child: Text(AppLocalizations.of(context).create),
+          child: Text(AppLocalizations.of(context).save),
         ),
       ],
     );

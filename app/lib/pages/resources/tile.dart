@@ -96,7 +96,6 @@ class ResourceTile extends StatelessWidget {
     GoRouter.of(context).go(
       "/calendar",
       extra: CalendarFilter(
-        resource: resource.id,
         source: source,
       ),
     );

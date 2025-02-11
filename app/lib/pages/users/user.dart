@@ -97,7 +97,7 @@ class UserDialog extends StatelessWidget {
               Navigator.of(context).pop(currentUser);
             }
           },
-          child: Text(AppLocalizations.of(context).create),
+          child: Text(AppLocalizations.of(context).save),
         ),
       ],
     );

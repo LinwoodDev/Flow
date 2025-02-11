@@ -35,9 +35,6 @@ class CalendarFilterMapper extends ClassMapperBase<CalendarFilter> {
   static Uint8List? _$event(CalendarFilter v) => v.event;
   static const Field<CalendarFilter, Uint8List> _f$event =
       Field('event', _$event, opt: true);
-  static Uint8List? _$resource(CalendarFilter v) => v.resource;
-  static const Field<CalendarFilter, Uint8List> _f$resource =
-      Field('resource', _$resource, opt: true);
   static bool _$past(CalendarFilter v) => v.past;
   static const Field<CalendarFilter, bool> _f$past =
       Field('past', _$past, opt: true, def: false);
@@ -48,7 +45,6 @@ class CalendarFilterMapper extends ClassMapperBase<CalendarFilter> {
     #source: _f$source,
     #group: _f$group,
     #event: _f$event,
-    #resource: _f$resource,
     #past: _f$past,
   };
 
@@ -58,7 +54,6 @@ class CalendarFilterMapper extends ClassMapperBase<CalendarFilter> {
         source: data.dec(_f$source),
         group: data.dec(_f$group),
         event: data.dec(_f$event),
-        resource: data.dec(_f$resource),
         past: data.dec(_f$past));
   }
 
@@ -122,7 +117,6 @@ abstract class CalendarFilterCopyWith<$R, $In extends CalendarFilter, $Out>
       String? source,
       Uint8List? group,
       Uint8List? event,
-      Uint8List? resource,
       bool? past});
   CalendarFilterCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
@@ -148,14 +142,12 @@ class _CalendarFilterCopyWithImpl<$R, $Out>
           Object? source = $none,
           Object? group = $none,
           Object? event = $none,
-          Object? resource = $none,
           bool? past}) =>
       $apply(FieldCopyWithData({
         if (hiddenStatuses != null) #hiddenStatuses: hiddenStatuses,
         if (source != $none) #source: source,
         if (group != $none) #group: group,
         if (event != $none) #event: event,
-        if (resource != $none) #resource: resource,
         if (past != null) #past: past
       }));
   @override
@@ -164,7 +156,6 @@ class _CalendarFilterCopyWithImpl<$R, $Out>
       source: data.get(#source, or: $value.source),
       group: data.get(#group, or: $value.group),
       event: data.get(#event, or: $value.event),
-      resource: data.get(#resource, or: $value.resource),
       past: data.get(#past, or: $value.past));
 
   @override

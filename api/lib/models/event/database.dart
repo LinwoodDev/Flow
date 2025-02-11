@@ -21,7 +21,6 @@ class EventDatabaseService extends EventService with TableService {
         id BLOB(16) PRIMARY KEY,
         parentId BLOB(16),
         groupId BLOB(16),
-        placeId BLOB(16),
         blocked INTEGER NOT NULL DEFAULT 1,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT NOT NULL DEFAULT '',
@@ -29,7 +28,6 @@ class EventDatabaseService extends EventService with TableService {
         extra TEXT,
         FOREIGN KEY (parentId) REFERENCES events(id) ON DELETE CASCADE,
         FOREIGN KEY (groupId) REFERENCES groups(id) ON DELETE CASCADE,
-        FOREIGN KEY (placeId) REFERENCES places(id) ON DELETE CASCADE
       )
     """);
   }
@@ -61,7 +59,6 @@ class EventDatabaseService extends EventService with TableService {
   @override
   Future<List<Event>> getEvents(
       {Uint8List? groupId,
-      Uint8List? placeId,
       int offset = 0,
       int limit = 50,
       String search = ''}) async {
@@ -75,10 +72,6 @@ class EventDatabaseService extends EventService with TableService {
       where = where == null ? 'groupId = ?' : '$where AND groupId = ?';
       whereArgs = whereArgs == null ? [groupId] : [...whereArgs, groupId];
     }
-    if (placeId != null) {
-      where = where == null ? 'placeId = ?' : '$where AND placeId = ?';
-      whereArgs = whereArgs == null ? [placeId] : [...whereArgs, placeId];
-    }
     final result = await db?.query(
       'events',
       limit: limit,
@@ -91,7 +84,11 @@ class EventDatabaseService extends EventService with TableService {
   }
 
   @override
-  FutureOr<void> migrate(Database db, int version) {}
+  FutureOr<void> migrate(Database db, int version) async {
+    if (version < 4) {
+      await db.execute("ALTER TABLE events DROP COLUMN placeId");
+    }
+  }
 
   @override
   FutureOr<bool> updateEvent(Event event) async {
