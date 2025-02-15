@@ -1,5 +1,6 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/event.dart';
+import 'package:flow/pages/events/resources.dart';
 import 'package:flow/pages/groups/select.dart';
 import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
@@ -81,8 +82,9 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<FlowCubit>();
-    final connector = cubit.getService(_source).calendarItemNote;
-    final tabs = !_create && connector != null;
+    final noteConnector = cubit.getService(_source).calendarItemNote;
+    final resourceConnector = cubit.getService(_source).calendarItemResource;
+    final tabs = !_create && noteConnector != null && resourceConnector != null;
     final type = _item.type;
     String title;
     switch (type) {
@@ -150,7 +152,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
         ),
       ],
       content: DefaultTabController(
-        length: tabs ? 2 : 1,
+        length: tabs ? 3 : 1,
         child: Column(
           children: [
             if (tabs)
@@ -163,6 +165,10 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                 (
                   PhosphorIconsLight.checkCircle,
                   AppLocalizations.of(context).notes
+                ),
+                (
+                  PhosphorIconsLight.cube,
+                  AppLocalizations.of(context).resources
                 ),
               ]
                       .map((e) => HorizontalTab(
@@ -304,12 +310,18 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                       ],
                     ),
                   ),
-                  if (tabs)
+                  if (tabs) ...[
                     NotesView(
                       model: widget.item!,
-                      connector: connector,
+                      connector: noteConnector,
                       source: _source,
                     ),
+                    ResourcesView(
+                      model: widget.item!,
+                      connector: resourceConnector,
+                      source: _source,
+                    ),
+                  ],
                 ],
               ),
             ),

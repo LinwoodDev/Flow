@@ -134,12 +134,12 @@ abstract class ResourceDatabaseConnector<T> extends DatabaseModelConnector
   }
 
   @override
-  Future<List<T>> getConnected(Uint8List noteId,
+  Future<List<T>> getConnected(Uint8List resourceId,
       {int offset = 0, int limit = 50}) async {
     final result = await db?.query(
       '$tableName JOIN resources ON resources.id = resourceId',
-      where: 'noteId = ?',
-      whereArgs: [noteId],
+      where: 'resourceId = ?',
+      whereArgs: [resourceId],
       offset: offset,
       limit: limit,
     );

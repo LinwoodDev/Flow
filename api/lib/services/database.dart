@@ -167,7 +167,7 @@ abstract class DatabaseModelConnector extends ModelConnector with TableService {
   Future<void> connect(Uint8List connectId, Uint8List itemId) async {
     if (await isConnected(connectId, itemId)) return;
     await db?.insert(tableName, {
-      'noteId': itemId,
+      itemIdName: itemId,
       connectedIdName: connectId,
     });
   }

@@ -35,7 +35,7 @@ sealed class CalendarItem
   });
 
   factory CalendarItem.fromDatabase(Map<String, dynamic> row) =>
-      CalendarItemMapper.fromMap(row);
+      FixedCalendarItemMapper.fromMap(row);
 
   CalendarItemType get type {
     if (start == null && end == null) {

@@ -100,8 +100,7 @@ class ResourceDialog extends StatelessWidget {
               await currentService?.updateResource(currentResource);
             }
             if (context.mounted) {
-              Navigator.of(context)
-                  .pop(SourcedModel(currentSource, currentResource));
+              Navigator.of(context).pop(currentResource);
             }
           },
           child: Text(AppLocalizations.of(context).save),
