@@ -150,28 +150,46 @@ class NoteDatabaseService extends NoteService with TableService {
     String search = '',
   }) async {
     String? where;
-    List<Object>? whereArgs;
+    List<Object> whereArgs = [];
     if (search.isNotEmpty) {
-      where = '(name LIKE ? OR description LIKE ?)';
+      where = '(notes.name LIKE ? OR notes.description LIKE ?)';
       whereArgs = ['%$search%', '%$search%'];
     }
     if (parent != null) {
       if (parent.isNotEmpty) {
-        where = where == null ? 'parentId = ?' : '$where AND parentId = ?';
-        whereArgs = whereArgs == null ? [parent] : [...whereArgs, parent];
+        where = where == null
+            ? 'notes.parentId = ?'
+            : '$where AND notes.parentId = ?';
+        whereArgs.add(parent);
       } else {
-        where =
-            where == null ? 'parentId IS NULL' : '$where AND parentId IS NULL';
+        where = where == null
+            ? 'notes.parentId IS NULL'
+            : '$where AND notes.parentId IS NULL';
       }
     }
     if (notebook != null) {
-      where = where == null ? 'notebookId = ?' : '$where AND notebookId = ?';
-      whereArgs = [...?whereArgs, notebook];
+      if (notebook.isNotEmpty) {
+        where = where == null
+            ? 'notes.notebookId = ?'
+            : '$where AND notes.notebookId = ?';
+        whereArgs.add(notebook);
+      } else {
+        where = where == null
+            ? 'notes.notebookId IS NULL'
+            : '$where AND notes.notebookId IS NULL';
+      }
+    }
+    if (labels.isNotEmpty) {
+      final labelPlaceholders = labels.map((_) => '?').join(',');
+      where = where == null
+          ? 'notes.id IN (SELECT noteId FROM labelNotes WHERE labelId IN ($labelPlaceholders))'
+          : '$where AND notes.id IN (SELECT noteId FROM labelNotes WHERE labelId IN ($labelPlaceholders))';
+      whereArgs.addAll(labels);
     }
     var statusStatement =
-        "status IN (${statuses.nonNulls.map((e) => "'${e.name}'").join(',')})";
+        "notes.status IN (${statuses.nonNulls.map((e) => "'${e.name}'").join(',')})";
     if (statuses.contains(null)) {
-      statusStatement = "$statusStatement OR status IS NULL";
+      statusStatement = "$statusStatement OR notes.status IS NULL";
     }
     where =
         where == null ? '($statusStatement)' : '$where AND ($statusStatement)';
@@ -181,7 +199,7 @@ class NoteDatabaseService extends NoteService with TableService {
       whereArgs: whereArgs,
       offset: offset,
       limit: limit,
-      orderBy: 'priority DESC',
+      orderBy: 'notes.priority DESC',
     );
     return result?.map((row) => Note.fromDatabase(row)).toList() ?? [];
   }

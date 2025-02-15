@@ -133,6 +133,16 @@ Uint8List createEmptyUint8List() {
   return Uint8List(0);
 }
 
+bool equalUint8List(Uint8List? a, Uint8List? b) {
+  if (a == null && b == null) return true;
+  if (a == null || b == null) return false;
+  if (a.length != b.length) return false;
+  for (int i = 0; i < a.length; i++) {
+    if (a[i] != b[i]) return false;
+  }
+  return true;
+}
+
 abstract class DatabaseModelConnector extends ModelConnector with TableService {
   String get tableName;
   String get connectedTableName;

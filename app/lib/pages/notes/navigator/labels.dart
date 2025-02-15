@@ -64,8 +64,8 @@ class _NoteLabelsViewState extends State<_NoteLabelsView> {
                       buildMaterialPagedDelegate<SourcedModel<Label>>(
                     _pagingController,
                     (context, item, index) {
-                      final selected =
-                          widget.filter.selectedLabel == item.model.id;
+                      final selected = equalUint8List(
+                          widget.filter.selectedLabel, item.model.id);
                       return MenuAnchor(
                         builder: (context, controller, child) => Tooltip(
                           message: item.model.name,

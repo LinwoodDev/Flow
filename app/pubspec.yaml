@@ -19,7 +19,7 @@ version: 0.3.2+9
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
-  flutter: 3.27.4
+  flutter: 3.29.0
 
 dependencies:
   flutter:
@@ -53,7 +53,7 @@ dependencies:
   sqflite_common: ^2.5.3
   sqflite: ^2.3.3
   sqflite_common_ffi: ^2.3.3
-  sqflite_common_ffi_web: ^0.4.3+1
+  sqflite_common_ffi_web: ^1.0.0
   sqlite3_flutter_libs: ^0.5.20
   sqlite3: ^2.4.2
   dynamic_color: ^1.7.0

@@ -27,7 +27,7 @@ class EventDatabaseService extends EventService with TableService {
         location TEXT NOT NULL DEFAULT '',
         extra TEXT,
         FOREIGN KEY (parentId) REFERENCES events(id) ON DELETE CASCADE,
-        FOREIGN KEY (groupId) REFERENCES groups(id) ON DELETE CASCADE,
+        FOREIGN KEY (groupId) REFERENCES groups(id) ON DELETE CASCADE
       )
     """);
   }
