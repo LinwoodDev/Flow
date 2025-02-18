@@ -60,6 +60,7 @@ class CalendarItemDatabaseService extends CalendarItemService
       {List<EventStatus>? status,
       Uint8List? eventId,
       Uint8List? groupId,
+      List<Uint8List>? resourceIds,
       bool pending = false,
       int offset = 0,
       int limit = 50,
@@ -117,6 +118,12 @@ class CalendarItemDatabaseService extends CalendarItemService
     if (eventId != null) {
       where = where == null ? 'eventId = ?' : '$where AND eventId = ?';
       whereArgs = [...?whereArgs, eventId];
+    }
+    if (resourceIds != null) {
+      final statement =
+          "calendarItems.id IN (SELECT itemId FROM calendarItemResources WHERE resourceId IN (${List.filled(resourceIds.length, '?').join(', ')}))";
+      where = where == null ? statement : '$where AND $statement';
+      whereArgs = [...?whereArgs, ...resourceIds];
     }
     const eventPrefix = "event_";
     final result = await db?.query(
@@ -210,6 +217,7 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
     List<EventStatus>? status,
     Uint8List? eventId,
     Uint8List? groupId,
+    List<Uint8List>? resourceIds,
     bool pending = false,
     int offset = 0,
     int limit = 50,
@@ -222,6 +230,7 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
         status: status,
         eventId: eventId,
         groupId: groupId,
+        resourceIds: resourceIds,
         pending: pending,
         offset: offset,
         limit: limit,

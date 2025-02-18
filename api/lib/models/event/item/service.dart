@@ -12,6 +12,7 @@ abstract class CalendarItemService extends ModelService {
     List<EventStatus>? status,
     Uint8List? eventId,
     Uint8List? groupId,
+    List<Uint8List>? resourceIds,
     bool pending = false,
     int offset = 0,
     int limit = 50,

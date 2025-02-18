@@ -89,6 +89,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
           search: widget.search,
           eventId: widget.filter.event,
           groupId: widget.filter.group,
+          resourceIds: widget.filter.resources,
         );
         if (fetchedDay == null) continue;
         appointments[i]

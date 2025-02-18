@@ -1,6 +1,8 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flow/helpers/event.dart';
 import 'package:flow/pages/groups/select.dart';
+import 'package:flow/pages/resources/select.dart';
+import 'package:flow_api/models/resource/model.dart';
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -19,6 +21,7 @@ class CalendarFilter with CalendarFilterMappable {
   final String? source;
   final Uint8List? group;
   final Uint8List? event;
+  final Uint8List? resource;
   final bool past;
 
   const CalendarFilter({
@@ -27,16 +30,27 @@ class CalendarFilter with CalendarFilterMappable {
     this.group,
     this.event,
     this.past = false,
+    this.resource,
   });
+
+  List<Uint8List>? get resources => resource != null ? [resource!] : null;
 
   SourcedModel<Uint8List>? get sourceEvent => event != null && source != null
       ? SourcedModel<Uint8List>(source!, event!)
       : null;
 
-  CalendarFilter removeGroup() =>
-      copyWith(group: null, source: event != null ? source : null);
-  CalendarFilter removeEvent() =>
-      copyWith(event: null, source: group != null ? source : null);
+  CalendarFilter removeGroup() => copyWith(
+      group: null,
+      source:
+          event != null || resource != null || group != null ? source : null);
+  CalendarFilter removeEvent() => copyWith(
+      event: null,
+      source:
+          group != null || resource != null || event != null ? source : null);
+  CalendarFilter removeResources() => copyWith(
+      resource: null,
+      source:
+          group != null || event != null || resource != null ? source : null);
 }
 
 class CalendarFilterView extends StatefulWidget {
@@ -166,6 +180,39 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                     _filter = _filter.copyWith(
                         group: sourceGroup.model.id,
                         source: sourceGroup.source);
+                  });
+                  widget.onChanged(_filter);
+                }
+              },
+            ),
+            InputChip(
+              label: Text(AppLocalizations.of(context).resource),
+              avatar: const PhosphorIcon(PhosphorIconsLight.cube),
+              selected: _filter.resource != null,
+              showCheckmark: false,
+              onDeleted: _filter.resource == null
+                  ? null
+                  : () {
+                      setState(() {
+                        _filter = _filter.removeResources();
+                      });
+                      widget.onChanged(_filter);
+                    },
+              onSelected: (value) async {
+                final sourceResource = await showDialog<SourcedModel<Resource>>(
+                  context: context,
+                  builder: (context) => ResourceSelectDialog(
+                    selected: _filter.source != null && _filter.resource != null
+                        ? SourcedModel(_filter.source!, _filter.resource!)
+                        : null,
+                    source: _filter.source,
+                  ),
+                );
+                if (sourceResource != null) {
+                  setState(() {
+                    _filter = _filter.copyWith(
+                        resource: sourceResource.model.id,
+                        source: sourceResource.source);
                   });
                   widget.onChanged(_filter);
                 }
