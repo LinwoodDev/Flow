@@ -59,6 +59,7 @@ class EventDatabaseService extends EventService with TableService {
   @override
   Future<List<Event>> getEvents(
       {Uint8List? groupId,
+      List<Uint8List>? resourceIds,
       int offset = 0,
       int limit = 50,
       String search = ''}) async {
@@ -70,7 +71,13 @@ class EventDatabaseService extends EventService with TableService {
     }
     if (groupId != null) {
       where = where == null ? 'groupId = ?' : '$where AND groupId = ?';
-      whereArgs = whereArgs == null ? [groupId] : [...whereArgs, groupId];
+      whereArgs = [...?whereArgs, groupId];
+    }
+    if (resourceIds != null) {
+      final statement =
+          "id IN (SELECT itemId FROM eventResources WHERE resourceId IN (${resourceIds.map((e) => '?').join(', ')}))";
+      where = where == null ? statement : '$where AND $statement';
+      whereArgs = [...?whereArgs, ...resourceIds];
     }
     final result = await db?.query(
       'events',

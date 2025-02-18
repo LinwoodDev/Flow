@@ -16,6 +16,7 @@ abstract class EventService extends ModelService {
     int offset = 0,
     int limit = 50,
     String search = '',
+    List<Uint8List>? resourceIds,
   });
 
   FutureOr<Event?> createEvent(Event event);

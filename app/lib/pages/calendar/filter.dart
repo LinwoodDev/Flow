@@ -40,17 +40,11 @@ class CalendarFilter with CalendarFilterMappable {
       : null;
 
   CalendarFilter removeGroup() => copyWith(
-      group: null,
-      source:
-          event != null || resource != null || group != null ? source : null);
+      group: null, source: event != null || resource != null ? source : null);
   CalendarFilter removeEvent() => copyWith(
-      event: null,
-      source:
-          group != null || resource != null || event != null ? source : null);
-  CalendarFilter removeResources() => copyWith(
-      resource: null,
-      source:
-          group != null || event != null || resource != null ? source : null);
+      event: null, source: group != null || resource != null ? source : null);
+  CalendarFilter removeResource() => copyWith(
+      resource: null, source: group != null || event != null ? source : null);
 }
 
 class CalendarFilterView extends StatefulWidget {
@@ -194,7 +188,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                   ? null
                   : () {
                       setState(() {
-                        _filter = _filter.removeResources();
+                        _filter = _filter.removeResource();
                       });
                       widget.onChanged(_filter);
                     },

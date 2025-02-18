@@ -121,9 +121,9 @@ class CalendarItemDatabaseService extends CalendarItemService
     }
     if (resourceIds != null) {
       final statement =
-          "calendarItems.id IN (SELECT itemId FROM calendarItemResources WHERE resourceId IN (${List.filled(resourceIds.length, '?').join(', ')}))";
+          "(calendarItems.id IN (SELECT itemId FROM calendarItemResources WHERE resourceId IN (${List.filled(resourceIds.length, '?').join(', ')})) OR events.id IN (SELECT eventId FROM eventResources WHERE resourceId IN (${List.filled(resourceIds.length, '?').join(', ')})))";
       where = where == null ? statement : '$where AND $statement';
-      whereArgs = [...?whereArgs, ...resourceIds];
+      whereArgs = [...?whereArgs, ...resourceIds, ...resourceIds];
     }
     const eventPrefix = "event_";
     final result = await db?.query(

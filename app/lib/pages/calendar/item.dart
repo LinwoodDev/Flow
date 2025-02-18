@@ -86,24 +86,17 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
     final resourceConnector = cubit.getService(_source).calendarItemResource;
     final tabs = !_create && noteConnector != null && resourceConnector != null;
     final type = _item.type;
-    String title;
-    switch (type) {
-      case CalendarItemType.appointment:
-        title = _create
-            ? AppLocalizations.of(context).createAppointment
-            : AppLocalizations.of(context).editAppointment;
-        break;
-      case CalendarItemType.moment:
-        title = _create
-            ? AppLocalizations.of(context).createMoment
-            : AppLocalizations.of(context).editMoment;
-        break;
-      case CalendarItemType.pending:
-        title = _create
-            ? AppLocalizations.of(context).createPending
-            : AppLocalizations.of(context).editPending;
-        break;
-    }
+    final title = switch (type) {
+      CalendarItemType.appointment => _create
+          ? AppLocalizations.of(context).createAppointment
+          : AppLocalizations.of(context).editAppointment,
+      CalendarItemType.moment => _create
+          ? AppLocalizations.of(context).createMoment
+          : AppLocalizations.of(context).editMoment,
+      CalendarItemType.pending => _create
+          ? AppLocalizations.of(context).createPending
+          : AppLocalizations.of(context).editPending,
+    };
 
     return ResponsiveAlertDialog(
       title: Text(title),

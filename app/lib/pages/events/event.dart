@@ -1,4 +1,6 @@
 import 'package:flow/cubits/flow.dart';
+import 'package:flow/pages/events/note.dart';
+import 'package:flow/pages/events/resources.dart';
 import 'package:flow/pages/groups/select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,85 +33,142 @@ class EventDialog extends StatelessWidget {
     var currentEvent = event ?? const Event();
     var currentSource = source ?? '';
     var currentService = cubit.sourcesService.getSource(currentSource).event;
+    final noteConnector = cubit.getService(currentSource).eventNote;
+    final resourceConnector = cubit.getService(currentSource).eventResource;
     final nameController = TextEditingController(text: currentEvent.name);
     final locationController =
         TextEditingController(text: currentEvent.location);
+    final tabs = !create && noteConnector != null && resourceConnector != null;
     return ResponsiveAlertDialog(
       title: Text(create
           ? AppLocalizations.of(context).createEvent
           : AppLocalizations.of(context).editEvent),
       constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
-      content: ListView(
-        shrinkWrap: true,
-        children: [
-          if (source == null) ...[
-            SourceDropdown<EventService>(
-              value: currentSource,
-              buildService: (source) => source.event,
-              onChanged: (connected) {
-                currentSource = connected?.source ?? '';
-                currentService = connected?.model;
-                currentEvent = currentEvent.copyWith(
-                  groupId: null,
-                );
-              },
-            ),
-            const SizedBox(height: 16),
-          ],
-          const SizedBox(height: 16),
-          TextFormField(
-            controller: nameController,
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context).name,
-              icon: const PhosphorIcon(PhosphorIconsLight.fileText),
-              filled: true,
-            ),
-            onChanged: (value) =>
-                currentEvent = currentEvent.copyWith(name: value),
-          ),
-          const SizedBox(height: 16),
-          MarkdownField(
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context).description,
-              border: const OutlineInputBorder(),
-              icon: const PhosphorIcon(PhosphorIconsLight.fileText),
-            ),
-            value: currentEvent.description,
-            onChanged: (value) =>
-                currentEvent = currentEvent.copyWith(description: value),
-          ),
-          const SizedBox(height: 16),
-          GroupSelectTile(
-            source: currentSource,
-            value: currentEvent.groupId,
-            onChanged: (value) {
-              currentEvent = currentEvent.copyWith(groupId: value?.model);
-            },
-          ),
-          const SizedBox(height: 8),
-          StatefulBuilder(
-              builder: (context, setState) => CheckboxListTile(
-                    secondary: const Icon(PhosphorIconsLight.circleHalfTilt),
-                    title: Text(AppLocalizations.of(context).blocked),
-                    value: currentEvent.blocked,
-                    onChanged: (value) => setState(
-                      () => currentEvent = currentEvent.copyWith(
-                          blocked: value ?? currentEvent.blocked),
+      content: DefaultTabController(
+        length: tabs ? 3 : 1,
+        child: Column(
+          children: [
+            if (tabs)
+              TabBar(
+                  tabs: [
+                (
+                  PhosphorIconsLight.faders,
+                  AppLocalizations.of(context).general
+                ),
+                (
+                  PhosphorIconsLight.checkCircle,
+                  AppLocalizations.of(context).notes
+                ),
+                (
+                  PhosphorIconsLight.cube,
+                  AppLocalizations.of(context).resources
+                ),
+              ]
+                      .map((e) => HorizontalTab(
+                            icon: PhosphorIcon(e.$1),
+                            label: Text(e.$2),
+                          ))
+                      .toList()),
+            Flexible(
+              child: TabBarView(
+                children: [
+                  Material(
+                    color: Colors.transparent,
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: [
+                        if (source == null) ...[
+                          SourceDropdown<EventService>(
+                            value: currentSource,
+                            buildService: (source) => source.event,
+                            onChanged: (connected) {
+                              currentSource = connected?.source ?? '';
+                              currentService = connected?.model;
+                              currentEvent = currentEvent.copyWith(
+                                groupId: null,
+                              );
+                            },
+                          ),
+                          const SizedBox(height: 16),
+                        ],
+                        const SizedBox(height: 16),
+                        TextFormField(
+                          controller: nameController,
+                          decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context).name,
+                            icon:
+                                const PhosphorIcon(PhosphorIconsLight.fileText),
+                            filled: true,
+                          ),
+                          onChanged: (value) =>
+                              currentEvent = currentEvent.copyWith(name: value),
+                        ),
+                        const SizedBox(height: 16),
+                        MarkdownField(
+                          decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context).description,
+                            border: const OutlineInputBorder(),
+                            icon:
+                                const PhosphorIcon(PhosphorIconsLight.fileText),
+                          ),
+                          value: currentEvent.description,
+                          onChanged: (value) => currentEvent =
+                              currentEvent.copyWith(description: value),
+                        ),
+                        const SizedBox(height: 16),
+                        GroupSelectTile(
+                          source: currentSource,
+                          value: currentEvent.groupId,
+                          onChanged: (value) {
+                            currentEvent =
+                                currentEvent.copyWith(groupId: value?.model);
+                          },
+                        ),
+                        const SizedBox(height: 8),
+                        StatefulBuilder(
+                            builder: (context, setState) => CheckboxListTile(
+                                  secondary: const Icon(
+                                      PhosphorIconsLight.circleHalfTilt),
+                                  title: Text(
+                                      AppLocalizations.of(context).blocked),
+                                  value: currentEvent.blocked,
+                                  onChanged: (value) => setState(
+                                    () => currentEvent = currentEvent.copyWith(
+                                        blocked: value ?? currentEvent.blocked),
+                                  ),
+                                )),
+                        const SizedBox(height: 8),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context).location,
+                            icon: const PhosphorIcon(PhosphorIconsLight.mapPin),
+                          ),
+                          minLines: 1,
+                          maxLines: 2,
+                          controller: locationController,
+                          onChanged: (value) => currentEvent =
+                              currentEvent.copyWith(location: value),
+                        ),
+                      ],
                     ),
-                  )),
-          const SizedBox(height: 8),
-          TextField(
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context).location,
-              icon: const PhosphorIcon(PhosphorIconsLight.mapPin),
+                  ),
+                  if (tabs) ...[
+                    NotesView(
+                      model: currentEvent,
+                      connector: noteConnector,
+                      source: currentSource,
+                    ),
+                    ResourcesView(
+                      model: currentEvent,
+                      connector: resourceConnector,
+                      source: currentSource,
+                    ),
+                  ],
+                ],
+              ),
             ),
-            minLines: 1,
-            maxLines: 2,
-            controller: locationController,
-            onChanged: (value) =>
-                currentEvent = currentEvent.copyWith(location: value),
-          ),
-        ],
+          ],
+        ),
       ),
       actions: [
         TextButton(
