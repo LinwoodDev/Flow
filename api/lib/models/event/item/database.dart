@@ -50,9 +50,6 @@ class CalendarItemDatabaseService extends CalendarItemService
         await txn.execute("ALTER TABLE calendarItems ADD placeId BLOB(16)");
       });
     }
-    if (version < 4) {
-      await db.execute("ALTER TABLE events DROP COLUMN placeId");
-    }
   }
 
   @override

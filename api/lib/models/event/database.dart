@@ -93,7 +93,8 @@ class EventDatabaseService extends EventService with TableService {
   @override
   FutureOr<void> migrate(Database db, int version) async {
     if (version < 4) {
-      await db.execute("ALTER TABLE events DROP COLUMN placeId");
+      await db.execute("ALTER TABLE events RENAME TO events_old");
+      await create(db);
     }
   }
 
