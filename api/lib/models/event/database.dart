@@ -15,9 +15,9 @@ class EventDatabaseService extends EventService with TableService {
   }
 
   @override
-  FutureOr<void> create(Database db) async {
+  FutureOr<void> create(DatabaseExecutor db, [String name = 'events']) async {
     await db.execute("""
-      CREATE TABLE IF NOT EXISTS events (
+      CREATE TABLE IF NOT EXISTS $name (
         id BLOB(16) PRIMARY KEY,
         parentId BLOB(16),
         groupId BLOB(16),
@@ -88,14 +88,6 @@ class EventDatabaseService extends EventService with TableService {
     );
     if (result == null) return [];
     return result.map(Event.fromDatabase).toList();
-  }
-
-  @override
-  FutureOr<void> migrate(Database db, int version) async {
-    if (version < 4) {
-      await db.execute("ALTER TABLE events RENAME TO events_old");
-      await create(db);
-    }
   }
 
   @override

@@ -49,8 +49,8 @@ class DatabaseService extends SourceService {
   @override
   final ResourceDatabaseService resource = ResourceDatabaseService();
   @override
-  final EventResourceDatabaseConnector eventResource =
-      EventResourceDatabaseConnector();
+  late final EventResourceDatabaseConnector eventResource =
+      EventResourceDatabaseConnector(event);
   @override
   final CalendarItemResourceDatabaseConnector calendarItemResource =
       CalendarItemResourceDatabaseConnector();
