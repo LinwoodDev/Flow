@@ -1,7 +1,7 @@
 {
   "dashboard": "Приладна дошка",
   "calendar": "Календар",
-  "places": "Місця",
+  "resources": "Resources",
   "users": "Спільноти",
   "sources": "Джерела",
   "settings": "Налаштування",
@@ -24,7 +24,7 @@
   "systemDefault": "Системна по замовчуванню",
   "light": "Світла",
   "dark": "Темна",
-  "createPlace": "Створити місце",
+  "createResource": "Create resource",
   "cancel": "Скасувати",
   "name": "Ім'я",
   "description": "Опис",
@@ -143,23 +143,23 @@
   "importFile": "Імпортувати файл",
   "importFileDescription": "Імпортуйте файл з вашого пристрою. Ви можете імпортувати файл бази даних з іншого файлу Linwood Flow екземпляра або звичний файл календаря.",
   "icalDescription": "Інтерфейс iCal дозволяє вам отримати доступ до ваших даних з будь-якого сервера iCal. Він може читати лише дані і не підтримує запис. Ви можете використати його для синхронізації даних з іншими пристроями чи службами, які не підтримують CalDAV.",
-  "place": "Місце",
-  "editPlace": "Редагувати місце",
-  "deletePlace": "Видалити місце {name}",
-  "@deletePlace": {
+  "resource": "Resource",
+  "editResource": "Edit resource",
+  "deleteResource": "Delete resource {name}",
+  "@deleteResource": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
-  "deletePlaceDescription": "Ви дійсно бажаєте видалити місце {name}?",
-  "@deletePlaceDescription": {
+  "deleteResourceDescription": "Are you sure you want to delete the resource {name}?",
+  "@deleteResourceDescription": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
