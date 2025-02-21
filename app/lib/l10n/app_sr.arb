@@ -1,7 +1,7 @@
 {
   "dashboard": "Dashboard",
   "calendar": "Calendar",
-  "places": "Places",
+  "resources": "Resources",
   "users": "Users",
   "sources": "Sources",
   "settings": "Settings",
@@ -24,7 +24,7 @@
   "systemDefault": "System Default",
   "light": "Light",
   "dark": "Dark",
-  "createPlace": "Create Place",
+  "createResource": "Create resource",
   "cancel": "Cancel",
   "name": "Name",
   "description": "Description",
@@ -143,23 +143,23 @@
   "importFile": "Import file",
   "importFileDescription": "Import a file from your device. You can import a database file from another Linwood Flow instance or a regular calendar file.",
   "icalDescription": "The iCal interface allows you to access your data from any iCal server. It can only read data and does not support writing. You can use it to synchronize your data with other devices or services that do not support CalDAV.",
-  "place": "Place",
-  "editPlace": "Edit place",
-  "deletePlace": "Delete place {name}",
-  "@deletePlace": {
+  "resource": "Resource",
+  "editResource": "Edit resource",
+  "deleteResource": "Delete resource {name}",
+  "@deleteResource": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
-  "deletePlaceDescription": "Are you sure you want to delete the place {name}?",
-  "@deletePlaceDescription": {
+  "deleteResourceDescription": "Are you sure you want to delete the resource {name}?",
+  "@deleteResourceDescription": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
