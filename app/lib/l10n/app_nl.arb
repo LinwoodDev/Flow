@@ -1,7 +1,7 @@
 {
   "dashboard": "Dashboard",
   "calendar": "Kalender",
-  "places": "Plaatsen",
+  "resources": "Resources",
   "users": "Gebruikers",
   "sources": "Bronnen",
   "settings": "Instellingen",
@@ -24,7 +24,7 @@
   "systemDefault": "Standaard systeeminstelling",
   "light": "Licht",
   "dark": "Donker",
-  "createPlace": "Plaats aanmaken",
+  "createResource": "Create resource",
   "cancel": "annuleren",
   "name": "naam",
   "description": "Beschrijving",
@@ -143,23 +143,23 @@
   "importFile": "Bestand importeren",
   "importFileDescription": "Importeer een bestand vanaf uw apparaat. U kunt een databasebestand importeren uit een ander Linwood Flow exemplaar of een normaal kalenderbestand.",
   "icalDescription": "De iCal interface geeft u toegang tot uw gegevens op elke iCal server. Het kan alleen gegevens lezen en ondersteunt geen schrijfgegevens. U kunt het gebruiken om uw gegevens te synchroniseren met andere apparaten of diensten die CalDAV niet ondersteunen.",
-  "place": "Plaats",
-  "editPlace": "Bewerk plaats",
-  "deletePlace": "Verwijder plaats {name}",
-  "@deletePlace": {
+  "resource": "Resource",
+  "editResource": "Edit resource",
+  "deleteResource": "Delete resource {name}",
+  "@deleteResource": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
-  "deletePlaceDescription": "Weet u zeker dat u de plaats {name} wilt verwijderen?",
-  "@deletePlaceDescription": {
+  "deleteResourceDescription": "Are you sure you want to delete the resource {name}?",
+  "@deleteResourceDescription": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
