@@ -5,8 +5,12 @@ import 'dart:typed_data';
 import 'package:flow_api/models/event/item/database.dart';
 import 'package:flow_api/models/label/database.dart';
 import 'package:flow_api/models/note/event.dart';
+import 'package:flow_api/models/note/group.dart';
+import 'package:flow_api/models/note/user.dart';
 import 'package:flow_api/models/resource/event.dart';
+import 'package:flow_api/models/resource/group.dart';
 import 'package:flow_api/models/resource/item.dart';
+import 'package:flow_api/models/resource/user.dart';
 import 'package:flow_api/services/source.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
@@ -43,6 +47,10 @@ class DatabaseService extends SourceService {
   final CalendarItemNoteDatabaseConnector calendarItemNote =
       CalendarItemNoteDatabaseConnector();
   @override
+  final UserNoteDatabaseConnector userNote = UserNoteDatabaseConnector();
+  @override
+  final GroupNoteDatabaseConnector groupNote = GroupNoteDatabaseConnector();
+  @override
   final GroupDatabaseService group = GroupDatabaseService();
   @override
   final UserDatabaseService user = UserDatabaseService();
@@ -54,6 +62,12 @@ class DatabaseService extends SourceService {
   @override
   final CalendarItemResourceDatabaseConnector calendarItemResource =
       CalendarItemResourceDatabaseConnector();
+  @override
+  final UserResourceDatabaseConnector userResource =
+      UserResourceDatabaseConnector();
+  @override
+  final GroupResourceDatabaseConnector groupResource =
+      GroupResourceDatabaseConnector();
   @override
   final LabelDatabaseService label = LabelDatabaseService();
 

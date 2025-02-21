@@ -1,6 +1,9 @@
 * Add color wheel
 * Add event notes
+* Add owner for notes
 * Refactor places to resources
+  * Allow many-to-many relationship
+  * Add owner for resources
 * Fix color picker not using current color
   * Rename places to resources and allow for multiple resources
   * Add resources to events

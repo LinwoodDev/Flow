@@ -3,10 +3,12 @@ import 'dart:typed_data';
 
 import 'package:flow_api/models/event/item/service.dart';
 import 'package:flow_api/models/event/service.dart';
+import 'package:flow_api/models/group/model.dart';
 import 'package:flow_api/models/group/service.dart';
 import 'package:flow_api/models/label/service.dart';
 import 'package:flow_api/models/note/label.dart';
 import 'package:flow_api/models/resource/service.dart';
+import 'package:flow_api/models/user/model.dart';
 import 'package:flow_api/models/user/service.dart';
 
 import '../models/cached.dart';
@@ -24,9 +26,13 @@ abstract class SourceService {
   LabelNoteConnector? get labelNote => null;
   NoteConnector<Event>? get eventNote => null;
   NoteConnector<CalendarItem>? get calendarItemNote => null;
+  NoteConnector<User>? get userNote => null;
+  NoteConnector<Group>? get groupNote => null;
   ResourceService? get resource => null;
   ResourceConnector<Event>? get eventResource => null;
   ResourceConnector<CalendarItem>? get calendarItemResource => null;
+  ResourceConnector<User>? get userResource => null;
+  ResourceConnector<Group>? get groupResource => null;
   GroupService? get group => null;
   UserService? get user => null;
   LabelService? get label => null;
@@ -37,12 +43,16 @@ abstract class SourceService {
         note,
         labelNote,
         eventNote,
+        userNote,
+        groupNote,
         calendarItemNote,
         group,
         user,
         resource,
         eventResource,
         calendarItemResource,
+        userResource,
+        groupResource,
         label
       ].nonNulls.toList();
 
