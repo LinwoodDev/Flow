@@ -1,7 +1,7 @@
 {
   "dashboard": "Kontrol Paneli",
   "calendar": "Takvim",
-  "places": "Yerler",
+  "resources": "Resources",
   "users": "Kullanıcılar",
   "sources": "Kaynaklar",
   "settings": "Ayarlar",
@@ -24,7 +24,7 @@
   "systemDefault": "Sistem Varsayılanı",
   "light": "Açık",
   "dark": "Koyu",
-  "createPlace": "Yer Oluştur",
+  "createResource": "Create resource",
   "cancel": "İptal",
   "name": "Ad",
   "description": "Açıklama",
@@ -143,23 +143,23 @@
   "importFile": "Dosyayı içeri aktar",
   "importFileDescription": "Cihazınızdan bir dosya içe aktarın. Başka bir Linwood Flow örneğinden bir veritabanı dosyasını veya normal bir takvim dosyasını içe aktarabilirsiniz.",
   "icalDescription": "iCal arayüzü, verilerinize herhangi bir iCal sunucusundan erişmenizi sağlar. Yalnızca veri okuyabilir ve yazmayı desteklemez. Verilerinizi CalDAV'ı desteklemeyen diğer cihazlarla veya hizmetlerle senkronize etmek için kullanabilirsiniz.",
-  "place": "Yer",
-  "editPlace": "Yer düzenle",
-  "deletePlace": "{name} yerini sil",
-  "@deletePlace": {
+  "resource": "Resource",
+  "editResource": "Edit resource",
+  "deleteResource": "Delete resource {name}",
+  "@deleteResource": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
-  "deletePlaceDescription": "{name} yerini silmek istediğinize emin misiniz?",
-  "@deletePlaceDescription": {
+  "deleteResourceDescription": "Are you sure you want to delete the resource {name}?",
+  "@deleteResourceDescription": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
