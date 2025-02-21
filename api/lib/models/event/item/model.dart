@@ -18,7 +18,7 @@ sealed class CalendarItem
   @override
   final String name, description;
   final String location;
-  final Uint8List? groupId, placeId, eventId;
+  final Uint8List? groupId, eventId;
   final DateTime? start, end;
   final EventStatus status;
 
@@ -28,7 +28,6 @@ sealed class CalendarItem
     this.description = '',
     this.location = '',
     this.groupId,
-    this.placeId,
     this.eventId,
     this.start,
     this.end,
@@ -36,7 +35,7 @@ sealed class CalendarItem
   });
 
   factory CalendarItem.fromDatabase(Map<String, dynamic> row) =>
-      CalendarItemMapper.fromMap(row);
+      FixedCalendarItemMapper.fromMap(row);
 
   CalendarItemType get type {
     if (start == null && end == null) {
@@ -67,7 +66,6 @@ final class FixedCalendarItem extends CalendarItem
     super.description,
     super.location,
     super.groupId,
-    super.placeId,
     super.eventId,
     super.start,
     super.end,
@@ -89,7 +87,6 @@ final class RepeatingCalendarItem extends CalendarItem
     super.description,
     super.location,
     super.groupId,
-    super.placeId,
     super.eventId,
     super.start,
     super.end,
@@ -120,7 +117,6 @@ final class AutoCalendarItem extends CalendarItem
     super.description,
     super.location,
     super.groupId,
-    super.placeId,
     super.eventId,
     super.status,
     super.start,

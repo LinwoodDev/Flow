@@ -5,14 +5,14 @@ import 'dart:typed_data';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/model.dart';
 
-import 'place.dart';
+import 'resource.dart';
 
-class PlaceSelectTile extends StatelessWidget {
+class ResourceSelectTile extends StatelessWidget {
   final String? source;
   final Uint8List? value;
   final ValueChanged<SourcedModel<Uint8List>?> onChanged;
 
-  const PlaceSelectTile({
+  const ResourceSelectTile({
     super.key,
     this.source,
     this.value,
@@ -24,17 +24,18 @@ class PlaceSelectTile extends StatelessWidget {
     return SelectTile(
       source: source,
       onChanged: onChanged,
-      onModelFetch: (source, service, id) async => service.place?.getPlace(id),
-      title: AppLocalizations.of(context).place,
+      onModelFetch: (source, service, id) async =>
+          service.resource?.getResource(id),
+      title: AppLocalizations.of(context).resource,
       leadingBuilder: (context, model) => PhosphorIcon(model?.model == null
-          ? PhosphorIconsLight.mapPin
-          : PhosphorIconsFill.mapPin),
-      dialogBuilder: (context, sourcedModel) => PlaceDialog(
+          ? PhosphorIconsLight.cube
+          : PhosphorIconsFill.cube),
+      dialogBuilder: (context, sourcedModel) => ResourceDialog(
         source: sourcedModel?.source,
-        place: sourcedModel?.model,
+        resource: sourcedModel?.model,
         create: sourcedModel?.model == null,
       ),
-      selectBuilder: (context, model) => PlaceSelectDialog(
+      selectBuilder: (context, model) => ResourceSelectDialog(
         selected: model?.toIdentifierModel(),
         source: source,
       ),
@@ -42,11 +43,11 @@ class PlaceSelectTile extends StatelessWidget {
   }
 }
 
-class PlaceSelectDialog extends StatelessWidget {
+class ResourceSelectDialog extends StatelessWidget {
   final String? source;
   final SourcedModel<Uint8List>? selected;
 
-  const PlaceSelectDialog({
+  const ResourceSelectDialog({
     super.key,
     this.source,
     this.selected,
@@ -56,12 +57,12 @@ class PlaceSelectDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return SelectDialog(
       onFetch: (source, service, search, offset, limit) async =>
-          service.place?.getPlaces(
+          service.resource?.getResources(
         offset: offset,
         limit: limit,
         search: search,
       ),
-      title: AppLocalizations.of(context).place,
+      title: AppLocalizations.of(context).resource,
       selected: selected,
     );
   }

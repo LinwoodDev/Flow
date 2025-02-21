@@ -13,10 +13,10 @@ abstract class EventService extends ModelService {
 
   FutureOr<List<Event>> getEvents({
     Uint8List? groupId,
-    Uint8List? placeId,
     int offset = 0,
     int limit = 50,
     String search = '',
+    List<Uint8List>? resourceIds,
   });
 
   FutureOr<Event?> createEvent(Event event);

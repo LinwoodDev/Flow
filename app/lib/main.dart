@@ -26,7 +26,7 @@ import 'pages/events/page.dart';
 import 'pages/calendar/page.dart';
 import 'pages/dashboard/page.dart';
 import 'pages/sources/page.dart';
-import 'pages/places/page.dart';
+import 'pages/resources/page.dart';
 import 'pages/groups/page.dart';
 import 'pages/settings/page.dart';
 import 'pages/users/filter.dart';
@@ -169,8 +169,8 @@ class FlowApp extends StatelessWidget {
                         ),
                       ]),
                   GoRoute(
-                    path: 'places',
-                    builder: (context, state) => const PlacesPage(),
+                    path: 'resources',
+                    builder: (context, state) => const ResourcesPage(),
                   ),
                   GoRoute(
                     path: 'users',

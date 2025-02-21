@@ -119,7 +119,6 @@ class _EventsBodyViewState extends State<EventsBodyView> {
                 offset: offset,
                 limit: limit,
                 groupId: _filter.source == source ? _filter.group : null,
-                placeId: _filter.source == source ? _filter.place : null,
                 search: widget.search));
     _filter = widget.filter;
     super.initState();

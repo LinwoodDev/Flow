@@ -132,9 +132,6 @@ class EventMapper extends ClassMapperBase<Event> {
   static Uint8List? _$groupId(Event v) => v.groupId;
   static const Field<Event, Uint8List> _f$groupId =
       Field('groupId', _$groupId, opt: true);
-  static Uint8List? _$placeId(Event v) => v.placeId;
-  static const Field<Event, Uint8List> _f$placeId =
-      Field('placeId', _$placeId, opt: true);
   static bool _$blocked(Event v) => v.blocked;
   static const Field<Event, bool> _f$blocked =
       Field('blocked', _$blocked, opt: true, def: true);
@@ -156,7 +153,6 @@ class EventMapper extends ClassMapperBase<Event> {
     #id: _f$id,
     #parentId: _f$parentId,
     #groupId: _f$groupId,
-    #placeId: _f$placeId,
     #blocked: _f$blocked,
     #name: _f$name,
     #description: _f$description,
@@ -169,7 +165,6 @@ class EventMapper extends ClassMapperBase<Event> {
         id: data.dec(_f$id),
         parentId: data.dec(_f$parentId),
         groupId: data.dec(_f$groupId),
-        placeId: data.dec(_f$placeId),
         blocked: data.dec(_f$blocked),
         name: data.dec(_f$name),
         description: data.dec(_f$description),
@@ -227,7 +222,6 @@ abstract class EventCopyWith<$R, $In extends Event, $Out>
       {Uint8List? id,
       Uint8List? parentId,
       Uint8List? groupId,
-      Uint8List? placeId,
       bool? blocked,
       String? name,
       String? description,
@@ -247,7 +241,6 @@ class _EventCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Event, $Out>
           {Object? id = $none,
           Object? parentId = $none,
           Object? groupId = $none,
-          Object? placeId = $none,
           bool? blocked,
           String? name,
           String? description,
@@ -257,7 +250,6 @@ class _EventCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Event, $Out>
         if (id != $none) #id: id,
         if (parentId != $none) #parentId: parentId,
         if (groupId != $none) #groupId: groupId,
-        if (placeId != $none) #placeId: placeId,
         if (blocked != null) #blocked: blocked,
         if (name != null) #name: name,
         if (description != null) #description: description,
@@ -269,7 +261,6 @@ class _EventCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Event, $Out>
       id: data.get(#id, or: $value.id),
       parentId: data.get(#parentId, or: $value.parentId),
       groupId: data.get(#groupId, or: $value.groupId),
-      placeId: data.get(#placeId, or: $value.placeId),
       blocked: data.get(#blocked, or: $value.blocked),
       name: data.get(#name, or: $value.name),
       description: data.get(#description, or: $value.description),

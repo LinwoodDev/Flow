@@ -35,12 +35,12 @@ class CalendarFilterMapper extends ClassMapperBase<CalendarFilter> {
   static Uint8List? _$event(CalendarFilter v) => v.event;
   static const Field<CalendarFilter, Uint8List> _f$event =
       Field('event', _$event, opt: true);
-  static Uint8List? _$place(CalendarFilter v) => v.place;
-  static const Field<CalendarFilter, Uint8List> _f$place =
-      Field('place', _$place, opt: true);
   static bool _$past(CalendarFilter v) => v.past;
   static const Field<CalendarFilter, bool> _f$past =
       Field('past', _$past, opt: true, def: false);
+  static Uint8List? _$resource(CalendarFilter v) => v.resource;
+  static const Field<CalendarFilter, Uint8List> _f$resource =
+      Field('resource', _$resource, opt: true);
 
   @override
   final MappableFields<CalendarFilter> fields = const {
@@ -48,8 +48,8 @@ class CalendarFilterMapper extends ClassMapperBase<CalendarFilter> {
     #source: _f$source,
     #group: _f$group,
     #event: _f$event,
-    #place: _f$place,
     #past: _f$past,
+    #resource: _f$resource,
   };
 
   static CalendarFilter _instantiate(DecodingData data) {
@@ -58,8 +58,8 @@ class CalendarFilterMapper extends ClassMapperBase<CalendarFilter> {
         source: data.dec(_f$source),
         group: data.dec(_f$group),
         event: data.dec(_f$event),
-        place: data.dec(_f$place),
-        past: data.dec(_f$past));
+        past: data.dec(_f$past),
+        resource: data.dec(_f$resource));
   }
 
   @override
@@ -122,8 +122,8 @@ abstract class CalendarFilterCopyWith<$R, $In extends CalendarFilter, $Out>
       String? source,
       Uint8List? group,
       Uint8List? event,
-      Uint8List? place,
-      bool? past});
+      bool? past,
+      Uint8List? resource});
   CalendarFilterCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -148,15 +148,15 @@ class _CalendarFilterCopyWithImpl<$R, $Out>
           Object? source = $none,
           Object? group = $none,
           Object? event = $none,
-          Object? place = $none,
-          bool? past}) =>
+          bool? past,
+          Object? resource = $none}) =>
       $apply(FieldCopyWithData({
         if (hiddenStatuses != null) #hiddenStatuses: hiddenStatuses,
         if (source != $none) #source: source,
         if (group != $none) #group: group,
         if (event != $none) #event: event,
-        if (place != $none) #place: place,
-        if (past != null) #past: past
+        if (past != null) #past: past,
+        if (resource != $none) #resource: resource
       }));
   @override
   CalendarFilter $make(CopyWithData data) => CalendarFilter(
@@ -164,8 +164,8 @@ class _CalendarFilterCopyWithImpl<$R, $Out>
       source: data.get(#source, or: $value.source),
       group: data.get(#group, or: $value.group),
       event: data.get(#event, or: $value.event),
-      place: data.get(#place, or: $value.place),
-      past: data.get(#past, or: $value.past));
+      past: data.get(#past, or: $value.past),
+      resource: data.get(#resource, or: $value.resource));
 
   @override
   CalendarFilterCopyWith<$R2, CalendarFilter, $Out2> $chain<$R2, $Out2>(

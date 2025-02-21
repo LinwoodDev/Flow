@@ -1,7 +1,7 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/event.dart';
+import 'package:flow/pages/events/resources.dart';
 import 'package:flow/pages/groups/select.dart';
-import 'package:flow/pages/places/select.dart';
 import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -82,27 +82,21 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<FlowCubit>();
-    final connector = cubit.getService(_source).calendarItemNote;
-    final tabs = !_create && connector != null;
+    final noteConnector = cubit.getService(_source).calendarItemNote;
+    final resourceConnector = cubit.getService(_source).calendarItemResource;
+    final tabs = !_create && noteConnector != null && resourceConnector != null;
     final type = _item.type;
-    String title;
-    switch (type) {
-      case CalendarItemType.appointment:
-        title = _create
-            ? AppLocalizations.of(context).createAppointment
-            : AppLocalizations.of(context).editAppointment;
-        break;
-      case CalendarItemType.moment:
-        title = _create
-            ? AppLocalizations.of(context).createMoment
-            : AppLocalizations.of(context).editMoment;
-        break;
-      case CalendarItemType.pending:
-        title = _create
-            ? AppLocalizations.of(context).createPending
-            : AppLocalizations.of(context).editPending;
-        break;
-    }
+    final title = switch (type) {
+      CalendarItemType.appointment => _create
+          ? AppLocalizations.of(context).createAppointment
+          : AppLocalizations.of(context).editAppointment,
+      CalendarItemType.moment => _create
+          ? AppLocalizations.of(context).createMoment
+          : AppLocalizations.of(context).editMoment,
+      CalendarItemType.pending => _create
+          ? AppLocalizations.of(context).createPending
+          : AppLocalizations.of(context).editPending,
+    };
 
     return ResponsiveAlertDialog(
       title: Text(title),
@@ -151,7 +145,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
         ),
       ],
       content: DefaultTabController(
-        length: tabs ? 2 : 1,
+        length: tabs ? 3 : 1,
         child: Column(
           children: [
             if (tabs)
@@ -164,6 +158,10 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                 (
                   PhosphorIconsLight.checkCircle,
                   AppLocalizations.of(context).notes
+                ),
+                (
+                  PhosphorIconsLight.cube,
+                  AppLocalizations.of(context).resources
                 ),
               ]
                       .map((e) => HorizontalTab(
@@ -188,7 +186,6 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                               _item = _item.copyWith(
                                 eventId: null,
                                 groupId: null,
-                                placeId: null,
                               );
                               _service = connected?.model;
                             },
@@ -255,13 +252,6 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             _item = _item.copyWith(groupId: value?.model);
                           },
                         ),
-                        PlaceSelectTile(
-                          source: _source,
-                          value: _item.placeId,
-                          onChanged: (value) {
-                            _item = _item.copyWith(placeId: value?.model);
-                          },
-                        ),
                         const SizedBox(height: 8),
                         TextFormField(
                           decoration: InputDecoration(
@@ -313,12 +303,18 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                       ],
                     ),
                   ),
-                  if (tabs)
+                  if (tabs) ...[
                     NotesView(
                       model: widget.item!,
-                      connector: connector,
+                      connector: noteConnector,
                       source: _source,
                     ),
+                    ResourcesView(
+                      model: widget.item!,
+                      connector: resourceConnector,
+                      source: _source,
+                    ),
+                  ],
                 ],
               ),
             ),

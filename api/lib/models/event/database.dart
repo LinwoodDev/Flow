@@ -15,21 +15,19 @@ class EventDatabaseService extends EventService with TableService {
   }
 
   @override
-  FutureOr<void> create(Database db) async {
+  FutureOr<void> create(DatabaseExecutor db, [String name = 'events']) async {
     await db.execute("""
-      CREATE TABLE IF NOT EXISTS events (
+      CREATE TABLE IF NOT EXISTS $name (
         id BLOB(16) PRIMARY KEY,
         parentId BLOB(16),
         groupId BLOB(16),
-        placeId BLOB(16),
         blocked INTEGER NOT NULL DEFAULT 1,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT NOT NULL DEFAULT '',
         location TEXT NOT NULL DEFAULT '',
         extra TEXT,
         FOREIGN KEY (parentId) REFERENCES events(id) ON DELETE CASCADE,
-        FOREIGN KEY (groupId) REFERENCES groups(id) ON DELETE CASCADE,
-        FOREIGN KEY (placeId) REFERENCES places(id) ON DELETE CASCADE
+        FOREIGN KEY (groupId) REFERENCES groups(id) ON DELETE CASCADE
       )
     """);
   }
@@ -61,7 +59,7 @@ class EventDatabaseService extends EventService with TableService {
   @override
   Future<List<Event>> getEvents(
       {Uint8List? groupId,
-      Uint8List? placeId,
+      List<Uint8List>? resourceIds,
       int offset = 0,
       int limit = 50,
       String search = ''}) async {
@@ -73,11 +71,13 @@ class EventDatabaseService extends EventService with TableService {
     }
     if (groupId != null) {
       where = where == null ? 'groupId = ?' : '$where AND groupId = ?';
-      whereArgs = whereArgs == null ? [groupId] : [...whereArgs, groupId];
+      whereArgs = [...?whereArgs, groupId];
     }
-    if (placeId != null) {
-      where = where == null ? 'placeId = ?' : '$where AND placeId = ?';
-      whereArgs = whereArgs == null ? [placeId] : [...whereArgs, placeId];
+    if (resourceIds != null) {
+      final statement =
+          "id IN (SELECT itemId FROM eventResources WHERE resourceId IN (${resourceIds.map((e) => '?').join(', ')}))";
+      where = where == null ? statement : '$where AND $statement';
+      whereArgs = [...?whereArgs, ...resourceIds];
     }
     final result = await db?.query(
       'events',
@@ -89,9 +89,6 @@ class EventDatabaseService extends EventService with TableService {
     if (result == null) return [];
     return result.map(Event.fromDatabase).toList();
   }
-
-  @override
-  FutureOr<void> migrate(Database db, int version) {}
 
   @override
   FutureOr<bool> updateEvent(Event event) async {

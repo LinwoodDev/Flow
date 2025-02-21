@@ -5,13 +5,14 @@ import 'dart:typed_data';
 import 'package:flow_api/models/event/item/database.dart';
 import 'package:flow_api/models/label/database.dart';
 import 'package:flow_api/models/note/event.dart';
+import 'package:flow_api/models/resource/event.dart';
+import 'package:flow_api/models/resource/item.dart';
 import 'package:flow_api/services/source.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
 import '../models/event/database.dart';
 import '../models/note/item.dart';
-import '../models/note/label.dart';
-import '../models/place/database.dart';
+import '../models/resource/database.dart';
 import '../models/user/database.dart';
 import '../models/group/database.dart';
 import '../models/note/database.dart';
@@ -23,7 +24,7 @@ typedef DatabaseFactory = Future<Database> Function({
   FutureOr<void> Function(Database, int)? onCreate,
 });
 
-const databaseVersion = 3;
+const databaseVersion = 4;
 
 class DatabaseService extends SourceService {
   late final Database db;
@@ -46,7 +47,13 @@ class DatabaseService extends SourceService {
   @override
   final UserDatabaseService user = UserDatabaseService();
   @override
-  final PlaceDatabaseService place = PlaceDatabaseService();
+  final ResourceDatabaseService resource = ResourceDatabaseService();
+  @override
+  late final EventResourceDatabaseConnector eventResource =
+      EventResourceDatabaseConnector(event);
+  @override
+  final CalendarItemResourceDatabaseConnector calendarItemResource =
+      CalendarItemResourceDatabaseConnector();
   @override
   final LabelDatabaseService label = LabelDatabaseService();
 
@@ -124,4 +131,63 @@ Uint8List createUniqueUint8List() {
 
 Uint8List createEmptyUint8List() {
   return Uint8List(0);
+}
+
+bool equalUint8List(Uint8List? a, Uint8List? b) {
+  if (a == null && b == null) return true;
+  if (a == null || b == null) return false;
+  if (a.length != b.length) return false;
+  for (int i = 0; i < a.length; i++) {
+    if (a[i] != b[i]) return false;
+  }
+  return true;
+}
+
+abstract class DatabaseModelConnector extends ModelConnector with TableService {
+  String get tableName;
+  String get connectedTableName;
+  String get connectedIdName;
+  String get itemTableName;
+  String get itemIdName;
+
+  @override
+  Future<void> create(Database db) async {
+    await db.execute("""
+      CREATE TABLE IF NOT EXISTS $tableName (
+        $itemIdName BLOB(16) NOT NULL,
+        $connectedIdName BLOB(16) NOT NULL,
+        PRIMARY KEY ($connectedIdName, $itemIdName),
+        FOREIGN KEY ($connectedIdName) REFERENCES $connectedTableName(id) ON DELETE CASCADE,
+        FOREIGN KEY ($itemIdName) REFERENCES $itemTableName(id) ON DELETE CASCADE
+      )
+    """);
+  }
+
+  @override
+  Future<void> connect(Uint8List connectId, Uint8List itemId) async {
+    if (await isConnected(connectId, itemId)) return;
+    await db?.insert(tableName, {
+      itemIdName: itemId,
+      connectedIdName: connectId,
+    });
+  }
+
+  @override
+  Future<void> disconnect(Uint8List connectId, Uint8List itemId) async {
+    await db?.delete(
+      tableName,
+      where: '$itemIdName = ? AND $connectedIdName = ?',
+      whereArgs: [itemId, connectId],
+    );
+  }
+
+  @override
+  Future<bool> isConnected(Uint8List connectId, Uint8List itemId) async {
+    final result = await db?.query(
+      tableName,
+      where: '$itemIdName = ? AND $connectedIdName = ?',
+      whereArgs: [itemId, connectId],
+    );
+    return result?.isNotEmpty == true;
+  }
 }

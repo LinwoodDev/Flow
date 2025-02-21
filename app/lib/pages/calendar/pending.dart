@@ -47,6 +47,7 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
           pending: true,
           offset: offset,
           limit: limit,
+          resourceIds: widget.filter.resources,
         ));
   }
 

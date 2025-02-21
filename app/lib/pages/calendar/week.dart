@@ -79,7 +79,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
           search: widget.search,
           eventId: widget.filter.event,
           groupId: widget.filter.group,
-          placeId: widget.filter.place,
+          resourceIds: widget.filter.resources,
         );
         if (fetchedDay == null) continue;
         appointments[i]

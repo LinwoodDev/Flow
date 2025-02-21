@@ -115,10 +115,10 @@ class _CalendarListViewState extends State<CalendarListView> {
                     .toList(),
                 search: widget.search,
                 groupId: widget.filter.group,
-                placeId: widget.filter.place,
                 eventId: widget.filter.event,
                 offset: source.value * _pageSize,
                 limit: _pageSize,
+                resourceIds: widget.filter.resources,
               );
       if (fetched == null) continue;
       appointments

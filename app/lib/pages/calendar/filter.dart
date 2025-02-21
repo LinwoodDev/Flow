@@ -1,7 +1,8 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flow/helpers/event.dart';
 import 'package:flow/pages/groups/select.dart';
-import 'package:flow/pages/places/select.dart';
+import 'package:flow/pages/resources/select.dart';
+import 'package:flow_api/models/resource/model.dart';
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -9,7 +10,6 @@ import 'package:flow_api/models/event/model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flow_api/models/group/model.dart';
 import 'package:flow_api/models/model.dart';
-import 'package:flow_api/models/place/model.dart';
 
 import '../events/select.dart';
 
@@ -21,7 +21,7 @@ class CalendarFilter with CalendarFilterMappable {
   final String? source;
   final Uint8List? group;
   final Uint8List? event;
-  final Uint8List? place;
+  final Uint8List? resource;
   final bool past;
 
   const CalendarFilter({
@@ -29,20 +29,22 @@ class CalendarFilter with CalendarFilterMappable {
     this.source,
     this.group,
     this.event,
-    this.place,
     this.past = false,
+    this.resource,
   });
+
+  List<Uint8List>? get resources => resource != null ? [resource!] : null;
 
   SourcedModel<Uint8List>? get sourceEvent => event != null && source != null
       ? SourcedModel<Uint8List>(source!, event!)
       : null;
 
-  CalendarFilter removePlace() => copyWith(
-      place: null, source: (group != null && event != null) ? source : null);
   CalendarFilter removeGroup() => copyWith(
-      group: null, source: (place != null && event != null) ? source : null);
+      group: null, source: event != null || resource != null ? source : null);
   CalendarFilter removeEvent() => copyWith(
-      event: null, source: (place != null && group != null) ? source : null);
+      event: null, source: group != null || resource != null ? source : null);
+  CalendarFilter removeResource() => copyWith(
+      resource: null, source: group != null || event != null ? source : null);
 }
 
 class CalendarFilterView extends StatefulWidget {
@@ -178,32 +180,33 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
               },
             ),
             InputChip(
-              label: Text(AppLocalizations.of(context).place),
-              avatar: const PhosphorIcon(PhosphorIconsLight.mapPin),
-              selected: _filter.place != null,
+              label: Text(AppLocalizations.of(context).resource),
+              avatar: const PhosphorIcon(PhosphorIconsLight.cube),
+              selected: _filter.resource != null,
               showCheckmark: false,
-              onDeleted: _filter.place == null
+              onDeleted: _filter.resource == null
                   ? null
                   : () {
                       setState(() {
-                        _filter = _filter.removePlace();
+                        _filter = _filter.removeResource();
                       });
                       widget.onChanged(_filter);
                     },
               onSelected: (value) async {
-                final place = await showDialog<SourcedModel<Place>>(
+                final sourceResource = await showDialog<SourcedModel<Resource>>(
                   context: context,
-                  builder: (context) => PlaceSelectDialog(
-                    selected: _filter.place != null && _filter.source != null
-                        ? SourcedModel(_filter.source!, _filter.place!)
+                  builder: (context) => ResourceSelectDialog(
+                    selected: _filter.source != null && _filter.resource != null
+                        ? SourcedModel(_filter.source!, _filter.resource!)
                         : null,
                     source: _filter.source,
                   ),
                 );
-                if (place != null) {
+                if (sourceResource != null) {
                   setState(() {
                     _filter = _filter.copyWith(
-                        place: place.model.id, source: place.source);
+                        resource: sourceResource.model.id,
+                        source: sourceResource.source);
                   });
                   widget.onChanged(_filter);
                 }

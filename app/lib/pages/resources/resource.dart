@@ -1,45 +1,44 @@
 import 'package:flow/widgets/markdown_field.dart';
+import 'package:flow_api/models/resource/model.dart';
+import 'package:flow_api/models/resource/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:flow_api/models/model.dart';
-import 'package:flow_api/models/place/model.dart';
-import 'package:flow_api/models/place/service.dart';
 
 import '../../cubits/flow.dart';
 import '../../widgets/source_dropdown.dart';
 
-class PlaceDialog extends StatelessWidget {
+class ResourceDialog extends StatelessWidget {
   final String? source;
-  final Place? place;
+  final Resource? resource;
   final bool create;
 
-  const PlaceDialog({
+  const ResourceDialog({
     super.key,
     this.source,
-    this.place,
+    this.resource,
     this.create = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    final create = this.create || place == null || source == null;
-    var currentPlace = place ?? const Place();
+    final create = this.create || resource == null || source == null;
+    var currentResource = resource ?? const Resource();
     var currentSource = source ?? '';
     var currentService =
-        context.read<FlowCubit>().getService(currentSource).place;
+        context.read<FlowCubit>().getService(currentSource).resource;
     return ResponsiveAlertDialog(
       title: Text(create
-          ? AppLocalizations.of(context).createPlace
-          : AppLocalizations.of(context).editPlace),
+          ? AppLocalizations.of(context).createResource
+          : AppLocalizations.of(context).editResource),
       constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
       content: ListView(shrinkWrap: true, children: [
         if (source == null) ...[
-          SourceDropdown<PlaceService>(
+          SourceDropdown<ResourceService>(
             value: currentSource,
-            buildService: (e) => e.place,
+            buildService: (e) => e.resource,
             onChanged: (connected) {
               currentSource = connected?.source ?? '';
             },
@@ -52,9 +51,21 @@ class PlaceDialog extends StatelessWidget {
             filled: true,
             icon: const PhosphorIcon(PhosphorIconsLight.fileText),
           ),
-          initialValue: currentPlace.name,
+          initialValue: currentResource.name,
           onChanged: (value) {
-            currentPlace = currentPlace.copyWith(name: value);
+            currentResource = currentResource.copyWith(name: value);
+          },
+        ),
+        const SizedBox(height: 16),
+        TextFormField(
+          decoration: InputDecoration(
+            labelText: AppLocalizations.of(context).location,
+            filled: true,
+            icon: const PhosphorIcon(PhosphorIconsLight.mapPin),
+          ),
+          initialValue: currentResource.address,
+          onChanged: (value) {
+            currentResource = currentResource.copyWith(address: value);
           },
         ),
         const SizedBox(height: 16),
@@ -64,9 +75,9 @@ class PlaceDialog extends StatelessWidget {
             border: const OutlineInputBorder(),
             icon: const PhosphorIcon(PhosphorIconsLight.fileText),
           ),
-          value: currentPlace.description,
+          value: currentResource.description,
           onChanged: (value) {
-            currentPlace = currentPlace.copyWith(description: value);
+            currentResource = currentResource.copyWith(description: value);
           },
         )
       ]),
@@ -78,20 +89,20 @@ class PlaceDialog extends StatelessWidget {
         ElevatedButton(
           onPressed: () async {
             if (create) {
-              final created = await currentService?.createPlace(currentPlace);
+              final created =
+                  await currentService?.createResource(currentResource);
               if (created == null) {
                 return;
               }
-              currentPlace = created;
+              currentResource = created;
             } else {
-              await currentService?.updatePlace(currentPlace);
+              await currentService?.updateResource(currentResource);
             }
             if (context.mounted) {
-              Navigator.of(context)
-                  .pop(SourcedModel(currentSource, currentPlace));
+              Navigator.of(context).pop(currentResource);
             }
           },
-          child: Text(AppLocalizations.of(context).create),
+          child: Text(AppLocalizations.of(context).save),
         ),
       ],
     );

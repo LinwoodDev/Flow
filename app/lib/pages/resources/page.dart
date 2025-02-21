@@ -1,45 +1,45 @@
-import 'package:flow/pages/places/place.dart';
+import 'package:flow/pages/resources/resource.dart';
 import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flow/widgets/navigation.dart';
+import 'package:flow_api/models/resource/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:flow_api/models/place/model.dart';
 import 'package:flow_api/models/model.dart';
 
 import '../../cubits/flow.dart';
 import '../../helpers/sourced_paging_controller.dart';
 import 'tile.dart';
 
-class PlacesPage extends StatefulWidget {
-  const PlacesPage({
+class ResourcesPage extends StatefulWidget {
+  const ResourcesPage({
     super.key,
   });
 
   @override
-  _PlacesPageState createState() => _PlacesPageState();
+  _ResourcesPageState createState() => _ResourcesPageState();
 }
 
-class _PlacesPageState extends State<PlacesPage> {
+class _ResourcesPageState extends State<ResourcesPage> {
   @override
   Widget build(BuildContext context) {
     return FlowNavigation(
-      title: AppLocalizations.of(context).places,
+      title: AppLocalizations.of(context).resources,
       actions: [
         IconButton(
           icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
-          onPressed: () =>
-              showSearch(context: context, delegate: _PlacesSearchDelegate()),
+          onPressed: () => showSearch(
+              context: context, delegate: _ResourcesSearchDelegate()),
         ),
       ],
-      body: const PlacesBodyView(),
+      body: const ResourcesBodyView(),
     );
   }
 }
 
-class _PlacesSearchDelegate extends SearchDelegate {
+class _ResourcesSearchDelegate extends SearchDelegate {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -64,7 +64,7 @@ class _PlacesSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return PlacesBodyView(
+    return ResourcesBodyView(
       search: query,
     );
   }
@@ -75,28 +75,28 @@ class _PlacesSearchDelegate extends SearchDelegate {
   }
 }
 
-class PlacesBodyView extends StatefulWidget {
+class ResourcesBodyView extends StatefulWidget {
   final String search;
 
-  const PlacesBodyView({
+  const ResourcesBodyView({
     super.key,
     this.search = '',
   });
 
   @override
-  State<PlacesBodyView> createState() => _PlacesBodyViewState();
+  State<ResourcesBodyView> createState() => _ResourcesBodyViewState();
 }
 
-class _PlacesBodyViewState extends State<PlacesBodyView> {
+class _ResourcesBodyViewState extends State<ResourcesBodyView> {
   late final FlowCubit _flowCubit;
-  late final SourcedPagingController<Place> _controller;
+  late final SourcedPagingController<Resource> _controller;
 
   @override
   void initState() {
     _flowCubit = context.read<FlowCubit>();
     _controller = SourcedPagingController(_flowCubit);
     _controller.addFetchListener((source, service, offset, limit) async =>
-        service.place?.getPlaces(offset: offset, limit: limit));
+        service.resource?.getResources(offset: offset, limit: limit));
     super.initState();
   }
 
@@ -107,7 +107,7 @@ class _PlacesBodyViewState extends State<PlacesBodyView> {
   }
 
   @override
-  void didUpdateWidget(covariant PlacesBodyView oldWidget) {
+  void didUpdateWidget(covariant ResourcesBodyView oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.search != widget.search) {
@@ -120,7 +120,7 @@ class _PlacesBodyViewState extends State<PlacesBodyView> {
     return Scaffold(
       body: PagedListView(
         pagingController: _controller,
-        builderDelegate: buildMaterialPagedDelegate<SourcedModel<Place>>(
+        builderDelegate: buildMaterialPagedDelegate<SourcedModel<Resource>>(
           _controller,
           (ctx, item, index) => Align(
             alignment: Alignment.topCenter,
@@ -131,18 +131,18 @@ class _PlacesBodyViewState extends State<PlacesBodyView> {
                 onDismissed: (direction) async {
                   await _flowCubit
                       .getService(item.source)
-                      .place
-                      ?.deletePlace(item.model.id!);
+                      .resource
+                      ?.deleteResource(item.model.id!);
                   _controller.itemList!.remove(item);
                 },
                 background: Container(
                   color: Colors.red,
                 ),
-                child: PlaceTile(
+                child: ResourceTile(
                   flowCubit: _flowCubit,
                   pagingController: _controller,
                   source: item.source,
-                  place: item.model,
+                  resource: item.model,
                 ),
               ),
             ),
@@ -151,7 +151,7 @@ class _PlacesBodyViewState extends State<PlacesBodyView> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
-                context: context, builder: (context) => const PlaceDialog())
+                context: context, builder: (context) => const ResourceDialog())
             .then((_) => _controller.refresh()),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),

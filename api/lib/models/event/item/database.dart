@@ -25,7 +25,6 @@ class CalendarItemDatabaseService extends CalendarItemService
         location VARCHAR(100) NOT NULL DEFAULT '',
         eventId BLOB(16),
         groupId BLOB(16),
-        placeId BLOB(16),
         start INTEGER,
         end INTEGER,
         status VARCHAR(20) NOT NULL DEFAULT 'confirmed',
@@ -58,7 +57,7 @@ class CalendarItemDatabaseService extends CalendarItemService
       {List<EventStatus>? status,
       Uint8List? eventId,
       Uint8List? groupId,
-      Uint8List? placeId,
+      List<Uint8List>? resourceIds,
       bool pending = false,
       int offset = 0,
       int limit = 50,
@@ -113,14 +112,15 @@ class CalendarItemDatabaseService extends CalendarItemService
       where = where == null ? statement : '$where AND $statement';
       whereArgs = [...?whereArgs, groupId, groupId];
     }
-    if (placeId != null) {
-      final statement = "(placeId = ? OR events.placeId = ?)";
-      where = where == null ? statement : '$where AND $statement';
-      whereArgs = [...?whereArgs, placeId, placeId];
-    }
     if (eventId != null) {
       where = where == null ? 'eventId = ?' : '$where AND eventId = ?';
       whereArgs = [...?whereArgs, eventId];
+    }
+    if (resourceIds != null) {
+      final statement =
+          "(calendarItems.id IN (SELECT itemId FROM calendarItemResources WHERE resourceId IN (${List.filled(resourceIds.length, '?').join(', ')})) OR events.id IN (SELECT eventId FROM eventResources WHERE resourceId IN (${List.filled(resourceIds.length, '?').join(', ')})))";
+      where = where == null ? statement : '$where AND $statement';
+      whereArgs = [...?whereArgs, ...resourceIds, ...resourceIds];
     }
     const eventPrefix = "event_";
     final result = await db?.query(
@@ -129,7 +129,6 @@ class CalendarItemDatabaseService extends CalendarItemService
         "events.id AS ${eventPrefix}id",
         "events.parentId AS ${eventPrefix}parentId",
         "events.groupId AS ${eventPrefix}groupId",
-        "events.placeId AS ${eventPrefix}placeId",
         "events.blocked AS ${eventPrefix}blocked",
         "events.name AS ${eventPrefix}name",
         "events.description AS ${eventPrefix}description",
@@ -215,7 +214,7 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
     List<EventStatus>? status,
     Uint8List? eventId,
     Uint8List? groupId,
-    Uint8List? placeId,
+    List<Uint8List>? resourceIds,
     bool pending = false,
     int offset = 0,
     int limit = 50,
@@ -228,7 +227,7 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
         status: status,
         eventId: eventId,
         groupId: groupId,
-        placeId: placeId,
+        resourceIds: resourceIds,
         pending: pending,
         offset: offset,
         limit: limit,

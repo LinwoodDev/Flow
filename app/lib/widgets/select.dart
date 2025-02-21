@@ -1,5 +1,6 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/sourced_paging_controller.dart';
+import 'package:flow_api/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -211,8 +212,9 @@ class _SelectDialogState<T extends NamedModel> extends State<SelectDialog<T>> {
                   _pagingController,
                   (context, item, index) => ListTile(
                     title: Text(item.model.name),
-                    selected: widget.selected?.model == item.model.id &&
-                        widget.selected?.source == item.source,
+                    selected:
+                        equalUint8List(widget.selected?.model, item.model.id) &&
+                            widget.selected?.source == item.source,
                     onTap: () {
                       Navigator.of(context).pop(item);
                     },

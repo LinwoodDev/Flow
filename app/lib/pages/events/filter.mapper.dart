@@ -26,22 +26,22 @@ class EventFilterMapper extends ClassMapperBase<EventFilter> {
   static Uint8List? _$group(EventFilter v) => v.group;
   static const Field<EventFilter, Uint8List> _f$group =
       Field('group', _$group, opt: true);
-  static Uint8List? _$place(EventFilter v) => v.place;
-  static const Field<EventFilter, Uint8List> _f$place =
-      Field('place', _$place, opt: true);
+  static Uint8List? _$resource(EventFilter v) => v.resource;
+  static const Field<EventFilter, Uint8List> _f$resource =
+      Field('resource', _$resource, opt: true);
 
   @override
   final MappableFields<EventFilter> fields = const {
     #source: _f$source,
     #group: _f$group,
-    #place: _f$place,
+    #resource: _f$resource,
   };
 
   static EventFilter _instantiate(DecodingData data) {
     return EventFilter(
         source: data.dec(_f$source),
         group: data.dec(_f$group),
-        place: data.dec(_f$place));
+        resource: data.dec(_f$resource));
   }
 
   @override
@@ -95,7 +95,7 @@ extension EventFilterValueCopy<$R, $Out>
 
 abstract class EventFilterCopyWith<$R, $In extends EventFilter, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? source, Uint8List? group, Uint8List? place});
+  $R call({String? source, Uint8List? group, Uint8List? resource});
   EventFilterCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -111,17 +111,17 @@ class _EventFilterCopyWithImpl<$R, $Out>
   $R call(
           {Object? source = $none,
           Object? group = $none,
-          Object? place = $none}) =>
+          Object? resource = $none}) =>
       $apply(FieldCopyWithData({
         if (source != $none) #source: source,
         if (group != $none) #group: group,
-        if (place != $none) #place: place
+        if (resource != $none) #resource: resource
       }));
   @override
   EventFilter $make(CopyWithData data) => EventFilter(
       source: data.get(#source, or: $value.source),
       group: data.get(#group, or: $value.group),
-      place: data.get(#place, or: $value.place));
+      resource: data.get(#resource, or: $value.resource));
 
   @override
   EventFilterCopyWith<$R2, EventFilter, $Out2> $chain<$R2, $Out2>(
