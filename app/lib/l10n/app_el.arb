@@ -1,7 +1,7 @@
 {
   "dashboard": "Ταμπλό",
   "calendar": "Ημερολόγιο",
-  "places": "Τοποθεσίες",
+  "resources": "Resources",
   "users": "Χρήστες",
   "sources": "Πηγές",
   "settings": "Ρυθμίσεις",
@@ -24,7 +24,7 @@
   "systemDefault": "Προεπιλογή Συστήματος",
   "light": "Φωτεινό",
   "dark": "Σκοτεινό",
-  "createPlace": "Δημιουργία Χώρου",
+  "createResource": "Create resource",
   "cancel": "Ακύρωση",
   "name": "Όνομα",
   "description": "Περιγραφή",
@@ -143,23 +143,23 @@
   "importFile": "Εισαγωγή αρχείου",
   "importFileDescription": "Εισαγωγή ενός αρχείου από τη συσκευή σας. Μπορείτε να εισαγάγετε ένα αρχείο βάσης δεδομένων από άλλο παράδειγμα Linwood Flow ή ένα κανονικό αρχείο ημερολογίου.",
   "icalDescription": "Η διεπαφή iCal σας επιτρέπει να έχετε πρόσβαση στα δεδομένα σας από οποιονδήποτε διακομιστή iCal. Μπορεί να διαβάσει μόνο δεδομένα και δεν υποστηρίζει εγγραφή. Μπορείτε να το χρησιμοποιήσετε για να συγχρονίσετε τα δεδομένα σας με άλλες συσκευές ή υπηρεσίες που δεν υποστηρίζουν CalDAV.",
-  "place": "Τόπος",
-  "editPlace": "Επεξεργασία τόπου",
-  "deletePlace": "Διαγραφή τόπου {name}",
-  "@deletePlace": {
+  "resource": "Resource",
+  "editResource": "Edit resource",
+  "deleteResource": "Delete resource {name}",
+  "@deleteResource": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
-  "deletePlaceDescription": "Είστε βέβαιοι ότι θέλετε να διαγράψετε το μέρος {name}?",
-  "@deletePlaceDescription": {
+  "deleteResourceDescription": "Are you sure you want to delete the resource {name}?",
+  "@deleteResourceDescription": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
