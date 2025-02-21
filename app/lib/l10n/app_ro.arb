@@ -1,7 +1,7 @@
 {
   "dashboard": "Panou",
   "calendar": "Calendar",
-  "places": "Locuri",
+  "resources": "Resources",
   "users": "Utilizatori",
   "sources": "Surse",
   "settings": "Setări",
@@ -24,7 +24,7 @@
   "systemDefault": "Implicit sistem",
   "light": "Lumină",
   "dark": "Întunecat",
-  "createPlace": "Creează un loc",
+  "createResource": "Create resource",
   "cancel": "Anulează",
   "name": "Nume",
   "description": "Descriere",
@@ -143,23 +143,23 @@
   "importFile": "Importă fișier",
   "importFileDescription": "Importă un fișier de pe dispozitivul tău. Poți importa un fișier de bază de date dintr-o altă instanță de flori Linwood sau un fișier calendar obișnuit.",
   "icalDescription": "Interfața iCal vă permite să accesați datele de pe orice server iCal. Aceasta poate doar citi datele și nu suportă scrierea. Îl puteţi folosi pentru a vă sincroniza datele cu alte dispozitive sau servicii care nu acceptă CalDAV.",
-  "place": "Locul",
-  "editPlace": "Editează locul",
-  "deletePlace": "Șterge locul {name}",
-  "@deletePlace": {
+  "resource": "Resource",
+  "editResource": "Edit resource",
+  "deleteResource": "Delete resource {name}",
+  "@deleteResource": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
-  "deletePlaceDescription": "Ești sigur că vrei să ștergi locul {name}?",
-  "@deletePlaceDescription": {
+  "deleteResourceDescription": "Are you sure you want to delete the resource {name}?",
+  "@deleteResourceDescription": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
