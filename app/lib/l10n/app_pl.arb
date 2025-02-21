@@ -1,7 +1,7 @@
 {
   "dashboard": "Pulpit",
   "calendar": "Kalendarz",
-  "places": "Miejsca",
+  "resources": "Resources",
   "users": "Użytkownicy",
   "sources": "Źródła",
   "settings": "Ustawienia",
@@ -24,7 +24,7 @@
   "systemDefault": "Domyślne systemowe",
   "light": "Światło",
   "dark": "Ciemny",
-  "createPlace": "Utwórz miejsce",
+  "createResource": "Create resource",
   "cancel": "Anuluj",
   "name": "Nazwisko",
   "description": "Opis",
@@ -143,23 +143,23 @@
   "importFile": "Importuj plik",
   "importFileDescription": "Importuj plik z urządzenia. Możesz zaimportować plik bazy danych z innej instancji Linwood Flow lub zwykłego pliku kalendarza.",
   "icalDescription": "Interfejs iCal umożliwia dostęp do Twoich danych z dowolnego serwera iCal. Może tylko odczytywać dane i nie obsługuje zapisu. Możesz go użyć do synchronizacji swoich danych z innymi urządzeniami lub usługami, które nie obsługują CalDAV.",
-  "place": "Umiejscowienie",
-  "editPlace": "Edytuj miejsce",
-  "deletePlace": "Usuń miejsce {name}",
-  "@deletePlace": {
+  "resource": "Resource",
+  "editResource": "Edit resource",
+  "deleteResource": "Delete resource {name}",
+  "@deleteResource": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
-  "deletePlaceDescription": "Czy na pewno chcesz usunąć miejsce {name}?",
-  "@deletePlaceDescription": {
+  "deleteResourceDescription": "Are you sure you want to delete the resource {name}?",
+  "@deleteResourceDescription": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
