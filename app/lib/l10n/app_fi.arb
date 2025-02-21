@@ -1,7 +1,7 @@
 {
   "dashboard": "Hallintapaneeli",
   "calendar": "Kalenteri",
-  "places": "Paikat",
+  "resources": "Resources",
   "users": "Käyttäjät",
   "sources": "Lähteet",
   "settings": "Asetukset",
@@ -24,7 +24,7 @@
   "systemDefault": "Järjestelmän Oletus",
   "light": "Vaalea",
   "dark": "Tumma",
-  "createPlace": "Luo Paikka",
+  "createResource": "Create resource",
   "cancel": "Peruuta",
   "name": "Nimi",
   "description": "Kuvaus",
@@ -143,23 +143,23 @@
   "importFile": "Tuo tiedosto",
   "importFileDescription": "Tuo tiedosto laitteestasi. Voit tuoda tietokantatiedoston toisesta Linwood Flow instanssista tai tavallisesta kalenteritiedostosta.",
   "icalDescription": "ICal käyttöliittymän avulla voit käyttää tietoja tahansa iCal palvelimella. Se voi vain lukea tietoja ja ei tue kirjoittamista. Voit käyttää sitä synkronoidaksesi dataa muiden laitteiden tai palvelujen kanssa, jotka eivät tue CalDAV:ta.",
-  "place": "Paikka",
-  "editPlace": "Muokkaa paikkaa",
-  "deletePlace": "Poista paikka {name}",
-  "@deletePlace": {
+  "resource": "Resource",
+  "editResource": "Edit resource",
+  "deleteResource": "Delete resource {name}",
+  "@deleteResource": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
-  "deletePlaceDescription": "Oletko varma, että haluat poistaa paikan {name}?",
-  "@deletePlaceDescription": {
+  "deleteResourceDescription": "Are you sure you want to delete the resource {name}?",
+  "@deleteResourceDescription": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
