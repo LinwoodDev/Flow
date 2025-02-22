@@ -10,7 +10,7 @@ import 'package:sqflite_common/sqlite_api.dart';
 
 import 'model.dart';
 
-abstract class NoteDatabaseConnector<T> extends DatabaseModelConnector
+abstract class NoteDatabaseConnector<T> extends DatabaseModelConnector<Note, T>
     implements NoteConnector<T> {
   @override
   String get itemIdName => 'noteId';
@@ -20,7 +20,7 @@ abstract class NoteDatabaseConnector<T> extends DatabaseModelConnector
   T decode(Map<String, dynamic> data);
 
   @override
-  Future<List<Note>> getNotes(Uint8List connectId,
+  Future<List<Note>> getItems(Uint8List connectId,
       {int offset = 0, int limit = 50}) async {
     final result = await db?.query(
       '$tableName JOIN notes ON notes.id = noteId',
@@ -304,7 +304,7 @@ class LabelNoteDatabaseConnector extends NoteDatabaseConnector<Label>
   String get tableName => "labelNotes";
 
   @override
-  Future<List<Note>> getNotes(
+  Future<List<Note>> getItems(
     Uint8List connectId, {
     int offset = 0,
     int limit = 50,

@@ -9,7 +9,7 @@ import 'package:flow_api/models/resource/service.dart';
 
 import '../../cubits/flow.dart';
 import '../../widgets/builder_delegate.dart';
-import '../resources/resource.dart';
+import 'resource.dart';
 
 class ResourcesView<T extends DescriptiveModel> extends StatefulWidget {
   final T model;
@@ -47,7 +47,7 @@ class _ResourcesViewState<T extends DescriptiveModel>
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await widget.connector.getResources(widget.model.id!,
+      final newItems = await widget.connector.getItems(widget.model.id!,
           offset: pageKey * _pageSize, limit: _pageSize);
       final isLastPage = newItems.length < _pageSize;
       if (isLastPage) {

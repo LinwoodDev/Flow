@@ -8,7 +8,7 @@ import 'service.dart';
 
 abstract class LabelNoteConnector extends NoteConnector<Label> {
   @override
-  Future<List<Note>> getNotes(
+  Future<List<Note>> getItems(
     Uint8List connectId, {
     int offset = 0,
     int limit = 50,

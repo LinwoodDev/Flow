@@ -1,6 +1,6 @@
 import 'package:flow/cubits/flow.dart';
-import 'package:flow/pages/events/note.dart';
-import 'package:flow/pages/events/resources.dart';
+import 'package:flow/pages/notes/view.dart';
+import 'package:flow/pages/resources/view.dart';
 import 'package:flow/pages/groups/select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

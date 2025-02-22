@@ -78,8 +78,13 @@ abstract class ModelService {
   bool get isEditable => true;
 }
 
-abstract class ModelConnector extends ModelService {
+abstract class ModelConnector<I, C> extends ModelService {
   FutureOr<void> connect(Uint8List connectId, Uint8List itemId);
   FutureOr<void> disconnect(Uint8List connectId, Uint8List itemId);
   FutureOr<bool> isConnected(Uint8List connectId, Uint8List itemId);
+  Future<List<I>> getItems(Uint8List connectId,
+      {int offset = 0, int limit = 50});
+
+  Future<List<C>> getConnected(Uint8List itemId,
+      {int offset = 0, int limit = 50});
 }

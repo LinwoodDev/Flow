@@ -1,6 +1,6 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/event.dart';
-import 'package:flow/pages/events/resources.dart';
+import 'package:flow/pages/resources/view.dart';
 import 'package:flow/pages/groups/select.dart';
 import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ import 'package:flow_api/models/event/model.dart';
 import 'package:flow_api/models/model.dart';
 
 import '../../widgets/source_dropdown.dart';
-import '../events/note.dart';
+import '../notes/view.dart';
 import '../events/select.dart';
 
 class CalendarItemDialog extends StatefulWidget {

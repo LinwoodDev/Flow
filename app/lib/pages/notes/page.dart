@@ -13,7 +13,7 @@ import 'package:flow_api/models/model.dart';
 import '../../cubits/flow.dart';
 import '../../helpers/sourced_paging_controller.dart';
 import 'filter.dart';
-import 'view.dart';
+import 'details.dart';
 
 class NotesPage extends StatelessWidget {
   final NoteFilter filter;
@@ -110,7 +110,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
     _controller.addFetchListener((source, service, offset, limit) async {
       if (_filter.source != null && _filter.source != source) return null;
       final notes = _filter.selectedLabel != null
-          ? await service.labelNote?.getNotes(
+          ? await service.labelNote?.getItems(
               _filter.selectedLabel!,
               offset: offset,
               limit: limit,
@@ -217,7 +217,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
                   children: [
                     const Divider(),
                     const SizedBox(height: 8),
-                    NoteView(
+                    NoteDetailsView(
                       controller: _controller,
                       source: widget.parent!.source,
                       note: data,

@@ -39,7 +39,7 @@ List _getNavigationItems(BuildContext context) => [
       },
       {
         "title": AppLocalizations.of(context).groups,
-        "icon": PhosphorIconsLight.fileText,
+        "icon": PhosphorIconsLight.usersThree,
         "link": "/groups"
       },
       {

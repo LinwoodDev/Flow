@@ -43,16 +43,6 @@ abstract class NoteService extends ModelService {
   FutureOr<Notebook?> getNotebook(Uint8List id);
 }
 
-abstract class NoteConnector<T> extends ModelConnector {
-  FutureOr<List<Note>> getNotes(
-    Uint8List connectId, {
-    int offset = 0,
-    int limit = 50,
-  });
-  FutureOr<List<T>> getConnected(
-    Uint8List noteId, {
-    int offset = 0,
-    int limit = 50,
-  });
+abstract class NoteConnector<T> extends ModelConnector<Note, T> {
   FutureOr<bool?> notesDone(Uint8List connectId);
 }

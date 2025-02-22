@@ -157,7 +157,8 @@ bool equalUint8List(Uint8List? a, Uint8List? b) {
   return true;
 }
 
-abstract class DatabaseModelConnector extends ModelConnector with TableService {
+abstract class DatabaseModelConnector<I, C> extends ModelConnector<I, C>
+    with TableService {
   String get tableName;
   String get connectedTableName;
   String get connectedIdName;

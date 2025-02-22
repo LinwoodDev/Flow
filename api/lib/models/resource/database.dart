@@ -90,7 +90,8 @@ class ResourceDatabaseService extends ResourceService with TableService {
   }
 }
 
-abstract class ResourceDatabaseConnector<T> extends DatabaseModelConnector
+abstract class ResourceDatabaseConnector<T>
+    extends DatabaseModelConnector<Resource, T>
     implements ResourceConnector<T> {
   @override
   String get itemIdName => 'resourceId';
@@ -107,7 +108,7 @@ abstract class ResourceDatabaseConnector<T> extends DatabaseModelConnector
   }
 
   @override
-  Future<List<Resource>> getResources(Uint8List connectId,
+  Future<List<Resource>> getItems(Uint8List connectId,
       {int offset = 0, int limit = 50}) async {
     final result = await db?.query(
       '$tableName JOIN resources ON resources.id = resourceId',
