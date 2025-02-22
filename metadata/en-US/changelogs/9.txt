@@ -2,6 +2,7 @@
 * Add event notes
 * Add owner for notes
 * Change events and calendar items to have multiple users and groups
+* Change users to have multiple groups
 * Refactor places to resources
   * Allow many-to-many relationship
   * Add owner for resources

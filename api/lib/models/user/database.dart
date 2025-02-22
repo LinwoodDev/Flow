@@ -10,11 +10,10 @@ class UserDatabaseService extends UserService with TableService {
   UserDatabaseService();
 
   @override
-  Future<void> create(Database db) {
+  Future<void> create(DatabaseExecutor db, [String name = 'users']) {
     return db.execute("""
-      CREATE TABLE IF NOT EXISTS users (
+      CREATE TABLE IF NOT EXISTS $name (
         id BLOB(16) PRIMARY KEY,
-        groupId BLOB(16),
         name VARCHAR(100) NOT NULL DEFAULT '',
         email VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT,

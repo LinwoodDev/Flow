@@ -26,6 +26,7 @@ Future<void> migrateDatabase(DatabaseService service, Database db,
     await service.groupResource.create(db);
     await service.eventResource.create(db);
     await service.calendarItemResource.create(db);
+    await service.userGroup.create(db);
     await db.execute("ALTER TABLE places RENAME TO resources");
     await db.execute("PRAGMA foreign_keys=off");
     await db.transaction((txn) async {
@@ -50,6 +51,15 @@ Future<void> migrateDatabase(DatabaseService service, Database db,
       await txn.execute("DROP TABLE calendarItems");
       await txn
           .execute("ALTER TABLE calendarItems_temp RENAME TO calendarItems");
+    });
+    await db.transaction((txn) async {
+      await service.user.create(txn, 'users_temp');
+      await txn.execute(
+          "INSERT INTO users_temp SELECT id, name, email, description, phone, image FROM users");
+      await txn.execute(
+          "INSERT INTO userGroups(userId, groupId) SELECT id, groupId FROM users");
+      await txn.execute("DROP TABLE users");
+      await txn.execute("ALTER TABLE users_temp RENAME TO users");
     });
     await db.execute("PRAGMA foreign_keys=on");
   }

@@ -15,6 +15,7 @@ import 'package:flow_api/models/resource/event.dart';
 import 'package:flow_api/models/resource/group.dart';
 import 'package:flow_api/models/resource/item.dart';
 import 'package:flow_api/models/resource/user.dart';
+import 'package:flow_api/models/user/group.dart';
 import 'package:flow_api/services/migration.dart';
 import 'package:flow_api/services/source.dart';
 import 'package:sqflite_common/sqlite_api.dart';
@@ -59,6 +60,8 @@ class DatabaseService extends SourceService {
   final GroupDatabaseService group = GroupDatabaseService();
   @override
   final UserDatabaseService user = UserDatabaseService();
+  @override
+  final UserGroupDatabaseConnector userGroup = UserGroupDatabaseConnector();
   @override
   final ResourceDatabaseService resource = ResourceDatabaseService();
   @override

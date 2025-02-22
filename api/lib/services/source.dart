@@ -37,6 +37,7 @@ abstract class SourceService {
   UserService? get user => null;
   LabelService? get label => null;
   ModelConnector<User, Event>? get eventUser => null;
+  ModelConnector<Group, User>? get userGroup => null;
   ModelConnector<Group, Event>? get eventGroup => null;
   ModelConnector<User, CalendarItem>? get calendarItemUser => null;
   ModelConnector<Group, CalendarItem>? get calendarItemGroup => null;
