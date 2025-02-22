@@ -18,7 +18,7 @@ sealed class CalendarItem
   @override
   final String name, description;
   final String location;
-  final Uint8List? groupId, eventId;
+  final Uint8List? eventId;
   final DateTime? start, end;
   final EventStatus status;
 
@@ -27,7 +27,6 @@ sealed class CalendarItem
     this.name = '',
     this.description = '',
     this.location = '',
-    this.groupId,
     this.eventId,
     this.start,
     this.end,
@@ -65,7 +64,6 @@ final class FixedCalendarItem extends CalendarItem
     super.name,
     super.description,
     super.location,
-    super.groupId,
     super.eventId,
     super.start,
     super.end,
@@ -86,7 +84,6 @@ final class RepeatingCalendarItem extends CalendarItem
     super.name,
     super.description,
     super.location,
-    super.groupId,
     super.eventId,
     super.start,
     super.end,
@@ -116,7 +113,6 @@ final class AutoCalendarItem extends CalendarItem
     super.name,
     super.description,
     super.location,
-    super.groupId,
     super.eventId,
     super.status,
     super.start,

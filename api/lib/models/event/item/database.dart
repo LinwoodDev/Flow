@@ -15,9 +15,10 @@ class CalendarItemDatabaseService extends CalendarItemService
   CalendarItemDatabaseService();
 
   @override
-  Future<void> create(Database db) async {
+  Future<void> create(DatabaseExecutor db,
+      [String name = 'calendarItems']) async {
     await db.execute("""
-      CREATE TABLE IF NOT EXISTS calendarItems (
+      CREATE TABLE IF NOT EXISTS $name (
         runtimeType VARCHAR(20) NOT NULL DEFAULT 'fixed',
         id BLOB(16) PRIMARY KEY,
         name VARCHAR(100) NOT NULL DEFAULT '',
@@ -40,16 +41,6 @@ class CalendarItemDatabaseService extends CalendarItemService
         FOREIGN KEY (eventId) REFERENCES events(id) ON DELETE CASCADE
       )
     """);
-  }
-
-  @override
-  Future<void> migrate(Database db, int version) async {
-    if (version < 3) {
-      await db.transaction((txn) async {
-        await txn.execute("ALTER TABLE calendarItems ADD groupId BLOB(16)");
-        await txn.execute("ALTER TABLE calendarItems ADD placeId BLOB(16)");
-      });
-    }
   }
 
   @override

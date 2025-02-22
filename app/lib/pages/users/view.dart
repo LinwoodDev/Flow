@@ -15,13 +15,20 @@ import 'user.dart';
 class UsersView<T extends DescriptiveModel> extends StatefulWidget {
   final T model;
   final String source;
-  final ModelConnector<T, User> connector;
+  final ModelConnector<User, T> connector;
 
   const UsersView(
       {super.key,
       required this.source,
       required this.connector,
       required this.model});
+
+  UsersView.reversed(
+      {super.key,
+      required this.source,
+      required ModelConnector<T, User> connector,
+      required this.model})
+      : connector = ReversedModelConnector(connector);
 
   @override
   State<UsersView<T>> createState() => _UsersViewState();
@@ -47,7 +54,7 @@ class _UsersViewState<T extends DescriptiveModel> extends State<UsersView<T>> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await widget.connector.getConnected(widget.model.id!,
+      final newItems = await widget.connector.getItems(widget.model.id!,
           offset: pageKey * _pageSize, limit: _pageSize);
       final isLastPage = newItems.length < _pageSize;
       if (isLastPage) {
@@ -119,7 +126,7 @@ class _UsersViewState<T extends DescriptiveModel> extends State<UsersView<T>> {
                     ),
                   );
                   if (user != null) {
-                    await widget.connector.connect(user.id!, widget.model.id!);
+                    await widget.connector.connect(widget.model.id!, user.id!);
                   }
                   _pagingController.refresh();
                 },

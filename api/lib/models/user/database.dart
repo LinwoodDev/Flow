@@ -25,9 +25,6 @@ class UserDatabaseService extends UserService with TableService {
   }
 
   @override
-  FutureOr<void> migrate(Database db, int version) {}
-
-  @override
   Future<User?> createUser(User user) async {
     final id = user.id ?? createUniqueUint8List();
     user = user.copyWith(id: id);

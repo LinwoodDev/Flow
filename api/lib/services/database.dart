@@ -2,7 +2,11 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
 
+import 'package:flow_api/models/event/group.dart';
 import 'package:flow_api/models/event/item/database.dart';
+import 'package:flow_api/models/event/item/group.dart';
+import 'package:flow_api/models/event/item/user.dart';
+import 'package:flow_api/models/event/user.dart';
 import 'package:flow_api/models/label/database.dart';
 import 'package:flow_api/models/note/event.dart';
 import 'package:flow_api/models/note/group.dart';
@@ -11,6 +15,7 @@ import 'package:flow_api/models/resource/event.dart';
 import 'package:flow_api/models/resource/group.dart';
 import 'package:flow_api/models/resource/item.dart';
 import 'package:flow_api/models/resource/user.dart';
+import 'package:flow_api/services/migration.dart';
 import 'package:flow_api/services/source.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
@@ -58,7 +63,7 @@ class DatabaseService extends SourceService {
   final ResourceDatabaseService resource = ResourceDatabaseService();
   @override
   late final EventResourceDatabaseConnector eventResource =
-      EventResourceDatabaseConnector(event);
+      EventResourceDatabaseConnector();
   @override
   final CalendarItemResourceDatabaseConnector calendarItemResource =
       CalendarItemResourceDatabaseConnector();
@@ -70,6 +75,16 @@ class DatabaseService extends SourceService {
       GroupResourceDatabaseConnector();
   @override
   final LabelDatabaseService label = LabelDatabaseService();
+  @override
+  final EventUserDatabaseConnector eventUser = EventUserDatabaseConnector();
+  @override
+  final EventGroupDatabaseConnector eventGroup = EventGroupDatabaseConnector();
+  @override
+  final CalendarItemUserDatabaseConnector calendarItemUser =
+      CalendarItemUserDatabaseConnector();
+  @override
+  final CalendarItemGroupDatabaseConnector calendarItemGroup =
+      CalendarItemGroupDatabaseConnector();
 
   final DatabaseFactory databaseFactory;
 
@@ -96,9 +111,7 @@ class DatabaseService extends SourceService {
   }
 
   FutureOr<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    for (var table in tables) {
-      await table.migrate(db, oldVersion);
-    }
+    migrateDatabase(this, db, oldVersion, newVersion);
   }
 
   Future<int> getVersion() {
@@ -118,7 +131,6 @@ mixin TableService {
   Database? db;
 
   FutureOr<void> create(Database db) {}
-  FutureOr<void> migrate(Database db, int version) {}
   FutureOr<void> opened(Database db) {
     this.db = db;
   }

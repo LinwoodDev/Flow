@@ -28,9 +28,3 @@ abstract class CalendarItemService extends ModelService {
 
   FutureOr<bool> deleteCalendarItem(Uint8List id);
 }
-
-abstract class CalendarItemResourceConnector<T> extends ModelService {
-  FutureOr<void> connect(Uint8List calendarItemId, Uint8List resourceId);
-  FutureOr<void> disconnect(Uint8List calendarItemId, Uint8List resourceId);
-  FutureOr<bool> isConnected(Uint8List calendarItemId, Uint8List resourceId);
-}

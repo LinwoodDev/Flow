@@ -15,13 +15,19 @@ import 'group.dart';
 class GroupsView<T extends DescriptiveModel> extends StatefulWidget {
   final T model;
   final String source;
-  final ModelConnector<T, Group> connector;
+  final ModelConnector<Group, T> connector;
 
   const GroupsView(
       {super.key,
       required this.source,
       required this.connector,
       required this.model});
+  GroupsView.reversed(
+      {super.key,
+      required this.source,
+      required ModelConnector<T, Group> connector,
+      required this.model})
+      : connector = ReversedModelConnector(connector);
 
   @override
   State<GroupsView<T>> createState() => _GroupsViewState();
@@ -48,7 +54,7 @@ class _GroupsViewState<T extends DescriptiveModel>
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await widget.connector.getConnected(widget.model.id!,
+      final newItems = await widget.connector.getItems(widget.model.id!,
           offset: pageKey * _pageSize, limit: _pageSize);
       final isLastPage = newItems.length < _pageSize;
       if (isLastPage) {
@@ -120,7 +126,7 @@ class _GroupsViewState<T extends DescriptiveModel>
                     ),
                   );
                   if (group != null) {
-                    await widget.connector.connect(group.id!, widget.model.id!);
+                    await widget.connector.connect(widget.model.id!, group.id!);
                   }
                   _pagingController.refresh();
                 },

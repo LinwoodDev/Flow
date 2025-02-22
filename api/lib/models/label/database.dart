@@ -22,13 +22,6 @@ class LabelDatabaseService extends LabelService with TableService {
   }
 
   @override
-  FutureOr<void> migrate(Database db, int version) {
-    if (version < 2) {
-      return create(db);
-    }
-  }
-
-  @override
   Future<Label?> createLabel(Label label) async {
     final id = label.id ?? createUniqueUint8List();
     label = label.copyWith(id: id);

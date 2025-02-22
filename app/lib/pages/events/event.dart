@@ -1,7 +1,8 @@
 import 'package:flow/cubits/flow.dart';
+import 'package:flow/pages/groups/view.dart';
 import 'package:flow/pages/notes/view.dart';
 import 'package:flow/pages/resources/view.dart';
-import 'package:flow/pages/groups/select.dart';
+import 'package:flow/pages/users/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -32,38 +33,54 @@ class EventDialog extends StatelessWidget {
     final cubit = context.read<FlowCubit>();
     var currentEvent = event ?? const Event();
     var currentSource = source ?? '';
-    var currentService = cubit.sourcesService.getSource(currentSource).event;
-    final noteConnector = cubit.getService(currentSource).eventNote;
-    final resourceConnector = cubit.getService(currentSource).eventResource;
+    final service = cubit.sourcesService.getSource(currentSource);
+    var currentService = service.event;
+    final noteConnector = service.eventNote;
+    final resourceConnector = service.eventResource;
+    final userConnector = service.eventUser;
+    final groupConnector = service.eventGroup;
     final nameController = TextEditingController(text: currentEvent.name);
     final locationController =
         TextEditingController(text: currentEvent.location);
-    final tabs = !create && noteConnector != null && resourceConnector != null;
+    final tabs = !create &&
+        noteConnector != null &&
+        resourceConnector != null &&
+        userConnector != null &&
+        groupConnector != null;
     return ResponsiveAlertDialog(
       title: Text(create
           ? AppLocalizations.of(context).createEvent
           : AppLocalizations.of(context).editEvent),
       constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
       content: DefaultTabController(
-        length: tabs ? 3 : 1,
+        length: tabs ? 5 : 1,
         child: Column(
           children: [
             if (tabs)
               TabBar(
+                  isScrollable: true,
                   tabs: [
-                (
-                  PhosphorIconsLight.faders,
-                  AppLocalizations.of(context).general
-                ),
-                (
-                  PhosphorIconsLight.checkCircle,
-                  AppLocalizations.of(context).notes
-                ),
-                (
-                  PhosphorIconsLight.cube,
-                  AppLocalizations.of(context).resources
-                ),
-              ]
+                    (
+                      PhosphorIconsLight.faders,
+                      AppLocalizations.of(context).general
+                    ),
+                    (
+                      PhosphorIconsLight.checkCircle,
+                      AppLocalizations.of(context).notes
+                    ),
+                    (
+                      PhosphorIconsLight.cube,
+                      AppLocalizations.of(context).resources
+                    ),
+                    (
+                      PhosphorIconsLight.user,
+                      AppLocalizations.of(context).users
+                    ),
+                    (
+                      PhosphorIconsLight.usersThree,
+                      AppLocalizations.of(context).group
+                    ),
+                  ]
                       .map((e) => HorizontalTab(
                             icon: PhosphorIcon(e.$1),
                             label: Text(e.$2),
@@ -84,9 +101,6 @@ class EventDialog extends StatelessWidget {
                             onChanged: (connected) {
                               currentSource = connected?.source ?? '';
                               currentService = connected?.model;
-                              currentEvent = currentEvent.copyWith(
-                                groupId: null,
-                              );
                             },
                           ),
                           const SizedBox(height: 16),
@@ -114,15 +128,6 @@ class EventDialog extends StatelessWidget {
                           value: currentEvent.description,
                           onChanged: (value) => currentEvent =
                               currentEvent.copyWith(description: value),
-                        ),
-                        const SizedBox(height: 16),
-                        GroupSelectTile(
-                          source: currentSource,
-                          value: currentEvent.groupId,
-                          onChanged: (value) {
-                            currentEvent =
-                                currentEvent.copyWith(groupId: value?.model);
-                          },
                         ),
                         const SizedBox(height: 8),
                         StatefulBuilder(
@@ -161,6 +166,16 @@ class EventDialog extends StatelessWidget {
                     ResourcesView(
                       model: currentEvent,
                       connector: resourceConnector,
+                      source: currentSource,
+                    ),
+                    UsersView(
+                      model: currentEvent,
+                      connector: userConnector,
+                      source: currentSource,
+                    ),
+                    GroupsView(
+                      model: currentEvent,
+                      connector: groupConnector,
                       source: currentSource,
                     ),
                   ],

@@ -22,9 +22,6 @@ class GroupDatabaseService extends GroupService with TableService {
   }
 
   @override
-  FutureOr<void> migrate(Database db, int version) {}
-
-  @override
   Future<Group?> createGroup(Group group) async {
     final id = group.id ?? createUniqueUint8List();
     group = group.copyWith(id: id);

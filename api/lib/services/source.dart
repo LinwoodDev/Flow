@@ -36,6 +36,10 @@ abstract class SourceService {
   GroupService? get group => null;
   UserService? get user => null;
   LabelService? get label => null;
+  ModelConnector<User, Event>? get eventUser => null;
+  ModelConnector<Group, Event>? get eventGroup => null;
+  ModelConnector<User, CalendarItem>? get calendarItemUser => null;
+  ModelConnector<Group, CalendarItem>? get calendarItemGroup => null;
 
   List<ModelService> get models => <ModelService?>[
         event,
@@ -53,7 +57,11 @@ abstract class SourceService {
         calendarItemResource,
         userResource,
         groupResource,
-        label
+        label,
+        eventUser,
+        eventGroup,
+        calendarItemUser,
+        calendarItemGroup,
       ].nonNulls.toList();
 
   Future<void> import(CachedData data, [bool clear = true]) async {
@@ -87,4 +95,38 @@ abstract class ModelConnector<I, C> extends ModelService {
 
   Future<List<C>> getConnected(Uint8List itemId,
       {int offset = 0, int limit = 50});
+}
+
+class ReversedModelConnector<I, C> extends ModelConnector<I, C> {
+  final ModelConnector<C, I> connector;
+
+  ReversedModelConnector(this.connector);
+
+  @override
+  FutureOr<void> connect(Uint8List connectId, Uint8List itemId) =>
+      connector.connect(itemId, connectId);
+
+  @override
+  FutureOr<void> disconnect(Uint8List connectId, Uint8List itemId) =>
+      connector.disconnect(itemId, connectId);
+
+  @override
+  FutureOr<bool> isConnected(Uint8List connectId, Uint8List itemId) =>
+      connector.isConnected(itemId, connectId);
+
+  @override
+  Future<List<I>> getItems(Uint8List connectId,
+          {int offset = 0, int limit = 50}) =>
+      connector.getConnected(connectId, offset: offset, limit: limit);
+
+  @override
+  Future<List<C>> getConnected(Uint8List itemId,
+          {int offset = 0, int limit = 50}) =>
+      connector.getItems(itemId, offset: offset, limit: limit);
+
+  @override
+  FutureOr<void> clear() => connector.clear();
+
+  @override
+  bool get isEditable => connector.isEditable;
 }

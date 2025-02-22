@@ -118,12 +118,12 @@ class ResourceDialog extends StatelessWidget {
                     ]),
                   ),
                   if (tabs) ...[
-                    UsersView(
+                    UsersView.reversed(
                       model: currentResource,
                       connector: userConnector,
                       source: currentSource,
                     ),
-                    GroupsView(
+                    GroupsView.reversed(
                       model: currentResource,
                       connector: groupConnector,
                       source: currentSource,

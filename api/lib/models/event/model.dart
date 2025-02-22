@@ -13,7 +13,7 @@ final class Event
     with EventMappable, IdentifiedModel, NamedModel, DescriptiveModel {
   @override
   final Uint8List? id;
-  final Uint8List? parentId, groupId;
+  final Uint8List? parentId;
   final bool blocked;
   @override
   final String name, description;
@@ -23,7 +23,6 @@ final class Event
   const Event({
     this.id,
     this.parentId,
-    this.groupId,
     this.blocked = true,
     this.name = '',
     this.description = '',

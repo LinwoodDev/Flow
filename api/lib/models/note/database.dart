@@ -81,7 +81,7 @@ abstract class NoteDatabaseConnector<T> extends DatabaseModelConnector<Note, T>
 }
 
 class NoteDatabaseService extends NoteService with TableService {
-  Future<void> _createNotebookDatabase(Database db) async {
+  Future<void> createNotebookDatabase(Database db) async {
     await db.execute("""
       CREATE TABLE IF NOT EXISTS notebooks (
         id BLOB(16) PRIMARY KEY,
@@ -104,15 +104,7 @@ class NoteDatabaseService extends NoteService with TableService {
         parentId BLOB(16)
       )
     """);
-    await _createNotebookDatabase(db);
-  }
-
-  @override
-  Future<void> migrate(Database db, int version) async {
-    if (version < 3) {
-      await db.execute("ALTER TABLE notes ADD notebookId BLOB(16)");
-      await _createNotebookDatabase(db);
-    }
+    await createNotebookDatabase(db);
   }
 
   @override
@@ -373,14 +365,6 @@ class LabelNoteDatabaseConnector extends NoteDatabaseConnector<Label>
           return Note.fromDatabase(e);
         }).toList() ??
         [];
-  }
-
-  @override
-  FutureOr<void> migrate(Database db, int version) async {
-    if (version < 2) {
-      await create(db);
-    }
-    return super.migrate(db, version);
   }
 
   @override

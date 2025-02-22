@@ -1,7 +1,8 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/event.dart';
+import 'package:flow/pages/groups/view.dart';
 import 'package:flow/pages/resources/view.dart';
-import 'package:flow/pages/groups/select.dart';
+import 'package:flow/pages/users/view.dart';
 import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -82,9 +83,16 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<FlowCubit>();
-    final noteConnector = cubit.getService(_source).calendarItemNote;
-    final resourceConnector = cubit.getService(_source).calendarItemResource;
-    final tabs = !_create && noteConnector != null && resourceConnector != null;
+    final service = cubit.getService(_source);
+    final noteConnector = service.calendarItemNote;
+    final resourceConnector = service.calendarItemResource;
+    final userConnector = service.calendarItemUser;
+    final groupConnector = service.calendarItemGroup;
+    final tabs = !_create &&
+        noteConnector != null &&
+        resourceConnector != null &&
+        userConnector != null &&
+        groupConnector != null;
     final type = _item.type;
     final title = switch (type) {
       CalendarItemType.appointment => _create
@@ -163,6 +171,11 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                   PhosphorIconsLight.cube,
                   AppLocalizations.of(context).resources
                 ),
+                (PhosphorIconsLight.user, AppLocalizations.of(context).users),
+                (
+                  PhosphorIconsLight.usersThree,
+                  AppLocalizations.of(context).group
+                ),
               ]
                       .map((e) => HorizontalTab(
                             icon: PhosphorIcon(e.$1),
@@ -185,7 +198,6 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                               _source = connected?.source ?? '';
                               _item = _item.copyWith(
                                 eventId: null,
-                                groupId: null,
                               );
                               _service = connected?.model;
                             },
@@ -243,14 +255,6 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                           onChanged: (value) =>
                               _item = _item.copyWith(description: value),
                           value: _item.description,
-                        ),
-                        const SizedBox(height: 16),
-                        GroupSelectTile(
-                          source: _source,
-                          value: _item.groupId,
-                          onChanged: (value) {
-                            _item = _item.copyWith(groupId: value?.model);
-                          },
                         ),
                         const SizedBox(height: 8),
                         TextFormField(
@@ -312,6 +316,16 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                     ResourcesView(
                       model: widget.item!,
                       connector: resourceConnector,
+                      source: _source,
+                    ),
+                    UsersView(
+                      model: widget.item!,
+                      connector: userConnector,
+                      source: _source,
+                    ),
+                    GroupsView(
+                      model: widget.item!,
+                      connector: groupConnector,
                       source: _source,
                     ),
                   ],

@@ -22,13 +22,6 @@ class ResourceDatabaseService extends ResourceService with TableService {
   }
 
   @override
-  FutureOr<void> migrate(Database db, int version) async {
-    if (version < 4) {
-      await db.execute("ALTER TABLE places RENAME TO resources");
-    }
-  }
-
-  @override
   Future<Resource?> createResource(Resource resource) async {
     final id = resource.id ?? createUniqueUint8List();
     resource = resource.copyWith(id: id);
@@ -99,13 +92,6 @@ abstract class ResourceDatabaseConnector<T>
   String get itemTableName => 'resources';
 
   T decode(Map<String, dynamic> data);
-
-  @override
-  Future<void> migrate(Database db, int version) async {
-    if (version < 4) {
-      await create(db);
-    }
-  }
 
   @override
   Future<List<Resource>> getItems(Uint8List connectId,

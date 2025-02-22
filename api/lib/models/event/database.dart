@@ -20,7 +20,6 @@ class EventDatabaseService extends EventService with TableService {
       CREATE TABLE IF NOT EXISTS $name (
         id BLOB(16) PRIMARY KEY,
         parentId BLOB(16),
-        groupId BLOB(16),
         blocked INTEGER NOT NULL DEFAULT 1,
         name VARCHAR(100) NOT NULL DEFAULT '',
         description TEXT NOT NULL DEFAULT '',
