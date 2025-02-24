@@ -38,14 +38,14 @@ List _getNavigationItems(BuildContext context) => [
         "link": "/notes"
       },
       {
-        "title": AppLocalizations.of(context).groups,
-        "icon": PhosphorIconsLight.usersThree,
-        "link": "/groups"
-      },
-      {
         "title": AppLocalizations.of(context).resources,
         "icon": PhosphorIconsLight.cube,
         "link": "/resources"
+      },
+      {
+        "title": AppLocalizations.of(context).groups,
+        "icon": PhosphorIconsLight.usersThree,
+        "link": "/groups"
       },
       {
         "title": AppLocalizations.of(context).users,

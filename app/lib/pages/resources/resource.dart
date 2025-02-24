@@ -42,6 +42,7 @@ class ResourceDialog extends StatelessWidget {
       content: DefaultTabController(
         length: tabs ? 3 : 1,
         child: Column(
+          spacing: 8,
           children: [
             if (tabs)
               TabBar(

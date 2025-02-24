@@ -153,30 +153,35 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
         ),
       ],
       content: DefaultTabController(
-        length: tabs ? 3 : 1,
+        length: tabs ? 5 : 1,
         child: Column(
+          spacing: 8,
           children: [
             if (tabs)
               TabBar(
+                  isScrollable: true,
                   tabs: [
-                (
-                  PhosphorIconsLight.faders,
-                  AppLocalizations.of(context).general
-                ),
-                (
-                  PhosphorIconsLight.checkCircle,
-                  AppLocalizations.of(context).notes
-                ),
-                (
-                  PhosphorIconsLight.cube,
-                  AppLocalizations.of(context).resources
-                ),
-                (PhosphorIconsLight.user, AppLocalizations.of(context).users),
-                (
-                  PhosphorIconsLight.usersThree,
-                  AppLocalizations.of(context).group
-                ),
-              ]
+                    (
+                      PhosphorIconsLight.faders,
+                      AppLocalizations.of(context).general
+                    ),
+                    (
+                      PhosphorIconsLight.checkCircle,
+                      AppLocalizations.of(context).notes
+                    ),
+                    (
+                      PhosphorIconsLight.cube,
+                      AppLocalizations.of(context).resources
+                    ),
+                    (
+                      PhosphorIconsLight.user,
+                      AppLocalizations.of(context).users
+                    ),
+                    (
+                      PhosphorIconsLight.usersThree,
+                      AppLocalizations.of(context).group
+                    ),
+                  ]
                       .map((e) => HorizontalTab(
                             icon: PhosphorIcon(e.$1),
                             label: Text(e.$2),
@@ -204,7 +209,6 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                           ),
                           const SizedBox(height: 16),
                         ],
-                        const SizedBox(height: 16),
                         EventSelectTile(
                           source: _source,
                           value: _item.eventId,

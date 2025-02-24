@@ -55,6 +55,7 @@ class EventDialog extends StatelessWidget {
       content: DefaultTabController(
         length: tabs ? 5 : 1,
         child: Column(
+          spacing: 8,
           children: [
             if (tabs)
               TabBar(
@@ -105,7 +106,6 @@ class EventDialog extends StatelessWidget {
                           ),
                           const SizedBox(height: 16),
                         ],
-                        const SizedBox(height: 16),
                         TextFormField(
                           controller: nameController,
                           decoration: InputDecoration(
