@@ -5,49 +5,46 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:flow_api/models/model.dart';
 import 'package:flow_api/services/source.dart';
 
-class SourcedPagingController<T>
-    extends PagingController<SourcedModel<int>, SourcedModel<T>> {
-  final FlowCubit cubit;
-  final int pageSize;
+const kDefaultPageSize = 50;
 
-  List<String> get sources => cubit.getCurrentSources();
+typedef SourcedPagingController<T>
+    = PagingController<SourcedModel<int>, SourcedModel<T>>;
 
-  SourcedPagingController(this.cubit, {this.pageSize = 50})
-      : super(firstPageKey: const SourcedModel("", -1));
-
-  PageRequestListener<SourcedModel<int>> addFetchListener(
-      Future<List<T>?> Function(String, SourceService, int offset, int limit)
-          fetch) {
-    FutureOr<void> listener(SourcedModel<int> pageKey) async {
-      final isFirstPage = pageKey.model < 0;
-      var currentPageKey = pageKey;
-      if (isFirstPage) {
-        currentPageKey = SourcedModel(sources.first, 0);
-      }
+SourcedPagingController<T> createSourcedPagingController<T>({
+  required FlowCubit cubit,
+  int pageSize = kDefaultPageSize,
+  required Future<List<T>?> Function(
+          String, SourceService, int offset, int limit)
+      fetch,
+}) {
+  final sources = cubit.getCurrentSources();
+  return SourcedPagingController(
+    fetchPage: (pageKey) async {
       final fetched = (await fetch(
-                  currentPageKey.source,
-                  cubit.getService(currentPageKey.source),
-                  currentPageKey.model * pageSize,
+                  pageKey.source,
+                  cubit.getService(pageKey.source),
+                  pageKey.model * pageSize,
                   pageSize) ??
               <T>[])
-          .map((e) => SourcedModel(currentPageKey.source, e))
+          .map((e) => SourcedModel(pageKey.source, e))
           .toList();
-      final index = sources.indexOf(currentPageKey.source);
-      final currentSource = isFirstPage ? sources.first : currentPageKey.source;
-      final keepSource = fetched.length >= pageSize;
-      final isLastSource = index >= sources.length - 1;
-      if (isLastSource && !keepSource) {
-        appendLastPage(fetched);
-      } else if (keepSource) {
-        appendPage(
-            fetched, SourcedModel(currentSource, currentPageKey.model + 1));
-      } else {
-        final nextSource = sources[index + 1];
-        appendPage(fetched, SourcedModel(nextSource, 0));
+      return fetched;
+    },
+    getNextPageKey: (state) {
+      final keys = state.keys?.lastOrNull;
+      if (keys == null) {
+        return SourcedModel(sources.first, 0);
       }
-    }
-
-    addPageRequestListener(listener);
-    return listener;
-  }
+      final items = state.pages?.lastOrNull;
+      final isFinished = items == null || items.length < pageSize;
+      if (!isFinished) {
+        return SourcedModel(keys.source, keys.model + 1);
+      }
+      final index = sources.indexOf(keys.source);
+      if (index >= sources.length - 1 || index < 0) {
+        return null;
+      }
+      return SourcedModel(sources[index + 1], 0);
+    },
+  );
 }

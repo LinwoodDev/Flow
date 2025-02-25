@@ -36,7 +36,9 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
   void initState() {
     super.initState();
     _cubit = context.read<FlowCubit>();
-    _controller = SourcedPagingController(_cubit);
+    _controller = createSourcedPagingController(
+      _cubit,
+    );
     _controller.addFetchListener((source, service, offset, limit) async =>
         service.calendarItem?.getCalendarItems(
           status: EventStatus.values

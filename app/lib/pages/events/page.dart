@@ -155,31 +155,36 @@ class _EventsBodyViewState extends State<EventsBodyView> {
           ),
           const SizedBox(height: 8),
           Expanded(
-            child: PagedListView(
-              pagingController: _controller,
-              builderDelegate: buildMaterialPagedDelegate<SourcedModel<Event>>(
-                _controller,
-                (ctx, item, index) => Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    constraints: const BoxConstraints(maxWidth: 800),
-                    child: Dismissible(
-                      key: ValueKey('${item.model.id}@${item.source}'),
-                      onDismissed: (direction) async {
-                        await _flowCubit
-                            .getService(item.source)
-                            .event
-                            ?.deleteEvent(item.model.id!);
-                        _controller.itemList!.remove(item);
-                      },
-                      background: Container(
-                        color: Colors.red,
-                      ),
-                      child: EventTile(
-                        flowCubit: _flowCubit,
-                        pagingController: _controller,
-                        source: item.source,
-                        event: item.model,
+            child: PagingListener(
+              controller: _controller,
+              builder: (context, state, fetchNextPage) => PagedListView(
+                state: state,
+                fetchNextPage: fetchNextPage,
+                builderDelegate:
+                    buildMaterialPagedDelegate<SourcedModel<Event>>(
+                  _controller,
+                  (ctx, item, index) => Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      constraints: const BoxConstraints(maxWidth: 800),
+                      child: Dismissible(
+                        key: ValueKey('${item.model.id}@${item.source}'),
+                        onDismissed: (direction) async {
+                          await _flowCubit
+                              .getService(item.source)
+                              .event
+                              ?.deleteEvent(item.model.id!);
+                          _controller.refresh();
+                        },
+                        background: Container(
+                          color: Colors.red,
+                        ),
+                        child: EventTile(
+                          flowCubit: _flowCubit,
+                          pagingController: _controller,
+                          source: item.source,
+                          event: item.model,
+                        ),
                       ),
                     ),
                   ),
