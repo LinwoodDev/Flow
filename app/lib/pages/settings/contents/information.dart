@@ -37,9 +37,9 @@ class InformationSettingsView extends StatelessWidget {
           onTap: () => launchUrl(Uri.https("go.linwood.dev", "matrix")),
         ),
         ListTile(
-          title: const Text("Crowdin"),
+          title: Text(AppLocalizations.of(context).translate),
           leading: const PhosphorIcon(PhosphorIconsLight.translate),
-          onTap: () => launchUrl(Uri.https("go.linwood.dev", "flow/crowdin")),
+          onTap: () => launchUrl(Uri.https("go.linwood.dev", "flow/translate")),
         ),
         ListTile(
           title: Text(AppLocalizations.of(context).source),

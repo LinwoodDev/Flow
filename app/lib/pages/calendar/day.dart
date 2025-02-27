@@ -64,7 +64,7 @@ class _CalendarDayViewState extends State<CalendarDayView> {
             .where((element) => !widget.filter.hiddenStatuses.contains(element))
             .toList(),
         search: widget.search,
-        groupId: widget.filter.group,
+        groupIds: widget.filter.groups,
         eventId: widget.filter.event,
         resourceIds: widget.filter.resources,
       );

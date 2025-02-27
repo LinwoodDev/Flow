@@ -114,7 +114,7 @@ class _CalendarListViewState extends State<CalendarListView> {
                         !widget.filter.hiddenStatuses.contains(element))
                     .toList(),
                 search: widget.search,
-                groupId: widget.filter.group,
+                groupIds: widget.filter.groups,
                 eventId: widget.filter.event,
                 offset: source.value * _pageSize,
                 limit: _pageSize,

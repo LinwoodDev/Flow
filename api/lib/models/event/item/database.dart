@@ -47,7 +47,7 @@ class CalendarItemDatabaseService extends CalendarItemService
   Future<List<ConnectedModel<CalendarItem, Event?>>> getCalendarItems(
       {List<EventStatus>? status,
       Uint8List? eventId,
-      Uint8List? groupId,
+      List<Uint8List>? groupIds,
       List<Uint8List>? resourceIds,
       bool pending = false,
       int offset = 0,
@@ -98,18 +98,23 @@ class CalendarItemDatabaseService extends CalendarItemService
           : '$where AND (name LIKE ? OR description LIKE ?)';
       whereArgs = [...?whereArgs, '%$search%', '%$search%'];
     }
-    if (groupId != null) {
-      final statement = "(groupId = ? OR events.groupId = ?)";
+    if (groupIds != null) {
+      final placeholders = List.filled(groupIds.length, '?').join(', ');
+      final statement =
+          "(calendarItems.id IN (SELECT itemId FROM groupResources WHERE groupId IN ($placeholders)) OR "
+          "calendarItems.eventId IN (SELECT eventId FROM eventResources WHERE groupId IN ($placeholders)))";
       where = where == null ? statement : '$where AND $statement';
-      whereArgs = [...?whereArgs, groupId, groupId];
+      whereArgs = [...?whereArgs, ...groupIds, ...groupIds];
     }
     if (eventId != null) {
       where = where == null ? 'eventId = ?' : '$where AND eventId = ?';
       whereArgs = [...?whereArgs, eventId];
     }
     if (resourceIds != null) {
+      final placeholders = List.filled(resourceIds.length, '?').join(', ');
       final statement =
-          "(calendarItems.id IN (SELECT itemId FROM calendarItemResources WHERE resourceId IN (${List.filled(resourceIds.length, '?').join(', ')})) OR events.id IN (SELECT eventId FROM eventResources WHERE resourceId IN (${List.filled(resourceIds.length, '?').join(', ')})))";
+          "(calendarItems.id IN (SELECT itemId FROM calendarItemResources WHERE resourceId IN ($placeholders)) OR "
+          "calendarItems.eventId IN (SELECT eventId FROM eventResources WHERE resourceId IN ($placeholders)))";
       where = where == null ? statement : '$where AND $statement';
       whereArgs = [...?whereArgs, ...resourceIds, ...resourceIds];
     }
@@ -204,7 +209,7 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
   FutureOr<List<ConnectedModel<CalendarItem, Event?>>> getCalendarItems({
     List<EventStatus>? status,
     Uint8List? eventId,
-    Uint8List? groupId,
+    List<Uint8List>? groupIds,
     List<Uint8List>? resourceIds,
     bool pending = false,
     int offset = 0,
@@ -217,7 +222,7 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
       service.getCalendarItems(
         status: status,
         eventId: eventId,
-        groupId: groupId,
+        groupIds: groupIds,
         resourceIds: resourceIds,
         pending: pending,
         offset: offset,

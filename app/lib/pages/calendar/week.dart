@@ -78,7 +78,7 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
               .toList(),
           search: widget.search,
           eventId: widget.filter.event,
-          groupId: widget.filter.group,
+          groupIds: widget.filter.groups,
           resourceIds: widget.filter.resources,
         );
         if (fetchedDay == null) continue;

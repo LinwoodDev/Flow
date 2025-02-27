@@ -34,6 +34,7 @@ class CalendarFilter with CalendarFilterMappable {
   });
 
   List<Uint8List>? get resources => resource != null ? [resource!] : null;
+  List<Uint8List>? get groups => group != null ? [group!] : null;
 
   SourcedModel<Uint8List>? get sourceEvent => event != null && source != null
       ? SourcedModel<Uint8List>(source!, event!)
