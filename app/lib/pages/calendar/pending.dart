@@ -37,20 +37,19 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
     super.initState();
     _cubit = context.read<FlowCubit>();
     _controller = createSourcedPagingController(
-      _cubit,
-    );
-    _controller.addFetchListener((source, service, offset, limit) async =>
-        service.calendarItem?.getCalendarItems(
-          status: EventStatus.values
-              .where(
-                  (element) => !widget.filter.hiddenStatuses.contains(element))
-              .toList(),
-          search: widget.search,
-          pending: true,
-          offset: offset,
-          limit: limit,
-          resourceIds: widget.filter.resources,
-        ));
+        cubit: _cubit,
+        fetch: (source, service, offset, limit) async =>
+            service.calendarItem?.getCalendarItems(
+              status: EventStatus.values
+                  .where((element) =>
+                      !widget.filter.hiddenStatuses.contains(element))
+                  .toList(),
+              search: widget.search,
+              pending: true,
+              offset: offset,
+              limit: limit,
+              resourceIds: widget.filter.resources,
+            ));
   }
 
   @override
@@ -82,23 +81,28 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
           const SizedBox(height: 8),
           Expanded(
             child: LayoutBuilder(
-              builder: (context, constraints) => PagedListView(
-                pagingController: _controller,
-                builderDelegate: buildMaterialPagedDelegate<
-                    SourcedConnectedModel<CalendarItem, Event?>>(
-                  _controller,
-                  (context, item, index) {
-                    return ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 1000),
-                      child: CalendarListTile(
-                        key: ValueKey('${item.source}@${item.main.id}'),
-                        eventItem: item,
-                        onRefresh: _controller.refresh,
+              builder: (context, constraints) => PagingListener(
+                  controller: _controller,
+                  builder: (context, state, fetchNextPage) {
+                    return PagedListView(
+                      state: state,
+                      fetchNextPage: fetchNextPage,
+                      builderDelegate: buildMaterialPagedDelegate<
+                          SourcedConnectedModel<CalendarItem, Event?>>(
+                        _controller,
+                        (context, item, index) {
+                          return ConstrainedBox(
+                            constraints: const BoxConstraints(maxWidth: 1000),
+                            child: CalendarListTile(
+                              key: ValueKey('${item.source}@${item.main.id}'),
+                              eventItem: item,
+                              onRefresh: _controller.refresh,
+                            ),
+                          );
+                        },
                       ),
                     );
-                  },
-                ),
-              ),
+                  }),
             ),
           ),
         ],
