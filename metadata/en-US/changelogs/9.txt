@@ -17,4 +17,4 @@
 * Fix labels not filtering correctly
 * Update to agb 8.8
 
-Read more here: https://linwood.dev/flow/0.3.2
+Read more here: https://linwood.dev/flow/0.4.0

@@ -88,7 +88,7 @@ jobs:
           name: apk-x86_64-build
           path: app/linwood-flow-android-x86_64.apk
   build-windows:
-    runs-on: windows-2022
+    runs-on: windows-2025
     defaults:
       run:
         working-directory: app
@@ -96,7 +96,9 @@ jobs:
       - name: ⬆️ Checkout
         uses: actions/checkout@v4
       - name: Make yq tool available on Windows runners
-        run: choco install yq
+        run: |
+          choco install yq
+          choco install innosetup
       - uses: subosito/flutter-action@v2.18.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -189,7 +191,9 @@ jobs:
           cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
           cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
       - name: ✅ Enable platforms
-        run: flutter config --enable-linux-desktop
+        run: |
+          rm -f "$(dirname "$(dirname "$(command -v flutter)")")/engine/src/.gn"
+          flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
         run: |
           flutter clean
@@ -208,6 +212,10 @@ jobs:
       - name: 🏭 Make binary executable
         run: |
           chmod +x build/linux/${{ matrix.arch.dir }}/release/bundle/flow
+      - name: Update files to arm64
+        if: ${{ matrix.arch.name == 'arm64' }}
+        run: |
+          sed -i 's/^Architecture: amd64/Architecture: arm64/' linux/debian/DEBIAN/control
       - name: Build .deb executable
         run: |
           cp -fr build/linux/${{ matrix.arch.dir }}/release/bundle linux/debian/usr/bin
@@ -312,7 +320,9 @@ jobs:
           cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
           cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
       - name: ✅ Enable platforms
-        run: flutter config --enable-linux-desktop
+        run: |
+          rm -f "$(dirname "$(dirname "$(command -v flutter)")")/engine/src/.gn"
+          flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
         run: |
           flutter clean
@@ -560,7 +570,9 @@ jobs:
           name: ipa-build
       - name: 📦 Zip artifacts
         run: |
-          zip -r linwood-flow-windows-x86_64.zip windows-build/*
+          cd windows-build
+          zip -r ../linwood-flow-windows-x86_64.zip *
+          cd ..
           tar -C linux-x86_64-build -czf linwood-flow-linux-x86_64.tar.gz .
           tar -C linux-arm64-build -czf linwood-flow-linux-arm64.tar.gz .
           tar -C linux-x86_64-alternative-build -czf linwood-flow-linux-alternative-x86_64.tar.gz .

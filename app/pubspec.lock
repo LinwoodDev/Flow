@@ -29,10 +29,10 @@ packages:
     dependency: transitive
     description:
       name: archive
-      sha256: "528579c7e4579719f04b21eeeeddfd73a18b31dabc22766893b7d1be7f49b967"
+      sha256: "0c64e928dcbefddecd234205422bcfc2b5e6d31be0b86fef0d0dd48d7b4c9742"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.3"
+    version: "4.0.4"
   args:
     dependency: "direct main"
     description:
@@ -262,10 +262,10 @@ packages:
     dependency: transitive
     description:
       name: dev_build
-      sha256: "8e215c30e555d6f5b0619f50be2c3f49c0bf9bf4426a3dcddf0654f943420b4b"
+      sha256: f658f2fbf601b40d103fb9cb8db277da0a2022173950aa2aadf0f8cbcdf7c8c3
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.2+4"
+    version: "1.1.2+5"
   dynamic_color:
     dependency: "direct main"
     description:
@@ -402,10 +402,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_bloc
-      sha256: "153856bdaac302bbdc58a1d1403d50c40557254aa05eaeed40515d88a25a526b"
+      sha256: "1046d719fbdf230330d3443187cc33cc11963d15c9089f6cc56faa42a4c5f0cc"
       url: "https://pub.dev"
     source: hosted
-    version: "9.0.0"
+    version: "9.1.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -1113,10 +1113,10 @@ packages:
     dependency: "direct main"
     description:
       name: sqflite_common_ffi_web
-      sha256: "61ea702e7aba727f28be7ead00b84c19c745cd4a4934d0c41473303df11ac9ea"
+      sha256: "983cf7b33b16e6bc086c8e09f6a1fae69d34cdb167d7acaf64cbd3515942d4e6"
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.5+4"
+    version: "1.0.0"
   sqflite_darwin:
     dependency: transitive
     description:
