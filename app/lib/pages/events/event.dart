@@ -51,7 +51,7 @@ class EventDialog extends StatelessWidget {
       title: Text(create
           ? AppLocalizations.of(context).createEvent
           : AppLocalizations.of(context).editEvent),
-      constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
+      constraints: const BoxConstraints(maxWidth: 600, maxHeight: 600),
       content: DefaultTabController(
         length: tabs ? 5 : 1,
         child: Column(

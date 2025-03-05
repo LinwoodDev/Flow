@@ -29,35 +29,57 @@ Future<void> migrateDatabase(DatabaseService service, Database db,
     await service.userGroup.create(db);
     await db.execute("ALTER TABLE places RENAME TO resources");
     await db.execute("PRAGMA foreign_keys=off");
+
+    // Migrate events
     await db.transaction((txn) async {
       await service.event.create(txn, 'events_temp');
       await txn.execute(
-          "INSERT INTO events_temp SELECT id, parentId, blocked, name, description, location, extra FROM events");
+        "INSERT INTO events_temp SELECT id, parentId, blocked, name, description, location, extra FROM events",
+      );
       await txn.execute(
-          "INSERT INTO eventResources(eventId, resourceId) SELECT id, placeId FROM events");
+        "INSERT INTO eventResources(eventId, resourceId) "
+        "SELECT id, placeId FROM events WHERE placeId IS NOT NULL",
+      );
       await txn.execute(
-          "INSERT INTO eventGroups(eventId, groupId) SELECT id, groupId FROM events");
+        "INSERT INTO eventGroups(eventId, groupId) "
+        "SELECT id, groupId FROM events WHERE groupId IS NOT NULL",
+      );
       await txn.execute("DROP TABLE events");
       await txn.execute("ALTER TABLE events_temp RENAME TO events");
     });
+
+    // Migrate calendarItems
     await db.transaction((txn) async {
       await service.calendarItem.create(txn, 'calendarItems_temp');
       await txn.execute(
-          "INSERT INTO calendarItems_temp SELECT id, parentId, blocked, name, description, location, extra FROM calendarItems");
+        "INSERT INTO calendarItems_temp "
+        "SELECT id, parentId, blocked, name, description, location, extra "
+        "FROM calendarItems",
+      );
       await txn.execute(
-          "INSERT INTO calendarItemResources(itemId, resourceId) SELECT id, placeId FROM calendarItems");
+        "INSERT INTO calendarItemResources(itemId, resourceId) "
+        "SELECT id, placeId FROM calendarItems WHERE placeId IS NOT NULL",
+      );
       await txn.execute(
-          "INSERT INTO calendarItemGroups(itemId, groupId) SELECT id, groupId FROM calendarItems");
+        "INSERT INTO calendarItemGroups(itemId, groupId) "
+        "SELECT id, groupId FROM calendarItems WHERE groupId IS NOT NULL",
+      );
       await txn.execute("DROP TABLE calendarItems");
       await txn
           .execute("ALTER TABLE calendarItems_temp RENAME TO calendarItems");
     });
+
+    // Migrate users
     await db.transaction((txn) async {
       await service.user.create(txn, 'users_temp');
       await txn.execute(
-          "INSERT INTO users_temp SELECT id, name, email, description, phone, image FROM users");
+        "INSERT INTO users_temp "
+        "SELECT id, name, email, description, phone, image FROM users",
+      );
       await txn.execute(
-          "INSERT INTO userGroups(userId, groupId) SELECT id, groupId FROM users");
+        "INSERT INTO userGroups(userId, groupId) "
+        "SELECT id, groupId FROM users WHERE groupId IS NOT NULL",
+      );
       await txn.execute("DROP TABLE users");
       await txn.execute("ALTER TABLE users_temp RENAME TO users");
     });
