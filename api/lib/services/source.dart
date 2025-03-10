@@ -5,8 +5,10 @@ import 'package:flow_api/models/event/item/service.dart';
 import 'package:flow_api/models/event/service.dart';
 import 'package:flow_api/models/group/model.dart';
 import 'package:flow_api/models/group/service.dart';
+import 'package:flow_api/models/label/model.dart';
 import 'package:flow_api/models/label/service.dart';
 import 'package:flow_api/models/note/label.dart';
+import 'package:flow_api/models/note/model.dart';
 import 'package:flow_api/models/resource/service.dart';
 import 'package:flow_api/models/user/model.dart';
 import 'package:flow_api/models/user/service.dart';
@@ -41,6 +43,10 @@ abstract class SourceService {
   ModelConnector<Group, Event>? get eventGroup => null;
   ModelConnector<User, CalendarItem>? get calendarItemUser => null;
   ModelConnector<Group, CalendarItem>? get calendarItemGroup => null;
+  ModelConnector<Notebook, User>? get userNotebook => null;
+  ModelConnector<Notebook, Group>? get groupNotebook => null;
+  ModelConnector<Label, User>? get userLabel => null;
+  ModelConnector<Label, Group>? get groupLabel => null;
 
   List<ModelService> get models => <ModelService?>[
         event,
@@ -60,9 +66,14 @@ abstract class SourceService {
         groupResource,
         label,
         eventUser,
+        userGroup,
         eventGroup,
         calendarItemUser,
         calendarItemGroup,
+        userNotebook,
+        groupNotebook,
+        userLabel,
+        groupLabel,
       ].nonNulls.toList();
 
   Future<void> import(CachedData data, [bool clear = true]) async {

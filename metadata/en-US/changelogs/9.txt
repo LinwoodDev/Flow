@@ -1,6 +1,6 @@
 * Add color wheel
 * Add event notes
-* Add owner for notes
+* Add owner for notes, labels and notebooks
 * Change events and calendar items to have multiple users and groups
 * Change users to have multiple groups
 * Refactor places to resources

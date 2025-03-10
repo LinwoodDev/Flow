@@ -8,6 +8,9 @@ import 'package:flow_api/models/event/item/group.dart';
 import 'package:flow_api/models/event/item/user.dart';
 import 'package:flow_api/models/event/user.dart';
 import 'package:flow_api/models/label/database.dart';
+import 'package:flow_api/models/label/group.dart';
+import 'package:flow_api/models/label/user.dart';
+import 'package:flow_api/models/model.dart';
 import 'package:flow_api/models/note/event.dart';
 import 'package:flow_api/models/note/group.dart';
 import 'package:flow_api/models/note/user.dart';
@@ -88,6 +91,16 @@ class DatabaseService extends SourceService {
   @override
   final CalendarItemGroupDatabaseConnector calendarItemGroup =
       CalendarItemGroupDatabaseConnector();
+  @override
+  final UserNotebookDatabaseConnector userNotebook =
+      UserNotebookDatabaseConnector();
+  @override
+  final GroupNotebookDatabaseConnector groupNotebook =
+      GroupNotebookDatabaseConnector();
+  @override
+  final UserLabelDatabaseConnector userLabel = UserLabelDatabaseConnector();
+  @override
+  final GroupLabelDatabaseConnector groupLabel = GroupLabelDatabaseConnector();
 
   final DatabaseFactory databaseFactory;
 
@@ -154,7 +167,7 @@ Uint8List createUniqueUint8List() {
   final random = Random.secure();
   final uuid = Uint8List.fromList(
       encodeEndian(DateTime.now().millisecondsSinceEpoch, 8) +
-          List.generate(8, (i) => random.nextInt(255)));
+          List.generate(8, (i) => random.nextInt(256)));
   return uuid;
 }
 
@@ -179,6 +192,7 @@ abstract class DatabaseModelConnector<I, C> extends ModelConnector<I, C>
   String get connectedIdName;
   String get itemTableName;
   String get itemIdName;
+  bool get usesPermission => false;
 
   @override
   Future<void> create(Database db) async {
@@ -186,6 +200,7 @@ abstract class DatabaseModelConnector<I, C> extends ModelConnector<I, C>
       CREATE TABLE IF NOT EXISTS $tableName (
         $itemIdName BLOB(16) NOT NULL,
         $connectedIdName BLOB(16) NOT NULL,
+        ${usesPermission ? 'permission INTEGER NOT NULL DEFAULT 0,' : ''}
         PRIMARY KEY ($connectedIdName, $itemIdName),
         FOREIGN KEY ($connectedIdName) REFERENCES $connectedTableName(id) ON DELETE CASCADE,
         FOREIGN KEY ($itemIdName) REFERENCES $itemTableName(id) ON DELETE CASCADE
@@ -194,11 +209,14 @@ abstract class DatabaseModelConnector<I, C> extends ModelConnector<I, C>
   }
 
   @override
-  Future<void> connect(Uint8List connectId, Uint8List itemId) async {
+  Future<void> connect(Uint8List connectId, Uint8List itemId,
+      [ModelPermission? permission]) async {
     if (await isConnected(connectId, itemId)) return;
+    permission ??= ModelPermission.read;
     await db?.insert(tableName, {
       itemIdName: itemId,
       connectedIdName: connectId,
+      if (usesPermission) 'permission': permission.index,
     });
   }
 
@@ -217,7 +235,23 @@ abstract class DatabaseModelConnector<I, C> extends ModelConnector<I, C>
       tableName,
       where: '$itemIdName = ? AND $connectedIdName = ?',
       whereArgs: [itemId, connectId],
+      limit: 1,
     );
     return result?.isNotEmpty == true;
+  }
+
+  Future<ModelPermission?> getPermission(
+      Uint8List connectId, Uint8List itemId) async {
+    if (!usesPermission) return null;
+    final result = await db?.query(
+      tableName,
+      columns: ['permission'],
+      where: '$itemIdName = ? AND $connectedIdName = ?',
+      whereArgs: [itemId, connectId],
+      limit: 1,
+    );
+    if (result?.isEmpty == true) return null;
+    final permission = result!.first['permission'] as int;
+    return ModelPermission.values[permission];
   }
 }

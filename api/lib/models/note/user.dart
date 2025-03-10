@@ -1,7 +1,13 @@
+import 'dart:typed_data';
+
 import 'package:flow_api/models/note/database.dart';
+import 'package:flow_api/models/note/model.dart';
 import 'package:flow_api/models/user/model.dart';
+import 'package:flow_api/services/database.dart';
 
 class UserNoteDatabaseConnector extends NoteDatabaseConnector<User> {
+  @override
+  bool get usesPermission => true;
   @override
   String get connectedIdName => "userId";
 
@@ -13,4 +19,50 @@ class UserNoteDatabaseConnector extends NoteDatabaseConnector<User> {
 
   @override
   User decode(Map<String, dynamic> data) => User.fromDatabase(data);
+}
+
+class UserNotebookDatabaseConnector
+    extends DatabaseModelConnector<Notebook, User> {
+  @override
+  bool get usesPermission => true;
+  @override
+  String get connectedIdName => "userId";
+
+  @override
+  String get connectedTableName => "users";
+
+  @override
+  String get tableName => "userNotebooks";
+
+  @override
+  Future<List<Notebook>> getItems(Uint8List itemId,
+      {int offset = 0, int limit = 50}) async {
+    final result = await db?.query(
+      '$tableName JOIN events ON notebookId = notebooks.id',
+      limit: limit,
+      offset: offset,
+      where: '$connectedIdName = ?',
+      whereArgs: [itemId],
+    );
+    return result?.map((e) => Notebook.fromDatabase(e)).toList() ?? [];
+  }
+
+  @override
+  Future<List<User>> getConnected(Uint8List connectId,
+      {int offset = 0, int limit = 50}) async {
+    final result = await db?.query(
+      '$tableName JOIN users ON userId = users.id',
+      limit: limit,
+      offset: offset,
+      where: '$itemIdName = ?',
+      whereArgs: [connectId],
+    );
+    return result?.map((e) => User.fromDatabase(e)).toList() ?? [];
+  }
+
+  @override
+  String get itemIdName => 'notebookId';
+
+  @override
+  String get itemTableName => 'notebooks';
 }

@@ -27,6 +27,10 @@ Future<void> migrateDatabase(DatabaseService service, Database db,
     await service.eventResource.create(db);
     await service.calendarItemResource.create(db);
     await service.userGroup.create(db);
+    await service.userNotebook.create(db);
+    await service.groupNotebook.create(db);
+    await service.userLabel.create(db);
+    await service.groupLabel.create(db);
     await db.execute("ALTER TABLE places RENAME TO resources");
     await db.execute("PRAGMA foreign_keys=off");
 

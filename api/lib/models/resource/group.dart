@@ -3,6 +3,8 @@ import 'package:flow_api/models/resource/database.dart';
 
 class GroupResourceDatabaseConnector extends ResourceDatabaseConnector<Group> {
   @override
+  bool get usesPermission => true;
+  @override
   String get connectedIdName => "groupId";
 
   @override

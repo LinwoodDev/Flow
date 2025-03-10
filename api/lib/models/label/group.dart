@@ -1,36 +1,36 @@
 import 'dart:typed_data';
 
-import 'package:flow_api/models/user/model.dart';
+import 'package:flow_api/models/label/model.dart';
 import 'package:flow_api/models/group/model.dart';
 import 'package:flow_api/services/database.dart';
 
-class UserGroupDatabaseConnector extends DatabaseModelConnector<Group, User> {
+class GroupLabelDatabaseConnector extends DatabaseModelConnector<Label, Group> {
   @override
   bool get usesPermission => true;
   @override
-  String get connectedIdName => "userId";
+  String get connectedIdName => "groupId";
 
   @override
-  String get connectedTableName => "users";
+  String get connectedTableName => "groups";
 
   @override
-  String get tableName => "userGroups";
+  String get tableName => "groupLabels";
 
   @override
-  Future<List<User>> getConnected(Uint8List itemId,
+  Future<List<Label>> getItems(Uint8List itemId,
       {int offset = 0, int limit = 50}) async {
     final result = await db?.query(
-      '$tableName JOIN users ON userId = users.id',
+      '$tableName JOIN events ON labelId = labels.id',
       limit: limit,
       offset: offset,
       where: '$connectedIdName = ?',
       whereArgs: [itemId],
     );
-    return result?.map((e) => User.fromDatabase(e)).toList() ?? [];
+    return result?.map((e) => Label.fromDatabase(e)).toList() ?? [];
   }
 
   @override
-  Future<List<Group>> getItems(Uint8List connectId,
+  Future<List<Group>> getConnected(Uint8List connectId,
       {int offset = 0, int limit = 50}) async {
     final result = await db?.query(
       '$tableName JOIN groups ON groupId = groups.id',
@@ -43,8 +43,8 @@ class UserGroupDatabaseConnector extends DatabaseModelConnector<Group, User> {
   }
 
   @override
-  String get itemIdName => 'groupId';
+  String get itemIdName => 'labelId';
 
   @override
-  String get itemTableName => 'groups';
+  String get itemTableName => 'labels';
 }

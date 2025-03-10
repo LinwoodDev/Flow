@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 
+import 'package:flow_api/models/label/model.dart';
 import 'package:flow_api/models/user/model.dart';
-import 'package:flow_api/models/group/model.dart';
 import 'package:flow_api/services/database.dart';
 
-class UserGroupDatabaseConnector extends DatabaseModelConnector<Group, User> {
+class UserLabelDatabaseConnector extends DatabaseModelConnector<Label, User> {
   @override
   bool get usesPermission => true;
   @override
@@ -14,37 +14,37 @@ class UserGroupDatabaseConnector extends DatabaseModelConnector<Group, User> {
   String get connectedTableName => "users";
 
   @override
-  String get tableName => "userGroups";
+  String get tableName => "userLabels";
 
   @override
-  Future<List<User>> getConnected(Uint8List itemId,
+  Future<List<Label>> getItems(Uint8List itemId,
       {int offset = 0, int limit = 50}) async {
     final result = await db?.query(
-      '$tableName JOIN users ON userId = users.id',
+      '$tableName JOIN events ON labelId = labels.id',
       limit: limit,
       offset: offset,
       where: '$connectedIdName = ?',
       whereArgs: [itemId],
     );
-    return result?.map((e) => User.fromDatabase(e)).toList() ?? [];
+    return result?.map((e) => Label.fromDatabase(e)).toList() ?? [];
   }
 
   @override
-  Future<List<Group>> getItems(Uint8List connectId,
+  Future<List<User>> getConnected(Uint8List connectId,
       {int offset = 0, int limit = 50}) async {
     final result = await db?.query(
-      '$tableName JOIN groups ON groupId = groups.id',
+      '$tableName JOIN users ON userId = users.id',
       limit: limit,
       offset: offset,
       where: '$itemIdName = ?',
       whereArgs: [connectId],
     );
-    return result?.map((e) => Group.fromDatabase(e)).toList() ?? [];
+    return result?.map((e) => User.fromDatabase(e)).toList() ?? [];
   }
 
   @override
-  String get itemIdName => 'groupId';
+  String get itemIdName => 'labelId';
 
   @override
-  String get itemTableName => 'groups';
+  String get itemTableName => 'labels';
 }

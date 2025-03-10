@@ -7,6 +7,8 @@ import 'package:flow_api/services/database.dart';
 class CalendarItemUserDatabaseConnector
     extends DatabaseModelConnector<User, CalendarItem> {
   @override
+  bool get usesPermission => true;
+  @override
   String get connectedIdName => "itemId";
 
   @override

@@ -6,6 +6,8 @@ import 'package:flow_api/services/database.dart';
 
 class EventUserDatabaseConnector extends DatabaseModelConnector<User, Event> {
   @override
+  bool get usesPermission => true;
+  @override
   String get connectedIdName => "eventId";
 
   @override

@@ -3,6 +3,8 @@ import 'package:flow_api/models/user/model.dart';
 
 class UserResourceDatabaseConnector extends ResourceDatabaseConnector<User> {
   @override
+  bool get usesPermission => true;
+  @override
   String get connectedIdName => "userId";
 
   @override
