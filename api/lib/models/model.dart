@@ -8,11 +8,7 @@ part 'model.mapper.dart';
 
 const kColorBlack = 0xFF000000;
 
-enum ModelPermission {
-  read,
-  write,
-  delete,
-}
+enum ModelPermission { read, write, link, admin }
 
 mixin IdentifiedModel {
   Uint8List? get id;
