@@ -1,8 +1,8 @@
 {
   "dashboard": "Ταμπλό",
-  "translate": "Translate",
+  "translate": "Μετάφραση",
   "calendar": "Ημερολόγιο",
-  "resources": "Resources",
+  "resources": "Πόροι",
   "users": "Χρήστες",
   "sources": "Πηγές",
   "settings": "Ρυθμίσεις",
@@ -25,7 +25,7 @@
   "systemDefault": "Προεπιλογή Συστήματος",
   "light": "Φωτεινό",
   "dark": "Σκοτεινό",
-  "createResource": "Create resource",
+  "createResource": "Δημιουργία πόρου",
   "cancel": "Ακύρωση",
   "name": "Όνομα",
   "description": "Περιγραφή",
@@ -144,9 +144,9 @@
   "importFile": "Εισαγωγή αρχείου",
   "importFileDescription": "Εισαγωγή ενός αρχείου από τη συσκευή σας. Μπορείτε να εισαγάγετε ένα αρχείο βάσης δεδομένων από άλλο παράδειγμα Linwood Flow ή ένα κανονικό αρχείο ημερολογίου.",
   "icalDescription": "Η διεπαφή iCal σας επιτρέπει να έχετε πρόσβαση στα δεδομένα σας από οποιονδήποτε διακομιστή iCal. Μπορεί να διαβάσει μόνο δεδομένα και δεν υποστηρίζει εγγραφή. Μπορείτε να το χρησιμοποιήσετε για να συγχρονίσετε τα δεδομένα σας με άλλες συσκευές ή υπηρεσίες που δεν υποστηρίζουν CalDAV.",
-  "resource": "Resource",
-  "editResource": "Edit resource",
-  "deleteResource": "Delete resource {name}",
+  "resource": "Πόρος",
+  "editResource": "Επεξεργασία πόρου",
+  "deleteResource": "Διαγραφή πόρου {name}",
   "@deleteResource": {
     "placeholders": {
       "name": {
@@ -155,7 +155,7 @@
       }
     }
   },
-  "deleteResourceDescription": "Are you sure you want to delete the resource {name}?",
+  "deleteResourceDescription": "Are you sure you want to delete the resource {name} ? (Automatic Copy)",
   "@deleteResourceDescription": {
     "placeholders": {
       "name": {
