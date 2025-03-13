@@ -1,8 +1,8 @@
 {
   "dashboard": "Instrumentbræt",
-  "translate": "Translate",
+  "translate": "Oversæt",
   "calendar": "Kalender",
-  "resources": "Resources",
+  "resources": "Ressourcer",
   "users": "Brugere",
   "sources": "Kilder",
   "settings": "Indstillinger",
@@ -25,7 +25,7 @@
   "systemDefault": "System Standard",
   "light": "Lys",
   "dark": "Mørk",
-  "createResource": "Create resource",
+  "createResource": "Opret ressource",
   "cancel": "Annuller",
   "name": "Navn",
   "description": "Varebeskrivelse",
@@ -144,9 +144,9 @@
   "importFile": "Importér fil",
   "importFileDescription": "Importer en fil fra din enhed. Du kan importere en databasefil fra en anden Linwood Flow instans eller en almindelig kalenderfil.",
   "icalDescription": "ICal interface giver dig adgang til dine data fra enhver iCal server. Det kan kun læse data og understøtter ikke skrivning. Du kan bruge den til at synkronisere dine data med andre enheder eller tjenester, der ikke understøtter CalDAV.",
-  "resource": "Resource",
-  "editResource": "Edit resource",
-  "deleteResource": "Delete resource {name}",
+  "resource": "Ressource",
+  "editResource": "Rediger ressource",
+  "deleteResource": "Slet ressource {name}",
   "@deleteResource": {
     "placeholders": {
       "name": {
@@ -155,7 +155,7 @@
       }
     }
   },
-  "deleteResourceDescription": "Are you sure you want to delete the resource {name}?",
+  "deleteResourceDescription": "Er du sikker på du vil slette ressourcen {name}?",
   "@deleteResourceDescription": {
     "placeholders": {
       "name": {
