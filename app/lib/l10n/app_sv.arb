@@ -1,8 +1,8 @@
 {
   "dashboard": "Instrumentpanel",
-  "translate": "Translate",
+  "translate": "Översätt",
   "calendar": "Kalender",
-  "resources": "Resources",
+  "resources": "Resurser",
   "users": "Användare",
   "sources": "Källor",
   "settings": "Inställningar",
@@ -25,7 +25,7 @@
   "systemDefault": "Systemets standard",
   "light": "Ljus",
   "dark": "Mörk",
-  "createResource": "Create resource",
+  "createResource": "Skapa resurs",
   "cancel": "Avbryt",
   "name": "Namn",
   "description": "Beskrivning",
@@ -144,9 +144,9 @@
   "importFile": "Importera fil",
   "importFileDescription": "Importera en fil från din enhet. Du kan importera en databasfil från en annan Linwood Flow-instans eller en vanlig kalenderfil.",
   "icalDescription": "Med iCal-gränssnittet kan du komma åt dina data från alla iCal-servrar. Det kan bara läsa data och stöder inte skrivning. Du kan använda den för att synkronisera dina data med andra enheter eller tjänster som inte stöder CalDAV.",
-  "resource": "Resource",
-  "editResource": "Edit resource",
-  "deleteResource": "Delete resource {name}",
+  "resource": "Resurs",
+  "editResource": "Redigera resurs",
+  "deleteResource": "Ta bort resurs {name}",
   "@deleteResource": {
     "placeholders": {
       "name": {
@@ -155,7 +155,7 @@
       }
     }
   },
-  "deleteResourceDescription": "Are you sure you want to delete the resource {name}?",
+  "deleteResourceDescription": "Är du säker på att du vill radera resursen {name}?",
   "@deleteResourceDescription": {
     "placeholders": {
       "name": {
