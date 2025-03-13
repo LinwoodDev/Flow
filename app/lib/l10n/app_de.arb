@@ -1,8 +1,8 @@
 {
   "dashboard": "Dashboard",
-  "translate": "Translate",
+  "translate": "Übersetzen",
   "calendar": "Kalender",
-  "resources": "Resources",
+  "resources": "Ressourcen",
   "users": "Benutzer",
   "sources": "Quellen",
   "settings": "Einstellungen",
@@ -25,7 +25,7 @@
   "systemDefault": "Systemstandard",
   "light": "Hell",
   "dark": "Dunkel",
-  "createResource": "Create resource",
+  "createResource": "Ressource erstellen",
   "cancel": "Abbrechen",
   "name": "Name",
   "description": "Beschreibung",
@@ -144,8 +144,8 @@
   "importFile": "Datei importieren",
   "importFileDescription": "Importieren Sie eine Datei von Ihrem Gerät. Sie können eine Datenbankdatei aus einer anderen Linwood Flow Instanz oder einer regulären Kalenderdatei importieren.",
   "icalDescription": "Die iCal Schnittstelle ermöglicht den Zugriff auf Ihre Daten von jedem iCal Server. Sie können damit Ihre Daten mit anderen Geräten oder Diensten synchronisieren, die CalDAV nicht unterstützen.",
-  "resource": "Resource",
-  "editResource": "Edit resource",
+  "resource": "Ressource",
+  "editResource": "Ressource bearbeiten",
   "deleteResource": "Delete resource {name}",
   "@deleteResource": {
     "placeholders": {
