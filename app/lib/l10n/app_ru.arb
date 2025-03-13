@@ -1,8 +1,8 @@
 {
   "dashboard": "Панель",
-  "translate": "Translate",
+  "translate": "Перевести",
   "calendar": "Календарь",
-  "resources": "Resources",
+  "resources": "Ресурсы",
   "users": "Пользователи",
   "sources": "Источники",
   "settings": "Настройки",
@@ -25,7 +25,7 @@
   "systemDefault": "Система по умолчанию",
   "light": "Светлая",
   "dark": "Тёмная",
-  "createResource": "Create resource",
+  "createResource": "Создать ресурс",
   "cancel": "Отмена",
   "name": "Наименование",
   "description": "Описание",
@@ -144,9 +144,9 @@
   "importFile": "Импорт файла",
   "importFileDescription": "Импорт файла с вашего устройства. Вы можете импортировать файл базы данных из другого экземпляра Linwood Flow или из обычного файла календаря.",
   "icalDescription": "Интерфейс iCal позволяет получить доступ к вашим данным с любого сервера iCal. Он может только читать данные и не поддерживает запись. Вы можете использовать его для синхронизации данных с другими устройствами или службами, которые не поддерживают CalDAV.",
-  "resource": "Resource",
-  "editResource": "Edit resource",
-  "deleteResource": "Delete resource {name}",
+  "resource": "Ресурс",
+  "editResource": "Изменить ресурс",
+  "deleteResource": "Удалить ресурс {name}",
   "@deleteResource": {
     "placeholders": {
       "name": {
