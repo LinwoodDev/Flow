@@ -1,8 +1,8 @@
 {
   "dashboard": "Nástěnka",
-  "translate": "Translate",
+  "translate": "Přeložit",
   "calendar": "Kalendář",
-  "resources": "Resources",
+  "resources": "Zdroje",
   "users": "Uživatelé",
   "sources": "Zdroje",
   "settings": "Nastavení",
@@ -25,7 +25,7 @@
   "systemDefault": "Výchozí nastavení systému",
   "light": "Světlý",
   "dark": "Tmavý",
-  "createResource": "Create resource",
+  "createResource": "Vytvořit zdroj",
   "cancel": "Zrušit",
   "name": "Název",
   "description": "L 343, 22.12.2009, s. 1).",
@@ -144,9 +144,9 @@
   "importFile": "Importovat soubor",
   "importFileDescription": "Importujte soubor z vašeho zařízení. Můžete importovat databázový soubor z jiné instance toku linwood nebo z běžného souboru kalendáře.",
   "icalDescription": "Rozhraní iCal umožňuje přístup k vašim datům z jakéhokoliv serveru iCal. Může pouze číst data a nepodporuje psaní. Můžete ji použít k synchronizaci dat s jinými zařízeními nebo službami, které CalDAV.",
-  "resource": "Resource",
-  "editResource": "Edit resource",
-  "deleteResource": "Delete resource {name}",
+  "resource": "Zdroj",
+  "editResource": "Upravit zdroj",
+  "deleteResource": "Odstranit dokument {name}",
   "@deleteResource": {
     "placeholders": {
       "name": {
@@ -155,7 +155,7 @@
       }
     }
   },
-  "deleteResourceDescription": "Are you sure you want to delete the resource {name}?",
+  "deleteResourceDescription": "Jste si jisti, že chcete odstranit dokument {name}?",
   "@deleteResourceDescription": {
     "placeholders": {
       "name": {
