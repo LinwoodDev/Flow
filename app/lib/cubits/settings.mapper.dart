@@ -99,7 +99,8 @@ mixin FlowSettingsMappable {
   }
 
   FlowSettingsCopyWith<FlowSettings, FlowSettings, FlowSettings> get copyWith =>
-      _FlowSettingsCopyWithImpl(this as FlowSettings, $identity, $identity);
+      _FlowSettingsCopyWithImpl<FlowSettings, FlowSettings>(
+          this as FlowSettings, $identity, $identity);
   @override
   String toString() {
     return FlowSettingsMapper.ensureInitialized()
@@ -122,7 +123,7 @@ mixin FlowSettingsMappable {
 extension FlowSettingsValueCopy<$R, $Out>
     on ObjectCopyWith<$R, FlowSettings, $Out> {
   FlowSettingsCopyWith<$R, FlowSettings, $Out> get $asFlowSettings =>
-      $base.as((v, t, t2) => _FlowSettingsCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _FlowSettingsCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class FlowSettingsCopyWith<$R, $In extends FlowSettings, $Out>
@@ -192,5 +193,5 @@ class _FlowSettingsCopyWithImpl<$R, $Out>
   @override
   FlowSettingsCopyWith<$R2, FlowSettings, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _FlowSettingsCopyWithImpl($value, $cast, t);
+      _FlowSettingsCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

@@ -72,7 +72,8 @@ mixin ResourceMappable {
   }
 
   ResourceCopyWith<Resource, Resource, Resource> get copyWith =>
-      _ResourceCopyWithImpl(this as Resource, $identity, $identity);
+      _ResourceCopyWithImpl<Resource, Resource>(
+          this as Resource, $identity, $identity);
   @override
   String toString() {
     return ResourceMapper.ensureInitialized().stringifyValue(this as Resource);
@@ -92,7 +93,7 @@ mixin ResourceMappable {
 
 extension ResourceValueCopy<$R, $Out> on ObjectCopyWith<$R, Resource, $Out> {
   ResourceCopyWith<$R, Resource, $Out> get $asResource =>
-      $base.as((v, t, t2) => _ResourceCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _ResourceCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class ResourceCopyWith<$R, $In extends Resource, $Out>
@@ -131,5 +132,5 @@ class _ResourceCopyWithImpl<$R, $Out>
   @override
   ResourceCopyWith<$R2, Resource, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _ResourceCopyWithImpl($value, $cast, t);
+      _ResourceCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

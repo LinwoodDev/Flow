@@ -25,11 +25,11 @@ class CalendarItemTypeMapper extends EnumMapper<CalendarItemType> {
   @override
   CalendarItemType decode(dynamic value) {
     switch (value) {
-      case 'appointment':
+      case r'appointment':
         return CalendarItemType.appointment;
-      case 'moment':
+      case r'moment':
         return CalendarItemType.moment;
-      case 'pending':
+      case r'pending':
         return CalendarItemType.pending;
       default:
         throw MapperException.unknownEnumValue(value);
@@ -40,11 +40,11 @@ class CalendarItemTypeMapper extends EnumMapper<CalendarItemType> {
   dynamic encode(CalendarItemType self) {
     switch (self) {
       case CalendarItemType.appointment:
-        return 'appointment';
+        return r'appointment';
       case CalendarItemType.moment:
-        return 'moment';
+        return r'moment';
       case CalendarItemType.pending:
-        return 'pending';
+        return r'pending';
     }
   }
 }
@@ -237,8 +237,9 @@ mixin FixedCalendarItemMappable {
 
   FixedCalendarItemCopyWith<FixedCalendarItem, FixedCalendarItem,
           FixedCalendarItem>
-      get copyWith => _FixedCalendarItemCopyWithImpl(
-          this as FixedCalendarItem, $identity, $identity);
+      get copyWith =>
+          _FixedCalendarItemCopyWithImpl<FixedCalendarItem, FixedCalendarItem>(
+              this as FixedCalendarItem, $identity, $identity);
   @override
   String toString() {
     return FixedCalendarItemMapper.ensureInitialized()
@@ -261,8 +262,8 @@ mixin FixedCalendarItemMappable {
 extension FixedCalendarItemValueCopy<$R, $Out>
     on ObjectCopyWith<$R, FixedCalendarItem, $Out> {
   FixedCalendarItemCopyWith<$R, FixedCalendarItem, $Out>
-      get $asFixedCalendarItem =>
-          $base.as((v, t, t2) => _FixedCalendarItemCopyWithImpl(v, t, t2));
+      get $asFixedCalendarItem => $base
+          .as((v, t, t2) => _FixedCalendarItemCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class FixedCalendarItemCopyWith<$R, $In extends FixedCalendarItem,
@@ -323,7 +324,7 @@ class _FixedCalendarItemCopyWithImpl<$R, $Out>
   @override
   FixedCalendarItemCopyWith<$R2, FixedCalendarItem, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _FixedCalendarItemCopyWithImpl($value, $cast, t);
+      _FixedCalendarItemCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class RepeatingCalendarItemMapper
@@ -447,9 +448,9 @@ mixin RepeatingCalendarItemMappable {
   }
 
   RepeatingCalendarItemCopyWith<RepeatingCalendarItem, RepeatingCalendarItem,
-          RepeatingCalendarItem>
-      get copyWith => _RepeatingCalendarItemCopyWithImpl(
-          this as RepeatingCalendarItem, $identity, $identity);
+      RepeatingCalendarItem> get copyWith => _RepeatingCalendarItemCopyWithImpl<
+          RepeatingCalendarItem, RepeatingCalendarItem>(
+      this as RepeatingCalendarItem, $identity, $identity);
   @override
   String toString() {
     return RepeatingCalendarItemMapper.ensureInitialized()
@@ -472,8 +473,8 @@ mixin RepeatingCalendarItemMappable {
 extension RepeatingCalendarItemValueCopy<$R, $Out>
     on ObjectCopyWith<$R, RepeatingCalendarItem, $Out> {
   RepeatingCalendarItemCopyWith<$R, RepeatingCalendarItem, $Out>
-      get $asRepeatingCalendarItem =>
-          $base.as((v, t, t2) => _RepeatingCalendarItemCopyWithImpl(v, t, t2));
+      get $asRepeatingCalendarItem => $base.as(
+          (v, t, t2) => _RepeatingCalendarItemCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class RepeatingCalendarItemCopyWith<
@@ -565,7 +566,7 @@ class _RepeatingCalendarItemCopyWithImpl<$R, $Out>
   @override
   RepeatingCalendarItemCopyWith<$R2, RepeatingCalendarItem, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _RepeatingCalendarItemCopyWithImpl($value, $cast, t);
+          _RepeatingCalendarItemCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class AutoCalendarItemMapper extends ClassMapperBase<AutoCalendarItem> {
@@ -703,8 +704,9 @@ mixin AutoCalendarItemMappable {
   }
 
   AutoCalendarItemCopyWith<AutoCalendarItem, AutoCalendarItem, AutoCalendarItem>
-      get copyWith => _AutoCalendarItemCopyWithImpl(
-          this as AutoCalendarItem, $identity, $identity);
+      get copyWith =>
+          _AutoCalendarItemCopyWithImpl<AutoCalendarItem, AutoCalendarItem>(
+              this as AutoCalendarItem, $identity, $identity);
   @override
   String toString() {
     return AutoCalendarItemMapper.ensureInitialized()
@@ -727,8 +729,8 @@ mixin AutoCalendarItemMappable {
 extension AutoCalendarItemValueCopy<$R, $Out>
     on ObjectCopyWith<$R, AutoCalendarItem, $Out> {
   AutoCalendarItemCopyWith<$R, AutoCalendarItem, $Out>
-      get $asAutoCalendarItem =>
-          $base.as((v, t, t2) => _AutoCalendarItemCopyWithImpl(v, t, t2));
+      get $asAutoCalendarItem => $base
+          .as((v, t, t2) => _AutoCalendarItemCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class AutoCalendarItemCopyWith<$R, $In extends AutoCalendarItem, $Out>
@@ -830,5 +832,5 @@ class _AutoCalendarItemCopyWithImpl<$R, $Out>
   @override
   AutoCalendarItemCopyWith<$R2, AutoCalendarItem, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _AutoCalendarItemCopyWithImpl($value, $cast, t);
+      _AutoCalendarItemCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

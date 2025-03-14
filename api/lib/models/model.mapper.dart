@@ -66,8 +66,11 @@ mixin ConnectedModelMappable<A, B> {
 
   ConnectedModelCopyWith<ConnectedModel<A, B>, ConnectedModel<A, B>,
           ConnectedModel<A, B>, A, B>
-      get copyWith => _ConnectedModelCopyWithImpl(
-          this as ConnectedModel<A, B>, $identity, $identity);
+      get copyWith => _ConnectedModelCopyWithImpl<
+          ConnectedModel<A, B>,
+          ConnectedModel<A, B>,
+          A,
+          B>(this as ConnectedModel<A, B>, $identity, $identity);
   @override
   String toString() {
     return ConnectedModelMapper.ensureInitialized()
@@ -90,8 +93,8 @@ mixin ConnectedModelMappable<A, B> {
 extension ConnectedModelValueCopy<$R, $Out, A, B>
     on ObjectCopyWith<$R, ConnectedModel<A, B>, $Out> {
   ConnectedModelCopyWith<$R, ConnectedModel<A, B>, $Out, A, B>
-      get $asConnectedModel =>
-          $base.as((v, t, t2) => _ConnectedModelCopyWithImpl(v, t, t2));
+      get $asConnectedModel => $base.as(
+          (v, t, t2) => _ConnectedModelCopyWithImpl<$R, $Out, A, B>(v, t, t2));
 }
 
 abstract class ConnectedModelCopyWith<$R, $In extends ConnectedModel<A, B>,
@@ -110,8 +113,11 @@ class _ConnectedModelCopyWithImpl<$R, $Out, A, B>
   late final ClassMapperBase<ConnectedModel> $mapper =
       ConnectedModelMapper.ensureInitialized();
   @override
-  $R call({A? source, B? model}) => $apply(FieldCopyWithData(
-      {if (source != null) #source: source, if (model != null) #model: model}));
+  $R call({Object? source = $none, Object? model = $none}) =>
+      $apply(FieldCopyWithData({
+        if (source != $none) #source: source,
+        if (model != $none) #model: model
+      }));
   @override
   ConnectedModel<A, B> $make(CopyWithData data) => ConnectedModel(
       data.get(#source, or: $value.source), data.get(#model, or: $value.model));
@@ -119,5 +125,5 @@ class _ConnectedModelCopyWithImpl<$R, $Out, A, B>
   @override
   ConnectedModelCopyWith<$R2, ConnectedModel<A, B>, $Out2, A, B>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _ConnectedModelCopyWithImpl($value, $cast, t);
+          _ConnectedModelCopyWithImpl<$R2, $Out2, A, B>($value, $cast, t);
 }

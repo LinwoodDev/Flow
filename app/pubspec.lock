@@ -230,18 +230,18 @@ packages:
     dependency: "direct main"
     description:
       name: dart_mappable
-      sha256: a88d1637354b8e3120433cbdf2b816dd9e38659b8a9b6ed8cb19cd101e12c545
+      sha256: "2255b2c00e328a65fef5a8df2dabfc0dc9c2e518c33a50051a4519b1c7a28c48"
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.0"
+    version: "4.5.0"
   dart_mappable_builder:
     dependency: "direct dev"
     description:
       name: dart_mappable_builder
-      sha256: "463f7b5222e3a00d0227aa83903a4f7678ac29f835300b3ae76bbe1f423d9001"
+      sha256: adea8c55aac73c8254aa14a8272b788eb0f72799dd8e4810a9b664ec9b4e353c
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.0"
+    version: "4.5.0"
   dart_style:
     dependency: transitive
     description:
@@ -262,10 +262,10 @@ packages:
     dependency: transitive
     description:
       name: dev_build
-      sha256: "6e5251015d8fd2f5597615cef58c9f7e69035085520de97fd055c02ecfa5afa6"
+      sha256: "1809feceb517bd7cb997919c31cba9ced4020c3c228e1dc6f9c497a971d92bff"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.2+6"
+    version: "1.1.2+7"
   dynamic_color:
     dependency: "direct main"
     description:

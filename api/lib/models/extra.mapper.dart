@@ -112,9 +112,9 @@ mixin CalDavExtraPropertiesMappable {
   }
 
   CalDavExtraPropertiesCopyWith<CalDavExtraProperties, CalDavExtraProperties,
-          CalDavExtraProperties>
-      get copyWith => _CalDavExtraPropertiesCopyWithImpl(
-          this as CalDavExtraProperties, $identity, $identity);
+      CalDavExtraProperties> get copyWith => _CalDavExtraPropertiesCopyWithImpl<
+          CalDavExtraProperties, CalDavExtraProperties>(
+      this as CalDavExtraProperties, $identity, $identity);
   @override
   String toString() {
     return CalDavExtraPropertiesMapper.ensureInitialized()
@@ -137,8 +137,8 @@ mixin CalDavExtraPropertiesMappable {
 extension CalDavExtraPropertiesValueCopy<$R, $Out>
     on ObjectCopyWith<$R, CalDavExtraProperties, $Out> {
   CalDavExtraPropertiesCopyWith<$R, CalDavExtraProperties, $Out>
-      get $asCalDavExtraProperties =>
-          $base.as((v, t, t2) => _CalDavExtraPropertiesCopyWithImpl(v, t, t2));
+      get $asCalDavExtraProperties => $base.as(
+          (v, t, t2) => _CalDavExtraPropertiesCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class CalDavExtraPropertiesCopyWith<
@@ -170,5 +170,5 @@ class _CalDavExtraPropertiesCopyWithImpl<$R, $Out>
   @override
   CalDavExtraPropertiesCopyWith<$R2, CalDavExtraProperties, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _CalDavExtraPropertiesCopyWithImpl($value, $cast, t);
+          _CalDavExtraPropertiesCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

@@ -25,11 +25,11 @@ class EventStatusMapper extends EnumMapper<EventStatus> {
   @override
   EventStatus decode(dynamic value) {
     switch (value) {
-      case 'confirmed':
+      case r'confirmed':
         return EventStatus.confirmed;
-      case 'draft':
+      case r'draft':
         return EventStatus.draft;
-      case 'cancelled':
+      case r'cancelled':
         return EventStatus.cancelled;
       default:
         throw MapperException.unknownEnumValue(value);
@@ -40,11 +40,11 @@ class EventStatusMapper extends EnumMapper<EventStatus> {
   dynamic encode(EventStatus self) {
     switch (self) {
       case EventStatus.confirmed:
-        return 'confirmed';
+        return r'confirmed';
       case EventStatus.draft:
-        return 'draft';
+        return r'draft';
       case EventStatus.cancelled:
-        return 'cancelled';
+        return r'cancelled';
     }
   }
 }
@@ -75,13 +75,13 @@ class RepeatTypeMapper extends EnumMapper<RepeatType> {
   @override
   RepeatType decode(dynamic value) {
     switch (value) {
-      case 'daily':
+      case r'daily':
         return RepeatType.daily;
-      case 'weekly':
+      case r'weekly':
         return RepeatType.weekly;
-      case 'monthly':
+      case r'monthly':
         return RepeatType.monthly;
-      case 'yearly':
+      case r'yearly':
         return RepeatType.yearly;
       default:
         throw MapperException.unknownEnumValue(value);
@@ -92,13 +92,13 @@ class RepeatTypeMapper extends EnumMapper<RepeatType> {
   dynamic encode(RepeatType self) {
     switch (self) {
       case RepeatType.daily:
-        return 'daily';
+        return r'daily';
       case RepeatType.weekly:
-        return 'weekly';
+        return r'weekly';
       case RepeatType.monthly:
-        return 'monthly';
+        return r'monthly';
       case RepeatType.yearly:
-        return 'yearly';
+        return r'yearly';
     }
   }
 }
@@ -189,7 +189,7 @@ mixin EventMappable {
   }
 
   EventCopyWith<Event, Event, Event> get copyWith =>
-      _EventCopyWithImpl(this as Event, $identity, $identity);
+      _EventCopyWithImpl<Event, Event>(this as Event, $identity, $identity);
   @override
   String toString() {
     return EventMapper.ensureInitialized().stringifyValue(this as Event);
@@ -208,7 +208,7 @@ mixin EventMappable {
 
 extension EventValueCopy<$R, $Out> on ObjectCopyWith<$R, Event, $Out> {
   EventCopyWith<$R, Event, $Out> get $asEvent =>
-      $base.as((v, t, t2) => _EventCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _EventCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class EventCopyWith<$R, $In extends Event, $Out>
@@ -260,5 +260,5 @@ class _EventCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Event, $Out>
 
   @override
   EventCopyWith<$R2, Event, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-      _EventCopyWithImpl($value, $cast, t);
+      _EventCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

@@ -88,7 +88,8 @@ mixin NoteFilterMappable {
   }
 
   NoteFilterCopyWith<NoteFilter, NoteFilter, NoteFilter> get copyWith =>
-      _NoteFilterCopyWithImpl(this as NoteFilter, $identity, $identity);
+      _NoteFilterCopyWithImpl<NoteFilter, NoteFilter>(
+          this as NoteFilter, $identity, $identity);
   @override
   String toString() {
     return NoteFilterMapper.ensureInitialized()
@@ -110,7 +111,7 @@ mixin NoteFilterMappable {
 extension NoteFilterValueCopy<$R, $Out>
     on ObjectCopyWith<$R, NoteFilter, $Out> {
   NoteFilterCopyWith<$R, NoteFilter, $Out> get $asNoteFilter =>
-      $base.as((v, t, t2) => _NoteFilterCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _NoteFilterCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class NoteFilterCopyWith<$R, $In extends NoteFilter, $Out>
@@ -165,5 +166,5 @@ class _NoteFilterCopyWithImpl<$R, $Out>
   @override
   NoteFilterCopyWith<$R2, NoteFilter, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _NoteFilterCopyWithImpl($value, $cast, t);
+      _NoteFilterCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

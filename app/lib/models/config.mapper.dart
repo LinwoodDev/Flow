@@ -63,7 +63,8 @@ mixin ConfigFileMappable {
   }
 
   ConfigFileCopyWith<ConfigFile, ConfigFile, ConfigFile> get copyWith =>
-      _ConfigFileCopyWithImpl(this as ConfigFile, $identity, $identity);
+      _ConfigFileCopyWithImpl<ConfigFile, ConfigFile>(
+          this as ConfigFile, $identity, $identity);
   @override
   String toString() {
     return ConfigFileMapper.ensureInitialized()
@@ -85,7 +86,7 @@ mixin ConfigFileMappable {
 extension ConfigFileValueCopy<$R, $Out>
     on ObjectCopyWith<$R, ConfigFile, $Out> {
   ConfigFileCopyWith<$R, ConfigFile, $Out> get $asConfigFile =>
-      $base.as((v, t, t2) => _ConfigFileCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _ConfigFileCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class ConfigFileCopyWith<$R, $In extends ConfigFile, $Out>
@@ -133,5 +134,5 @@ class _ConfigFileCopyWithImpl<$R, $Out>
   @override
   ConfigFileCopyWith<$R2, ConfigFile, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _ConfigFileCopyWithImpl($value, $cast, t);
+      _ConfigFileCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

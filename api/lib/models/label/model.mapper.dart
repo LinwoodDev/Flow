@@ -70,7 +70,7 @@ mixin LabelMappable {
   }
 
   LabelCopyWith<Label, Label, Label> get copyWith =>
-      _LabelCopyWithImpl(this as Label, $identity, $identity);
+      _LabelCopyWithImpl<Label, Label>(this as Label, $identity, $identity);
   @override
   String toString() {
     return LabelMapper.ensureInitialized().stringifyValue(this as Label);
@@ -89,7 +89,7 @@ mixin LabelMappable {
 
 extension LabelValueCopy<$R, $Out> on ObjectCopyWith<$R, Label, $Out> {
   LabelCopyWith<$R, Label, $Out> get $asLabel =>
-      $base.as((v, t, t2) => _LabelCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _LabelCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class LabelCopyWith<$R, $In extends Label, $Out>
@@ -125,5 +125,5 @@ class _LabelCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Label, $Out>
 
   @override
   LabelCopyWith<$R2, Label, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-      _LabelCopyWithImpl($value, $cast, t);
+      _LabelCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

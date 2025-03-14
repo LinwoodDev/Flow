@@ -86,8 +86,9 @@ mixin CalendarFilterMappable {
   }
 
   CalendarFilterCopyWith<CalendarFilter, CalendarFilter, CalendarFilter>
-      get copyWith => _CalendarFilterCopyWithImpl(
-          this as CalendarFilter, $identity, $identity);
+      get copyWith =>
+          _CalendarFilterCopyWithImpl<CalendarFilter, CalendarFilter>(
+              this as CalendarFilter, $identity, $identity);
   @override
   String toString() {
     return CalendarFilterMapper.ensureInitialized()
@@ -110,7 +111,7 @@ mixin CalendarFilterMappable {
 extension CalendarFilterValueCopy<$R, $Out>
     on ObjectCopyWith<$R, CalendarFilter, $Out> {
   CalendarFilterCopyWith<$R, CalendarFilter, $Out> get $asCalendarFilter =>
-      $base.as((v, t, t2) => _CalendarFilterCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _CalendarFilterCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class CalendarFilterCopyWith<$R, $In extends CalendarFilter, $Out>
@@ -170,5 +171,5 @@ class _CalendarFilterCopyWithImpl<$R, $Out>
   @override
   CalendarFilterCopyWith<$R2, CalendarFilter, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _CalendarFilterCopyWithImpl($value, $cast, t);
+      _CalendarFilterCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

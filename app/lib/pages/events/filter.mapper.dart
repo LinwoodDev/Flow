@@ -68,7 +68,8 @@ mixin EventFilterMappable {
   }
 
   EventFilterCopyWith<EventFilter, EventFilter, EventFilter> get copyWith =>
-      _EventFilterCopyWithImpl(this as EventFilter, $identity, $identity);
+      _EventFilterCopyWithImpl<EventFilter, EventFilter>(
+          this as EventFilter, $identity, $identity);
   @override
   String toString() {
     return EventFilterMapper.ensureInitialized()
@@ -90,7 +91,7 @@ mixin EventFilterMappable {
 extension EventFilterValueCopy<$R, $Out>
     on ObjectCopyWith<$R, EventFilter, $Out> {
   EventFilterCopyWith<$R, EventFilter, $Out> get $asEventFilter =>
-      $base.as((v, t, t2) => _EventFilterCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _EventFilterCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class EventFilterCopyWith<$R, $In extends EventFilter, $Out>
@@ -126,5 +127,5 @@ class _EventFilterCopyWithImpl<$R, $Out>
   @override
   EventFilterCopyWith<$R2, EventFilter, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _EventFilterCopyWithImpl($value, $cast, t);
+      _EventFilterCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

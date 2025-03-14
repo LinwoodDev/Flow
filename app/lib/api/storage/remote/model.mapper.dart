@@ -121,7 +121,7 @@ mixin CalDavStorageMappable {
   }
 
   CalDavStorageCopyWith<CalDavStorage, CalDavStorage, CalDavStorage>
-      get copyWith => _CalDavStorageCopyWithImpl(
+      get copyWith => _CalDavStorageCopyWithImpl<CalDavStorage, CalDavStorage>(
           this as CalDavStorage, $identity, $identity);
   @override
   String toString() {
@@ -145,7 +145,7 @@ mixin CalDavStorageMappable {
 extension CalDavStorageValueCopy<$R, $Out>
     on ObjectCopyWith<$R, CalDavStorage, $Out> {
   CalDavStorageCopyWith<$R, CalDavStorage, $Out> get $asCalDavStorage =>
-      $base.as((v, t, t2) => _CalDavStorageCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _CalDavStorageCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class CalDavStorageCopyWith<$R, $In extends CalDavStorage, $Out>
@@ -174,7 +174,7 @@ class _CalDavStorageCopyWithImpl<$R, $Out>
   @override
   CalDavStorageCopyWith<$R2, CalDavStorage, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _CalDavStorageCopyWithImpl($value, $cast, t);
+      _CalDavStorageCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class ICalStorageMapper extends ClassMapperBase<ICalStorage> {
@@ -232,7 +232,8 @@ mixin ICalStorageMappable {
   }
 
   ICalStorageCopyWith<ICalStorage, ICalStorage, ICalStorage> get copyWith =>
-      _ICalStorageCopyWithImpl(this as ICalStorage, $identity, $identity);
+      _ICalStorageCopyWithImpl<ICalStorage, ICalStorage>(
+          this as ICalStorage, $identity, $identity);
   @override
   String toString() {
     return ICalStorageMapper.ensureInitialized()
@@ -254,7 +255,7 @@ mixin ICalStorageMappable {
 extension ICalStorageValueCopy<$R, $Out>
     on ObjectCopyWith<$R, ICalStorage, $Out> {
   ICalStorageCopyWith<$R, ICalStorage, $Out> get $asICalStorage =>
-      $base.as((v, t, t2) => _ICalStorageCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _ICalStorageCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class ICalStorageCopyWith<$R, $In extends ICalStorage, $Out>
@@ -283,7 +284,7 @@ class _ICalStorageCopyWithImpl<$R, $Out>
   @override
   ICalStorageCopyWith<$R2, ICalStorage, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _ICalStorageCopyWithImpl($value, $cast, t);
+      _ICalStorageCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class WebDavStorageMapper extends ClassMapperBase<WebDavStorage> {
@@ -342,7 +343,7 @@ mixin WebDavStorageMappable {
   }
 
   WebDavStorageCopyWith<WebDavStorage, WebDavStorage, WebDavStorage>
-      get copyWith => _WebDavStorageCopyWithImpl(
+      get copyWith => _WebDavStorageCopyWithImpl<WebDavStorage, WebDavStorage>(
           this as WebDavStorage, $identity, $identity);
   @override
   String toString() {
@@ -366,7 +367,7 @@ mixin WebDavStorageMappable {
 extension WebDavStorageValueCopy<$R, $Out>
     on ObjectCopyWith<$R, WebDavStorage, $Out> {
   WebDavStorageCopyWith<$R, WebDavStorage, $Out> get $asWebDavStorage =>
-      $base.as((v, t, t2) => _WebDavStorageCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _WebDavStorageCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class WebDavStorageCopyWith<$R, $In extends WebDavStorage, $Out>
@@ -395,7 +396,7 @@ class _WebDavStorageCopyWithImpl<$R, $Out>
   @override
   WebDavStorageCopyWith<$R2, WebDavStorage, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _WebDavStorageCopyWithImpl($value, $cast, t);
+      _WebDavStorageCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class SiaStorageMapper extends ClassMapperBase<SiaStorage> {
@@ -453,7 +454,8 @@ mixin SiaStorageMappable {
   }
 
   SiaStorageCopyWith<SiaStorage, SiaStorage, SiaStorage> get copyWith =>
-      _SiaStorageCopyWithImpl(this as SiaStorage, $identity, $identity);
+      _SiaStorageCopyWithImpl<SiaStorage, SiaStorage>(
+          this as SiaStorage, $identity, $identity);
   @override
   String toString() {
     return SiaStorageMapper.ensureInitialized()
@@ -475,7 +477,7 @@ mixin SiaStorageMappable {
 extension SiaStorageValueCopy<$R, $Out>
     on ObjectCopyWith<$R, SiaStorage, $Out> {
   SiaStorageCopyWith<$R, SiaStorage, $Out> get $asSiaStorage =>
-      $base.as((v, t, t2) => _SiaStorageCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _SiaStorageCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class SiaStorageCopyWith<$R, $In extends SiaStorage, $Out>
@@ -504,5 +506,5 @@ class _SiaStorageCopyWithImpl<$R, $Out>
   @override
   SiaStorageCopyWith<$R2, SiaStorage, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _SiaStorageCopyWithImpl($value, $cast, t);
+      _SiaStorageCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

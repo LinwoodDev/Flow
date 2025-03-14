@@ -82,7 +82,8 @@ mixin CachedDataMappable {
   }
 
   CachedDataCopyWith<CachedData, CachedData, CachedData> get copyWith =>
-      _CachedDataCopyWithImpl(this as CachedData, $identity, $identity);
+      _CachedDataCopyWithImpl<CachedData, CachedData>(
+          this as CachedData, $identity, $identity);
   @override
   String toString() {
     return CachedDataMapper.ensureInitialized()
@@ -104,7 +105,7 @@ mixin CachedDataMappable {
 extension CachedDataValueCopy<$R, $Out>
     on ObjectCopyWith<$R, CachedData, $Out> {
   CachedDataCopyWith<$R, CachedData, $Out> get $asCachedData =>
-      $base.as((v, t, t2) => _CachedDataCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _CachedDataCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class CachedDataCopyWith<$R, $In extends CachedData, $Out>
@@ -173,5 +174,5 @@ class _CachedDataCopyWithImpl<$R, $Out>
   @override
   CachedDataCopyWith<$R2, CachedData, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _CachedDataCopyWithImpl($value, $cast, t);
+      _CachedDataCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

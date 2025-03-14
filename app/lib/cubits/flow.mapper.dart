@@ -57,7 +57,8 @@ mixin FlowStateMappable {
   }
 
   FlowStateCopyWith<FlowState, FlowState, FlowState> get copyWith =>
-      _FlowStateCopyWithImpl(this as FlowState, $identity, $identity);
+      _FlowStateCopyWithImpl<FlowState, FlowState>(
+          this as FlowState, $identity, $identity);
   @override
   String toString() {
     return FlowStateMapper.ensureInitialized()
@@ -78,7 +79,7 @@ mixin FlowStateMappable {
 
 extension FlowStateValueCopy<$R, $Out> on ObjectCopyWith<$R, FlowState, $Out> {
   FlowStateCopyWith<$R, FlowState, $Out> get $asFlowState =>
-      $base.as((v, t, t2) => _FlowStateCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _FlowStateCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class FlowStateCopyWith<$R, $In extends FlowState, $Out>
@@ -113,5 +114,5 @@ class _FlowStateCopyWithImpl<$R, $Out>
   @override
   FlowStateCopyWith<$R2, FlowState, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _FlowStateCopyWithImpl($value, $cast, t);
+      _FlowStateCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

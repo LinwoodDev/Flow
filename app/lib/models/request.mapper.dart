@@ -81,7 +81,8 @@ mixin APIRequestMappable {
   }
 
   APIRequestCopyWith<APIRequest, APIRequest, APIRequest> get copyWith =>
-      _APIRequestCopyWithImpl(this as APIRequest, $identity, $identity);
+      _APIRequestCopyWithImpl<APIRequest, APIRequest>(
+          this as APIRequest, $identity, $identity);
   @override
   String toString() {
     return APIRequestMapper.ensureInitialized()
@@ -103,7 +104,7 @@ mixin APIRequestMappable {
 extension APIRequestValueCopy<$R, $Out>
     on ObjectCopyWith<$R, APIRequest, $Out> {
   APIRequestCopyWith<$R, APIRequest, $Out> get $asAPIRequest =>
-      $base.as((v, t, t2) => _APIRequestCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _APIRequestCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class APIRequestCopyWith<$R, $In extends APIRequest, $Out>
@@ -160,5 +161,5 @@ class _APIRequestCopyWithImpl<$R, $Out>
   @override
   APIRequestCopyWith<$R2, APIRequest, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _APIRequestCopyWithImpl($value, $cast, t);
+      _APIRequestCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

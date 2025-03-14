@@ -25,11 +25,11 @@ class NoteStatusMapper extends EnumMapper<NoteStatus> {
   @override
   NoteStatus decode(dynamic value) {
     switch (value) {
-      case 'todo':
+      case r'todo':
         return NoteStatus.todo;
-      case 'inProgress':
+      case r'inProgress':
         return NoteStatus.inProgress;
-      case 'done':
+      case r'done':
         return NoteStatus.done;
       default:
         throw MapperException.unknownEnumValue(value);
@@ -40,11 +40,11 @@ class NoteStatusMapper extends EnumMapper<NoteStatus> {
   dynamic encode(NoteStatus self) {
     switch (self) {
       case NoteStatus.todo:
-        return 'todo';
+        return r'todo';
       case NoteStatus.inProgress:
-        return 'inProgress';
+        return r'inProgress';
       case NoteStatus.done:
-        return 'done';
+        return r'done';
     }
   }
 }
@@ -117,7 +117,8 @@ mixin NotebookMappable {
   }
 
   NotebookCopyWith<Notebook, Notebook, Notebook> get copyWith =>
-      _NotebookCopyWithImpl(this as Notebook, $identity, $identity);
+      _NotebookCopyWithImpl<Notebook, Notebook>(
+          this as Notebook, $identity, $identity);
   @override
   String toString() {
     return NotebookMapper.ensureInitialized().stringifyValue(this as Notebook);
@@ -137,7 +138,7 @@ mixin NotebookMappable {
 
 extension NotebookValueCopy<$R, $Out> on ObjectCopyWith<$R, Notebook, $Out> {
   NotebookCopyWith<$R, Notebook, $Out> get $asNotebook =>
-      $base.as((v, t, t2) => _NotebookCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _NotebookCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class NotebookCopyWith<$R, $In extends Notebook, $Out>
@@ -170,7 +171,7 @@ class _NotebookCopyWithImpl<$R, $Out>
   @override
   NotebookCopyWith<$R2, Notebook, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _NotebookCopyWithImpl($value, $cast, t);
+      _NotebookCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class NoteMapper extends ClassMapperBase<Note> {
@@ -253,7 +254,7 @@ mixin NoteMappable {
   }
 
   NoteCopyWith<Note, Note, Note> get copyWith =>
-      _NoteCopyWithImpl(this as Note, $identity, $identity);
+      _NoteCopyWithImpl<Note, Note>(this as Note, $identity, $identity);
   @override
   String toString() {
     return NoteMapper.ensureInitialized().stringifyValue(this as Note);
@@ -272,7 +273,7 @@ mixin NoteMappable {
 
 extension NoteValueCopy<$R, $Out> on ObjectCopyWith<$R, Note, $Out> {
   NoteCopyWith<$R, Note, $Out> get $asNote =>
-      $base.as((v, t, t2) => _NoteCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _NoteCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class NoteCopyWith<$R, $In extends Note, $Out>
@@ -324,5 +325,5 @@ class _NoteCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Note, $Out>
 
   @override
   NoteCopyWith<$R2, Note, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-      _NoteCopyWithImpl($value, $cast, t);
+      _NoteCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

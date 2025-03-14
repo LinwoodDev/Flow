@@ -70,7 +70,7 @@ mixin GroupMappable {
   }
 
   GroupCopyWith<Group, Group, Group> get copyWith =>
-      _GroupCopyWithImpl(this as Group, $identity, $identity);
+      _GroupCopyWithImpl<Group, Group>(this as Group, $identity, $identity);
   @override
   String toString() {
     return GroupMapper.ensureInitialized().stringifyValue(this as Group);
@@ -89,7 +89,7 @@ mixin GroupMappable {
 
 extension GroupValueCopy<$R, $Out> on ObjectCopyWith<$R, Group, $Out> {
   GroupCopyWith<$R, Group, $Out> get $asGroup =>
-      $base.as((v, t, t2) => _GroupCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _GroupCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class GroupCopyWith<$R, $In extends Group, $Out>
@@ -126,5 +126,5 @@ class _GroupCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Group, $Out>
 
   @override
   GroupCopyWith<$R2, Group, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-      _GroupCopyWithImpl($value, $cast, t);
+      _GroupCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

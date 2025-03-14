@@ -61,7 +61,8 @@ mixin UserFilterMappable {
   }
 
   UserFilterCopyWith<UserFilter, UserFilter, UserFilter> get copyWith =>
-      _UserFilterCopyWithImpl(this as UserFilter, $identity, $identity);
+      _UserFilterCopyWithImpl<UserFilter, UserFilter>(
+          this as UserFilter, $identity, $identity);
   @override
   String toString() {
     return UserFilterMapper.ensureInitialized()
@@ -83,7 +84,7 @@ mixin UserFilterMappable {
 extension UserFilterValueCopy<$R, $Out>
     on ObjectCopyWith<$R, UserFilter, $Out> {
   UserFilterCopyWith<$R, UserFilter, $Out> get $asUserFilter =>
-      $base.as((v, t, t2) => _UserFilterCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _UserFilterCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class UserFilterCopyWith<$R, $In extends UserFilter, $Out>
@@ -114,5 +115,5 @@ class _UserFilterCopyWithImpl<$R, $Out>
   @override
   UserFilterCopyWith<$R2, UserFilter, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _UserFilterCopyWithImpl($value, $cast, t);
+      _UserFilterCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
