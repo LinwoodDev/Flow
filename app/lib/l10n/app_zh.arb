@@ -1,7 +1,8 @@
 {
   "dashboard": "仪表板",
+  "translate": "翻译",
   "calendar": "日程表",
-  "places": "地点",
+  "resources": "资源",
   "users": "用户",
   "sources": "来源",
   "settings": "设置",
@@ -24,7 +25,7 @@
   "systemDefault": "系统默认",
   "light": "亮色的",
   "dark": "深色",
-  "createPlace": "创建地点",
+  "createResource": "创建资源",
   "cancel": "取消",
   "name": "名称",
   "description": "描述",
@@ -143,23 +144,23 @@
   "importFile": "导入文件",
   "importFileDescription": "从您的设备导入文件。您可以从另一个 Linwood 流实例或常规日历文件导入数据库文件。",
   "icalDescription": "iCal 接口允许您从任何 iCal 服务器访问您的数据。它只能读取数据，不支持写入。 您可以使用它来同步您的数据和不支持CalDAV的其他设备或服务。",
-  "place": "地点",
-  "editPlace": "编辑地点",
-  "deletePlace": "删除地点 {name}",
-  "@deletePlace": {
+  "resource": "资源",
+  "editResource": "编辑资源",
+  "deleteResource": "Delete resource {name}",
+  "@deleteResource": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
-  "deletePlaceDescription": "您确定要删除地点 {name} 吗？",
-  "@deletePlaceDescription": {
+  "deleteResourceDescription": "Are you sure you want to delete the resource {name}?",
+  "@deleteResourceDescription": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },

@@ -1,7 +1,8 @@
 {
   "dashboard": "ダッシュボード",
+  "translate": "翻訳する",
   "calendar": "カレンダー",
-  "places": "場所",
+  "resources": "リソース",
   "users": "ユーザー",
   "sources": "ソース",
   "settings": "設定",
@@ -24,7 +25,7 @@
   "systemDefault": "システムのデフォルト",
   "light": "ライト",
   "dark": "ダーク",
-  "createPlace": "場所を作成",
+  "createResource": "リソースを作成",
   "cancel": "キャンセル",
   "name": "名前",
   "description": "説明",
@@ -143,23 +144,23 @@
   "importFile": "ファイルをインポート",
   "importFileDescription": "お使いのデバイスからファイルをインポートします。別のLinwood Flowインスタンスまたは通常のカレンダーファイルからデータベースファイルをインポートできます。",
   "icalDescription": "iCalインターフェイスを使用すると、任意のiCalサーバーからデータにアクセスできます。データの読み取りのみが可能で、書き込みはサポートされません。 CalDAV をサポートしていない他のデバイスやサービスとデータを同期するために使用できます。",
-  "place": "場所",
-  "editPlace": "場所を編集",
-  "deletePlace": "場所 {name} を削除",
-  "@deletePlace": {
+  "resource": "リソース",
+  "editResource": "リソースを編集",
+  "deleteResource": "リソース {name}を削除",
+  "@deleteResource": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
-  "deletePlaceDescription": "{name} を削除してもよろしいですか？",
-  "@deletePlaceDescription": {
+  "deleteResourceDescription": "リソース {name}を削除してもよろしいですか？",
+  "@deleteResourceDescription": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },

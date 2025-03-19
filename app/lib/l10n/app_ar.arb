@@ -1,7 +1,8 @@
 {
   "dashboard": "لوحة التحكم",
+  "translate": "ترجم",
   "calendar": "التقويم",
-  "places": "الأماكن",
+  "resources": "الموارد",
   "users": "المستخدمون",
   "sources": "المصادر",
   "settings": "الإعدادات",
@@ -24,7 +25,7 @@
   "systemDefault": "النظام الافتراضي",
   "light": "فاتح",
   "dark": "داكن",
-  "createPlace": "إنشاء مكان",
+  "createResource": "إنشاء مورد",
   "cancel": "إلغاء",
   "name": "الاسم",
   "description": "الوصف",
@@ -143,23 +144,23 @@
   "importFile": "استيراد ملف",
   "importFileDescription": "استيراد ملف من جهازك. يمكنك استيراد ملف قاعدة بيانات من نموذج لينود آخر أو ملف تقويم عادي.",
   "icalDescription": "واجهة iCal تسمح لك بالوصول إلى بياناتك من أي خادم iCal. يمكنها فقط قراءة البيانات ولا تدعم الكتابة. يمكنك استخدامه لمزامنة بياناتك مع الأجهزة الأخرى أو الخدمات التي لا تدعم CalDAV.",
-  "place": "مكان",
-  "editPlace": "تعديل المكان",
-  "deletePlace": "حذف المكان {name}",
-  "@deletePlace": {
+  "resource": "المورد",
+  "editResource": "تعديل المورد",
+  "deleteResource": "حذف المورد {name}",
+  "@deleteResource": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
-  "deletePlaceDescription": "هل أنت متأكد من أنك تريد حذف المكان {name}؟",
-  "@deletePlaceDescription": {
+  "deleteResourceDescription": "هل أنت متأكد من أنك تريد حذف المورد {name}؟",
+  "@deleteResourceDescription": {
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Place name"
+        "example": "Resource name"
       }
     }
   },
