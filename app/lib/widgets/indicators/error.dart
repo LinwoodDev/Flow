@@ -1,6 +1,6 @@
 import 'package:flow/widgets/indicators/indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flow/src/generated/i18n/app_localizations.dart';
 
 class ErrorIndicatorDisplay extends StatelessWidget {
   final VoidCallback onTryAgain;

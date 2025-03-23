@@ -45,6 +45,9 @@ ThemeData getThemeData(String name, bool dark,
     dropdownMenuTheme: DropdownMenuThemeData(
       inputDecorationTheme: defaultDropdownInputDecorationTheme(),
     ),
+    sliderTheme: theme.sliderTheme.copyWith(
+      year2023: false,
+    ),
   );
 }
 

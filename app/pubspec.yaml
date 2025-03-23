@@ -19,7 +19,7 @@ version: 0.4.0+9
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
-  flutter: 3.29.1
+  flutter: 3.29.2
 
 dependencies:
   flutter:
@@ -37,12 +37,12 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 7e0e32d3abfe581f2b3ef891c90ebc4803ec063d
+      ref: e901983295b103f2fe27738e8f2cbf35941d99ea
       path: packages/material_leap
   phosphor_flutter: ^2.1.0
   path: ^1.8.3
   go_router: ^14.0.0
-  flex_color_scheme: ^8.0.0
+  flex_color_scheme: ^8.2.0-dev.1
   flutter_bloc: ^9.0.0
   shared_preferences: ^2.2.3
   collection: ^1.17.1
@@ -70,7 +70,7 @@ dependencies:
   lw_sysapi:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 2a39490362f7ded39acd78155f2bfa95cd1b4c6e
+      ref: e901983295b103f2fe27738e8f2cbf35941d99ea
       path: packages/lw_sysapi
   file_selector: ^1.0.3
 dev_dependencies:
@@ -84,7 +84,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-  generate: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

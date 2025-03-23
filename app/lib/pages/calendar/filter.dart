@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'dart:typed_data';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/event/model.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:flow_api/models/group/model.dart';
 import 'package:flow_api/models/model.dart';
 

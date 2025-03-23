@@ -30,6 +30,7 @@
 .pub-cache/
 .pub/
 /build/
+/lib/src/generated
 
 # Web related
 

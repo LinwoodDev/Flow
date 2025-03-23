@@ -10,7 +10,7 @@ import 'package:flow/helpers/theme_mode.dart';
 import 'package:flow/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:window_manager/window_manager.dart';
 
 class PersonalizationSettingsView extends StatelessWidget {

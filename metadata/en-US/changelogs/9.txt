@@ -16,5 +16,6 @@
 * Use minSdkVersion 23 instead of 21 (The minimum version of android is 6.0 (Marshmallow))
 * Fix labels not filtering correctly
 * Update to agb 8.9
+* Update theme
 
 Read more here: https://linwood.dev/flow/0.4.0
