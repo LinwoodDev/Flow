@@ -2,6 +2,30 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 0.4.0 (2025-03-24)
+
+* Add color wheel
+* Add event notes
+* Add owner for notes, labels and notebooks
+* Change events and calendar items to have multiple users and groups
+* Change users to have multiple groups
+* Refactor places to resources
+  * Allow many-to-many relationship
+  * Add owner for resources
+* Fix color picker not using current color
+  * Rename places to resources and allow for multiple resources
+  * Add resources to events
+* Fix docker file
+* Users can now be added to events and calendar items
+* Convert data classes to dart_mappable
+* Upgrade to flutter 3.29
+* Use minSdkVersion 23 instead of 21 (The minimum version of android is 6.0 (Marshmallow))
+* Fix labels not filtering correctly
+* Update to agb 8.9
+* Update theme
+
+Read more here: https://linwood.dev/flow/0.4.0
+
 ## 0.3.1 (2024-11-18)
 
 * Add right click menus
