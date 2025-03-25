@@ -23,7 +23,7 @@ class EventGroupDatabaseConnector extends DatabaseModelConnector<Group, Event> {
       '$tableName JOIN events ON eventId = events.id',
       limit: limit,
       offset: offset,
-      where: '$connectedIdName = ?',
+      where: 'groupId = ?',
       whereArgs: [itemId],
     );
     return result?.map((e) => Event.fromDatabase(e)).toList() ?? [];
@@ -36,7 +36,7 @@ class EventGroupDatabaseConnector extends DatabaseModelConnector<Group, Event> {
       '$tableName JOIN groups ON groupId = groups.id',
       limit: limit,
       offset: offset,
-      where: '$itemIdName = ?',
+      where: 'eventId = ?',
       whereArgs: [connectId],
     );
     return result?.map((e) => Group.fromDatabase(e)).toList() ?? [];

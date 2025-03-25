@@ -93,7 +93,7 @@ class _GroupsViewState<T extends DescriptiveModel>
                         child: ListTile(
                           title: Text(item.name),
                           onTap: () async {
-                            await showDialog<Group>(
+                            await showDialog<SourcedModel<Group>>(
                               context: context,
                               builder: (context) => GroupDialog(
                                 source: widget.source,
@@ -119,14 +119,15 @@ class _GroupsViewState<T extends DescriptiveModel>
                 label: Text(AppLocalizations.of(context).create),
                 icon: const PhosphorIcon(PhosphorIconsLight.plus),
                 onPressed: () async {
-                  final group = await showDialog<Group>(
+                  final group = await showDialog<SourcedModel<Group>>(
                     context: context,
                     builder: (context) => GroupDialog(
                       source: widget.source,
                     ),
                   );
                   if (group != null) {
-                    await widget.connector.connect(widget.model.id!, group.id!);
+                    await widget.connector
+                        .connect(widget.model.id!, group.model.id!);
                   }
                   _pagingController.refresh();
                 },

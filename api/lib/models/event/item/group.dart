@@ -24,7 +24,7 @@ class CalendarItemGroupDatabaseConnector
       '$tableName JOIN calendarItems ON itemId = calendarItems.id',
       limit: limit,
       offset: offset,
-      where: '$connectedIdName = ?',
+      where: 'groupId = ?',
       whereArgs: [itemId],
     );
     return result?.map((e) => CalendarItem.fromDatabase(e)).toList() ?? [];
@@ -37,7 +37,7 @@ class CalendarItemGroupDatabaseConnector
       '$tableName JOIN groups ON groupId = groups.id',
       limit: limit,
       offset: offset,
-      where: '$itemIdName = ?',
+      where: 'itemId = ?',
       whereArgs: [connectId],
     );
     return result?.map((e) => Group.fromDatabase(e)).toList() ?? [];

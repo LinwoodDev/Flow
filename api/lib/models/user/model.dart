@@ -9,7 +9,6 @@ part 'model.mapper.dart';
 class User with UserMappable, IdentifiedModel, NamedModel, DescriptiveModel {
   @override
   final Uint8List? id;
-  final Uint8List? groupId;
   @override
   final String name, description;
   final String email, phone;
@@ -17,7 +16,6 @@ class User with UserMappable, IdentifiedModel, NamedModel, DescriptiveModel {
 
   const User({
     this.id,
-    this.groupId,
     this.name = '',
     this.email = '',
     this.description = '',

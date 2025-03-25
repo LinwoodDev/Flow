@@ -25,7 +25,6 @@ class CalendarItemDatabaseService extends CalendarItemService
         description TEXT NOT NULL DEFAULT '',
         location VARCHAR(100) NOT NULL DEFAULT '',
         eventId BLOB(16),
-        groupId BLOB(16),
         start INTEGER,
         end INTEGER,
         status VARCHAR(20) NOT NULL DEFAULT 'confirmed',
@@ -44,18 +43,19 @@ class CalendarItemDatabaseService extends CalendarItemService
   }
 
   @override
-  Future<List<ConnectedModel<CalendarItem, Event?>>> getCalendarItems(
-      {List<EventStatus>? status,
-      Uint8List? eventId,
-      List<Uint8List>? groupIds,
-      List<Uint8List>? resourceIds,
-      bool pending = false,
-      int offset = 0,
-      int limit = 50,
-      DateTime? start,
-      DateTime? end,
-      DateTime? date,
-      String search = ''}) async {
+  Future<List<ConnectedModel<CalendarItem, Event?>>> getCalendarItems({
+    List<EventStatus>? status,
+    Uint8List? eventId,
+    List<Uint8List>? groupIds,
+    List<Uint8List>? resourceIds,
+    bool pending = false,
+    int offset = 0,
+    int limit = 50,
+    DateTime? start,
+    DateTime? end,
+    DateTime? date,
+    String search = '',
+  }) async {
     String? where;
     List<Object?>? whereArgs;
     if (status != null) {
@@ -72,8 +72,9 @@ class CalendarItemDatabaseService extends CalendarItemService
     }
     if (date != null) {
       var startCalendarItem = date.onlyDate();
-      var endCalendarItem =
-          startCalendarItem.add(Duration(hours: 23, minutes: 59, seconds: 59));
+      var endCalendarItem = startCalendarItem.add(
+        const Duration(hours: 23, minutes: 59, seconds: 59),
+      );
       where = where == null
           ? '(start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))'
           : '$where AND (start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))';
@@ -101,8 +102,8 @@ class CalendarItemDatabaseService extends CalendarItemService
     if (groupIds != null) {
       final placeholders = List.filled(groupIds.length, '?').join(', ');
       final statement =
-          "(calendarItems.id IN (SELECT itemId FROM groupResources WHERE groupId IN ($placeholders)) OR "
-          "calendarItems.eventId IN (SELECT eventId FROM eventResources WHERE groupId IN ($placeholders)))";
+          "(calendarItems.id IN (SELECT itemId FROM calendarItemGroups WHERE groupId IN ($placeholders)) OR "
+          "calendarItems.eventId IN (SELECT eventId FROM eventGroups WHERE groupId IN ($placeholders)))";
       where = where == null ? statement : '$where AND $statement';
       whereArgs = [...?whereArgs, ...groupIds, ...groupIds];
     }
@@ -118,13 +119,13 @@ class CalendarItemDatabaseService extends CalendarItemService
       where = where == null ? statement : '$where AND $statement';
       whereArgs = [...?whereArgs, ...resourceIds, ...resourceIds];
     }
+
     const eventPrefix = "event_";
     final result = await db?.query(
       "calendarItems LEFT JOIN events ON events.id = calendarItems.eventId",
       columns: [
         "events.id AS ${eventPrefix}id",
         "events.parentId AS ${eventPrefix}parentId",
-        "events.groupId AS ${eventPrefix}groupId",
         "events.blocked AS ${eventPrefix}blocked",
         "events.name AS ${eventPrefix}name",
         "events.description AS ${eventPrefix}description",
@@ -135,17 +136,27 @@ class CalendarItemDatabaseService extends CalendarItemService
       where: where,
       whereArgs: whereArgs,
     );
-    return result?.map((e) {
-          return ConnectedModel<CalendarItem, Event?>(
-            CalendarItem.fromDatabase(e),
-            e['${eventPrefix}id'] == null
-                ? null
-                : Event.fromDatabase(Map.fromEntries(e.entries
-                    .where((element) => element.key.startsWith(eventPrefix))
-                    .map((e) => MapEntry(
-                        e.key.substring(eventPrefix.length), e.value)))),
-          );
-        }).toList() ??
+    return result
+            ?.map(
+              (e) => ConnectedModel<CalendarItem, Event?>(
+                CalendarItem.fromDatabase(e),
+                e['${eventPrefix}id'] == null
+                    ? null
+                    : Event.fromDatabase(
+                        Map.fromEntries(e.entries
+                            .where(
+                              (element) => element.key.startsWith(eventPrefix),
+                            )
+                            .map(
+                              (el) => MapEntry(
+                                el.key.substring(eventPrefix.length),
+                                el.value,
+                              ),
+                            )),
+                      ),
+              ),
+            )
+            .toList() ??
         [];
   }
 

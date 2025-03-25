@@ -1,0 +1,5 @@
+* Fix calendar fetching not working correctly ([#86](https://github.com/LinwoodDev/Flow/issues/86))
+* Fix group list view not working correctly
+* Fix user list view not working correctly
+
+Read more here: https://linwood.dev/flow/0.4.1

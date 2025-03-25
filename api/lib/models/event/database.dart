@@ -68,7 +68,9 @@ class EventDatabaseService extends EventService with TableService {
       whereArgs = ['%$search%'];
     }
     if (groupId != null) {
-      where = where == null ? 'groupId = ?' : '$where AND groupId = ?';
+      final statement =
+          "id IN (SELECT eventId FROM eventGroups WHERE groupId = ?)";
+      where = where == null ? statement : '$where AND $statement';
       whereArgs = [...?whereArgs, groupId];
     }
     if (resourceIds != null) {

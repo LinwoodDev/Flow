@@ -22,9 +22,6 @@ class UserMapper extends ClassMapperBase<User> {
 
   static Uint8List? _$id(User v) => v.id;
   static const Field<User, Uint8List> _f$id = Field('id', _$id, opt: true);
-  static Uint8List? _$groupId(User v) => v.groupId;
-  static const Field<User, Uint8List> _f$groupId =
-      Field('groupId', _$groupId, opt: true);
   static String _$name(User v) => v.name;
   static const Field<User, String> _f$name =
       Field('name', _$name, opt: true, def: '');
@@ -44,7 +41,6 @@ class UserMapper extends ClassMapperBase<User> {
   @override
   final MappableFields<User> fields = const {
     #id: _f$id,
-    #groupId: _f$groupId,
     #name: _f$name,
     #email: _f$email,
     #description: _f$description,
@@ -55,7 +51,6 @@ class UserMapper extends ClassMapperBase<User> {
   static User _instantiate(DecodingData data) {
     return User(
         id: data.dec(_f$id),
-        groupId: data.dec(_f$groupId),
         name: data.dec(_f$name),
         email: data.dec(_f$email),
         description: data.dec(_f$description),
@@ -111,7 +106,6 @@ abstract class UserCopyWith<$R, $In extends User, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   $R call(
       {Uint8List? id,
-      Uint8List? groupId,
       String? name,
       String? email,
       String? description,
@@ -129,7 +123,6 @@ class _UserCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, User, $Out>
   @override
   $R call(
           {Object? id = $none,
-          Object? groupId = $none,
           String? name,
           String? email,
           String? description,
@@ -137,7 +130,6 @@ class _UserCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, User, $Out>
           Object? image = $none}) =>
       $apply(FieldCopyWithData({
         if (id != $none) #id: id,
-        if (groupId != $none) #groupId: groupId,
         if (name != null) #name: name,
         if (email != null) #email: email,
         if (description != null) #description: description,
@@ -147,7 +139,6 @@ class _UserCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, User, $Out>
   @override
   User $make(CopyWithData data) => User(
       id: data.get(#id, or: $value.id),
-      groupId: data.get(#groupId, or: $value.groupId),
       name: data.get(#name, or: $value.name),
       email: data.get(#email, or: $value.email),
       description: data.get(#description, or: $value.description),

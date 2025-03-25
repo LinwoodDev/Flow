@@ -18,7 +18,7 @@ class UserDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final create = this.create || user == null || source == null;
+    // final create = this.create || user == null || source == null;
     var currentUser = user ?? const User();
     var currentSource = source ?? '';
     var currentService =
@@ -64,16 +64,6 @@ class UserDialog extends StatelessWidget {
               currentUser = currentUser.copyWith(description: value);
             },
           ),
-          if (!create) ...[
-            const SizedBox(height: 16),
-            GroupSelectTile(
-              value: currentUser.groupId,
-              source: currentSource,
-              onChanged: (value) {
-                currentUser = currentUser.copyWith(groupId: value?.model);
-              },
-            ),
-          ],
         ]),
       ),
       scrollable: true,
