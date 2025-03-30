@@ -18,4 +18,6 @@ abstract class UserService extends ModelService {
   FutureOr<bool> updateUser(User user);
 
   FutureOr<bool> deleteUser(Uint8List id);
+
+  FutureOr<User?> getUser(Uint8List id);
 }

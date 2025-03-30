@@ -2,6 +2,14 @@
 cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
+# Fix flutter_secure_storage_linux build error on newer versions of CMake.
+include(CheckCXXCompilerFlag)
+check_cxx_compiler_flag("-Wno-error=deprecated-literal-operator" COMPILER_SUPPORTS_NO_ERROR_DEPRECATED_LITERAL_OPERATOR)
+if(COMPILER_SUPPORTS_NO_ERROR_DEPRECATED_LITERAL_OPERATOR)
+  message(STATUS "Disabling error for deprecated literal operator")
+  add_definitions(-Wno-error=deprecated-literal-operator)
+endif()
+
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
 set(BINARY_NAME "flow")

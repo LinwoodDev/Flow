@@ -1,3 +1,4 @@
+import 'package:flow/pages/resources/select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
@@ -86,7 +87,7 @@ class _ResourcesViewState<T extends DescriptiveModel>
                         child: ListTile(
                           title: Text(item.name),
                           onTap: () async {
-                            await showDialog<Resource>(
+                            await showDialog(
                               context: context,
                               builder: (context) => ResourceDialog(
                                 source: widget.source,
@@ -109,18 +110,18 @@ class _ResourcesViewState<T extends DescriptiveModel>
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: FloatingActionButton.extended(
-                label: Text(AppLocalizations.of(context).create),
-                icon: const PhosphorIcon(PhosphorIconsLight.plus),
+                label: Text(AppLocalizations.of(context).link),
+                icon: const PhosphorIcon(PhosphorIconsLight.link),
                 onPressed: () async {
-                  final resource = await showDialog<Resource>(
+                  final resource = await showDialog<SourcedModel<Resource>>(
                     context: context,
-                    builder: (context) => ResourceDialog(
+                    builder: (context) => ResourceSelectDialog(
                       source: widget.source,
                     ),
                   );
                   if (resource != null) {
                     await widget.connector
-                        .connect(widget.model.id!, resource.id!);
+                        .connect(widget.model.id!, resource.model.id!);
                   }
                   _pagingController.refresh();
                 },

@@ -1,6 +1,7 @@
 import 'package:flow/pages/groups/view.dart';
 import 'package:flow/pages/users/view.dart';
 import 'package:flow/widgets/markdown_field.dart';
+import 'package:flow_api/models/model.dart';
 import 'package:flow_api/models/resource/model.dart';
 import 'package:flow_api/models/resource/service.dart';
 import 'package:flutter/material.dart';
@@ -154,7 +155,8 @@ class ResourceDialog extends StatelessWidget {
               await currentService?.updateResource(currentResource);
             }
             if (context.mounted) {
-              Navigator.of(context).pop(currentResource);
+              Navigator.of(context)
+                  .pop(SourcedModel(currentSource, currentResource));
             }
           },
           child: Text(AppLocalizations.of(context).save),

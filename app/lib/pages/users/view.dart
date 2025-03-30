@@ -93,7 +93,7 @@ class _UsersViewState<T extends DescriptiveModel> extends State<UsersView<T>> {
                         child: ListTile(
                           title: Text(item.name),
                           onTap: () async {
-                            await showDialog<User>(
+                            await showDialog(
                               context: context,
                               builder: (context) => UserDialog(
                                 source: widget.source,
@@ -116,17 +116,18 @@ class _UsersViewState<T extends DescriptiveModel> extends State<UsersView<T>> {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: FloatingActionButton.extended(
-                label: Text(AppLocalizations.of(context).create),
-                icon: const PhosphorIcon(PhosphorIconsLight.plus),
+                label: Text(AppLocalizations.of(context).link),
+                icon: const PhosphorIcon(PhosphorIconsLight.link),
                 onPressed: () async {
-                  final user = await showDialog<User>(
+                  final user = await showDialog<SourcedModel<User>>(
                     context: context,
                     builder: (context) => UserDialog(
                       source: widget.source,
                     ),
                   );
                   if (user != null) {
-                    await widget.connector.connect(widget.model.id!, user.id!);
+                    await widget.connector
+                        .connect(widget.model.id!, user.model.id!);
                   }
                   _pagingController.refresh();
                 },

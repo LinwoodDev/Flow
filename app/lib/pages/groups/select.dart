@@ -1,4 +1,5 @@
 import 'package:flow/widgets/select.dart';
+import 'package:flow_api/models/group/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'dart:typed_data';
@@ -60,6 +61,14 @@ class GroupSelectDialog extends StatelessWidget {
         offset: offset,
         limit: limit,
         search: search,
+      ),
+      onCreate: (source) => showDialog<SourcedModel<Group>>(
+        context: context,
+        builder: (context) => GroupDialog(
+          source: source,
+          group: null,
+          create: true,
+        ),
       ),
       title: AppLocalizations.of(context).group,
       selected: selected,

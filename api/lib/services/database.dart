@@ -127,7 +127,7 @@ class DatabaseService extends SourceService {
   }
 
   FutureOr<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    migrateDatabase(this, db, oldVersion, newVersion);
+    return migrateDatabase(this, db, oldVersion, newVersion);
   }
 
   Future<int> getVersion() {

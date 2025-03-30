@@ -8,7 +8,6 @@ import 'package:flow_api/models/user/service.dart';
 
 import '../../cubits/flow.dart';
 import '../../widgets/source_dropdown.dart';
-import '../groups/select.dart';
 
 class UserDialog extends StatelessWidget {
   final String? source;

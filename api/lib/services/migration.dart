@@ -57,7 +57,9 @@ Future<void> migrateDatabase(DatabaseService service, Database db,
       await service.calendarItem.create(txn, 'calendarItems_temp');
       await txn.execute(
         "INSERT INTO calendarItems_temp "
-        "SELECT id, parentId, blocked, name, description, location, extra "
+        "SELECT runtimeType, id, name, description, location, eventId, start, end, "
+        "status, repeatType, interval, variation, count, until, exceptions, "
+        "autoGroupId, searchStart, autoDuration "
         "FROM calendarItems",
       );
       await txn.execute(

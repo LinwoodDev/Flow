@@ -1,21 +1,21 @@
 import 'package:flow/widgets/select.dart';
-import 'package:flow_api/models/resource/model.dart';
+import 'package:flow_api/models/user/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'dart:typed_data';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/model.dart';
 
-import 'resource.dart';
+import 'user.dart';
 
-class ResourceSelectTile extends StatelessWidget {
-  final String? source;
+class UserSelectTile extends StatelessWidget {
+  final String source;
   final Uint8List? value;
   final ValueChanged<SourcedModel<Uint8List>?> onChanged;
 
-  const ResourceSelectTile({
+  const UserSelectTile({
     super.key,
-    this.source,
+    required this.source,
     this.value,
     required this.onChanged,
   });
@@ -25,18 +25,17 @@ class ResourceSelectTile extends StatelessWidget {
     return SelectTile(
       source: source,
       onChanged: onChanged,
-      onModelFetch: (source, service, id) async =>
-          service.resource?.getResource(id),
-      title: AppLocalizations.of(context).resource,
+      onModelFetch: (source, service, id) async => service.user?.getUser(id),
+      title: AppLocalizations.of(context).user,
       leadingBuilder: (context, model) => PhosphorIcon(model?.model == null
-          ? PhosphorIconsLight.cube
-          : PhosphorIconsFill.cube),
-      dialogBuilder: (context, sourcedModel) => ResourceDialog(
+          ? PhosphorIconsLight.users
+          : PhosphorIconsFill.users),
+      dialogBuilder: (context, sourcedModel) => UserDialog(
         source: sourcedModel?.source,
-        resource: sourcedModel?.model,
+        user: sourcedModel?.model,
         create: sourcedModel?.model == null,
       ),
-      selectBuilder: (context, model) => ResourceSelectDialog(
+      selectBuilder: (context, model) => UserSelectDialog(
         selected: model?.toIdentifierModel(),
         source: source,
       ),
@@ -44,11 +43,11 @@ class ResourceSelectTile extends StatelessWidget {
   }
 }
 
-class ResourceSelectDialog extends StatelessWidget {
+class UserSelectDialog extends StatelessWidget {
   final String? source;
   final SourcedModel<Uint8List>? selected;
 
-  const ResourceSelectDialog({
+  const UserSelectDialog({
     super.key,
     this.source,
     this.selected,
@@ -58,19 +57,20 @@ class ResourceSelectDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return SelectDialog(
       onFetch: (source, service, search, offset, limit) async =>
-          service.resource?.getResources(
+          service.user?.getUsers(
         offset: offset,
         limit: limit,
         search: search,
       ),
-      onCreate: (source) => showDialog<SourcedModel<Resource>>(
+      onCreate: (source) => showDialog<SourcedModel<User>>(
         context: context,
-        builder: (context) => ResourceDialog(
+        builder: (context) => UserDialog(
           source: source,
+          user: null,
           create: true,
         ),
       ),
-      title: AppLocalizations.of(context).resource,
+      title: AppLocalizations.of(context).user,
       selected: selected,
     );
   }

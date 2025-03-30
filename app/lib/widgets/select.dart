@@ -148,6 +148,7 @@ class SelectDialog<T extends NamedModel> extends StatefulWidget {
   final String? source;
   final SourcedModel<Uint8List>? selected;
   final SelectFetchCallback<T> onFetch;
+  final Future<SourcedModel<T>?> Function(String?)? onCreate;
 
   const SelectDialog({
     super.key,
@@ -155,6 +156,7 @@ class SelectDialog<T extends NamedModel> extends StatefulWidget {
     this.selected,
     required this.onFetch,
     required this.title,
+    this.onCreate,
   });
 
   @override
@@ -185,6 +187,7 @@ class _SelectDialogState<T extends NamedModel> extends State<SelectDialog<T>> {
 
   @override
   Widget build(BuildContext context) {
+    final onCreate = widget.onCreate;
     return AlertDialog(
       title: Text(widget.title),
       content: SizedBox(
@@ -230,6 +233,16 @@ class _SelectDialogState<T extends NamedModel> extends State<SelectDialog<T>> {
           onPressed: () => Navigator.of(context).pop(),
           child: Text(AppLocalizations.of(context).cancel),
         ),
+        if (onCreate != null)
+          OutlinedButton(
+            onPressed: () async {
+              final created = await onCreate(widget.source);
+              if (created != null && context.mounted) {
+                Navigator.of(context).pop(created);
+              }
+            },
+            child: Text(AppLocalizations.of(context).create),
+          ),
       ],
     );
   }

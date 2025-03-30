@@ -82,6 +82,18 @@ class UserDatabaseService extends UserService with TableService {
   }
 
   @override
+  Future<User?> getUser(Uint8List id) async {
+    return await db?.query(
+      'users',
+      where: 'id = ?',
+      whereArgs: [id],
+    ).then((value) {
+      if (value.isEmpty) return null;
+      return User.fromDatabase(value.first);
+    });
+  }
+
+  @override
   Future<void> clear() async {
     await db?.delete('users');
   }
