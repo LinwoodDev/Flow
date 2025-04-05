@@ -299,5 +299,15 @@
   "systemLocale": "Systeem lokalisatie",
   "notebooks": "Notitieboekjes",
   "createNotebook": "Notitieboekje maken",
-  "editNotebook": "Notitieboekje bewerken"
+  "editNotebook": "Notitieboekje bewerken",
+  "update": "Vernieuwen",
+  "currentVersion": "Huidige versie",
+  "checkForUpdates": "Op updates controleren",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "U gebruikt de laatste stabiele versie",
+  "usingLatestNightly": "U gebruikt de laatste nightly versie",
+  "updateNow": "Nu bijwerken",
+  "stable": "Stabiel",
+  "nightly": "Nachtelijk",
+  "updateAvailable": "Update beschikbaar"
 }
