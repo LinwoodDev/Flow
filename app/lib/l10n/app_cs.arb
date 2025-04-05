@@ -299,5 +299,15 @@
   "systemLocale": "Systémová lokalizace",
   "notebooks": "Sešity",
   "createNotebook": "Vytvořit sešit",
-  "editNotebook": "Upravit sešit"
+  "editNotebook": "Upravit sešit",
+  "update": "Aktualizovat",
+  "currentVersion": "Aktuální verze",
+  "checkForUpdates": "Zkontrolovat aktualizace",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "Používáte nejnovější stabilní verzi",
+  "usingLatestNightly": "Používáte nejnovější noční verzi",
+  "updateNow": "Aktualizovat nyní",
+  "stable": "Stabilní",
+  "nightly": "Noční",
+  "updateAvailable": "K dispozici je aktualizace"
 }
