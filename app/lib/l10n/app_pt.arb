@@ -299,5 +299,15 @@
   "systemLocale": "Localização do sistema",
   "notebooks": "Cadernos",
   "createNotebook": "Criar caderno",
-  "editNotebook": "Editar caderno"
+  "editNotebook": "Editar caderno",
+  "update": "Atualizar",
+  "currentVersion": "Versão atual",
+  "checkForUpdates": "Verificar se há atualizações",
+  "checkForUpdatesWarning": "Realizar uma verificação se há atualizações irá conectá-lo ao website do Butterfly para obter as informações.",
+  "usingLatestStable": "Está a usar a versão estável mais recente",
+  "usingLatestNightly": "Está a usar a versão noturna mais recente",
+  "updateNow": "Atualizar agora",
+  "stable": "Estável",
+  "nightly": "Noturno",
+  "updateAvailable": "Atualização disponível"
 }
