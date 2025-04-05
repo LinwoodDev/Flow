@@ -299,5 +299,15 @@
   "systemLocale": "Localizzazione di sistema",
   "notebooks": "Taccuini",
   "createNotebook": "Crea taccuino",
-  "editNotebook": "Modifica taccuino"
+  "editNotebook": "Modifica taccuino",
+  "update": "Aggiorna",
+  "currentVersion": "Versione attuale",
+  "checkForUpdates": "Controlla aggiornamenti",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "Stai usando l'ultima versione stabile",
+  "usingLatestNightly": "Stai usando l'ultima versione nightly",
+  "updateNow": "Aggiorna ora",
+  "stable": "Stabile",
+  "nightly": "Notte",
+  "updateAvailable": "Aggiornamento disponibile"
 }
