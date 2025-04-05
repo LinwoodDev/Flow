@@ -3,6 +3,7 @@ import 'package:flow/widgets/clock.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
+import 'package:material_leap/helpers.dart';
 
 import 'events.dart';
 
@@ -28,40 +29,56 @@ class _DashboardPageState extends State<DashboardPage> {
               children: [
                 Card(
                     child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(
-                        minHeight: 300,
-                        minWidth: 300,
-                        maxWidth: 600,
-                        maxHeight: 600),
-                    child: const ClockView(),
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(
+                            minHeight: 300,
+                            minWidth: 300,
+                            maxWidth: 600,
+                            maxHeight: 600),
+                        child: const ClockView(),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        AppLocalizations.of(context).welcome,
+                        style: Theme.of(context).textTheme.headlineMedium,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
                   ),
                 )),
                 Card(
-                    child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    AppLocalizations.of(context).welcome,
-                    style: Theme.of(context).textTheme.titleLarge,
-                    textAlign: TextAlign.center,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        if (constraints.maxWidth >= LeapBreakpoints.medium) {
+                          return SizedBox(
+                            height: 250,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              spacing: 8,
+                              children: [
+                                Expanded(child: DashboardNotesView()),
+                                const VerticalDivider(),
+                                Expanded(child: DashboardEventsView()),
+                              ],
+                            ),
+                          );
+                        }
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            DashboardNotesView(),
+                            const Divider(),
+                            DashboardEventsView(),
+                          ],
+                        );
+                      },
+                    ),
                   ),
-                )),
-                Wrap(
-                  alignment: WrapAlignment.center,
-                  children: [
-                    const DashboardNotesCard(),
-                    const DashboardEventsCard(),
-                  ]
-                      .map((e) => ConstrainedBox(
-                            constraints: const BoxConstraints(maxWidth: 500),
-                            child: Card(
-                                child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: e,
-                            )),
-                          ))
-                      .toList(),
                 ),
               ],
             ),

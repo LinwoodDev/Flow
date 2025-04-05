@@ -8,14 +8,14 @@ import 'package:flow_api/models/note/model.dart';
 
 import '../../cubits/flow.dart';
 
-class DashboardNotesCard extends StatefulWidget {
-  const DashboardNotesCard({super.key});
+class DashboardNotesView extends StatefulWidget {
+  const DashboardNotesView({super.key});
 
   @override
-  State<DashboardNotesCard> createState() => _DashboardNotesCardState();
+  State<DashboardNotesView> createState() => _DashboardNotesViewState();
 }
 
-class _DashboardNotesCardState extends State<DashboardNotesCard> {
+class _DashboardNotesViewState extends State<DashboardNotesView> {
   Future<List<(Note, String)>> _getNotes(BuildContext context) async {
     final sources = context.read<FlowCubit>().getCurrentServicesMap();
     final notes = <(Note, String)>[];
@@ -28,7 +28,7 @@ class _DashboardNotesCardState extends State<DashboardNotesCard> {
   }
 
   @override
-  void didUpdateWidget(covariant DashboardNotesCard oldWidget) {
+  void didUpdateWidget(covariant DashboardNotesView oldWidget) {
     super.didUpdateWidget(oldWidget);
     setState(() {});
   }
