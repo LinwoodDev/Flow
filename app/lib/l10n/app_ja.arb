@@ -299,5 +299,15 @@
   "systemLocale": "システムロケール：",
   "notebooks": "ノート",
   "createNotebook": "ノートブックを作成",
-  "editNotebook": "ノートブックを編集"
+  "editNotebook": "ノートブックを編集",
+  "update": "更新",
+  "currentVersion": "現在のバージョン",
+  "checkForUpdates": "アップデートを確認",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "最新の安定版を使用しています",
+  "usingLatestNightly": "最新のナイトリーバージョンを使用しています",
+  "updateNow": "今すぐ更新",
+  "stable": "安定版",
+  "nightly": "ナイトリー",
+  "updateAvailable": "アップデートがあります"
 }
