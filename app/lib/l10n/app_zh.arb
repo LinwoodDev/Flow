@@ -299,5 +299,15 @@
   "systemLocale": "系统区域设置",
   "notebooks": "笔记本",
   "createNotebook": "创建笔记本",
-  "editNotebook": "编辑笔记本"
+  "editNotebook": "编辑笔记本",
+  "update": "更新",
+  "currentVersion": "当前版本",
+  "checkForUpdates": "检查更新",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "您正在使用最新的稳定版本",
+  "usingLatestNightly": "您正在使用最新的夜间版本",
+  "updateNow": "立即更新",
+  "stable": "稳定的",
+  "nightly": "每晚一次",
+  "updateAvailable": "可用更新"
 }
