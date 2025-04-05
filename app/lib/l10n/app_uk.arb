@@ -299,5 +299,15 @@
   "systemLocale": "Мова локалізації системи",
   "notebooks": "Ноутбуки",
   "createNotebook": "Створити зошит",
-  "editNotebook": "Редагувати блокнот"
+  "editNotebook": "Редагувати блокнот",
+  "update": "Оновити",
+  "currentVersion": "Поточна версія",
+  "checkForUpdates": "Перевірити наявність оновлень",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "Ви використовуєте останню стабільну версію",
+  "usingLatestNightly": "Ви використовуєте останню нічну версію",
+  "updateNow": "Оновити зараз",
+  "stable": "Стабільний",
+  "nightly": "Нічна",
+  "updateAvailable": "Доступне оновлення"
 }
