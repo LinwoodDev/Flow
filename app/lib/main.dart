@@ -5,6 +5,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/api/storage/sources.dart';
 import 'package:flow/pages/calendar/filter.dart';
+import 'package:flow/pages/settings/home.dart';
 import 'package:flow/theme.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flow_api/helpers/setup.dart';
@@ -17,6 +18,7 @@ import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:flow_api/models/model.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:window_manager/window_manager.dart';
@@ -28,7 +30,6 @@ import 'pages/dashboard/page.dart';
 import 'pages/sources/page.dart';
 import 'pages/resources/page.dart';
 import 'pages/groups/page.dart';
-import 'pages/settings/page.dart';
 import 'pages/users/filter.dart';
 import 'pages/users/page.dart';
 
@@ -199,3 +200,10 @@ const isNightly =
     flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
 const shortApplicationName = isNightly ? 'Flow Nightly' : 'Flow';
 const applicationName = 'Linwood $shortApplicationName';
+
+Future<String> getCurrentVersion() async {
+  const envVersion = String.fromEnvironment('version');
+  if (envVersion.isNotEmpty) return envVersion;
+  final info = await PackageInfo.fromPlatform();
+  return info.version;
+}

@@ -68,3 +68,8 @@ FlexSchemeColor getFlexThemeColor(String name, bool dark) {
 List<String> getThemes() {
   return ['classic', ...FlexColor.schemesList.map((e) => e.name)];
 }
+
+const EdgeInsets settingsCardMargin = EdgeInsets.all(8);
+const EdgeInsets settingsCardPadding = EdgeInsets.all(16);
+const EdgeInsets settingsCardTitlePadding =
+    EdgeInsets.only(left: 12, top: 8, right: 12);

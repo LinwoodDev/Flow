@@ -1,7 +1,7 @@
-import 'package:flow/pages/settings/contents/information.dart';
-import 'package:flow/pages/settings/contents/legal.dart';
-import 'package:flow/pages/settings/contents/personalization.dart';
-import 'package:flow/pages/settings/contents/data.dart';
+import 'package:flow/pages/settings/general.dart';
+import 'package:flow/pages/settings/legal.dart';
+import 'package:flow/pages/settings/personalization.dart';
+import 'package:flow/pages/settings/data.dart';
 import 'package:flutter/material.dart';
 
 class SettingsContent extends StatelessWidget {
@@ -13,9 +13,9 @@ class SettingsContent extends StatelessWidget {
     return Column(
       children: [
         ...[
-          const DataSettingsView(),
-          const PersonalizationSettingsView(),
-          const InformationSettingsView(),
+          const DataSettingsPage(),
+          const PersonalizationSettingsPage(),
+          const GeneralSettingsPage(),
           const LegalSettingsView()
         ].asMap().entries.map((e) => Container(
               key: itemKeys[e.key],

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flow/api/settings.dart';
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/cubits/settings.dart';
 import 'package:flow/widgets/window_buttons.dart';
@@ -64,7 +65,8 @@ List _getSecondaryItems(BuildContext context) => [
       {
         "title": AppLocalizations.of(context).settings,
         "icon": PhosphorIconsLight.gear,
-        "link": "/settings"
+        "link": "/settings",
+        "onTap": () => openSettings(context),
       }
     ];
 
@@ -231,7 +233,7 @@ class _FlowDrawer extends StatelessWidget {
             style: ListTileStyle.drawer,
             title: Text(map['title']),
             leading: PhosphorIcon(map['icon']),
-            onTap: () => GoRouter.of(context).go(map['link']),
+            onTap: map["onTap"] ?? () => GoRouter.of(context).go(map['link']),
             selected: currentSelected,
             selectedColor: Theme.of(context).colorScheme.onSurface,
             selectedTileColor: currentSelected

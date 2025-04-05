@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/storage/remote/model.dart';
@@ -25,9 +26,10 @@ enum ThemeDensity {
 }
 
 @MappableClass()
-class FlowSettings with FlowSettingsMappable {
+class FlowSettings with FlowSettingsMappable, LeapSettings {
   final String locale;
   final ThemeMode themeMode;
+  @override
   final bool nativeTitleBar;
   final String design;
   final SyncMode syncMode;
@@ -86,7 +88,8 @@ enum SyncMode { always, noMobile, manual }
 
 enum SyncStatus { synced, syncing, error }
 
-class SettingsCubit extends Cubit<FlowSettings> {
+class SettingsCubit extends Cubit<FlowSettings>
+    with LeapSettingsBlocBaseMixin<FlowSettings> {
   SettingsCubit(SharedPreferences prefs) : super(FlowSettings.fromPrefs(prefs));
 
   Future<void> changeThemeMode(ThemeMode mode) {
