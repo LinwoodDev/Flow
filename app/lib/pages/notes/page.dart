@@ -236,7 +236,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog<Note>(
+        onPressed: () => showDialog<SourcedModel<Note>>(
             context: context,
             builder: (context) => NoteDialog(
                   note: Note(

@@ -1,3 +1,4 @@
+import 'package:flow/pages/notes/select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
@@ -109,7 +110,7 @@ class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
                                   ),
                                 ),
                           onTap: () async {
-                            await showDialog<Note>(
+                            await showDialog<SourcedModel<Note>>(
                               context: context,
                               builder: (context) => NoteDialog(
                                 source: widget.source,
@@ -132,17 +133,18 @@ class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: FloatingActionButton.extended(
-                label: Text(AppLocalizations.of(context).create),
-                icon: const PhosphorIcon(PhosphorIconsLight.plus),
+                label: Text(AppLocalizations.of(context).link),
+                icon: const PhosphorIcon(PhosphorIconsLight.link),
                 onPressed: () async {
-                  final note = await showDialog<Note>(
+                  final note = await showDialog<SourcedModel<Note>>(
                     context: context,
-                    builder: (context) => NoteDialog(
+                    builder: (context) => NoteSelectDialog(
                       source: widget.source,
                     ),
                   );
                   if (note != null) {
-                    await widget.connector.connect(widget.model.id!, note.id!);
+                    await widget.connector
+                        .connect(widget.model.id!, note.model.id!);
                   }
                   _pagingController.refresh();
                 },

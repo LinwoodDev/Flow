@@ -1,4 +1,6 @@
+import 'package:flow/pages/notes/note.dart';
 import 'package:flow/widgets/select.dart';
+import 'package:flow_api/models/note/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'dart:typed_data';
@@ -62,6 +64,39 @@ class LabelSelectDialog extends StatelessWidget {
         search: search,
       ),
       title: AppLocalizations.of(context).label,
+      selected: selected,
+    );
+  }
+}
+
+class NoteSelectDialog extends StatelessWidget {
+  final String? source;
+  final SourcedModel<Uint8List>? selected;
+
+  const NoteSelectDialog({
+    super.key,
+    this.source,
+    this.selected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SelectDialog(
+      onFetch: (source, service, search, offset, limit) async =>
+          service.note?.getNotes(
+        offset: offset,
+        limit: limit,
+        search: search,
+      ),
+      onCreate: (source) => showDialog<SourcedModel<Note>>(
+        context: context,
+        builder: (context) => NoteDialog(
+          source: source,
+          note: null,
+          create: true,
+        ),
+      ),
+      title: AppLocalizations.of(context).note,
       selected: selected,
     );
   }

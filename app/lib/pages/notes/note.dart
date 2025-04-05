@@ -1,5 +1,6 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/widgets/markdown_field.dart';
+import 'package:flow_api/models/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
@@ -141,7 +142,7 @@ class _NoteDialogState extends State<NoteDialog> {
             } else {
               await _service?.updateNote(_newNote);
             }
-            navigator.pop(created);
+            navigator.pop(SourcedModel(_newSource, created));
           },
           child: Text(create
               ? AppLocalizations.of(context).create
