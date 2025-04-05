@@ -299,5 +299,15 @@
   "systemLocale": "Helyi rendszer",
   "notebooks": "Notebooks",
   "createNotebook": "Create notebook",
-  "editNotebook": "Edit notebook"
+  "editNotebook": "Edit notebook",
+  "update": "Update",
+  "currentVersion": "Current version",
+  "checkForUpdates": "Check for updates",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "You are using the latest stable version",
+  "usingLatestNightly": "You are using the latest nightly version",
+  "updateNow": "Update now",
+  "stable": "Stable",
+  "nightly": "Nightly",
+  "updateAvailable": "Update available"
 }
