@@ -299,5 +299,15 @@
   "systemLocale": "Järjestelmän kieli",
   "notebooks": "Muistikirjat",
   "createNotebook": "Luo muistikirja",
-  "editNotebook": "Muokkaa muistikirjaa"
+  "editNotebook": "Muokkaa muistikirjaa",
+  "update": "Päivitä",
+  "currentVersion": "Nykyinen versio",
+  "checkForUpdates": "Tarkista päivitykset",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "Käytät viimeisintä vakaata versiota",
+  "usingLatestNightly": "Olet käyttämässä uusinta yöllä versiota",
+  "updateNow": "Päivitä nyt",
+  "stable": "Vakaa",
+  "nightly": "Yöllä",
+  "updateAvailable": "Päivitys saatavilla"
 }
