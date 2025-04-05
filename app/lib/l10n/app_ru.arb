@@ -299,5 +299,15 @@
   "systemLocale": "Системный язык",
   "notebooks": "Ноутбуки",
   "createNotebook": "Создать блокнот",
-  "editNotebook": "Редактировать блокнот"
+  "editNotebook": "Редактировать блокнот",
+  "update": "Обновление",
+  "currentVersion": "Текущая версия",
+  "checkForUpdates": "Проверить обновления",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "Вы используете последнюю стабильную версию",
+  "usingLatestNightly": "Вы используете последнюю ночную версию",
+  "updateNow": "Обновить сейчас",
+  "stable": "Конюшня",
+  "nightly": "Ночной",
+  "updateAvailable": "Доступно обновление"
 }
