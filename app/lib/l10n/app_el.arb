@@ -299,5 +299,15 @@
   "systemLocale": "Τοπική ρύθμιση συστήματος",
   "notebooks": "Σημειωματάριο",
   "createNotebook": "Δημιουργία σημειωματάριο",
-  "editNotebook": "Επεξεργασία σημειωματικού"
+  "editNotebook": "Επεξεργασία σημειωματικού",
+  "update": "Ενημέρωση",
+  "currentVersion": "Τρέχουσα έκδοση",
+  "checkForUpdates": "Έλεγχος ενημερώσεων",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "Χρησιμοποιείτε την τελευταία σταθερή έκδοση",
+  "usingLatestNightly": "Χρησιμοποιείτε την τελευταία νυχτερινή έκδοση",
+  "updateNow": "Ενημέρωση τώρα",
+  "stable": "Σταθερό",
+  "nightly": "Νυχτερινή",
+  "updateAvailable": "Διαθέσιμη ενημέρωση"
 }
