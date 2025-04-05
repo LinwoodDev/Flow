@@ -299,5 +299,15 @@
   "systemLocale": "Ustawienia regionalne systemu",
   "notebooks": "Notatniki",
   "createNotebook": "Utwórz notatnik",
-  "editNotebook": "Edytuj notatnik"
+  "editNotebook": "Edytuj notatnik",
+  "update": "Aktualizuj",
+  "currentVersion": "Aktualna wersja",
+  "checkForUpdates": "Sprawdź aktualizacje",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "Używasz najnowszej stabilnej wersji",
+  "usingLatestNightly": "Używasz najnowszej wersji nocnej",
+  "updateNow": "Aktualizuj teraz",
+  "stable": "Stabilność",
+  "nightly": "Nocny",
+  "updateAvailable": "Dostępna aktualizacja"
 }
