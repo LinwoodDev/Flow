@@ -299,5 +299,15 @@
   "systemLocale": "Ngôn ngữ hệ thống",
   "notebooks": "Notebooks",
   "createNotebook": "Create notebook",
-  "editNotebook": "Edit notebook"
+  "editNotebook": "Edit notebook",
+  "update": "Cập nhật",
+  "currentVersion": "Phiên bản hiện tại",
+  "checkForUpdates": "Kiểm tra cập nhật",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "Bạn đang dùng phiên bản ổn định mới nhất",
+  "usingLatestNightly": "Bạn đang dùng phiên bản nightly mới nhất",
+  "updateNow": "Cập nhật ngay",
+  "stable": "Ổn định",
+  "nightly": "Nightly",
+  "updateAvailable": "Đã có bản cập nhật"
 }
