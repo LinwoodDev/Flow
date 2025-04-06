@@ -4,6 +4,7 @@
   "calendar": "Calendar",
   "resources": "Resources",
   "users": "Users",
+  "user": "User",
   "sources": "Sources",
   "settings": "設定",
   "create": "建立",
@@ -298,5 +299,15 @@
   "systemLocale": "System locale",
   "notebooks": "Notebooks",
   "createNotebook": "Create notebook",
-  "editNotebook": "Edit notebook"
+  "editNotebook": "Edit notebook",
+  "update": "更新",
+  "currentVersion": "目前版本",
+  "checkForUpdates": "檢查更新",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "現在的是最新穩定版",
+  "usingLatestNightly": "現在的是最新夜間版",
+  "updateNow": "立即更新",
+  "stable": "穩定版",
+  "nightly": "Nightly",
+  "updateAvailable": "有更新"
 }

@@ -4,6 +4,7 @@
   "calendar": "Kalender",
   "resources": "Ressourcen",
   "users": "Benutzer",
+  "user": "User",
   "sources": "Quellen",
   "settings": "Einstellungen",
   "create": "Anlegen",
@@ -298,5 +299,15 @@
   "systemLocale": "Systemsprache",
   "notebooks": "Notizbücher",
   "createNotebook": "Notizbuch erstellen",
-  "editNotebook": "Notizbuch bearbeiten"
+  "editNotebook": "Notizbuch bearbeiten",
+  "update": "Aktualisieren",
+  "currentVersion": "Aktuelle Version",
+  "checkForUpdates": "Nach Updates suchen",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "Sie verwenden die neueste stabile Version",
+  "usingLatestNightly": "Sie verwenden die neueste Nightly Version",
+  "updateNow": "Jetzt aktualisieren",
+  "stable": "Stall",
+  "nightly": "Nachts",
+  "updateAvailable": "Update verfügbar"
 }

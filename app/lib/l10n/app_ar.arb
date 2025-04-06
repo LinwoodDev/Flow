@@ -4,6 +4,7 @@
   "calendar": "التقويم",
   "resources": "الموارد",
   "users": "المستخدمون",
+  "user": "User",
   "sources": "المصادر",
   "settings": "الإعدادات",
   "create": "إنشاء",
@@ -298,5 +299,15 @@
   "systemLocale": "محلي النظام",
   "notebooks": "الحواشي",
   "createNotebook": "إنشاء دفتر ملاحظات",
-  "editNotebook": "تحرير دفتر الملاحظات"
+  "editNotebook": "تحرير دفتر الملاحظات",
+  "update": "تحديث",
+  "currentVersion": "الإصدار الحالي",
+  "checkForUpdates": "التحقق من وجود تحديثات",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "أنت تستخدم أحدث إصدار مستقر",
+  "usingLatestNightly": "أنت تستخدم أحدث إصدار ليلي",
+  "updateNow": "التحديث الآن",
+  "stable": "اسطبل",
+  "nightly": "ليلي",
+  "updateAvailable": "التحديث متاح"
 }

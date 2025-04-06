@@ -4,6 +4,7 @@
   "calendar": "Calendar",
   "resources": "Resurse",
   "users": "Utilizatori",
+  "user": "User",
   "sources": "Surse",
   "settings": "Setări",
   "create": "Crează",
@@ -298,5 +299,15 @@
   "systemLocale": "Localizare sistem",
   "notebooks": "Notebook-uri",
   "createNotebook": "Creare caiet",
-  "editNotebook": "Editare caiet"
+  "editNotebook": "Editare caiet",
+  "update": "Actualizare",
+  "currentVersion": "Versiunea curentă",
+  "checkForUpdates": "Verifică pentru actualizări",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "Folosești cea mai recentă versiune stabilă",
+  "usingLatestNightly": "Folosești ultima versiune nocturnă",
+  "updateNow": "Actualizează acum",
+  "stable": "Stabil",
+  "nightly": "Noptez",
+  "updateAvailable": "Actualizare disponibilă"
 }

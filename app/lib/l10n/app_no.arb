@@ -4,6 +4,7 @@
   "calendar": "Kalender",
   "resources": "Ressurser",
   "users": "Brukere",
+  "user": "User",
   "sources": "Kilder",
   "settings": "Innstillinger",
   "create": "Opprett",
@@ -298,5 +299,15 @@
   "systemLocale": "System nasjonale innstillinger",
   "notebooks": "Notatbøker",
   "createNotebook": "Opprett notatbok",
-  "editNotebook": "Rediger notatbok"
+  "editNotebook": "Rediger notatbok",
+  "update": "Oppdater",
+  "currentVersion": "Gjeldende versjon",
+  "checkForUpdates": "Se etter oppdateringer",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "Du bruker den nyeste stabile versjonen",
+  "usingLatestNightly": "Du bruker den siste nattlige versjonen",
+  "updateNow": "Oppdater nå",
+  "stable": "Stabil",
+  "nightly": "Nattlig",
+  "updateAvailable": "Oppdatering tilgjengelig"
 }

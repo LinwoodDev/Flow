@@ -4,6 +4,7 @@
   "calendar": "Takvim",
   "resources": "Resources",
   "users": "Kullanıcılar",
+  "user": "User",
   "sources": "Kaynaklar",
   "settings": "Ayarlar",
   "create": "Oluştur",
@@ -298,5 +299,15 @@
   "systemLocale": "Sistem varsayılanı",
   "notebooks": "Not Defterleri",
   "createNotebook": "Not defteri oluştur",
-  "editNotebook": "Not defterini düzenle"
+  "editNotebook": "Not defterini düzenle",
+  "update": "Güncelleme",
+  "currentVersion": "Şu anki sürüm",
+  "checkForUpdates": "Güncellemeleri denetle",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "En son sürümü kullanıyorsunuz",
+  "usingLatestNightly": "En son nightly (kod tabanından gelen) sürümü kullanıyorsunuz",
+  "updateNow": "Şimdi güncelle",
+  "stable": "Kararlı",
+  "nightly": "Nightly",
+  "updateAvailable": "Güncelleme mevcut"
 }

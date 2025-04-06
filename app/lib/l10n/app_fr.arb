@@ -4,6 +4,7 @@
   "calendar": "Calendrier",
   "resources": "Ressource",
   "users": "Utilisateurs",
+  "user": "User",
   "sources": "Sources",
   "settings": "Réglages",
   "create": "Créer",
@@ -298,5 +299,15 @@
   "systemLocale": "Paramètres régionaux du système",
   "notebooks": "Carnets",
   "createNotebook": "Créer un bloc-notes",
-  "editNotebook": "Modifier le bloc-notes"
+  "editNotebook": "Modifier le bloc-notes",
+  "update": "Mise à jour",
+  "currentVersion": "Version actuelle",
+  "checkForUpdates": "Vérifier les mises à jour",
+  "checkForUpdatesWarning": "Vérifier l'état des mises à jour initiera une connexion au site internet de Linwood Butterfly pour recueillir les informations.",
+  "usingLatestStable": "Vous utilisez la dernière version stable",
+  "usingLatestNightly": "Vous utilisez la dernière version \"Nightly\" (en cours de développement) de Linwood Butterfly",
+  "updateNow": "Mettre à jour maintenant",
+  "stable": "Écurie",
+  "nightly": "Nuit",
+  "updateAvailable": "Mise à jour disponible"
 }

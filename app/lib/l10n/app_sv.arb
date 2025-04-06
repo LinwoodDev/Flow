@@ -4,6 +4,7 @@
   "calendar": "Kalender",
   "resources": "Resurser",
   "users": "Användare",
+  "user": "User",
   "sources": "Källor",
   "settings": "Inställningar",
   "create": "Skapa",
@@ -298,5 +299,15 @@
   "systemLocale": "Systemets språk",
   "notebooks": "Anteckningsböcker",
   "createNotebook": "Skapa anteckningsbok",
-  "editNotebook": "Redigera anteckningsbok"
+  "editNotebook": "Redigera anteckningsbok",
+  "update": "Uppdatera",
+  "currentVersion": "Nuvarande version",
+  "checkForUpdates": "Sök efter uppdateringar",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "usingLatestStable": "Du använder den senaste stabila versionen",
+  "usingLatestNightly": "Du använder den senaste nattliga versionen",
+  "updateNow": "Uppdatera nu",
+  "stable": "Stabil",
+  "nightly": "Nattlig",
+  "updateAvailable": "Uppdatering tillgänglig"
 }
