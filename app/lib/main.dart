@@ -5,7 +5,10 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/api/storage/sources.dart';
 import 'package:flow/pages/calendar/filter.dart';
+import 'package:flow/pages/settings/data.dart';
+import 'package:flow/pages/settings/general.dart';
 import 'package:flow/pages/settings/home.dart';
+import 'package:flow/pages/settings/personalization.dart';
 import 'package:flow/theme.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flow_api/helpers/setup.dart';
@@ -121,6 +124,24 @@ class FlowApp extends StatelessWidget {
 
   final GoRouter _router = GoRouter(
     routes: <RouteBase>[
+      GoRoute(
+        path: '/settings',
+        builder: (context, state) => const SettingsPage(),
+        routes: [
+          GoRoute(
+            path: 'general',
+            builder: (context, state) => const GeneralSettingsPage(),
+          ),
+          GoRoute(
+            path: 'data',
+            builder: (context, state) => const DataSettingsPage(),
+          ),
+          GoRoute(
+            path: 'personalization',
+            builder: (context, state) => const PersonalizationSettingsPage(),
+          ),
+        ],
+      ),
       ShellRoute(
           builder: (context, state, child) => FlowRootNavigation(child: child),
           routes: [
@@ -184,10 +205,6 @@ class FlowApp extends StatelessWidget {
                   GoRoute(
                     path: 'sources',
                     builder: (context, state) => const SourcesPage(),
-                  ),
-                  GoRoute(
-                    path: 'settings',
-                    builder: (context, state) => const SettingsPage(),
                   ),
                 ]),
           ]),
