@@ -2,6 +2,18 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 0.4.1 (2025-04-07)
+
+* Unify settings dialog with other linwood apps
+* Improve dashboard design
+* Use linking instead of creating inside details tab views
+* Fix calendar fetching not working correctly ([#86](https://github.com/LinwoodDev/Flow/issues/86))
+* Fix group list view not working correctly
+* Fix user list view not working correctly
+* Fix note list view not working correctly
+
+Read more here: https://linwood.dev/flow/0.4.1
+
 ## 0.4.0 (2025-03-24)
 
 * Add color wheel
