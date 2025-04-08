@@ -309,5 +309,14 @@
   "updateNow": "立即更新",
   "stable": "穩定版",
   "nightly": "Nightly",
-  "updateAvailable": "有更新"
+  "updateAvailable": "有更新",
+  "countItems": "{count, plural, =0 {No items} one {1 item} other {{count} items}}",
+  "@countItems": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
