@@ -309,5 +309,14 @@
   "updateNow": "Cập nhật ngay",
   "stable": "Ổn định",
   "nightly": "Nightly",
-  "updateAvailable": "Đã có bản cập nhật"
+  "updateAvailable": "Đã có bản cập nhật",
+  "countItems": "{count, plural, =0 {No items} one {1 item} other {{count} items}}",
+  "@countItems": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
