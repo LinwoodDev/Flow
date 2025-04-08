@@ -309,5 +309,14 @@
   "updateNow": "Mettre à jour maintenant",
   "stable": "Écurie",
   "nightly": "Nuit",
-  "updateAvailable": "Mise à jour disponible"
+  "updateAvailable": "Mise à jour disponible",
+  "countItems": "{count, plural, =0 {No items} one {1 item} other {{count} items}}",
+  "@countItems": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
