@@ -1,0 +1,3 @@
+* Fix safe area of navigation drawer
+
+Read more here: https://linwood.dev/flow/0.4.2

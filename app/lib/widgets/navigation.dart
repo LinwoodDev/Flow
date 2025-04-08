@@ -188,13 +188,14 @@ class FlowNavigation extends StatelessWidget {
                 appBar: title == null ? null : appBar,
                 key: _scaffoldKey,
                 drawer: isMobile
-                    ? const Drawer(
+                    ? const SafeArea(
+                        child: Drawer(
                         width: _drawerWidth,
                         child: drawer,
-                      )
+                      ))
                     : null,
                 endDrawer: isMobile && endDrawer != null
-                    ? Drawer(child: endDrawer)
+                    ? SafeArea(child: Drawer(child: endDrawer))
                     : null,
                 body: Row(
                   children: [
