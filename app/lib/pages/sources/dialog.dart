@@ -121,15 +121,21 @@ class AddSourceDialog extends StatelessWidget {
                       final converter = ICalConverter();
                       converter.read(lines);
                       final events = converter.data?.events ?? [];
+                      final items = converter.data?.items ?? [];
                       if (context.mounted) {
                         final success = await showDialog<bool>(
                           context: context,
-                          builder: (context) => ImportDialog(events: events),
+                          builder: (context) =>
+                              ImportDialog(events: events, items: items),
                         );
                         if (success != true) return;
                         final service = cubit.getCurrentService().event;
                         await Future.wait(events
                             .map((event) async => service?.createEvent(event)));
+                        await Future.wait(items.map((item) async => cubit
+                            .getCurrentService()
+                            .calendarItem
+                            ?.createCalendarItem(item)));
                       }
                       if (context.mounted) {
                         Navigator.of(context).pop();

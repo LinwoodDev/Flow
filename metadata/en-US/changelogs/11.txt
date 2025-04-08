@@ -1,3 +1,4 @@
 * Fix safe area of navigation drawer
+* Fix ical importer doesn't import calendar items ([#89](https://github.com/LinwoodDev/Flow/issues/89))
 
 Read more here: https://linwood.dev/flow/0.4.2
