@@ -309,5 +309,14 @@
   "updateNow": "Opdater nu",
   "stable": "Stabil",
   "nightly": "Natligt",
-  "updateAvailable": "Opdatering tilgængelig"
+  "updateAvailable": "Opdatering tilgængelig",
+  "countItems": "{count, plural, =0 {No items} one {1 item} other {{count} items}}",
+  "@countItems": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
