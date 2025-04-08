@@ -309,5 +309,14 @@
   "updateNow": "Ενημέρωση τώρα",
   "stable": "Σταθερό",
   "nightly": "Νυχτερινή",
-  "updateAvailable": "Διαθέσιμη ενημέρωση"
+  "updateAvailable": "Διαθέσιμη ενημέρωση",
+  "countItems": "{count, plural, =0 {No items} one {1 item} other {{count} items}}",
+  "@countItems": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
