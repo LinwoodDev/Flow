@@ -309,5 +309,14 @@
   "updateNow": "Actualizează acum",
   "stable": "Stabil",
   "nightly": "Noptez",
-  "updateAvailable": "Actualizare disponibilă"
+  "updateAvailable": "Actualizare disponibilă",
+  "countItems": "{count, plural, =0 {No items} one {1 item} other {{count} items}}",
+  "@countItems": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
