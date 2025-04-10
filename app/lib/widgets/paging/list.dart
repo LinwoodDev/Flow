@@ -1,42 +1,118 @@
 import 'package:flow/blocs/sourced_paging.dart';
+import 'package:flow/widgets/paging/builder.dart';
 import 'package:flow/widgets/paging/empty.dart';
-import 'package:flow/widgets/paging/error.dart';
-import 'package:flow/widgets/paging/loading.dart';
 import 'package:flow_api/models/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-final class PagedListView<T> extends StatelessWidget {
-  final Widget Function(BuildContext context, SourcedModel<T> item, int index)
-      itemBuilder;
+typedef ItemBuilder<T> = Widget Function(
+    BuildContext context, SourcedModel<T> item, int index);
+typedef DateBuilder<T> = Widget Function(
+    BuildContext context, List<SourcedModel<T>> date, int index);
 
-  const PagedListView({super.key, required this.itemBuilder});
+class PagedListView<T> extends StatelessWidget {
+  final ItemBuilder<T>? itemBuilder;
+  final DateBuilder<T>? dateBuilder;
+  final SourcedPagingBloc<T>? bloc;
+
+  const PagedListView.simple({super.key, required this.itemBuilder, this.bloc})
+      : dateBuilder = null;
+  const PagedListView.dated({
+    super.key,
+    required this.dateBuilder,
+    this.bloc,
+  }) : itemBuilder = null;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SourcedPagingBloc<T>, SourcedPagingState<T>>(
-      builder: (context, state) {
-        return switch (state) {
-          SourcedPagingInitial<T>() => LoadingIndicatorDisplay(),
-          SourcedPagingFailure<T>() => ErrorIndicatorDisplay(
-              onTryAgain: () => context
-                  .read<SourcedPagingBloc<T>>()
-                  .add(SourcedPagingRefresh()),
-            ),
-          SourcedPagingSuccess<T>() => _buildSuccess(state),
-        };
-      },
+    return PagedBuilder(
+      bloc: bloc,
+      builder: (p0, state) => _PagedListView(
+          state: state,
+          itemBuilder: itemBuilder,
+          dateBuilder: dateBuilder,
+          bloc: bloc),
     );
   }
+}
 
-  Widget _buildSuccess(SourcedPagingSuccess<T> state) {
-    if (state.items.isEmpty) {
+final class _PagedListView<T> extends StatefulWidget {
+  final SourcedPagingState<T> state;
+  final ItemBuilder<T>? itemBuilder;
+  final DateBuilder<T>? dateBuilder;
+  final SourcedPagingBloc<T>? bloc;
+
+  const _PagedListView(
+      {super.key,
+      required this.state,
+      this.itemBuilder,
+      this.dateBuilder,
+      this.bloc});
+
+  @override
+  State<_PagedListView<T>> createState() => _PagedListViewState<T>();
+}
+
+class _PagedListViewState<T> extends State<_PagedListView<T>> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _fetch();
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant _PagedListView<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.state != oldWidget.state) {
+      setState((() => {}));
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _onScroll();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final useDates = widget.dateBuilder != null;
+    final state = widget.state;
+    final items = state.items;
+    final dates = state.dates;
+    if (useDates ? dates.isEmpty : items.isEmpty) {
       return const EmptyIndicatorDisplay();
     }
     return ListView.builder(
-      itemCount: state.items.length,
-      itemBuilder: (context, index) =>
-          itemBuilder(context, state.items[index], index),
+      itemCount: useDates ? dates.length : items.length,
+      controller: _scrollController,
+      itemBuilder: (context, index) => useDates
+          ? widget.dateBuilder!(context, dates[index], index)
+          : widget.itemBuilder!(context, items[index], index),
     );
+  }
+
+  bool get _isBottom {
+    if (!_scrollController.hasClients) return false;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.offset;
+    return currentScroll >= (maxScroll * 0.9);
+  }
+
+  void _fetch() =>
+      (widget.bloc ?? context.read<SourcedPagingBloc<T>>()).fetch();
+
+  void _onScroll() {
+    if (_isBottom) {
+      _fetch();
+    }
   }
 }

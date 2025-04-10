@@ -7,7 +7,9 @@ sealed class SourcedPagingState<T> {
 
   SourcedModel<int>? get currentPageKey => null;
   bool get hasReachedMax => false;
-  List<SourcedModel<T>> get items => const [];
+  List<List<SourcedModel<T>>> get dates => const [];
+  List<SourcedModel<T>> get items => dates.expand((e) => e).toList();
+  int get currentDate => 0;
 }
 
 final class SourcedPagingInitial<T> extends SourcedPagingState<T> {
@@ -21,25 +23,31 @@ final class SourcedPagingInitial<T> extends SourcedPagingState<T> {
 final class SourcedPagingSuccess<T> extends SourcedPagingState<T>
     with SourcedPagingSuccessMappable<T> {
   @override
-  final List<SourcedModel<T>> items;
+  final List<List<SourcedModel<T>>> dates;
   @override
   final SourcedModel<int> currentPageKey;
   @override
   final bool hasReachedMax;
+  @override
+  final int currentDate;
 
   const SourcedPagingSuccess({
-    this.items = const [],
+    this.dates = const [],
     required this.currentPageKey,
     this.hasReachedMax = false,
+    this.currentDate = 0,
   });
 }
 
 final class SourcedPagingFailure<T> extends SourcedPagingState<T> {
   final Object error;
   @override
-  final List<SourcedModel<T>> items;
+  final List<List<SourcedModel<T>>> dates;
+  @override
+  final int currentDate;
 
-  const SourcedPagingFailure(this.error, {this.items = const []});
+  const SourcedPagingFailure(this.error,
+      {this.dates = const [], this.currentDate = 0});
 
   @override
   bool get hasReachedMax => true;

@@ -5,14 +5,14 @@ abstract class SourcedPagingEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class SourcedPagingFetched<T> extends SourcedPagingEvent {
+class SourcedPagingFetched extends SourcedPagingEvent {
   SourcedPagingFetched();
 
   @override
   List<Object> get props => [];
 }
 
-class SourcedPagingRefresh<T> extends SourcedPagingEvent {
+class SourcedPagingRefresh extends SourcedPagingEvent {
   SourcedPagingRefresh();
 
   @override

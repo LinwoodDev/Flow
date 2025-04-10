@@ -23,12 +23,12 @@ class SourcedPagingSuccessMapper extends ClassMapperBase<SourcedPagingSuccess> {
   @override
   Function get typeFactory => <T>(f) => f<SourcedPagingSuccess<T>>();
 
-  static List<ConnectedModel<String, dynamic>> _$items(
+  static List<List<ConnectedModel<String, dynamic>>> _$items(
           SourcedPagingSuccess v) =>
-      v.items;
-  static dynamic _arg$items<T>(f) => f<List<ConnectedModel<String, T>>>();
+      v.dates;
+  static dynamic _arg$items<T>(f) => f<List<List<ConnectedModel<String, T>>>>();
   static const Field<SourcedPagingSuccess,
-          List<ConnectedModel<String, dynamic>>> _f$items =
+          List<List<ConnectedModel<String, dynamic>>>> _f$items =
       Field('items', _$items, opt: true, def: const [], arg: _arg$items);
   static ConnectedModel<String, int> _$currentPageKey(SourcedPagingSuccess v) =>
       v.currentPageKey;
@@ -37,19 +37,24 @@ class SourcedPagingSuccessMapper extends ClassMapperBase<SourcedPagingSuccess> {
   static bool _$hasReachedMax(SourcedPagingSuccess v) => v.hasReachedMax;
   static const Field<SourcedPagingSuccess, bool> _f$hasReachedMax =
       Field('hasReachedMax', _$hasReachedMax, opt: true, def: false);
+  static int _$currentDate(SourcedPagingSuccess v) => v.currentDate;
+  static const Field<SourcedPagingSuccess, int> _f$currentDate =
+      Field('currentDate', _$currentDate, opt: true, def: 0);
 
   @override
   final MappableFields<SourcedPagingSuccess> fields = const {
     #items: _f$items,
     #currentPageKey: _f$currentPageKey,
     #hasReachedMax: _f$hasReachedMax,
+    #currentDate: _f$currentDate,
   };
 
   static SourcedPagingSuccess<T> _instantiate<T>(DecodingData data) {
     return SourcedPagingSuccess(
-        items: data.dec(_f$items),
+        dates: data.dec(_f$items),
         currentPageKey: data.dec(_f$currentPageKey),
-        hasReachedMax: data.dec(_f$hasReachedMax));
+        hasReachedMax: data.dec(_f$hasReachedMax),
+        currentDate: data.dec(_f$currentDate));
   }
 
   @override
@@ -96,15 +101,16 @@ abstract class SourcedPagingSuccessCopyWith<
     T> implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<
       $R,
-      ConnectedModel<String, T>,
-      ConnectedModelCopyWith<$R, ConnectedModel<String, T>,
-          ConnectedModel<String, T>, String, T>> get items;
+      List<ConnectedModel<String, T>>,
+      ObjectCopyWith<$R, List<ConnectedModel<String, T>>,
+          List<ConnectedModel<String, T>>>> get items;
   ConnectedModelCopyWith<$R, ConnectedModel<String, int>,
       ConnectedModel<String, int>, String, int> get currentPageKey;
   $R call(
-      {List<ConnectedModel<String, T>>? items,
+      {List<List<ConnectedModel<String, T>>>? items,
       ConnectedModel<String, int>? currentPageKey,
-      bool? hasReachedMax});
+      bool? hasReachedMax,
+      int? currentDate});
   SourcedPagingSuccessCopyWith<$R2, $In, $Out2, T> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -121,10 +127,12 @@ class _SourcedPagingSuccessCopyWithImpl<$R, $Out, T>
   @override
   ListCopyWith<
       $R,
-      ConnectedModel<String, T>,
-      ConnectedModelCopyWith<$R, ConnectedModel<String, T>,
-          ConnectedModel<String, T>, String, T>> get items => ListCopyWith(
-      $value.items, (v, t) => v.copyWith.$chain(t), (v) => call(items: v));
+      List<ConnectedModel<String, T>>,
+      ObjectCopyWith<$R, List<ConnectedModel<String, T>>,
+          List<ConnectedModel<String, T>>>> get items => ListCopyWith(
+      $value.dates,
+      (v, t) => ObjectCopyWith(v, $identity, t),
+      (v) => call(items: v));
   @override
   ConnectedModelCopyWith<$R, ConnectedModel<String, int>,
           ConnectedModel<String, int>, String, int>
@@ -132,19 +140,22 @@ class _SourcedPagingSuccessCopyWithImpl<$R, $Out, T>
           $value.currentPageKey.copyWith.$chain((v) => call(currentPageKey: v));
   @override
   $R call(
-          {List<ConnectedModel<String, T>>? items,
+          {List<List<ConnectedModel<String, T>>>? items,
           ConnectedModel<String, int>? currentPageKey,
-          bool? hasReachedMax}) =>
+          bool? hasReachedMax,
+          int? currentDate}) =>
       $apply(FieldCopyWithData({
         if (items != null) #items: items,
         if (currentPageKey != null) #currentPageKey: currentPageKey,
-        if (hasReachedMax != null) #hasReachedMax: hasReachedMax
+        if (hasReachedMax != null) #hasReachedMax: hasReachedMax,
+        if (currentDate != null) #currentDate: currentDate
       }));
   @override
   SourcedPagingSuccess<T> $make(CopyWithData data) => SourcedPagingSuccess(
-      items: data.get(#items, or: $value.items),
+      dates: data.get(#items, or: $value.dates),
       currentPageKey: data.get(#currentPageKey, or: $value.currentPageKey),
-      hasReachedMax: data.get(#hasReachedMax, or: $value.hasReachedMax));
+      hasReachedMax: data.get(#hasReachedMax, or: $value.hasReachedMax),
+      currentDate: data.get(#currentDate, or: $value.currentDate));
 
   @override
   SourcedPagingSuccessCopyWith<$R2, SourcedPagingSuccess<T>, $Out2, T>
