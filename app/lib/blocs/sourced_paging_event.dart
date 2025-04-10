@@ -18,3 +18,12 @@ class SourcedPagingRefresh extends SourcedPagingEvent {
   @override
   List<Object> get props => [];
 }
+
+class SourcedPagingRemoved extends SourcedPagingEvent {
+  final Object item;
+
+  SourcedPagingRemoved(this.item);
+
+  @override
+  List<Object> get props => [item];
+}

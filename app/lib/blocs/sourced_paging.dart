@@ -18,6 +18,7 @@ class SourcedPagingBloc<T>
   final FlowCubit cubit;
   final int pageSize;
   final bool useDates;
+  final List<String>? sources;
   final Future<List<T>?> Function(
     String source,
     SourceService service,
@@ -28,6 +29,7 @@ class SourcedPagingBloc<T>
 
   SourcedPagingBloc.dated(
       {required this.cubit,
+      this.sources,
       required Future<List<T>?> Function(String source, SourceService service,
               int offset, int limit, int date)
           fetch,
@@ -40,6 +42,7 @@ class SourcedPagingBloc<T>
 
   SourcedPagingBloc.simple(
       {required this.cubit,
+      this.sources,
       required Future<List<T>?> Function(
               String source, SourceService service, int offset, int limit)
           fetch,
@@ -55,6 +58,19 @@ class SourcedPagingBloc<T>
     on<SourcedPagingRefresh>((event, emit) {
       emit(const SourcedPagingInitial());
       fetch();
+    });
+    on<SourcedPagingRemoved>((event, emit) {
+      final state = this.state;
+      if (state is SourcedPagingSuccess<T>) {
+        final items =
+            state.dates.map((e) => e.where((i) => i != event.item).toList());
+        emit(SourcedPagingSuccess(
+          currentPageKey: state.currentPageKey,
+          dates: items.toList(),
+          hasReachedMax: state.hasReachedMax,
+          currentDate: state.currentDate,
+        ));
+      }
     });
     fetch();
   }
@@ -84,7 +100,7 @@ class SourcedPagingBloc<T>
           .map((e) => SourcedModel(currentPageKey.source, e))
           .toList();
 
-      final sources = cubit.getCurrentSources();
+      final sources = this.sources ?? cubit.getCurrentSources();
       final currentSourceIndex = sources.indexOf(currentPageKey.source);
       final keepSource = fetchedItems.length >= pageSize;
       final isLastSource = currentSourceIndex >= sources.length - 1;
@@ -133,6 +149,8 @@ class SourcedPagingBloc<T>
   void fetch() {
     add(SourcedPagingFetched());
   }
+
+  void remove(SourcedModel<T> item) => add(SourcedPagingRemoved(item));
 }
 
 _buildDatedFetch<T>(

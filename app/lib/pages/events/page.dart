@@ -1,16 +1,14 @@
+import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/pages/events/event.dart';
-import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flow/widgets/navigation.dart';
+import 'package:flow/widgets/paging/list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/event/model.dart';
-import 'package:flow_api/models/model.dart';
 
 import '../../cubits/flow.dart';
-import '../../helpers/sourced_paging_controller.dart';
 import 'filter.dart';
 import 'tile.dart';
 
@@ -105,28 +103,29 @@ class EventsBodyView extends StatefulWidget {
 
 class _EventsBodyViewState extends State<EventsBodyView> {
   late final FlowCubit _flowCubit;
-  late final SourcedPagingController<Event> _controller;
+  late final SourcedPagingBloc<Event> _bloc;
   late EventFilter _filter;
 
   @override
   void initState() {
     _flowCubit = context.read<FlowCubit>();
-    _controller = SourcedPagingController(_flowCubit);
-    _controller.addFetchListener((source, service, offset, limit) async =>
-        _filter.source != null && _filter.source != source
-            ? null
-            : service.event?.getEvents(
-                offset: offset,
-                limit: limit,
-                groupId: _filter.source == source ? _filter.group : null,
-                search: widget.search));
+    _bloc = SourcedPagingBloc.simple(
+        cubit: _flowCubit,
+        fetch: (source, service, offset, limit) async =>
+            _filter.source != null && _filter.source != source
+                ? null
+                : service.event?.getEvents(
+                    offset: offset,
+                    limit: limit,
+                    groupId: _filter.source == source ? _filter.group : null,
+                    search: widget.search));
     _filter = widget.filter;
     super.initState();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _bloc.close();
     super.dispose();
   }
 
@@ -135,7 +134,7 @@ class _EventsBodyViewState extends State<EventsBodyView> {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.search != widget.search) {
-      _controller.refresh();
+      _bloc.refresh();
     }
   }
 
@@ -150,37 +149,34 @@ class _EventsBodyViewState extends State<EventsBodyView> {
               setState(() {
                 _filter = filter;
               });
-              _controller.refresh();
+              _bloc.refresh();
             },
           ),
           const SizedBox(height: 8),
           Expanded(
-            child: PagedListView(
-              pagingController: _controller,
-              builderDelegate: buildMaterialPagedDelegate<SourcedModel<Event>>(
-                _controller,
-                (ctx, item, index) => Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    constraints: const BoxConstraints(maxWidth: 800),
-                    child: Dismissible(
-                      key: ValueKey('${item.model.id}@${item.source}'),
-                      onDismissed: (direction) async {
-                        await _flowCubit
-                            .getService(item.source)
-                            .event
-                            ?.deleteEvent(item.model.id!);
-                        _controller.itemList!.remove(item);
-                      },
-                      background: Container(
-                        color: Colors.red,
-                      ),
-                      child: EventTile(
-                        flowCubit: _flowCubit,
-                        pagingController: _controller,
-                        source: item.source,
-                        event: item.model,
-                      ),
+            child: PagedListView.simple(
+              bloc: _bloc,
+              itemBuilder: (ctx, item, index) => Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  constraints: const BoxConstraints(maxWidth: 800),
+                  child: Dismissible(
+                    key: ValueKey('${item.model.id}@${item.source}'),
+                    onDismissed: (direction) async {
+                      await _flowCubit
+                          .getService(item.source)
+                          .event
+                          ?.deleteEvent(item.model.id!);
+                      _bloc.remove(item);
+                    },
+                    background: Container(
+                      color: Colors.red,
+                    ),
+                    child: EventTile(
+                      flowCubit: _flowCubit,
+                      bloc: _bloc,
+                      source: item.source,
+                      event: item.model,
                     ),
                   ),
                 ),
@@ -192,7 +188,7 @@ class _EventsBodyViewState extends State<EventsBodyView> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
                 context: context, builder: (context) => const EventDialog())
-            .then((_) => _controller.refresh()),
+            .then((_) => _bloc.refresh()),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),

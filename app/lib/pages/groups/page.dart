@@ -1,16 +1,14 @@
+import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/pages/groups/group.dart';
-import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flow/widgets/navigation.dart';
+import 'package:flow/widgets/paging/list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/group/model.dart';
-import 'package:flow_api/models/model.dart';
 
 import '../../cubits/flow.dart';
-import '../../helpers/sourced_paging_controller.dart';
 import 'tile.dart';
 
 class GroupsPage extends StatefulWidget {
@@ -89,20 +87,21 @@ class GroupsBodyView extends StatefulWidget {
 
 class _GroupsBodyViewState extends State<GroupsBodyView> {
   late final FlowCubit _flowCubit;
-  late final SourcedPagingController<Group> _controller;
+  late final SourcedPagingBloc<Group> _bloc;
 
   @override
   void initState() {
     _flowCubit = context.read<FlowCubit>();
-    _controller = SourcedPagingController(_flowCubit);
-    _controller.addFetchListener((source, service, offset, limit) async =>
-        service.group?.getGroups(offset: offset, limit: limit));
+    _bloc = SourcedPagingBloc.simple(
+        cubit: _flowCubit,
+        fetch: (source, service, offset, limit) async =>
+            service.group?.getGroups(offset: offset, limit: limit));
     super.initState();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _bloc.close();
     super.dispose();
   }
 
@@ -111,39 +110,36 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.search != widget.search) {
-      _controller.refresh();
+      _bloc.refresh();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PagedListView(
-        pagingController: _controller,
-        builderDelegate: buildMaterialPagedDelegate<SourcedModel<Group>>(
-          _controller,
-          (ctx, item, index) => Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              constraints: const BoxConstraints(maxWidth: 800),
-              child: Dismissible(
-                key: ValueKey('${item.model.id}@${item.source}'),
-                onDismissed: (direction) async {
-                  await _flowCubit
-                      .getService(item.source)
-                      .group
-                      ?.deleteGroup(item.model.id!);
-                  _controller.itemList!.remove(item);
-                },
-                background: Container(
-                  color: Colors.red,
-                ),
-                child: GroupTile(
-                  flowCubit: _flowCubit,
-                  pagingController: _controller,
-                  source: item.source,
-                  group: item.model,
-                ),
+      body: PagedListView.simple(
+        bloc: _bloc,
+        itemBuilder: (ctx, item, index) => Align(
+          alignment: Alignment.topCenter,
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 800),
+            child: Dismissible(
+              key: ValueKey('${item.model.id}@${item.source}'),
+              onDismissed: (direction) async {
+                await _flowCubit
+                    .getService(item.source)
+                    .group
+                    ?.deleteGroup(item.model.id!);
+                _bloc.remove(item);
+              },
+              background: Container(
+                color: Colors.red,
+              ),
+              child: GroupTile(
+                flowCubit: _flowCubit,
+                bloc: _bloc,
+                source: item.source,
+                group: item.model,
               ),
             ),
           ),
@@ -152,7 +148,7 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
                 context: context, builder: (context) => const GroupDialog())
-            .then((_) => _controller.refresh()),
+            .then((_) => _bloc.refresh()),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),
