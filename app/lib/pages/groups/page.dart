@@ -92,7 +92,7 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
   @override
   void initState() {
     _flowCubit = context.read<FlowCubit>();
-    _bloc = SourcedPagingBloc.simple(
+    _bloc = SourcedPagingBloc.item(
         cubit: _flowCubit,
         fetch: (source, service, offset, limit) async =>
             service.group?.getGroups(offset: offset, limit: limit));
@@ -117,7 +117,7 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PagedListView.simple(
+      body: PagedListView.item(
         bloc: _bloc,
         itemBuilder: (ctx, item, index) => Align(
           alignment: Alignment.topCenter,

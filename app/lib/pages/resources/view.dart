@@ -1,15 +1,15 @@
+import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/pages/resources/select.dart';
+import 'package:flow/widgets/paging/list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/model.dart';
 import 'package:flow_api/models/resource/model.dart';
 import 'package:flow_api/models/resource/service.dart';
 
 import '../../cubits/flow.dart';
-import '../../widgets/builder_delegate.dart';
 import 'resource.dart';
 
 class ResourcesView<T extends DescriptiveModel> extends StatefulWidget {
@@ -29,37 +29,22 @@ class ResourcesView<T extends DescriptiveModel> extends StatefulWidget {
 
 class _ResourcesViewState<T extends DescriptiveModel>
     extends State<ResourcesView<T>> {
-  static const _pageSize = 20;
-
   late final ResourceService? _resourceService;
 
-  final PagingController<int, Resource> _pagingController =
-      PagingController(firstPageKey: 0);
+  late final SourcedPagingBloc<Resource> _bloc;
 
   @override
   void initState() {
-    final service = context.read<FlowCubit>().getService(widget.source);
+    final cubit = context.read<FlowCubit>();
+    final service = cubit.getService(widget.source);
     _resourceService = service.resource;
-    _pagingController.addPageRequestListener((pageKey) {
-      _fetchPage(pageKey);
-    });
+    _bloc = SourcedPagingBloc.source(
+      cubit: cubit,
+      source: widget.source,
+      fetch: (service, offset, limit) => widget.connector
+          .getItems(widget.model.id!, offset: offset, limit: limit),
+    );
     super.initState();
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
-    try {
-      final newItems = await widget.connector.getItems(widget.model.id!,
-          offset: pageKey * _pageSize, limit: _pageSize);
-      final isLastPage = newItems.length < _pageSize;
-      if (isLastPage) {
-        _pagingController.appendLastPage(newItems);
-      } else {
-        final nextPageKey = pageKey + 1;
-        _pagingController.appendPage(newItems, nextPageKey);
-      }
-    } catch (error) {
-      _pagingController.error = error;
-    }
   }
 
   @override
@@ -72,34 +57,31 @@ class _ResourcesViewState<T extends DescriptiveModel>
           Column(
             children: [
               Flexible(
-                child: PagedListView<int, Resource>(
-                  pagingController: _pagingController,
-                  builderDelegate: buildMaterialPagedDelegate<Resource>(
-                    _pagingController,
-                    (context, item, index) {
-                      return Dismissible(
-                        key: ValueKey(item.id),
-                        background: Container(color: Colors.red),
-                        onDismissed: (direction) {
-                          _resourceService?.deleteResource(item.id!);
-                          _pagingController.itemList!.remove(item);
+                child: PagedListView<Resource>.source(
+                  bloc: _bloc,
+                  itemBuilder: (context, item, index) {
+                    return Dismissible(
+                      key: ValueKey(item.id),
+                      background: Container(color: Colors.red),
+                      onDismissed: (direction) {
+                        _resourceService?.deleteResource(item.id!);
+                        _bloc.removeSourced(item);
+                      },
+                      child: ListTile(
+                        title: Text(item.name),
+                        onTap: () async {
+                          await showDialog(
+                            context: context,
+                            builder: (context) => ResourceDialog(
+                              source: widget.source,
+                              resource: item,
+                            ),
+                          );
+                          _bloc.refresh();
                         },
-                        child: ListTile(
-                          title: Text(item.name),
-                          onTap: () async {
-                            await showDialog(
-                              context: context,
-                              builder: (context) => ResourceDialog(
-                                source: widget.source,
-                                resource: item,
-                              ),
-                            );
-                            _pagingController.refresh();
-                          },
-                        ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
               ),
               const SizedBox(height: 64),
@@ -123,7 +105,7 @@ class _ResourcesViewState<T extends DescriptiveModel>
                     await widget.connector
                         .connect(widget.model.id!, resource.model.id!);
                   }
-                  _pagingController.refresh();
+                  _bloc.refresh();
                 },
               ),
             ),
@@ -133,7 +115,7 @@ class _ResourcesViewState<T extends DescriptiveModel>
 
   @override
   void dispose() {
-    _pagingController.dispose();
+    _bloc.close();
     super.dispose();
   }
 }

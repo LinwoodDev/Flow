@@ -40,7 +40,7 @@ class SourcedPagingBloc<T>
     _init();
   }
 
-  SourcedPagingBloc.simple(
+  SourcedPagingBloc.item(
       {required this.cubit,
       this.sources,
       required Future<List<T>?> Function(
@@ -49,6 +49,20 @@ class SourcedPagingBloc<T>
       this.pageSize = 50})
       : useDates = false,
         _fetch = _buildDatedFetch(fetch),
+        super(const SourcedPagingInitial()) {
+    _init();
+  }
+
+  SourcedPagingBloc.source({
+    required this.cubit,
+    required String source,
+    required Future<List<T>?> Function(
+            SourceService service, int offset, int limit)
+        fetch,
+    this.pageSize = 50,
+  })  : sources = [source],
+        useDates = false,
+        _fetch = _buildDatedFetchSource(fetch),
         super(const SourcedPagingInitial()) {
     _init();
   }
@@ -62,8 +76,11 @@ class SourcedPagingBloc<T>
     on<SourcedPagingRemoved>((event, emit) {
       final state = this.state;
       if (state is SourcedPagingSuccess<T>) {
-        final items =
-            state.dates.map((e) => e.where((i) => i != event.item).toList());
+        final items = state.dates.map((e) => e
+            .where((i) =>
+                i.model == event.item &&
+                (event.source == null || (i.source == event.source)))
+            .toList());
         emit(SourcedPagingSuccess(
           currentPageKey: state.currentPageKey,
           dates: items.toList(),
@@ -150,7 +167,9 @@ class SourcedPagingBloc<T>
     add(SourcedPagingFetched());
   }
 
-  void remove(SourcedModel<T> item) => add(SourcedPagingRemoved(item));
+  void remove(SourcedModel<T> item) =>
+      add(SourcedPagingRemoved(item.model, item.source));
+  void removeSourced(T item) => add(SourcedPagingRemoved(item));
 }
 
 _buildDatedFetch<T>(
@@ -160,5 +179,13 @@ _buildDatedFetch<T>(
     (String source, SourceService service, int offset, int limit,
         int date) async {
       final items = await fetch(source, service, offset, limit);
+      return items;
+    };
+_buildDatedFetchSource<T>(
+        Future<List<T>?> Function(SourceService service, int offset, int limit)
+            fetch) =>
+    (String source, SourceService service, int offset, int limit,
+        int date) async {
+      final items = await fetch(service, offset, limit);
       return items;
     };

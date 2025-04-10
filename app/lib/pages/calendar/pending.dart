@@ -34,7 +34,7 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
   void initState() {
     super.initState();
     _cubit = context.read<FlowCubit>();
-    _bloc = SourcedPagingBloc.simple(
+    _bloc = SourcedPagingBloc.item(
         cubit: _cubit,
         fetch: (source, service, offset, limit) async =>
             service.calendarItem?.getCalendarItems(
@@ -80,7 +80,7 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
           Expanded(
             child: LayoutBuilder(
               builder: (context, constraints) =>
-                  PagedListView<ConnectedModel<CalendarItem, Event?>>.simple(
+                  PagedListView<ConnectedModel<CalendarItem, Event?>>.item(
                 bloc: _bloc,
                 itemBuilder: (context, item, index) {
                   return ConstrainedBox(

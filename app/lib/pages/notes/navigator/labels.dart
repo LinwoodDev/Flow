@@ -11,23 +11,24 @@ class _NoteLabelsView extends StatefulWidget {
 }
 
 class _NoteLabelsViewState extends State<_NoteLabelsView> {
-  late final SourcedPagingController<Label> _pagingController;
+  late final SourcedPagingBloc<Label> _bloc;
   late final FlowCubit _cubit;
 
   @override
   void initState() {
     super.initState();
     _cubit = context.read<FlowCubit>();
-    _pagingController = SourcedPagingController(_cubit);
-    _pagingController.addFetchListener((source, service, offset, limit) =>
-        Future.value(service.label?.getLabels(offset: offset, limit: limit)));
+    _bloc = SourcedPagingBloc.item(
+        cubit: _cubit,
+        fetch: (source, service, offset, limit) => Future.value(
+            service.label?.getLabels(offset: offset, limit: limit)));
   }
 
   @override
   void dispose() {
     super.dispose();
 
-    _pagingController.dispose();
+    _bloc.close();
   }
 
   @override
@@ -35,7 +36,7 @@ class _NoteLabelsViewState extends State<_NoteLabelsView> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.filter.selectedLabel != widget.filter.selectedLabel) {
       setState(() {});
-      _pagingController.refresh();
+      _bloc.refresh();
     }
   }
 
@@ -57,84 +58,78 @@ class _NoteLabelsViewState extends State<_NoteLabelsView> {
           child: Row(
             children: [
               Expanded(
-                child: PagedListView(
+                child: PagedListView.item(
                   scrollDirection: Axis.horizontal,
-                  pagingController: _pagingController,
-                  builderDelegate:
-                      buildMaterialPagedDelegate<SourcedModel<Label>>(
-                    _pagingController,
-                    (context, item, index) {
-                      final selected = equalUint8List(
-                          widget.filter.selectedLabel, item.model.id);
-                      return MenuAnchor(
-                        builder: (context, controller, child) => Tooltip(
-                          message: item.model.name,
-                          child: ColorButton.srgb(
-                            onTap: () =>
-                                widget.onChanged?.call(widget.filter.copyWith(
-                              selectedLabel: selected ? null : item.model.id,
-                              source: item.source,
-                            )),
-                            selected: selected,
-                            color: item.model.color.withOpacity(1),
-                            onLongPress: controller.toggle,
-                            onSecondaryTap: controller.toggle,
-                          ),
+                  bloc: _bloc,
+                  itemBuilder: (context, item, index) {
+                    final selected = equalUint8List(
+                        widget.filter.selectedLabel, item.model.id);
+                    return MenuAnchor(
+                      builder: (context, controller, child) => Tooltip(
+                        message: item.model.name,
+                        child: ColorButton.srgb(
+                          onTap: () =>
+                              widget.onChanged?.call(widget.filter.copyWith(
+                            selectedLabel: selected ? null : item.model.id,
+                            source: item.source,
+                          )),
+                          selected: selected,
+                          color: item.model.color.withOpacity(1),
+                          onLongPress: controller.toggle,
+                          onSecondaryTap: controller.toggle,
                         ),
-                        menuChildren: [
-                          MenuItemButton(
-                              leadingIcon:
-                                  const PhosphorIcon(PhosphorIconsLight.pencil),
-                              child: Text(AppLocalizations.of(context).edit),
-                              onPressed: () => showDialog(
-                                  context: context,
-                                  builder: (context) => LabelDialog(
-                                        source: item.source,
-                                        label: item.model,
-                                      )).then(
-                                  (value) => _pagingController.refresh())),
-                          MenuItemButton(
+                      ),
+                      menuChildren: [
+                        MenuItemButton(
                             leadingIcon:
-                                const PhosphorIcon(PhosphorIconsLight.trash),
-                            child: Text(AppLocalizations.of(context).delete),
+                                const PhosphorIcon(PhosphorIconsLight.pencil),
+                            child: Text(AppLocalizations.of(context).edit),
                             onPressed: () => showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: Text(AppLocalizations.of(context)
-                                    .deleteLabel(item.model.name)),
-                                content: Text(AppLocalizations.of(context)
-                                    .deleteLabelDescription(item.model.name)),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(),
-                                    child: Text(
-                                        AppLocalizations.of(context).cancel),
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      final id = item.model.id;
-                                      if (id == null) return;
-                                      await _cubit
-                                          .getService(item.source)
-                                          .label
-                                          ?.deleteLabel(id);
-                                      _pagingController.refresh();
-                                      if (context.mounted) {
-                                        Navigator.of(context).pop();
-                                      }
-                                    },
-                                    child: Text(
-                                        AppLocalizations.of(context).delete),
-                                  ),
-                                ],
-                              ),
+                                context: context,
+                                builder: (context) => LabelDialog(
+                                      source: item.source,
+                                      label: item.model,
+                                    )).then((value) => _bloc.refresh())),
+                        MenuItemButton(
+                          leadingIcon:
+                              const PhosphorIcon(PhosphorIconsLight.trash),
+                          child: Text(AppLocalizations.of(context).delete),
+                          onPressed: () => showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text(AppLocalizations.of(context)
+                                  .deleteLabel(item.model.name)),
+                              content: Text(AppLocalizations.of(context)
+                                  .deleteLabelDescription(item.model.name)),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child:
+                                      Text(AppLocalizations.of(context).cancel),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    final id = item.model.id;
+                                    if (id == null) return;
+                                    await _cubit
+                                        .getService(item.source)
+                                        .label
+                                        ?.deleteLabel(id);
+                                    _bloc.refresh();
+                                    if (context.mounted) {
+                                      Navigator.of(context).pop();
+                                    }
+                                  },
+                                  child:
+                                      Text(AppLocalizations.of(context).delete),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      );
-                    },
-                  ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
               IconButton(
@@ -143,7 +138,7 @@ class _NoteLabelsViewState extends State<_NoteLabelsView> {
                 onPressed: () => showDialog(
                   context: context,
                   builder: (context) => const LabelDialog(),
-                ).then((value) => _pagingController.refresh()),
+                ).then((value) => _bloc.refresh()),
               ),
             ],
           ),

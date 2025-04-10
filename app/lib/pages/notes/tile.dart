@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flow/helpers/sourced_paging_controller.dart';
+import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/widgets/markdown_field.dart';
 import 'package:flow_api/models/note/model.dart';
 import 'package:flutter/material.dart';
@@ -9,13 +9,13 @@ import 'package:go_router/go_router.dart';
 class NoteListTile extends StatelessWidget {
   final String source;
   final Note note;
-  final SourcedPagingController<Note>? controller;
+  final SourcedPagingBloc<Note>? bloc;
 
   const NoteListTile({
     super.key,
     required this.source,
     required this.note,
-    this.controller,
+    this.bloc,
   });
 
   @override
@@ -38,7 +38,7 @@ class NoteListTile extends StatelessWidget {
             "id": base64Encode(note.id!),
           },
         );
-        controller?.refresh();
+        bloc?.refresh();
       },
     );
   }

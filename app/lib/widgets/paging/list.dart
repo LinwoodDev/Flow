@@ -9,29 +9,51 @@ typedef ItemBuilder<T> = Widget Function(
     BuildContext context, SourcedModel<T> item, int index);
 typedef DateBuilder<T> = Widget Function(
     BuildContext context, List<SourcedModel<T>> date, int index);
+typedef SourceBuilder<T> = Widget Function(
+    BuildContext context, T item, int index);
+
+_buildSourceItem<T>(SourceBuilder<T> itemBuilder) =>
+    (BuildContext context, SourcedModel<T> item, int index) =>
+        itemBuilder(context, item.model, index);
 
 class PagedListView<T> extends StatelessWidget {
   final ItemBuilder<T>? itemBuilder;
   final DateBuilder<T>? dateBuilder;
   final SourcedPagingBloc<T>? bloc;
+  final Axis? scrollDirection;
 
-  const PagedListView.simple({super.key, required this.itemBuilder, this.bloc})
-      : dateBuilder = null;
+  const PagedListView.item({
+    super.key,
+    required this.itemBuilder,
+    this.bloc,
+    this.scrollDirection,
+  }) : dateBuilder = null;
   const PagedListView.dated({
     super.key,
     required this.dateBuilder,
     this.bloc,
+    this.scrollDirection,
   }) : itemBuilder = null;
+
+  PagedListView.source({
+    super.key,
+    required SourceBuilder<T> itemBuilder,
+    this.bloc,
+    this.scrollDirection,
+  })  : itemBuilder = _buildSourceItem(itemBuilder),
+        dateBuilder = null;
 
   @override
   Widget build(BuildContext context) {
     return PagedBuilder(
       bloc: bloc,
       builder: (p0, state) => _PagedListView(
-          state: state,
-          itemBuilder: itemBuilder,
-          dateBuilder: dateBuilder,
-          bloc: bloc),
+        state: state,
+        itemBuilder: itemBuilder,
+        dateBuilder: dateBuilder,
+        bloc: bloc,
+        scrollDirection: scrollDirection,
+      ),
     );
   }
 }
@@ -41,13 +63,16 @@ final class _PagedListView<T> extends StatefulWidget {
   final ItemBuilder<T>? itemBuilder;
   final DateBuilder<T>? dateBuilder;
   final SourcedPagingBloc<T>? bloc;
+  final Axis? scrollDirection;
 
-  const _PagedListView(
-      {super.key,
-      required this.state,
-      this.itemBuilder,
-      this.dateBuilder,
-      this.bloc});
+  const _PagedListView({
+    super.key,
+    required this.state,
+    this.itemBuilder,
+    this.dateBuilder,
+    this.bloc,
+    this.scrollDirection,
+  });
 
   @override
   State<_PagedListView<T>> createState() => _PagedListViewState<T>();
@@ -93,6 +118,7 @@ class _PagedListViewState<T> extends State<_PagedListView<T>> {
     }
     return ListView.builder(
       itemCount: useDates ? dates.length : items.length,
+      scrollDirection: widget.scrollDirection ?? Axis.vertical,
       controller: _scrollController,
       itemBuilder: (context, index) => useDates
           ? widget.dateBuilder!(context, dates[index], index)

@@ -44,9 +44,10 @@ class _GroupsViewState<T extends DescriptiveModel>
     final cubit = context.read<FlowCubit>();
     final service = cubit.getService(widget.source);
     _groupService = service.group;
-    _bloc = SourcedPagingBloc.simple(
+    _bloc = SourcedPagingBloc.source(
       cubit: cubit,
-      fetch: (source, service, offset, limit) => widget.connector
+      source: widget.source,
+      fetch: (service, offset, limit) => widget.connector
           .getItems(widget.model.id!, offset: offset, limit: limit),
     );
     super.initState();
@@ -58,25 +59,24 @@ class _GroupsViewState<T extends DescriptiveModel>
           Column(
             children: [
               Flexible(
-                child: PagedListView.simple(
+                child: PagedListView.source(
                   bloc: _bloc,
                   itemBuilder: (context, item, index) {
-                    final group = item.model;
                     return Dismissible(
-                      key: ValueKey(group.id),
+                      key: ValueKey(item.id),
                       background: Container(color: Colors.red),
                       onDismissed: (direction) {
-                        _groupService?.deleteGroup(group.id!);
-                        _bloc.remove(item);
+                        _groupService?.deleteGroup(item.id!);
+                        _bloc.removeSourced(item);
                       },
                       child: ListTile(
-                        title: Text(group.name),
+                        title: Text(item.name),
                         onTap: () async {
                           await showDialog<SourcedModel<Group>>(
                             context: context,
                             builder: (context) => GroupDialog(
                               source: widget.source,
-                              group: group,
+                              group: item,
                             ),
                           );
                           _bloc.refresh();

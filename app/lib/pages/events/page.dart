@@ -109,7 +109,7 @@ class _EventsBodyViewState extends State<EventsBodyView> {
   @override
   void initState() {
     _flowCubit = context.read<FlowCubit>();
-    _bloc = SourcedPagingBloc.simple(
+    _bloc = SourcedPagingBloc.item(
         cubit: _flowCubit,
         fetch: (source, service, offset, limit) async =>
             _filter.source != null && _filter.source != source
@@ -154,7 +154,7 @@ class _EventsBodyViewState extends State<EventsBodyView> {
           ),
           const SizedBox(height: 8),
           Expanded(
-            child: PagedListView.simple(
+            child: PagedListView.item(
               bloc: _bloc,
               itemBuilder: (ctx, item, index) => Align(
                 alignment: Alignment.topCenter,

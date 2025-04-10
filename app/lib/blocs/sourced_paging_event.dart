@@ -20,10 +20,11 @@ class SourcedPagingRefresh extends SourcedPagingEvent {
 }
 
 class SourcedPagingRemoved extends SourcedPagingEvent {
-  final Object item;
+  final String? source;
+  final Object? item;
 
-  SourcedPagingRemoved(this.item);
+  SourcedPagingRemoved(this.item, [this.source]);
 
   @override
-  List<Object> get props => [item];
+  List<Object> get props => [source, item].nonNulls.toList(growable: false);
 }

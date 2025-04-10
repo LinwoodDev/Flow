@@ -23,13 +23,13 @@ class SourcedPagingSuccessMapper extends ClassMapperBase<SourcedPagingSuccess> {
   @override
   Function get typeFactory => <T>(f) => f<SourcedPagingSuccess<T>>();
 
-  static List<List<ConnectedModel<String, dynamic>>> _$items(
+  static List<List<ConnectedModel<String, dynamic>>> _$dates(
           SourcedPagingSuccess v) =>
       v.dates;
-  static dynamic _arg$items<T>(f) => f<List<List<ConnectedModel<String, T>>>>();
+  static dynamic _arg$dates<T>(f) => f<List<List<ConnectedModel<String, T>>>>();
   static const Field<SourcedPagingSuccess,
-          List<List<ConnectedModel<String, dynamic>>>> _f$items =
-      Field('items', _$items, opt: true, def: const [], arg: _arg$items);
+          List<List<ConnectedModel<String, dynamic>>>> _f$dates =
+      Field('dates', _$dates, opt: true, def: const [], arg: _arg$dates);
   static ConnectedModel<String, int> _$currentPageKey(SourcedPagingSuccess v) =>
       v.currentPageKey;
   static const Field<SourcedPagingSuccess, ConnectedModel<String, int>>
@@ -43,7 +43,7 @@ class SourcedPagingSuccessMapper extends ClassMapperBase<SourcedPagingSuccess> {
 
   @override
   final MappableFields<SourcedPagingSuccess> fields = const {
-    #items: _f$items,
+    #dates: _f$dates,
     #currentPageKey: _f$currentPageKey,
     #hasReachedMax: _f$hasReachedMax,
     #currentDate: _f$currentDate,
@@ -51,7 +51,7 @@ class SourcedPagingSuccessMapper extends ClassMapperBase<SourcedPagingSuccess> {
 
   static SourcedPagingSuccess<T> _instantiate<T>(DecodingData data) {
     return SourcedPagingSuccess(
-        dates: data.dec(_f$items),
+        dates: data.dec(_f$dates),
         currentPageKey: data.dec(_f$currentPageKey),
         hasReachedMax: data.dec(_f$hasReachedMax),
         currentDate: data.dec(_f$currentDate));
@@ -103,11 +103,11 @@ abstract class SourcedPagingSuccessCopyWith<
       $R,
       List<ConnectedModel<String, T>>,
       ObjectCopyWith<$R, List<ConnectedModel<String, T>>,
-          List<ConnectedModel<String, T>>>> get items;
+          List<ConnectedModel<String, T>>>> get dates;
   ConnectedModelCopyWith<$R, ConnectedModel<String, int>,
       ConnectedModel<String, int>, String, int> get currentPageKey;
   $R call(
-      {List<List<ConnectedModel<String, T>>>? items,
+      {List<List<ConnectedModel<String, T>>>? dates,
       ConnectedModel<String, int>? currentPageKey,
       bool? hasReachedMax,
       int? currentDate});
@@ -129,10 +129,10 @@ class _SourcedPagingSuccessCopyWithImpl<$R, $Out, T>
       $R,
       List<ConnectedModel<String, T>>,
       ObjectCopyWith<$R, List<ConnectedModel<String, T>>,
-          List<ConnectedModel<String, T>>>> get items => ListCopyWith(
+          List<ConnectedModel<String, T>>>> get dates => ListCopyWith(
       $value.dates,
       (v, t) => ObjectCopyWith(v, $identity, t),
-      (v) => call(items: v));
+      (v) => call(dates: v));
   @override
   ConnectedModelCopyWith<$R, ConnectedModel<String, int>,
           ConnectedModel<String, int>, String, int>
@@ -140,19 +140,19 @@ class _SourcedPagingSuccessCopyWithImpl<$R, $Out, T>
           $value.currentPageKey.copyWith.$chain((v) => call(currentPageKey: v));
   @override
   $R call(
-          {List<List<ConnectedModel<String, T>>>? items,
+          {List<List<ConnectedModel<String, T>>>? dates,
           ConnectedModel<String, int>? currentPageKey,
           bool? hasReachedMax,
           int? currentDate}) =>
       $apply(FieldCopyWithData({
-        if (items != null) #items: items,
+        if (dates != null) #dates: dates,
         if (currentPageKey != null) #currentPageKey: currentPageKey,
         if (hasReachedMax != null) #hasReachedMax: hasReachedMax,
         if (currentDate != null) #currentDate: currentDate
       }));
   @override
   SourcedPagingSuccess<T> $make(CopyWithData data) => SourcedPagingSuccess(
-      dates: data.get(#items, or: $value.dates),
+      dates: data.get(#dates, or: $value.dates),
       currentPageKey: data.get(#currentPageKey, or: $value.currentPageKey),
       hasReachedMax: data.get(#hasReachedMax, or: $value.hasReachedMax),
       currentDate: data.get(#currentDate, or: $value.currentDate));
