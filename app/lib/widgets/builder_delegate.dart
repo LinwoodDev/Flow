@@ -1,8 +1,8 @@
-import 'package:flow/widgets/indicators/empty.dart';
-import 'package:flow/widgets/indicators/error.dart';
+import 'package:flow/widgets/paging/empty.dart';
+import 'package:flow/widgets/paging/error.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-import 'indicators/loading.dart';
+import 'paging/loading.dart';
 
 PagedChildBuilderDelegate<T> buildMaterialPagedDelegate<T>(
         PagingController<dynamic, T> controller,
