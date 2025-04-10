@@ -1,16 +1,14 @@
+import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/cubits/flow.dart';
-import 'package:flow/helpers/sourced_paging_controller.dart';
+import 'package:flow/widgets/paging/list.dart';
 import 'package:flow_api/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'dart:typed_data';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/model.dart';
 import 'package:flow_api/services/source.dart';
-
-import '../../widgets/builder_delegate.dart';
 
 typedef ModelFetchCallback<T> = Future<T?> Function(
     String source, SourceService service, Uint8List id);
@@ -140,14 +138,12 @@ class _SelectTileState<T extends NamedModel> extends State<SelectTile<T>> {
   }
 }
 
-typedef SelectFetchCallback<T> = Future<List<T>?> Function(
-    String source, SourceService service, String search, int offset, int limit);
-
 class SelectDialog<T extends NamedModel> extends StatefulWidget {
   final String title;
   final String? source;
   final SourcedModel<Uint8List>? selected;
-  final SelectFetchCallback<T> onFetch;
+  final Future<List<T>?> Function(String source, SourceService service,
+      String search, int offset, int limit) onFetch;
   final Future<SourcedModel<T>?> Function(String?)? onCreate;
 
   const SelectDialog({
@@ -165,24 +161,25 @@ class SelectDialog<T extends NamedModel> extends StatefulWidget {
 
 class _SelectDialogState<T extends NamedModel> extends State<SelectDialog<T>> {
   final TextEditingController _controller = TextEditingController();
-  late final SourcedPagingController<T> _pagingController;
+  late final SourcedPagingBloc<T> _bloc;
 
   @override
   void initState() {
     super.initState();
-    _pagingController = SourcedPagingController<T>(
-      context.read<FlowCubit>(),
+    _bloc = SourcedPagingBloc<T>.item(
+      cubit: context.read<FlowCubit>(),
+      fetch: (source, service, offset, limit) async {
+        final search = _controller.text;
+        return widget.onFetch(source, service, search, offset, limit);
+      },
     );
-
-    _pagingController.addFetchListener((source, service, offset, limit) =>
-        widget.onFetch(source, service, _controller.text, offset, limit));
   }
 
   @override
   void dispose() {
     super.dispose();
 
-    _pagingController.dispose();
+    _bloc.close();
   }
 
   @override
@@ -202,26 +199,23 @@ class _SelectDialogState<T extends NamedModel> extends State<SelectDialog<T>> {
               ),
               controller: _controller,
               onSubmitted: (_) {
-                _pagingController.refresh();
+                _bloc.refresh();
               },
             ),
             const SizedBox(height: 8),
             const Divider(),
             const SizedBox(height: 8),
             Expanded(
-              child: PagedListView(
-                pagingController: _pagingController,
-                builderDelegate: buildMaterialPagedDelegate<SourcedModel<T>>(
-                  _pagingController,
-                  (context, item, index) => ListTile(
-                    title: Text(item.model.name),
-                    selected:
-                        equalUint8List(widget.selected?.model, item.model.id) &&
-                            widget.selected?.source == item.source,
-                    onTap: () {
-                      Navigator.of(context).pop(item);
-                    },
-                  ),
+              child: PagedListView.item(
+                bloc: _bloc,
+                itemBuilder: (context, item, index) => ListTile(
+                  title: Text(item.model.name),
+                  selected:
+                      equalUint8List(widget.selected?.model, item.model.id) &&
+                          widget.selected?.source == item.source,
+                  onTap: () {
+                    Navigator.of(context).pop(item);
+                  },
                 ),
               ),
             ),

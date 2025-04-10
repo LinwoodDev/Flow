@@ -1,16 +1,14 @@
+import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/pages/users/user.dart';
-import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flow/widgets/navigation.dart';
+import 'package:flow/widgets/paging/list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/user/model.dart';
-import 'package:flow_api/models/model.dart';
 
 import '../../cubits/flow.dart';
-import '../../helpers/sourced_paging_controller.dart';
 import 'filter.dart';
 import 'tile.dart';
 
@@ -105,28 +103,29 @@ class UsersBodyView extends StatefulWidget {
 
 class _UsersBodyViewState extends State<UsersBodyView> {
   late final FlowCubit _flowCubit;
-  late final SourcedPagingController<User> _controller;
+  late final SourcedPagingBloc<User> _bloc;
   late UserFilter _filter;
 
   @override
   void initState() {
     _flowCubit = context.read<FlowCubit>();
-    _controller = SourcedPagingController(_flowCubit);
-    _controller.addFetchListener((source, service, offset, limit) async =>
-        _filter.source != null && _filter.source != source
-            ? null
-            : service.user?.getUsers(
-                offset: offset,
-                limit: limit,
-                groupId: _filter.group,
-                search: widget.search));
+    _bloc = SourcedPagingBloc.item(
+        cubit: _flowCubit,
+        fetch: (source, service, offset, limit) async =>
+            _filter.source != null && _filter.source != source
+                ? null
+                : service.user?.getUsers(
+                    offset: offset,
+                    limit: limit,
+                    groupId: _filter.group,
+                    search: widget.search));
     _filter = widget.filter;
     super.initState();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _bloc.close();
     super.dispose();
   }
 
@@ -135,7 +134,7 @@ class _UsersBodyViewState extends State<UsersBodyView> {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.search != widget.search) {
-      _controller.refresh();
+      _bloc.refresh();
     }
   }
 
@@ -150,37 +149,34 @@ class _UsersBodyViewState extends State<UsersBodyView> {
               setState(() {
                 _filter = filter;
               });
-              _controller.refresh();
+              _bloc.refresh();
             },
           ),
           const SizedBox(height: 8),
           Expanded(
-            child: PagedListView(
-              pagingController: _controller,
-              builderDelegate: buildMaterialPagedDelegate<SourcedModel<User>>(
-                _controller,
-                (ctx, item, index) => Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    constraints: const BoxConstraints(maxWidth: 800),
-                    child: Dismissible(
-                      key: ValueKey('${item.model.id}@${item.source}'),
-                      onDismissed: (direction) async {
-                        await _flowCubit
-                            .getService(item.source)
-                            .user
-                            ?.deleteUser(item.model.id!);
-                        _controller.itemList!.remove(item);
-                      },
-                      background: Container(
-                        color: Colors.red,
-                      ),
-                      child: UserTile(
-                        flowCubit: _flowCubit,
-                        pagingController: _controller,
-                        source: item.source,
-                        user: item.model,
-                      ),
+            child: PagedListView.item(
+              bloc: _bloc,
+              itemBuilder: (ctx, item, index) => Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  constraints: const BoxConstraints(maxWidth: 800),
+                  child: Dismissible(
+                    key: ValueKey('${item.model.id}@${item.source}'),
+                    onDismissed: (direction) async {
+                      await _flowCubit
+                          .getService(item.source)
+                          .user
+                          ?.deleteUser(item.model.id!);
+                      _bloc.remove(item);
+                    },
+                    background: Container(
+                      color: Colors.red,
+                    ),
+                    child: UserTile(
+                      flowCubit: _flowCubit,
+                      bloc: _bloc,
+                      source: item.source,
+                      user: item.model,
                     ),
                   ),
                 ),
@@ -192,7 +188,7 @@ class _UsersBodyViewState extends State<UsersBodyView> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
                 context: context, builder: (context) => const UserDialog())
-            .then((_) => _controller.refresh()),
+            .then((_) => _bloc.refresh()),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),

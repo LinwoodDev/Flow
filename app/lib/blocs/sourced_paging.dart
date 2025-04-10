@@ -13,26 +13,25 @@ part 'sourced_paging_state.dart';
 
 part 'sourced_paging.mapper.dart';
 
+typedef DateFetcher<T> = Future<List<T>?> Function(
+    String source, SourceService service, int offset, int limit, int date);
+typedef ItemFetcher<T> = Future<List<T>?> Function(
+    String source, SourceService service, int offset, int limit);
+typedef SourceFetcher<T> = Future<List<T>?> Function(
+    SourceService service, int offset, int limit);
+
 class SourcedPagingBloc<T>
     extends Bloc<SourcedPagingEvent, SourcedPagingState<T>> {
   final FlowCubit cubit;
   final int pageSize;
   final bool useDates;
   final List<String>? sources;
-  final Future<List<T>?> Function(
-    String source,
-    SourceService service,
-    int offset,
-    int limit,
-    int date,
-  ) _fetch;
+  final DateFetcher<T> _fetch;
 
   SourcedPagingBloc.dated(
       {required this.cubit,
       this.sources,
-      required Future<List<T>?> Function(String source, SourceService service,
-              int offset, int limit, int date)
-          fetch,
+      required DateFetcher<T> fetch,
       this.pageSize = 50})
       : _fetch = fetch,
         useDates = true,
@@ -41,12 +40,7 @@ class SourcedPagingBloc<T>
   }
 
   SourcedPagingBloc.item(
-      {required this.cubit,
-      this.sources,
-      required Future<List<T>?> Function(
-              String source, SourceService service, int offset, int limit)
-          fetch,
-      this.pageSize = 50})
+      {required this.cubit, this.sources, required fetch, this.pageSize = 50})
       : useDates = false,
         _fetch = _buildDatedFetch(fetch),
         super(const SourcedPagingInitial()) {
@@ -56,9 +50,7 @@ class SourcedPagingBloc<T>
   SourcedPagingBloc.source({
     required this.cubit,
     required String source,
-    required Future<List<T>?> Function(
-            SourceService service, int offset, int limit)
-        fetch,
+    required SourceFetcher fetch,
     this.pageSize = 50,
   })  : sources = [source],
         useDates = false,
@@ -172,20 +164,13 @@ class SourcedPagingBloc<T>
   void removeSourced(T item) => add(SourcedPagingRemoved(item));
 }
 
-_buildDatedFetch<T>(
-        Future<List<T>?> Function(
-                String source, SourceService service, int offset, int limit)
-            fetch) =>
-    (String source, SourceService service, int offset, int limit,
-        int date) async {
+_buildDatedFetch<T>(ItemFetcher fetch) => (String source, SourceService service,
+        int offset, int limit, int date) async {
       final items = await fetch(source, service, offset, limit);
       return items;
     };
-_buildDatedFetchSource<T>(
-        Future<List<T>?> Function(SourceService service, int offset, int limit)
-            fetch) =>
-    (String source, SourceService service, int offset, int limit,
-        int date) async {
+_buildDatedFetchSource<T>(SourceFetcher fetch) => (String source,
+        SourceService service, int offset, int limit, int date) async {
       final items = await fetch(service, offset, limit);
       return items;
     };

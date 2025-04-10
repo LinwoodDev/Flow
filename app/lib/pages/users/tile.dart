@@ -1,4 +1,4 @@
-import 'package:flow/helpers/sourced_paging_controller.dart';
+import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flutter/material.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -18,13 +18,13 @@ class UserTile extends StatelessWidget {
     required this.source,
     required this.user,
     required this.flowCubit,
-    required this.pagingController,
+    required this.bloc,
   });
 
   final FlowCubit flowCubit;
   final User user;
   final String source;
-  final SourcedPagingController<User> pagingController;
+  final SourcedPagingBloc<User> bloc;
 
   @override
   Widget build(BuildContext context) {
@@ -74,11 +74,11 @@ class UserTile extends StatelessWidget {
             onPressed: () async {
               Navigator.of(context).pop();
               await flowCubit.getService(source).user?.deleteUser(user.id!);
-              pagingController.itemList!.remove(SourcedModel(
+              bloc.remove(SourcedModel(
                 source,
                 user,
               ));
-              pagingController.refresh();
+              bloc.refresh();
             },
             child: Text(
               AppLocalizations.of(context).delete,
@@ -105,6 +105,6 @@ class UserTile extends StatelessWidget {
         user: user,
         source: source,
       ),
-    ).then((value) => pagingController.refresh());
+    ).then((value) => bloc.refresh());
   }
 }
