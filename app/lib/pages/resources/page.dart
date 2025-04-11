@@ -1,16 +1,14 @@
+import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/pages/resources/resource.dart';
-import 'package:flow/widgets/builder_delegate.dart';
 import 'package:flow/widgets/navigation.dart';
+import 'package:flow/widgets/paging/list.dart';
 import 'package:flow_api/models/resource/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:flow_api/models/model.dart';
 
 import '../../cubits/flow.dart';
-import '../../helpers/sourced_paging_controller.dart';
 import 'tile.dart';
 
 class ResourcesPage extends StatefulWidget {
@@ -89,20 +87,21 @@ class ResourcesBodyView extends StatefulWidget {
 
 class _ResourcesBodyViewState extends State<ResourcesBodyView> {
   late final FlowCubit _flowCubit;
-  late final SourcedPagingController<Resource> _controller;
+  late final SourcedPagingBloc<Resource> _bloc;
 
   @override
   void initState() {
     _flowCubit = context.read<FlowCubit>();
-    _controller = SourcedPagingController(_flowCubit);
-    _controller.addFetchListener((source, service, offset, limit) async =>
-        service.resource?.getResources(offset: offset, limit: limit));
+    _bloc = SourcedPagingBloc.item(
+        cubit: _flowCubit,
+        fetch: (source, service, offset, limit) async =>
+            service.resource?.getResources(offset: offset, limit: limit));
     super.initState();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _bloc.close();
     super.dispose();
   }
 
@@ -111,39 +110,36 @@ class _ResourcesBodyViewState extends State<ResourcesBodyView> {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.search != widget.search) {
-      _controller.refresh();
+      _bloc.refresh();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PagedListView(
-        pagingController: _controller,
-        builderDelegate: buildMaterialPagedDelegate<SourcedModel<Resource>>(
-          _controller,
-          (ctx, item, index) => Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              constraints: const BoxConstraints(maxWidth: 800),
-              child: Dismissible(
-                key: ValueKey('${item.model.id}@${item.source}'),
-                onDismissed: (direction) async {
-                  await _flowCubit
-                      .getService(item.source)
-                      .resource
-                      ?.deleteResource(item.model.id!);
-                  _controller.itemList!.remove(item);
-                },
-                background: Container(
-                  color: Colors.red,
-                ),
-                child: ResourceTile(
-                  flowCubit: _flowCubit,
-                  pagingController: _controller,
-                  source: item.source,
-                  resource: item.model,
-                ),
+      body: PagedListView.item(
+        bloc: _bloc,
+        itemBuilder: (ctx, item, index) => Align(
+          alignment: Alignment.topCenter,
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 800),
+            child: Dismissible(
+              key: ValueKey('${item.model.id}@${item.source}'),
+              onDismissed: (direction) async {
+                await _flowCubit
+                    .getService(item.source)
+                    .resource
+                    ?.deleteResource(item.model.id!);
+                _bloc.remove(item);
+              },
+              background: Container(
+                color: Colors.red,
+              ),
+              child: ResourceTile(
+                flowCubit: _flowCubit,
+                bloc: _bloc,
+                source: item.source,
+                resource: item.model,
               ),
             ),
           ),
@@ -152,7 +148,7 @@ class _ResourcesBodyViewState extends State<ResourcesBodyView> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
                 context: context, builder: (context) => const ResourceDialog())
-            .then((_) => _controller.refresh()),
+            .then((_) => _bloc.refresh()),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),

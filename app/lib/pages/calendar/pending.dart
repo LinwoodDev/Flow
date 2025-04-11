@@ -1,13 +1,12 @@
+import 'package:flow/blocs/sourced_paging.dart';
+import 'package:flow/widgets/paging/list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:flow_api/models/event/item/model.dart';
 import 'package:flow_api/models/event/model.dart';
 import 'package:flow_api/models/model.dart';
 
 import '../../cubits/flow.dart';
-import '../../helpers/sourced_paging_controller.dart';
-import '../../widgets/builder_delegate.dart';
 import 'filter.dart';
 import 'page.dart';
 import 'tile.dart';
@@ -30,30 +29,30 @@ class CalendarPendingView extends StatefulWidget {
 
 class _CalendarPendingViewState extends State<CalendarPendingView> {
   late FlowCubit _cubit;
-  late final SourcedPagingController<ConnectedModel<CalendarItem, Event?>>
-      _controller;
+  late final SourcedPagingBloc<ConnectedModel<CalendarItem, Event?>> _bloc;
   @override
   void initState() {
     super.initState();
     _cubit = context.read<FlowCubit>();
-    _controller = SourcedPagingController(_cubit);
-    _controller.addFetchListener((source, service, offset, limit) async =>
-        service.calendarItem?.getCalendarItems(
-          status: EventStatus.values
-              .where(
-                  (element) => !widget.filter.hiddenStatuses.contains(element))
-              .toList(),
-          search: widget.search,
-          pending: true,
-          offset: offset,
-          limit: limit,
-          resourceIds: widget.filter.resources,
-        ));
+    _bloc = SourcedPagingBloc.item(
+        cubit: _cubit,
+        fetch: (source, service, offset, limit) async =>
+            service.calendarItem?.getCalendarItems(
+              status: EventStatus.values
+                  .where((element) =>
+                      !widget.filter.hiddenStatuses.contains(element))
+                  .toList(),
+              search: widget.search,
+              pending: true,
+              offset: offset,
+              limit: limit,
+              resourceIds: widget.filter.resources,
+            ));
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _bloc.close();
     super.dispose();
   }
 
@@ -61,14 +60,14 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
   void didUpdateWidget(covariant CalendarPendingView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.filter != oldWidget.filter) {
-      _controller.refresh();
+      _bloc.refresh();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return CreateEventScaffold(
-      onCreated: _controller.refresh,
+      onCreated: _bloc.refresh,
       event: widget.filter.sourceEvent,
       child: Column(
         children: [
@@ -80,22 +79,19 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
           const SizedBox(height: 8),
           Expanded(
             child: LayoutBuilder(
-              builder: (context, constraints) => PagedListView(
-                pagingController: _controller,
-                builderDelegate: buildMaterialPagedDelegate<
-                    SourcedConnectedModel<CalendarItem, Event?>>(
-                  _controller,
-                  (context, item, index) {
-                    return ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 1000),
-                      child: CalendarListTile(
-                        key: ValueKey('${item.source}@${item.main.id}'),
-                        eventItem: item,
-                        onRefresh: _controller.refresh,
-                      ),
-                    );
-                  },
-                ),
+              builder: (context, constraints) =>
+                  PagedListView<ConnectedModel<CalendarItem, Event?>>.item(
+                bloc: _bloc,
+                itemBuilder: (context, item, index) {
+                  return ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 1000),
+                    child: CalendarListTile(
+                      key: ValueKey('${item.source}@${item.main.id}'),
+                      eventItem: item,
+                      onRefresh: _bloc.refresh,
+                    ),
+                  );
+                },
               ),
             ),
           ),

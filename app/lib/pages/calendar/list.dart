@@ -1,8 +1,9 @@
+import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/cubits/flow.dart';
-import 'package:flow/widgets/builder_delegate.dart';
+import 'package:flow/widgets/paging/list.dart';
+import 'package:flow_api/services/source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -33,108 +34,61 @@ class CalendarListView extends StatefulWidget {
 
 class _CalendarListViewState extends State<CalendarListView> {
   late FlowCubit _cubit;
-  late final PagingController<
-      ConnectedModel<int, ConnectedModel<Map<String, int>, Map<String, int>>>,
-      List<SourcedConnectedModel<CalendarItem, Event?>>> _controller;
+  late final SourcedPagingBloc<ConnectedModel<CalendarItem, Event?>> _bloc;
   static const _pageSize = 50;
 
   @override
   void initState() {
     super.initState();
     _cubit = context.read<FlowCubit>();
-    _controller = PagingController(
-        firstPageKey: const ConnectedModel(-1, ConnectedModel({}, {})));
-    _controller.addPageRequestListener(_requestPage);
+    _bloc = SourcedPagingBloc.dated(
+      cubit: _cubit,
+      fetch: _fetchCalendarItems,
+      pageSize: _pageSize,
+    );
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _bloc.close();
     super.dispose();
   }
 
-  Future<void> _requestPage(
-      ConnectedModel<int, ConnectedModel<Map<String, int>, Map<String, int>>>
-          key) async {
-    var day = key.source;
-    var sources = key.model;
-    final allSources = widget.filter.source != null
-        ? [
-            widget.filter.source!,
-          ]
-        : _cubit.getCurrentSources();
-
-    ConnectedModel<Map<String, int>, Map<String, int>> createFullSourceMap() {
-      final map = Map.fromEntries(allSources.map((e) => MapEntry(e, 0)));
-      return ConnectedModel(map, Map.from(map));
-    }
-
-    if (day < 0) {
-      day = 0;
-      sources = createFullSourceMap();
-    }
-    var appointmentSource = sources.source;
-    var items = <SourcedConnectedModel<CalendarItem, Event?>>[];
-    if (appointmentSource.isNotEmpty) {
-      final model = await _fetchCalendarItems(day, appointmentSource);
-      items.addAll(model.source);
-      appointmentSource.removeWhere((key, value) => !model.model.contains(key));
-    }
-    if (appointmentSource.isEmpty) {
-      day++;
-      sources = createFullSourceMap();
-    }
-    if (mounted) {
-      _controller.appendPage([items], ConnectedModel(day, sources));
-    }
-  }
-
-  Future<
-      ConnectedModel<List<SourcedConnectedModel<CalendarItem, Event?>>,
-          List<String>>> _fetchCalendarItems(
-      int day, Map<String, int> sources) async {
-    if (!mounted) return ConnectedModel([], sources.keys.toList());
-    var date = DateTime.now().onlyDate();
+  Future<List<ConnectedModel<CalendarItem, Event?>>> _fetchCalendarItems(
+    String source,
+    SourceService service,
+    int offset,
+    int limit,
+    int date,
+  ) async {
+    var dateTime = DateTime.now().onlyDate();
     if (widget.filter.past) {
-      date = date.subtract(Duration(days: day));
+      dateTime = dateTime.subtract(Duration(days: date));
     } else {
-      date = date.add(Duration(days: day));
+      dateTime = dateTime.add(Duration(days: date));
     }
 
-    if (!mounted) return ConnectedModel([], sources.keys.toList());
-
-    final appointments = <SourcedConnectedModel<CalendarItem, Event?>>[];
-    final nextSources = <String>[];
-    for (final source in sources.entries) {
-      final fetched =
-          await _cubit.getService(source.key).calendarItem?.getCalendarItems(
-                date: date,
-                status: EventStatus.values
-                    .where((element) =>
-                        !widget.filter.hiddenStatuses.contains(element))
-                    .toList(),
-                search: widget.search,
-                groupIds: widget.filter.groups,
-                eventId: widget.filter.event,
-                offset: source.value * _pageSize,
-                limit: _pageSize,
-                resourceIds: widget.filter.resources,
-              );
-      if (fetched == null) continue;
-      appointments
-          .addAll(fetched.map((event) => SourcedModel(source.key, event)));
-      if (fetched.length >= _pageSize) {
-        nextSources.add(source.key);
-      }
-    }
-    return ConnectedModel(appointments, nextSources);
+    return await service.calendarItem?.getCalendarItems(
+          date: dateTime,
+          status: EventStatus.values
+              .where(
+                  (element) => !widget.filter.hiddenStatuses.contains(element))
+              .toList(),
+          search: widget.search,
+          groupIds: widget.filter.groups,
+          eventId: widget.filter.event,
+          offset: offset * _pageSize,
+          limit: _pageSize,
+          resourceIds: widget.filter.resources,
+        ) ??
+        const [];
   }
 
   @override
   void didUpdateWidget(covariant CalendarListView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.filter != widget.filter) {
-      _controller.refresh();
+      _bloc.refresh();
     }
   }
 
@@ -143,7 +97,7 @@ class _CalendarListViewState extends State<CalendarListView> {
     final locale = Localizations.localeOf(context).languageCode;
     final dateFormatter = DateFormat.yMMMMd(locale);
     return CreateEventScaffold(
-      onCreated: _controller.refresh,
+      onCreated: _bloc.refresh,
       event: widget.filter.sourceEvent,
       child: Column(
         children: [
@@ -155,97 +109,93 @@ class _CalendarListViewState extends State<CalendarListView> {
           const SizedBox(height: 8),
           Expanded(
             child: LayoutBuilder(
-              builder: (context, constraints) => PagedListView(
-                pagingController: _controller,
-                builderDelegate: buildMaterialPagedDelegate<
-                    List<SourcedConnectedModel<CalendarItem, Event?>>>(
-                  _controller,
-                  (context, item, index) {
-                    var date = DateTime.now();
-                    if (widget.filter.past) {
-                      date = date.subtract(Duration(days: index));
-                    } else {
-                      date = date.add(Duration(days: index));
-                    }
-                    final header = Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 64,
-                        horizontal: 16,
-                      ),
-                      child: Column(
-                        children: [
-                          if (index == 0)
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              child: PhosphorIcon(
-                                PhosphorIconsLight.calendarBlank,
-                                color: Theme.of(context).colorScheme.secondary,
-                                size: 64,
-                              ),
-                            ),
-                          Text(
-                            dateFormatter.format(date),
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          Text(
-                            DateFormat.EEEE(locale).format(date),
-                          ),
-                        ],
-                      ),
-                    );
-                    final list = Column(
+              builder: (context, constraints) => PagedListView.dated(
+                bloc: _bloc,
+                dateBuilder: (context, items, index) {
+                  var date = DateTime.now();
+                  if (widget.filter.past) {
+                    date = date.subtract(Duration(days: index));
+                  } else {
+                    date = date.add(Duration(days: index));
+                  }
+                  final header = Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 64,
+                      horizontal: 16,
+                    ),
+                    child: Column(
                       children: [
-                        if (item.isEmpty)
+                        if (index == 0)
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16),
-                            child: Text(
-                              AppLocalizations.of(context).noEvents,
-                              style: Theme.of(context).textTheme.bodyLarge,
+                            child: PhosphorIcon(
+                              PhosphorIconsLight.calendarBlank,
+                              color: Theme.of(context).colorScheme.secondary,
+                              size: 64,
                             ),
                           ),
-                        ...item.map((event) {
-                          return CalendarListTile(
-                            key: ValueKey([
-                              event.main.id,
-                              event.source,
-                              event.main.runtimeType
-                            ]),
-                            eventItem: event,
-                            date: date,
-                            onRefresh: _controller.refresh,
-                          );
-                        }),
+                        Text(
+                          dateFormatter.format(date),
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        Text(
+                          DateFormat.EEEE(locale).format(date),
+                        ),
                       ],
-                    );
-                    final isMobile = constraints.maxWidth < 800;
-                    return Align(
-                      alignment: Alignment.topCenter,
-                      child: ConstrainedBox(
-                          constraints: const BoxConstraints(maxWidth: 1000),
-                          child: GestureDetector(
-                            onTap: () => showCalendarCreate(
-                              context: context,
-                              time: date,
-                              event: widget.filter.sourceEvent,
-                            ).then((value) => _controller.refresh()),
-                            child: isMobile
-                                ? Column(
-                                    children: [
-                                      header,
-                                      list,
-                                    ],
-                                  )
-                                : Row(
-                                    children: [
-                                      header,
-                                      const SizedBox(width: 16),
-                                      Expanded(child: list),
-                                    ],
-                                  ),
-                          )),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                  final list = Column(
+                    children: [
+                      if (items.isEmpty)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          child: Text(
+                            AppLocalizations.of(context).noEvents,
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                        ),
+                      ...items.map((event) {
+                        return CalendarListTile(
+                          key: ValueKey([
+                            event.main.id,
+                            event.source,
+                            event.main.runtimeType
+                          ]),
+                          eventItem: event,
+                          date: date,
+                          onRefresh: _bloc.refresh,
+                        );
+                      }),
+                    ],
+                  );
+                  final isMobile = constraints.maxWidth < 800;
+                  return Align(
+                    alignment: Alignment.topCenter,
+                    child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 1000),
+                        child: GestureDetector(
+                          onTap: () => showCalendarCreate(
+                            context: context,
+                            time: date,
+                            event: widget.filter.sourceEvent,
+                          ).then((value) => _bloc.refresh()),
+                          child: isMobile
+                              ? Column(
+                                  children: [
+                                    header,
+                                    list,
+                                  ],
+                                )
+                              : Row(
+                                  children: [
+                                    header,
+                                    const SizedBox(width: 16),
+                                    Expanded(child: list),
+                                  ],
+                                ),
+                        )),
+                  );
+                },
               ),
             ),
           ),

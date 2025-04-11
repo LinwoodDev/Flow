@@ -1,16 +1,13 @@
+import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/event/model.dart';
 import 'package:flow_api/models/model.dart';
 
 import '../../cubits/flow.dart';
-import '../../helpers/sourced_paging_controller.dart';
-import '../../widgets/builder_delegate.dart';
 import '../../widgets/markdown_field.dart';
 import '../calendar/filter.dart';
 import 'event.dart';
@@ -21,13 +18,13 @@ class EventTile extends StatelessWidget {
     required this.source,
     required this.event,
     required this.flowCubit,
-    required this.pagingController,
+    required this.bloc,
   });
 
   final FlowCubit flowCubit;
   final Event event;
   final String source;
-  final SourcedPagingController<Event> pagingController;
+  final SourcedPagingBloc<Event> bloc;
 
   @override
   Widget build(BuildContext context) {
@@ -87,11 +84,11 @@ class EventTile extends StatelessWidget {
             onPressed: () async {
               Navigator.of(context).pop();
               await flowCubit.getService(source).event?.deleteEvent(event.id!);
-              pagingController.itemList!.remove(SourcedModel(
+              bloc.remove(SourcedModel(
                 source,
                 event,
               ));
-              pagingController.refresh();
+              bloc.refresh();
             },
             child: Text(
               AppLocalizations.of(context).delete,
@@ -109,57 +106,6 @@ class EventTile extends StatelessWidget {
         event: event,
         source: source,
       ),
-    ).then((value) => pagingController.refresh());
+    ).then((value) => bloc.refresh());
   }
-}
-
-Future<SourcedModel<Event>?> showEventModalBottomSheet(
-    {required BuildContext context, Event? event, DateTime? time}) async {
-  SourcedModel<Event>? event;
-  final cubit = context.read<FlowCubit>();
-  final pagingController = SourcedPagingController<Event>(cubit);
-  pagingController.addFetchListener((source, service, offset, limit) async =>
-      service.event?.getEvents(offset: offset, limit: limit));
-  final shouldCreate = await showLeapBottomSheet<bool>(
-      context: context,
-      titleBuilder: (ctx) => Text(AppLocalizations.of(context).events),
-      actionsBuilder: (ctx) => [
-            TextButton.icon(
-              icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
-              label: Text(AppLocalizations.of(context).create),
-              onPressed: () {
-                Navigator.of(ctx).pop(true);
-              },
-            ),
-          ],
-      childrenBuilder: (ctx) => [
-            PagedListView(
-                shrinkWrap: true,
-                pagingController: pagingController,
-                builderDelegate:
-                    buildMaterialPagedDelegate<SourcedModel<Event>>(
-                  pagingController,
-                  (ctx, item, index) {
-                    return ListTile(
-                      title: Text(item.model.name),
-                      leading: const PhosphorIcon(PhosphorIconsLight.calendar),
-                      onTap: () {
-                        event = item;
-                        Navigator.of(ctx).pop();
-                      },
-                    );
-                  },
-                )),
-          ]);
-  pagingController.dispose();
-  if (shouldCreate == true && context.mounted) {
-    event = await showDialog(
-      context: context,
-      builder: (ctx) => EventDialog(
-        event: event?.model,
-        source: event?.source,
-      ),
-    );
-  }
-  return event;
 }

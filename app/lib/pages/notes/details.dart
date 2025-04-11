@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:collection/collection.dart';
-import 'package:flow/helpers/sourced_paging_controller.dart';
+import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/pages/notes/select.dart';
 import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
@@ -22,13 +22,13 @@ import 'label.dart';
 class NoteDetailsView extends StatefulWidget {
   final String source;
   final Note note;
-  final SourcedPagingController<Note> controller;
+  final SourcedPagingBloc<Note> bloc;
 
   const NoteDetailsView({
     super.key,
     required this.source,
     required this.note,
-    required this.controller,
+    required this.bloc,
   });
 
   @override
@@ -202,7 +202,7 @@ class _NoteDetailsViewState extends State<NoteDetailsView> {
                       AppLocalizations.of(context).delete,
                       () async {
                         await _noteService?.deleteNote(_newNote.id!);
-                        widget.controller.refresh();
+                        widget.bloc.refresh();
                       }
                     )
                   ]

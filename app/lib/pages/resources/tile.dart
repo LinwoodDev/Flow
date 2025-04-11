@@ -1,4 +1,4 @@
-import 'package:flow/helpers/sourced_paging_controller.dart';
+import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/pages/resources/resource.dart';
 import 'package:flow_api/models/resource/model.dart';
 import 'package:flutter/material.dart';
@@ -18,13 +18,13 @@ class ResourceTile extends StatelessWidget {
     required this.source,
     required this.resource,
     required this.flowCubit,
-    required this.pagingController,
+    required this.bloc,
   });
 
   final FlowCubit flowCubit;
   final Resource resource;
   final String source;
-  final SourcedPagingController<Resource> pagingController;
+  final SourcedPagingBloc<Resource> bloc;
 
   @override
   Widget build(BuildContext context) {
@@ -77,11 +77,11 @@ class ResourceTile extends StatelessWidget {
                   .getService(source)
                   .resource
                   ?.deleteResource(resource.id!);
-              pagingController.itemList!.remove(SourcedModel(
+              bloc.remove(SourcedModel(
                 source,
                 resource,
               ));
-              pagingController.refresh();
+              bloc.refresh();
             },
             child: Text(
               AppLocalizations.of(context).delete,
@@ -108,6 +108,6 @@ class ResourceTile extends StatelessWidget {
         resource: resource,
         source: source,
       ),
-    ).then((value) => pagingController.refresh());
+    ).then((value) => bloc.refresh());
   }
 }

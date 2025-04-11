@@ -1,3 +1,4 @@
+import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
@@ -7,7 +8,6 @@ import 'package:flow_api/models/group/model.dart';
 import 'package:flow_api/models/model.dart';
 
 import '../../cubits/flow.dart';
-import '../../helpers/sourced_paging_controller.dart';
 import '../../widgets/markdown_field.dart';
 import '../calendar/filter.dart';
 import '../users/filter.dart';
@@ -19,13 +19,13 @@ class GroupTile extends StatelessWidget {
     required this.source,
     required this.group,
     required this.flowCubit,
-    required this.pagingController,
+    required this.bloc,
   });
 
   final FlowCubit flowCubit;
   final Group group;
   final String source;
-  final SourcedPagingController<Group> pagingController;
+  final SourcedPagingBloc<Group> bloc;
 
   @override
   Widget build(BuildContext context) {
@@ -80,11 +80,11 @@ class GroupTile extends StatelessWidget {
             onPressed: () async {
               Navigator.of(context).pop();
               await flowCubit.getService(source).group?.deleteGroup(group.id!);
-              pagingController.itemList!.remove(SourcedModel(
+              bloc.remove(SourcedModel(
                 source,
                 group,
               ));
-              pagingController.refresh();
+              bloc.refresh();
             },
             child: Text(
               AppLocalizations.of(context).delete,
@@ -122,6 +122,6 @@ class GroupTile extends StatelessWidget {
         group: group,
         source: source,
       ),
-    ).then((value) => pagingController.refresh());
+    ).then((value) => bloc.refresh());
   }
 }

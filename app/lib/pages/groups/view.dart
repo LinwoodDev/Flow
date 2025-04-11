@@ -1,15 +1,15 @@
+import 'package:flow/blocs/sourced_paging.dart';
+import 'package:flow/widgets/paging/list.dart';
 import 'package:flow_api/services/source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/model.dart';
 import 'package:flow_api/models/group/model.dart';
 import 'package:flow_api/models/group/service.dart';
 
 import '../../cubits/flow.dart';
-import '../../widgets/builder_delegate.dart';
 import 'group.dart';
 
 class GroupsView<T extends DescriptiveModel> extends StatefulWidget {
@@ -35,77 +35,55 @@ class GroupsView<T extends DescriptiveModel> extends StatefulWidget {
 
 class _GroupsViewState<T extends DescriptiveModel>
     extends State<GroupsView<T>> {
-  static const _pageSize = 20;
-
   late final GroupService? _groupService;
 
-  final PagingController<int, Group> _pagingController =
-      PagingController(firstPageKey: 0);
+  late final SourcedPagingBloc<Group> _bloc;
 
   @override
   void initState() {
-    final service = context.read<FlowCubit>().getService(widget.source);
+    final cubit = context.read<FlowCubit>();
+    final service = cubit.getService(widget.source);
     _groupService = service.group;
-    _pagingController.addPageRequestListener((pageKey) {
-      _fetchPage(pageKey);
-    });
+    _bloc = SourcedPagingBloc.source(
+      cubit: cubit,
+      source: widget.source,
+      fetch: (service, offset, limit) => widget.connector
+          .getItems(widget.model.id!, offset: offset, limit: limit),
+    );
     super.initState();
   }
 
-  Future<void> _fetchPage(int pageKey) async {
-    try {
-      final newItems = await widget.connector.getItems(widget.model.id!,
-          offset: pageKey * _pageSize, limit: _pageSize);
-      final isLastPage = newItems.length < _pageSize;
-      if (isLastPage) {
-        _pagingController.appendLastPage(newItems);
-      } else {
-        final nextPageKey = pageKey + 1;
-        _pagingController.appendPage(newItems, nextPageKey);
-      }
-    } catch (error) {
-      _pagingController.error = error;
-    }
-  }
-
   @override
-  Widget build(BuildContext context) =>
-      // Don't worry about displaying progress or error indicators on screen; the
-      // package takes care of that. If you want to customize them, use the
-      // [PagedChildBuilderDelegate] properties.
-      Stack(
+  Widget build(BuildContext context) => Stack(
         children: [
           Column(
             children: [
               Flexible(
-                child: PagedListView<int, Group>(
-                  pagingController: _pagingController,
-                  builderDelegate: buildMaterialPagedDelegate<Group>(
-                    _pagingController,
-                    (context, item, index) {
-                      return Dismissible(
-                        key: ValueKey(item.id),
-                        background: Container(color: Colors.red),
-                        onDismissed: (direction) {
-                          _groupService?.deleteGroup(item.id!);
-                          _pagingController.itemList!.remove(item);
+                child: PagedListView.source(
+                  bloc: _bloc,
+                  itemBuilder: (context, item, index) {
+                    return Dismissible(
+                      key: ValueKey(item.id),
+                      background: Container(color: Colors.red),
+                      onDismissed: (direction) {
+                        _groupService?.deleteGroup(item.id!);
+                        _bloc.removeSourced(item);
+                      },
+                      child: ListTile(
+                        title: Text(item.name),
+                        onTap: () async {
+                          await showDialog<SourcedModel<Group>>(
+                            context: context,
+                            builder: (context) => GroupDialog(
+                              source: widget.source,
+                              group: item,
+                            ),
+                          );
+                          _bloc.refresh();
                         },
-                        child: ListTile(
-                          title: Text(item.name),
-                          onTap: () async {
-                            await showDialog<SourcedModel<Group>>(
-                              context: context,
-                              builder: (context) => GroupDialog(
-                                source: widget.source,
-                                group: item,
-                              ),
-                            );
-                            _pagingController.refresh();
-                          },
-                        ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
               ),
               const SizedBox(height: 64),
@@ -129,7 +107,7 @@ class _GroupsViewState<T extends DescriptiveModel>
                     await widget.connector
                         .connect(widget.model.id!, group.model.id!);
                   }
-                  _pagingController.refresh();
+                  _bloc.refresh();
                 },
               ),
             ),
@@ -139,7 +117,7 @@ class _GroupsViewState<T extends DescriptiveModel>
 
   @override
   void dispose() {
-    _pagingController.dispose();
+    _bloc.close();
     super.dispose();
   }
 }

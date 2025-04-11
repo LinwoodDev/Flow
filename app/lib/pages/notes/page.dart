@@ -1,3 +1,4 @@
+import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/pages/notes/navigator/drawer.dart';
 import 'package:flow/pages/notes/note.dart';
 import 'package:flow/widgets/navigation.dart';
@@ -11,7 +12,6 @@ import 'package:flow_api/models/note/model.dart';
 import 'package:flow_api/models/model.dart';
 
 import '../../cubits/flow.dart';
-import '../../helpers/sourced_paging_controller.dart';
 import 'filter.dart';
 import 'details.dart';
 
@@ -98,7 +98,7 @@ class NotesBodyView extends StatefulWidget {
 
 class _NotesBodyViewState extends State<NotesBodyView> {
   late final FlowCubit _flowCubit;
-  late final SourcedPagingController<Note> _controller;
+  late final SourcedPagingBloc<Note> _bloc;
   late final Future<Note?> _parent;
   late NoteFilter _filter;
 
@@ -106,34 +106,35 @@ class _NotesBodyViewState extends State<NotesBodyView> {
   void initState() {
     _flowCubit = context.read<FlowCubit>();
     _parent = _fetchParent();
-    _controller = SourcedPagingController(_flowCubit);
-    _controller.addFetchListener((source, service, offset, limit) async {
-      if (_filter.source != null && _filter.source != source) return null;
-      final notes = _filter.selectedLabel != null
-          ? await service.labelNote?.getItems(
-              _filter.selectedLabel!,
-              offset: offset,
-              limit: limit,
-              notebook: _filter.notebook,
-              statuses: _filter.statuses,
-              parent: widget.parent?.source == source
-                  ? widget.parent?.model
-                  : createEmptyUint8List(),
-              search: widget.search,
-            )
-          : await service.note?.getNotes(
-              offset: offset,
-              limit: limit,
-              notebook: _filter.notebook,
-              statuses: _filter.statuses,
-              parent: widget.parent?.source == source
-                  ? widget.parent?.model
-                  : createEmptyUint8List(),
-              search: widget.search);
-      if (notes == null) return null;
-      if (source != widget.parent?.source) return notes;
-      return notes;
-    });
+    _bloc = SourcedPagingBloc.item(
+        cubit: _flowCubit,
+        fetch: (source, service, offset, limit) async {
+          if (_filter.source != null && _filter.source != source) return null;
+          final notes = _filter.selectedLabel != null
+              ? await service.labelNote?.getItems(
+                  _filter.selectedLabel!,
+                  offset: offset,
+                  limit: limit,
+                  notebook: _filter.notebook,
+                  statuses: _filter.statuses,
+                  parent: widget.parent?.source == source
+                      ? widget.parent?.model
+                      : createEmptyUint8List(),
+                  search: widget.search,
+                )
+              : await service.note?.getNotes(
+                  offset: offset,
+                  limit: limit,
+                  notebook: _filter.notebook,
+                  statuses: _filter.statuses,
+                  parent: widget.parent?.source == source
+                      ? widget.parent?.model
+                      : createEmptyUint8List(),
+                  search: widget.search);
+          if (notes == null) return null;
+          if (source != widget.parent?.source) return notes;
+          return notes;
+        });
     _filter = widget.filter;
     super.initState();
   }
@@ -150,7 +151,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
+    _bloc.close();
   }
 
   @override
@@ -159,13 +160,13 @@ class _NotesBodyViewState extends State<NotesBodyView> {
 
     if (oldWidget.search != widget.search ||
         oldWidget.parent != widget.parent) {
-      _controller.refresh();
+      _bloc.refresh();
     }
     if (oldWidget.filter != widget.filter) {
       setState(() {
         _filter = widget.filter;
       });
-      _controller.refresh();
+      _bloc.refresh();
     }
   }
 
@@ -176,12 +177,12 @@ class _NotesBodyViewState extends State<NotesBodyView> {
       endDrawer: NotesNavigatorDrawer(
         note: widget.parent?.model,
         filter: _filter,
-        controller: _controller,
+        bloc: _bloc,
         isSearching: widget.search.isNotEmpty,
         onFilterChanged: (value) {
           setState(() {
             _filter = value;
-            _controller.refresh();
+            _bloc.refresh();
           });
         },
       ),
@@ -204,7 +205,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
             onChanged: (filter) {
               setState(() {
                 _filter = filter;
-                _controller.refresh();
+                _bloc.refresh();
               });
             },
           ),
@@ -218,7 +219,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
                     const Divider(),
                     const SizedBox(height: 8),
                     NoteDetailsView(
-                      controller: _controller,
+                      bloc: _bloc,
                       source: widget.parent!.source,
                       note: data,
                     ),
@@ -229,7 +230,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
             const SizedBox(height: 8),
             Expanded(
               child: NotesListView(
-                controller: _controller,
+                bloc: _bloc,
               ),
             ),
           ],
@@ -245,7 +246,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
                   ),
                   source: widget.parent?.source,
                   create: true,
-                )).then((_) => _controller.refresh()),
+                )).then((_) => _bloc.refresh()),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),

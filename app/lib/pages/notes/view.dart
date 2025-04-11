@@ -1,15 +1,15 @@
+import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/pages/notes/select.dart';
+import 'package:flow/widgets/paging/list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/model.dart';
 import 'package:flow_api/models/note/model.dart';
 import 'package:flow_api/models/note/service.dart';
 
 import '../../cubits/flow.dart';
-import '../../widgets/builder_delegate.dart';
 import 'note.dart';
 
 class NotesView<T extends DescriptiveModel> extends StatefulWidget {
@@ -28,37 +28,22 @@ class NotesView<T extends DescriptiveModel> extends StatefulWidget {
 }
 
 class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
-  static const _pageSize = 20;
-
   late final NoteService? _noteService;
 
-  final PagingController<int, Note> _pagingController =
-      PagingController(firstPageKey: 0);
+  late final SourcedPagingBloc<Note> _bloc;
 
   @override
   void initState() {
-    final service = context.read<FlowCubit>().getService(widget.source);
+    final cubit = context.read<FlowCubit>();
+    final service = cubit.getService(widget.source);
     _noteService = service.note;
-    _pagingController.addPageRequestListener((pageKey) {
-      _fetchPage(pageKey);
-    });
+    _bloc = SourcedPagingBloc.source(
+      cubit: cubit,
+      source: widget.source,
+      fetch: (service, offset, limit) => widget.connector
+          .getItems(widget.model.id!, offset: offset, limit: limit),
+    );
     super.initState();
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
-    try {
-      final newItems = await widget.connector.getItems(widget.model.id!,
-          offset: pageKey * _pageSize, limit: _pageSize);
-      final isLastPage = newItems.length < _pageSize;
-      if (isLastPage) {
-        _pagingController.appendLastPage(newItems);
-      } else {
-        final nextPageKey = pageKey + 1;
-        _pagingController.appendPage(newItems, nextPageKey);
-      }
-    } catch (error) {
-      _pagingController.error = error;
-    }
   }
 
   @override
@@ -71,58 +56,54 @@ class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
           Column(
             children: [
               Flexible(
-                child: PagedListView<int, Note>(
-                  pagingController: _pagingController,
-                  builderDelegate: buildMaterialPagedDelegate<Note>(
-                    _pagingController,
-                    (context, item, index) {
-                      var status = item.status;
-                      return Dismissible(
-                        key: ValueKey(item.id),
-                        background: Container(color: Colors.red),
-                        onDismissed: (direction) {
-                          _noteService?.deleteNote(item.id!);
-                          _pagingController.itemList!.remove(item);
-                        },
-                        child: ListTile(
-                          title: Text(item.name),
-                          leading: status == null
-                              ? null
-                              : StatefulBuilder(
-                                  builder: (context, setState) => Checkbox(
-                                    value: status?.isDone,
-                                    tristate: true,
-                                    onChanged: (_) async {
-                                      bool? newState;
-                                      if (status?.isDone == null) {
-                                        newState = true;
-                                      } else if (status?.isDone == true) {
-                                        newState = false;
-                                      } else {
-                                        newState = null;
-                                      }
-                                      final next =
-                                          NoteStatus.fromDone(newState);
-                                      _noteService?.updateNote(
-                                          item.copyWith(status: next));
-                                      setState(() => status = next);
-                                    },
-                                  ),
+                child: PagedListView<Note>.source(
+                  bloc: _bloc,
+                  itemBuilder: (context, item, index) {
+                    var status = item.status;
+                    return Dismissible(
+                      key: ValueKey(item.id),
+                      background: Container(color: Colors.red),
+                      onDismissed: (direction) {
+                        _noteService?.deleteNote(item.id!);
+                        _bloc.removeSourced(item);
+                      },
+                      child: ListTile(
+                        title: Text(item.name),
+                        leading: status == null
+                            ? null
+                            : StatefulBuilder(
+                                builder: (context, setState) => Checkbox(
+                                  value: status?.isDone,
+                                  tristate: true,
+                                  onChanged: (_) async {
+                                    bool? newState;
+                                    if (status?.isDone == null) {
+                                      newState = true;
+                                    } else if (status?.isDone == true) {
+                                      newState = false;
+                                    } else {
+                                      newState = null;
+                                    }
+                                    final next = NoteStatus.fromDone(newState);
+                                    _noteService?.updateNote(
+                                        item.copyWith(status: next));
+                                    setState(() => status = next);
+                                  },
                                 ),
-                          onTap: () async {
-                            await showDialog<SourcedModel<Note>>(
-                              context: context,
-                              builder: (context) => NoteDialog(
-                                source: widget.source,
-                                note: item,
                               ),
-                            );
-                            _pagingController.refresh();
-                          },
-                        ),
-                      );
-                    },
-                  ),
+                        onTap: () async {
+                          await showDialog<SourcedModel<Note>>(
+                            context: context,
+                            builder: (context) => NoteDialog(
+                              source: widget.source,
+                              note: item,
+                            ),
+                          );
+                          _bloc.refresh();
+                        },
+                      ),
+                    );
+                  },
                 ),
               ),
               const SizedBox(height: 64),
@@ -146,7 +127,7 @@ class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
                     await widget.connector
                         .connect(widget.model.id!, note.model.id!);
                   }
-                  _pagingController.refresh();
+                  _bloc.refresh();
                 },
               ),
             ),
@@ -156,7 +137,7 @@ class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
 
   @override
   void dispose() {
-    _pagingController.dispose();
+    _bloc.close();
     super.dispose();
   }
 }

@@ -1,10 +1,10 @@
+import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/cubits/flow.dart';
-import 'package:flow/helpers/sourced_paging_controller.dart';
 import 'package:flow/pages/notes/tile.dart';
 import 'package:flow/pages/notes/filter.dart';
 import 'package:flow/pages/notes/label.dart';
 import 'package:flow/pages/notes/notebook.dart';
-import 'package:flow/widgets/builder_delegate.dart';
+import 'package:flow/widgets/paging/list.dart';
 import 'package:flow/widgets/select.dart';
 import 'package:flow_api/models/label/model.dart';
 import 'package:flow_api/models/model.dart';
@@ -13,7 +13,6 @@ import 'package:flow_api/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'dart:typed_data';
 import 'package:material_leap/material_leap.dart';
 import 'package:material_leap/widgets.dart';
@@ -28,14 +27,14 @@ class NotesNavigatorDrawer extends StatelessWidget {
   final ValueChanged<NoteFilter>? onFilterChanged;
   final NoteFilter filter;
   final bool isSearching;
-  final SourcedPagingController<Note> controller;
+  final SourcedPagingBloc<Note> bloc;
 
   const NotesNavigatorDrawer({
     super.key,
     this.note,
     this.onFilterChanged,
     required this.filter,
-    required this.controller,
+    required this.bloc,
     required this.isSearching,
   });
 
@@ -75,7 +74,7 @@ class NotesNavigatorDrawer extends StatelessWidget {
           if (note != null && !isSearching)
             Expanded(
               child: NotesListView(
-                controller: controller,
+                bloc: bloc,
               ),
             ),
         ],

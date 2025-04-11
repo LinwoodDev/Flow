@@ -1,4 +1,4 @@
-import 'package:flow/widgets/indicators/indicator.dart';
+import 'package:flow/widgets/paging/indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 
