@@ -92,7 +92,7 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
   @override
   void initState() {
     _flowCubit = context.read<FlowCubit>();
-    _bloc = SourcedPagingBloc.item(
+    _bloc = SourcedPagingBloc<Group>.item(
         cubit: _flowCubit,
         fetch: (source, service, offset, limit) async =>
             service.group?.getGroups(offset: offset, limit: limit));

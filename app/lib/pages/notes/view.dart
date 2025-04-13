@@ -64,7 +64,10 @@ class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
                       key: ValueKey(item.id),
                       background: Container(color: Colors.red),
                       onDismissed: (direction) {
-                        _noteService?.deleteNote(item.id!);
+                        widget.connector.disconnect(
+                          widget.model.id!,
+                          item.id!,
+                        );
                         _bloc.removeSourced(item);
                       },
                       child: ListTile(

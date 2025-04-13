@@ -40,7 +40,10 @@ class SourcedPagingBloc<T>
   }
 
   SourcedPagingBloc.item(
-      {required this.cubit, this.sources, required fetch, this.pageSize = 50})
+      {required this.cubit,
+      this.sources,
+      required ItemFetcher<T> fetch,
+      this.pageSize = 50})
       : useDates = false,
         _fetch = _buildDatedFetch(fetch),
         super(const SourcedPagingInitial()) {
@@ -50,7 +53,7 @@ class SourcedPagingBloc<T>
   SourcedPagingBloc.source({
     required this.cubit,
     required String source,
-    required SourceFetcher fetch,
+    required SourceFetcher<T> fetch,
     this.pageSize = 50,
   })  : sources = [source],
         useDates = false,
@@ -164,12 +167,12 @@ class SourcedPagingBloc<T>
   void removeSourced(T item) => add(SourcedPagingRemoved(item));
 }
 
-_buildDatedFetch<T>(ItemFetcher fetch) => (String source, SourceService service,
-        int offset, int limit, int date) async {
+_buildDatedFetch<T>(ItemFetcher<T> fetch) => (String source,
+        SourceService service, int offset, int limit, int date) async {
       final items = await fetch(source, service, offset, limit);
       return items;
     };
-_buildDatedFetchSource<T>(SourceFetcher fetch) => (String source,
+_buildDatedFetchSource<T>(SourceFetcher<T> fetch) => (String source,
         SourceService service, int offset, int limit, int date) async {
       final items = await fetch(service, offset, limit);
       return items;

@@ -46,8 +46,8 @@ importers:
         version: 5.8.3
     devDependencies:
       '@vite-pwa/astro':
-        specifier: ^1.0.0
-        version: 1.0.0(astro@5.6.1(jiti@2.4.2)(rollup@2.79.2)(sass@1.86.3)(terser@5.39.0)(typescript@5.8.3)(yaml@2.7.1))(vite-plugin-pwa@1.0.0(vite@6.2.6(jiti@2.4.2)(sass@1.86.3)(terser@5.39.0)(yaml@2.7.1))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0))
+        specifier: ^1.0.1
+        version: 1.0.1(astro@5.6.1(jiti@2.4.2)(rollup@2.79.2)(sass@1.86.3)(terser@5.39.0)(typescript@5.8.3)(yaml@2.7.1))(vite-plugin-pwa@1.0.0(vite@6.2.6(jiti@2.4.2)(sass@1.86.3)(terser@5.39.0)(yaml@2.7.1))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0))
       sass:
         specifier: ^1.86.3
         version: 1.86.3
@@ -1454,8 +1454,8 @@ packages:
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
 
-  '@vite-pwa/astro@1.0.0':
-    resolution: {integrity: sha512-sdevvfkC5BEdORU6xjPJEW4iOLiNMngTQB41EXX7DzlLWyLH+hpzrwGuAwJQgS90EDxk7Gqma+qDfqoxzkxwIA==}
+  '@vite-pwa/astro@1.0.1':
+    resolution: {integrity: sha512-jwtlgII0AqztSUS58H85kDLqyJy8w49rWsi0CwYG7Ik8ya6viMTHZBR5eQ5r0wzQJ++1fj6Uvx1nFBuyxjE/Uw==}
     peerDependencies:
       '@vite-pwa/assets-generator': ^1.0.0
       astro: ^1.6.0 || ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
@@ -1856,8 +1856,8 @@ packages:
     engines: {node: '>=0.10.0'}
     hasBin: true
 
-  electron-to-chromium@1.5.135:
-    resolution: {integrity: sha512-8gXUdEmvb+WCaYUhA0Svr08uSeRjM2w3x5uHOc1QbaEVzJXB8rgm5eptieXzyKoVEtinLvW6MtTcurA65PeS1Q==}
+  electron-to-chromium@1.5.136:
+    resolution: {integrity: sha512-kL4+wUTD7RSA5FHx5YwWtjDnEEkIIikFgWHR4P6fqjw1PPLlqYkxeOb++wAauAssat0YClCy8Y3C5SxgSkjibQ==}
 
   emmet@2.4.11:
     resolution: {integrity: sha512-23QPJB3moh/U9sT4rQzGgeyyGIrcM+GH5uVYg2C6wZIxAIJq7Ng3QLT79tl8FUwDXhyq9SusfknOrofAKqvgyQ==}
@@ -5254,7 +5254,7 @@ snapshots:
 
   '@ungap/structured-clone@1.3.0': {}
 
-  '@vite-pwa/astro@1.0.0(astro@5.6.1(jiti@2.4.2)(rollup@2.79.2)(sass@1.86.3)(terser@5.39.0)(typescript@5.8.3)(yaml@2.7.1))(vite-plugin-pwa@1.0.0(vite@6.2.6(jiti@2.4.2)(sass@1.86.3)(terser@5.39.0)(yaml@2.7.1))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0))':
+  '@vite-pwa/astro@1.0.1(astro@5.6.1(jiti@2.4.2)(rollup@2.79.2)(sass@1.86.3)(terser@5.39.0)(typescript@5.8.3)(yaml@2.7.1))(vite-plugin-pwa@1.0.0(vite@6.2.6(jiti@2.4.2)(sass@1.86.3)(terser@5.39.0)(yaml@2.7.1))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0))':
     dependencies:
       astro: 5.6.1(jiti@2.4.2)(rollup@2.79.2)(sass@1.86.3)(terser@5.39.0)(typescript@5.8.3)(yaml@2.7.1)
       vite-plugin-pwa: 1.0.0(vite@6.2.6(jiti@2.4.2)(sass@1.86.3)(terser@5.39.0)(yaml@2.7.1))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0)
@@ -5556,7 +5556,7 @@ snapshots:
   browserslist@4.24.4:
     dependencies:
       caniuse-lite: 1.0.30001713
-      electron-to-chromium: 1.5.135
+      electron-to-chromium: 1.5.136
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.24.4)
 
@@ -5745,7 +5745,7 @@ snapshots:
     dependencies:
       jake: 10.9.2
 
-  electron-to-chromium@1.5.135: {}
+  electron-to-chromium@1.5.136: {}
 
   emmet@2.4.11:
     dependencies:

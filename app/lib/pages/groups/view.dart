@@ -1,4 +1,5 @@
 import 'package:flow/blocs/sourced_paging.dart';
+import 'package:flow/pages/groups/select.dart';
 import 'package:flow/widgets/paging/list.dart';
 import 'package:flow_api/services/source.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,10 @@ class _GroupsViewState<T extends DescriptiveModel>
                       key: ValueKey(item.id),
                       background: Container(color: Colors.red),
                       onDismissed: (direction) {
-                        _groupService?.deleteGroup(item.id!);
+                        widget.connector.disconnect(
+                          widget.model.id!,
+                          item.id!,
+                        );
                         _bloc.removeSourced(item);
                       },
                       child: ListTile(
@@ -94,12 +98,12 @@ class _GroupsViewState<T extends DescriptiveModel>
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: FloatingActionButton.extended(
-                label: Text(AppLocalizations.of(context).create),
-                icon: const PhosphorIcon(PhosphorIconsLight.plus),
+                label: Text(AppLocalizations.of(context).link),
+                icon: const PhosphorIcon(PhosphorIconsLight.link),
                 onPressed: () async {
                   final group = await showDialog<SourcedModel<Group>>(
                     context: context,
-                    builder: (context) => GroupDialog(
+                    builder: (context) => GroupSelectDialog(
                       source: widget.source,
                     ),
                   );

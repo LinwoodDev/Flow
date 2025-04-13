@@ -1,4 +1,5 @@
 import 'package:flow/blocs/sourced_paging.dart';
+import 'package:flow/pages/users/select.dart';
 import 'package:flow/widgets/paging/list.dart';
 import 'package:flow_api/services/source.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,6 @@ class UsersView<T extends DescriptiveModel> extends StatefulWidget {
       required this.source,
       required this.connector,
       required this.model});
-
   UsersView.reversed(
       {super.key,
       required this.source,
@@ -54,29 +54,25 @@ class _UsersViewState<T extends DescriptiveModel> extends State<UsersView<T>> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      // Don't worry about displaying progress or error indicators on screen; the
-      // package takes care of that. If you want to customize them, use the
-      // [PagedChildBuilderDelegate] properties.
-      Stack(
+  Widget build(BuildContext context) => Stack(
         children: [
           Column(
             children: [
               Flexible(
-                child: PagedListView<User>.source(
+                child: PagedListView.source(
                   bloc: _bloc,
                   itemBuilder: (context, item, index) {
                     return Dismissible(
                       key: ValueKey(item.id),
                       background: Container(color: Colors.red),
                       onDismissed: (direction) {
-                        _userService?.deleteUser(item.id!);
+                        widget.connector.disconnect(widget.model.id!, item.id!);
                         _bloc.removeSourced(item);
                       },
                       child: ListTile(
                         title: Text(item.name),
                         onTap: () async {
-                          await showDialog(
+                          await showDialog<SourcedModel<User>>(
                             context: context,
                             builder: (context) => UserDialog(
                               source: widget.source,
@@ -103,7 +99,7 @@ class _UsersViewState<T extends DescriptiveModel> extends State<UsersView<T>> {
                 onPressed: () async {
                   final user = await showDialog<SourcedModel<User>>(
                     context: context,
-                    builder: (context) => UserDialog(
+                    builder: (context) => UserSelectDialog(
                       source: widget.source,
                     ),
                   );

@@ -109,7 +109,7 @@ class _UsersBodyViewState extends State<UsersBodyView> {
   @override
   void initState() {
     _flowCubit = context.read<FlowCubit>();
-    _bloc = SourcedPagingBloc.item(
+    _bloc = SourcedPagingBloc<User>.item(
         cubit: _flowCubit,
         fetch: (source, service, offset, limit) async =>
             _filter.source != null && _filter.source != source
@@ -141,49 +141,51 @@ class _UsersBodyViewState extends State<UsersBodyView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          UserFilterView(
-            initialFilter: _filter,
-            onChanged: (filter) {
-              setState(() {
-                _filter = filter;
-              });
-              _bloc.refresh();
-            },
-          ),
-          const SizedBox(height: 8),
-          Expanded(
-            child: PagedListView.item(
-              bloc: _bloc,
-              itemBuilder: (ctx, item, index) => Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 800),
-                  child: Dismissible(
-                    key: ValueKey('${item.model.id}@${item.source}'),
-                    onDismissed: (direction) async {
-                      await _flowCubit
-                          .getService(item.source)
-                          .user
-                          ?.deleteUser(item.model.id!);
-                      _bloc.remove(item);
-                    },
-                    background: Container(
-                      color: Colors.red,
-                    ),
-                    child: UserTile(
-                      flowCubit: _flowCubit,
-                      bloc: _bloc,
-                      source: item.source,
-                      user: item.model,
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            UserFilterView(
+              initialFilter: _filter,
+              onChanged: (filter) {
+                setState(() {
+                  _filter = filter;
+                });
+                _bloc.refresh();
+              },
+            ),
+            const SizedBox(height: 8),
+            Expanded(
+              child: PagedListView.item(
+                bloc: _bloc,
+                itemBuilder: (ctx, item, index) => Center(
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 800),
+                    child: Dismissible(
+                      key: ValueKey('${item.model.id}@${item.source}'),
+                      onDismissed: (direction) async {
+                        await _flowCubit
+                            .getService(item.source)
+                            .user
+                            ?.deleteUser(item.model.id!);
+                        _bloc.remove(item);
+                      },
+                      background: Container(
+                        color: Colors.red,
+                      ),
+                      child: UserTile(
+                        flowCubit: _flowCubit,
+                        bloc: _bloc,
+                        source: item.source,
+                        user: item.model,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(

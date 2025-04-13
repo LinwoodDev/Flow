@@ -113,7 +113,7 @@ class _PagedListViewState<T> extends State<_PagedListView<T>> {
     final state = widget.state;
     final items = state.items;
     final dates = state.dates;
-    if (useDates ? dates.isEmpty : items.isEmpty) {
+    if (items.isEmpty) {
       return const EmptyIndicatorDisplay();
     }
     return ListView.builder(

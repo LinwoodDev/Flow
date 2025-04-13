@@ -1,4 +1,9 @@
+* Add linking to users and groups tab view
+* Reworking paging system to a built in solution
+* Fix user page alignment
 * Fix safe area of navigation drawer
 * Fix ical importer doesn't import calendar items ([#89](https://github.com/LinwoodDev/Flow/issues/89))
+* Fix event user connecting not working correctly
+* Fix dismissing removes items instead of disconnecting them
 
 Read more here: https://linwood.dev/flow/0.4.2

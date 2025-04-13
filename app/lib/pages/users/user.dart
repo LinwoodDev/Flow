@@ -1,4 +1,5 @@
 import 'package:flow/widgets/markdown_field.dart';
+import 'package:flow_api/models/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
@@ -83,7 +84,8 @@ class UserDialog extends StatelessWidget {
               await currentService?.updateUser(currentUser);
             }
             if (context.mounted) {
-              Navigator.of(context).pop(currentUser);
+              Navigator.of(context)
+                  .pop(SourcedModel(currentSource, currentUser));
             }
           },
           child: Text(AppLocalizations.of(context).save),
