@@ -8,7 +8,6 @@ import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/model.dart';
 import 'package:flow_api/models/user/model.dart';
-import 'package:flow_api/models/user/service.dart';
 
 import '../../cubits/flow.dart';
 import 'user.dart';
@@ -35,15 +34,11 @@ class UsersView<T extends DescriptiveModel> extends StatefulWidget {
 }
 
 class _UsersViewState<T extends DescriptiveModel> extends State<UsersView<T>> {
-  late final UserService? _userService;
-
   late final SourcedPagingBloc<User> _bloc;
 
   @override
   void initState() {
     final cubit = context.read<FlowCubit>();
-    final service = cubit.getService(widget.source);
-    _userService = service.user;
     _bloc = SourcedPagingBloc.source(
       cubit: cubit,
       source: widget.source,

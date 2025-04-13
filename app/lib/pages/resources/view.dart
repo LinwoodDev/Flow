@@ -29,15 +29,11 @@ class ResourcesView<T extends DescriptiveModel> extends StatefulWidget {
 
 class _ResourcesViewState<T extends DescriptiveModel>
     extends State<ResourcesView<T>> {
-  late final ResourceService? _resourceService;
-
   late final SourcedPagingBloc<Resource> _bloc;
 
   @override
   void initState() {
     final cubit = context.read<FlowCubit>();
-    final service = cubit.getService(widget.source);
-    _resourceService = service.resource;
     _bloc = SourcedPagingBloc.source(
       cubit: cubit,
       source: widget.source,

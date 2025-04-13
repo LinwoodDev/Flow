@@ -8,7 +8,6 @@ import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/model.dart';
 import 'package:flow_api/models/group/model.dart';
-import 'package:flow_api/models/group/service.dart';
 
 import '../../cubits/flow.dart';
 import 'group.dart';
@@ -36,15 +35,11 @@ class GroupsView<T extends DescriptiveModel> extends StatefulWidget {
 
 class _GroupsViewState<T extends DescriptiveModel>
     extends State<GroupsView<T>> {
-  late final GroupService? _groupService;
-
   late final SourcedPagingBloc<Group> _bloc;
 
   @override
   void initState() {
     final cubit = context.read<FlowCubit>();
-    final service = cubit.getService(widget.source);
-    _groupService = service.group;
     _bloc = SourcedPagingBloc.source(
       cubit: cubit,
       source: widget.source,
