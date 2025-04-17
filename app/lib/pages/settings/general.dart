@@ -196,7 +196,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                                     onTap: () async {
                                       await launchUrl(
                                         Uri.parse(
-                                          'https://butterfly.linwood.dev/downloads',
+                                          'https://flow.linwood.dev/downloads',
                                         ),
                                         mode: LaunchMode.externalApplication,
                                       );
@@ -227,8 +227,8 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                   ListTile(
                     title: Text(AppLocalizations.of(context).releaseNotes),
                     leading: const PhosphorIcon(PhosphorIconsLight.flag),
-                    onTap: () =>
-                        launchUrl(Uri.https("go.linwood.dev", "flow/0.3")),
+                    onTap: () => launchUrl(Uri.https(
+                        "go.linwood.dev", "flow/$applicationMinorVersion")),
                   ),
                   ListTile(
                     title: const Text("Matrix"),

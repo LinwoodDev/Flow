@@ -216,6 +216,7 @@ const flavor = String.fromEnvironment('flavor');
 const isNightly =
     flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
 const shortApplicationName = isNightly ? 'Flow Nightly' : 'Flow';
+const applicationMinorVersion = "0.4.2";
 const applicationName = 'Linwood $shortApplicationName';
 
 Future<String> getCurrentVersion() async {

@@ -5,5 +5,6 @@
 * Fix ical importer doesn't import calendar items ([#89](https://github.com/LinwoodDev/Flow/issues/89))
 * Fix event user connecting not working correctly
 * Fix dismissing removes items instead of disconnecting them
+* Fix butterfly is referenced instead of flow
 
 Read more here: https://linwood.dev/flow/0.4.2
