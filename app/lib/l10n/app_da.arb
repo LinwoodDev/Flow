@@ -303,7 +303,7 @@
   "update": "Opdater",
   "currentVersion": "Nuværende version",
   "checkForUpdates": "Søg efter opdateringer",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
   "usingLatestStable": "Du bruger den seneste stabile version",
   "usingLatestNightly": "Du bruger den seneste natlige version",
   "updateNow": "Opdater nu",
