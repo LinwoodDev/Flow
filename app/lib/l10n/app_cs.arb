@@ -303,7 +303,7 @@
   "update": "Aktualizovat",
   "currentVersion": "Aktuální verze",
   "checkForUpdates": "Zkontrolovat aktualizace",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
   "usingLatestStable": "Používáte nejnovější stabilní verzi",
   "usingLatestNightly": "Používáte nejnovější noční verzi",
   "updateNow": "Aktualizovat nyní",
