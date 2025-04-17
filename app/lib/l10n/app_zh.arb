@@ -303,7 +303,7 @@
   "update": "更新",
   "currentVersion": "当前版本",
   "checkForUpdates": "检查更新",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
   "usingLatestStable": "您正在使用最新的稳定版本",
   "usingLatestNightly": "您正在使用最新的夜间版本",
   "updateNow": "立即更新",
