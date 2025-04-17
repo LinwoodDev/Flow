@@ -303,7 +303,7 @@
   "update": "Оновити",
   "currentVersion": "Поточна версія",
   "checkForUpdates": "Перевірити наявність оновлень",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
   "usingLatestStable": "Ви використовуєте останню стабільну версію",
   "usingLatestNightly": "Ви використовуєте останню нічну версію",
   "updateNow": "Оновити зараз",
