@@ -303,7 +303,7 @@
   "update": "Uppdatera",
   "currentVersion": "Nuvarande version",
   "checkForUpdates": "Sök efter uppdateringar",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
   "usingLatestStable": "Du använder den senaste stabila versionen",
   "usingLatestNightly": "Du använder den senaste nattliga versionen",
   "updateNow": "Uppdatera nu",
