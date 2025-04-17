@@ -303,7 +303,7 @@
   "update": "Aktualizuj",
   "currentVersion": "Aktualna wersja",
   "checkForUpdates": "Sprawdź aktualizacje",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
   "usingLatestStable": "Używasz najnowszej stabilnej wersji",
   "usingLatestNightly": "Używasz najnowszej wersji nocnej",
   "updateNow": "Aktualizuj teraz",
