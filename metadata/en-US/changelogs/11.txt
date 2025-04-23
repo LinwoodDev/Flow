@@ -1,4 +1,6 @@
 * Add linking to users and groups tab view
+* Add import and exporting settings
+* Add more density options to settings
 * Reworking paging system to a built in solution
 * Fix user page alignment
 * Fix safe area of navigation drawer

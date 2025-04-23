@@ -6,6 +6,118 @@
 
 part of 'settings.dart';
 
+class ThemeDensityMapper extends EnumMapper<ThemeDensity> {
+  ThemeDensityMapper._();
+
+  static ThemeDensityMapper? _instance;
+  static ThemeDensityMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = ThemeDensityMapper._());
+    }
+    return _instance!;
+  }
+
+  static ThemeDensity fromValue(dynamic value) {
+    ensureInitialized();
+    return MapperContainer.globals.fromValue(value);
+  }
+
+  @override
+  ThemeDensity decode(dynamic value) {
+    switch (value) {
+      case r'system':
+        return ThemeDensity.system;
+      case r'maximize':
+        return ThemeDensity.maximize;
+      case r'desktop':
+        return ThemeDensity.desktop;
+      case r'compact':
+        return ThemeDensity.compact;
+      case r'comfortable':
+        return ThemeDensity.comfortable;
+      case r'standard':
+        return ThemeDensity.standard;
+      default:
+        throw MapperException.unknownEnumValue(value);
+    }
+  }
+
+  @override
+  dynamic encode(ThemeDensity self) {
+    switch (self) {
+      case ThemeDensity.system:
+        return r'system';
+      case ThemeDensity.maximize:
+        return r'maximize';
+      case ThemeDensity.desktop:
+        return r'desktop';
+      case ThemeDensity.compact:
+        return r'compact';
+      case ThemeDensity.comfortable:
+        return r'comfortable';
+      case ThemeDensity.standard:
+        return r'standard';
+    }
+  }
+}
+
+extension ThemeDensityMapperExtension on ThemeDensity {
+  String toValue() {
+    ThemeDensityMapper.ensureInitialized();
+    return MapperContainer.globals.toValue<ThemeDensity>(this) as String;
+  }
+}
+
+class SyncModeMapper extends EnumMapper<SyncMode> {
+  SyncModeMapper._();
+
+  static SyncModeMapper? _instance;
+  static SyncModeMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = SyncModeMapper._());
+    }
+    return _instance!;
+  }
+
+  static SyncMode fromValue(dynamic value) {
+    ensureInitialized();
+    return MapperContainer.globals.fromValue(value);
+  }
+
+  @override
+  SyncMode decode(dynamic value) {
+    switch (value) {
+      case r'always':
+        return SyncMode.always;
+      case r'noMobile':
+        return SyncMode.noMobile;
+      case r'manual':
+        return SyncMode.manual;
+      default:
+        throw MapperException.unknownEnumValue(value);
+    }
+  }
+
+  @override
+  dynamic encode(SyncMode self) {
+    switch (self) {
+      case SyncMode.always:
+        return r'always';
+      case SyncMode.noMobile:
+        return r'noMobile';
+      case SyncMode.manual:
+        return r'manual';
+    }
+  }
+}
+
+extension SyncModeMapperExtension on SyncMode {
+  String toValue() {
+    SyncModeMapper.ensureInitialized();
+    return MapperContainer.globals.toValue<SyncMode>(this) as String;
+  }
+}
+
 class FlowSettingsMapper extends ClassMapperBase<FlowSettings> {
   FlowSettingsMapper._();
 
@@ -13,7 +125,10 @@ class FlowSettingsMapper extends ClassMapperBase<FlowSettings> {
   static FlowSettingsMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = FlowSettingsMapper._());
+      MapperContainer.globals.useAll([ThemeModeMapper()]);
+      SyncModeMapper.ensureInitialized();
       RemoteStorageMapper.ensureInitialized();
+      ThemeDensityMapper.ensureInitialized();
     }
     return _instance!;
   }

@@ -11,21 +11,42 @@ import '../api/storage/remote/model.dart';
 
 part 'settings.mapper.dart';
 
+@MappableEnum()
 enum ThemeDensity {
   system,
+  maximize,
+  desktop,
   compact,
   comfortable,
   standard;
 
   VisualDensity toFlutter() => switch (this) {
-        ThemeDensity.comfortable => VisualDensity.comfortable,
+        ThemeDensity.maximize =>
+          const VisualDensity(horizontal: -4, vertical: -4),
+        ThemeDensity.desktop =>
+          const VisualDensity(horizontal: -3, vertical: -3),
         ThemeDensity.compact => VisualDensity.compact,
+        ThemeDensity.comfortable => VisualDensity.comfortable,
         ThemeDensity.standard => VisualDensity.standard,
         ThemeDensity.system => VisualDensity.adaptivePlatformDensity,
       };
 }
 
-@MappableClass()
+final class ThemeModeMapper extends SimpleMapper<ThemeMode> {
+  const ThemeModeMapper();
+
+  @override
+  ThemeMode decode(Object value) {
+    return ThemeMode.values.byName(value.toString());
+  }
+
+  @override
+  String encode(ThemeMode value) {
+    return value.name;
+  }
+}
+
+@MappableClass(includeCustomMappers: [ThemeModeMapper()])
 class FlowSettings with FlowSettingsMappable, LeapSettings {
   final String locale;
   final ThemeMode themeMode;
@@ -84,6 +105,7 @@ class FlowSettings with FlowSettingsMappable, LeapSettings {
   }
 }
 
+@MappableEnum()
 enum SyncMode { always, noMobile, manual }
 
 enum SyncStatus { synced, syncing, error }
@@ -145,5 +167,17 @@ class SettingsCubit extends Cubit<FlowSettings>
   Future<void> changeHighContrast(bool highContrast) {
     emit(state.copyWith(highContrast: highContrast));
     return state.save();
+  }
+
+  Future<void> importSettings(String data) {
+    final settings = FlowSettingsMapper.fromJson(data).copyWith(
+      remotes: state.remotes,
+    );
+    emit(settings);
+    return state.save();
+  }
+
+  Future<String> exportSettings() async {
+    return state.toJson();
   }
 }
