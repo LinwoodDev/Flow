@@ -318,5 +318,9 @@
         "example": "1"
       }
     }
-  }
+  },
+  "systemTheme": "System theme",
+  "desktop": "Työpöytä",
+  "restoreSettingsFromFile": "Restore settings from file",
+  "exportSettingsToFile": "Export settings to file"
 }
