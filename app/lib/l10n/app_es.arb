@@ -4,7 +4,7 @@
   "calendar": "Calendario",
   "resources": "Recursos",
   "users": "Usuarios",
-  "user": "User",
+  "user": "Usuario",
   "sources": "Fuentes",
   "settings": "Ajustes",
   "create": "Crear",
@@ -303,14 +303,14 @@
   "update": "Actualizar",
   "currentVersion": "Versión actual",
   "checkForUpdates": "Buscar actualizaciones",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
+  "checkForUpdatesWarning": "Realizar una comprobación de actualizaciones se conectará al sitio web de Flow para obtener la información.",
   "usingLatestStable": "Estás usando la última versión estable",
   "usingLatestNightly": "Estás usando la última versión nocturna",
   "updateNow": "Actualizar ahora",
   "stable": "Estable",
   "nightly": "Noche",
   "updateAvailable": "Actualización disponible",
-  "countItems": "{count, plural, =0 {No items} one {1 item} other {{count} items}}",
+  "countItems": "{count, plural, =0 {No hay objetos} one {1 elemento} other {{count} objetos}}",
   "@countItems": {
     "placeholders": {
       "count": {
@@ -319,8 +319,8 @@
       }
     }
   },
-  "systemTheme": "System theme",
+  "systemTheme": "Tema del sistema",
   "desktop": "Escritorio",
-  "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file"
+  "restoreSettingsFromFile": "Restaurar ajustes desde el archivo",
+  "exportSettingsToFile": "Exportar ajustes al archivo"
 }
