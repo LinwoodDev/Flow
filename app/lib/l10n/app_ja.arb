@@ -4,7 +4,7 @@
   "calendar": "カレンダー",
   "resources": "リソース",
   "users": "ユーザー",
-  "user": "User",
+  "user": "ユーザー",
   "sources": "ソース",
   "settings": "設定",
   "create": "作成",
@@ -303,7 +303,7 @@
   "update": "更新",
   "currentVersion": "現在のバージョン",
   "checkForUpdates": "アップデートを確認",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
+  "checkForUpdatesWarning": "アップデートの確認を行うと、Flow ウェブサイトに接続して情報を取得します。",
   "usingLatestStable": "最新の安定版を使用しています",
   "usingLatestNightly": "最新のナイトリーバージョンを使用しています",
   "updateNow": "今すぐ更新",
@@ -319,8 +319,8 @@
       }
     }
   },
-  "systemTheme": "System theme",
+  "systemTheme": "システムテーマ",
   "desktop": "デスクトップ",
-  "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file"
+  "restoreSettingsFromFile": "設定をファイルから復元",
+  "exportSettingsToFile": "設定をファイルにエクスポート"
 }
