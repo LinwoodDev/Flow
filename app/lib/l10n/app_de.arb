@@ -4,7 +4,7 @@
   "calendar": "Kalender",
   "resources": "Ressourcen",
   "users": "Benutzer",
-  "user": "User",
+  "user": "Benutzer",
   "sources": "Quellen",
   "settings": "Einstellungen",
   "create": "Anlegen",
@@ -303,14 +303,14 @@
   "update": "Aktualisieren",
   "currentVersion": "Aktuelle Version",
   "checkForUpdates": "Nach Updates suchen",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
+  "checkForUpdatesWarning": "Wenn Sie eine Überprüfung auf Aktualisierungen durchführen, werden Sie sich mit der Flow Website verbinden, um die Informationen zu erhalten.",
   "usingLatestStable": "Sie verwenden die neueste stabile Version",
   "usingLatestNightly": "Sie verwenden die neueste Nightly Version",
   "updateNow": "Jetzt aktualisieren",
   "stable": "Stall",
   "nightly": "Nachts",
   "updateAvailable": "Update verfügbar",
-  "countItems": "{count, plural, =0 {No items} one {1 item} other {{count} items}}",
+  "countItems": "{count, plural, =0 {Keine Items} one {1 Element} other {{count} Items}}",
   "@countItems": {
     "placeholders": {
       "count": {
@@ -319,8 +319,8 @@
       }
     }
   },
-  "systemTheme": "System theme",
+  "systemTheme": "System-Theme",
   "desktop": "Desktop",
-  "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file"
+  "restoreSettingsFromFile": "Einstellungen aus Datei wiederherstellen",
+  "exportSettingsToFile": "Einstellungen in Datei exportieren"
 }
