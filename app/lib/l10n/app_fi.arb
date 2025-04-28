@@ -4,7 +4,7 @@
   "calendar": "Kalenteri",
   "resources": "Resurssit",
   "users": "Käyttäjät",
-  "user": "User",
+  "user": "Käyttäjä",
   "sources": "Lähteet",
   "settings": "Asetukset",
   "create": "Luo",
@@ -303,14 +303,14 @@
   "update": "Päivitä",
   "currentVersion": "Nykyinen versio",
   "checkForUpdates": "Tarkista päivitykset",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
+  "checkForUpdatesWarning": "Tarkistamalla päivityksiä voit ottaa yhteyttä Flow verkkosivustoon saadaksesi tiedot.",
   "usingLatestStable": "Käytät viimeisintä vakaata versiota",
   "usingLatestNightly": "Olet käyttämässä uusinta yöllä versiota",
   "updateNow": "Päivitä nyt",
   "stable": "Vakaa",
   "nightly": "Yöllä",
   "updateAvailable": "Päivitys saatavilla",
-  "countItems": "{count, plural, =0 {No items} one {1 item} other {{count} items}}",
+  "countItems": "{count, plural, =0 {Ei esineitä} one {1 esine} other {{count} esineitä}}",
   "@countItems": {
     "placeholders": {
       "count": {
@@ -319,8 +319,8 @@
       }
     }
   },
-  "systemTheme": "System theme",
+  "systemTheme": "Järjestelmän teema",
   "desktop": "Työpöytä",
-  "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file"
+  "restoreSettingsFromFile": "Palauta asetukset tiedostosta",
+  "exportSettingsToFile": "Vie asetukset tiedostoon"
 }
