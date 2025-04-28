@@ -303,11 +303,24 @@
   "update": "Güncelleme",
   "currentVersion": "Şu anki sürüm",
   "checkForUpdates": "Güncellemeleri denetle",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
   "usingLatestStable": "En son sürümü kullanıyorsunuz",
   "usingLatestNightly": "En son nightly (kod tabanından gelen) sürümü kullanıyorsunuz",
   "updateNow": "Şimdi güncelle",
   "stable": "Kararlı",
   "nightly": "Nightly",
-  "updateAvailable": "Güncelleme mevcut"
+  "updateAvailable": "Güncelleme mevcut",
+  "countItems": "{count, plural, =0 {No items} one {1 item} other {{count} items}}",
+  "@countItems": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "systemTheme": "System theme",
+  "desktop": "Masaüstü",
+  "restoreSettingsFromFile": "Restore settings from file",
+  "exportSettingsToFile": "Export settings to file"
 }

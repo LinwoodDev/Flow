@@ -4,7 +4,7 @@
   "calendar": "Calendario",
   "resources": "Risorse",
   "users": "Utenti",
-  "user": "User",
+  "user": "Utente",
   "sources": "Sorgenti",
   "settings": "Impostazioni",
   "create": "Crea",
@@ -303,11 +303,24 @@
   "update": "Aggiorna",
   "currentVersion": "Versione attuale",
   "checkForUpdates": "Controlla aggiornamenti",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "Effettuando un controllo per gli aggiornamenti si collegherà al sito web di Flusso per ottenere le informazioni.",
   "usingLatestStable": "Stai usando l'ultima versione stabile",
   "usingLatestNightly": "Stai usando l'ultima versione nightly",
   "updateNow": "Aggiorna ora",
   "stable": "Stabile",
   "nightly": "Notte",
-  "updateAvailable": "Aggiornamento disponibile"
+  "updateAvailable": "Aggiornamento disponibile",
+  "countItems": "{count, plural, =0 {Nessun elemento} one {1 elemento} other {{count} elementi}}",
+  "@countItems": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "systemTheme": "Tema di sistema",
+  "desktop": "Desktop",
+  "restoreSettingsFromFile": "Ripristina le impostazioni dal file",
+  "exportSettingsToFile": "Esporta le impostazioni su file"
 }

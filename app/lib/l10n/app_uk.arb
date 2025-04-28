@@ -4,7 +4,7 @@
   "calendar": "Календар",
   "resources": "Ресурси",
   "users": "Спільноти",
-  "user": "User",
+  "user": "Користувач",
   "sources": "Джерела",
   "settings": "Налаштування",
   "create": "Створити",
@@ -303,11 +303,24 @@
   "update": "Оновити",
   "currentVersion": "Поточна версія",
   "checkForUpdates": "Перевірити наявність оновлень",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "Перевірка оновлень з’єднується з веб-сайтом Flow для отримання інформації.",
   "usingLatestStable": "Ви використовуєте останню стабільну версію",
   "usingLatestNightly": "Ви використовуєте останню нічну версію",
   "updateNow": "Оновити зараз",
   "stable": "Стабільний",
   "nightly": "Нічна",
-  "updateAvailable": "Доступне оновлення"
+  "updateAvailable": "Доступне оновлення",
+  "countItems": "{count, plural, =0 {Немає елементів} one {1 об'єкт} other {{count} елементи}}",
+  "@countItems": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "systemTheme": "Системна тема",
+  "desktop": "Стільниця",
+  "restoreSettingsFromFile": "Відновити налаштування з файлу",
+  "exportSettingsToFile": "Експорт налаштувань у файл"
 }

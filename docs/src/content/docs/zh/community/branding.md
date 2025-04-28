@@ -2,7 +2,7 @@
 title: 品牌化
 ---
 
-These assets are licensed under the [CC-BY-SA-4.0](https://github.com/LinwoodDev/Flow/blob/develop/BRANDING_LICENSE).
+这些素材使用 [CC-BY-SA-4.0](https://github.com/LinwoodDev/Flow/blob/develop/BRANDING_LICENSE)授权。
 
 ## 徽标
 
@@ -24,8 +24,8 @@ These assets are licensed under the [CC-BY-SA-4.0](https://github.com/LinwoodDev
 
 ## 颜色
 
-- Primary: `#c4840d`
-- Accent: `#7b8f96`
+- 主色：`#c4840d`
+- 强调色: `#7b8f96`
 
 ## 字体
 

@@ -4,7 +4,7 @@
   "calendar": "Kalender",
   "resources": "Ressourcer",
   "users": "Brugere",
-  "user": "User",
+  "user": "Bruger",
   "sources": "Kilder",
   "settings": "Indstillinger",
   "create": "Opret",
@@ -303,11 +303,24 @@
   "update": "Opdater",
   "currentVersion": "Nuværende version",
   "checkForUpdates": "Søg efter opdateringer",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "Udførelse af en check for opdateringer vil forbinde til Flow hjemmeside for at få oplysningerne.",
   "usingLatestStable": "Du bruger den seneste stabile version",
   "usingLatestNightly": "Du bruger den seneste natlige version",
   "updateNow": "Opdater nu",
   "stable": "Stabil",
   "nightly": "Natligt",
-  "updateAvailable": "Opdatering tilgængelig"
+  "updateAvailable": "Opdatering tilgængelig",
+  "countItems": "{count, plural, =0 {Ingen genstande} one {1 genstand} other {{count} genstande}}",
+  "@countItems": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "systemTheme": "System tema",
+  "desktop": "Skrivebord",
+  "restoreSettingsFromFile": "Gendan indstillinger fra fil",
+  "exportSettingsToFile": "Eksporter indstillinger til fil"
 }

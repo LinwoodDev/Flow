@@ -4,7 +4,7 @@
   "calendar": "Календарь",
   "resources": "Ресурсы",
   "users": "Пользователи",
-  "user": "User",
+  "user": "Пользователь",
   "sources": "Источники",
   "settings": "Настройки",
   "create": "Создать",
@@ -303,11 +303,24 @@
   "update": "Обновление",
   "currentVersion": "Текущая версия",
   "checkForUpdates": "Проверить обновления",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "Для получения информации с помощью проверки обновлений будет подключен к сайту Flow.",
   "usingLatestStable": "Вы используете последнюю стабильную версию",
   "usingLatestNightly": "Вы используете последнюю ночную версию",
   "updateNow": "Обновить сейчас",
   "stable": "Конюшня",
   "nightly": "Ночной",
-  "updateAvailable": "Доступно обновление"
+  "updateAvailable": "Доступно обновление",
+  "countItems": "{count, plural, =0 {Нет предметов} one {1 предмет} other {{count} предметы}}",
+  "@countItems": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "systemTheme": "Системная тема",
+  "desktop": "Рабочий стол",
+  "restoreSettingsFromFile": "Восстановить настройки из файла",
+  "exportSettingsToFile": "Экспорт настроек в файл"
 }

@@ -4,7 +4,7 @@ tableOfContents: false
 ---
 
 这是应用的隐私政策。 请仔细阅读它。
-Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
+点击 [这里](https://go.linwood.dev/privacypolicy) 阅读网站的隐私政策。
 
 CodeDoctor将Flow 应用作为开源应用。 这种服务由CodeDoctor免费提供，原本打算使用。
 
@@ -24,7 +24,7 @@ CodeDoctor将Flow 应用作为开源应用。 这种服务由CodeDoctor免费提
 
 链接到应用程序使用的第三方服务提供商的隐私政策
 
-- [Google Play Services](https://www.google.com/policies/privacy/)
+- [Google Play 服务](https://www.google.com/policies/privacy/)
 
 **Cookies**
 
@@ -46,7 +46,7 @@ Cookie 是具有少量数据的文件，通常用作匿名唯一标识符。 这
 我想告诉该服务的用户，这些第三方可以访问您的个人信息。 原因是为了执行分配给他们的任务。 然而，他们有义务
 不为任何其他目的披露或使用信息。
 
-**Security**
+**安全**
 
 我珍视你们对向我们提供个人信息的信任，因此我们正在努力使用商业上可以接受的手段来保护它。 但记得没有任何通过互联网传输的方法，
 或电子存储方法100% 安全可靠，我不能保证其绝对安全。
@@ -62,9 +62,8 @@ Cookie 是具有少量数据的文件，通常用作匿名唯一标识符。 这
 
 这项政策自2021-02-07年起生效
 
-**Contact Us**
+**联系我们**
 
 如果您对我的隐私政策有任何问题或建议，请毫不犹豫地通过contact@linwood.dev联系我。
 
-This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated
-by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
+本隐私政策页面由[privacypolicytemplate.net](https://privacypolicytemplate.net) 创建，并由 [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/) 修改生成。

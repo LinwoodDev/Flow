@@ -4,7 +4,7 @@
   "calendar": "Kalender",
   "resources": "Hulpmiddelen",
   "users": "Gebruikers",
-  "user": "User",
+  "user": "Gebruiker",
   "sources": "Bronnen",
   "settings": "Instellingen",
   "create": "Aanmaken",
@@ -303,11 +303,24 @@
   "update": "Vernieuwen",
   "currentVersion": "Huidige versie",
   "checkForUpdates": "Op updates controleren",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "Door controle uit te voeren op updates wordt verbinding gemaakt met de Flow website om de informatie te krijgen.",
   "usingLatestStable": "U gebruikt de laatste stabiele versie",
   "usingLatestNightly": "U gebruikt de laatste nightly versie",
   "updateNow": "Nu bijwerken",
   "stable": "Stabiel",
   "nightly": "Nachtelijk",
-  "updateAvailable": "Update beschikbaar"
+  "updateAvailable": "Update beschikbaar",
+  "countItems": "{count, plural, =0 {No items} one {1 item} other {{count} items}}",
+  "@countItems": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "systemTheme": "Systeem thema",
+  "desktop": "Startscherm",
+  "restoreSettingsFromFile": "Instellingen herstellen vanuit bestand",
+  "exportSettingsToFile": "Instellingen exporteren naar bestand"
 }
