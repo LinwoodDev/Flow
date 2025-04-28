@@ -37,7 +37,7 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: e901983295b103f2fe27738e8f2cbf35941d99ea
+      ref: d5c41c874b0758cb8fb623cdd095c032f04f5740
       path: packages/material_leap
   phosphor_flutter: ^2.1.0
   path: ^1.8.3
@@ -69,7 +69,7 @@ dependencies:
   lw_sysapi:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: e901983295b103f2fe27738e8f2cbf35941d99ea
+      ref: 82ef4b4f68a18e55226b3030293e26c28b4964c2
       path: packages/lw_sysapi
   file_selector: ^1.0.3
   equatable: ^2.0.7

@@ -7,9 +7,9 @@
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>AGPL-3.0-only</project_license>
 	<supports>
-	  <control>pointing</control>
-	  <control>keyboard</control>
-	  <control>touch</control>
+		<control>pointing</control>
+		<control>keyboard</control>
+		<control>touch</control>
 	</supports>
 	<recommends>
 		<control>pointing</control>
@@ -27,8 +27,11 @@
 		<p>A feature rich event and time management system.</p>
 		<p>Features:</p>
 		<ul>
-			<li>Your data is decentralized: Everyone can host their own backend. See <a href="https://docs.flow.linwood.dev/server/getting-started">here</a> and everyone can add it to the server list in the settings.</li>
-			<li>Manage your time everywhere: You don't need a server. Everything can be saved on the local device or in the cloud.</li>
+			<li>Your data is decentralized: Everyone can host their own backend. See <a
+					href="https://docs.flow.linwood.dev/server/getting-started">here</a> and everyone can add
+				it to the server list in the settings.</li>
+			<li>Manage your time everywhere: You don't need a server. Everything can be saved on the local
+				device or in the cloud.</li>
 		</ul>
 	</description>
 	<screenshots>
@@ -38,7 +41,7 @@
 	</releases>
 	<content_rating type="oars-1.1" />
 	<update_contact>contact@linwood.dev</update_contact>
-</component>
+	<releases>
 		<release version="0.4.1" date="2025-04-07" />
 		<release version="0.4.0" date="2025-03-24" />
 		<release version="0.3.1" date="2024-11-18" />
@@ -49,3 +52,5 @@
 		<release version="0.1.2" date="2023-04-29" />
 		<release version="0.1.1" date="2023-04-27" />
 		<release version="0.1.0" date="2023-04-27" />
+	</releases>
+</component>
