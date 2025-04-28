@@ -4,7 +4,7 @@
   "calendar": "Kalender",
   "resources": "Hulpmiddelen",
   "users": "Gebruikers",
-  "user": "User",
+  "user": "Gebruiker",
   "sources": "Bronnen",
   "settings": "Instellingen",
   "create": "Aanmaken",
@@ -303,7 +303,7 @@
   "update": "Vernieuwen",
   "currentVersion": "Huidige versie",
   "checkForUpdates": "Op updates controleren",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
+  "checkForUpdatesWarning": "Door controle uit te voeren op updates wordt verbinding gemaakt met de Flow website om de informatie te krijgen.",
   "usingLatestStable": "U gebruikt de laatste stabiele versie",
   "usingLatestNightly": "U gebruikt de laatste nightly versie",
   "updateNow": "Nu bijwerken",
@@ -319,8 +319,8 @@
       }
     }
   },
-  "systemTheme": "System theme",
+  "systemTheme": "Systeem thema",
   "desktop": "Startscherm",
-  "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file"
+  "restoreSettingsFromFile": "Instellingen herstellen vanuit bestand",
+  "exportSettingsToFile": "Instellingen exporteren naar bestand"
 }
