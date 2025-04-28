@@ -4,7 +4,7 @@
   "calendar": "Календар",
   "resources": "Ресурси",
   "users": "Спільноти",
-  "user": "User",
+  "user": "Користувач",
   "sources": "Джерела",
   "settings": "Налаштування",
   "create": "Створити",
@@ -303,14 +303,14 @@
   "update": "Оновити",
   "currentVersion": "Поточна версія",
   "checkForUpdates": "Перевірити наявність оновлень",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
+  "checkForUpdatesWarning": "Перевірка оновлень з’єднується з веб-сайтом Flow для отримання інформації.",
   "usingLatestStable": "Ви використовуєте останню стабільну версію",
   "usingLatestNightly": "Ви використовуєте останню нічну версію",
   "updateNow": "Оновити зараз",
   "stable": "Стабільний",
   "nightly": "Нічна",
   "updateAvailable": "Доступне оновлення",
-  "countItems": "{count, plural, =0 {No items} one {1 item} other {{count} items}}",
+  "countItems": "{count, plural, =0 {Немає елементів} one {1 об'єкт} other {{count} елементи}}",
   "@countItems": {
     "placeholders": {
       "count": {
@@ -319,8 +319,8 @@
       }
     }
   },
-  "systemTheme": "System theme",
+  "systemTheme": "Системна тема",
   "desktop": "Стільниця",
-  "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file"
+  "restoreSettingsFromFile": "Відновити налаштування з файлу",
+  "exportSettingsToFile": "Експорт налаштувань у файл"
 }
