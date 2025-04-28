@@ -4,7 +4,7 @@
   "calendar": "Kalendář",
   "resources": "Zdroje",
   "users": "Uživatelé",
-  "user": "User",
+  "user": "Uživatel",
   "sources": "Zdroje",
   "settings": "Nastavení",
   "create": "Vytvořit",
@@ -303,14 +303,14 @@
   "update": "Aktualizovat",
   "currentVersion": "Aktuální verze",
   "checkForUpdates": "Zkontrolovat aktualizace",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
+  "checkForUpdatesWarning": "Kontrola aktualizací se připojí k webu Flow pro získání informací.",
   "usingLatestStable": "Používáte nejnovější stabilní verzi",
   "usingLatestNightly": "Používáte nejnovější noční verzi",
   "updateNow": "Aktualizovat nyní",
   "stable": "Stabilní",
   "nightly": "Noční",
   "updateAvailable": "K dispozici je aktualizace",
-  "countItems": "{count, plural, =0 {No items} one {1 item} other {{count} items}}",
+  "countItems": "{count, plural, =0 {Žádné položky} one {1 položka} other {{count} položky}}",
   "@countItems": {
     "placeholders": {
       "count": {
@@ -319,8 +319,8 @@
       }
     }
   },
-  "systemTheme": "System theme",
+  "systemTheme": "Motiv systému",
   "desktop": "Stolní počítače",
-  "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file"
+  "restoreSettingsFromFile": "Obnovit nastavení ze souboru",
+  "exportSettingsToFile": "Exportovat nastavení do souboru"
 }
