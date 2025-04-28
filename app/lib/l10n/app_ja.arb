@@ -4,7 +4,7 @@
   "calendar": "カレンダー",
   "resources": "リソース",
   "users": "ユーザー",
-  "user": "User",
+  "user": "ユーザー",
   "sources": "ソース",
   "settings": "設定",
   "create": "作成",
@@ -303,11 +303,24 @@
   "update": "更新",
   "currentVersion": "現在のバージョン",
   "checkForUpdates": "アップデートを確認",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "アップデートの確認を行うと、Flow ウェブサイトに接続して情報を取得します。",
   "usingLatestStable": "最新の安定版を使用しています",
   "usingLatestNightly": "最新のナイトリーバージョンを使用しています",
   "updateNow": "今すぐ更新",
   "stable": "安定版",
   "nightly": "ナイトリー",
-  "updateAvailable": "アップデートがあります"
+  "updateAvailable": "アップデートがあります",
+  "countItems": "{count, plural, =0 {No items} one {1 item} other {{count} items}}",
+  "@countItems": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "systemTheme": "システムテーマ",
+  "desktop": "デスクトップ",
+  "restoreSettingsFromFile": "設定をファイルから復元",
+  "exportSettingsToFile": "設定をファイルにエクスポート"
 }

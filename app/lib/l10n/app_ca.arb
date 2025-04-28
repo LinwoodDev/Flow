@@ -303,11 +303,24 @@
   "update": "Update",
   "currentVersion": "Current version",
   "checkForUpdates": "Check for updates",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
   "usingLatestStable": "You are using the latest stable version",
   "usingLatestNightly": "You are using the latest nightly version",
   "updateNow": "Update now",
   "stable": "Stable",
   "nightly": "Nightly",
-  "updateAvailable": "Update available"
+  "updateAvailable": "Update available",
+  "countItems": "{count, plural, =0 {No items} one {1 item} other {{count} items}}",
+  "@countItems": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "systemTheme": "System theme",
+  "desktop": "Desktop",
+  "restoreSettingsFromFile": "Restore settings from file",
+  "exportSettingsToFile": "Export settings to file"
 }

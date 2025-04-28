@@ -4,7 +4,7 @@
   "calendar": "Calendrier",
   "resources": "Ressource",
   "users": "Utilisateurs",
-  "user": "User",
+  "user": "Utilisateur",
   "sources": "Sources",
   "settings": "Réglages",
   "create": "Créer",
@@ -303,11 +303,24 @@
   "update": "Mise à jour",
   "currentVersion": "Version actuelle",
   "checkForUpdates": "Vérifier les mises à jour",
-  "checkForUpdatesWarning": "Vérifier l'état des mises à jour initiera une connexion au site internet de Linwood Butterfly pour recueillir les informations.",
+  "checkForUpdatesWarning": "Effectuer une vérification des mises à jour se connectera au site Web de Flow pour obtenir les informations.",
   "usingLatestStable": "Vous utilisez la dernière version stable",
   "usingLatestNightly": "Vous utilisez la dernière version \"Nightly\" (en cours de développement) de Linwood Butterfly",
   "updateNow": "Mettre à jour maintenant",
   "stable": "Écurie",
   "nightly": "Nuit",
-  "updateAvailable": "Mise à jour disponible"
+  "updateAvailable": "Mise à jour disponible",
+  "countItems": "{count, plural, =0 {Aucun objet} one {1 objet} other {{count} objets}}",
+  "@countItems": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "systemTheme": "Thème système",
+  "desktop": "Bureau",
+  "restoreSettingsFromFile": "Restaurer les paramètres à partir du fichier",
+  "exportSettingsToFile": "Exporter les paramètres vers un fichier"
 }

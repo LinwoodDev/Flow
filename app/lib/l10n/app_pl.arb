@@ -4,7 +4,7 @@
   "calendar": "Kalendarz",
   "resources": "Zasoby",
   "users": "Użytkownicy",
-  "user": "User",
+  "user": "Użytkownik",
   "sources": "Źródła",
   "settings": "Ustawienia",
   "create": "Utwórz",
@@ -303,11 +303,24 @@
   "update": "Aktualizuj",
   "currentVersion": "Aktualna wersja",
   "checkForUpdates": "Sprawdź aktualizacje",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "Sprawdzanie aktualizacji połączy się ze stroną Flow aby uzyskać informacje.",
   "usingLatestStable": "Używasz najnowszej stabilnej wersji",
   "usingLatestNightly": "Używasz najnowszej wersji nocnej",
   "updateNow": "Aktualizuj teraz",
   "stable": "Stabilność",
   "nightly": "Nocny",
-  "updateAvailable": "Dostępna aktualizacja"
+  "updateAvailable": "Dostępna aktualizacja",
+  "countItems": "{count, plural, =0 {Brak przedmiotów} one {1 przedmiot} other {{count} przedmioty}}",
+  "@countItems": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "systemTheme": "Szablon systemowy",
+  "desktop": "Pulpit",
+  "restoreSettingsFromFile": "Przywróć ustawienia z pliku",
+  "exportSettingsToFile": "Eksportuj ustawienia do pliku"
 }

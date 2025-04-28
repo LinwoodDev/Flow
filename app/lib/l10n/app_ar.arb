@@ -4,7 +4,7 @@
   "calendar": "التقويم",
   "resources": "الموارد",
   "users": "المستخدمون",
-  "user": "User",
+  "user": "المستخدم",
   "sources": "المصادر",
   "settings": "الإعدادات",
   "create": "إنشاء",
@@ -303,11 +303,24 @@
   "update": "تحديث",
   "currentVersion": "الإصدار الحالي",
   "checkForUpdates": "التحقق من وجود تحديثات",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "إجراء التحقق من التحديثات سوف يتصل بموقع التدفق للحصول على المعلومات.",
   "usingLatestStable": "أنت تستخدم أحدث إصدار مستقر",
   "usingLatestNightly": "أنت تستخدم أحدث إصدار ليلي",
   "updateNow": "التحديث الآن",
   "stable": "اسطبل",
   "nightly": "ليلي",
-  "updateAvailable": "التحديث متاح"
+  "updateAvailable": "التحديث متاح",
+  "countItems": "{count, plural, =0 {لا توجد عناصر} one {عنصر واحد} other {{count} عناصر}}",
+  "@countItems": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "systemTheme": "سمة النظام",
+  "desktop": "سطح المكتب",
+  "restoreSettingsFromFile": "استعادة الإعدادات من الملف",
+  "exportSettingsToFile": "تصدير الإعدادات إلى ملف"
 }
