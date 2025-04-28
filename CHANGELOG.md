@@ -2,6 +2,22 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 0.4.2 (2025-04-28)
+
+* Add linking to users and groups tab view
+* Add import and exporting settings
+* Add more density options to settings
+* Reworking paging system to a built in solution
+* Fix user page alignment
+* Fix safe area of navigation drawer
+* Fix ical importer doesn't import calendar items ([#89](https://github.com/LinwoodDev/Flow/issues/89))
+* Fix event user connecting not working correctly
+* Fix dismissing removes items instead of disconnecting them
+* Fix butterfly is referenced instead of flow
+* Fix linux appdata
+
+Read more here: https://linwood.dev/flow/0.4.2
+
 ## 0.4.1 (2025-04-07)
 
 * Unify settings dialog with other linwood apps

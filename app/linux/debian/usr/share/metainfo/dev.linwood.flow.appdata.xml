@@ -39,6 +39,7 @@
 	<launchable type="desktop-id">dev.linwood.flow.desktop</launchable>
 	<releases>
 	</releases>
+		<release version="0.4.2" date="2025-04-28" />
 	<content_rating type="oars-1.1" />
 	<update_contact>contact@linwood.dev</update_contact>
 	<releases>
