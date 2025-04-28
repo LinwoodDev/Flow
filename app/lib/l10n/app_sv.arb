@@ -4,7 +4,7 @@
   "calendar": "Kalender",
   "resources": "Resurser",
   "users": "Användare",
-  "user": "User",
+  "user": "Användare",
   "sources": "Källor",
   "settings": "Inställningar",
   "create": "Skapa",
@@ -303,14 +303,14 @@
   "update": "Uppdatera",
   "currentVersion": "Nuvarande version",
   "checkForUpdates": "Sök efter uppdateringar",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
+  "checkForUpdatesWarning": "Utföra en sökning efter uppdateringar kommer att ansluta till Flow-webbplatsen för att få informationen.",
   "usingLatestStable": "Du använder den senaste stabila versionen",
   "usingLatestNightly": "Du använder den senaste nattliga versionen",
   "updateNow": "Uppdatera nu",
   "stable": "Stabil",
   "nightly": "Nattlig",
   "updateAvailable": "Uppdatering tillgänglig",
-  "countItems": "{count, plural, =0 {No items} one {1 item} other {{count} items}}",
+  "countItems": "{count, plural, =0 {Inga artiklar} one {1 artikel} other {{count} artiklar}}",
   "@countItems": {
     "placeholders": {
       "count": {
@@ -319,8 +319,8 @@
       }
     }
   },
-  "systemTheme": "System theme",
+  "systemTheme": "Systemets tema",
   "desktop": "Skrivbord",
-  "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file"
+  "restoreSettingsFromFile": "Återställ inställningar från fil",
+  "exportSettingsToFile": "Exportera inställningar till fil"
 }
