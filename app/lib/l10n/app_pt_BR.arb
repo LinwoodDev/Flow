@@ -4,7 +4,7 @@
   "calendar": "calendário",
   "resources": "Recursos",
   "users": "Utilizadores",
-  "user": "User",
+  "user": "Usuário",
   "sources": "Fontes",
   "settings": "Confirgurações",
   "create": "Crio",
@@ -303,7 +303,7 @@
   "update": "Atualização",
   "currentVersion": "Versão atual",
   "checkForUpdates": "Verificar se há atualizações",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
+  "checkForUpdatesWarning": "Ao realizar uma verificação de atualizações irá conectar-se ao site Flow para obter as informações.",
   "usingLatestStable": "Você está usando a última versão estável",
   "usingLatestNightly": "Você está usando a última versão noturna",
   "updateNow": "Atualizar agora",
@@ -319,8 +319,8 @@
       }
     }
   },
-  "systemTheme": "System theme",
+  "systemTheme": "Tema do sistema",
   "desktop": "Computadores",
-  "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file"
+  "restoreSettingsFromFile": "Restaurar configurações do arquivo",
+  "exportSettingsToFile": "Exportar configurações para arquivo"
 }
