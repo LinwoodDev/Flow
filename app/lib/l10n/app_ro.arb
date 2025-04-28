@@ -4,7 +4,7 @@
   "calendar": "Calendar",
   "resources": "Resurse",
   "users": "Utilizatori",
-  "user": "User",
+  "user": "Utilizator",
   "sources": "Surse",
   "settings": "Setări",
   "create": "Crează",
@@ -303,14 +303,14 @@
   "update": "Actualizare",
   "currentVersion": "Versiunea curentă",
   "checkForUpdates": "Verifică pentru actualizări",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
+  "checkForUpdatesWarning": "Verificarea actualizărilor se va conecta la site-ul Flow pentru a obţine informaţii.",
   "usingLatestStable": "Folosești cea mai recentă versiune stabilă",
   "usingLatestNightly": "Folosești ultima versiune nocturnă",
   "updateNow": "Actualizează acum",
   "stable": "Stabil",
   "nightly": "Noptez",
   "updateAvailable": "Actualizare disponibilă",
-  "countItems": "{count, plural, =0 {No items} one {1 item} other {{count} items}}",
+  "countItems": "{count, plural, =0 {Nu există articole} one {1 articol} other {{count} articole}}",
   "@countItems": {
     "placeholders": {
       "count": {
@@ -319,8 +319,8 @@
       }
     }
   },
-  "systemTheme": "System theme",
+  "systemTheme": "Tema sistemului",
   "desktop": "Birou",
-  "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file"
+  "restoreSettingsFromFile": "Restabilește setările din fișier",
+  "exportSettingsToFile": "Exportă setările în fișier"
 }
