@@ -4,7 +4,7 @@
   "calendar": "Ημερολόγιο",
   "resources": "Πόροι",
   "users": "Χρήστες",
-  "user": "User",
+  "user": "Χρήστης",
   "sources": "Πηγές",
   "settings": "Ρυθμίσεις",
   "create": "Δημιουργία",
@@ -303,14 +303,14 @@
   "update": "Ενημέρωση",
   "currentVersion": "Τρέχουσα έκδοση",
   "checkForUpdates": "Έλεγχος ενημερώσεων",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
+  "checkForUpdatesWarning": "Η εκτέλεση ελέγχου για ενημερώσεις θα συνδεθεί με την ιστοσελίδα Flow για να πάρει τις πληροφορίες.",
   "usingLatestStable": "Χρησιμοποιείτε την τελευταία σταθερή έκδοση",
   "usingLatestNightly": "Χρησιμοποιείτε την τελευταία νυχτερινή έκδοση",
   "updateNow": "Ενημέρωση τώρα",
   "stable": "Σταθερό",
   "nightly": "Νυχτερινή",
   "updateAvailable": "Διαθέσιμη ενημέρωση",
-  "countItems": "{count, plural, =0 {No items} one {1 item} other {{count} items}}",
+  "countItems": "{count, plural, =0 {Δεν υπάρχουν αντικείμενα} one {1 στοιχείο} other {{count} αντικείμενα}}",
   "@countItems": {
     "placeholders": {
       "count": {
@@ -319,8 +319,8 @@
       }
     }
   },
-  "systemTheme": "System theme",
+  "systemTheme": "Θέμα συστήματος",
   "desktop": "Επιφάνεια Εργασίας",
-  "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file"
+  "restoreSettingsFromFile": "Επαναφορά ρυθμίσεων από αρχείο",
+  "exportSettingsToFile": "Εξαγωγή ρυθμίσεων σε αρχείο"
 }
