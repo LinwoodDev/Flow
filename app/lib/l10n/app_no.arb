@@ -4,7 +4,7 @@
   "calendar": "Kalender",
   "resources": "Ressurser",
   "users": "Brukere",
-  "user": "User",
+  "user": "Bruker",
   "sources": "Kilder",
   "settings": "Innstillinger",
   "create": "Opprett",
@@ -303,7 +303,7 @@
   "update": "Oppdater",
   "currentVersion": "Gjeldende versjon",
   "checkForUpdates": "Se etter oppdateringer",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Flow website to get the information.",
+  "checkForUpdatesWarning": "Utføre en sjekk for oppdateringer vil koble til Flow nettsiden for å få informasjonen.",
   "usingLatestStable": "Du bruker den nyeste stabile versjonen",
   "usingLatestNightly": "Du bruker den siste nattlige versjonen",
   "updateNow": "Oppdater nå",
@@ -319,8 +319,8 @@
       }
     }
   },
-  "systemTheme": "System theme",
+  "systemTheme": "System tema",
   "desktop": "Skrivebord",
-  "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file"
+  "restoreSettingsFromFile": "Gjenopprett innstillinger fra fil",
+  "exportSettingsToFile": "Eksporter innstillinger til fil"
 }
