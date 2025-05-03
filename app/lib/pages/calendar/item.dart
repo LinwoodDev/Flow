@@ -1,5 +1,7 @@
 import 'package:flow/cubits/flow.dart';
+import 'package:flow/cubits/settings.dart';
 import 'package:flow/helpers/event.dart';
+import 'package:flow/pages/alarm/page.dart';
 import 'package:flow/pages/groups/view.dart';
 import 'package:flow/pages/resources/view.dart';
 import 'package:flow/pages/users/view.dart';
@@ -120,11 +122,27 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
               }
             },
           ),
+        IconButton(
+          icon: const PhosphorIcon(PhosphorIconsLight.alarm),
+          onPressed: () async {
+            final alarm = Alarm(
+              date: (_item.start ?? DateTime.now()),
+              description: _item.description,
+              title: _item.name,
+              isActive: _item.start != null,
+            );
+            final settingsCubit = context.read<SettingsCubit>();
+            final result = await showDialog<Alarm>(
+              context: context,
+              builder: (context) => AlarmDialog(initialValue: alarm),
+            );
+            if (result == null) return;
+            settingsCubit.addAlarm(result);
+          },
+        ),
         MenuAnchor(
-          builder: (context, controller, child) => IconButton(
-            icon: const PhosphorIcon(PhosphorIconsLight.dotsThreeVertical),
-            onPressed: () =>
-                controller.isOpen ? controller.close() : controller.open(),
+          builder: defaultMenuButton(
+            icon: const PhosphorIcon(PhosphorIconsLight.arrowsCounterClockwise),
           ),
           menuChildren: [
             Padding(

@@ -26,8 +26,6 @@ class _AlarmPageState extends State<AlarmPage> {
           return GridView.extent(
             maxCrossAxisExtent: 300,
             childAspectRatio: 1.25,
-            mainAxisSpacing: 20,
-            crossAxisSpacing: 20,
             children: state.alarms
                 .mapIndexed((i, e) => Card(
                     clipBehavior: Clip.antiAlias,
@@ -45,21 +43,36 @@ class _AlarmPageState extends State<AlarmPage> {
                         }
                       },
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        padding: const EdgeInsets.only(top: 2, bottom: 8),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SwitchListTile(
-                              value: e.isActive,
-                              onChanged: (_) {
-                                final settingsCubit =
-                                    context.read<SettingsCubit>();
-                                settingsCubit.changeAlarm(
-                                    i, e.copyWith(isActive: !e.isActive));
-                              },
-                              title: Text(
-                                AppLocalizations.of(context).enabled,
-                              ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: SwitchListTile(
+                                    value: e.isActive,
+                                    onChanged: (_) {
+                                      final settingsCubit =
+                                          context.read<SettingsCubit>();
+                                      settingsCubit.changeAlarm(
+                                          i, e.copyWith(isActive: !e.isActive));
+                                    },
+                                    title: Text(
+                                      AppLocalizations.of(context).enabled,
+                                    ),
+                                  ),
+                                ),
+                                IconButton(
+                                  icon: const PhosphorIcon(
+                                      PhosphorIconsLight.trash),
+                                  onPressed: () {
+                                    final settingsCubit =
+                                        context.read<SettingsCubit>();
+                                    settingsCubit.removeAlarm(i);
+                                  },
+                                ),
+                              ],
                             ),
                             Column(
                               mainAxisSize: MainAxisSize.min,
@@ -148,9 +161,18 @@ class AlarmDialog extends StatelessWidget {
           const SizedBox(height: 20),
           TextFormField(
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(context).name,
-            ),
+                labelText: AppLocalizations.of(context).name, filled: true),
             initialValue: alarm.title,
+            onChanged: (value) => alarm = alarm.copyWith(title: value),
+          ),
+          const SizedBox(height: 8),
+          TextFormField(
+            decoration: InputDecoration(
+                labelText: AppLocalizations.of(context).description,
+                border: const OutlineInputBorder()),
+            initialValue: alarm.title,
+            minLines: 3,
+            maxLines: 5,
             onChanged: (value) => alarm = alarm.copyWith(title: value),
           ),
         ],

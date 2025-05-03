@@ -241,9 +241,9 @@ class SettingsCubit extends Cubit<FlowSettings>
     return _runSave(newState.saveAlarms);
   }
 
-  Future<void> removeAlarm(Alarm alarm) {
+  Future<void> removeAlarm(int index) {
     final newState =
-        state.copyWith(alarms: state.alarms.where((e) => e != alarm).toList());
+        state.copyWith(alarms: List<Alarm>.from(state.alarms)..removeAt(index));
     emit(newState);
     return _runSave(newState.saveAlarms);
   }
