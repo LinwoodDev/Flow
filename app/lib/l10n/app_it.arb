@@ -324,5 +324,6 @@
   "restoreSettingsFromFile": "Ripristina le impostazioni dal file",
   "exportSettingsToFile": "Esporta le impostazioni su file",
   "alarm": "Alarm",
-  "enabled": "Enabled"
+  "enabled": "Enabled",
+  "countdown": "Countdown"
 }
