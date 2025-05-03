@@ -322,5 +322,8 @@
   "systemTheme": "系统主题",
   "desktop": "桌面",
   "restoreSettingsFromFile": "从文件恢复设置",
-  "exportSettingsToFile": "导出设置到文件"
+  "exportSettingsToFile": "导出设置到文件",
+  "alarm": "Alarm",
+  "enabled": "Enabled",
+  "countdown": "Countdown"
 }
