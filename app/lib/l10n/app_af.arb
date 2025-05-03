@@ -322,5 +322,7 @@
   "systemTheme": "System theme",
   "desktop": "Desktop",
   "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file"
+  "exportSettingsToFile": "Export settings to file",
+  "alarm": "Alarm",
+  "enabled": "Enabled"
 }
