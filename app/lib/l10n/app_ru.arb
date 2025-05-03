@@ -322,5 +322,8 @@
   "systemTheme": "Системная тема",
   "desktop": "Рабочий стол",
   "restoreSettingsFromFile": "Восстановить настройки из файла",
-  "exportSettingsToFile": "Экспорт настроек в файл"
+  "exportSettingsToFile": "Экспорт настроек в файл",
+  "alarm": "Alarm",
+  "enabled": "Enabled",
+  "countdown": "Countdown"
 }
