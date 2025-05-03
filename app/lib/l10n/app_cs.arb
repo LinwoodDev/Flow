@@ -322,5 +322,7 @@
   "systemTheme": "Motiv systému",
   "desktop": "Stolní počítače",
   "restoreSettingsFromFile": "Obnovit nastavení ze souboru",
-  "exportSettingsToFile": "Exportovat nastavení do souboru"
+  "exportSettingsToFile": "Exportovat nastavení do souboru",
+  "alarm": "Alarm",
+  "enabled": "Enabled"
 }
