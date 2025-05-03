@@ -322,5 +322,7 @@
   "systemTheme": "Tema sistemului",
   "desktop": "Birou",
   "restoreSettingsFromFile": "Restabilește setările din fișier",
-  "exportSettingsToFile": "Exportă setările în fișier"
+  "exportSettingsToFile": "Exportă setările în fișier",
+  "alarm": "Alarm",
+  "enabled": "Enabled"
 }
