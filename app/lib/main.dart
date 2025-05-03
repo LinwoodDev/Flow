@@ -4,6 +4,7 @@ import 'package:args/args.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/api/storage/sources.dart';
+import 'package:flow/pages/alarm/page.dart';
 import 'package:flow/pages/calendar/filter.dart';
 import 'package:flow/pages/settings/data.dart';
 import 'package:flow/pages/settings/general.dart';
@@ -76,8 +77,101 @@ Future<void> main(List<String> args) async {
   );
 }
 
+final GoRouter _router = GoRouter(
+  routes: <RouteBase>[
+    GoRoute(
+      path: '/settings',
+      builder: (context, state) => const SettingsPage(),
+      routes: [
+        GoRoute(
+          path: 'general',
+          builder: (context, state) => const GeneralSettingsPage(),
+        ),
+        GoRoute(
+          path: 'data',
+          builder: (context, state) => const DataSettingsPage(),
+        ),
+        GoRoute(
+          path: 'personalization',
+          builder: (context, state) => const PersonalizationSettingsPage(),
+        ),
+      ],
+    ),
+    ShellRoute(
+        builder: (context, state, child) => FlowRootNavigation(child: child),
+        routes: [
+          GoRoute(
+              path: '/',
+              builder: (context, state) => const DashboardPage(),
+              routes: [
+                GoRoute(
+                  path: 'calendar',
+                  builder: (context, state) => CalendarPage(
+                    filter: state.extra is CalendarFilter
+                        ? state.extra as CalendarFilter
+                        : const CalendarFilter(),
+                  ),
+                ),
+                GoRoute(
+                  path: 'alarm',
+                  builder: (context, state) => const AlarmPage(),
+                ),
+                GoRoute(
+                  path: 'events',
+                  builder: (context, state) => const EventsPage(),
+                ),
+                GoRoute(
+                  path: 'groups',
+                  builder: (context, state) => const GroupsPage(),
+                ),
+                GoRoute(
+                    path: 'notes',
+                    builder: (context, state) => const NotesPage(),
+                    routes: [
+                      GoRoute(
+                        path: ':source/:id',
+                        name: 'subnote',
+                        builder: (context, state) => NotesPage(
+                          parent: SourcedModel(
+                            state.pathParameters['source']!,
+                            base64Decode(state.pathParameters['id']!),
+                          ),
+                        ),
+                      ),
+                      GoRoute(
+                        path: ':id',
+                        name: 'subnote-local',
+                        builder: (context, state) => NotesPage(
+                          parent: SourcedModel(
+                            '',
+                            base64Decode(state.pathParameters['id']!),
+                          ),
+                        ),
+                      ),
+                    ]),
+                GoRoute(
+                  path: 'resources',
+                  builder: (context, state) => const ResourcesPage(),
+                ),
+                GoRoute(
+                  path: 'users',
+                  builder: (context, state) => UsersPage(
+                    filter: state.extra is UserFilter
+                        ? state.extra as UserFilter
+                        : const UserFilter(),
+                  ),
+                ),
+                GoRoute(
+                  path: 'sources',
+                  builder: (context, state) => const SourcesPage(),
+                ),
+              ]),
+        ]),
+  ],
+);
+
 class FlowApp extends StatelessWidget {
-  FlowApp({super.key});
+  const FlowApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -121,95 +215,6 @@ class FlowApp extends StatelessWidget {
               supportedLocales: AppLocalizations.supportedLocales,
             ));
   }
-
-  final GoRouter _router = GoRouter(
-    routes: <RouteBase>[
-      GoRoute(
-        path: '/settings',
-        builder: (context, state) => const SettingsPage(),
-        routes: [
-          GoRoute(
-            path: 'general',
-            builder: (context, state) => const GeneralSettingsPage(),
-          ),
-          GoRoute(
-            path: 'data',
-            builder: (context, state) => const DataSettingsPage(),
-          ),
-          GoRoute(
-            path: 'personalization',
-            builder: (context, state) => const PersonalizationSettingsPage(),
-          ),
-        ],
-      ),
-      ShellRoute(
-          builder: (context, state, child) => FlowRootNavigation(child: child),
-          routes: [
-            GoRoute(
-                path: '/',
-                builder: (context, state) => const DashboardPage(),
-                routes: [
-                  GoRoute(
-                    path: 'calendar',
-                    builder: (context, state) => CalendarPage(
-                      filter: state.extra is CalendarFilter
-                          ? state.extra as CalendarFilter
-                          : const CalendarFilter(),
-                    ),
-                  ),
-                  GoRoute(
-                    path: 'events',
-                    builder: (context, state) => const EventsPage(),
-                  ),
-                  GoRoute(
-                    path: 'groups',
-                    builder: (context, state) => const GroupsPage(),
-                  ),
-                  GoRoute(
-                      path: 'notes',
-                      builder: (context, state) => const NotesPage(),
-                      routes: [
-                        GoRoute(
-                          path: ':source/:id',
-                          name: 'subnote',
-                          builder: (context, state) => NotesPage(
-                            parent: SourcedModel(
-                              state.pathParameters['source']!,
-                              base64Decode(state.pathParameters['id']!),
-                            ),
-                          ),
-                        ),
-                        GoRoute(
-                          path: ':id',
-                          name: 'subnote-local',
-                          builder: (context, state) => NotesPage(
-                            parent: SourcedModel(
-                              '',
-                              base64Decode(state.pathParameters['id']!),
-                            ),
-                          ),
-                        ),
-                      ]),
-                  GoRoute(
-                    path: 'resources',
-                    builder: (context, state) => const ResourcesPage(),
-                  ),
-                  GoRoute(
-                    path: 'users',
-                    builder: (context, state) => UsersPage(
-                      filter: state.extra is UserFilter
-                          ? state.extra as UserFilter
-                          : const UserFilter(),
-                    ),
-                  ),
-                  GoRoute(
-                    path: 'sources',
-                    builder: (context, state) => const SourcesPage(),
-                  ),
-                ]),
-          ]),
-    ],
-  );
 }
 
 const flavor = String.fromEnvironment('flavor');

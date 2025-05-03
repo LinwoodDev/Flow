@@ -11,6 +11,21 @@ import '../api/storage/remote/model.dart';
 
 part 'settings.mapper.dart';
 
+@MappableClass()
+final class Alarm with AlarmMappable {
+  final DateTime date;
+  final String title;
+  final String description;
+  final bool isActive;
+
+  const Alarm({
+    required this.date,
+    this.title = '',
+    this.description = '',
+    this.isActive = true,
+  });
+}
+
 @MappableEnum()
 enum ThemeDensity {
   system,
@@ -48,16 +63,27 @@ final class ThemeModeMapper extends SimpleMapper<ThemeMode> {
 
 @MappableClass(includeCustomMappers: [ThemeModeMapper()])
 class FlowSettings with FlowSettingsMappable, LeapSettings {
+  static const String localeKey = 'locale';
   final String locale;
+  static const String themeModeKey = 'themeMode';
   final ThemeMode themeMode;
+  static const String nativeTitleBarKey = 'nativeTitleBar';
   @override
   final bool nativeTitleBar;
+  static const String designKey = 'design';
   final String design;
+  static const String syncModeKey = 'syncMode';
   final SyncMode syncMode;
+  static const String remotesKey = 'remotes';
   final List<RemoteStorage> remotes;
+  static const String startOfWeekKey = 'startOfWeek';
   final int startOfWeek;
+  static const String densityKey = 'density';
   final ThemeDensity density;
+  static const String highContrastKey = 'highContrast';
   final bool highContrast;
+  static const String alarmsKey = 'alarms';
+  final List<Alarm> alarms;
 
   const FlowSettings({
     this.locale = '',
@@ -69,39 +95,64 @@ class FlowSettings with FlowSettingsMappable, LeapSettings {
     this.startOfWeek = 0,
     this.density = ThemeDensity.system,
     this.highContrast = false,
+    this.alarms = const [],
   });
 
   factory FlowSettings.fromPrefs(SharedPreferences prefs) => FlowSettings(
         themeMode:
-            ThemeMode.values.byName(prefs.getString('themeMode') ?? 'system'),
-        design: prefs.getString('design') ?? '',
-        nativeTitleBar: prefs.getBool('nativeTitleBar') ?? false,
-        locale: prefs.getString('locale') ?? '',
+            ThemeMode.values.byName(prefs.getString(themeModeKey) ?? 'system'),
+        design: prefs.getString(designKey) ?? '',
+        nativeTitleBar: prefs.getBool(nativeTitleBarKey) ?? false,
+        locale: prefs.getString(localeKey) ?? '',
         syncMode:
-            SyncMode.values.byName(prefs.getString('syncMode') ?? 'noMobile'),
+            SyncMode.values.byName(prefs.getString(syncModeKey) ?? 'noMobile'),
         remotes: prefs
-                .getStringList('remotes')
+                .getStringList(remotesKey)
                 ?.map((e) => RemoteStorageMapper.fromJson(e))
                 .toList() ??
             [],
-        startOfWeek: prefs.getInt('startOfWeek') ?? 0,
+        startOfWeek: prefs.getInt(startOfWeekKey) ?? 0,
         density:
-            ThemeDensity.values.byName(prefs.getString('density') ?? 'system'),
-        highContrast: prefs.getBool('highContrast') ?? false,
+            ThemeDensity.values.byName(prefs.getString(densityKey) ?? 'system'),
+        highContrast: prefs.getBool(highContrastKey) ?? false,
+        alarms: prefs
+                .getStringList(alarmsKey)
+                ?.map((e) => AlarmMapper.fromJson(e))
+                .toList() ??
+            [],
       );
+  Future<void> saveThemeMode(SharedPreferences prefs) =>
+      prefs.setString(themeModeKey, themeMode.name);
+  Future<void> saveDesign(SharedPreferences prefs) =>
+      prefs.setString(designKey, design);
+  Future<void> saveNativeTitleBar(SharedPreferences prefs) =>
+      prefs.setBool(nativeTitleBarKey, nativeTitleBar);
+  Future<void> saveLocale(SharedPreferences prefs) =>
+      prefs.setString(localeKey, locale);
+  Future<void> saveSyncMode(SharedPreferences prefs) =>
+      prefs.setString(syncModeKey, syncMode.name);
+  Future<void> saveRemotes(SharedPreferences prefs) => prefs.setStringList(
+      remotesKey, remotes.map((e) => json.encode(e.toJson())).toList());
+  Future<void> saveStartOfWeek(SharedPreferences prefs) =>
+      prefs.setInt(startOfWeekKey, startOfWeek);
+  Future<void> saveDensity(SharedPreferences prefs) =>
+      prefs.setString(densityKey, density.name);
+  Future<void> saveHighContrast(SharedPreferences prefs) =>
+      prefs.setBool(highContrastKey, highContrast);
+  Future<void> saveAlarms(SharedPreferences prefs) => prefs.setStringList(
+      alarmsKey, alarms.map((e) => json.encode(e.toJson())).toList());
 
-  Future<void> save() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('themeMode', themeMode.name);
-    await prefs.setString('design', design);
-    await prefs.setBool('nativeTitleBar', nativeTitleBar);
-    await prefs.setString('locale', locale);
-    await prefs.setString('syncMode', syncMode.name);
-    await prefs.setStringList(
-        'remotes', remotes.map((e) => json.encode(e.toJson())).toList());
-    await prefs.setInt('startOfWeek', startOfWeek);
-    await prefs.setString('density', density.name);
-    await prefs.setBool('highContrast', highContrast);
+  Future<void> save(SharedPreferences prefs) async {
+    await saveThemeMode(prefs);
+    await saveDesign(prefs);
+    await saveNativeTitleBar(prefs);
+    await saveLocale(prefs);
+    await saveSyncMode(prefs);
+    await saveRemotes(prefs);
+    await saveStartOfWeek(prefs);
+    await saveDensity(prefs);
+    await saveHighContrast(prefs);
+    await saveAlarms(prefs);
   }
 }
 
@@ -114,34 +165,45 @@ class SettingsCubit extends Cubit<FlowSettings>
     with LeapSettingsBlocBaseMixin<FlowSettings> {
   SettingsCubit(SharedPreferences prefs) : super(FlowSettings.fromPrefs(prefs));
 
+  Future<void> _runSave(
+      Future<void> Function(SharedPreferences prefs) save) async {
+    final prefs = await SharedPreferences.getInstance();
+    await save(prefs);
+  }
+
   Future<void> changeThemeMode(ThemeMode mode) {
     emit(state.copyWith(themeMode: mode));
-    return state.save();
+    return _runSave(state.saveThemeMode);
   }
 
   Future<void> changeDesign(String design) {
-    emit(state.copyWith(design: design));
-    return state.save();
+    final newState = state.copyWith(design: design);
+    emit(newState);
+    return _runSave(newState.saveDesign);
   }
 
   Future<void> changeNativeTitleBar(bool nativeTitleBar) {
-    emit(state.copyWith(nativeTitleBar: nativeTitleBar));
-    return state.save();
+    final newState = state.copyWith(nativeTitleBar: nativeTitleBar);
+    emit(newState);
+    return _runSave(newState.saveNativeTitleBar);
   }
 
   Future<void> changeLocale(String locale) {
-    emit(state.copyWith(locale: locale));
-    return state.save();
+    final newState = state.copyWith(locale: locale);
+    emit(newState);
+    return _runSave(newState.saveLocale);
   }
 
   Future<void> changeSyncMode(SyncMode syncMode) {
-    emit(state.copyWith(syncMode: syncMode));
-    return state.save();
+    final newState = state.copyWith(syncMode: syncMode);
+    emit(newState);
+    return _runSave(newState.saveSyncMode);
   }
 
   Future<void> addStorage(RemoteStorage remoteStorage) {
-    emit(state.copyWith(remotes: [...state.remotes, remoteStorage]));
-    return state.save();
+    final newState = state.copyWith(remotes: [...state.remotes, remoteStorage]);
+    emit(newState);
+    return _runSave(newState.saveRemotes);
   }
 
   RemoteStorage? getStorage(String name) {
@@ -149,24 +211,49 @@ class SettingsCubit extends Cubit<FlowSettings>
   }
 
   Future<void> removeStorage(String name) {
-    emit(state.copyWith(
-        remotes: state.remotes.where((e) => e.toFilename() != name).toList()));
-    return state.save();
+    final newState = state.copyWith(
+        remotes: state.remotes.where((e) => e.toFilename() != name).toList());
+    emit(newState);
+    return _runSave(newState.saveRemotes);
   }
 
   Future<void> changeStartOfWeek(int startOfWeek) {
-    emit(state.copyWith(startOfWeek: startOfWeek));
-    return state.save();
+    final newState = state.copyWith(startOfWeek: startOfWeek);
+    emit(newState);
+    return _runSave(newState.saveStartOfWeek);
   }
 
   Future<void> changeDensity(ThemeDensity density) {
-    emit(state.copyWith(density: density));
-    return state.save();
+    final newState = state.copyWith(density: density);
+    emit(newState);
+    return _runSave(newState.saveDensity);
   }
 
   Future<void> changeHighContrast(bool highContrast) {
-    emit(state.copyWith(highContrast: highContrast));
-    return state.save();
+    final newState = state.copyWith(highContrast: highContrast);
+    emit(newState);
+    return _runSave(newState.saveHighContrast);
+  }
+
+  Future<void> addAlarm(Alarm alarm) {
+    final newState = state.copyWith(alarms: [...state.alarms, alarm]);
+    emit(newState);
+    return _runSave(newState.saveAlarms);
+  }
+
+  Future<void> removeAlarm(Alarm alarm) {
+    final newState =
+        state.copyWith(alarms: state.alarms.where((e) => e != alarm).toList());
+    emit(newState);
+    return _runSave(newState.saveAlarms);
+  }
+
+  Future<void> changeAlarm(int index, Alarm alarm) {
+    final newState = state.copyWith(
+        alarms:
+            state.alarms.mapIndexed((i, e) => i == index ? alarm : e).toList());
+    emit(newState);
+    return _runSave(newState.saveAlarms);
   }
 
   Future<void> importSettings(String data) {
@@ -174,7 +261,7 @@ class SettingsCubit extends Cubit<FlowSettings>
       remotes: state.remotes,
     );
     emit(settings);
-    return state.save();
+    return _runSave(settings.save);
   }
 
   Future<String> exportSettings() async {

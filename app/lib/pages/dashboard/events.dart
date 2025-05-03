@@ -57,32 +57,44 @@ class _DashboardEventsViewState extends State<DashboardEventsView> {
           ],
         ),
         const SizedBox(height: 20),
-        FutureBuilder<List<SourcedConnectedModel<CalendarItem, Event?>>>(
-            future: _getAppointments(context),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState != ConnectionState.done) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
-              }
-              final appointments = snapshot.data!;
-              return Column(
-                children: appointments
-                    .map((e) => ListTile(
-                          title: Text(e.main.name),
-                          subtitle: MarkdownText(e.main.description),
-                          onTap: () => showDialog(
-                              context: context,
-                              builder: (context) => CalendarItemDialog(
-                                    event: e.sub,
-                                    item: e.main,
-                                    source: e.source,
-                                  )).then((value) => setState(() {})),
-                        ))
-                    .toList(),
-              );
-            })
+        Expanded(
+          child:
+              FutureBuilder<List<SourcedConnectedModel<CalendarItem, Event?>>>(
+                  future: _getAppointments(context),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState != ConnectionState.done) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (snapshot.hasError) {
+                      return Text(snapshot.error.toString());
+                    }
+                    final appointments = snapshot.data ??
+                        <SourcedConnectedModel<CalendarItem, Event?>>[];
+                    if (appointments.isEmpty) {
+                      return Center(
+                        child: Text(
+                          AppLocalizations.of(context).indicatorEmpty,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      );
+                    }
+                    return Column(
+                      children: appointments
+                          .map((e) => ListTile(
+                                title: Text(e.main.name),
+                                subtitle: MarkdownText(e.main.description),
+                                onTap: () => showDialog(
+                                    context: context,
+                                    builder: (context) => CalendarItemDialog(
+                                          event: e.sub,
+                                          item: e.main,
+                                          source: e.source,
+                                        )).then((value) => setState(() {})),
+                              ))
+                          .toList(),
+                    );
+                  }),
+        )
       ],
     );
   }

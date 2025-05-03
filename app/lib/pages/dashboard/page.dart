@@ -71,9 +71,23 @@ class _DashboardPageState extends State<DashboardPage> {
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            DashboardNotesView(),
+                            ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  minHeight: 250,
+                                  minWidth: 300,
+                                  maxWidth: 600,
+                                  maxHeight: 300,
+                                ),
+                                child: DashboardNotesView()),
                             const Divider(),
-                            DashboardEventsView(),
+                            ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  minHeight: 250,
+                                  minWidth: 300,
+                                  maxWidth: 600,
+                                  maxHeight: 300,
+                                ),
+                                child: DashboardEventsView()),
                           ],
                         );
                       },

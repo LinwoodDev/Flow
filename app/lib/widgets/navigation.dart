@@ -3,71 +3,90 @@ import 'dart:io';
 import 'package:flow/api/settings.dart';
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/cubits/settings.dart';
-import 'package:flow/widgets/window_buttons.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../main.dart';
 
-const kAppBarHeight = 64.0;
+typedef _NavigationItem = ({
+  String title,
+  IconGetter icon,
+  String link,
+  VoidCallback? onTap
+});
 
-List _getNavigationItems(BuildContext context) => [
-      {
-        "title": AppLocalizations.of(context).dashboard,
-        "icon": PhosphorIconsLight.squaresFour,
-        "link": "/"
-      },
-      {
-        "title": AppLocalizations.of(context).calendar,
-        "icon": PhosphorIconsLight.calendar,
-        "link": "/calendar"
-      },
+List<_NavigationItem?> _getNavigationItems(BuildContext context) => [
+      (
+        title: AppLocalizations.of(context).dashboard,
+        icon: PhosphorIcons.squaresFour,
+        link: "/",
+        onTap: null,
+      ),
+      (
+        title: AppLocalizations.of(context).calendar,
+        icon: PhosphorIcons.calendar,
+        link: "/calendar",
+        onTap: null,
+      ),
+      (
+        title: AppLocalizations.of(context).alarm,
+        icon: PhosphorIcons.alarm,
+        link: "/alarm",
+        onTap: null,
+      ),
       null,
-      {
-        "title": AppLocalizations.of(context).events,
-        "icon": PhosphorIconsLight.calendarBlank,
-        "link": "/events"
-      },
-      {
-        "title": AppLocalizations.of(context).notes,
-        "icon": PhosphorIconsLight.listChecks,
-        "link": "/notes"
-      },
-      {
-        "title": AppLocalizations.of(context).resources,
-        "icon": PhosphorIconsLight.cube,
-        "link": "/resources"
-      },
-      {
-        "title": AppLocalizations.of(context).groups,
-        "icon": PhosphorIconsLight.usersThree,
-        "link": "/groups"
-      },
-      {
-        "title": AppLocalizations.of(context).users,
-        "icon": PhosphorIconsLight.users,
-        "link": "/users"
-      },
+      (
+        title: AppLocalizations.of(context).events,
+        icon: PhosphorIcons.calendarBlank,
+        link: "/events",
+        onTap: null,
+      ),
+      (
+        title: AppLocalizations.of(context).notes,
+        icon: PhosphorIcons.listChecks,
+        link: "/notes",
+        onTap: null,
+      ),
+      (
+        title: AppLocalizations.of(context).resources,
+        icon: PhosphorIcons.cube,
+        link: "/resources",
+        onTap: null,
+      ),
+      (
+        title: AppLocalizations.of(context).groups,
+        icon: PhosphorIcons.usersThree,
+        link: "/groups",
+        onTap: null,
+      ),
+      (
+        title: AppLocalizations.of(context).users,
+        icon: PhosphorIcons.users,
+        link: "/users",
+        onTap: null,
+      ),
     ];
 
-List _getSecondaryItems(BuildContext context) => [
+List<_NavigationItem?> _getSecondaryItems(BuildContext context) => [
       null,
-      {
-        "title": AppLocalizations.of(context).sources,
-        "icon": PhosphorIconsLight.hardDrives,
-        "link": "/sources"
-      },
-      {
-        "title": AppLocalizations.of(context).settings,
-        "icon": PhosphorIconsLight.gear,
-        "link": "/settings",
-        "onTap": () => openSettings(context),
-      }
+      (
+        title: AppLocalizations.of(context).sources,
+        icon: PhosphorIcons.hardDrives,
+        link: "/sources",
+        onTap: null,
+      ),
+      (
+        title: AppLocalizations.of(context).settings,
+        icon: PhosphorIcons.gear,
+        link: "/settings",
+        onTap: () => openSettings(context),
+      )
     ];
 
 const _drawerWidth = 250.0;
@@ -145,21 +164,15 @@ class FlowNavigation extends StatelessWidget {
       final isMobile = MediaQuery.of(context).size.width < 820;
       final showEndDrawerButton = isMobile && endDrawer != null;
       const drawer = _FlowDrawer();
-      PreferredSizeWidget appBar = AppBar(
+      PreferredSizeWidget appBar = WindowTitleBar<SettingsCubit, FlowSettings>(
         bottom: bottom,
         title: title == null ? null : Text(title!),
-        toolbarHeight: kAppBarHeight,
         actions: [
           ...actions,
           if (showEndDrawerButton)
             IconButton(
               icon: const PhosphorIcon(PhosphorIconsLight.list),
               onPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
-            ),
-          if (!kIsWeb &&
-              (Platform.isWindows || Platform.isLinux || Platform.isMacOS))
-            FlowWindowButtons(
-              divider: actions.isNotEmpty || showEndDrawerButton,
             ),
         ],
       );
@@ -220,21 +233,26 @@ class FlowNavigation extends StatelessWidget {
 class _FlowDrawer extends StatelessWidget {
   const _FlowDrawer();
 
-  Widget _getItem(BuildContext context, String location, Map? map) {
+  Widget _getItem(
+      BuildContext context, String location, _NavigationItem? item) {
     var currentSelected = false;
-    final link = map?["link"] as String?;
-    if (map?["link"] == "/") {
-      currentSelected = location == map?["link"];
+    final link = item?.link;
+    if (link == "/") {
+      currentSelected = location == link;
     } else if (link != null) {
       currentSelected = location.startsWith(link);
     }
-    return map == null
+    return item == null
         ? const Divider()
         : ListTile(
             style: ListTileStyle.drawer,
-            title: Text(map['title']),
-            leading: PhosphorIcon(map['icon']),
-            onTap: map["onTap"] ?? () => GoRouter.of(context).go(map['link']),
+            title: Text(item.title),
+            leading: Icon(item.icon(
+              currentSelected
+                  ? PhosphorIconsStyle.fill
+                  : PhosphorIconsStyle.light,
+            )),
+            onTap: item.onTap ?? () => GoRouter.of(context).go(item.link),
             selected: currentSelected,
             selectedColor: Theme.of(context).colorScheme.onSurface,
             selectedTileColor: currentSelected
@@ -271,10 +289,9 @@ class _FlowDrawer extends StatelessWidget {
                         width: 64,
                       ),
                     ),
-                    toolbarHeight: kAppBarHeight,
                     leadingWidth: 42,
                     title: const Text(
-                      shortApplicationName,
+                      applicationName,
                       textAlign: TextAlign.center,
                     ),
                     centerTitle: true,

@@ -1,3 +1,5 @@
+* Use fill icon variant for selected navigation item
+* Improve dashboard notes and events display
 * Fix linux appdata
 
 Read more here: https://linwood.dev/flow/0.4.3

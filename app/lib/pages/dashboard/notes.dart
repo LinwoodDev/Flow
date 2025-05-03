@@ -52,25 +52,35 @@ class _DashboardNotesViewState extends State<DashboardNotesView> {
           ],
         ),
         const SizedBox(height: 20),
-        FutureBuilder<List<(Note, String)>>(
-            future: _getNotes(context),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState != ConnectionState.done) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
-              }
-              final notes = snapshot.data!;
-              return Column(
-                children: notes
-                    .map((e) => NoteListTile(
-                          note: e.$1,
-                          source: e.$2,
-                        ))
-                    .toList(),
-              );
-            })
+        Expanded(
+          child: FutureBuilder<List<(Note, String)>>(
+              future: _getNotes(context),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState != ConnectionState.done) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (snapshot.hasError) {
+                  return Text(snapshot.error.toString());
+                }
+                final notes = snapshot.data ?? <(Note, String)>[];
+                if (notes.isEmpty) {
+                  return Center(
+                    child: Text(
+                      AppLocalizations.of(context).indicatorEmpty,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  );
+                }
+                return ListView(
+                  children: notes
+                      .map((e) => NoteListTile(
+                            note: e.$1,
+                            source: e.$2,
+                          ))
+                      .toList(),
+                );
+              }),
+        )
       ],
     );
   }
