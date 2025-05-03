@@ -139,8 +139,8 @@ class FlowSettings with FlowSettingsMappable, LeapSettings {
       prefs.setString(densityKey, density.name);
   Future<void> saveHighContrast(SharedPreferences prefs) =>
       prefs.setBool(highContrastKey, highContrast);
-  Future<void> saveAlarms(SharedPreferences prefs) => prefs.setStringList(
-      alarmsKey, alarms.map((e) => json.encode(e.toJson())).toList());
+  Future<void> saveAlarms(SharedPreferences prefs) =>
+      prefs.setStringList(alarmsKey, alarms.map((e) => e.toJson()).toList());
 
   Future<void> save(SharedPreferences prefs) async {
     await saveThemeMode(prefs);

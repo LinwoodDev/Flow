@@ -4,6 +4,7 @@ import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -65,7 +66,20 @@ class _AlarmPageState extends State<AlarmPage> {
                                 ),
                                 IconButton(
                                   icon: const PhosphorIcon(
+                                      PhosphorIconsLight.clockCountdown),
+                                  tooltip:
+                                      AppLocalizations.of(context).countdown,
+                                  onPressed: () {
+                                    GoRouter.of(context).goNamed(
+                                      'alarm-countdown',
+                                      pathParameters: {'index': i.toString()},
+                                    );
+                                  },
+                                ),
+                                IconButton(
+                                  icon: const PhosphorIcon(
                                       PhosphorIconsLight.trash),
+                                  tooltip: AppLocalizations.of(context).delete,
                                   onPressed: () {
                                     final settingsCubit =
                                         context.read<SettingsCubit>();

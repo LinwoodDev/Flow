@@ -4,6 +4,7 @@ import 'package:args/args.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/api/storage/sources.dart';
+import 'package:flow/pages/alarm/countdown.dart';
 import 'package:flow/pages/alarm/page.dart';
 import 'package:flow/pages/calendar/filter.dart';
 import 'package:flow/pages/settings/data.dart';
@@ -115,6 +116,15 @@ final GoRouter _router = GoRouter(
                 GoRoute(
                   path: 'alarm',
                   builder: (context, state) => const AlarmPage(),
+                  routes: [
+                    GoRoute(
+                      path: ':index',
+                      name: 'alarm-countdown',
+                      builder: (context, state) => AlarmCountdownPage(
+                        index: int.parse(state.pathParameters['index']!),
+                      ),
+                    ),
+                  ],
                 ),
                 GoRoute(
                   path: 'events',
