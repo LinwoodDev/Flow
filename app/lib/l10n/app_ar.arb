@@ -322,5 +322,7 @@
   "systemTheme": "سمة النظام",
   "desktop": "سطح المكتب",
   "restoreSettingsFromFile": "استعادة الإعدادات من الملف",
-  "exportSettingsToFile": "تصدير الإعدادات إلى ملف"
+  "exportSettingsToFile": "تصدير الإعدادات إلى ملف",
+  "alarm": "Alarm",
+  "enabled": "Enabled"
 }
