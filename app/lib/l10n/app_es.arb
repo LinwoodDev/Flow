@@ -322,5 +322,7 @@
   "systemTheme": "Tema del sistema",
   "desktop": "Escritorio",
   "restoreSettingsFromFile": "Restaurar ajustes desde el archivo",
-  "exportSettingsToFile": "Exportar ajustes al archivo"
+  "exportSettingsToFile": "Exportar ajustes al archivo",
+  "alarm": "Alarm",
+  "enabled": "Enabled"
 }
