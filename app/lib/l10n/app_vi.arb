@@ -322,5 +322,8 @@
   "systemTheme": "System theme",
   "desktop": "Máy tính",
   "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file"
+  "exportSettingsToFile": "Export settings to file",
+  "alarm": "Alarm",
+  "enabled": "Enabled",
+  "countdown": "Countdown"
 }
