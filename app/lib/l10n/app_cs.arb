@@ -324,5 +324,6 @@
   "restoreSettingsFromFile": "Obnovit nastavení ze souboru",
   "exportSettingsToFile": "Exportovat nastavení do souboru",
   "alarm": "Alarm",
-  "enabled": "Enabled"
+  "enabled": "Enabled",
+  "countdown": "Countdown"
 }
