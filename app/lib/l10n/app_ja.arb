@@ -322,5 +322,8 @@
   "systemTheme": "システムテーマ",
   "desktop": "デスクトップ",
   "restoreSettingsFromFile": "設定をファイルから復元",
-  "exportSettingsToFile": "設定をファイルにエクスポート"
+  "exportSettingsToFile": "設定をファイルにエクスポート",
+  "alarm": "Alarm",
+  "enabled": "Enabled",
+  "countdown": "Countdown"
 }
