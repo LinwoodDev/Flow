@@ -322,5 +322,8 @@
   "systemTheme": "System theme",
   "desktop": "Masaüstü",
   "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file"
+  "exportSettingsToFile": "Export settings to file",
+  "alarm": "Alarm",
+  "enabled": "Enabled",
+  "countdown": "Countdown"
 }
