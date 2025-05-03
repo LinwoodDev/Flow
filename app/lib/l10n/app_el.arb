@@ -322,5 +322,7 @@
   "systemTheme": "Θέμα συστήματος",
   "desktop": "Επιφάνεια Εργασίας",
   "restoreSettingsFromFile": "Επαναφορά ρυθμίσεων από αρχείο",
-  "exportSettingsToFile": "Εξαγωγή ρυθμίσεων σε αρχείο"
+  "exportSettingsToFile": "Εξαγωγή ρυθμίσεων σε αρχείο",
+  "alarm": "Alarm",
+  "enabled": "Enabled"
 }
