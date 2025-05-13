@@ -137,6 +137,8 @@ class MarkdownText extends StatelessWidget {
         config: MarkdownConfig(
           configs: [LinkConfig()],
         ),
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         markdownGenerator: MarkdownGenerator(
           extensionSet: md.ExtensionSet(
             md.ExtensionSet.gitHubFlavored.blockSyntaxes,
