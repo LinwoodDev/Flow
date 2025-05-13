@@ -15,7 +15,7 @@
     "@astrojs/starlight": "^0.34.3",
     "@phosphor-icons/react": "^2.1.7",
     "@types/react": "^19.1.4",
-    "@types/react-dom": "^19.1.4",
+    "@types/react-dom": "^19.1.5",
     "astro": "^5.7.12",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

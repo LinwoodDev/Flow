@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:markdown_widget/markdown_widget.dart';
 import 'package:markdown/markdown.dart' as md;
 
 class MarkdownField extends StatefulWidget {
@@ -12,15 +11,16 @@ class MarkdownField extends StatefulWidget {
   final List<Widget> actions;
   final SizedBox? toolbar;
 
-  const MarkdownField(
-      {super.key,
-      this.value,
-      this.controller,
-      this.onChanged,
-      this.onChangeEnd,
-      this.toolbar,
-      this.decoration = const InputDecoration(),
-      this.actions = const []});
+  const MarkdownField({
+    super.key,
+    this.value,
+    this.controller,
+    this.onChanged,
+    this.onChangeEnd,
+    this.toolbar,
+    this.decoration = const InputDecoration(),
+    this.actions = const [],
+  });
 
   @override
   State<MarkdownField> createState() => _MarkdownFieldState();
@@ -96,7 +96,6 @@ class _MarkdownFieldState extends State<MarkdownField> {
                           builder: (context, child) => MarkdownText(
                             _controller.text,
                             border: false,
-                            onTap: () => setState(() => _editMode = true),
                           ),
                         ),
                       ),
@@ -117,10 +116,9 @@ class _MarkdownFieldState extends State<MarkdownField> {
 
 class MarkdownText extends StatelessWidget {
   final String value;
-  final VoidCallback? onTap;
   final bool border;
 
-  const MarkdownText(this.value, {super.key, this.onTap, this.border = true});
+  const MarkdownText(this.value, {super.key, this.border = true});
 
   @override
   Widget build(BuildContext context) {
@@ -134,18 +132,20 @@ class MarkdownText extends StatelessWidget {
             )
           : null,
       padding: border && value.isNotEmpty ? const EdgeInsets.all(8) : null,
-      child: MarkdownBody(
+      child: MarkdownWidget(
         data: value,
-        onTapText: onTap,
-        extensionSet: md.ExtensionSet(
-          md.ExtensionSet.gitHubFlavored.blockSyntaxes,
-          [md.EmojiSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
+        config: MarkdownConfig(
+          configs: [LinkConfig()],
         ),
-        onTapLink: (text, href, title) async {
-          if (href != null && await canLaunchUrlString(href)) {
-            launchUrlString(href);
-          }
-        },
+        markdownGenerator: MarkdownGenerator(
+          extensionSet: md.ExtensionSet(
+            md.ExtensionSet.gitHubFlavored.blockSyntaxes,
+            [
+              md.EmojiSyntax(),
+              ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -2,7 +2,7 @@
 * Improve dashboard notes and events display
 * Fix linux appdata
 * Migrate away from flutter_markdown
+* Fix divider in appbar if native titlebar is enabled
 * Update to agb 8.10
-
 
 Read more here: https://linwood.dev/flow/0.4.3
