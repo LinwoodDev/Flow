@@ -39,7 +39,7 @@ class ResourceDialog extends StatelessWidget {
       title: Text(create
           ? AppLocalizations.of(context).createResource
           : AppLocalizations.of(context).editResource),
-      constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
+      constraints: const BoxConstraints(maxWidth: 600, maxHeight: 500),
       content: DefaultTabController(
         length: tabs ? 3 : 1,
         child: Column(

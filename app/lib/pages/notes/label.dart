@@ -30,7 +30,7 @@ class LabelDialog extends StatelessWidget {
     var currentSource = source ?? '';
     var currentService =
         context.read<FlowCubit>().getService(currentSource).label;
-    return AlertDialog(
+    return ResponsiveAlertDialog(
       title: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -56,45 +56,42 @@ class LabelDialog extends StatelessWidget {
               : AppLocalizations.of(context).editLabel),
         ],
       ),
-      content: SizedBox(
-        width: 500,
-        child: Column(children: [
-          if (source == null) ...[
-            SourceDropdown<LabelService>(
-              value: currentSource,
-              buildService: (e) => e.label,
-              onChanged: (connected) {
-                currentSource = connected?.source ?? '';
-              },
-            ),
-            const SizedBox(height: 16),
-          ],
-          TextFormField(
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context).name,
-              filled: true,
-              icon: const PhosphorIcon(PhosphorIconsLight.fileText),
-            ),
-            initialValue: currentLabel.name,
-            onChanged: (value) {
-              currentLabel = currentLabel.copyWith(name: value);
+      constraints: const BoxConstraints(maxWidth: LeapBreakpoints.compact),
+      content: ListView(shrinkWrap: true, children: [
+        if (source == null) ...[
+          SourceDropdown<LabelService>(
+            value: currentSource,
+            buildService: (e) => e.label,
+            onChanged: (connected) {
+              currentSource = connected?.source ?? '';
             },
           ),
           const SizedBox(height: 16),
-          MarkdownField(
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context).description,
-              border: const OutlineInputBorder(),
-              icon: const PhosphorIcon(PhosphorIconsLight.fileText),
-            ),
-            value: currentLabel.description,
-            onChanged: (value) {
-              currentLabel = currentLabel.copyWith(description: value);
-            },
-          )
-        ]),
-      ),
-      scrollable: true,
+        ],
+        TextFormField(
+          decoration: InputDecoration(
+            labelText: AppLocalizations.of(context).name,
+            filled: true,
+            icon: const PhosphorIcon(PhosphorIconsLight.fileText),
+          ),
+          initialValue: currentLabel.name,
+          onChanged: (value) {
+            currentLabel = currentLabel.copyWith(name: value);
+          },
+        ),
+        const SizedBox(height: 16),
+        MarkdownField(
+          decoration: InputDecoration(
+            labelText: AppLocalizations.of(context).description,
+            border: const OutlineInputBorder(),
+            icon: const PhosphorIcon(PhosphorIconsLight.fileText),
+          ),
+          value: currentLabel.description,
+          onChanged: (value) {
+            currentLabel = currentLabel.copyWith(description: value);
+          },
+        )
+      ]),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),

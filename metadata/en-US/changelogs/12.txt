@@ -1,8 +1,10 @@
+* Start adding alarm functionality
 * Use fill icon variant for selected navigation item
 * Improve dashboard notes and events display
 * Fix linux appdata
 * Migrate away from flutter_markdown
 * Fix divider in appbar if native titlebar is enabled
+* Fix layout of dialogs
 * Update to agb 8.10
 
 Read more here: https://linwood.dev/flow/0.4.3

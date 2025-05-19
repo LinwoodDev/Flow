@@ -62,7 +62,7 @@ class _AlarmCountdownPageState extends State<AlarmCountdownPage> {
           children: [
             FittedBox(
               child: Text(
-                '${_duration.inDays}:${_duration.inHours % 24}:${(_duration.inMinutes % 60).toString().padLeft(2, '0')}:${(_duration.inSeconds % 60).toString().padLeft(2, '0')}',
+                '${_duration.inDays}:${(_duration.inHours % 24).toString().padLeft(2, '0')}:${(_duration.inMinutes % 60).toString().padLeft(2, '0')}:${(_duration.inSeconds % 60).toString().padLeft(2, '0')}',
                 style: TextStyle(
                   fontSize: fontSize.toDouble(),
                   fontWeight: FontWeight.w900,
@@ -72,11 +72,12 @@ class _AlarmCountdownPageState extends State<AlarmCountdownPage> {
             const SizedBox(height: 20),
             Text(
               _alarm.title,
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: TextTheme.of(context).headlineLarge,
             ),
             const SizedBox(height: 4),
             Text(
               DateFormat.yMMMMEEEEd().format(_alarm.date),
+              style: TextTheme.of(context).bodyLarge,
             ),
             Text(
               DateFormat.Hm().format(_alarm.date),

@@ -82,6 +82,7 @@ class _MarkdownFieldState extends State<MarkdownField> {
                   ],
                 )
               : Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(height: widget.toolbar?.height),
                     GestureDetector(
