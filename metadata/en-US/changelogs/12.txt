@@ -6,5 +6,6 @@
 * Fix divider in appbar if native titlebar is enabled
 * Fix layout of dialogs
 * Update to agb 8.10
+* Upgrade to flutter 3.32
 
 Read more here: https://linwood.dev/flow/0.4.3
