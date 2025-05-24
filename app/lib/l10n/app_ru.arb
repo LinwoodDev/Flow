@@ -156,7 +156,7 @@
       }
     }
   },
-  "deleteResourceDescription": "Are you sure you want to delete the resource {name}?",
+  "deleteResourceDescription": "Вы уверены, что хотите удалить ресурс {name}?",
   "@deleteResourceDescription": {
     "placeholders": {
       "name": {
@@ -324,6 +324,6 @@
   "restoreSettingsFromFile": "Восстановить настройки из файла",
   "exportSettingsToFile": "Экспорт настроек в файл",
   "alarm": "Alarm",
-  "enabled": "Enabled",
-  "countdown": "Countdown"
+  "enabled": "Включено",
+  "countdown": "Обратный отсчёт"
 }
