@@ -1,0 +1,1 @@
+Feature rich event, group and time managment system
