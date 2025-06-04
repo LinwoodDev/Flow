@@ -10,6 +10,7 @@ title: 常见问题
 
 您可以通过点击标题栏中的安装按钮来安装网页版本。
 之后您可以离线使用此应用程序。
+之后您可以离线使用此应用程序。
 
 ### Flow does not load on Brave
 
@@ -23,4 +24,4 @@ title: 常见问题
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Flow is available on iOS as preview. 点击此[链接](https://flow.linwood.dev/downloads/ios)下载。 [点击](https://github.com/LinwoodDev/Flow/issues/244#issuecomment-1935460878)了解为什么此应用不在App Store上提供。
+Flow is available on iOS as preview. 点击此[链接](https://flow.linwood.dev/downloads/ios)下载。 点击此[链接](https://flow.linwood.dev/downloads/ios)下载。 [点击](https://github.com/LinwoodDev/Flow/issues/244#issuecomment-1935460878)了解为什么此应用不在App Store上提供。
