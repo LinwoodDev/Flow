@@ -167,12 +167,12 @@ class SourcedPagingBloc<T>
   void removeSourced(T item) => add(SourcedPagingRemoved(item));
 }
 
-_buildDatedFetch<T>(ItemFetcher<T> fetch) => (String source,
+Future<List<T>?> Function(String source, SourceService service, int offset, int limit, int date) _buildDatedFetch<T>(ItemFetcher<T> fetch) => (String source,
         SourceService service, int offset, int limit, int date) async {
       final items = await fetch(source, service, offset, limit);
       return items;
     };
-_buildDatedFetchSource<T>(SourceFetcher<T> fetch) => (String source,
+Future<List<T>?> Function(String source, SourceService service, int offset, int limit, int date) _buildDatedFetchSource<T>(SourceFetcher<T> fetch) => (String source,
         SourceService service, int offset, int limit, int date) async {
       final items = await fetch(service, offset, limit);
       return items;
