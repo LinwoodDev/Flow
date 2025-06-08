@@ -324,6 +324,6 @@
   "restoreSettingsFromFile": "Palauta asetukset tiedostosta",
   "exportSettingsToFile": "Vie asetukset tiedostoon",
   "alarm": "Alarm",
-  "enabled": "Enabled",
-  "countdown": "Countdown"
+  "enabled": "Käytössä",
+  "countdown": "Lähtölaskenta"
 }
