@@ -324,6 +324,6 @@
   "restoreSettingsFromFile": "استعادة الإعدادات من الملف",
   "exportSettingsToFile": "تصدير الإعدادات إلى ملف",
   "alarm": "Alarm",
-  "enabled": "Enabled",
-  "countdown": "Countdown"
+  "enabled": "تمكين",
+  "countdown": "العد التنازلي"
 }
