@@ -324,6 +324,6 @@
   "restoreSettingsFromFile": "設定をファイルから復元",
   "exportSettingsToFile": "設定をファイルにエクスポート",
   "alarm": "Alarm",
-  "enabled": "Enabled",
+  "enabled": "有効",
   "countdown": "Countdown"
 }
