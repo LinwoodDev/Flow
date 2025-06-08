@@ -324,6 +324,6 @@
   "restoreSettingsFromFile": "Επαναφορά ρυθμίσεων από αρχείο",
   "exportSettingsToFile": "Εξαγωγή ρυθμίσεων σε αρχείο",
   "alarm": "Alarm",
-  "enabled": "Enabled",
-  "countdown": "Countdown"
+  "enabled": "Ενεργοποιημένο",
+  "countdown": "Αντίστροφη μέτρηση"
 }
