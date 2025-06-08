@@ -324,6 +324,6 @@
   "restoreSettingsFromFile": "Återställ inställningar från fil",
   "exportSettingsToFile": "Exportera inställningar till fil",
   "alarm": "Alarm",
-  "enabled": "Enabled",
-  "countdown": "Countdown"
+  "enabled": "Aktiverad",
+  "countdown": "Nedräkning"
 }
