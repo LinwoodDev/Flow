@@ -324,6 +324,6 @@
   "restoreSettingsFromFile": "从文件恢复设置",
   "exportSettingsToFile": "导出设置到文件",
   "alarm": "Alarm",
-  "enabled": "Enabled",
-  "countdown": "Countdown"
+  "enabled": "已启用",
+  "countdown": "倒计时"
 }
