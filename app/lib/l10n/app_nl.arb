@@ -325,5 +325,6 @@
   "exportSettingsToFile": "Instellingen exporteren naar bestand",
   "alarm": "Alarm",
   "enabled": "Ingeschakeld",
-  "countdown": "Aftellen"
+  "countdown": "Aftellen",
+  "unlink": "Unlink"
 }
