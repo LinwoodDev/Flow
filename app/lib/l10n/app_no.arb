@@ -325,5 +325,6 @@
   "exportSettingsToFile": "Eksporter innstillinger til fil",
   "alarm": "Alarm",
   "enabled": "Aktivert",
-  "countdown": "Nedtelling"
+  "countdown": "Nedtelling",
+  "unlink": "Unlink"
 }
