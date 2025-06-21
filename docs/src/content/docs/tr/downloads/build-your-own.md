@@ -1,5 +1,5 @@
 ---
-title: Kendiniz inşa edin
+title: "Kendiniz inşa edin"
 ---
 
 1. Git ve flutter'ı yükleyin (beta)
