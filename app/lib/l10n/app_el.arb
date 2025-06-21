@@ -325,5 +325,6 @@
   "exportSettingsToFile": "Εξαγωγή ρυθμίσεων σε αρχείο",
   "alarm": "Alarm",
   "enabled": "Ενεργοποιημένο",
-  "countdown": "Αντίστροφη μέτρηση"
+  "countdown": "Αντίστροφη μέτρηση",
+  "unlink": "Unlink"
 }
