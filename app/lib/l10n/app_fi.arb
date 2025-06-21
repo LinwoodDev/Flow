@@ -325,5 +325,6 @@
   "exportSettingsToFile": "Vie asetukset tiedostoon",
   "alarm": "Alarm",
   "enabled": "Käytössä",
-  "countdown": "Lähtölaskenta"
+  "countdown": "Lähtölaskenta",
+  "unlink": "Unlink"
 }
