@@ -325,5 +325,6 @@
   "exportSettingsToFile": "Exportă setările în fișier",
   "alarm": "Alarm",
   "enabled": "Activat",
-  "countdown": "Numărătoare inversă"
+  "countdown": "Numărătoare inversă",
+  "unlink": "Unlink"
 }
