@@ -325,5 +325,6 @@
   "exportSettingsToFile": "Експорт налаштувань у файл",
   "alarm": "Alarm",
   "enabled": "Увімкнено",
-  "countdown": "Зворотний відлік"
+  "countdown": "Зворотний відлік",
+  "unlink": "Unlink"
 }
