@@ -325,5 +325,6 @@
   "exportSettingsToFile": "設定をファイルにエクスポート",
   "alarm": "Alarm",
   "enabled": "有効",
-  "countdown": "Countdown"
+  "countdown": "Countdown",
+  "unlink": "Unlink"
 }
