@@ -325,5 +325,6 @@
   "exportSettingsToFile": "تصدير الإعدادات إلى ملف",
   "alarm": "Alarm",
   "enabled": "تمكين",
-  "countdown": "العد التنازلي"
+  "countdown": "العد التنازلي",
+  "unlink": "Unlink"
 }
