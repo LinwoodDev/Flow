@@ -59,17 +59,19 @@ class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
                 child: PagedListView<Note>.source(
                   bloc: _bloc,
                   itemBuilder: (context, item, index) {
+                    Future<void> onDelete() async {
+                      widget.connector.disconnect(
+                        widget.model.id!,
+                        item.id!,
+                      );
+                      _bloc.removeSourced(item);
+                    }
+
                     var status = item.status;
                     return Dismissible(
                       key: ValueKey(item.id),
                       background: Container(color: Colors.red),
-                      onDismissed: (direction) {
-                        widget.connector.disconnect(
-                          widget.model.id!,
-                          item.id!,
-                        );
-                        _bloc.removeSourced(item);
-                      },
+                      onDismissed: (direction) => onDelete(),
                       child: ListTile(
                         title: Text(item.name),
                         leading: status == null
@@ -104,6 +106,12 @@ class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
                           );
                           _bloc.refresh();
                         },
+                        trailing: IconButton(
+                          icon:
+                              const PhosphorIcon(PhosphorIconsLight.linkBreak),
+                          tooltip: AppLocalizations.of(context).unlink,
+                          onPressed: onDelete,
+                        ),
                       ),
                     );
                   },

@@ -235,7 +235,7 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
     );
   }
 
-  void _onFilterChanged(value) {
+  void _onFilterChanged(CalendarFilter value) {
     setState(() {
       _filter = value;
     });

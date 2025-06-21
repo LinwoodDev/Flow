@@ -72,7 +72,7 @@ class SourcedPagingBloc<T>
       final state = this.state;
       if (state is SourcedPagingSuccess<T>) {
         final items = state.dates.map((e) => e
-            .where((i) =>
+            .whereNot((i) =>
                 i.model == event.item &&
                 (event.source == null || (i.source == event.source)))
             .toList());
@@ -167,13 +167,17 @@ class SourcedPagingBloc<T>
   void removeSourced(T item) => add(SourcedPagingRemoved(item));
 }
 
-Future<List<T>?> Function(String source, SourceService service, int offset, int limit, int date) _buildDatedFetch<T>(ItemFetcher<T> fetch) => (String source,
-        SourceService service, int offset, int limit, int date) async {
-      final items = await fetch(source, service, offset, limit);
-      return items;
-    };
-Future<List<T>?> Function(String source, SourceService service, int offset, int limit, int date) _buildDatedFetchSource<T>(SourceFetcher<T> fetch) => (String source,
-        SourceService service, int offset, int limit, int date) async {
-      final items = await fetch(service, offset, limit);
-      return items;
-    };
+Future<List<T>?> Function(
+        String source, SourceService service, int offset, int limit, int date)
+    _buildDatedFetch<T>(ItemFetcher<T> fetch) => (String source,
+            SourceService service, int offset, int limit, int date) async {
+          final items = await fetch(source, service, offset, limit);
+          return items;
+        };
+Future<List<T>?> Function(
+        String source, SourceService service, int offset, int limit, int date)
+    _buildDatedFetchSource<T>(SourceFetcher<T> fetch) => (String source,
+            SourceService service, int offset, int limit, int date) async {
+          final items = await fetch(service, offset, limit);
+          return items;
+        };

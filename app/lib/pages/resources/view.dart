@@ -56,16 +56,18 @@ class _ResourcesViewState<T extends DescriptiveModel>
                 child: PagedListView<Resource>.source(
                   bloc: _bloc,
                   itemBuilder: (context, item, index) {
+                    Future<void> onDelete() async {
+                      await widget.connector.disconnect(
+                        widget.model.id!,
+                        item.id!,
+                      );
+                      _bloc.removeSourced(item);
+                    }
+
                     return Dismissible(
                       key: ValueKey(item.id),
                       background: Container(color: Colors.red),
-                      onDismissed: (direction) {
-                        widget.connector.disconnect(
-                          widget.model.id!,
-                          item.id!,
-                        );
-                        _bloc.removeSourced(item);
-                      },
+                      onDismissed: (direction) => onDelete(),
                       child: ListTile(
                         title: Text(item.name),
                         onTap: () async {
@@ -78,6 +80,12 @@ class _ResourcesViewState<T extends DescriptiveModel>
                           );
                           _bloc.refresh();
                         },
+                        trailing: IconButton(
+                          icon:
+                              const PhosphorIcon(PhosphorIconsLight.linkBreak),
+                          tooltip: AppLocalizations.of(context).unlink,
+                          onPressed: onDelete,
+                        ),
                       ),
                     );
                   },

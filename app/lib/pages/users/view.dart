@@ -57,13 +57,15 @@ class _UsersViewState<T extends DescriptiveModel> extends State<UsersView<T>> {
                 child: PagedListView.source(
                   bloc: _bloc,
                   itemBuilder: (context, item, index) {
+                    void onDelete() async {
+                      widget.connector.disconnect(widget.model.id!, item.id!);
+                      _bloc.removeSourced(item);
+                    }
+
                     return Dismissible(
                       key: ValueKey(item.id),
                       background: Container(color: Colors.red),
-                      onDismissed: (direction) {
-                        widget.connector.disconnect(widget.model.id!, item.id!);
-                        _bloc.removeSourced(item);
-                      },
+                      onDismissed: (direction) => onDelete(),
                       child: ListTile(
                         title: Text(item.name),
                         onTap: () async {
@@ -76,6 +78,12 @@ class _UsersViewState<T extends DescriptiveModel> extends State<UsersView<T>> {
                           );
                           _bloc.refresh();
                         },
+                        trailing: IconButton(
+                          icon:
+                              const PhosphorIcon(PhosphorIconsLight.linkBreak),
+                          tooltip: AppLocalizations.of(context).unlink,
+                          onPressed: onDelete,
+                        ),
                       ),
                     );
                   },
