@@ -325,5 +325,6 @@
   "exportSettingsToFile": "导出设置到文件",
   "alarm": "Alarm",
   "enabled": "已启用",
-  "countdown": "倒计时"
+  "countdown": "倒计时",
+  "unlink": "Unlink"
 }
