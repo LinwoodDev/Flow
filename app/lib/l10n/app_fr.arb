@@ -325,5 +325,6 @@
   "exportSettingsToFile": "Exporter les paramètres vers un fichier",
   "alarm": "Alarm",
   "enabled": "Activé",
-  "countdown": "Compte à Rebours"
+  "countdown": "Compte à Rebours",
+  "unlink": "Unlink"
 }
