@@ -325,5 +325,6 @@
   "exportSettingsToFile": "Exportovat nastavení do souboru",
   "alarm": "Alarm",
   "enabled": "Povoleno",
-  "countdown": "Odpočítávání"
+  "countdown": "Odpočítávání",
+  "unlink": "Unlink"
 }
