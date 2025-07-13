@@ -53,6 +53,7 @@ class _AlarmPageState extends State<AlarmPage> {
                                 Expanded(
                                   child: SwitchListTile(
                                     value: e.isActive,
+                                    contentPadding: EdgeInsets.only(left: 6),
                                     onChanged: (_) {
                                       final settingsCubit =
                                           context.read<SettingsCubit>();
@@ -184,10 +185,10 @@ class AlarmDialog extends StatelessWidget {
             decoration: InputDecoration(
                 labelText: AppLocalizations.of(context).description,
                 border: const OutlineInputBorder()),
-            initialValue: alarm.title,
+            initialValue: alarm.description,
             minLines: 3,
             maxLines: 5,
-            onChanged: (value) => alarm = alarm.copyWith(title: value),
+            onChanged: (value) => alarm = alarm.copyWith(description: value),
           ),
         ],
       ),

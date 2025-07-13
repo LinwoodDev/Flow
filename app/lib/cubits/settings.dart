@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../api/storage/remote/model.dart';
 
@@ -235,9 +237,10 @@ class SettingsCubit extends Cubit<FlowSettings>
     return _runSave(newState.saveHighContrast);
   }
 
-  Future<void> addAlarm(Alarm alarm) {
+  Future<void> addAlarm(Alarm alarm) async {
     final newState = state.copyWith(alarms: [...state.alarms, alarm]);
     emit(newState);
+    await _scheduleAlarm(state.alarms.length - 1, alarm);
     return _runSave(newState.saveAlarms);
   }
 
@@ -245,14 +248,16 @@ class SettingsCubit extends Cubit<FlowSettings>
     final newState =
         state.copyWith(alarms: List<Alarm>.from(state.alarms)..removeAt(index));
     emit(newState);
+    cancelAlarm(index);
     return _runSave(newState.saveAlarms);
   }
 
-  Future<void> changeAlarm(int index, Alarm alarm) {
+  Future<void> changeAlarm(int index, Alarm alarm) async {
     final newState = state.copyWith(
         alarms:
             state.alarms.mapIndexed((i, e) => i == index ? alarm : e).toList());
     emit(newState);
+    await _scheduleAlarm(index, alarm);
     return _runSave(newState.saveAlarms);
   }
 
@@ -266,5 +271,53 @@ class SettingsCubit extends Cubit<FlowSettings>
 
   Future<String> exportSettings() async {
     return state.toJson();
+  }
+}
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+Future<void> _scheduleAlarm(int i, Alarm alarm) async {
+  if (!alarm.isActive) {
+    await cancelAlarm(i);
+    return;
+  }
+  try {
+    if (!(await flutterLocalNotificationsPlugin
+            .resolvePlatformSpecificImplementation<
+                AndroidFlutterLocalNotificationsPlugin>()
+            ?.requestNotificationsPermission() ??
+        true)) {
+      debugPrint('Exact alarms permission not granted');
+      return;
+    }
+    if (!(await flutterLocalNotificationsPlugin
+            .resolvePlatformSpecificImplementation<
+                AndroidFlutterLocalNotificationsPlugin>()
+            ?.requestExactAlarmsPermission() ??
+        true)) {
+      debugPrint('Exact alarms permission not granted');
+      return;
+    }
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        i << 1 + 1,
+        alarm.title,
+        alarm.description,
+        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+        const NotificationDetails(
+            android: AndroidNotificationDetails(
+                'your channel id', 'your channel name',
+                channelDescription: 'your channel description',
+                audioAttributesUsage: AudioAttributesUsage.alarm)),
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle);
+  } catch (e) {
+    debugPrint('Error scheduling alarm: $e');
+  }
+}
+
+Future<void> cancelAlarm(int i) async {
+  try {
+    await flutterLocalNotificationsPlugin.cancel(i << 1 + 1);
+  } catch (e) {
+    debugPrint('Error canceling alarm: $e');
   }
 }

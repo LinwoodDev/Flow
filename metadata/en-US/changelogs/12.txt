@@ -1,4 +1,4 @@
-* Start adding alarm functionality
+* Start adding alarm functionality with notifications
 * Use fill icon variant for selected navigation item
 * Improve dashboard notes and events display
 * Fix linux appdata
