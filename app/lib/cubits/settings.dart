@@ -302,11 +302,11 @@ Future<void> _scheduleAlarm(int i, Alarm alarm) async {
         i << 1 + 1,
         alarm.title,
         alarm.description,
-        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+        tz.TZDateTime.from(alarm.date, tz.local)
+            .add(const Duration(seconds: 5)),
         const NotificationDetails(
-            android: AndroidNotificationDetails(
-                'your channel id', 'your channel name',
-                channelDescription: 'your channel description',
+            android: AndroidNotificationDetails('dev.linwood.flow', 'alarm',
+                channelDescription: 'Alarm',
                 audioAttributesUsage: AudioAttributesUsage.alarm)),
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle);
   } catch (e) {

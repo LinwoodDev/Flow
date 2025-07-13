@@ -12,9 +12,10 @@ typedef DateBuilder<T> = Widget Function(
 typedef SourceBuilder<T> = Widget Function(
     BuildContext context, T item, int index);
 
-Widget Function(BuildContext context, SourcedModel<T> item, int index) _buildSourceItem<T>(SourceBuilder<T> itemBuilder) =>
-    (BuildContext context, SourcedModel<T> item, int index) =>
-        itemBuilder(context, item.model, index);
+Widget Function(BuildContext context, SourcedModel<T> item, int index)
+    _buildSourceItem<T>(SourceBuilder<T> itemBuilder) =>
+        (BuildContext context, SourcedModel<T> item, int index) =>
+            itemBuilder(context, item.model, index);
 
 class PagedListView<T> extends StatelessWidget {
   final ItemBuilder<T>? itemBuilder;
