@@ -18,7 +18,10 @@ Future<Database> openDatabase({
   var db = await factory.openDatabase(
     '${await getFlowDirectory()}/$name.db',
     options: OpenDatabaseOptions(
-        version: version, onUpgrade: onUpgrade, onCreate: onCreate),
+      version: version,
+      onUpgrade: onUpgrade,
+      onCreate: onCreate,
+    ),
   );
   return db;
 }

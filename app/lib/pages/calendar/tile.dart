@@ -66,9 +66,7 @@ class CalendarListTile extends StatelessWidget {
       subtitle: Wrap(
         spacing: 16,
         children: [
-          if (range.isNotEmpty) ...[
-            Text(range),
-          ],
+          if (range.isNotEmpty) ...[Text(range)],
           if (eventName != name && eventName != null) Text(eventName),
         ],
       ),
@@ -85,17 +83,20 @@ class CalendarListTile extends StatelessWidget {
       ),
       onTap: () {
         showDialog(
-            context: context,
-            builder: (context) => CalendarItemDialog(
-                  item: main,
-                  event: eventItem.sub,
-                  source: eventItem.source,
-                )).then((_) => onRefresh());
+          context: context,
+          builder: (context) => CalendarItemDialog(
+            item: main,
+            event: eventItem.sub,
+            source: eventItem.source,
+          ),
+        ).then((_) => onRefresh());
       },
       trailing: FutureBuilder<bool?>(
-        future: Future.value(eventItem.sub == null
-            ? null
-            : service.calendarItemNote?.notesDone(eventItem.sub!.id!)),
+        future: Future.value(
+          eventItem.sub == null
+              ? null
+              : service.calendarItemNote?.notesDone(eventItem.sub!.id!),
+        ),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return PhosphorIcon(

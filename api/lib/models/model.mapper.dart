@@ -20,16 +20,23 @@ class ConnectedModelMapper extends ClassMapperBase<ConnectedModel> {
   @override
   final String id = 'ConnectedModel';
   @override
-  Function get typeFactory => <A, B>(f) => f<ConnectedModel<A, B>>();
+  Function get typeFactory =>
+      <A, B>(f) => f<ConnectedModel<A, B>>();
 
   static dynamic _$source(ConnectedModel v) => v.source;
   static dynamic _arg$source<A, B>(f) => f<A>();
-  static const Field<ConnectedModel, dynamic> _f$source =
-      Field('source', _$source, arg: _arg$source);
+  static const Field<ConnectedModel, dynamic> _f$source = Field(
+    'source',
+    _$source,
+    arg: _arg$source,
+  );
   static dynamic _$model(ConnectedModel v) => v.model;
   static dynamic _arg$model<A, B>(f) => f<B>();
-  static const Field<ConnectedModel, dynamic> _f$model =
-      Field('model', _$model, arg: _arg$model);
+  static const Field<ConnectedModel, dynamic> _f$model = Field(
+    'model',
+    _$model,
+    arg: _arg$model,
+  );
 
   @override
   final MappableFields<ConnectedModel> fields = const {
@@ -64,44 +71,63 @@ mixin ConnectedModelMappable<A, B> {
         .encodeMap<ConnectedModel<A, B>>(this as ConnectedModel<A, B>);
   }
 
-  ConnectedModelCopyWith<ConnectedModel<A, B>, ConnectedModel<A, B>,
-          ConnectedModel<A, B>, A, B>
-      get copyWith => _ConnectedModelCopyWithImpl<
-          ConnectedModel<A, B>,
-          ConnectedModel<A, B>,
-          A,
-          B>(this as ConnectedModel<A, B>, $identity, $identity);
+  ConnectedModelCopyWith<
+    ConnectedModel<A, B>,
+    ConnectedModel<A, B>,
+    ConnectedModel<A, B>,
+    A,
+    B
+  >
+  get copyWith =>
+      _ConnectedModelCopyWithImpl<
+        ConnectedModel<A, B>,
+        ConnectedModel<A, B>,
+        A,
+        B
+      >(this as ConnectedModel<A, B>, $identity, $identity);
   @override
   String toString() {
-    return ConnectedModelMapper.ensureInitialized()
-        .stringifyValue(this as ConnectedModel<A, B>);
+    return ConnectedModelMapper.ensureInitialized().stringifyValue(
+      this as ConnectedModel<A, B>,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return ConnectedModelMapper.ensureInitialized()
-        .equalsValue(this as ConnectedModel<A, B>, other);
+    return ConnectedModelMapper.ensureInitialized().equalsValue(
+      this as ConnectedModel<A, B>,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return ConnectedModelMapper.ensureInitialized()
-        .hashValue(this as ConnectedModel<A, B>);
+    return ConnectedModelMapper.ensureInitialized().hashValue(
+      this as ConnectedModel<A, B>,
+    );
   }
 }
 
 extension ConnectedModelValueCopy<$R, $Out, A, B>
     on ObjectCopyWith<$R, ConnectedModel<A, B>, $Out> {
   ConnectedModelCopyWith<$R, ConnectedModel<A, B>, $Out, A, B>
-      get $asConnectedModel => $base.as(
-          (v, t, t2) => _ConnectedModelCopyWithImpl<$R, $Out, A, B>(v, t, t2));
+  get $asConnectedModel => $base.as(
+    (v, t, t2) => _ConnectedModelCopyWithImpl<$R, $Out, A, B>(v, t, t2),
+  );
 }
 
-abstract class ConnectedModelCopyWith<$R, $In extends ConnectedModel<A, B>,
-    $Out, A, B> implements ClassCopyWith<$R, $In, $Out> {
+abstract class ConnectedModelCopyWith<
+  $R,
+  $In extends ConnectedModel<A, B>,
+  $Out,
+  A,
+  B
+>
+    implements ClassCopyWith<$R, $In, $Out> {
   $R call({A? source, B? model});
   ConnectedModelCopyWith<$R2, $In, $Out2, A, B> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _ConnectedModelCopyWithImpl<$R, $Out, A, B>
@@ -113,17 +139,20 @@ class _ConnectedModelCopyWithImpl<$R, $Out, A, B>
   late final ClassMapperBase<ConnectedModel> $mapper =
       ConnectedModelMapper.ensureInitialized();
   @override
-  $R call({Object? source = $none, Object? model = $none}) =>
-      $apply(FieldCopyWithData({
-        if (source != $none) #source: source,
-        if (model != $none) #model: model
-      }));
+  $R call({Object? source = $none, Object? model = $none}) => $apply(
+    FieldCopyWithData({
+      if (source != $none) #source: source,
+      if (model != $none) #model: model,
+    }),
+  );
   @override
   ConnectedModel<A, B> $make(CopyWithData data) => ConnectedModel(
-      data.get(#source, or: $value.source), data.get(#model, or: $value.model));
+    data.get(#source, or: $value.source),
+    data.get(#model, or: $value.model),
+  );
 
   @override
   ConnectedModelCopyWith<$R2, ConnectedModel<A, B>, $Out2, A, B>
-      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _ConnectedModelCopyWithImpl<$R2, $Out2, A, B>($value, $cast, t);
+  $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _ConnectedModelCopyWithImpl<$R2, $Out2, A, B>($value, $cast, t);
 }

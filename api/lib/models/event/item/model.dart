@@ -51,9 +51,7 @@ sealed class CalendarItem
         (start == null || (date.end?.isAfter(start!) ?? true));
   }
 
-  Map<String, dynamic> toDatabase() => {
-        ...toMap(),
-      };
+  Map<String, dynamic> toDatabase() => {...toMap()};
 }
 
 @MappableClass()

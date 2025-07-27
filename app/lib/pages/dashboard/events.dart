@@ -20,14 +20,18 @@ class DashboardEventsView extends StatefulWidget {
 
 class _DashboardEventsViewState extends State<DashboardEventsView> {
   Future<List<SourcedConnectedModel<CalendarItem, Event?>>> _getAppointments(
-      BuildContext context) async {
+    BuildContext context,
+  ) async {
     final sources = context.read<FlowCubit>().getCurrentServicesMap();
     final appointments = <SourcedConnectedModel<CalendarItem, Event?>>[];
     for (final source in sources.entries) {
-      appointments.addAll((await source.value.calendarItem
-                  ?.getCalendarItems(date: DateTime.now()) ??
-              [])
-          .map((e) => SourcedModel(source.key, e)));
+      appointments.addAll(
+        (await source.value.calendarItem?.getCalendarItems(
+                  date: DateTime.now(),
+                ) ??
+                [])
+            .map((e) => SourcedModel(source.key, e)),
+      );
     }
     return appointments;
   }
@@ -53,48 +57,53 @@ class _DashboardEventsViewState extends State<DashboardEventsView> {
             IconButton(
               icon: const PhosphorIcon(PhosphorIconsLight.arrowSquareOut),
               onPressed: () => GoRouter.of(context).go('/calendar'),
-            )
+            ),
           ],
         ),
         const SizedBox(height: 20),
         Expanded(
           child:
               FutureBuilder<List<SourcedConnectedModel<CalendarItem, Event?>>>(
-                  future: _getAppointments(context),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState != ConnectionState.done) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    if (snapshot.hasError) {
-                      return Text(snapshot.error.toString());
-                    }
-                    final appointments = snapshot.data ??
-                        <SourcedConnectedModel<CalendarItem, Event?>>[];
-                    if (appointments.isEmpty) {
-                      return Center(
-                        child: Text(
-                          AppLocalizations.of(context).indicatorEmpty,
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                      );
-                    }
-                    return Column(
-                      children: appointments
-                          .map((e) => ListTile(
-                                title: Text(e.main.name),
-                                subtitle: MarkdownText(e.main.description),
-                                onTap: () => showDialog(
-                                    context: context,
-                                    builder: (context) => CalendarItemDialog(
-                                          event: e.sub,
-                                          item: e.main,
-                                          source: e.source,
-                                        )).then((value) => setState(() {})),
-                              ))
-                          .toList(),
+                future: _getAppointments(context),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState != ConnectionState.done) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    return Text(snapshot.error.toString());
+                  }
+                  final appointments =
+                      snapshot.data ??
+                      <SourcedConnectedModel<CalendarItem, Event?>>[];
+                  if (appointments.isEmpty) {
+                    return Center(
+                      child: Text(
+                        AppLocalizations.of(context).indicatorEmpty,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
                     );
-                  }),
-        )
+                  }
+                  return Column(
+                    children: appointments
+                        .map(
+                          (e) => ListTile(
+                            title: Text(e.main.name),
+                            subtitle: MarkdownText(e.main.description),
+                            onTap: () => showDialog(
+                              context: context,
+                              builder: (context) => CalendarItemDialog(
+                                event: e.sub,
+                                item: e.main,
+                                source: e.source,
+                              ),
+                            ).then((value) => setState(() {})),
+                          ),
+                        )
+                        .toList(),
+                  );
+                },
+              ),
+        ),
       ],
     );
   }

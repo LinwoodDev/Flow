@@ -18,8 +18,11 @@ class CalendarItemUserDatabaseConnector
   String get tableName => "calendarItemUsers";
 
   @override
-  Future<List<CalendarItem>> getConnected(Uint8List itemId,
-      {int offset = 0, int limit = 50}) async {
+  Future<List<CalendarItem>> getConnected(
+    Uint8List itemId, {
+    int offset = 0,
+    int limit = 50,
+  }) async {
     final result = await db?.query(
       '$tableName JOIN calendaritems ON itemId = calendarItems.id',
       limit: limit,
@@ -31,8 +34,11 @@ class CalendarItemUserDatabaseConnector
   }
 
   @override
-  Future<List<User>> getItems(Uint8List connectId,
-      {int offset = 0, int limit = 50}) async {
+  Future<List<User>> getItems(
+    Uint8List connectId, {
+    int offset = 0,
+    int limit = 50,
+  }) async {
     final result = await db?.query(
       '$tableName JOIN users ON userId = users.id',
       limit: limit,

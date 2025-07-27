@@ -14,18 +14,10 @@ final class Group
   final String name, description;
   final Uint8List? parentId;
 
-  const Group({
-    this.id,
-    this.name = '',
-    this.description = '',
-    this.parentId,
-  });
+  const Group({this.id, this.name = '', this.description = '', this.parentId});
 
-  factory Group.fromDatabase(Map<String, dynamic> row) => GroupMapper.fromMap({
-        ...row,
-      });
+  factory Group.fromDatabase(Map<String, dynamic> row) =>
+      GroupMapper.fromMap({...row});
 
-  Map<String, dynamic> toDatabase() => {
-        ...toMap(),
-      };
+  Map<String, dynamic> toDatabase() => {...toMap()};
 }

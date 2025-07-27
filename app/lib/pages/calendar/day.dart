@@ -47,13 +47,13 @@ class _CalendarDayViewState extends State<CalendarDayView> {
   }
 
   Future<List<SourcedConnectedModel<CalendarItem, Event?>>>
-      _fetchDates() async {
+  _fetchDates() async {
     if (!mounted) return [];
 
     var sources = _cubit.getCurrentServicesMap();
     if (widget.filter.source != null) {
       sources = {
-        widget.filter.source!: _cubit.getService(widget.filter.source!)
+        widget.filter.source!: _cubit.getService(widget.filter.source!),
       };
     }
     final dates = <SourcedConnectedModel<CalendarItem, Event?>>[];
@@ -82,8 +82,8 @@ class _CalendarDayViewState extends State<CalendarDayView> {
   }
 
   void _refresh() => setState(() {
-        _dates = _fetchDates();
-      });
+    _dates = _fetchDates();
+  });
 
   @override
   void didUpdateWidget(covariant CalendarDayView oldWidget) {
@@ -99,92 +99,96 @@ class _CalendarDayViewState extends State<CalendarDayView> {
       onCreated: _refresh,
       event: widget.filter.sourceEvent,
       child: LayoutBuilder(
-          builder: (context, constraints) => ListView(children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: CalendarFilterView(
-                    initialFilter: widget.filter,
-                    onChanged: (value) {
-                      _refresh();
-                      widget.onFilterChanged(value);
-                    },
-                    past: false,
-                  ),
+        builder: (context, constraints) => ListView(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: CalendarFilterView(
+                initialFilter: widget.filter,
+                onChanged: (value) {
+                  _refresh();
+                  widget.onFilterChanged(value);
+                },
+                past: false,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () => _addDay(-1),
+                  child: const PhosphorIcon(PhosphorIconsLight.caretLeft),
                 ),
-                const SizedBox(height: 8),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    ElevatedButton(
-                      onPressed: () => _addDay(-1),
-                      child: const PhosphorIcon(PhosphorIconsLight.caretLeft),
+                    IconButton(
+                      icon: const PhosphorIcon(
+                        PhosphorIconsLight.calendarBlank,
+                      ),
+                      isSelected: _date.isSameDay(DateTime.now()),
+                      onPressed: () {
+                        setState(() {
+                          _date = DateTime.now();
+                          _dates = _fetchDates();
+                        });
+                      },
                     ),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const PhosphorIcon(
-                              PhosphorIconsLight.calendarBlank),
-                          isSelected: _date.isSameDay(DateTime.now()),
-                          onPressed: () {
-                            setState(() {
-                              _date = DateTime.now();
-                              _dates = _fetchDates();
-                            });
-                          },
-                        ),
-                        GestureDetector(
-                          child: Text(
-                            DateFormat.yMMMMd(Localizations.localeOf(context)
-                                    .languageCode)
-                                .format(_date),
-                            textAlign: TextAlign.center,
-                          ),
-                          onTap: () async {
-                            final date = await showDatePicker(
-                              context: context,
-                              initialDate: _date,
-                              firstDate: DateTime.fromMicrosecondsSinceEpoch(0),
-                              lastDate: _date.addYears(200),
-                            );
-                            if (date != null) {
-                              setState(() {
-                                _date = date;
-                                _dates = _fetchDates();
-                              });
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                    ElevatedButton(
-                      onPressed: () => _addDay(1),
-                      child: const PhosphorIcon(PhosphorIconsLight.caretRight),
+                    GestureDetector(
+                      child: Text(
+                        DateFormat.yMMMMd(
+                          Localizations.localeOf(context).languageCode,
+                        ).format(_date),
+                        textAlign: TextAlign.center,
+                      ),
+                      onTap: () async {
+                        final date = await showDatePicker(
+                          context: context,
+                          initialDate: _date,
+                          firstDate: DateTime.fromMicrosecondsSinceEpoch(0),
+                          lastDate: _date.addYears(200),
+                        );
+                        if (date != null) {
+                          setState(() {
+                            _date = date;
+                            _dates = _fetchDates();
+                          });
+                        }
+                      },
                     ),
                   ],
                 ),
-                const Divider(),
-                FutureBuilder<
-                        List<SourcedConnectedModel<CalendarItem, Event?>>>(
-                    future: _dates,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        return Text(snapshot.error.toString());
-                      }
-                      if (!snapshot.hasData) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      return SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: SingleDayList(
-                          appointments: snapshot.data!,
-                          onChanged: _refresh,
-                          current: _date,
-                          maxWidth: constraints.maxWidth,
-                          event: widget.filter.sourceEvent,
-                        ),
-                      );
-                    }),
-              ])),
+                ElevatedButton(
+                  onPressed: () => _addDay(1),
+                  child: const PhosphorIcon(PhosphorIconsLight.caretRight),
+                ),
+              ],
+            ),
+            const Divider(),
+            FutureBuilder<List<SourcedConnectedModel<CalendarItem, Event?>>>(
+              future: _dates,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text(snapshot.error.toString());
+                }
+                if (!snapshot.hasData) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: SingleDayList(
+                    appointments: snapshot.data!,
+                    onChanged: _refresh,
+                    current: _date,
+                    maxWidth: constraints.maxWidth,
+                    event: widget.filter.sourceEvent,
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -239,7 +243,8 @@ class _SingleDayListState extends State<SingleDayList> {
 
   void _tick(Timer timer) {
     final now = DateTime.now();
-    final nextHeight = now.hour * SingleDayList._hourHeight +
+    final nextHeight =
+        now.hour * SingleDayList._hourHeight +
         now.minute * SingleDayList._hourHeight / 60.0;
     if (nextHeight != _currentHeight && now.isSameDay(widget.current)) {
       setState(() {
@@ -260,10 +265,13 @@ class _SingleDayListState extends State<SingleDayList> {
   @override
   Widget build(BuildContext context) {
     final positions = _getEventListPositions(widget.appointments);
-    final maxPosition =
-        positions.isEmpty ? 0 : positions.map((e) => e.position).reduce(max);
-    var currentPosWidth =
-        max(widget.maxWidth / (maxPosition + 2), SingleDayList._positionWidth);
+    final maxPosition = positions.isEmpty
+        ? 0
+        : positions.map((e) => e.position).reduce(max);
+    var currentPosWidth = max(
+      widget.maxWidth / (maxPosition + 2),
+      SingleDayList._positionWidth,
+    );
     if (currentPosWidth.isInfinite) {
       currentPosWidth = SingleDayList._positionWidth;
     }
@@ -272,87 +280,96 @@ class _SingleDayListState extends State<SingleDayList> {
       width: currentPosWidth * (maxPosition + 2),
       child: Stack(
         children: [
-          GestureDetector(onTapUp: (details) async {
-            var minutes =
-                ((details.localPosition.dy / SingleDayList._hourHeight) %
-                        1 *
-                        60)
-                    .floor();
-            minutes = (minutes / 5).floor() * 5;
-            // Calculate current time
-            final dateTime = DateTime(
-              widget.current.year,
-              widget.current.month,
-              widget.current.day,
-              (details.localPosition.dy / SingleDayList._hourHeight).floor(),
-              minutes,
-            );
+          GestureDetector(
+            onTapUp: (details) async {
+              var minutes =
+                  ((details.localPosition.dy / SingleDayList._hourHeight) %
+                          1 *
+                          60)
+                      .floor();
+              minutes = (minutes / 5).floor() * 5;
+              // Calculate current time
+              final dateTime = DateTime(
+                widget.current.year,
+                widget.current.month,
+                widget.current.day,
+                (details.localPosition.dy / SingleDayList._hourHeight).floor(),
+                minutes,
+              );
 
-            await showCalendarCreate(
-                context: context, time: dateTime, event: widget.event);
-            widget.onChanged();
-          }),
+              await showCalendarCreate(
+                context: context,
+                time: dateTime,
+                event: widget.event,
+              );
+              widget.onChanged();
+            },
+          ),
           for (final position in positions)
-            Builder(builder: (context) {
-              double top = 0, height;
-              final appointment = position.appointment.main;
-              if (appointment.start?.isSameDay(widget.current) ?? false) {
-                top =
-                    (appointment.start?.hour ?? 0) * SingleDayList._hourHeight +
-                        (appointment.start?.minute ?? 0) /
-                            60 *
-                            SingleDayList._hourHeight;
-              }
-              if (appointment.end?.isSameDay(widget.current) ?? false) {
-                height =
-                    (appointment.end?.hour ?? 23) * SingleDayList._hourHeight +
-                        (appointment.end?.minute ?? 59) /
-                            60 *
-                            SingleDayList._hourHeight -
-                        top;
-              } else {
-                height = 24 * SingleDayList._hourHeight - top;
-              }
-              return Positioned(
-                top: top,
-                height: height,
-                left: currentPosWidth * position.position,
-                width: currentPosWidth,
-                child: Card(
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  color: appointment.status.getColor().withAlpha(
-                        220,
-                      ),
-                  child: InkWell(
-                    onTap: () => showDialog(
-                      context: context,
-                      builder: (context) => CalendarItemDialog(
-                        item: appointment,
-                        event: position.appointment.sub,
-                        source: position.appointment.source,
-                      ),
-                    ).then((value) => widget.onChanged()),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            appointment.name,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            appointment.description,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
+            Builder(
+              builder: (context) {
+                double top = 0, height;
+                final appointment = position.appointment.main;
+                if (appointment.start?.isSameDay(widget.current) ?? false) {
+                  top =
+                      (appointment.start?.hour ?? 0) *
+                          SingleDayList._hourHeight +
+                      (appointment.start?.minute ?? 0) /
+                          60 *
+                          SingleDayList._hourHeight;
+                }
+                if (appointment.end?.isSameDay(widget.current) ?? false) {
+                  height =
+                      (appointment.end?.hour ?? 23) *
+                          SingleDayList._hourHeight +
+                      (appointment.end?.minute ?? 59) /
+                          60 *
+                          SingleDayList._hourHeight -
+                      top;
+                } else {
+                  height = 24 * SingleDayList._hourHeight - top;
+                }
+                return Positioned(
+                  top: top,
+                  height: height,
+                  left: currentPosWidth * position.position,
+                  width: currentPosWidth,
+                  child: Card(
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    color: appointment.status.getColor().withAlpha(220),
+                    child: InkWell(
+                      onTap: () => showDialog(
+                        context: context,
+                        builder: (context) => CalendarItemDialog(
+                          item: appointment,
+                          event: position.appointment.sub,
+                          source: position.appointment.source,
+                        ),
+                      ).then((value) => widget.onChanged()),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              appointment.name,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              appointment.description,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              );
-            }),
+                );
+              },
+            ),
           for (int i = 0; i < 24; i++)
             Positioned(
               top: i * SingleDayList._hourHeight,
@@ -362,9 +379,11 @@ class _SingleDayListState extends State<SingleDayList> {
                 children: [
                   const Flexible(child: Divider()),
                   const SizedBox(width: 8),
-                  Text(DateFormat.Hm(
-                          Localizations.localeOf(context).languageCode)
-                      .format(DateTime(0, 0, 0, i))),
+                  Text(
+                    DateFormat.Hm(
+                      Localizations.localeOf(context).languageCode,
+                    ).format(DateTime(0, 0, 0, i)),
+                  ),
                   const SizedBox(width: 8),
                   const Flexible(child: Divider()),
                 ],
@@ -386,11 +405,13 @@ class _SingleDayListState extends State<SingleDayList> {
   }
 
   List<_EventListPosition> _getEventListPositions(
-      List<SourcedConnectedModel<CalendarItem, Event?>> dates) {
+    List<SourcedConnectedModel<CalendarItem, Event?>> dates,
+  ) {
     final positions = <_EventListPosition>[];
     for (final date in dates) {
       final collide = positions.reversed.firstWhereOrNull(
-          (element) => element.appointment.main.collidesWith(date.main));
+        (element) => element.appointment.main.collidesWith(date.main),
+      );
       var position = collide == null ? 0 : (collide.position + 1);
       positions.add(_EventListPosition(date, position));
     }

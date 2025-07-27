@@ -5,7 +5,9 @@ import 'cubits/settings.dart';
 import 'models/config.dart';
 
 Future<void> setup(
-    SettingsCubit settingsCubit, SourcesService sourcesService) async {
+  SettingsCubit settingsCubit,
+  SourcesService sourcesService,
+) async {
   final data = await rootBundle.loadString('data/config.json');
   final config = ConfigFileMapper.fromJson(data);
   if (config.remotes != null) {

@@ -16,15 +16,16 @@ class SettingsContent extends StatelessWidget {
           const DataSettingsPage(),
           const PersonalizationSettingsPage(),
           const GeneralSettingsPage(),
-          const LegalSettingsView()
-        ].asMap().entries.map((e) => Container(
-              key: itemKeys[e.key],
-              child: Card(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 16, horizontal: 4),
-                  child: Padding(
-                      padding: const EdgeInsets.all(32), child: e.value)),
-            )),
+          const LegalSettingsView(),
+        ].asMap().entries.map(
+          (e) => Container(
+            key: itemKeys[e.key],
+            child: Card(
+              margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 4),
+              child: Padding(padding: const EdgeInsets.all(32), child: e.value),
+            ),
+          ),
+        ),
       ],
     );
   }

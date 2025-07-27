@@ -44,14 +44,15 @@ mixin ExtraPropertiesMappable {
   String toJson();
   Map<String, dynamic> toMap();
   ExtraPropertiesCopyWith<ExtraProperties, ExtraProperties, ExtraProperties>
-      get copyWith;
+  get copyWith;
 }
 
 abstract class ExtraPropertiesCopyWith<$R, $In extends ExtraProperties, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   $R call();
   ExtraPropertiesCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class CalDavExtraPropertiesMapper
@@ -71,11 +72,15 @@ class CalDavExtraPropertiesMapper
   final String id = 'CalDavExtraProperties';
 
   static String _$etag(CalDavExtraProperties v) => v.etag;
-  static const Field<CalDavExtraProperties, String> _f$etag =
-      Field('etag', _$etag);
+  static const Field<CalDavExtraProperties, String> _f$etag = Field(
+    'etag',
+    _$etag,
+  );
   static String _$path(CalDavExtraProperties v) => v.path;
-  static const Field<CalDavExtraProperties, String> _f$path =
-      Field('path', _$path);
+  static const Field<CalDavExtraProperties, String> _f$path = Field(
+    'path',
+    _$path,
+  );
 
   @override
   final MappableFields<CalDavExtraProperties> fields = const {
@@ -85,7 +90,9 @@ class CalDavExtraPropertiesMapper
 
   static CalDavExtraProperties _instantiate(DecodingData data) {
     return CalDavExtraProperties(
-        etag: data.dec(_f$etag), path: data.dec(_f$path));
+      etag: data.dec(_f$etag),
+      path: data.dec(_f$path),
+    );
   }
 
   @override
@@ -111,44 +118,58 @@ mixin CalDavExtraPropertiesMappable {
         .encodeMap<CalDavExtraProperties>(this as CalDavExtraProperties);
   }
 
-  CalDavExtraPropertiesCopyWith<CalDavExtraProperties, CalDavExtraProperties,
-      CalDavExtraProperties> get copyWith => _CalDavExtraPropertiesCopyWithImpl<
-          CalDavExtraProperties, CalDavExtraProperties>(
-      this as CalDavExtraProperties, $identity, $identity);
+  CalDavExtraPropertiesCopyWith<
+    CalDavExtraProperties,
+    CalDavExtraProperties,
+    CalDavExtraProperties
+  >
+  get copyWith =>
+      _CalDavExtraPropertiesCopyWithImpl<
+        CalDavExtraProperties,
+        CalDavExtraProperties
+      >(this as CalDavExtraProperties, $identity, $identity);
   @override
   String toString() {
-    return CalDavExtraPropertiesMapper.ensureInitialized()
-        .stringifyValue(this as CalDavExtraProperties);
+    return CalDavExtraPropertiesMapper.ensureInitialized().stringifyValue(
+      this as CalDavExtraProperties,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return CalDavExtraPropertiesMapper.ensureInitialized()
-        .equalsValue(this as CalDavExtraProperties, other);
+    return CalDavExtraPropertiesMapper.ensureInitialized().equalsValue(
+      this as CalDavExtraProperties,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return CalDavExtraPropertiesMapper.ensureInitialized()
-        .hashValue(this as CalDavExtraProperties);
+    return CalDavExtraPropertiesMapper.ensureInitialized().hashValue(
+      this as CalDavExtraProperties,
+    );
   }
 }
 
 extension CalDavExtraPropertiesValueCopy<$R, $Out>
     on ObjectCopyWith<$R, CalDavExtraProperties, $Out> {
   CalDavExtraPropertiesCopyWith<$R, CalDavExtraProperties, $Out>
-      get $asCalDavExtraProperties => $base.as(
-          (v, t, t2) => _CalDavExtraPropertiesCopyWithImpl<$R, $Out>(v, t, t2));
+  get $asCalDavExtraProperties => $base.as(
+    (v, t, t2) => _CalDavExtraPropertiesCopyWithImpl<$R, $Out>(v, t, t2),
+  );
 }
 
 abstract class CalDavExtraPropertiesCopyWith<
-    $R,
-    $In extends CalDavExtraProperties,
-    $Out> implements ExtraPropertiesCopyWith<$R, $In, $Out> {
+  $R,
+  $In extends CalDavExtraProperties,
+  $Out
+>
+    implements ExtraPropertiesCopyWith<$R, $In, $Out> {
   @override
   $R call({String? etag, String? path});
   CalDavExtraPropertiesCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _CalDavExtraPropertiesCopyWithImpl<$R, $Out>
@@ -160,15 +181,20 @@ class _CalDavExtraPropertiesCopyWithImpl<$R, $Out>
   late final ClassMapperBase<CalDavExtraProperties> $mapper =
       CalDavExtraPropertiesMapper.ensureInitialized();
   @override
-  $R call({String? etag, String? path}) => $apply(FieldCopyWithData(
-      {if (etag != null) #etag: etag, if (path != null) #path: path}));
+  $R call({String? etag, String? path}) => $apply(
+    FieldCopyWithData({
+      if (etag != null) #etag: etag,
+      if (path != null) #path: path,
+    }),
+  );
   @override
   CalDavExtraProperties $make(CopyWithData data) => CalDavExtraProperties(
-      etag: data.get(#etag, or: $value.etag),
-      path: data.get(#path, or: $value.path));
+    etag: data.get(#etag, or: $value.etag),
+    path: data.get(#path, or: $value.path),
+  );
 
   @override
   CalDavExtraPropertiesCopyWith<$R2, CalDavExtraProperties, $Out2>
-      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _CalDavExtraPropertiesCopyWithImpl<$R2, $Out2>($value, $cast, t);
+  $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _CalDavExtraPropertiesCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

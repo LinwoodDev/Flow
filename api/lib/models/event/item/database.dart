@@ -15,8 +15,10 @@ class CalendarItemDatabaseService extends CalendarItemService
   CalendarItemDatabaseService();
 
   @override
-  Future<void> create(DatabaseExecutor db,
-      [String name = 'calendarItems']) async {
+  Future<void> create(
+    DatabaseExecutor db, [
+    String name = 'calendarItems',
+  ]) async {
     await db.execute("""
       CREATE TABLE IF NOT EXISTS $name (
         runtimeType VARCHAR(20) NOT NULL DEFAULT 'fixed',
@@ -143,16 +145,19 @@ class CalendarItemDatabaseService extends CalendarItemService
                 e['${eventPrefix}id'] == null
                     ? null
                     : Event.fromDatabase(
-                        Map.fromEntries(e.entries
-                            .where(
-                              (element) => element.key.startsWith(eventPrefix),
-                            )
-                            .map(
-                              (el) => MapEntry(
-                                el.key.substring(eventPrefix.length),
-                                el.value,
+                        Map.fromEntries(
+                          e.entries
+                              .where(
+                                (element) =>
+                                    element.key.startsWith(eventPrefix),
+                              )
+                              .map(
+                                (el) => MapEntry(
+                                  el.key.substring(eventPrefix.length),
+                                  el.value,
+                                ),
                               ),
-                            )),
+                        ),
                       ),
               ),
             )
@@ -229,20 +234,19 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
     DateTime? end,
     DateTime? date,
     String search = '',
-  }) =>
-      service.getCalendarItems(
-        status: status,
-        eventId: eventId,
-        groupIds: groupIds,
-        resourceIds: resourceIds,
-        pending: pending,
-        offset: offset,
-        limit: limit,
-        start: start,
-        end: end,
-        date: date,
-        search: search,
-      );
+  }) => service.getCalendarItems(
+    status: status,
+    eventId: eventId,
+    groupIds: groupIds,
+    resourceIds: resourceIds,
+    pending: pending,
+    offset: offset,
+    limit: limit,
+    start: start,
+    end: end,
+    date: date,
+    search: search,
+  );
 
   @override
   FutureOr<CalendarItem?> createCalendarItem(CalendarItem item) =>

@@ -12,8 +12,5 @@ final class CalDavExtraProperties extends ExtraProperties
     with CalDavExtraPropertiesMappable {
   final String etag, path;
 
-  const CalDavExtraProperties({
-    required this.etag,
-    required this.path,
-  });
+  const CalDavExtraProperties({required this.etag, required this.path});
 }

@@ -18,7 +18,7 @@ abstract class LabelNoteConnector extends NoteConnector<Label> {
       NoteStatus.todo,
       NoteStatus.inProgress,
       NoteStatus.done,
-      null
+      null,
     },
     String search = '',
   });

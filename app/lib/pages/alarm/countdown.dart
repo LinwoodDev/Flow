@@ -26,14 +26,16 @@ class _AlarmCountdownPageState extends State<AlarmCountdownPage> {
   void initState() {
     super.initState();
     final settingsCubit = context.read<SettingsCubit>();
-    _alarm = settingsCubit.state.alarms.elementAtOrNull(widget.index) ??
+    _alarm =
+        settingsCubit.state.alarms.elementAtOrNull(widget.index) ??
         Alarm(date: DateTime.now());
     _updateDuration();
     _timer = Timer.periodic(
-        const Duration(seconds: 1),
-        (timer) => setState(() {
-              _updateDuration();
-            }));
+      const Duration(seconds: 1),
+      (timer) => setState(() {
+        _updateDuration();
+      }),
+    );
   }
 
   void _updateDuration() => _duration = _alarm.date.difference(DateTime.now());
@@ -70,18 +72,13 @@ class _AlarmCountdownPageState extends State<AlarmCountdownPage> {
               ),
             ),
             const SizedBox(height: 20),
-            Text(
-              _alarm.title,
-              style: TextTheme.of(context).headlineLarge,
-            ),
+            Text(_alarm.title, style: TextTheme.of(context).headlineLarge),
             const SizedBox(height: 4),
             Text(
               DateFormat.yMMMMEEEEd().format(_alarm.date),
               style: TextTheme.of(context).bodyLarge,
             ),
-            Text(
-              DateFormat.Hm().format(_alarm.date),
-            ),
+            Text(DateFormat.Hm().format(_alarm.date)),
           ],
         ),
       ),

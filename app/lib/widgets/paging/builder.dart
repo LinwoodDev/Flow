@@ -17,9 +17,10 @@ final class PagedBuilder<T> extends StatelessWidget {
       builder: (context, state) => switch (state) {
         SourcedPagingInitial<T>() => LoadingIndicatorDisplay(),
         SourcedPagingFailure<T>() => ErrorIndicatorDisplay(
-            onTryAgain: () => (bloc ?? context.read<SourcedPagingBloc<T>>())
-                .add(SourcedPagingRefresh()),
+          onTryAgain: () => (bloc ?? context.read<SourcedPagingBloc<T>>()).add(
+            SourcedPagingRefresh(),
           ),
+        ),
         SourcedPagingSuccess<T>() => builder(context, state),
       },
     );

@@ -20,10 +20,7 @@ import 'week.dart';
 
 class CalendarPage extends StatefulWidget {
   final CalendarFilter filter;
-  const CalendarPage({
-    super.key,
-    this.filter = const CalendarFilter(),
-  });
+  const CalendarPage({super.key, this.filter = const CalendarFilter()});
 
   @override
   State<CalendarPage> createState() => _CalendarPageState();
@@ -69,52 +66,60 @@ class _CalendarPageState extends State<CalendarPage>
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      final isSmall = constraints.maxWidth < 900;
-      return FlowNavigation(
-        title: AppLocalizations.of(context).calendar,
-        actions: [
-          if (isSmall) ...[
-            MenuAnchor(
-              builder: defaultMenuButton(
-                icon:
-                    PhosphorIcon(_calendarView.icon(PhosphorIconsStyle.light)),
-              ),
-              menuChildren: _CalendarView.values
-                  .map((e) => MenuItemButton(
-                        leadingIcon:
-                            PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isSmall = constraints.maxWidth < 900;
+        return FlowNavigation(
+          title: AppLocalizations.of(context).calendar,
+          actions: [
+            if (isSmall) ...[
+              MenuAnchor(
+                builder: defaultMenuButton(
+                  icon: PhosphorIcon(
+                    _calendarView.icon(PhosphorIconsStyle.light),
+                  ),
+                ),
+                menuChildren: _CalendarView.values
+                    .map(
+                      (e) => MenuItemButton(
+                        leadingIcon: PhosphorIcon(
+                          e.icon(PhosphorIconsStyle.light),
+                        ),
                         child: Text(e.getLocalizedName(context)),
                         onPressed: () => setState(() => _calendarView = e),
-                      ))
-                  .toList(),
-            )
-          ] else ...[
-            SegmentedButton(
+                      ),
+                    )
+                    .toList(),
+              ),
+            ] else ...[
+              SegmentedButton(
                 segments: _CalendarView.values
-                    .map((e) => ButtonSegment(
+                    .map(
+                      (e) => ButtonSegment(
                         value: e,
                         icon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
-                        tooltip: e.getLocalizedName(context)))
+                        tooltip: e.getLocalizedName(context),
+                      ),
+                    )
                     .toList(),
                 onSelectionChanged: (value) =>
                     setState(() => _calendarView = value.first),
-                selected: {_calendarView}),
-            const SizedBox(width: 8),
-          ],
-          IconButton(
-            icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
-            onPressed: () => showSearch(
+                selected: {_calendarView},
+              ),
+              const SizedBox(width: 8),
+            ],
+            IconButton(
+              icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
+              onPressed: () => showSearch(
                 context: context,
-                delegate: _CalendarSearchDelegate(_calendarView)),
-          ),
-        ],
-        body: CalendarBodyView(
-          filter: widget.filter,
-          view: _calendarView,
-        ),
-      );
-    });
+                delegate: _CalendarSearchDelegate(_calendarView),
+              ),
+            ),
+          ],
+          body: CalendarBodyView(filter: widget.filter, view: _calendarView),
+        );
+      },
+    );
   }
 }
 
@@ -147,10 +152,7 @@ class _CalendarSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return CalendarBodyView(
-      search: query,
-      view: view,
-    );
+    return CalendarBodyView(search: query, view: view);
   }
 
   @override
@@ -258,8 +260,10 @@ class CreateEventScaffold extends StatelessWidget {
     return Scaffold(
       body: child,
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showCalendarCreate(context: context, event: event)
-            .then((_) => onCreated()),
+        onPressed: () => showCalendarCreate(
+          context: context,
+          event: event,
+        ).then((_) => onCreated()),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),
@@ -267,26 +271,29 @@ class CreateEventScaffold extends StatelessWidget {
   }
 }
 
-Future<void> showCalendarCreate(
-    {required BuildContext context,
-    SourcedModel<Uint8List>? event,
-    DateTime? time}) async {
+Future<void> showCalendarCreate({
+  required BuildContext context,
+  SourcedModel<Uint8List>? event,
+  DateTime? time,
+}) async {
   final cubit = context.read<FlowCubit>();
   SourcedModel<Event>? eventResult;
   if (event != null) {
-    final model =
-        await cubit.getService(event.source).event?.getEvent(event.model);
+    final model = await cubit
+        .getService(event.source)
+        .event
+        ?.getEvent(event.model);
     if (model != null) eventResult = SourcedModel(event.source, model);
   }
   Future<void> showCalendarItemDialog(CalendarItem item) => showDialog(
-        context: context,
-        builder: (context) => CalendarItemDialog(
-          event: eventResult?.model,
-          item: item,
-          source: eventResult?.source,
-          create: true,
-        ),
-      );
+    context: context,
+    builder: (context) => CalendarItemDialog(
+      event: eventResult?.model,
+      item: item,
+      source: eventResult?.source,
+      create: true,
+    ),
+  );
   time ??= DateTime.now();
   if (context.mounted) {
     final calendarItem = await showLeapBottomSheet<CalendarItem>(
@@ -297,20 +304,19 @@ Future<void> showCalendarCreate(
           title: Text(AppLocalizations.of(context).appointment),
           leading: const PhosphorIcon(PhosphorIconsLight.calendar),
           onTap: () async {
-            Navigator.of(ctx).pop(FixedCalendarItem(
-              start: time,
-              end: time?.add(const Duration(hours: 1)),
-            ));
+            Navigator.of(ctx).pop(
+              FixedCalendarItem(
+                start: time,
+                end: time?.add(const Duration(hours: 1)),
+              ),
+            );
           },
         ),
         ListTile(
           title: Text(AppLocalizations.of(context).moment),
           leading: const PhosphorIcon(PhosphorIconsLight.smiley),
           onTap: () async {
-            Navigator.of(ctx).pop(FixedCalendarItem(
-              start: time,
-              end: time,
-            ));
+            Navigator.of(ctx).pop(FixedCalendarItem(start: time, end: time));
           },
         ),
         ListTile(

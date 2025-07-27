@@ -26,9 +26,11 @@ class EventSelectTile extends StatelessWidget {
       onChanged: onChanged,
       onModelFetch: (source, service, id) async => service.event?.getEvent(id),
       title: AppLocalizations.of(context).event,
-      leadingBuilder: (context, model) => PhosphorIcon(model?.model == null
-          ? PhosphorIconsLight.calendar
-          : PhosphorIconsFill.calendar),
+      leadingBuilder: (context, model) => PhosphorIcon(
+        model?.model == null
+            ? PhosphorIconsLight.calendar
+            : PhosphorIconsFill.calendar,
+      ),
       dialogBuilder: (context, sourcedModel) => EventDialog(
         source: sourcedModel?.source,
         event: sourcedModel?.model,
@@ -46,21 +48,13 @@ class EventSelectDialog extends StatelessWidget {
   final String? source;
   final SourcedModel<Uint8List>? selected;
 
-  const EventSelectDialog({
-    super.key,
-    this.source,
-    this.selected,
-  });
+  const EventSelectDialog({super.key, this.source, this.selected});
 
   @override
   Widget build(BuildContext context) {
     return SelectDialog(
-      onFetch: (source, service, search, offset, limit) async =>
-          service.event?.getEvents(
-        offset: offset,
-        limit: limit,
-        search: search,
-      ),
+      onFetch: (source, service, search, offset, limit) async => service.event
+          ?.getEvents(offset: offset, limit: limit, search: search),
       title: AppLocalizations.of(context).event,
       selected: selected,
     );

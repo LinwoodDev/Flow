@@ -5,8 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 import 'database_stub.dart'
     if (dart.library.html) 'database_html.dart'
-    if (dart.library.io) 'database_desktop.dart' as desktop;
-import 'database_stub.dart' if (dart.library.io) 'database_mobile.dart'
+    if (dart.library.io) 'database_desktop.dart'
+    as desktop;
+import 'database_stub.dart'
+    if (dart.library.io) 'database_mobile.dart'
     as mobile;
 
 Future<Database> openDatabase({
@@ -17,10 +19,18 @@ Future<Database> openDatabase({
 }) {
   if (kIsWeb || Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     return desktop.openDatabase(
-        name: name, onUpgrade: onUpgrade, onCreate: onCreate, version: version);
+      name: name,
+      onUpgrade: onUpgrade,
+      onCreate: onCreate,
+      version: version,
+    );
   } else {
     return mobile.openDatabase(
-        name: name, onUpgrade: onUpgrade, onCreate: onCreate, version: version);
+      name: name,
+      onUpgrade: onUpgrade,
+      onCreate: onCreate,
+      version: version,
+    );
   }
 }
 

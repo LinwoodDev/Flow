@@ -9,8 +9,5 @@ class ConfigFile with ConfigFileMappable {
   final List<RemoteStorage>? remotes;
   final Map<String, String> passwords;
 
-  const ConfigFile({
-    this.remotes,
-    this.passwords = const {},
-  });
+  const ConfigFile({this.remotes, this.passwords = const {}});
 }

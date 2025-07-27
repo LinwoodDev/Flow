@@ -36,7 +36,7 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
   int _month = 0, _year = 0, _startOfWeek = 0;
   late final DateTime _now;
   late Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
-      _appointments;
+  _appointments;
 
   @override
   void initState() {
@@ -51,18 +51,18 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
   }
 
   DateTime get _date => DateTime(
-        _year,
-        _month,
-        1,
-        _now.hour,
-        _now.minute,
-        _now.second,
-      ).getStartOfWeek(_startOfWeek + 1);
+    _year,
+    _month,
+    1,
+    _now.hour,
+    _now.minute,
+    _now.second,
+  ).getStartOfWeek(_startOfWeek + 1);
 
   int _getDaysInView() => 6 * 7;
 
   Future<List<List<SourcedConnectedModel<CalendarItem, Event?>>>>
-      _fetchCalendarItems() async {
+  _fetchCalendarItems() async {
     if (!mounted) {
       return [];
     }
@@ -70,12 +70,12 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
     var sources = _cubit.getCurrentServicesMap();
     if (widget.filter.source != null) {
       sources = {
-        widget.filter.source!: _cubit.getService(widget.filter.source!)
+        widget.filter.source!: _cubit.getService(widget.filter.source!),
       };
     }
     final days = _getDaysInView();
     final appointments = <List<SourcedConnectedModel<CalendarItem, Event?>>>[
-      for (int i = 0; i < days; i++) []
+      for (int i = 0; i < days; i++) [],
     ];
     final date = _date;
     for (final source in sources.entries) {
@@ -84,7 +84,8 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
           date: date.addDays(i),
           status: EventStatus.values
               .where(
-                  (element) => !widget.filter.hiddenStatuses.contains(element))
+                (element) => !widget.filter.hiddenStatuses.contains(element),
+              )
               .toList(),
           search: widget.search,
           eventId: widget.filter.event,
@@ -92,8 +93,9 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
           resourceIds: widget.filter.resources,
         );
         if (fetchedDay == null) continue;
-        appointments[i]
-            .addAll(fetchedDay.map((e) => SourcedModel(source.key, e)));
+        appointments[i].addAll(
+          fetchedDay.map((e) => SourcedModel(source.key, e)),
+        );
       }
     }
     return appointments;
@@ -109,8 +111,8 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
   }
 
   void _refresh() => setState(() {
-        _appointments = _fetchCalendarItems();
-      });
+    _appointments = _fetchCalendarItems();
+  });
 
   @override
   void didUpdateWidget(covariant CalendarMonthView oldWidget) {
@@ -127,177 +129,194 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
       builder: (context, constraints) => CreateEventScaffold(
         onCreated: _refresh,
         event: widget.filter.sourceEvent,
-        child: Column(children: [
-          Column(mainAxisSize: MainAxisSize.min, children: [
-            CalendarFilterView(
-              initialFilter: widget.filter,
-              onChanged: (value) {
-                _refresh();
-                widget.onFilterChanged(value);
-              },
-              past: false,
-            ),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: Column(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                ElevatedButton(
-                  onPressed: () => _addMonth(-1),
-                  child: const PhosphorIcon(PhosphorIconsLight.caretLeft),
+                CalendarFilterView(
+                  initialFilter: widget.filter,
+                  onChanged: (value) {
+                    _refresh();
+                    widget.onFilterChanged(value);
+                  },
+                  past: false,
                 ),
+                const SizedBox(height: 8),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    IconButton(
-                      icon:
-                          const PhosphorIcon(PhosphorIconsLight.calendarBlank),
-                      isSelected: _year == DateTime.now().year &&
-                          _month == DateTime.now().month,
-                      onPressed: () {
-                        setState(() {
-                          final now = DateTime.now();
-                          _month = now.month;
-                          _year = now.year;
-                          _appointments = _fetchCalendarItems();
-                        });
-                      },
+                    ElevatedButton(
+                      onPressed: () => _addMonth(-1),
+                      child: const PhosphorIcon(PhosphorIconsLight.caretLeft),
                     ),
-                    GestureDetector(
-                      child: Text(
-                        DateFormat.yMMMM(locale).format(_date.addDays(7)),
-                        textAlign: TextAlign.center,
-                      ),
-                      onTap: () async {
-                        final date = await showDatePicker(
-                          context: context,
-                          initialDate: _date,
-                          firstDate: DateTime.fromMicrosecondsSinceEpoch(0),
-                          lastDate: _date.addYears(200),
-                        );
-                        if (date != null) {
-                          setState(() {
-                            _month = date.month;
-                            _year = date.year;
-                            _appointments = _fetchCalendarItems();
-                          });
-                        }
-                      },
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.calendarBlank,
+                          ),
+                          isSelected:
+                              _year == DateTime.now().year &&
+                              _month == DateTime.now().month,
+                          onPressed: () {
+                            setState(() {
+                              final now = DateTime.now();
+                              _month = now.month;
+                              _year = now.year;
+                              _appointments = _fetchCalendarItems();
+                            });
+                          },
+                        ),
+                        GestureDetector(
+                          child: Text(
+                            DateFormat.yMMMM(locale).format(_date.addDays(7)),
+                            textAlign: TextAlign.center,
+                          ),
+                          onTap: () async {
+                            final date = await showDatePicker(
+                              context: context,
+                              initialDate: _date,
+                              firstDate: DateTime.fromMicrosecondsSinceEpoch(0),
+                              lastDate: _date.addYears(200),
+                            );
+                            if (date != null) {
+                              setState(() {
+                                _month = date.month;
+                                _year = date.year;
+                                _appointments = _fetchCalendarItems();
+                              });
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                    ElevatedButton(
+                      onPressed: () => _addMonth(1),
+                      child: const PhosphorIcon(PhosphorIconsLight.caretRight),
                     ),
                   ],
                 ),
-                ElevatedButton(
-                  onPressed: () => _addMonth(1),
-                  child: const PhosphorIcon(PhosphorIconsLight.caretRight),
-                ),
+                const Divider(),
               ],
             ),
-            const Divider(),
-          ]),
-          Expanded(
-            child: FutureBuilder<
-                    List<List<SourcedConnectedModel<CalendarItem, Event?>>>>(
-                future: _appointments,
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Text(snapshot.error.toString());
-                  }
-                  if (!snapshot.hasData) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  final appointments = snapshot.data!;
-                  return SingleChildScrollView(
-                    child: GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: appointments.length + 7,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 7,
-                        childAspectRatio: constraints.maxWidth / 7 / 100,
-                      ),
-                      itemBuilder: (context, index) {
-                        if (index < 7) {
-                          return LayoutBuilder(builder: (context, constraints) {
-                            final current = _date.addDays(index);
-                            var text = DateFormat.EEEE(locale).format(
-                              current,
-                            );
-                            if (constraints.maxWidth < 150) {
-                              text = DateFormat.E(locale).format(
-                                current,
+            Expanded(
+              child:
+                  FutureBuilder<
+                    List<List<SourcedConnectedModel<CalendarItem, Event?>>>
+                  >(
+                    future: _appointments,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Text(snapshot.error.toString());
+                      }
+                      if (!snapshot.hasData) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      final appointments = snapshot.data!;
+                      return SingleChildScrollView(
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: appointments.length + 7,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 7,
+                                childAspectRatio:
+                                    constraints.maxWidth / 7 / 100,
+                              ),
+                          itemBuilder: (context, index) {
+                            if (index < 7) {
+                              return LayoutBuilder(
+                                builder: (context, constraints) {
+                                  final current = _date.addDays(index);
+                                  var text = DateFormat.EEEE(
+                                    locale,
+                                  ).format(current);
+                                  if (constraints.maxWidth < 150) {
+                                    text = DateFormat.E(locale).format(current);
+                                  }
+                                  return Center(
+                                    child: Text(
+                                      text,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall
+                                          ?.copyWith(
+                                            color:
+                                                current.weekday == _now.weekday
+                                                ? Theme.of(context).primaryColor
+                                                : null,
+                                          ),
+                                    ),
+                                  );
+                                },
                               );
                             }
-                            return Center(
-                              child: Text(
-                                text,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(
-                                      color: current.weekday == _now.weekday
-                                          ? Theme.of(context).primaryColor
-                                          : null,
-                                    ),
-                              ),
-                            );
-                          });
-                        }
-                        final current = index - 7;
-                        final day = _date.addDays(current);
-                        return InkWell(
-                          onTap: () async {
-                            await showDialog(
-                              context: context,
-                              builder: (context) => CalendarDayDialog(
-                                date: day,
-                                appointments: appointments[current],
-                                event: widget.filter.sourceEvent,
-                              ),
-                            );
-                            _refresh();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 16, horizontal: 8),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  day.day.toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.copyWith(
-                                        color: day.isSameDay(DateTime.now())
-                                            ? Theme.of(context).primaryColor
-                                            : day.month != _month
-                                                ? Theme.of(context)
-                                                    .colorScheme
-                                                    .onSurface
-                                                    .withValues(alpha: 0.5)
-                                                : null,
-                                      ),
-                                ),
-                                const SizedBox(height: 4),
-                                if (appointments[current].isNotEmpty)
-                                  Container(
-                                    height: 16,
-                                    width: 16,
-                                    decoration: BoxDecoration(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                      shape: BoxShape.circle,
-                                    ),
+                            final current = index - 7;
+                            final day = _date.addDays(current);
+                            return InkWell(
+                              onTap: () async {
+                                await showDialog(
+                                  context: context,
+                                  builder: (context) => CalendarDayDialog(
+                                    date: day,
+                                    appointments: appointments[current],
+                                    event: widget.filter.sourceEvent,
                                   ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                }),
-          ),
-        ]),
+                                );
+                                _refresh();
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 16,
+                                  horizontal: 8,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      day.day.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge
+                                          ?.copyWith(
+                                            color: day.isSameDay(DateTime.now())
+                                                ? Theme.of(context).primaryColor
+                                                : day.month != _month
+                                                ? Theme.of(context)
+                                                      .colorScheme
+                                                      .onSurface
+                                                      .withValues(alpha: 0.5)
+                                                : null,
+                                          ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    if (appointments[current].isNotEmpty)
+                                      Container(
+                                        height: 16,
+                                        width: 16,
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.primary,
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -319,16 +338,17 @@ class CalendarDayDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       titleTextStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
-            color: date.isSameDay(DateTime.now())
-                ? Theme.of(context).colorScheme.primary
-                : null,
-          ),
+        color: date.isSameDay(DateTime.now())
+            ? Theme.of(context).colorScheme.primary
+            : null,
+      ),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            DateFormat.yMMMMEEEEd(Localizations.localeOf(context).languageCode)
-                .format(date),
+            DateFormat.yMMMMEEEEd(
+              Localizations.localeOf(context).languageCode,
+            ).format(date),
           ),
           const SizedBox(width: 16),
           IconButton(
@@ -352,9 +372,7 @@ class CalendarDayDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (appointments.isEmpty)
-            Center(
-              child: Text(AppLocalizations.of(context).noEvents),
-            )
+            Center(child: Text(AppLocalizations.of(context).noEvents))
           else
             ...appointments.map(
               (e) => CalendarListTile(

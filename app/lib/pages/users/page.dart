@@ -14,10 +14,7 @@ import 'tile.dart';
 
 class UsersPage extends StatefulWidget {
   final UserFilter filter;
-  const UsersPage({
-    super.key,
-    this.filter = const UserFilter(),
-  });
+  const UsersPage({super.key, this.filter = const UserFilter()});
 
   @override
   _UsersPageState createState() => _UsersPageState();
@@ -33,15 +30,11 @@ class _UsersPageState extends State<UsersPage> {
           icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
           onPressed: () => showSearch(
             context: context,
-            delegate: _UsersSearchDelegate(
-              widget.filter,
-            ),
+            delegate: _UsersSearchDelegate(widget.filter),
           ),
         ),
       ],
-      body: UsersBodyView(
-        filter: widget.filter,
-      ),
+      body: UsersBodyView(filter: widget.filter),
     );
   }
 }
@@ -75,10 +68,7 @@ class _UsersSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return UsersBodyView(
-      search: query,
-      filter: filter,
-    );
+    return UsersBodyView(search: query, filter: filter);
   }
 
   @override
@@ -110,15 +100,17 @@ class _UsersBodyViewState extends State<UsersBodyView> {
   void initState() {
     _flowCubit = context.read<FlowCubit>();
     _bloc = SourcedPagingBloc<User>.item(
-        cubit: _flowCubit,
-        fetch: (source, service, offset, limit) async =>
-            _filter.source != null && _filter.source != source
-                ? null
-                : service.user?.getUsers(
-                    offset: offset,
-                    limit: limit,
-                    groupId: _filter.group,
-                    search: widget.search));
+      cubit: _flowCubit,
+      fetch: (source, service, offset, limit) async =>
+          _filter.source != null && _filter.source != source
+          ? null
+          : service.user?.getUsers(
+              offset: offset,
+              limit: limit,
+              groupId: _filter.group,
+              search: widget.search,
+            ),
+    );
     _filter = widget.filter;
     super.initState();
   }
@@ -170,9 +162,7 @@ class _UsersBodyViewState extends State<UsersBodyView> {
                             ?.deleteUser(item.model.id!);
                         _bloc.remove(item);
                       },
-                      background: Container(
-                        color: Colors.red,
-                      ),
+                      background: Container(color: Colors.red),
                       child: UserTile(
                         flowCubit: _flowCubit,
                         bloc: _bloc,
@@ -189,8 +179,9 @@ class _UsersBodyViewState extends State<UsersBodyView> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
-                context: context, builder: (context) => const UserDialog())
-            .then((_) => _bloc.refresh()),
+          context: context,
+          builder: (context) => const UserDialog(),
+        ).then((_) => _bloc.refresh()),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),

@@ -127,23 +127,45 @@ class EventMapper extends ClassMapperBase<Event> {
   static Uint8List? _$id(Event v) => v.id;
   static const Field<Event, Uint8List> _f$id = Field('id', _$id, opt: true);
   static Uint8List? _$parentId(Event v) => v.parentId;
-  static const Field<Event, Uint8List> _f$parentId =
-      Field('parentId', _$parentId, opt: true);
+  static const Field<Event, Uint8List> _f$parentId = Field(
+    'parentId',
+    _$parentId,
+    opt: true,
+  );
   static bool _$blocked(Event v) => v.blocked;
-  static const Field<Event, bool> _f$blocked =
-      Field('blocked', _$blocked, opt: true, def: true);
+  static const Field<Event, bool> _f$blocked = Field(
+    'blocked',
+    _$blocked,
+    opt: true,
+    def: true,
+  );
   static String _$name(Event v) => v.name;
-  static const Field<Event, String> _f$name =
-      Field('name', _$name, opt: true, def: '');
+  static const Field<Event, String> _f$name = Field(
+    'name',
+    _$name,
+    opt: true,
+    def: '',
+  );
   static String _$description(Event v) => v.description;
-  static const Field<Event, String> _f$description =
-      Field('description', _$description, opt: true, def: '');
+  static const Field<Event, String> _f$description = Field(
+    'description',
+    _$description,
+    opt: true,
+    def: '',
+  );
   static String _$location(Event v) => v.location;
-  static const Field<Event, String> _f$location =
-      Field('location', _$location, opt: true, def: '');
+  static const Field<Event, String> _f$location = Field(
+    'location',
+    _$location,
+    opt: true,
+    def: '',
+  );
   static String? _$extra(Event v) => v.extra;
-  static const Field<Event, String> _f$extra =
-      Field('extra', _$extra, opt: true);
+  static const Field<Event, String> _f$extra = Field(
+    'extra',
+    _$extra,
+    opt: true,
+  );
 
   @override
   final MappableFields<Event> fields = const {
@@ -158,13 +180,14 @@ class EventMapper extends ClassMapperBase<Event> {
 
   static Event _instantiate(DecodingData data) {
     return Event(
-        id: data.dec(_f$id),
-        parentId: data.dec(_f$parentId),
-        blocked: data.dec(_f$blocked),
-        name: data.dec(_f$name),
-        description: data.dec(_f$description),
-        location: data.dec(_f$location),
-        extra: data.dec(_f$extra));
+      id: data.dec(_f$id),
+      parentId: data.dec(_f$parentId),
+      blocked: data.dec(_f$blocked),
+      name: data.dec(_f$name),
+      description: data.dec(_f$description),
+      location: data.dec(_f$location),
+      extra: data.dec(_f$extra),
+    );
   }
 
   @override
@@ -213,14 +236,15 @@ extension EventValueCopy<$R, $Out> on ObjectCopyWith<$R, Event, $Out> {
 
 abstract class EventCopyWith<$R, $In extends Event, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call(
-      {Uint8List? id,
-      Uint8List? parentId,
-      bool? blocked,
-      String? name,
-      String? description,
-      String? location,
-      String? extra});
+  $R call({
+    Uint8List? id,
+    Uint8List? parentId,
+    bool? blocked,
+    String? name,
+    String? description,
+    String? location,
+    String? extra,
+  });
   EventCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -231,32 +255,35 @@ class _EventCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Event, $Out>
   @override
   late final ClassMapperBase<Event> $mapper = EventMapper.ensureInitialized();
   @override
-  $R call(
-          {Object? id = $none,
-          Object? parentId = $none,
-          bool? blocked,
-          String? name,
-          String? description,
-          String? location,
-          Object? extra = $none}) =>
-      $apply(FieldCopyWithData({
-        if (id != $none) #id: id,
-        if (parentId != $none) #parentId: parentId,
-        if (blocked != null) #blocked: blocked,
-        if (name != null) #name: name,
-        if (description != null) #description: description,
-        if (location != null) #location: location,
-        if (extra != $none) #extra: extra
-      }));
+  $R call({
+    Object? id = $none,
+    Object? parentId = $none,
+    bool? blocked,
+    String? name,
+    String? description,
+    String? location,
+    Object? extra = $none,
+  }) => $apply(
+    FieldCopyWithData({
+      if (id != $none) #id: id,
+      if (parentId != $none) #parentId: parentId,
+      if (blocked != null) #blocked: blocked,
+      if (name != null) #name: name,
+      if (description != null) #description: description,
+      if (location != null) #location: location,
+      if (extra != $none) #extra: extra,
+    }),
+  );
   @override
   Event $make(CopyWithData data) => Event(
-      id: data.get(#id, or: $value.id),
-      parentId: data.get(#parentId, or: $value.parentId),
-      blocked: data.get(#blocked, or: $value.blocked),
-      name: data.get(#name, or: $value.name),
-      description: data.get(#description, or: $value.description),
-      location: data.get(#location, or: $value.location),
-      extra: data.get(#extra, or: $value.extra));
+    id: data.get(#id, or: $value.id),
+    parentId: data.get(#parentId, or: $value.parentId),
+    blocked: data.get(#blocked, or: $value.blocked),
+    name: data.get(#name, or: $value.name),
+    description: data.get(#description, or: $value.description),
+    location: data.get(#location, or: $value.location),
+    extra: data.get(#extra, or: $value.extra),
+  );
 
   @override
   EventCopyWith<$R2, Event, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>

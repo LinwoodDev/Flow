@@ -29,24 +29,27 @@ class UserTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ContextRegion(
-      menuChildren: [
-        (
-          PhosphorIconsLight.calendar,
-          AppLocalizations.of(context).events,
-          _openEvents,
-        ),
-        (
-          PhosphorIconsLight.trash,
-          AppLocalizations.of(context).delete,
-          _deleteUser,
-        ),
-      ]
-          .map((e) => MenuItemButton(
-                onPressed: () => e.$3(context),
-                leadingIcon: PhosphorIcon(e.$1),
-                child: Text(e.$2),
-              ))
-          .toList(),
+      menuChildren:
+          [
+                (
+                  PhosphorIconsLight.calendar,
+                  AppLocalizations.of(context).events,
+                  _openEvents,
+                ),
+                (
+                  PhosphorIconsLight.trash,
+                  AppLocalizations.of(context).delete,
+                  _deleteUser,
+                ),
+              ]
+              .map(
+                (e) => MenuItemButton(
+                  onPressed: () => e.$3(context),
+                  leadingIcon: PhosphorIcon(e.$1),
+                  child: Text(e.$2),
+                ),
+              )
+              .toList(),
       builder: (context, button, controller) => ListTile(
         title: Text(user.name),
         subtitle: MarkdownText(user.description),
@@ -61,28 +64,22 @@ class UserTile extends StatelessWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(AppLocalizations.of(context).deleteUser(user.name)),
-        content:
-            Text(AppLocalizations.of(context).deleteUserDescription(user.name)),
+        content: Text(
+          AppLocalizations.of(context).deleteUserDescription(user.name),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(
-              AppLocalizations.of(context).cancel,
-            ),
+            child: Text(AppLocalizations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () async {
               Navigator.of(context).pop();
               await flowCubit.getService(source).user?.deleteUser(user.id!);
-              bloc.remove(SourcedModel(
-                source,
-                user,
-              ));
+              bloc.remove(SourcedModel(source, user));
               bloc.refresh();
             },
-            child: Text(
-              AppLocalizations.of(context).delete,
-            ),
+            child: Text(AppLocalizations.of(context).delete),
           ),
         ],
       ),
@@ -90,21 +87,13 @@ class UserTile extends StatelessWidget {
   }
 
   void _openEvents(BuildContext context) {
-    GoRouter.of(context).go(
-      "/calendar",
-      extra: CalendarFilter(
-        source: source,
-      ),
-    );
+    GoRouter.of(context).go("/calendar", extra: CalendarFilter(source: source));
   }
 
   void _editUser(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => UserDialog(
-        user: user,
-        source: source,
-      ),
+      builder: (context) => UserDialog(user: user, source: source),
     ).then((value) => bloc.refresh());
   }
 }

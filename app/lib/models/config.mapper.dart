@@ -22,11 +22,18 @@ class ConfigFileMapper extends ClassMapperBase<ConfigFile> {
   final String id = 'ConfigFile';
 
   static List<RemoteStorage>? _$remotes(ConfigFile v) => v.remotes;
-  static const Field<ConfigFile, List<RemoteStorage>> _f$remotes =
-      Field('remotes', _$remotes, opt: true);
+  static const Field<ConfigFile, List<RemoteStorage>> _f$remotes = Field(
+    'remotes',
+    _$remotes,
+    opt: true,
+  );
   static Map<String, String> _$passwords(ConfigFile v) => v.passwords;
-  static const Field<ConfigFile, Map<String, String>> _f$passwords =
-      Field('passwords', _$passwords, opt: true, def: const {});
+  static const Field<ConfigFile, Map<String, String>> _f$passwords = Field(
+    'passwords',
+    _$passwords,
+    opt: true,
+    def: const {},
+  );
 
   @override
   final MappableFields<ConfigFile> fields = const {
@@ -36,7 +43,9 @@ class ConfigFileMapper extends ClassMapperBase<ConfigFile> {
 
   static ConfigFile _instantiate(DecodingData data) {
     return ConfigFile(
-        remotes: data.dec(_f$remotes), passwords: data.dec(_f$passwords));
+      remotes: data.dec(_f$remotes),
+      passwords: data.dec(_f$passwords),
+    );
   }
 
   @override
@@ -53,28 +62,36 @@ class ConfigFileMapper extends ClassMapperBase<ConfigFile> {
 
 mixin ConfigFileMappable {
   String toJson() {
-    return ConfigFileMapper.ensureInitialized()
-        .encodeJson<ConfigFile>(this as ConfigFile);
+    return ConfigFileMapper.ensureInitialized().encodeJson<ConfigFile>(
+      this as ConfigFile,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return ConfigFileMapper.ensureInitialized()
-        .encodeMap<ConfigFile>(this as ConfigFile);
+    return ConfigFileMapper.ensureInitialized().encodeMap<ConfigFile>(
+      this as ConfigFile,
+    );
   }
 
   ConfigFileCopyWith<ConfigFile, ConfigFile, ConfigFile> get copyWith =>
       _ConfigFileCopyWithImpl<ConfigFile, ConfigFile>(
-          this as ConfigFile, $identity, $identity);
+        this as ConfigFile,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
-    return ConfigFileMapper.ensureInitialized()
-        .stringifyValue(this as ConfigFile);
+    return ConfigFileMapper.ensureInitialized().stringifyValue(
+      this as ConfigFile,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return ConfigFileMapper.ensureInitialized()
-        .equalsValue(this as ConfigFile, other);
+    return ConfigFileMapper.ensureInitialized().equalsValue(
+      this as ConfigFile,
+      other,
+    );
   }
 
   @override
@@ -91,10 +108,14 @@ extension ConfigFileValueCopy<$R, $Out>
 
 abstract class ConfigFileCopyWith<$R, $In extends ConfigFile, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  ListCopyWith<$R, RemoteStorage,
-      ObjectCopyWith<$R, RemoteStorage, RemoteStorage>>? get remotes;
+  ListCopyWith<
+    $R,
+    RemoteStorage,
+    ObjectCopyWith<$R, RemoteStorage, RemoteStorage>
+  >?
+  get remotes;
   MapCopyWith<$R, String, String, ObjectCopyWith<$R, String, String>>
-      get passwords;
+  get passwords;
   $R call({List<RemoteStorage>? remotes, Map<String, String>? passwords});
   ConfigFileCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -108,31 +129,40 @@ class _ConfigFileCopyWithImpl<$R, $Out>
   late final ClassMapperBase<ConfigFile> $mapper =
       ConfigFileMapper.ensureInitialized();
   @override
-  ListCopyWith<$R, RemoteStorage,
-          ObjectCopyWith<$R, RemoteStorage, RemoteStorage>>?
-      get remotes => $value.remotes != null
-          ? ListCopyWith(
-              $value.remotes!,
-              (v, t) => ObjectCopyWith(v, $identity, t),
-              (v) => call(remotes: v))
-          : null;
+  ListCopyWith<
+    $R,
+    RemoteStorage,
+    ObjectCopyWith<$R, RemoteStorage, RemoteStorage>
+  >?
+  get remotes => $value.remotes != null
+      ? ListCopyWith(
+          $value.remotes!,
+          (v, t) => ObjectCopyWith(v, $identity, t),
+          (v) => call(remotes: v),
+        )
+      : null;
   @override
   MapCopyWith<$R, String, String, ObjectCopyWith<$R, String, String>>
-      get passwords => MapCopyWith($value.passwords,
-          (v, t) => ObjectCopyWith(v, $identity, t), (v) => call(passwords: v));
+  get passwords => MapCopyWith(
+    $value.passwords,
+    (v, t) => ObjectCopyWith(v, $identity, t),
+    (v) => call(passwords: v),
+  );
   @override
-  $R call({Object? remotes = $none, Map<String, String>? passwords}) =>
-      $apply(FieldCopyWithData({
-        if (remotes != $none) #remotes: remotes,
-        if (passwords != null) #passwords: passwords
-      }));
+  $R call({Object? remotes = $none, Map<String, String>? passwords}) => $apply(
+    FieldCopyWithData({
+      if (remotes != $none) #remotes: remotes,
+      if (passwords != null) #passwords: passwords,
+    }),
+  );
   @override
   ConfigFile $make(CopyWithData data) => ConfigFile(
-      remotes: data.get(#remotes, or: $value.remotes),
-      passwords: data.get(#passwords, or: $value.passwords));
+    remotes: data.get(#remotes, or: $value.remotes),
+    passwords: data.get(#passwords, or: $value.passwords),
+  );
 
   @override
   ConfigFileCopyWith<$R2, ConfigFile, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _ConfigFileCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _ConfigFileCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

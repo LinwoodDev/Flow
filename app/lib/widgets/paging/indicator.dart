@@ -25,24 +25,16 @@ class IndicatorDisplay extends StatelessWidget {
           children: [
             if (icon != null) icon!,
             if (title != null)
-              Text(
-                title!,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
+              Text(title!, style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 8),
             if (description != null)
-              Text(
-                description!,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
+              Text(description!, style: Theme.of(context).textTheme.bodyMedium),
             if (onTryAgain != null)
               Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: ElevatedButton.icon(
                   onPressed: onTryAgain,
-                  label: Text(
-                    AppLocalizations.of(context).tryAgain,
-                  ),
+                  label: Text(AppLocalizations.of(context).tryAgain),
                   icon: const PhosphorIcon(PhosphorIconsLight.arrowClockwise),
                 ),
               ),

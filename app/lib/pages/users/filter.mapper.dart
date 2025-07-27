@@ -21,11 +21,17 @@ class UserFilterMapper extends ClassMapperBase<UserFilter> {
   final String id = 'UserFilter';
 
   static String? _$source(UserFilter v) => v.source;
-  static const Field<UserFilter, String> _f$source =
-      Field('source', _$source, opt: true);
+  static const Field<UserFilter, String> _f$source = Field(
+    'source',
+    _$source,
+    opt: true,
+  );
   static Uint8List? _$group(UserFilter v) => v.group;
-  static const Field<UserFilter, Uint8List> _f$group =
-      Field('group', _$group, opt: true);
+  static const Field<UserFilter, Uint8List> _f$group = Field(
+    'group',
+    _$group,
+    opt: true,
+  );
 
   @override
   final MappableFields<UserFilter> fields = const {
@@ -51,28 +57,36 @@ class UserFilterMapper extends ClassMapperBase<UserFilter> {
 
 mixin UserFilterMappable {
   String toJson() {
-    return UserFilterMapper.ensureInitialized()
-        .encodeJson<UserFilter>(this as UserFilter);
+    return UserFilterMapper.ensureInitialized().encodeJson<UserFilter>(
+      this as UserFilter,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return UserFilterMapper.ensureInitialized()
-        .encodeMap<UserFilter>(this as UserFilter);
+    return UserFilterMapper.ensureInitialized().encodeMap<UserFilter>(
+      this as UserFilter,
+    );
   }
 
   UserFilterCopyWith<UserFilter, UserFilter, UserFilter> get copyWith =>
       _UserFilterCopyWithImpl<UserFilter, UserFilter>(
-          this as UserFilter, $identity, $identity);
+        this as UserFilter,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
-    return UserFilterMapper.ensureInitialized()
-        .stringifyValue(this as UserFilter);
+    return UserFilterMapper.ensureInitialized().stringifyValue(
+      this as UserFilter,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return UserFilterMapper.ensureInitialized()
-        .equalsValue(this as UserFilter, other);
+    return UserFilterMapper.ensureInitialized().equalsValue(
+      this as UserFilter,
+      other,
+    );
   }
 
   @override
@@ -102,18 +116,20 @@ class _UserFilterCopyWithImpl<$R, $Out>
   late final ClassMapperBase<UserFilter> $mapper =
       UserFilterMapper.ensureInitialized();
   @override
-  $R call({Object? source = $none, Object? group = $none}) =>
-      $apply(FieldCopyWithData({
-        if (source != $none) #source: source,
-        if (group != $none) #group: group
-      }));
+  $R call({Object? source = $none, Object? group = $none}) => $apply(
+    FieldCopyWithData({
+      if (source != $none) #source: source,
+      if (group != $none) #group: group,
+    }),
+  );
   @override
   UserFilter $make(CopyWithData data) => UserFilter(
-      source: data.get(#source, or: $value.source),
-      group: data.get(#group, or: $value.group));
+    source: data.get(#source, or: $value.source),
+    group: data.get(#group, or: $value.group),
+  );
 
   @override
   UserFilterCopyWith<$R2, UserFilter, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _UserFilterCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _UserFilterCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

@@ -34,59 +34,61 @@ class DataSettingsPage extends StatelessWidget {
               child: Padding(
                 padding: settingsCardPadding,
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      ListTile(
-                        leading: const PhosphorIcon(PhosphorIconsLight.cloud),
-                        title:
-                            Text(AppLocalizations.of(context).databaseVersion),
-                        subtitle: FutureBuilder<String>(
-                            future: context
-                                .read<SourcesService>()
-                                .local
-                                .getSqliteVersion(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return Text(snapshot.data ??
-                                    AppLocalizations.of(context).unknown);
-                              } else {
-                                return Text(
-                                    AppLocalizations.of(context).loading);
-                              }
-                            }),
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    ListTile(
+                      leading: const PhosphorIcon(PhosphorIconsLight.cloud),
+                      title: Text(AppLocalizations.of(context).databaseVersion),
+                      subtitle: FutureBuilder<String>(
+                        future: context
+                            .read<SourcesService>()
+                            .local
+                            .getSqliteVersion(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Text(
+                              snapshot.data ??
+                                  AppLocalizations.of(context).unknown,
+                            );
+                          } else {
+                            return Text(AppLocalizations.of(context).loading);
+                          }
+                        },
                       ),
-                      ListTile(
-                        title: Text(AppLocalizations.of(context).syncMode),
-                        leading: PhosphorIcon(
-                            state.syncMode.icon(PhosphorIconsStyle.light)),
-                        subtitle:
-                            Text(state.syncMode.getLocalizedName(context)),
-                        onTap: () async => showLeapBottomSheet(
-                            titleBuilder: (ctx) =>
-                                Text(AppLocalizations.of(context).syncMode),
-                            context: context,
-                            childrenBuilder: (ctx) {
-                              final settingsCubit =
-                                  context.read<SettingsCubit>();
-                              void changeSyncMode(SyncMode syncMode) {
-                                settingsCubit.changeSyncMode(syncMode);
-                                Navigator.of(context).pop();
-                              }
+                    ),
+                    ListTile(
+                      title: Text(AppLocalizations.of(context).syncMode),
+                      leading: PhosphorIcon(
+                        state.syncMode.icon(PhosphorIconsStyle.light),
+                      ),
+                      subtitle: Text(state.syncMode.getLocalizedName(context)),
+                      onTap: () async => showLeapBottomSheet(
+                        titleBuilder: (ctx) =>
+                            Text(AppLocalizations.of(context).syncMode),
+                        context: context,
+                        childrenBuilder: (ctx) {
+                          final settingsCubit = context.read<SettingsCubit>();
+                          void changeSyncMode(SyncMode syncMode) {
+                            settingsCubit.changeSyncMode(syncMode);
+                            Navigator.of(context).pop();
+                          }
 
-                              return SyncMode.values.map((syncMode) {
-                                return ListTile(
-                                  title:
-                                      Text(syncMode.getLocalizedName(context)),
-                                  leading: PhosphorIcon(
-                                      syncMode.icon(PhosphorIconsStyle.light)),
-                                  selected:
-                                      syncMode == settingsCubit.state.syncMode,
-                                  onTap: () => changeSyncMode(syncMode),
-                                );
-                              }).toList();
-                            }),
+                          return SyncMode.values.map((syncMode) {
+                            return ListTile(
+                              title: Text(syncMode.getLocalizedName(context)),
+                              leading: PhosphorIcon(
+                                syncMode.icon(PhosphorIconsStyle.light),
+                              ),
+                              selected:
+                                  syncMode == settingsCubit.state.syncMode,
+                              onTap: () => changeSyncMode(syncMode),
+                            );
+                          }).toList();
+                        },
                       ),
-                    ]),
+                    ),
+                  ],
+                ),
               ),
             ),
             Card(
@@ -98,13 +100,15 @@ class DataSettingsPage extends StatelessWidget {
                   children: [
                     ListTile(
                       title: Text(
-                          AppLocalizations.of(context).restoreSettingsFromFile),
+                        AppLocalizations.of(context).restoreSettingsFromFile,
+                      ),
                       leading: Icon(PhosphorIconsLight.arrowSquareIn),
                       onTap: () => _importSettings(context),
                     ),
                     ListTile(
                       title: Text(
-                          AppLocalizations.of(context).exportSettingsToFile),
+                        AppLocalizations.of(context).exportSettingsToFile,
+                      ),
                       leading: Icon(PhosphorIconsLight.arrowSquareOut),
                       onTap: () => _exportSettings(context),
                     ),
@@ -120,12 +124,11 @@ class DataSettingsPage extends StatelessWidget {
 
   void _importSettings(BuildContext context) async {
     final settingsCubit = context.read<SettingsCubit>();
-    final file = await openFile(acceptedTypeGroups: [
-      XTypeGroup(
-        label: 'Settings',
-        extensions: ['json'],
-      ),
-    ]);
+    final file = await openFile(
+      acceptedTypeGroups: [
+        XTypeGroup(label: 'Settings', extensions: ['json']),
+      ],
+    );
     if (file == null) return;
     final data = await file.readAsString();
     settingsCubit.importSettings(data);

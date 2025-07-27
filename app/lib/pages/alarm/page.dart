@@ -28,16 +28,15 @@ class _AlarmPageState extends State<AlarmPage> {
             maxCrossAxisExtent: 300,
             childAspectRatio: 1.25,
             children: state.alarms
-                .mapIndexed((i, e) => Card(
+                .mapIndexed(
+                  (i, e) => Card(
                     clipBehavior: Clip.antiAlias,
                     child: InkWell(
                       onTap: () async {
                         final settingsCubit = context.read<SettingsCubit>();
                         final alarm = await showDialog<Alarm>(
                           context: context,
-                          builder: (context) => AlarmDialog(
-                            initialValue: e,
-                          ),
+                          builder: (context) => AlarmDialog(initialValue: e),
                         );
                         if (alarm != null) {
                           settingsCubit.changeAlarm(i, alarm);
@@ -55,10 +54,12 @@ class _AlarmPageState extends State<AlarmPage> {
                                     value: e.isActive,
                                     contentPadding: EdgeInsets.only(left: 6),
                                     onChanged: (_) {
-                                      final settingsCubit =
-                                          context.read<SettingsCubit>();
+                                      final settingsCubit = context
+                                          .read<SettingsCubit>();
                                       settingsCubit.changeAlarm(
-                                          i, e.copyWith(isActive: !e.isActive));
+                                        i,
+                                        e.copyWith(isActive: !e.isActive),
+                                      );
                                     },
                                     title: Text(
                                       AppLocalizations.of(context).enabled,
@@ -67,9 +68,11 @@ class _AlarmPageState extends State<AlarmPage> {
                                 ),
                                 IconButton(
                                   icon: const PhosphorIcon(
-                                      PhosphorIconsLight.clockCountdown),
-                                  tooltip:
-                                      AppLocalizations.of(context).countdown,
+                                    PhosphorIconsLight.clockCountdown,
+                                  ),
+                                  tooltip: AppLocalizations.of(
+                                    context,
+                                  ).countdown,
                                   onPressed: () {
                                     GoRouter.of(context).goNamed(
                                       'alarm-countdown',
@@ -79,11 +82,12 @@ class _AlarmPageState extends State<AlarmPage> {
                                 ),
                                 IconButton(
                                   icon: const PhosphorIcon(
-                                      PhosphorIconsLight.trash),
+                                    PhosphorIconsLight.trash,
+                                  ),
                                   tooltip: AppLocalizations.of(context).delete,
                                   onPressed: () {
-                                    final settingsCubit =
-                                        context.read<SettingsCubit>();
+                                    final settingsCubit = context
+                                        .read<SettingsCubit>();
                                     settingsCubit.removeAlarm(i);
                                   },
                                 ),
@@ -110,7 +114,9 @@ class _AlarmPageState extends State<AlarmPage> {
                           ],
                         ),
                       ),
-                    )))
+                    ),
+                  ),
+                )
                 .toList(),
           );
         },
@@ -140,15 +146,9 @@ class AlarmDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now();
-    var alarm = initialValue ??
-        Alarm(
-            date: DateTime(
-              now.year,
-              now.month,
-              now.day + 1,
-              8,
-            ),
-            title: '');
+    var alarm =
+        initialValue ??
+        Alarm(date: DateTime(now.year, now.month, now.day + 1, 8), title: '');
     return ResponsiveAlertDialog(
       title: Text(AppLocalizations.of(context).alarm),
       headerActions: [
@@ -176,15 +176,18 @@ class AlarmDialog extends StatelessWidget {
           const SizedBox(height: 20),
           TextFormField(
             decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).name, filled: true),
+              labelText: AppLocalizations.of(context).name,
+              filled: true,
+            ),
             initialValue: alarm.title,
             onChanged: (value) => alarm = alarm.copyWith(title: value),
           ),
           const SizedBox(height: 8),
           TextFormField(
             decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).description,
-                border: const OutlineInputBorder()),
+              labelText: AppLocalizations.of(context).description,
+              border: const OutlineInputBorder(),
+            ),
             initialValue: alarm.description,
             minLines: 3,
             maxLines: 5,

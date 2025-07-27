@@ -8,8 +8,10 @@ class LegalSettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(AppLocalizations.of(context).legal,
-            style: Theme.of(context).textTheme.headlineSmall),
+        Text(
+          AppLocalizations.of(context).legal,
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
         const SizedBox(height: 32),
       ],
     );

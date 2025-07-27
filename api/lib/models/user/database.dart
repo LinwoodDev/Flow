@@ -34,12 +34,7 @@ class UserDatabaseService extends UserService with TableService {
 
   @override
   Future<bool> deleteUser(Uint8List id) async {
-    return await db?.delete(
-          'users',
-          where: 'id = ?',
-          whereArgs: [id],
-        ) ==
-        1;
+    return await db?.delete('users', where: 'id = ?', whereArgs: [id]) == 1;
   }
 
   @override
@@ -83,11 +78,9 @@ class UserDatabaseService extends UserService with TableService {
 
   @override
   Future<User?> getUser(Uint8List id) async {
-    return await db?.query(
-      'users',
-      where: 'id = ?',
-      whereArgs: [id],
-    ).then((value) {
+    return await db?.query('users', where: 'id = ?', whereArgs: [id]).then((
+      value,
+    ) {
       if (value.isEmpty) return null;
       return User.fromDatabase(value.first);
     });

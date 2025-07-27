@@ -58,60 +58,57 @@ class _MarkdownFieldState extends State<MarkdownField> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisSize: MainAxisSize.max, children: [
-      Expanded(
-        child: SizedBox(
-          child: _editMode
-              ? Column(
-                  children: [
-                    if (widget.toolbar != null) widget.toolbar!,
-                    TextFormField(
-                      decoration: widget.decoration.copyWith(
-                        helperText:
-                            AppLocalizations.of(context).markdownIsSupported,
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Expanded(
+          child: SizedBox(
+            child: _editMode
+                ? Column(
+                    children: [
+                      if (widget.toolbar != null) widget.toolbar!,
+                      TextFormField(
+                        decoration: widget.decoration.copyWith(
+                          helperText: AppLocalizations.of(
+                            context,
+                          ).markdownIsSupported,
+                        ),
+                        maxLines: null,
+                        minLines: 3,
+                        onChanged: widget.onChanged,
+                        controller: _controller,
+                        onFieldSubmitted: (_) => _exitEditMode(),
+                        onEditingComplete: _exitEditMode,
+                        onTapOutside: (_) => _exitEditMode,
+                        focusNode: _focusNode,
                       ),
-                      maxLines: null,
-                      minLines: 3,
-                      onChanged: widget.onChanged,
-                      controller: _controller,
-                      onFieldSubmitted: (_) => _exitEditMode(),
-                      onEditingComplete: _exitEditMode,
-                      onTapOutside: (_) => _exitEditMode,
-                      focusNode: _focusNode,
-                    ),
-                  ],
-                )
-              : Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(height: widget.toolbar?.height),
-                    GestureDetector(
-                      onDoubleTap: () {
-                        setState(() => _editMode = true);
-                        _focusNode.requestFocus();
-                      },
-                      child: InputDecorator(
-                        decoration: widget.decoration,
-                        child: AnimatedBuilder(
-                          animation: _controller,
-                          builder: (context, child) => MarkdownText(
-                            _controller.text,
-                            border: false,
+                    ],
+                  )
+                : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(height: widget.toolbar?.height),
+                      GestureDetector(
+                        onDoubleTap: () {
+                          setState(() => _editMode = true);
+                          _focusNode.requestFocus();
+                        },
+                        child: InputDecorator(
+                          decoration: widget.decoration,
+                          child: AnimatedBuilder(
+                            animation: _controller,
+                            builder: (context, child) =>
+                                MarkdownText(_controller.text, border: false),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+          ),
         ),
-      ),
-      Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ...widget.actions,
-        ],
-      )
-    ]);
+        Column(mainAxisSize: MainAxisSize.min, children: [...widget.actions]),
+      ],
+    );
   }
 }
 
@@ -126,18 +123,14 @@ class MarkdownText extends StatelessWidget {
     return Container(
       decoration: border && value.isNotEmpty
           ? BoxDecoration(
-              border: Border.all(
-                color: Theme.of(context).dividerColor,
-              ),
+              border: Border.all(color: Theme.of(context).dividerColor),
               borderRadius: BorderRadius.circular(4),
             )
           : null,
       padding: border && value.isNotEmpty ? const EdgeInsets.all(8) : null,
       child: MarkdownWidget(
         data: value,
-        config: MarkdownConfig(
-          configs: [LinkConfig()],
-        ),
+        config: MarkdownConfig(configs: [LinkConfig()]),
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         markdownGenerator: MarkdownGenerator(
@@ -145,7 +138,7 @@ class MarkdownText extends StatelessWidget {
             md.ExtensionSet.gitHubFlavored.blockSyntaxes,
             [
               md.EmojiSyntax(),
-              ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes
+              ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes,
             ],
           ),
         ),

@@ -49,32 +49,32 @@ abstract class SourceService {
   ModelConnector<Label, Group>? get groupLabel => null;
 
   List<ModelService> get models => <ModelService?>[
-        event,
-        calendarItem,
-        note,
-        labelNote,
-        eventNote,
-        userNote,
-        groupNote,
-        calendarItemNote,
-        group,
-        user,
-        resource,
-        eventResource,
-        calendarItemResource,
-        userResource,
-        groupResource,
-        label,
-        eventUser,
-        userGroup,
-        eventGroup,
-        calendarItemUser,
-        calendarItemGroup,
-        userNotebook,
-        groupNotebook,
-        userLabel,
-        groupLabel,
-      ].nonNulls.toList();
+    event,
+    calendarItem,
+    note,
+    labelNote,
+    eventNote,
+    userNote,
+    groupNote,
+    calendarItemNote,
+    group,
+    user,
+    resource,
+    eventResource,
+    calendarItemResource,
+    userResource,
+    groupResource,
+    label,
+    eventUser,
+    userGroup,
+    eventGroup,
+    calendarItemUser,
+    calendarItemGroup,
+    userNotebook,
+    groupNotebook,
+    userLabel,
+    groupLabel,
+  ].nonNulls.toList();
 
   Future<void> import(CachedData data, [bool clear = true]) async {
     event?.clear();
@@ -102,11 +102,17 @@ abstract class ModelConnector<I, C> extends ModelService {
   FutureOr<void> connect(Uint8List connectId, Uint8List itemId);
   FutureOr<void> disconnect(Uint8List connectId, Uint8List itemId);
   FutureOr<bool> isConnected(Uint8List connectId, Uint8List itemId);
-  Future<List<I>> getItems(Uint8List connectId,
-      {int offset = 0, int limit = 50});
+  Future<List<I>> getItems(
+    Uint8List connectId, {
+    int offset = 0,
+    int limit = 50,
+  });
 
-  Future<List<C>> getConnected(Uint8List itemId,
-      {int offset = 0, int limit = 50});
+  Future<List<C>> getConnected(
+    Uint8List itemId, {
+    int offset = 0,
+    int limit = 50,
+  });
 }
 
 class ReversedModelConnector<I, C> extends ModelConnector<I, C> {
@@ -127,14 +133,18 @@ class ReversedModelConnector<I, C> extends ModelConnector<I, C> {
       connector.isConnected(itemId, connectId);
 
   @override
-  Future<List<I>> getItems(Uint8List connectId,
-          {int offset = 0, int limit = 50}) =>
-      connector.getConnected(connectId, offset: offset, limit: limit);
+  Future<List<I>> getItems(
+    Uint8List connectId, {
+    int offset = 0,
+    int limit = 50,
+  }) => connector.getConnected(connectId, offset: offset, limit: limit);
 
   @override
-  Future<List<C>> getConnected(Uint8List itemId,
-          {int offset = 0, int limit = 50}) =>
-      connector.getItems(itemId, offset: offset, limit: limit);
+  Future<List<C>> getConnected(
+    Uint8List itemId, {
+    int offset = 0,
+    int limit = 50,
+  }) => connector.getItems(itemId, offset: offset, limit: limit);
 
   @override
   FutureOr<void> clear() => connector.clear();

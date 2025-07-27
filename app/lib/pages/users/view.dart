@@ -17,17 +17,18 @@ class UsersView<T extends DescriptiveModel> extends StatefulWidget {
   final String source;
   final ModelConnector<User, T> connector;
 
-  const UsersView(
-      {super.key,
-      required this.source,
-      required this.connector,
-      required this.model});
-  UsersView.reversed(
-      {super.key,
-      required this.source,
-      required ModelConnector<T, User> connector,
-      required this.model})
-      : connector = ReversedModelConnector(connector);
+  const UsersView({
+    super.key,
+    required this.source,
+    required this.connector,
+    required this.model,
+  });
+  UsersView.reversed({
+    super.key,
+    required this.source,
+    required ModelConnector<T, User> connector,
+    required this.model,
+  }) : connector = ReversedModelConnector(connector);
 
   @override
   State<UsersView<T>> createState() => _UsersViewState();
@@ -42,81 +43,81 @@ class _UsersViewState<T extends DescriptiveModel> extends State<UsersView<T>> {
     _bloc = SourcedPagingBloc.source(
       cubit: cubit,
       source: widget.source,
-      fetch: (service, offset, limit) => widget.connector
-          .getItems(widget.model.id!, offset: offset, limit: limit),
+      fetch: (service, offset, limit) => widget.connector.getItems(
+        widget.model.id!,
+        offset: offset,
+        limit: limit,
+      ),
     );
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) => Stack(
+    children: [
+      Column(
         children: [
-          Column(
-            children: [
-              Flexible(
-                child: PagedListView.source(
-                  bloc: _bloc,
-                  itemBuilder: (context, item, index) {
-                    void onDelete() async {
-                      widget.connector.disconnect(widget.model.id!, item.id!);
-                      _bloc.removeSourced(item);
-                    }
+          Flexible(
+            child: PagedListView.source(
+              bloc: _bloc,
+              itemBuilder: (context, item, index) {
+                void onDelete() async {
+                  widget.connector.disconnect(widget.model.id!, item.id!);
+                  _bloc.removeSourced(item);
+                }
 
-                    return Dismissible(
-                      key: ValueKey(item.id),
-                      background: Container(color: Colors.red),
-                      onDismissed: (direction) => onDelete(),
-                      child: ListTile(
-                        title: Text(item.name),
-                        onTap: () async {
-                          await showDialog<SourcedModel<User>>(
-                            context: context,
-                            builder: (context) => UserDialog(
-                              source: widget.source,
-                              user: item,
-                            ),
-                          );
-                          _bloc.refresh();
-                        },
-                        trailing: IconButton(
-                          icon:
-                              const PhosphorIcon(PhosphorIconsLight.linkBreak),
-                          tooltip: AppLocalizations.of(context).unlink,
-                          onPressed: onDelete,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(height: 64),
-            ],
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: FloatingActionButton.extended(
-                label: Text(AppLocalizations.of(context).link),
-                icon: const PhosphorIcon(PhosphorIconsLight.link),
-                onPressed: () async {
-                  final user = await showDialog<SourcedModel<User>>(
-                    context: context,
-                    builder: (context) => UserSelectDialog(
-                      source: widget.source,
+                return Dismissible(
+                  key: ValueKey(item.id),
+                  background: Container(color: Colors.red),
+                  onDismissed: (direction) => onDelete(),
+                  child: ListTile(
+                    title: Text(item.name),
+                    onTap: () async {
+                      await showDialog<SourcedModel<User>>(
+                        context: context,
+                        builder: (context) =>
+                            UserDialog(source: widget.source, user: item),
+                      );
+                      _bloc.refresh();
+                    },
+                    trailing: IconButton(
+                      icon: const PhosphorIcon(PhosphorIconsLight.linkBreak),
+                      tooltip: AppLocalizations.of(context).unlink,
+                      onPressed: onDelete,
                     ),
-                  );
-                  if (user != null) {
-                    await widget.connector
-                        .connect(widget.model.id!, user.model.id!);
-                  }
-                  _bloc.refresh();
-                },
-              ),
+                  ),
+                );
+              },
             ),
           ),
+          const SizedBox(height: 64),
         ],
-      );
+      ),
+      Align(
+        alignment: Alignment.bottomCenter,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: FloatingActionButton.extended(
+            label: Text(AppLocalizations.of(context).link),
+            icon: const PhosphorIcon(PhosphorIconsLight.link),
+            onPressed: () async {
+              final user = await showDialog<SourcedModel<User>>(
+                context: context,
+                builder: (context) => UserSelectDialog(source: widget.source),
+              );
+              if (user != null) {
+                await widget.connector.connect(
+                  widget.model.id!,
+                  user.model.id!,
+                );
+              }
+              _bloc.refresh();
+            },
+          ),
+        ),
+      ),
+    ],
+  );
 
   @override
   void dispose() {

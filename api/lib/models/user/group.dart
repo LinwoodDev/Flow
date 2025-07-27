@@ -17,8 +17,11 @@ class UserGroupDatabaseConnector extends DatabaseModelConnector<Group, User> {
   String get tableName => "userGroups";
 
   @override
-  Future<List<User>> getConnected(Uint8List itemId,
-      {int offset = 0, int limit = 50}) async {
+  Future<List<User>> getConnected(
+    Uint8List itemId, {
+    int offset = 0,
+    int limit = 50,
+  }) async {
     final result = await db?.query(
       '$tableName JOIN users ON userId = users.id',
       limit: limit,
@@ -30,8 +33,11 @@ class UserGroupDatabaseConnector extends DatabaseModelConnector<Group, User> {
   }
 
   @override
-  Future<List<Group>> getItems(Uint8List connectId,
-      {int offset = 0, int limit = 50}) async {
+  Future<List<Group>> getItems(
+    Uint8List connectId, {
+    int offset = 0,
+    int limit = 50,
+  }) async {
     final result = await db?.query(
       '$tableName JOIN groups ON groupId = groups.id',
       limit: limit,

@@ -72,7 +72,8 @@ class _CalendarListViewState extends State<CalendarListView> {
           date: dateTime,
           status: EventStatus.values
               .where(
-                  (element) => !widget.filter.hiddenStatuses.contains(element))
+                (element) => !widget.filter.hiddenStatuses.contains(element),
+              )
               .toList(),
           search: widget.search,
           groupIds: widget.filter.groups,
@@ -138,9 +139,7 @@ class _CalendarListViewState extends State<CalendarListView> {
                           dateFormatter.format(date),
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
-                        Text(
-                          DateFormat.EEEE(locale).format(date),
-                        ),
+                        Text(DateFormat.EEEE(locale).format(date)),
                       ],
                     ),
                   );
@@ -159,7 +158,7 @@ class _CalendarListViewState extends State<CalendarListView> {
                           key: ValueKey([
                             event.main.id,
                             event.source,
-                            event.main.runtimeType
+                            event.main.runtimeType,
                           ]),
                           eventItem: event,
                           date: date,
@@ -172,28 +171,24 @@ class _CalendarListViewState extends State<CalendarListView> {
                   return Align(
                     alignment: Alignment.topCenter,
                     child: ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 1000),
-                        child: GestureDetector(
-                          onTap: () => showCalendarCreate(
-                            context: context,
-                            time: date,
-                            event: widget.filter.sourceEvent,
-                          ).then((value) => _bloc.refresh()),
-                          child: isMobile
-                              ? Column(
-                                  children: [
-                                    header,
-                                    list,
-                                  ],
-                                )
-                              : Row(
-                                  children: [
-                                    header,
-                                    const SizedBox(width: 16),
-                                    Expanded(child: list),
-                                  ],
-                                ),
-                        )),
+                      constraints: const BoxConstraints(maxWidth: 1000),
+                      child: GestureDetector(
+                        onTap: () => showCalendarCreate(
+                          context: context,
+                          time: date,
+                          event: widget.filter.sourceEvent,
+                        ).then((value) => _bloc.refresh()),
+                        child: isMobile
+                            ? Column(children: [header, list])
+                            : Row(
+                                children: [
+                                  header,
+                                  const SizedBox(width: 16),
+                                  Expanded(child: list),
+                                ],
+                              ),
+                      ),
+                    ),
                   );
                 },
               ),

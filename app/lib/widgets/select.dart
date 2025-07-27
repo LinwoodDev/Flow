@@ -10,12 +10,12 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/model.dart';
 import 'package:flow_api/services/source.dart';
 
-typedef ModelFetchCallback<T> = Future<T?> Function(
-    String source, SourceService service, Uint8List id);
-typedef ModelWidgetBuilder<T> = Widget? Function(
-    BuildContext context, SourcedModel<T?>? model);
-typedef ModelSelectBuilder<T> = Widget Function(
-    BuildContext context, SourcedModel<T?>? model);
+typedef ModelFetchCallback<T> =
+    Future<T?> Function(String source, SourceService service, Uint8List id);
+typedef ModelWidgetBuilder<T> =
+    Widget? Function(BuildContext context, SourcedModel<T?>? model);
+typedef ModelSelectBuilder<T> =
+    Widget Function(BuildContext context, SourcedModel<T?>? model);
 
 class SelectTile<T extends NamedModel> extends StatefulWidget {
   final String? source;
@@ -66,75 +66,72 @@ class _SelectTileState<T extends NamedModel> extends State<SelectTile<T>> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<T?>(
-        future: Future.value(_value == null
+      future: Future.value(
+        _value == null
             ? null
             : widget.onModelFetch(
                 _value!.source,
                 context.read<FlowCubit>().getService(_value!.source),
-                _value!.model)),
-        builder: (context, snapshot) {
-          final model = snapshot.data;
-          final sourcedModel = _value?.source == null
-              ? null
-              : SourcedModel(_value!.source, model);
-          return ListTile(
-            shape: widget.shape,
-            title: Text(widget.title),
-            subtitle: Text(model?.name ?? AppLocalizations.of(context).notSet),
-            leading: widget.leadingBuilder(context, sourcedModel),
-            onTap: () async {
-              if (model != null) {
-                final newModel = await showDialog<SourcedModel<T>>(
-                  context: context,
-                  builder: (context) => widget.dialogBuilder(
-                    context,
-                    sourcedModel,
-                  ),
-                );
-                if (newModel != null) {
-                  _onChanged(newModel.toIdentifierModel());
-                }
-              } else {
-                final newModel = await showDialog<SourcedModel<T>>(
-                  context: context,
-                  builder: (context) => widget.selectBuilder(
-                    context,
-                    sourcedModel,
-                  ),
-                );
-                if (newModel != null) {
-                  _onChanged(newModel.toIdentifierModel());
-                }
+                _value!.model,
+              ),
+      ),
+      builder: (context, snapshot) {
+        final model = snapshot.data;
+        final sourcedModel = _value?.source == null
+            ? null
+            : SourcedModel(_value!.source, model);
+        return ListTile(
+          shape: widget.shape,
+          title: Text(widget.title),
+          subtitle: Text(model?.name ?? AppLocalizations.of(context).notSet),
+          leading: widget.leadingBuilder(context, sourcedModel),
+          onTap: () async {
+            if (model != null) {
+              final newModel = await showDialog<SourcedModel<T>>(
+                context: context,
+                builder: (context) =>
+                    widget.dialogBuilder(context, sourcedModel),
+              );
+              if (newModel != null) {
+                _onChanged(newModel.toIdentifierModel());
               }
-            },
-            trailing: _value == null
-                ? IconButton(
-                    icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
-                    onPressed: () async {
-                      final selected = await showDialog<SourcedModel<T>>(
-                        context: context,
-                        builder: (context) => widget.dialogBuilder(
-                          context,
-                          widget.source == null
-                              ? null
-                              : SourcedModel(
-                                  widget.source!,
-                                  null,
-                                ),
-                        ),
-                      );
-                      if (selected == null) return;
-                      _onChanged(selected.toIdentifierModel());
-                    },
-                  )
-                : IconButton(
-                    icon: const PhosphorIcon(PhosphorIconsLight.x),
-                    onPressed: () {
-                      _onChanged(null);
-                    },
-                  ),
-          );
-        });
+            } else {
+              final newModel = await showDialog<SourcedModel<T>>(
+                context: context,
+                builder: (context) =>
+                    widget.selectBuilder(context, sourcedModel),
+              );
+              if (newModel != null) {
+                _onChanged(newModel.toIdentifierModel());
+              }
+            }
+          },
+          trailing: _value == null
+              ? IconButton(
+                  icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
+                  onPressed: () async {
+                    final selected = await showDialog<SourcedModel<T>>(
+                      context: context,
+                      builder: (context) => widget.dialogBuilder(
+                        context,
+                        widget.source == null
+                            ? null
+                            : SourcedModel(widget.source!, null),
+                      ),
+                    );
+                    if (selected == null) return;
+                    _onChanged(selected.toIdentifierModel());
+                  },
+                )
+              : IconButton(
+                  icon: const PhosphorIcon(PhosphorIconsLight.x),
+                  onPressed: () {
+                    _onChanged(null);
+                  },
+                ),
+        );
+      },
+    );
   }
 }
 
@@ -142,8 +139,14 @@ class SelectDialog<T extends NamedModel> extends StatefulWidget {
   final String title;
   final String? source;
   final SourcedModel<Uint8List>? selected;
-  final Future<List<T>?> Function(String source, SourceService service,
-      String search, int offset, int limit) onFetch;
+  final Future<List<T>?> Function(
+    String source,
+    SourceService service,
+    String search,
+    int offset,
+    int limit,
+  )
+  onFetch;
   final Future<SourcedModel<T>?> Function(String?)? onCreate;
 
   const SelectDialog({
@@ -212,7 +215,7 @@ class _SelectDialogState<T extends NamedModel> extends State<SelectDialog<T>> {
                   title: Text(item.model.name),
                   selected:
                       equalUint8List(widget.selected?.model, item.model.id) &&
-                          widget.selected?.source == item.source,
+                      widget.selected?.source == item.source,
                   onTap: () {
                     Navigator.of(context).pop(item);
                   },

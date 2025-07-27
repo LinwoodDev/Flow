@@ -17,17 +17,18 @@ enum SettingsView {
   bool get isEnabled => true;
 
   String getLocalizedName(BuildContext context) => switch (this) {
-        SettingsView.general => AppLocalizations.of(context).general,
-        SettingsView.data => AppLocalizations.of(context).data,
-        SettingsView.personalization =>
-          AppLocalizations.of(context).personalization,
-      };
+    SettingsView.general => AppLocalizations.of(context).general,
+    SettingsView.data => AppLocalizations.of(context).data,
+    SettingsView.personalization => AppLocalizations.of(
+      context,
+    ).personalization,
+  };
 
   IconGetter get icon => switch (this) {
-        SettingsView.general => PhosphorIcons.gear,
-        SettingsView.data => PhosphorIcons.database,
-        SettingsView.personalization => PhosphorIcons.monitor,
-      };
+    SettingsView.general => PhosphorIcons.gear,
+    SettingsView.data => PhosphorIcons.database,
+    SettingsView.personalization => PhosphorIcons.monitor,
+  };
   String get path => '/settings/$name';
 }
 
@@ -124,8 +125,8 @@ class _SettingsPageState extends State<SettingsPage> {
       SettingsView.general => const GeneralSettingsPage(inView: true),
       SettingsView.data => const DataSettingsPage(inView: true),
       SettingsView.personalization => const PersonalizationSettingsPage(
-          inView: true,
-        ),
+        inView: true,
+      ),
     };
     return Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,

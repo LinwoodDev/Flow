@@ -38,15 +38,13 @@ enum ThemeDensity {
   standard;
 
   VisualDensity toFlutter() => switch (this) {
-        ThemeDensity.maximize =>
-          const VisualDensity(horizontal: -4, vertical: -4),
-        ThemeDensity.desktop =>
-          const VisualDensity(horizontal: -3, vertical: -3),
-        ThemeDensity.compact => VisualDensity.compact,
-        ThemeDensity.comfortable => VisualDensity.comfortable,
-        ThemeDensity.standard => VisualDensity.standard,
-        ThemeDensity.system => VisualDensity.adaptivePlatformDensity,
-      };
+    ThemeDensity.maximize => const VisualDensity(horizontal: -4, vertical: -4),
+    ThemeDensity.desktop => const VisualDensity(horizontal: -3, vertical: -3),
+    ThemeDensity.compact => VisualDensity.compact,
+    ThemeDensity.comfortable => VisualDensity.comfortable,
+    ThemeDensity.standard => VisualDensity.standard,
+    ThemeDensity.system => VisualDensity.adaptivePlatformDensity,
+  };
 }
 
 final class ThemeModeMapper extends SimpleMapper<ThemeMode> {
@@ -101,28 +99,33 @@ class FlowSettings with FlowSettingsMappable, LeapSettings {
   });
 
   factory FlowSettings.fromPrefs(SharedPreferences prefs) => FlowSettings(
-        themeMode:
-            ThemeMode.values.byName(prefs.getString(themeModeKey) ?? 'system'),
-        design: prefs.getString(designKey) ?? '',
-        nativeTitleBar: prefs.getBool(nativeTitleBarKey) ?? false,
-        locale: prefs.getString(localeKey) ?? '',
-        syncMode:
-            SyncMode.values.byName(prefs.getString(syncModeKey) ?? 'noMobile'),
-        remotes: prefs
-                .getStringList(remotesKey)
-                ?.map((e) => RemoteStorageMapper.fromJson(e))
-                .toList() ??
-            [],
-        startOfWeek: prefs.getInt(startOfWeekKey) ?? 0,
-        density:
-            ThemeDensity.values.byName(prefs.getString(densityKey) ?? 'system'),
-        highContrast: prefs.getBool(highContrastKey) ?? false,
-        alarms: prefs
-                .getStringList(alarmsKey)
-                ?.map((e) => AlarmMapper.fromJson(e))
-                .toList() ??
-            [],
-      );
+    themeMode: ThemeMode.values.byName(
+      prefs.getString(themeModeKey) ?? 'system',
+    ),
+    design: prefs.getString(designKey) ?? '',
+    nativeTitleBar: prefs.getBool(nativeTitleBarKey) ?? false,
+    locale: prefs.getString(localeKey) ?? '',
+    syncMode: SyncMode.values.byName(
+      prefs.getString(syncModeKey) ?? 'noMobile',
+    ),
+    remotes:
+        prefs
+            .getStringList(remotesKey)
+            ?.map((e) => RemoteStorageMapper.fromJson(e))
+            .toList() ??
+        [],
+    startOfWeek: prefs.getInt(startOfWeekKey) ?? 0,
+    density: ThemeDensity.values.byName(
+      prefs.getString(densityKey) ?? 'system',
+    ),
+    highContrast: prefs.getBool(highContrastKey) ?? false,
+    alarms:
+        prefs
+            .getStringList(alarmsKey)
+            ?.map((e) => AlarmMapper.fromJson(e))
+            .toList() ??
+        [],
+  );
   Future<void> saveThemeMode(SharedPreferences prefs) =>
       prefs.setString(themeModeKey, themeMode.name);
   Future<void> saveDesign(SharedPreferences prefs) =>
@@ -134,7 +137,9 @@ class FlowSettings with FlowSettingsMappable, LeapSettings {
   Future<void> saveSyncMode(SharedPreferences prefs) =>
       prefs.setString(syncModeKey, syncMode.name);
   Future<void> saveRemotes(SharedPreferences prefs) => prefs.setStringList(
-      remotesKey, remotes.map((e) => json.encode(e.toJson())).toList());
+    remotesKey,
+    remotes.map((e) => json.encode(e.toJson())).toList(),
+  );
   Future<void> saveStartOfWeek(SharedPreferences prefs) =>
       prefs.setInt(startOfWeekKey, startOfWeek);
   Future<void> saveDensity(SharedPreferences prefs) =>
@@ -168,7 +173,8 @@ class SettingsCubit extends Cubit<FlowSettings>
   SettingsCubit(SharedPreferences prefs) : super(FlowSettings.fromPrefs(prefs));
 
   Future<void> _runSave(
-      Future<void> Function(SharedPreferences prefs) save) async {
+    Future<void> Function(SharedPreferences prefs) save,
+  ) async {
     final prefs = await SharedPreferences.getInstance();
     await save(prefs);
   }
@@ -214,7 +220,8 @@ class SettingsCubit extends Cubit<FlowSettings>
 
   Future<void> removeStorage(String name) {
     final newState = state.copyWith(
-        remotes: state.remotes.where((e) => e.toFilename() != name).toList());
+      remotes: state.remotes.where((e) => e.toFilename() != name).toList(),
+    );
     emit(newState);
     return _runSave(newState.saveRemotes);
   }
@@ -245,8 +252,9 @@ class SettingsCubit extends Cubit<FlowSettings>
   }
 
   Future<void> removeAlarm(int index) {
-    final newState =
-        state.copyWith(alarms: List<Alarm>.from(state.alarms)..removeAt(index));
+    final newState = state.copyWith(
+      alarms: List<Alarm>.from(state.alarms)..removeAt(index),
+    );
     emit(newState);
     cancelAlarm(index);
     return _runSave(newState.saveAlarms);
@@ -254,17 +262,19 @@ class SettingsCubit extends Cubit<FlowSettings>
 
   Future<void> changeAlarm(int index, Alarm alarm) async {
     final newState = state.copyWith(
-        alarms:
-            state.alarms.mapIndexed((i, e) => i == index ? alarm : e).toList());
+      alarms: state.alarms
+          .mapIndexed((i, e) => i == index ? alarm : e)
+          .toList(),
+    );
     emit(newState);
     await _scheduleAlarm(index, alarm);
     return _runSave(newState.saveAlarms);
   }
 
   Future<void> importSettings(String data) {
-    final settings = FlowSettingsMapper.fromJson(data).copyWith(
-      remotes: state.remotes,
-    );
+    final settings = FlowSettingsMapper.fromJson(
+      data,
+    ).copyWith(remotes: state.remotes);
     emit(settings);
     return _runSave(settings.save);
   }
@@ -284,7 +294,8 @@ Future<void> _scheduleAlarm(int i, Alarm alarm) async {
   try {
     if (!(await flutterLocalNotificationsPlugin
             .resolvePlatformSpecificImplementation<
-                AndroidFlutterLocalNotificationsPlugin>()
+              AndroidFlutterLocalNotificationsPlugin
+            >()
             ?.requestNotificationsPermission() ??
         true)) {
       debugPrint('Exact alarms permission not granted');
@@ -292,23 +303,28 @@ Future<void> _scheduleAlarm(int i, Alarm alarm) async {
     }
     if (!(await flutterLocalNotificationsPlugin
             .resolvePlatformSpecificImplementation<
-                AndroidFlutterLocalNotificationsPlugin>()
+              AndroidFlutterLocalNotificationsPlugin
+            >()
             ?.requestExactAlarmsPermission() ??
         true)) {
       debugPrint('Exact alarms permission not granted');
       return;
     }
     await flutterLocalNotificationsPlugin.zonedSchedule(
-        i << 1 + 1,
-        alarm.title,
-        alarm.description,
-        tz.TZDateTime.from(alarm.date, tz.local)
-            .add(const Duration(seconds: 5)),
-        const NotificationDetails(
-            android: AndroidNotificationDetails('dev.linwood.flow', 'alarm',
-                channelDescription: 'Alarm',
-                audioAttributesUsage: AudioAttributesUsage.alarm)),
-        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle);
+      i << 1 + 1,
+      alarm.title,
+      alarm.description,
+      tz.TZDateTime.from(alarm.date, tz.local).add(const Duration(seconds: 5)),
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'dev.linwood.flow',
+          'alarm',
+          channelDescription: 'Alarm',
+          audioAttributesUsage: AudioAttributesUsage.alarm,
+        ),
+      ),
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+    );
   } catch (e) {
     debugPrint('Error scheduling alarm: $e');
   }

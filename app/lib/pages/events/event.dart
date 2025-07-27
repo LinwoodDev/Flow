@@ -20,12 +20,7 @@ class EventDialog extends StatelessWidget {
   final Event? event;
   final bool create;
 
-  const EventDialog({
-    super.key,
-    this.source,
-    this.event,
-    this.create = false,
-  });
+  const EventDialog({super.key, this.source, this.event, this.create = false});
 
   @override
   Widget build(BuildContext context) {
@@ -40,17 +35,21 @@ class EventDialog extends StatelessWidget {
     final userConnector = service.eventUser;
     final groupConnector = service.eventGroup;
     final nameController = TextEditingController(text: currentEvent.name);
-    final locationController =
-        TextEditingController(text: currentEvent.location);
-    final tabs = !create &&
+    final locationController = TextEditingController(
+      text: currentEvent.location,
+    );
+    final tabs =
+        !create &&
         noteConnector != null &&
         resourceConnector != null &&
         userConnector != null &&
         groupConnector != null;
     return ResponsiveAlertDialog(
-      title: Text(create
-          ? AppLocalizations.of(context).createEvent
-          : AppLocalizations.of(context).editEvent),
+      title: Text(
+        create
+            ? AppLocalizations.of(context).createEvent
+            : AppLocalizations.of(context).editEvent,
+      ),
       constraints: const BoxConstraints(maxWidth: 600, maxHeight: 600),
       content: DefaultTabController(
         length: tabs ? 5 : 1,
@@ -59,34 +58,38 @@ class EventDialog extends StatelessWidget {
           children: [
             if (tabs)
               TabBar(
-                  isScrollable: true,
-                  tabs: [
-                    (
-                      PhosphorIconsLight.faders,
-                      AppLocalizations.of(context).general
-                    ),
-                    (
-                      PhosphorIconsLight.checkCircle,
-                      AppLocalizations.of(context).notes
-                    ),
-                    (
-                      PhosphorIconsLight.cube,
-                      AppLocalizations.of(context).resources
-                    ),
-                    (
-                      PhosphorIconsLight.user,
-                      AppLocalizations.of(context).users
-                    ),
-                    (
-                      PhosphorIconsLight.usersThree,
-                      AppLocalizations.of(context).group
-                    ),
-                  ]
-                      .map((e) => HorizontalTab(
+                isScrollable: true,
+                tabs:
+                    [
+                          (
+                            PhosphorIconsLight.faders,
+                            AppLocalizations.of(context).general,
+                          ),
+                          (
+                            PhosphorIconsLight.checkCircle,
+                            AppLocalizations.of(context).notes,
+                          ),
+                          (
+                            PhosphorIconsLight.cube,
+                            AppLocalizations.of(context).resources,
+                          ),
+                          (
+                            PhosphorIconsLight.user,
+                            AppLocalizations.of(context).users,
+                          ),
+                          (
+                            PhosphorIconsLight.usersThree,
+                            AppLocalizations.of(context).group,
+                          ),
+                        ]
+                        .map(
+                          (e) => HorizontalTab(
                             icon: PhosphorIcon(e.$1),
                             label: Text(e.$2),
-                          ))
-                      .toList()),
+                          ),
+                        )
+                        .toList(),
+              ),
             Flexible(
               child: TabBarView(
                 children: [
@@ -110,8 +113,9 @@ class EventDialog extends StatelessWidget {
                           controller: nameController,
                           decoration: InputDecoration(
                             labelText: AppLocalizations.of(context).name,
-                            icon:
-                                const PhosphorIcon(PhosphorIconsLight.fileText),
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.fileText,
+                            ),
                             filled: true,
                           ),
                           onChanged: (value) =>
@@ -122,26 +126,29 @@ class EventDialog extends StatelessWidget {
                           decoration: InputDecoration(
                             labelText: AppLocalizations.of(context).description,
                             border: const OutlineInputBorder(),
-                            icon:
-                                const PhosphorIcon(PhosphorIconsLight.fileText),
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.fileText,
+                            ),
                           ),
                           value: currentEvent.description,
-                          onChanged: (value) => currentEvent =
-                              currentEvent.copyWith(description: value),
+                          onChanged: (value) => currentEvent = currentEvent
+                              .copyWith(description: value),
                         ),
                         const SizedBox(height: 8),
                         StatefulBuilder(
-                            builder: (context, setState) => CheckboxListTile(
-                                  secondary: const Icon(
-                                      PhosphorIconsLight.circleHalfTilt),
-                                  title: Text(
-                                      AppLocalizations.of(context).blocked),
-                                  value: currentEvent.blocked,
-                                  onChanged: (value) => setState(
-                                    () => currentEvent = currentEvent.copyWith(
-                                        blocked: value ?? currentEvent.blocked),
-                                  ),
-                                )),
+                          builder: (context, setState) => CheckboxListTile(
+                            secondary: const Icon(
+                              PhosphorIconsLight.circleHalfTilt,
+                            ),
+                            title: Text(AppLocalizations.of(context).blocked),
+                            value: currentEvent.blocked,
+                            onChanged: (value) => setState(
+                              () => currentEvent = currentEvent.copyWith(
+                                blocked: value ?? currentEvent.blocked,
+                              ),
+                            ),
+                          ),
+                        ),
                         const SizedBox(height: 8),
                         TextField(
                           decoration: InputDecoration(
@@ -151,8 +158,8 @@ class EventDialog extends StatelessWidget {
                           minLines: 1,
                           maxLines: 2,
                           controller: locationController,
-                          onChanged: (value) => currentEvent =
-                              currentEvent.copyWith(location: value),
+                          onChanged: (value) => currentEvent = currentEvent
+                              .copyWith(location: value),
                         ),
                       ],
                     ),
@@ -204,8 +211,9 @@ class EventDialog extends StatelessWidget {
               await currentService?.updateEvent(currentEvent);
             }
             if (context.mounted) {
-              Navigator.of(context)
-                  .pop(SourcedModel(currentSource, currentEvent));
+              Navigator.of(
+                context,
+              ).pop(SourcedModel(currentSource, currentEvent));
             }
           },
           child: Text(AppLocalizations.of(context).save),

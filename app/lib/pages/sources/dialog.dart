@@ -22,133 +22,140 @@ class AddSourceDialog extends StatelessWidget {
         child: SizedBox(
           width: 500,
           child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  AppLocalizations.of(context).limited,
-                  style: Theme.of(context).textTheme.bodyLarge,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                AppLocalizations.of(context).limited,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              const SizedBox(height: 8),
+              ListTile(
+                title: const Text("CalDAV"),
+                subtitle: Text(AppLocalizations.of(context).caldavDescription),
+                leading: const PhosphorIcon(PhosphorIconsLight.globe),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  showDialog(
+                    context: context,
+                    builder: (context) => CalDavSourceDialog(),
+                  );
+                },
+              ),
+              ListTile(
+                title: const Text("iCal"),
+                subtitle: Text(AppLocalizations.of(context).icalDescription),
+                leading: const PhosphorIcon(PhosphorIconsLight.calendar),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  showDialog(
+                    context: context,
+                    builder: (context) => ICalSourceDialog(),
+                  );
+                },
+              ),
+              const Divider(),
+              Text(
+                AppLocalizations.of(context).comingSoon,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              const SizedBox(height: 8),
+              ListTile(
+                title: const Text("WebDAV"),
+                subtitle: Text(AppLocalizations.of(context).webdavDescription),
+                leading: const PhosphorIcon(PhosphorIconsLight.fileText),
+                enabled: false,
+                onTap: () {
+                  Navigator.of(context).pop();
+                  showDialog(
+                    context: context,
+                    builder: (context) => CalDavSourceDialog(),
+                  );
+                },
+              ),
+              ListTile(
+                title: const Text("Sia"),
+                enabled: false,
+                subtitle: Text(
+                  AppLocalizations.of(context).decentralizedDescription,
                 ),
-                const SizedBox(height: 8),
-                ListTile(
-                  title: const Text("CalDAV"),
-                  subtitle:
-                      Text(AppLocalizations.of(context).caldavDescription),
-                  leading: const PhosphorIcon(PhosphorIconsLight.globe),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    showDialog(
+                leading: const PhosphorIcon(PhosphorIconsLight.cloud),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  showDialog(
+                    context: context,
+                    builder: (context) => CalDavSourceDialog(),
+                  );
+                },
+              ),
+              ListTile(
+                title: Text(AppLocalizations.of(context).server),
+                subtitle: Text(AppLocalizations.of(context).serverDescription),
+                leading: const PhosphorIcon(PhosphorIconsLight.hardDrive),
+                onTap: () => Navigator.of(context).pop(),
+                enabled: false,
+              ),
+              const Divider(),
+              ListTile(
+                title: Text(AppLocalizations.of(context).importFile),
+                subtitle: Text(
+                  AppLocalizations.of(context).importFileDescription,
+                ),
+                leading: const PhosphorIcon(PhosphorIconsLight.file),
+                onTap: () async {
+                  final cubit = context.read<FlowCubit>();
+                  final result = await openFile(
+                    acceptedTypeGroups: [
+                      XTypeGroup(
+                        extensions: ['ics', 'ical', 'icalendar'],
+                        label: 'iCal',
+                        uniformTypeIdentifiers: ['public.ics'],
+                        mimeTypes: ['text/calendar'],
+                      ),
+                    ],
+                  );
+                  if (result == null) return;
+                  final data = await result.readAsString();
+                  final lines = data.split('\n');
+                  final converter = ICalConverter();
+                  converter.read(lines);
+                  final events = converter.data?.events ?? [];
+                  final items = converter.data?.items ?? [];
+                  if (context.mounted) {
+                    final success = await showDialog<bool>(
                       context: context,
-                      builder: (context) => CalDavSourceDialog(),
+                      builder: (context) =>
+                          ImportDialog(events: events, items: items),
                     );
-                  },
-                ),
-                ListTile(
-                  title: const Text("iCal"),
-                  subtitle: Text(AppLocalizations.of(context).icalDescription),
-                  leading: const PhosphorIcon(PhosphorIconsLight.calendar),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    showDialog(
-                      context: context,
-                      builder: (context) => ICalSourceDialog(),
+                    if (success != true) return;
+                    final service = cubit.getCurrentService().event;
+                    await Future.wait(
+                      events.map((event) async => service?.createEvent(event)),
                     );
-                  },
-                ),
-                const Divider(),
-                Text(
-                  AppLocalizations.of(context).comingSoon,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                const SizedBox(height: 8),
-                ListTile(
-                  title: const Text("WebDAV"),
-                  subtitle:
-                      Text(AppLocalizations.of(context).webdavDescription),
-                  leading: const PhosphorIcon(PhosphorIconsLight.fileText),
-                  enabled: false,
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    showDialog(
-                      context: context,
-                      builder: (context) => CalDavSourceDialog(),
-                    );
-                  },
-                ),
-                ListTile(
-                  title: const Text("Sia"),
-                  enabled: false,
-                  subtitle: Text(
-                      AppLocalizations.of(context).decentralizedDescription),
-                  leading: const PhosphorIcon(PhosphorIconsLight.cloud),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    showDialog(
-                      context: context,
-                      builder: (context) => CalDavSourceDialog(),
-                    );
-                  },
-                ),
-                ListTile(
-                  title: Text(AppLocalizations.of(context).server),
-                  subtitle:
-                      Text(AppLocalizations.of(context).serverDescription),
-                  leading: const PhosphorIcon(PhosphorIconsLight.hardDrive),
-                  onTap: () => Navigator.of(context).pop(),
-                  enabled: false,
-                ),
-                const Divider(),
-                ListTile(
-                    title: Text(AppLocalizations.of(context).importFile),
-                    subtitle: Text(
-                        AppLocalizations.of(context).importFileDescription),
-                    leading: const PhosphorIcon(PhosphorIconsLight.file),
-                    onTap: () async {
-                      final cubit = context.read<FlowCubit>();
-                      final result = await openFile(
-                        acceptedTypeGroups: [
-                          XTypeGroup(
-                            extensions: ['ics', 'ical', 'icalendar'],
-                            label: 'iCal',
-                            uniformTypeIdentifiers: ['public.ics'],
-                            mimeTypes: ['text/calendar'],
-                          )
-                        ],
-                      );
-                      if (result == null) return;
-                      final data = await result.readAsString();
-                      final lines = data.split('\n');
-                      final converter = ICalConverter();
-                      converter.read(lines);
-                      final events = converter.data?.events ?? [];
-                      final items = converter.data?.items ?? [];
-                      if (context.mounted) {
-                        final success = await showDialog<bool>(
-                          context: context,
-                          builder: (context) =>
-                              ImportDialog(events: events, items: items),
-                        );
-                        if (success != true) return;
-                        final service = cubit.getCurrentService().event;
-                        await Future.wait(events
-                            .map((event) async => service?.createEvent(event)));
-                        await Future.wait(items.map((item) async => cubit
+                    await Future.wait(
+                      items.map(
+                        (item) async => cubit
                             .getCurrentService()
                             .calendarItem
-                            ?.createCalendarItem(item)));
-                      }
-                      if (context.mounted) {
-                        Navigator.of(context).pop();
-                      }
-                    }),
-              ]),
+                            ?.createCalendarItem(item),
+                      ),
+                    );
+                  }
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
       scrollable: true,
       actions: [
         TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context).cancel))
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(AppLocalizations.of(context).cancel),
+        ),
       ],
     );
   }

@@ -30,35 +30,20 @@ final class Event
     this.extra,
   });
 
-  factory Event.fromDatabase(Map<String, dynamic> row) => EventMapper.fromMap({
-        ...row,
-        'blocked': row['blocked'] == 1,
-      });
+  factory Event.fromDatabase(Map<String, dynamic> row) =>
+      EventMapper.fromMap({...row, 'blocked': row['blocked'] == 1});
 
-  Map<String, dynamic> toDatabase() => {
-        ...toMap(),
-        'blocked': blocked ? 1 : 0,
-      };
+  Map<String, dynamic> toDatabase() => {...toMap(), 'blocked': blocked ? 1 : 0};
 
   ExtraProperties? get extraProperties =>
       extra != null ? ExtraPropertiesMapper.fromJson(extra!) : null;
 
-  Event? addExtra(ExtraProperties extraProperties) => copyWith(
-        extra: jsonEncode(extraProperties.toJson()),
-      );
+  Event? addExtra(ExtraProperties extraProperties) =>
+      copyWith(extra: jsonEncode(extraProperties.toJson()));
 }
 
 @MappableEnum()
-enum EventStatus {
-  confirmed,
-  draft,
-  cancelled,
-}
+enum EventStatus { confirmed, draft, cancelled }
 
 @MappableEnum()
-enum RepeatType {
-  daily,
-  weekly,
-  monthly,
-  yearly,
-}
+enum RepeatType { daily, weekly, monthly, yearly }

@@ -96,11 +96,11 @@ class _ClockPainter extends CustomPainter {
       final angle = (i - 2) * 2 * pi / 12;
       final line = Offset.fromDirection(angle, radius);
       canvas.drawLine(
-          center + line * 0.8, center + line * 0.95, indicatorPaint);
-      final textSpan = TextSpan(
-        text: '${i + 1}',
-        style: textStyle,
+        center + line * 0.8,
+        center + line * 0.95,
+        indicatorPaint,
       );
+      final textSpan = TextSpan(text: '${i + 1}', style: textStyle);
       textPainter.text = textSpan;
       textPainter.layout();
       final textOffset =
@@ -138,7 +138,10 @@ class _ClockPainter extends CustomPainter {
 
     canvas.drawCircle(center, 5, indicatorPaint);
     textStyle = textStyle.copyWith(
-        fontSize: 20, fontWeight: FontWeight.bold, color: labelColor);
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+      color: labelColor,
+    );
     textPainter.text = TextSpan(
       text: intl.DateFormat.Hms().format(dateTime),
       style: textStyle,

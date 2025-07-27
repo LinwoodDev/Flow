@@ -24,10 +24,10 @@ class Meta {
     required this.mainVersion,
   });
   Meta.fromJson(Map<String, dynamic> json)
-      : stableVersion = json['version']?['stable'] ?? '?',
-        nightlyVersion = json['version']?['nightly'] ?? '?',
-        developVersion = json['version']?['develop'] ?? '?',
-        mainVersion = json['version']?['main'] ?? '?';
+    : stableVersion = json['version']?['stable'] ?? '?',
+      nightlyVersion = json['version']?['nightly'] ?? '?',
+      developVersion = json['version']?['develop'] ?? '?',
+      mainVersion = json['version']?['main'] ?? '?';
 }
 
 class GeneralSettingsPage extends StatefulWidget {
@@ -44,8 +44,8 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
   final Future<String> _currentVersion = getCurrentVersion();
 
   void loadMeta() => setState(() {
-        _metaFuture = _fetchMeta();
-      });
+    _metaFuture = _fetchMeta();
+  });
 
   Future<Meta> _fetchMeta() async {
     final response = await http.get(
@@ -126,9 +126,11 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                             final isNightly = currentVersion == nightlyVersion;
                             final isDevelop = currentVersion == developVersion;
                             final isMain = currentVersion == mainVersion;
-                            final isError = meta.nightlyVersion == '?' ||
+                            final isError =
+                                meta.nightlyVersion == '?' ||
                                 meta.stableVersion == '?';
-                            final isUpdateAvailable = !isError &&
+                            final isUpdateAvailable =
+                                !isError &&
                                 !isStable &&
                                 !isNightly &&
                                 !isDevelop &&
@@ -140,20 +142,16 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                                     AppLocalizations.of(context).stable,
                                   ),
                                   subtitle: Text(stableVersion),
-                                  onTap: () => saveToClipboard(
-                                    context,
-                                    stableVersion,
-                                  ),
+                                  onTap: () =>
+                                      saveToClipboard(context, stableVersion),
                                 ),
                                 ListTile(
                                   title: Text(
                                     AppLocalizations.of(context).nightly,
                                   ),
                                   subtitle: Text(nightlyVersion),
-                                  onTap: () => saveToClipboard(
-                                    context,
-                                    nightlyVersion,
-                                  ),
+                                  onTap: () =>
+                                      saveToClipboard(context, nightlyVersion),
                                 ),
                                 const Divider(),
                                 if (isStable) ...[
@@ -227,8 +225,12 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                   ListTile(
                     title: Text(AppLocalizations.of(context).releaseNotes),
                     leading: const PhosphorIcon(PhosphorIconsLight.flag),
-                    onTap: () => launchUrl(Uri.https(
-                        "go.linwood.dev", "flow/$applicationMinorVersion")),
+                    onTap: () => launchUrl(
+                      Uri.https(
+                        "go.linwood.dev",
+                        "flow/$applicationMinorVersion",
+                      ),
+                    ),
                   ),
                   ListTile(
                     title: const Text("Matrix"),
@@ -246,7 +248,8 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                     title: Text(AppLocalizations.of(context).translate),
                     leading: const PhosphorIcon(PhosphorIconsLight.translate),
                     onTap: () => launchUrl(
-                        Uri.https("go.linwood.dev", "flow/translate")),
+                      Uri.https("go.linwood.dev", "flow/translate"),
+                    ),
                   ),
                   ListTile(
                     title: Text(AppLocalizations.of(context).source),
@@ -257,16 +260,19 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                   ListTile(
                     title: Text(AppLocalizations.of(context).changelog),
                     leading: const PhosphorIcon(
-                        PhosphorIconsLight.clockCounterClockwise),
+                      PhosphorIconsLight.clockCounterClockwise,
+                    ),
                     onTap: () => launchUrl(
-                        Uri.https("docs.flow.linwood.dev", "changelog")),
+                      Uri.https("docs.flow.linwood.dev", "changelog"),
+                    ),
                   ),
                   ListTile(
                     title: Text(AppLocalizations.of(context).intro),
                     leading: const PhosphorIcon(PhosphorIconsLight.info),
                     onTap: () => showDialog(
-                        context: context,
-                        builder: (context) => const IntroDialog()),
+                      context: context,
+                      builder: (context) => const IntroDialog(),
+                    ),
                   ),
                 ],
               ),
@@ -295,11 +301,13 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                     title: Text(AppLocalizations.of(context).privacyPolicy),
                     leading: const PhosphorIcon(PhosphorIconsLight.shield),
                     onTap: () => launchUrl(
-                        Uri.https("docs.flow.linwood.dev", "privacypolicy")),
+                      Uri.https("docs.flow.linwood.dev", "privacypolicy"),
+                    ),
                   ),
                   ListTile(
-                    title:
-                        Text(AppLocalizations.of(context).thirdPartyLicenses),
+                    title: Text(
+                      AppLocalizations.of(context).thirdPartyLicenses,
+                    ),
                     leading: const PhosphorIcon(PhosphorIconsLight.file),
                     onTap: () => showLicensePage(context: context),
                   ),

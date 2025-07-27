@@ -46,21 +46,18 @@ class EventDatabaseService extends EventService with TableService {
 
   @override
   Future<Event?> getEvent(Uint8List id) async {
-    final result = await db?.query(
-      'events',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    final result = await db?.query('events', where: 'id = ?', whereArgs: [id]);
     return result?.map(Event.fromDatabase).firstOrNull;
   }
 
   @override
-  Future<List<Event>> getEvents(
-      {Uint8List? groupId,
-      List<Uint8List>? resourceIds,
-      int offset = 0,
-      int limit = 50,
-      String search = ''}) async {
+  Future<List<Event>> getEvents({
+    Uint8List? groupId,
+    List<Uint8List>? resourceIds,
+    int offset = 0,
+    int limit = 50,
+    String search = '',
+  }) async {
     String? where;
     List<Object>? whereArgs;
     if (search.isNotEmpty) {

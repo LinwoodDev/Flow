@@ -13,12 +13,23 @@ part 'sourced_paging_state.dart';
 
 part 'sourced_paging.mapper.dart';
 
-typedef DateFetcher<T> = Future<List<T>?> Function(
-    String source, SourceService service, int offset, int limit, int date);
-typedef ItemFetcher<T> = Future<List<T>?> Function(
-    String source, SourceService service, int offset, int limit);
-typedef SourceFetcher<T> = Future<List<T>?> Function(
-    SourceService service, int offset, int limit);
+typedef DateFetcher<T> =
+    Future<List<T>?> Function(
+      String source,
+      SourceService service,
+      int offset,
+      int limit,
+      int date,
+    );
+typedef ItemFetcher<T> =
+    Future<List<T>?> Function(
+      String source,
+      SourceService service,
+      int offset,
+      int limit,
+    );
+typedef SourceFetcher<T> =
+    Future<List<T>?> Function(SourceService service, int offset, int limit);
 
 class SourcedPagingBloc<T>
     extends Bloc<SourcedPagingEvent, SourcedPagingState<T>> {
@@ -28,25 +39,25 @@ class SourcedPagingBloc<T>
   final List<String>? sources;
   final DateFetcher<T> _fetch;
 
-  SourcedPagingBloc.dated(
-      {required this.cubit,
-      this.sources,
-      required DateFetcher<T> fetch,
-      this.pageSize = 50})
-      : _fetch = fetch,
-        useDates = true,
-        super(const SourcedPagingInitial()) {
+  SourcedPagingBloc.dated({
+    required this.cubit,
+    this.sources,
+    required DateFetcher<T> fetch,
+    this.pageSize = 50,
+  }) : _fetch = fetch,
+       useDates = true,
+       super(const SourcedPagingInitial()) {
     _init();
   }
 
-  SourcedPagingBloc.item(
-      {required this.cubit,
-      this.sources,
-      required ItemFetcher<T> fetch,
-      this.pageSize = 50})
-      : useDates = false,
-        _fetch = _buildDatedFetch(fetch),
-        super(const SourcedPagingInitial()) {
+  SourcedPagingBloc.item({
+    required this.cubit,
+    this.sources,
+    required ItemFetcher<T> fetch,
+    this.pageSize = 50,
+  }) : useDates = false,
+       _fetch = _buildDatedFetch(fetch),
+       super(const SourcedPagingInitial()) {
     _init();
   }
 
@@ -55,10 +66,10 @@ class SourcedPagingBloc<T>
     required String source,
     required SourceFetcher<T> fetch,
     this.pageSize = 50,
-  })  : sources = [source],
-        useDates = false,
-        _fetch = _buildDatedFetchSource(fetch),
-        super(const SourcedPagingInitial()) {
+  }) : sources = [source],
+       useDates = false,
+       _fetch = _buildDatedFetchSource(fetch),
+       super(const SourcedPagingInitial()) {
     _init();
   }
 
@@ -71,17 +82,23 @@ class SourcedPagingBloc<T>
     on<SourcedPagingRemoved>((event, emit) {
       final state = this.state;
       if (state is SourcedPagingSuccess<T>) {
-        final items = state.dates.map((e) => e
-            .whereNot((i) =>
-                i.model == event.item &&
-                (event.source == null || (i.source == event.source)))
-            .toList());
-        emit(SourcedPagingSuccess(
-          currentPageKey: state.currentPageKey,
-          dates: items.toList(),
-          hasReachedMax: state.hasReachedMax,
-          currentDate: state.currentDate,
-        ));
+        final items = state.dates.map(
+          (e) => e
+              .whereNot(
+                (i) =>
+                    i.model == event.item &&
+                    (event.source == null || (i.source == event.source)),
+              )
+              .toList(),
+        );
+        emit(
+          SourcedPagingSuccess(
+            currentPageKey: state.currentPageKey,
+            dates: items.toList(),
+            hasReachedMax: state.hasReachedMax,
+            currentDate: state.currentDate,
+          ),
+        );
       }
     });
     fetch();
@@ -99,18 +116,21 @@ class SourcedPagingBloc<T>
         ? state.dates
         : <List<SourcedModel<T>>>[];
     try {
-      final currentPageKey = state.currentPageKey ??
+      final currentPageKey =
+          state.currentPageKey ??
           SourcedModel(cubit.getCurrentSources().first, 0);
 
-      final fetchedItems = (await _fetch(
-                  currentPageKey.source,
-                  cubit.getService(currentPageKey.source),
-                  currentPageKey.model * pageSize,
-                  pageSize,
-                  state.currentDate) ??
-              <T>[])
-          .map((e) => SourcedModel(currentPageKey.source, e))
-          .toList();
+      final fetchedItems =
+          (await _fetch(
+                    currentPageKey.source,
+                    cubit.getService(currentPageKey.source),
+                    currentPageKey.model * pageSize,
+                    pageSize,
+                    state.currentDate,
+                  ) ??
+                  <T>[])
+              .map((e) => SourcedModel(currentPageKey.source, e))
+              .toList();
 
       final sources = this.sources ?? cubit.getCurrentSources();
       final currentSourceIndex = sources.indexOf(currentPageKey.source);
@@ -118,42 +138,43 @@ class SourcedPagingBloc<T>
       final isLastSource = currentSourceIndex >= sources.length - 1;
       final items = List<List<SourcedModel<T>>>.from(previousItems);
       if (items.length <= date) {
-        items.addAll(List.generate(
-          date - items.length + 1,
-          (_) => <SourcedModel<T>>[],
-        ));
+        items.addAll(
+          List.generate(date - items.length + 1, (_) => <SourcedModel<T>>[]),
+        );
       }
       items[date] = [...?previousItems.elementAtOrNull(date), ...fetchedItems];
 
       if (isLastSource && !keepSource) {
-        emit(SourcedPagingSuccess(
-          currentPageKey: currentPageKey,
-          dates: items,
-          hasReachedMax: true,
-          currentDate: useDates ? (state.currentDate + 1) : state.currentDate,
-        ));
-      } else if (keepSource) {
-        emit(SourcedPagingSuccess(
-          dates: items,
-          currentPageKey: SourcedModel(
-            currentPageKey.source,
-            currentPageKey.model + 1,
+        emit(
+          SourcedPagingSuccess(
+            currentPageKey: currentPageKey,
+            dates: items,
+            hasReachedMax: true,
+            currentDate: useDates ? (state.currentDate + 1) : state.currentDate,
           ),
-        ));
+        );
+      } else if (keepSource) {
+        emit(
+          SourcedPagingSuccess(
+            dates: items,
+            currentPageKey: SourcedModel(
+              currentPageKey.source,
+              currentPageKey.model + 1,
+            ),
+          ),
+        );
       } else {
         final nextSource = sources[currentSourceIndex + 1];
-        emit(SourcedPagingSuccess(
-          dates: items,
-          currentPageKey: SourcedModel(nextSource, 0),
-          currentDate: date,
-        ));
+        emit(
+          SourcedPagingSuccess(
+            dates: items,
+            currentPageKey: SourcedModel(nextSource, 0),
+            currentDate: date,
+          ),
+        );
       }
     } catch (e) {
-      emit(SourcedPagingFailure(
-        e,
-        currentDate: date,
-        dates: previousItems,
-      ));
+      emit(SourcedPagingFailure(e, currentDate: date, dates: previousItems));
     }
   }
 
@@ -168,16 +189,38 @@ class SourcedPagingBloc<T>
 }
 
 Future<List<T>?> Function(
-        String source, SourceService service, int offset, int limit, int date)
-    _buildDatedFetch<T>(ItemFetcher<T> fetch) => (String source,
-            SourceService service, int offset, int limit, int date) async {
-          final items = await fetch(source, service, offset, limit);
-          return items;
-        };
+  String source,
+  SourceService service,
+  int offset,
+  int limit,
+  int date,
+)
+_buildDatedFetch<T>(ItemFetcher<T> fetch) =>
+    (
+      String source,
+      SourceService service,
+      int offset,
+      int limit,
+      int date,
+    ) async {
+      final items = await fetch(source, service, offset, limit);
+      return items;
+    };
 Future<List<T>?> Function(
-        String source, SourceService service, int offset, int limit, int date)
-    _buildDatedFetchSource<T>(SourceFetcher<T> fetch) => (String source,
-            SourceService service, int offset, int limit, int date) async {
-          final items = await fetch(service, offset, limit);
-          return items;
-        };
+  String source,
+  SourceService service,
+  int offset,
+  int limit,
+  int date,
+)
+_buildDatedFetchSource<T>(SourceFetcher<T> fetch) =>
+    (
+      String source,
+      SourceService service,
+      int offset,
+      int limit,
+      int date,
+    ) async {
+      final items = await fetch(service, offset, limit);
+      return items;
+    };

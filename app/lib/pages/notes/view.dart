@@ -17,11 +17,12 @@ class NotesView<T extends DescriptiveModel> extends StatefulWidget {
   final String source;
   final NoteConnector<T> connector;
 
-  const NotesView(
-      {super.key,
-      required this.source,
-      required this.connector,
-      required this.model});
+  const NotesView({
+    super.key,
+    required this.source,
+    required this.connector,
+    required this.model,
+  });
 
   @override
   State<NotesView<T>> createState() => _NotesViewState();
@@ -40,8 +41,11 @@ class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
     _bloc = SourcedPagingBloc.source(
       cubit: cubit,
       source: widget.source,
-      fetch: (service, offset, limit) => widget.connector
-          .getItems(widget.model.id!, offset: offset, limit: limit),
+      fetch: (service, offset, limit) => widget.connector.getItems(
+        widget.model.id!,
+        offset: offset,
+        limit: limit,
+      ),
     );
     super.initState();
   }
@@ -60,10 +64,7 @@ class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
                   bloc: _bloc,
                   itemBuilder: (context, item, index) {
                     Future<void> onDelete() async {
-                      widget.connector.disconnect(
-                        widget.model.id!,
-                        item.id!,
-                      );
+                      widget.connector.disconnect(widget.model.id!, item.id!);
                       _bloc.removeSourced(item);
                     }
 
@@ -91,7 +92,8 @@ class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
                                     }
                                     final next = NoteStatus.fromDone(newState);
                                     _noteService?.updateNote(
-                                        item.copyWith(status: next));
+                                      item.copyWith(status: next),
+                                    );
                                     setState(() => status = next);
                                   },
                                 ),
@@ -99,16 +101,15 @@ class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
                         onTap: () async {
                           await showDialog<SourcedModel<Note>>(
                             context: context,
-                            builder: (context) => NoteDialog(
-                              source: widget.source,
-                              note: item,
-                            ),
+                            builder: (context) =>
+                                NoteDialog(source: widget.source, note: item),
                           );
                           _bloc.refresh();
                         },
                         trailing: IconButton(
-                          icon:
-                              const PhosphorIcon(PhosphorIconsLight.linkBreak),
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.linkBreak,
+                          ),
                           tooltip: AppLocalizations.of(context).unlink,
                           onPressed: onDelete,
                         ),
@@ -130,13 +131,14 @@ class _NotesViewState<T extends DescriptiveModel> extends State<NotesView<T>> {
                 onPressed: () async {
                   final note = await showDialog<SourcedModel<Note>>(
                     context: context,
-                    builder: (context) => NoteSelectDialog(
-                      source: widget.source,
-                    ),
+                    builder: (context) =>
+                        NoteSelectDialog(source: widget.source),
                   );
                   if (note != null) {
-                    await widget.connector
-                        .connect(widget.model.id!, note.model.id!);
+                    await widget.connector.connect(
+                      widget.model.id!,
+                      note.model.id!,
+                    );
                   }
                   _bloc.refresh();
                 },

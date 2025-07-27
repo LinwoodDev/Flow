@@ -20,9 +20,11 @@ class _DashboardNotesViewState extends State<DashboardNotesView> {
     final sources = context.read<FlowCubit>().getCurrentServicesMap();
     final notes = <(Note, String)>[];
     for (final source in sources.entries) {
-      notes.addAll((await source.value.note?.getNotes(limit: 5) ?? [])
-          .map((e) => (e, source.key))
-          .toList());
+      notes.addAll(
+        (await source.value.note?.getNotes(limit: 5) ?? [])
+            .map((e) => (e, source.key))
+            .toList(),
+      );
     }
     return notes;
   }
@@ -48,39 +50,37 @@ class _DashboardNotesViewState extends State<DashboardNotesView> {
             IconButton(
               icon: const PhosphorIcon(PhosphorIconsLight.arrowSquareOut),
               onPressed: () => GoRouter.of(context).go('/notes'),
-            )
+            ),
           ],
         ),
         const SizedBox(height: 20),
         Expanded(
           child: FutureBuilder<List<(Note, String)>>(
-              future: _getNotes(context),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState != ConnectionState.done) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                if (snapshot.hasError) {
-                  return Text(snapshot.error.toString());
-                }
-                final notes = snapshot.data ?? <(Note, String)>[];
-                if (notes.isEmpty) {
-                  return Center(
-                    child: Text(
-                      AppLocalizations.of(context).indicatorEmpty,
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  );
-                }
-                return ListView(
-                  children: notes
-                      .map((e) => NoteListTile(
-                            note: e.$1,
-                            source: e.$2,
-                          ))
-                      .toList(),
+            future: _getNotes(context),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState != ConnectionState.done) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (snapshot.hasError) {
+                return Text(snapshot.error.toString());
+              }
+              final notes = snapshot.data ?? <(Note, String)>[];
+              if (notes.isEmpty) {
+                return Center(
+                  child: Text(
+                    AppLocalizations.of(context).indicatorEmpty,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
                 );
-              }),
-        )
+              }
+              return ListView(
+                children: notes
+                    .map((e) => NoteListTile(note: e.$1, source: e.$2))
+                    .toList(),
+              );
+            },
+          ),
+        ),
       ],
     );
   }

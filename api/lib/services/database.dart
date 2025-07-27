@@ -30,12 +30,13 @@ import '../models/user/database.dart';
 import '../models/group/database.dart';
 import '../models/note/database.dart';
 
-typedef DatabaseFactory = Future<Database> Function({
-  String name,
-  int? version,
-  FutureOr<void> Function(Database, int, int)? onUpgrade,
-  FutureOr<void> Function(Database, int)? onCreate,
-});
+typedef DatabaseFactory =
+    Future<Database> Function({
+      String name,
+      int? version,
+      FutureOr<void> Function(Database, int, int)? onUpgrade,
+      FutureOr<void> Function(Database, int)? onCreate,
+    });
 
 const databaseVersion = 4;
 
@@ -108,10 +109,11 @@ class DatabaseService extends SourceService {
 
   Future<void> setup(String name) async {
     db = await databaseFactory(
-        name: name,
-        version: databaseVersion,
-        onUpgrade: _onUpgrade,
-        onCreate: _onCreate);
+      name: name,
+      version: databaseVersion,
+      onUpgrade: _onUpgrade,
+      onCreate: _onCreate,
+    );
     db.execute("PRAGMA foreign_keys = ON");
     for (final table in tables) {
       table.opened(db);
@@ -135,11 +137,9 @@ class DatabaseService extends SourceService {
   }
 
   Future<String> getSqliteVersion() async {
-    return (await db.rawQuery('SELECT sqlite_version()'))
-        .first
-        .values
-        .first
-        .toString();
+    return (await db.rawQuery(
+      'SELECT sqlite_version()',
+    )).first.values.first.toString();
   }
 }
 
@@ -166,8 +166,9 @@ Uint8List encodeEndian(int value, int length) {
 Uint8List createUniqueUint8List() {
   final random = Random.secure();
   final uuid = Uint8List.fromList(
-      encodeEndian(DateTime.now().millisecondsSinceEpoch, 8) +
-          List.generate(8, (i) => random.nextInt(256)));
+    encodeEndian(DateTime.now().millisecondsSinceEpoch, 8) +
+        List.generate(8, (i) => random.nextInt(256)),
+  );
   return uuid;
 }
 
@@ -209,8 +210,11 @@ abstract class DatabaseModelConnector<I, C> extends ModelConnector<I, C>
   }
 
   @override
-  Future<void> connect(Uint8List connectId, Uint8List itemId,
-      [ModelPermission? permission]) async {
+  Future<void> connect(
+    Uint8List connectId,
+    Uint8List itemId, [
+    ModelPermission? permission,
+  ]) async {
     if (await isConnected(connectId, itemId)) return;
     permission ??= ModelPermission.read;
     await db?.insert(tableName, {
@@ -241,7 +245,9 @@ abstract class DatabaseModelConnector<I, C> extends ModelConnector<I, C>
   }
 
   Future<ModelPermission?> getPermission(
-      Uint8List connectId, Uint8List itemId) async {
+    Uint8List connectId,
+    Uint8List itemId,
+  ) async {
     if (!usesPermission) return null;
     final result = await db?.query(
       tableName,

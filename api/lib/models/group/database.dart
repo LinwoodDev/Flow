@@ -32,17 +32,15 @@ class GroupDatabaseService extends GroupService with TableService {
 
   @override
   Future<bool> deleteGroup(Uint8List id) async {
-    return await db?.delete(
-          'groups',
-          where: 'id = ?',
-          whereArgs: [id],
-        ) ==
-        1;
+    return await db?.delete('groups', where: 'id = ?', whereArgs: [id]) == 1;
   }
 
   @override
-  Future<List<Group>> getGroups(
-      {int offset = 0, int limit = 50, String search = ''}) async {
+  Future<List<Group>> getGroups({
+    int offset = 0,
+    int limit = 50,
+    String search = '',
+  }) async {
     final where = search.isEmpty ? null : 'name LIKE ?';
     final whereArgs = search.isEmpty ? null : ['%$search%'];
     final result = await db?.query(
@@ -58,11 +56,7 @@ class GroupDatabaseService extends GroupService with TableService {
 
   @override
   Future<Group?> getGroup(Uint8List id) async {
-    final result = await db?.query(
-      'groups',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    final result = await db?.query('groups', where: 'id = ?', whereArgs: [id]);
     return result?.map(Group.fromDatabase).firstOrNull;
   }
 

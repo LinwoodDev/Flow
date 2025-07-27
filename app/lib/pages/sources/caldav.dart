@@ -40,26 +40,33 @@ class CalDavSourceDialog extends StatelessWidget {
               controller: _usernameController,
             ),
             const SizedBox(height: 8),
-            StatefulBuilder(builder: (context, setState) {
-              return TextFormField(
-                decoration: InputDecoration(
+            StatefulBuilder(
+              builder: (context, setState) {
+                return TextFormField(
+                  decoration: InputDecoration(
                     labelText: AppLocalizations.of(context).password,
                     icon: const PhosphorIcon(PhosphorIconsLight.lock),
                     filled: true,
                     suffix: IconButton(
-                        icon: PhosphorIcon(showPassword
+                      icon: PhosphorIcon(
+                        showPassword
                             ? PhosphorIconsLight.lockOpen
-                            : PhosphorIconsLight.lock),
-                        onPressed: () =>
-                            setState(() => showPassword = !showPassword))),
-                obscureText: !showPassword,
-                controller: _passwordController,
-                keyboardType:
-                    showPassword ? TextInputType.visiblePassword : null,
-                enableSuggestions: false,
-                autocorrect: false,
-              );
-            }),
+                            : PhosphorIconsLight.lock,
+                      ),
+                      onPressed: () =>
+                          setState(() => showPassword = !showPassword),
+                    ),
+                  ),
+                  obscureText: !showPassword,
+                  controller: _passwordController,
+                  keyboardType: showPassword
+                      ? TextInputType.visiblePassword
+                      : null,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -72,10 +79,12 @@ class CalDavSourceDialog extends StatelessWidget {
         ElevatedButton(
           onPressed: () {
             context.read<SourcesService>().addRemote(
-                CalDavStorage(
-                    url: _urlController.text,
-                    username: _usernameController.text),
-                _passwordController.text);
+              CalDavStorage(
+                url: _urlController.text,
+                username: _usernameController.text,
+              ),
+              _passwordController.text,
+            );
             Navigator.of(context).pop();
           },
           child: Text(AppLocalizations.of(context).connect),

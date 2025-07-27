@@ -71,8 +71,9 @@ Future<void> main(List<String> args) async {
       child: RepositoryProvider.value(
         value: sourcesService,
         child: BlocProvider(
-            create: (context) => FlowCubit(context.read<SourcesService>()),
-            child: FlowApp()),
+          create: (context) => FlowCubit(context.read<SourcesService>()),
+          child: FlowApp(),
+        ),
       ),
     ),
   );
@@ -99,84 +100,87 @@ final GoRouter _router = GoRouter(
       ],
     ),
     ShellRoute(
-        builder: (context, state, child) => FlowRootNavigation(child: child),
-        routes: [
-          GoRoute(
-              path: '/',
-              builder: (context, state) => const DashboardPage(),
+      builder: (context, state, child) => FlowRootNavigation(child: child),
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (context, state) => const DashboardPage(),
+          routes: [
+            GoRoute(
+              path: 'calendar',
+              builder: (context, state) => CalendarPage(
+                filter: state.extra is CalendarFilter
+                    ? state.extra as CalendarFilter
+                    : const CalendarFilter(),
+              ),
+            ),
+            GoRoute(
+              path: 'alarm',
+              builder: (context, state) => const AlarmPage(),
               routes: [
                 GoRoute(
-                  path: 'calendar',
-                  builder: (context, state) => CalendarPage(
-                    filter: state.extra is CalendarFilter
-                        ? state.extra as CalendarFilter
-                        : const CalendarFilter(),
+                  path: ':index',
+                  name: 'alarm-countdown',
+                  builder: (context, state) => AlarmCountdownPage(
+                    index: int.parse(state.pathParameters['index']!),
                   ),
                 ),
+              ],
+            ),
+            GoRoute(
+              path: 'events',
+              builder: (context, state) => const EventsPage(),
+            ),
+            GoRoute(
+              path: 'groups',
+              builder: (context, state) => const GroupsPage(),
+            ),
+            GoRoute(
+              path: 'notes',
+              builder: (context, state) => const NotesPage(),
+              routes: [
                 GoRoute(
-                  path: 'alarm',
-                  builder: (context, state) => const AlarmPage(),
-                  routes: [
-                    GoRoute(
-                      path: ':index',
-                      name: 'alarm-countdown',
-                      builder: (context, state) => AlarmCountdownPage(
-                        index: int.parse(state.pathParameters['index']!),
-                      ),
+                  path: ':source/:id',
+                  name: 'subnote',
+                  builder: (context, state) => NotesPage(
+                    parent: SourcedModel(
+                      state.pathParameters['source']!,
+                      base64Decode(state.pathParameters['id']!),
                     ),
-                  ],
-                ),
-                GoRoute(
-                  path: 'events',
-                  builder: (context, state) => const EventsPage(),
-                ),
-                GoRoute(
-                  path: 'groups',
-                  builder: (context, state) => const GroupsPage(),
-                ),
-                GoRoute(
-                    path: 'notes',
-                    builder: (context, state) => const NotesPage(),
-                    routes: [
-                      GoRoute(
-                        path: ':source/:id',
-                        name: 'subnote',
-                        builder: (context, state) => NotesPage(
-                          parent: SourcedModel(
-                            state.pathParameters['source']!,
-                            base64Decode(state.pathParameters['id']!),
-                          ),
-                        ),
-                      ),
-                      GoRoute(
-                        path: ':id',
-                        name: 'subnote-local',
-                        builder: (context, state) => NotesPage(
-                          parent: SourcedModel(
-                            '',
-                            base64Decode(state.pathParameters['id']!),
-                          ),
-                        ),
-                      ),
-                    ]),
-                GoRoute(
-                  path: 'resources',
-                  builder: (context, state) => const ResourcesPage(),
-                ),
-                GoRoute(
-                  path: 'users',
-                  builder: (context, state) => UsersPage(
-                    filter: state.extra is UserFilter
-                        ? state.extra as UserFilter
-                        : const UserFilter(),
                   ),
                 ),
                 GoRoute(
-                  path: 'sources',
-                  builder: (context, state) => const SourcesPage(),
+                  path: ':id',
+                  name: 'subnote-local',
+                  builder: (context, state) => NotesPage(
+                    parent: SourcedModel(
+                      '',
+                      base64Decode(state.pathParameters['id']!),
+                    ),
+                  ),
                 ),
-              ]),
-        ]),
+              ],
+            ),
+            GoRoute(
+              path: 'resources',
+              builder: (context, state) => const ResourcesPage(),
+            ),
+            GoRoute(
+              path: 'users',
+              builder: (context, state) => UsersPage(
+                filter: state.extra is UserFilter
+                    ? state.extra as UserFilter
+                    : const UserFilter(),
+              ),
+            ),
+            GoRoute(
+              path: 'sources',
+              builder: (context, state) => const SourcesPage(),
+            ),
+          ],
+        ),
+      ],
+    ),
   ],
 );
 
@@ -195,35 +199,46 @@ class FlowApp extends StatelessWidget {
   Widget _buildApp(ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
     final virtualWindowFrameBuilder = VirtualWindowFrameInit();
     return BlocBuilder<SettingsCubit, FlowSettings>(
-        buildWhen: (previous, current) =>
-            previous.design != current.design ||
-            previous.themeMode != current.themeMode ||
-            previous.locale != current.locale ||
-            previous.density != current.density ||
-            previous.highContrast != current.highContrast,
-        builder: (context, state) => MaterialApp.router(
-              debugShowCheckedModeBanner: false,
-              routerConfig: _router,
-              title: applicationName,
-              theme: getThemeData(state.design, false,
-                  state.density.toFlutter(), lightDynamic, state.highContrast),
-              darkTheme: getThemeData(state.design, true,
-                  state.density.toFlutter(), darkDynamic, state.highContrast),
-              themeMode: state.themeMode,
-              locale: state.locale.isEmpty ? null : Locale(state.locale),
-              localizationsDelegates: const [
-                ...AppLocalizations.localizationsDelegates,
-                LeapLocalizations.delegate,
-                LocaleNamesLocalizationsDelegate(),
-              ],
-              builder: (context, child) {
-                if (!state.nativeTitleBar) {
-                  child = virtualWindowFrameBuilder(context, child);
-                }
-                return child ?? Container();
-              },
-              supportedLocales: AppLocalizations.supportedLocales,
-            ));
+      buildWhen: (previous, current) =>
+          previous.design != current.design ||
+          previous.themeMode != current.themeMode ||
+          previous.locale != current.locale ||
+          previous.density != current.density ||
+          previous.highContrast != current.highContrast,
+      builder: (context, state) => MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        routerConfig: _router,
+        title: applicationName,
+        theme: getThemeData(
+          state.design,
+          false,
+          state.density.toFlutter(),
+          lightDynamic,
+          state.highContrast,
+        ),
+        darkTheme: getThemeData(
+          state.design,
+          true,
+          state.density.toFlutter(),
+          darkDynamic,
+          state.highContrast,
+        ),
+        themeMode: state.themeMode,
+        locale: state.locale.isEmpty ? null : Locale(state.locale),
+        localizationsDelegates: const [
+          ...AppLocalizations.localizationsDelegates,
+          LeapLocalizations.delegate,
+          LocaleNamesLocalizationsDelegate(),
+        ],
+        builder: (context, child) {
+          if (!state.nativeTitleBar) {
+            child = virtualWindowFrameBuilder(context, child);
+          }
+          return child ?? Container();
+        },
+        supportedLocales: AppLocalizations.supportedLocales,
+      ),
+    );
   }
 }
 

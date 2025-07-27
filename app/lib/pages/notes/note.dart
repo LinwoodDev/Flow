@@ -15,12 +15,7 @@ class NoteDialog extends StatefulWidget {
   final String? source;
   final Note? note;
   final bool create;
-  const NoteDialog({
-    super.key,
-    this.create = false,
-    this.note,
-    this.source,
-  });
+  const NoteDialog({super.key, this.create = false, this.note, this.source});
 
   @override
   State<NoteDialog> createState() => _NoteDialogState();
@@ -58,8 +53,9 @@ class _NoteDialogState extends State<NoteDialog> {
             tristate: true,
             onChanged: (value) {
               setState(() {
-                _newNote =
-                    _newNote.copyWith(status: NoteStatus.fromDone(value));
+                _newNote = _newNote.copyWith(
+                  status: NoteStatus.fromDone(value),
+                );
               });
             },
           ),
@@ -100,7 +96,8 @@ class _NoteDialogState extends State<NoteDialog> {
             keyboardType: TextInputType.number,
             onChanged: (value) {
               _newNote = _newNote.copyWith(
-                  priority: int.tryParse(value) ?? _newNote.priority);
+                priority: int.tryParse(value) ?? _newNote.priority,
+              );
             },
           ),
           const SizedBox(height: 16),
@@ -120,8 +117,11 @@ class _NoteDialogState extends State<NoteDialog> {
             title: Text(AppLocalizations.of(context).todo),
             value: _newNote.status != null,
             onChanged: (value) {
-              setState(() => _newNote = _newNote.copyWith(
-                  status: value == true ? NoteStatus.todo : null));
+              setState(
+                () => _newNote = _newNote.copyWith(
+                  status: value == true ? NoteStatus.todo : null,
+                ),
+              );
             },
           ),
         ],
@@ -144,9 +144,11 @@ class _NoteDialogState extends State<NoteDialog> {
             }
             navigator.pop(SourcedModel(_newSource, created));
           },
-          child: Text(create
-              ? AppLocalizations.of(context).create
-              : AppLocalizations.of(context).save),
+          child: Text(
+            create
+                ? AppLocalizations.of(context).create
+                : AppLocalizations.of(context).save,
+          ),
         ),
       ],
     );

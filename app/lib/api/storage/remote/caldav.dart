@@ -49,12 +49,13 @@ class CalDavRemoteService extends RemoteService<CalDavStorage> {
     // Add auth basic
     request.headers['Authorization'] = _getAuthHeader();
     final response = await client.send(request);
-    final xmlDocument =
-        XmlDocument.parse(await response.stream.bytesToString());
+    final xmlDocument = XmlDocument.parse(
+      await response.stream.bytesToString(),
+    );
     // Get /d:multistatus/d:response/d:propstat/d:prop/cal:calendar-data
     final data =
         xmlDocument.getElement("d:multistatus")?.findElements("d:response") ??
-            [];
+        [];
     final converter = ICalConverter();
     for (var element in data) {
       final href = element.getElement("d:href")?.innerText;
@@ -67,12 +68,11 @@ class CalDavRemoteService extends RemoteService<CalDavStorage> {
       final name = href.substring(href.lastIndexOf('/') + 1);
       converter.read(
         text.split('\n'),
-        event: Event(name: name, id: createUniqueUint8List())
-            .addExtra(CalDavExtraProperties(etag: etag, path: href)),
-        notebook: Notebook(
-          id: createUniqueUint8List(),
+        event: Event(
           name: name,
-        ),
+          id: createUniqueUint8List(),
+        ).addExtra(CalDavExtraProperties(etag: etag, path: href)),
+        notebook: Notebook(id: createUniqueUint8List(), name: name),
       );
     }
     if (converter.data != null) import(converter.data!);
@@ -91,22 +91,21 @@ class CalendarItemCalDavRemoteService
     extends CalendarItemDatabaseServiceLinker {
   final CalDavRemoteService remote;
   CalendarItemCalDavRemoteService(this.remote)
-      : super(remote.local.calendarItem);
+    : super(remote.local.calendarItem);
 
   @override
   Future<CalendarItem?> createCalendarItem(CalendarItem item) async {
     var object = item.eventId ?? createUniqueUint8List();
     if (await remote.event.getEvent(object) == null) {
-      object = (await remote.event.createEvent(Event(
-            name: item.name,
-            description: item.description,
-            id: object,
-          )))
-              ?.id ??
+      object =
+          (await remote.event.createEvent(
+            Event(name: item.name, description: item.description, id: object),
+          ))?.id ??
           object;
     }
-    final result =
-        await super.createCalendarItem(item.copyWith(eventId: object));
+    final result = await super.createCalendarItem(
+      item.copyWith(eventId: object),
+    );
     await _sendUpdatedCalendarObject(result);
     return result;
   }
@@ -124,9 +123,7 @@ class CalendarItemCalDavRemoteService
     final authority = remote.remoteStorage.uri.replace(path: '').toString();
     final items = (await getCalendarItems(
       eventId: item!.eventId,
-    ))
-        .map((e) => e.source)
-        .toList();
+    )).map((e) => e.source).toList();
     if (items.isEmpty) {
       await remote.addRequest(
         APIRequest(
@@ -139,8 +136,9 @@ class CalendarItemCalDavRemoteService
       return;
     }
     final event = await remote.event.getEvent(item.eventId!);
-    final body =
-        ICalConverter(CachedData(items: items)).write(event).join('\n');
+    final body = ICalConverter(
+      CachedData(items: items),
+    ).write(event).join('\n');
     final extra = event?.extraProperties;
     if (extra is! CalDavExtraProperties) return;
     await remote.addRequest(

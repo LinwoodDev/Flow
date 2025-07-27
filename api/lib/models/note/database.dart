@@ -20,8 +20,11 @@ abstract class NoteDatabaseConnector<T> extends DatabaseModelConnector<Note, T>
   T decode(Map<String, dynamic> data);
 
   @override
-  Future<List<Note>> getItems(Uint8List connectId,
-      {int offset = 0, int limit = 50}) async {
+  Future<List<Note>> getItems(
+    Uint8List connectId, {
+    int offset = 0,
+    int limit = 50,
+  }) async {
     final result = await db?.query(
       '$tableName JOIN notes ON notes.id = noteId',
       where: '$connectedIdName = ?',
@@ -38,18 +41,28 @@ abstract class NoteDatabaseConnector<T> extends DatabaseModelConnector<Note, T>
       limit: limit,
     );
     return result
-            ?.map((e) => Map.fromEntries(e.entries
-                .where((element) => element.key.startsWith('note'))
-                .map((e) => MapEntry(e.key.substring('note'.length), e.value))))
+            ?.map(
+              (e) => Map.fromEntries(
+                e.entries
+                    .where((element) => element.key.startsWith('note'))
+                    .map(
+                      (e) => MapEntry(e.key.substring('note'.length), e.value),
+                    ),
+              ),
+            )
             .map((e) {
-          return Note.fromDatabase(e);
-        }).toList() ??
+              return Note.fromDatabase(e);
+            })
+            .toList() ??
         [];
   }
 
   @override
-  Future<List<T>> getConnected(Uint8List noteId,
-      {int offset = 0, int limit = 50}) async {
+  Future<List<T>> getConnected(
+    Uint8List noteId, {
+    int offset = 0,
+    int limit = 50,
+  }) async {
     final result = await db?.query(
       '$tableName JOIN $connectedTableName ON $connectedTableName.id = $connectedIdName',
       where: 'noteId = ?',
@@ -63,12 +76,14 @@ abstract class NoteDatabaseConnector<T> extends DatabaseModelConnector<Note, T>
   @override
   Future<bool?> notesDone(Uint8List connectId) async {
     final result = await db?.rawQuery(
-        'SELECT COUNT(*) AS count FROM notes WHERE $connectedIdName = ? AND status = ?',
-        [connectId, NoteStatus.done.name]);
+      'SELECT COUNT(*) AS count FROM notes WHERE $connectedIdName = ? AND status = ?',
+      [connectId, NoteStatus.done.name],
+    );
     final resultCount = result?.first['count'] as int? ?? 0;
     final all = await db?.rawQuery(
-        'SELECT COUNT(*) AS count FROM notes WHERE $connectedIdName = ?',
-        [connectId]);
+      'SELECT COUNT(*) AS count FROM notes WHERE $connectedIdName = ?',
+      [connectId],
+    );
     final allCount = all?.first['count'] as int? ?? 0;
     if (resultCount == allCount && allCount > 0) {
       return true;
@@ -118,12 +133,7 @@ class NoteDatabaseService extends NoteService with TableService {
 
   @override
   Future<bool> deleteNote(Uint8List id) async {
-    return await db?.delete(
-          'notes',
-          where: 'id = ?',
-          whereArgs: [id],
-        ) ==
-        1;
+    return await db?.delete('notes', where: 'id = ?', whereArgs: [id]) == 1;
   }
 
   @override
@@ -137,7 +147,7 @@ class NoteDatabaseService extends NoteService with TableService {
       NoteStatus.todo,
       NoteStatus.inProgress,
       NoteStatus.done,
-      null
+      null,
     },
     String search = '',
   }) async {
@@ -183,8 +193,9 @@ class NoteDatabaseService extends NoteService with TableService {
     if (statuses.contains(null)) {
       statusStatement = "$statusStatement OR notes.status IS NULL";
     }
-    where =
-        where == null ? '($statusStatement)' : '$where AND ($statusStatement)';
+    where = where == null
+        ? '($statusStatement)'
+        : '$where AND ($statusStatement)';
     final result = await db?.query(
       'notes',
       where: where,
@@ -222,11 +233,7 @@ ORDER BY slug DESC
 LIMIT 1;""",
             [id],
           )
-        : await db?.query(
-            'notes',
-            where: 'id = ?',
-            whereArgs: [id],
-          );
+        : await db?.query('notes', where: 'id = ?', whereArgs: [id]);
     return result?.map(Note.fromDatabase).firstOrNull;
   }
 
@@ -241,12 +248,7 @@ LIMIT 1;""",
 
   @override
   Future<bool> deleteNotebook(Uint8List id) async {
-    return await db?.delete(
-          'notebooks',
-          where: 'id = ?',
-          whereArgs: [id],
-        ) ==
-        1;
+    return await db?.delete('notebooks', where: 'id = ?', whereArgs: [id]) == 1;
   }
 
   @override
@@ -260,8 +262,11 @@ LIMIT 1;""",
   }
 
   @override
-  Future<List<Notebook>> getNotebooks(
-      {int offset = 0, int limit = 50, String search = ''}) async {
+  Future<List<Notebook>> getNotebooks({
+    int offset = 0,
+    int limit = 50,
+    String search = '',
+  }) async {
     final result = await db?.query(
       'notebooks',
       where: 'name LIKE ?',
@@ -306,7 +311,7 @@ class LabelNoteDatabaseConnector extends NoteDatabaseConnector<Label>
       NoteStatus.todo,
       NoteStatus.inProgress,
       NoteStatus.done,
-      null
+      null,
     },
     String search = '',
   }) async {
@@ -321,8 +326,9 @@ class LabelNoteDatabaseConnector extends NoteDatabaseConnector<Label>
         where = where == null ? 'parentId = ?' : '$where AND parentId = ?';
         whereArgs.add(parent);
       } else {
-        where =
-            where == null ? 'parentId IS NULL' : '$where AND parentId IS NULL';
+        where = where == null
+            ? 'parentId IS NULL'
+            : '$where AND parentId IS NULL';
       }
     }
     if (notebook != null) {
@@ -340,8 +346,9 @@ class LabelNoteDatabaseConnector extends NoteDatabaseConnector<Label>
     if (statuses.contains(null)) {
       statusStatement = "$statusStatement OR status IS NULL";
     }
-    where =
-        where == null ? '($statusStatement)' : '$where AND ($statusStatement)';
+    where = where == null
+        ? '($statusStatement)'
+        : '$where AND ($statusStatement)';
     final result = await db?.query(
       '$tableName JOIN notes ON notes.id = noteId',
       where: '$where AND $connectedIdName = ?',
@@ -358,12 +365,19 @@ class LabelNoteDatabaseConnector extends NoteDatabaseConnector<Label>
       limit: limit,
     );
     return result
-            ?.map((e) => Map.fromEntries(e.entries
-                .where((element) => element.key.startsWith('note'))
-                .map((e) => MapEntry(e.key.substring('note'.length), e.value))))
+            ?.map(
+              (e) => Map.fromEntries(
+                e.entries
+                    .where((element) => element.key.startsWith('note'))
+                    .map(
+                      (e) => MapEntry(e.key.substring('note'.length), e.value),
+                    ),
+              ),
+            )
             .map((e) {
-          return Note.fromDatabase(e);
-        }).toList() ??
+              return Note.fromDatabase(e);
+            })
+            .toList() ??
         [];
   }
 

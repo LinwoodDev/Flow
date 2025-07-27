@@ -5,17 +5,21 @@ import 'package:flow_api/models/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-typedef ItemBuilder<T> = Widget Function(
-    BuildContext context, SourcedModel<T> item, int index);
-typedef DateBuilder<T> = Widget Function(
-    BuildContext context, List<SourcedModel<T>> date, int index);
-typedef SourceBuilder<T> = Widget Function(
-    BuildContext context, T item, int index);
+typedef ItemBuilder<T> =
+    Widget Function(BuildContext context, SourcedModel<T> item, int index);
+typedef DateBuilder<T> =
+    Widget Function(
+      BuildContext context,
+      List<SourcedModel<T>> date,
+      int index,
+    );
+typedef SourceBuilder<T> =
+    Widget Function(BuildContext context, T item, int index);
 
 Widget Function(BuildContext context, SourcedModel<T> item, int index)
-    _buildSourceItem<T>(SourceBuilder<T> itemBuilder) =>
-        (BuildContext context, SourcedModel<T> item, int index) =>
-            itemBuilder(context, item.model, index);
+_buildSourceItem<T>(SourceBuilder<T> itemBuilder) =>
+    (BuildContext context, SourcedModel<T> item, int index) =>
+        itemBuilder(context, item.model, index);
 
 class PagedListView<T> extends StatelessWidget {
   final ItemBuilder<T>? itemBuilder;
@@ -41,8 +45,8 @@ class PagedListView<T> extends StatelessWidget {
     required SourceBuilder<T> itemBuilder,
     this.bloc,
     this.scrollDirection,
-  })  : itemBuilder = _buildSourceItem(itemBuilder),
-        dateBuilder = null;
+  }) : itemBuilder = _buildSourceItem(itemBuilder),
+       dateBuilder = null;
 
   @override
   Widget build(BuildContext context) {

@@ -10,8 +10,9 @@ class ICalConverter {
   ICalConverter([this.data]);
 
   void read(List<String> lines, {Event? event, Notebook? notebook}) {
-    final offset =
-        lines.indexWhere((element) => element.trim() == 'BEGIN:VCALENDAR');
+    final offset = lines.indexWhere(
+      (element) => element.trim() == 'BEGIN:VCALENDAR',
+    );
     if (offset == -1) {
       return;
     }
@@ -70,9 +71,7 @@ class ICalConverter {
             break;
           case 'BEGIN':
             if (value == 'VEVENT') {
-              currentItem = FixedCalendarItem(
-                eventId: currentEvent.id,
-              );
+              currentItem = FixedCalendarItem(eventId: currentEvent.id);
             } else if (value == 'VTODO') {
               currentNote = Note(notebookId: currentNotebook.id!);
             }
@@ -98,23 +97,22 @@ class ICalConverter {
   }
 
   List<String> writeEvent(CalendarItem item) => [
-        'BEGIN:VEVENT',
-        'SUMMARY:${item.name}',
-        'DESCRIPTION:${item.description}',
-        if (item.start != null)
-          'DTSTART:${_formatDateTime(item.start!.toUtc())}',
-        if (item.end != null) 'DTEND:${_formatDateTime(item.end!.toUtc())}',
-        'END:VEVENT',
-      ];
+    'BEGIN:VEVENT',
+    'SUMMARY:${item.name}',
+    'DESCRIPTION:${item.description}',
+    if (item.start != null) 'DTSTART:${_formatDateTime(item.start!.toUtc())}',
+    if (item.end != null) 'DTEND:${_formatDateTime(item.end!.toUtc())}',
+    'END:VEVENT',
+  ];
 
   String _formatDateTime(DateTime dateTime) =>
       "${dateTime.year}${dateTime.month.toString().padLeft(2, '0')}${dateTime.day.toString().padLeft(2, '0')}T${dateTime.hour.toString().padLeft(2, '0')}${dateTime.minute.toString().padLeft(2, '0')}00Z";
 
   List<String> writeNote(Note note) => [
-        'BEGIN:VTODO',
-        'SUMMARY:${note.name}',
-        'END:VTODO',
-      ];
+    'BEGIN:VTODO',
+    'SUMMARY:${note.name}',
+    'END:VTODO',
+  ];
 
   List<String> write([Event? event]) {
     final lines = <String>[];

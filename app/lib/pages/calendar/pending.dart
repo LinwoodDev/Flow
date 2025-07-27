@@ -35,19 +35,21 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
     super.initState();
     _cubit = context.read<FlowCubit>();
     _bloc = SourcedPagingBloc.item(
-        cubit: _cubit,
-        fetch: (source, service, offset, limit) async =>
-            service.calendarItem?.getCalendarItems(
-              status: EventStatus.values
-                  .where((element) =>
-                      !widget.filter.hiddenStatuses.contains(element))
-                  .toList(),
-              search: widget.search,
-              pending: true,
-              offset: offset,
-              limit: limit,
-              resourceIds: widget.filter.resources,
-            ));
+      cubit: _cubit,
+      fetch: (source, service, offset, limit) async =>
+          service.calendarItem?.getCalendarItems(
+            status: EventStatus.values
+                .where(
+                  (element) => !widget.filter.hiddenStatuses.contains(element),
+                )
+                .toList(),
+            search: widget.search,
+            pending: true,
+            offset: offset,
+            limit: limit,
+            resourceIds: widget.filter.resources,
+          ),
+    );
   }
 
   @override
@@ -81,18 +83,18 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
             child: LayoutBuilder(
               builder: (context, constraints) =>
                   PagedListView<ConnectedModel<CalendarItem, Event?>>.item(
-                bloc: _bloc,
-                itemBuilder: (context, item, index) {
-                  return ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 1000),
-                    child: CalendarListTile(
-                      key: ValueKey('${item.source}@${item.main.id}'),
-                      eventItem: item,
-                      onRefresh: _bloc.refresh,
-                    ),
-                  );
-                },
-              ),
+                    bloc: _bloc,
+                    itemBuilder: (context, item, index) {
+                      return ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 1000),
+                        child: CalendarListTile(
+                          key: ValueKey('${item.source}@${item.main.id}'),
+                          eventItem: item,
+                          onRefresh: _bloc.refresh,
+                        ),
+                      );
+                    },
+                  ),
             ),
           ),
         ],

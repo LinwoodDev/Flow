@@ -9,10 +9,7 @@ sealed class RemoteStorage with RemoteStorageMappable {
   final String url;
   final String username;
 
-  const RemoteStorage({
-    required this.url,
-    required this.username,
-  });
+  const RemoteStorage({required this.url, required this.username});
 
   Uri get uri => Uri.parse(url);
 
@@ -23,32 +20,20 @@ sealed class RemoteStorage with RemoteStorageMappable {
 
 @MappableClass()
 final class CalDavStorage extends RemoteStorage with CalDavStorageMappable {
-  const CalDavStorage({
-    required super.url,
-    required super.username,
-  });
+  const CalDavStorage({required super.url, required super.username});
 }
 
 @MappableClass()
 final class ICalStorage extends RemoteStorage with ICalStorageMappable {
-  const ICalStorage({
-    required super.url,
-    required super.username,
-  });
+  const ICalStorage({required super.url, required super.username});
 }
 
 @MappableClass()
 final class WebDavStorage extends RemoteStorage with WebDavStorageMappable {
-  const WebDavStorage({
-    required super.url,
-    required super.username,
-  });
+  const WebDavStorage({required super.url, required super.username});
 }
 
 @MappableClass()
 final class SiaStorage extends RemoteStorage with SiaStorageMappable {
-  const SiaStorage({
-    required super.url,
-    required super.username,
-  });
+  const SiaStorage({required super.url, required super.username});
 }

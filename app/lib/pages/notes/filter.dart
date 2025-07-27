@@ -40,8 +40,11 @@ class NoteFilter with NoteFilterMappable {
 class NoteFilterView extends StatefulWidget {
   final NoteFilter? initialFilter;
   final ValueChanged<NoteFilter> onChanged;
-  const NoteFilterView(
-      {super.key, this.initialFilter, required this.onChanged});
+  const NoteFilterView({
+    super.key,
+    this.initialFilter,
+    required this.onChanged,
+  });
 
   @override
   State<NoteFilterView> createState() => _NoteFilterViewState();
@@ -77,58 +80,66 @@ class _NoteFilterViewState extends State<NoteFilterView> {
         scrollDirection: Axis.horizontal,
         child: Row(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            InputChip(
-              label: Text(AppLocalizations.of(context).done),
-              avatar: const PhosphorIcon(PhosphorIconsLight.checkSquare),
-              selected: _filter.showDone,
-              showCheckmark: false,
-              onSelected: (value) {
-                setState(() {
-                  _filter = _filter.copyWith(showDone: value);
-                  widget.onChanged(_filter);
-                });
-              },
-            ),
-            InputChip(
-              label: Text(AppLocalizations.of(context).inProgress),
-              avatar: const PhosphorIcon(PhosphorIconsLight.minusSquare),
-              selected: _filter.showInProgress,
-              showCheckmark: false,
-              onSelected: (value) {
-                setState(() {
-                  _filter = _filter.copyWith(showInProgress: value);
-                  widget.onChanged(_filter);
-                });
-              },
-            ),
-            InputChip(
-              label: Text(AppLocalizations.of(context).todo),
-              avatar: const PhosphorIcon(PhosphorIconsLight.square),
-              selected: _filter.showTodo,
-              showCheckmark: false,
-              onSelected: (value) {
-                setState(() {
-                  _filter = _filter.copyWith(showTodo: value);
-                  widget.onChanged(_filter);
-                });
-              },
-            ),
-            InputChip(
-              label: Text(AppLocalizations.of(context).note),
-              avatar: const PhosphorIcon(PhosphorIconsLight.note),
-              selected: _filter.showNote,
-              showCheckmark: false,
-              onSelected: (value) {
-                setState(() {
-                  _filter = _filter.copyWith(showNote: value);
-                  widget.onChanged(_filter);
-                });
-              },
-            ),
-          ]
-              .map((e) => Padding(padding: const EdgeInsets.all(8.0), child: e))
-              .toList(),
+          children:
+              <Widget>[
+                    InputChip(
+                      label: Text(AppLocalizations.of(context).done),
+                      avatar: const PhosphorIcon(
+                        PhosphorIconsLight.checkSquare,
+                      ),
+                      selected: _filter.showDone,
+                      showCheckmark: false,
+                      onSelected: (value) {
+                        setState(() {
+                          _filter = _filter.copyWith(showDone: value);
+                          widget.onChanged(_filter);
+                        });
+                      },
+                    ),
+                    InputChip(
+                      label: Text(AppLocalizations.of(context).inProgress),
+                      avatar: const PhosphorIcon(
+                        PhosphorIconsLight.minusSquare,
+                      ),
+                      selected: _filter.showInProgress,
+                      showCheckmark: false,
+                      onSelected: (value) {
+                        setState(() {
+                          _filter = _filter.copyWith(showInProgress: value);
+                          widget.onChanged(_filter);
+                        });
+                      },
+                    ),
+                    InputChip(
+                      label: Text(AppLocalizations.of(context).todo),
+                      avatar: const PhosphorIcon(PhosphorIconsLight.square),
+                      selected: _filter.showTodo,
+                      showCheckmark: false,
+                      onSelected: (value) {
+                        setState(() {
+                          _filter = _filter.copyWith(showTodo: value);
+                          widget.onChanged(_filter);
+                        });
+                      },
+                    ),
+                    InputChip(
+                      label: Text(AppLocalizations.of(context).note),
+                      avatar: const PhosphorIcon(PhosphorIconsLight.note),
+                      selected: _filter.showNote,
+                      showCheckmark: false,
+                      onSelected: (value) {
+                        setState(() {
+                          _filter = _filter.copyWith(showNote: value);
+                          widget.onChanged(_filter);
+                        });
+                      },
+                    ),
+                  ]
+                  .map(
+                    (e) =>
+                        Padding(padding: const EdgeInsets.all(8.0), child: e),
+                  )
+                  .toList(),
         ),
       ),
     );

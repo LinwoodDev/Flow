@@ -15,8 +15,10 @@ class LocalSourceDialog extends StatelessWidget {
     return AlertDialog(
       scrollable: true,
       title: Text(AppLocalizations.of(context).local),
-      content: Column(mainAxisSize: MainAxisSize.min, children: [
-        ListTile(
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
             title: Text(AppLocalizations.of(context).export),
             leading: const PhosphorIcon(PhosphorIconsLight.download),
             onTap: () async {
@@ -33,27 +35,32 @@ class LocalSourceDialog extends StatelessWidget {
                 uniformTypeIdentifier: 'public.database',
                 label: 'Database',
               );
-            }),
-        const Divider(),
-        ListTile(
-          leading: const PhosphorIcon(PhosphorIconsLight.cloud),
-          title: Text(AppLocalizations.of(context).version),
-          subtitle: FutureBuilder<String>(
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const PhosphorIcon(PhosphorIconsLight.cloud),
+            title: Text(AppLocalizations.of(context).version),
+            subtitle: FutureBuilder<String>(
               future: context.read<SourcesService>().local.getSqliteVersion(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Text(
-                      snapshot.data ?? AppLocalizations.of(context).unknown);
+                    snapshot.data ?? AppLocalizations.of(context).unknown,
+                  );
                 } else {
                   return Text(AppLocalizations.of(context).loading);
                 }
-              }),
-        ),
-      ]),
+              },
+            ),
+          ),
+        ],
+      ),
       actions: [
         TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context).close))
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(AppLocalizations.of(context).close),
+        ),
       ],
     );
   }

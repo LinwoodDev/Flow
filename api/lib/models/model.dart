@@ -36,10 +36,7 @@ class ConnectedModel<A, B> with ConnectedModelMappable<A, B> {
   final A source;
   final B model;
 
-  const ConnectedModel(
-    this.source,
-    this.model,
-  );
+  const ConnectedModel(this.source, this.model);
 
   factory ConnectedModel.fromEntry(MapEntry<A, B> entry) =>
       ConnectedModel(entry.key, entry.value);

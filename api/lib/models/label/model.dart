@@ -20,11 +20,8 @@ class Label with LabelMappable, IdentifiedModel, NamedModel, DescriptiveModel {
     this.color = SRGBColor.black,
   });
 
-  factory Label.fromDatabase(Map<String, dynamic> row) => LabelMapper.fromMap({
-        ...row,
-      });
+  factory Label.fromDatabase(Map<String, dynamic> row) =>
+      LabelMapper.fromMap({...row});
 
-  Map<String, dynamic> toDatabase() => {
-        ...toMap(),
-      };
+  Map<String, dynamic> toDatabase() => {...toMap()};
 }

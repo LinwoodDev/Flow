@@ -32,23 +32,14 @@ class LabelDatabaseService extends LabelService with TableService {
 
   @override
   Future<Label?> getLabel(Uint8List id) async {
-    final result = await db?.query(
-      'labels',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    final result = await db?.query('labels', where: 'id = ?', whereArgs: [id]);
     if (result == null || result.isEmpty) return null;
     return Label.fromDatabase(result.first);
   }
 
   @override
   Future<bool> deleteLabel(Uint8List id) async {
-    return await db?.delete(
-          'labels',
-          where: 'id = ?',
-          whereArgs: [id],
-        ) ==
-        1;
+    return await db?.delete('labels', where: 'id = ?', whereArgs: [id]) == 1;
   }
 
   @override

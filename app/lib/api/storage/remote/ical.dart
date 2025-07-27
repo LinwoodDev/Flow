@@ -18,13 +18,16 @@ class IcalRemoteService extends RemoteService<ICalStorage> {
   Future<void> synchronize() async {
     await super.synchronize();
     final uri = remoteStorage.uri;
-    final response = await http.get(uri, headers: {
-      'Authorization': _getAuthHeader(),
-    });
+    final response = await http.get(
+      uri,
+      headers: {'Authorization': _getAuthHeader()},
+    );
     final converter = ICalConverter();
     final name = remoteStorage.uri.host;
-    converter.read(response.body.split('\n'),
-        event: Event(name: name, id: createUniqueUint8List()));
+    converter.read(
+      response.body.split('\n'),
+      event: Event(name: name, id: createUniqueUint8List()),
+    );
     if (converter.data != null) import(converter.data!);
   }
 

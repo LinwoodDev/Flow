@@ -21,8 +21,12 @@ class FlowStateMapper extends ClassMapperBase<FlowState> {
   final String id = 'FlowState';
 
   static List<String> _$disabledSources(FlowState v) => v.disabledSources;
-  static const Field<FlowState, List<String>> _f$disabledSources =
-      Field('disabledSources', _$disabledSources, opt: true, def: const []);
+  static const Field<FlowState, List<String>> _f$disabledSources = Field(
+    'disabledSources',
+    _$disabledSources,
+    opt: true,
+    def: const [],
+  );
 
   @override
   final MappableFields<FlowState> fields = const {
@@ -47,28 +51,36 @@ class FlowStateMapper extends ClassMapperBase<FlowState> {
 
 mixin FlowStateMappable {
   String toJson() {
-    return FlowStateMapper.ensureInitialized()
-        .encodeJson<FlowState>(this as FlowState);
+    return FlowStateMapper.ensureInitialized().encodeJson<FlowState>(
+      this as FlowState,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return FlowStateMapper.ensureInitialized()
-        .encodeMap<FlowState>(this as FlowState);
+    return FlowStateMapper.ensureInitialized().encodeMap<FlowState>(
+      this as FlowState,
+    );
   }
 
   FlowStateCopyWith<FlowState, FlowState, FlowState> get copyWith =>
       _FlowStateCopyWithImpl<FlowState, FlowState>(
-          this as FlowState, $identity, $identity);
+        this as FlowState,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
-    return FlowStateMapper.ensureInitialized()
-        .stringifyValue(this as FlowState);
+    return FlowStateMapper.ensureInitialized().stringifyValue(
+      this as FlowState,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return FlowStateMapper.ensureInitialized()
-        .equalsValue(this as FlowState, other);
+    return FlowStateMapper.ensureInitialized().equalsValue(
+      this as FlowState,
+      other,
+    );
   }
 
   @override
@@ -85,7 +97,7 @@ extension FlowStateValueCopy<$R, $Out> on ObjectCopyWith<$R, FlowState, $Out> {
 abstract class FlowStateCopyWith<$R, $In extends FlowState, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>>
-      get disabledSources;
+  get disabledSources;
   $R call({List<String>? disabledSources});
   FlowStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -100,19 +112,24 @@ class _FlowStateCopyWithImpl<$R, $Out>
       FlowStateMapper.ensureInitialized();
   @override
   ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>>
-      get disabledSources => ListCopyWith(
-          $value.disabledSources,
-          (v, t) => ObjectCopyWith(v, $identity, t),
-          (v) => call(disabledSources: v));
+  get disabledSources => ListCopyWith(
+    $value.disabledSources,
+    (v, t) => ObjectCopyWith(v, $identity, t),
+    (v) => call(disabledSources: v),
+  );
   @override
-  $R call({List<String>? disabledSources}) => $apply(FieldCopyWithData(
-      {if (disabledSources != null) #disabledSources: disabledSources}));
+  $R call({List<String>? disabledSources}) => $apply(
+    FieldCopyWithData({
+      if (disabledSources != null) #disabledSources: disabledSources,
+    }),
+  );
   @override
   FlowState $make(CopyWithData data) => FlowState(
-      disabledSources: data.get(#disabledSources, or: $value.disabledSources));
+    disabledSources: data.get(#disabledSources, or: $value.disabledSources),
+  );
 
   @override
   FlowStateCopyWith<$R2, FlowState, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _FlowStateCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _FlowStateCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

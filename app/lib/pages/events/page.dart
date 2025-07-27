@@ -14,10 +14,7 @@ import 'tile.dart';
 
 class EventsPage extends StatefulWidget {
   final EventFilter filter;
-  const EventsPage({
-    super.key,
-    this.filter = const EventFilter(),
-  });
+  const EventsPage({super.key, this.filter = const EventFilter()});
 
   @override
   _EventsPageState createState() => _EventsPageState();
@@ -33,15 +30,11 @@ class _EventsPageState extends State<EventsPage> {
           icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
           onPressed: () => showSearch(
             context: context,
-            delegate: _EventsSearchDelegate(
-              widget.filter,
-            ),
+            delegate: _EventsSearchDelegate(widget.filter),
           ),
         ),
       ],
-      body: EventsBodyView(
-        filter: widget.filter,
-      ),
+      body: EventsBodyView(filter: widget.filter),
     );
   }
 }
@@ -75,10 +68,7 @@ class _EventsSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return EventsBodyView(
-      search: query,
-      filter: filter,
-    );
+    return EventsBodyView(search: query, filter: filter);
   }
 
   @override
@@ -110,15 +100,17 @@ class _EventsBodyViewState extends State<EventsBodyView> {
   void initState() {
     _flowCubit = context.read<FlowCubit>();
     _bloc = SourcedPagingBloc.item(
-        cubit: _flowCubit,
-        fetch: (source, service, offset, limit) async =>
-            _filter.source != null && _filter.source != source
-                ? null
-                : service.event?.getEvents(
-                    offset: offset,
-                    limit: limit,
-                    groupId: _filter.source == source ? _filter.group : null,
-                    search: widget.search));
+      cubit: _flowCubit,
+      fetch: (source, service, offset, limit) async =>
+          _filter.source != null && _filter.source != source
+          ? null
+          : service.event?.getEvents(
+              offset: offset,
+              limit: limit,
+              groupId: _filter.source == source ? _filter.group : null,
+              search: widget.search,
+            ),
+    );
     _filter = widget.filter;
     super.initState();
   }
@@ -169,9 +161,7 @@ class _EventsBodyViewState extends State<EventsBodyView> {
                           ?.deleteEvent(item.model.id!);
                       _bloc.remove(item);
                     },
-                    background: Container(
-                      color: Colors.red,
-                    ),
+                    background: Container(color: Colors.red),
                     child: EventTile(
                       flowCubit: _flowCubit,
                       bloc: _bloc,
@@ -187,8 +177,9 @@ class _EventsBodyViewState extends State<EventsBodyView> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
-                context: context, builder: (context) => const EventDialog())
-            .then((_) => _bloc.refresh()),
+          context: context,
+          builder: (context) => const EventDialog(),
+        ).then((_) => _bloc.refresh()),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),

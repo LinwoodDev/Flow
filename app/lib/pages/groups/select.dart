@@ -27,9 +27,11 @@ class GroupSelectTile extends StatelessWidget {
       onChanged: onChanged,
       onModelFetch: (source, service, id) async => service.group?.getGroup(id),
       title: AppLocalizations.of(context).group,
-      leadingBuilder: (context, model) => PhosphorIcon(model?.model == null
-          ? PhosphorIconsLight.users
-          : PhosphorIconsFill.users),
+      leadingBuilder: (context, model) => PhosphorIcon(
+        model?.model == null
+            ? PhosphorIconsLight.users
+            : PhosphorIconsFill.users,
+      ),
       dialogBuilder: (context, sourcedModel) => GroupDialog(
         source: sourcedModel?.source,
         group: sourcedModel?.model,
@@ -47,28 +49,17 @@ class GroupSelectDialog extends StatelessWidget {
   final String? source;
   final SourcedModel<Uint8List>? selected;
 
-  const GroupSelectDialog({
-    super.key,
-    this.source,
-    this.selected,
-  });
+  const GroupSelectDialog({super.key, this.source, this.selected});
 
   @override
   Widget build(BuildContext context) {
     return SelectDialog(
-      onFetch: (source, service, search, offset, limit) async =>
-          service.group?.getGroups(
-        offset: offset,
-        limit: limit,
-        search: search,
-      ),
+      onFetch: (source, service, search, offset, limit) async => service.group
+          ?.getGroups(offset: offset, limit: limit, search: search),
       onCreate: (source) => showDialog<SourcedModel<Group>>(
         context: context,
-        builder: (context) => GroupDialog(
-          source: source,
-          group: null,
-          create: true,
-        ),
+        builder: (context) =>
+            GroupDialog(source: source, group: null, create: true),
       ),
       title: AppLocalizations.of(context).group,
       selected: selected,

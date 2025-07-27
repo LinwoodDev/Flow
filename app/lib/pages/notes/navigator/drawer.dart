@@ -55,28 +55,22 @@ class NotesNavigatorDrawer extends StatelessWidget {
                   if (note == null) ...[
                     _NotebooksView(
                       model: sourcedNotebook,
-                      onChanged: (value) =>
-                          onFilterChanged?.call(filter.copyWith(
-                        notebook: value?.model,
-                        source: value?.source,
-                      )),
+                      onChanged: (value) => onFilterChanged?.call(
+                        filter.copyWith(
+                          notebook: value?.model,
+                          source: value?.source,
+                        ),
+                      ),
                     ),
                     const Divider(height: 32),
                   ],
-                  _NoteLabelsView(
-                    onChanged: onFilterChanged,
-                    filter: filter,
-                  ),
+                  _NoteLabelsView(onChanged: onFilterChanged, filter: filter),
                 ],
               ),
             ),
           ),
           if (note != null && !isSearching)
-            Expanded(
-              child: NotesListView(
-                bloc: bloc,
-              ),
-            ),
+            Expanded(child: NotesListView(bloc: bloc)),
         ],
       ),
     );

@@ -12,9 +12,7 @@ import '../../cubits/flow.dart';
 import 'tile.dart';
 
 class ResourcesPage extends StatefulWidget {
-  const ResourcesPage({
-    super.key,
-  });
+  const ResourcesPage({super.key});
 
   @override
   _ResourcesPageState createState() => _ResourcesPageState();
@@ -29,7 +27,9 @@ class _ResourcesPageState extends State<ResourcesPage> {
         IconButton(
           icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
           onPressed: () => showSearch(
-              context: context, delegate: _ResourcesSearchDelegate()),
+            context: context,
+            delegate: _ResourcesSearchDelegate(),
+          ),
         ),
       ],
       body: const ResourcesBodyView(),
@@ -62,9 +62,7 @@ class _ResourcesSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return ResourcesBodyView(
-      search: query,
-    );
+    return ResourcesBodyView(search: query);
   }
 
   @override
@@ -76,10 +74,7 @@ class _ResourcesSearchDelegate extends SearchDelegate {
 class ResourcesBodyView extends StatefulWidget {
   final String search;
 
-  const ResourcesBodyView({
-    super.key,
-    this.search = '',
-  });
+  const ResourcesBodyView({super.key, this.search = ''});
 
   @override
   State<ResourcesBodyView> createState() => _ResourcesBodyViewState();
@@ -93,9 +88,10 @@ class _ResourcesBodyViewState extends State<ResourcesBodyView> {
   void initState() {
     _flowCubit = context.read<FlowCubit>();
     _bloc = SourcedPagingBloc.item(
-        cubit: _flowCubit,
-        fetch: (source, service, offset, limit) async =>
-            service.resource?.getResources(offset: offset, limit: limit));
+      cubit: _flowCubit,
+      fetch: (source, service, offset, limit) async =>
+          service.resource?.getResources(offset: offset, limit: limit),
+    );
     super.initState();
   }
 
@@ -132,9 +128,7 @@ class _ResourcesBodyViewState extends State<ResourcesBodyView> {
                     ?.deleteResource(item.model.id!);
                 _bloc.remove(item);
               },
-              background: Container(
-                color: Colors.red,
-              ),
+              background: Container(color: Colors.red),
               child: ResourceTile(
                 flowCubit: _flowCubit,
                 bloc: _bloc,
@@ -147,8 +141,9 @@ class _ResourcesBodyViewState extends State<ResourcesBodyView> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
-                context: context, builder: (context) => const ResourceDialog())
-            .then((_) => _bloc.refresh()),
+          context: context,
+          builder: (context) => const ResourceDialog(),
+        ).then((_) => _bloc.refresh()),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),

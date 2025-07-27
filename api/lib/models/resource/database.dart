@@ -32,17 +32,15 @@ class ResourceDatabaseService extends ResourceService with TableService {
 
   @override
   Future<bool> deleteResource(Uint8List id) async {
-    return await db?.delete(
-          'resources',
-          where: 'id = ?',
-          whereArgs: [id],
-        ) ==
-        1;
+    return await db?.delete('resources', where: 'id = ?', whereArgs: [id]) == 1;
   }
 
   @override
-  Future<List<Resource>> getResources(
-      {int offset = 0, int limit = 50, String search = ''}) async {
+  Future<List<Resource>> getResources({
+    int offset = 0,
+    int limit = 50,
+    String search = '',
+  }) async {
     final where = search.isEmpty ? null : 'name LIKE ?';
     final whereArgs = search.isEmpty ? null : ['%$search%'];
     final result = await db?.query(
@@ -94,8 +92,11 @@ abstract class ResourceDatabaseConnector<T>
   T decode(Map<String, dynamic> data);
 
   @override
-  Future<List<Resource>> getItems(Uint8List connectId,
-      {int offset = 0, int limit = 50}) async {
+  Future<List<Resource>> getItems(
+    Uint8List connectId, {
+    int offset = 0,
+    int limit = 50,
+  }) async {
     final result = await db?.query(
       '$tableName JOIN resources ON resources.id = resourceId',
       where: '$connectedIdName = ?',
@@ -110,19 +111,29 @@ abstract class ResourceDatabaseConnector<T>
       limit: limit,
     );
     return result
-            ?.map((e) => Map.fromEntries(e.entries
-                .where((element) => element.key.startsWith('resource'))
-                .map((e) =>
-                    MapEntry(e.key.substring('resource'.length), e.value))))
+            ?.map(
+              (e) => Map.fromEntries(
+                e.entries
+                    .where((element) => element.key.startsWith('resource'))
+                    .map(
+                      (e) =>
+                          MapEntry(e.key.substring('resource'.length), e.value),
+                    ),
+              ),
+            )
             .map((e) {
-          return Resource.fromDatabase(e);
-        }).toList() ??
+              return Resource.fromDatabase(e);
+            })
+            .toList() ??
         [];
   }
 
   @override
-  Future<List<T>> getConnected(Uint8List resourceId,
-      {int offset = 0, int limit = 50}) async {
+  Future<List<T>> getConnected(
+    Uint8List resourceId, {
+    int offset = 0,
+    int limit = 50,
+  }) async {
     final result = await db?.query(
       '$tableName JOIN resources ON resources.id = resourceId',
       where: 'resourceId = ?',

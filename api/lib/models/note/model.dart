@@ -12,20 +12,12 @@ class Notebook
   final Uint8List? id;
   @override
   final String name, description;
-  const Notebook({
-    this.id,
-    this.name = '',
-    this.description = '',
-  });
+  const Notebook({this.id, this.name = '', this.description = ''});
 
   factory Notebook.fromDatabase(Map<String, dynamic> row) =>
-      NotebookMapper.fromMap({
-        ...row,
-      });
+      NotebookMapper.fromMap({...row});
 
-  Map<String, dynamic> toDatabase() => {
-        ...toMap(),
-      };
+  Map<String, dynamic> toDatabase() => {...toMap()};
 }
 
 @MappableClass()
@@ -48,13 +40,10 @@ class Note with NoteMappable, IdentifiedModel, NamedModel, DescriptiveModel {
     this.priority = 0,
   });
 
-  factory Note.fromDatabase(Map<String, dynamic> row) => NoteMapper.fromMap({
-        ...row,
-      });
+  factory Note.fromDatabase(Map<String, dynamic> row) =>
+      NoteMapper.fromMap({...row});
 
-  Map<String, dynamic> toDatabase() => {
-        ...toMap(),
-      };
+  Map<String, dynamic> toDatabase() => {...toMap()};
 }
 
 @MappableEnum()
@@ -64,14 +53,14 @@ enum NoteStatus {
   done;
 
   bool? get isDone => switch (this) {
-        NoteStatus.todo => false,
-        NoteStatus.inProgress => null,
-        NoteStatus.done => true,
-      };
+    NoteStatus.todo => false,
+    NoteStatus.inProgress => null,
+    NoteStatus.done => true,
+  };
 
   static NoteStatus fromDone(bool? done) => switch (done) {
-        true => NoteStatus.done,
-        false => NoteStatus.todo,
-        null => NoteStatus.inProgress,
-      };
+    true => NoteStatus.done,
+    false => NoteStatus.todo,
+    null => NoteStatus.inProgress,
+  };
 }

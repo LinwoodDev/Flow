@@ -28,9 +28,9 @@ class LabelSelectTile extends StatelessWidget {
       onChanged: onChanged,
       onModelFetch: (source, service, id) async => service.label?.getLabel(id),
       title: AppLocalizations.of(context).label,
-      leadingBuilder: (context, model) => PhosphorIcon(model?.model == null
-          ? PhosphorIconsLight.tag
-          : PhosphorIconsFill.tag),
+      leadingBuilder: (context, model) => PhosphorIcon(
+        model?.model == null ? PhosphorIconsLight.tag : PhosphorIconsFill.tag,
+      ),
       dialogBuilder: (context, sourcedModel) => LabelDialog(
         source: sourcedModel?.source,
         label: sourcedModel?.model,
@@ -48,21 +48,13 @@ class LabelSelectDialog extends StatelessWidget {
   final String? source;
   final SourcedModel<Uint8List>? selected;
 
-  const LabelSelectDialog({
-    super.key,
-    this.source,
-    this.selected,
-  });
+  const LabelSelectDialog({super.key, this.source, this.selected});
 
   @override
   Widget build(BuildContext context) {
     return SelectDialog(
-      onFetch: (source, service, search, offset, limit) async =>
-          service.label?.getLabels(
-        offset: offset,
-        limit: limit,
-        search: search,
-      ),
+      onFetch: (source, service, search, offset, limit) async => service.label
+          ?.getLabels(offset: offset, limit: limit, search: search),
       title: AppLocalizations.of(context).label,
       selected: selected,
     );
@@ -73,28 +65,17 @@ class NoteSelectDialog extends StatelessWidget {
   final String? source;
   final SourcedModel<Uint8List>? selected;
 
-  const NoteSelectDialog({
-    super.key,
-    this.source,
-    this.selected,
-  });
+  const NoteSelectDialog({super.key, this.source, this.selected});
 
   @override
   Widget build(BuildContext context) {
     return SelectDialog(
       onFetch: (source, service, search, offset, limit) async =>
-          service.note?.getNotes(
-        offset: offset,
-        limit: limit,
-        search: search,
-      ),
+          service.note?.getNotes(offset: offset, limit: limit, search: search),
       onCreate: (source) => showDialog<SourcedModel<Note>>(
         context: context,
-        builder: (context) => NoteDialog(
-          source: source,
-          note: null,
-          create: true,
-        ),
+        builder: (context) =>
+            NoteDialog(source: source, note: null, create: true),
       ),
       title: AppLocalizations.of(context).note,
       selected: selected,

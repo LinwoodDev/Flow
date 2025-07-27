@@ -73,11 +73,19 @@ class NotebookMapper extends ClassMapperBase<Notebook> {
   static Uint8List? _$id(Notebook v) => v.id;
   static const Field<Notebook, Uint8List> _f$id = Field('id', _$id, opt: true);
   static String _$name(Notebook v) => v.name;
-  static const Field<Notebook, String> _f$name =
-      Field('name', _$name, opt: true, def: '');
+  static const Field<Notebook, String> _f$name = Field(
+    'name',
+    _$name,
+    opt: true,
+    def: '',
+  );
   static String _$description(Notebook v) => v.description;
-  static const Field<Notebook, String> _f$description =
-      Field('description', _$description, opt: true, def: '');
+  static const Field<Notebook, String> _f$description = Field(
+    'description',
+    _$description,
+    opt: true,
+    def: '',
+  );
 
   @override
   final MappableFields<Notebook> fields = const {
@@ -88,9 +96,10 @@ class NotebookMapper extends ClassMapperBase<Notebook> {
 
   static Notebook _instantiate(DecodingData data) {
     return Notebook(
-        id: data.dec(_f$id),
-        name: data.dec(_f$name),
-        description: data.dec(_f$description));
+      id: data.dec(_f$id),
+      name: data.dec(_f$name),
+      description: data.dec(_f$description),
+    );
   }
 
   @override
@@ -107,18 +116,23 @@ class NotebookMapper extends ClassMapperBase<Notebook> {
 
 mixin NotebookMappable {
   String toJson() {
-    return NotebookMapper.ensureInitialized()
-        .encodeJson<Notebook>(this as Notebook);
+    return NotebookMapper.ensureInitialized().encodeJson<Notebook>(
+      this as Notebook,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return NotebookMapper.ensureInitialized()
-        .encodeMap<Notebook>(this as Notebook);
+    return NotebookMapper.ensureInitialized().encodeMap<Notebook>(
+      this as Notebook,
+    );
   }
 
   NotebookCopyWith<Notebook, Notebook, Notebook> get copyWith =>
       _NotebookCopyWithImpl<Notebook, Notebook>(
-          this as Notebook, $identity, $identity);
+        this as Notebook,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
     return NotebookMapper.ensureInitialized().stringifyValue(this as Notebook);
@@ -126,8 +140,10 @@ mixin NotebookMappable {
 
   @override
   bool operator ==(Object other) {
-    return NotebookMapper.ensureInitialized()
-        .equalsValue(this as Notebook, other);
+    return NotebookMapper.ensureInitialized().equalsValue(
+      this as Notebook,
+      other,
+    );
   }
 
   @override
@@ -156,22 +172,24 @@ class _NotebookCopyWithImpl<$R, $Out>
   late final ClassMapperBase<Notebook> $mapper =
       NotebookMapper.ensureInitialized();
   @override
-  $R call({Object? id = $none, String? name, String? description}) =>
-      $apply(FieldCopyWithData({
-        if (id != $none) #id: id,
-        if (name != null) #name: name,
-        if (description != null) #description: description
-      }));
+  $R call({Object? id = $none, String? name, String? description}) => $apply(
+    FieldCopyWithData({
+      if (id != $none) #id: id,
+      if (name != null) #name: name,
+      if (description != null) #description: description,
+    }),
+  );
   @override
   Notebook $make(CopyWithData data) => Notebook(
-      id: data.get(#id, or: $value.id),
-      name: data.get(#name, or: $value.name),
-      description: data.get(#description, or: $value.description));
+    id: data.get(#id, or: $value.id),
+    name: data.get(#name, or: $value.name),
+    description: data.get(#description, or: $value.description),
+  );
 
   @override
   NotebookCopyWith<$R2, Notebook, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _NotebookCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _NotebookCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class NoteMapper extends ClassMapperBase<Note> {
@@ -190,25 +208,46 @@ class NoteMapper extends ClassMapperBase<Note> {
   final String id = 'Note';
 
   static Uint8List? _$notebookId(Note v) => v.notebookId;
-  static const Field<Note, Uint8List> _f$notebookId =
-      Field('notebookId', _$notebookId, opt: true);
+  static const Field<Note, Uint8List> _f$notebookId = Field(
+    'notebookId',
+    _$notebookId,
+    opt: true,
+  );
   static Uint8List? _$id(Note v) => v.id;
   static const Field<Note, Uint8List> _f$id = Field('id', _$id, opt: true);
   static Uint8List? _$parentId(Note v) => v.parentId;
-  static const Field<Note, Uint8List> _f$parentId =
-      Field('parentId', _$parentId, opt: true);
+  static const Field<Note, Uint8List> _f$parentId = Field(
+    'parentId',
+    _$parentId,
+    opt: true,
+  );
   static String _$name(Note v) => v.name;
-  static const Field<Note, String> _f$name =
-      Field('name', _$name, opt: true, def: '');
+  static const Field<Note, String> _f$name = Field(
+    'name',
+    _$name,
+    opt: true,
+    def: '',
+  );
   static String _$description(Note v) => v.description;
-  static const Field<Note, String> _f$description =
-      Field('description', _$description, opt: true, def: '');
+  static const Field<Note, String> _f$description = Field(
+    'description',
+    _$description,
+    opt: true,
+    def: '',
+  );
   static NoteStatus? _$status(Note v) => v.status;
-  static const Field<Note, NoteStatus> _f$status =
-      Field('status', _$status, opt: true);
+  static const Field<Note, NoteStatus> _f$status = Field(
+    'status',
+    _$status,
+    opt: true,
+  );
   static int _$priority(Note v) => v.priority;
-  static const Field<Note, int> _f$priority =
-      Field('priority', _$priority, opt: true, def: 0);
+  static const Field<Note, int> _f$priority = Field(
+    'priority',
+    _$priority,
+    opt: true,
+    def: 0,
+  );
 
   @override
   final MappableFields<Note> fields = const {
@@ -223,13 +262,14 @@ class NoteMapper extends ClassMapperBase<Note> {
 
   static Note _instantiate(DecodingData data) {
     return Note(
-        notebookId: data.dec(_f$notebookId),
-        id: data.dec(_f$id),
-        parentId: data.dec(_f$parentId),
-        name: data.dec(_f$name),
-        description: data.dec(_f$description),
-        status: data.dec(_f$status),
-        priority: data.dec(_f$priority));
+      notebookId: data.dec(_f$notebookId),
+      id: data.dec(_f$id),
+      parentId: data.dec(_f$parentId),
+      name: data.dec(_f$name),
+      description: data.dec(_f$description),
+      status: data.dec(_f$status),
+      priority: data.dec(_f$priority),
+    );
   }
 
   @override
@@ -278,14 +318,15 @@ extension NoteValueCopy<$R, $Out> on ObjectCopyWith<$R, Note, $Out> {
 
 abstract class NoteCopyWith<$R, $In extends Note, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call(
-      {Uint8List? notebookId,
-      Uint8List? id,
-      Uint8List? parentId,
-      String? name,
-      String? description,
-      NoteStatus? status,
-      int? priority});
+  $R call({
+    Uint8List? notebookId,
+    Uint8List? id,
+    Uint8List? parentId,
+    String? name,
+    String? description,
+    NoteStatus? status,
+    int? priority,
+  });
   NoteCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -296,32 +337,35 @@ class _NoteCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Note, $Out>
   @override
   late final ClassMapperBase<Note> $mapper = NoteMapper.ensureInitialized();
   @override
-  $R call(
-          {Object? notebookId = $none,
-          Object? id = $none,
-          Object? parentId = $none,
-          String? name,
-          String? description,
-          Object? status = $none,
-          int? priority}) =>
-      $apply(FieldCopyWithData({
-        if (notebookId != $none) #notebookId: notebookId,
-        if (id != $none) #id: id,
-        if (parentId != $none) #parentId: parentId,
-        if (name != null) #name: name,
-        if (description != null) #description: description,
-        if (status != $none) #status: status,
-        if (priority != null) #priority: priority
-      }));
+  $R call({
+    Object? notebookId = $none,
+    Object? id = $none,
+    Object? parentId = $none,
+    String? name,
+    String? description,
+    Object? status = $none,
+    int? priority,
+  }) => $apply(
+    FieldCopyWithData({
+      if (notebookId != $none) #notebookId: notebookId,
+      if (id != $none) #id: id,
+      if (parentId != $none) #parentId: parentId,
+      if (name != null) #name: name,
+      if (description != null) #description: description,
+      if (status != $none) #status: status,
+      if (priority != null) #priority: priority,
+    }),
+  );
   @override
   Note $make(CopyWithData data) => Note(
-      notebookId: data.get(#notebookId, or: $value.notebookId),
-      id: data.get(#id, or: $value.id),
-      parentId: data.get(#parentId, or: $value.parentId),
-      name: data.get(#name, or: $value.name),
-      description: data.get(#description, or: $value.description),
-      status: data.get(#status, or: $value.status),
-      priority: data.get(#priority, or: $value.priority));
+    notebookId: data.get(#notebookId, or: $value.notebookId),
+    id: data.get(#id, or: $value.id),
+    parentId: data.get(#parentId, or: $value.parentId),
+    name: data.get(#name, or: $value.name),
+    description: data.get(#description, or: $value.description),
+    status: data.get(#status, or: $value.status),
+    priority: data.get(#priority, or: $value.priority),
+  );
 
   @override
   NoteCopyWith<$R2, Note, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>

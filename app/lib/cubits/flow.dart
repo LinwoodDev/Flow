@@ -10,9 +10,7 @@ part 'flow.mapper.dart';
 @MappableClass()
 class FlowState with FlowStateMappable {
   final List<String> disabledSources;
-  const FlowState({
-    this.disabledSources = const [],
-  });
+  const FlowState({this.disabledSources = const []});
 }
 
 class FlowCubit extends Cubit<FlowState> {
@@ -25,9 +23,10 @@ class FlowCubit extends Cubit<FlowState> {
   }
 
   List<String> getCurrentSources() {
-    return ['', ...sourcesService.getRemotes().map((e) => e.identifier)]
-        .whereNot((source) => state.disabledSources.contains(source))
-        .toList();
+    return [
+      '',
+      ...sourcesService.getRemotes().map((e) => e.identifier),
+    ].whereNot((source) => state.disabledSources.contains(source)).toList();
   }
 
   List<RemoteStorage> getCurrentRemotes() {
@@ -51,14 +50,19 @@ class FlowCubit extends Cubit<FlowState> {
   }
 
   void addSource(String source) {
-    emit(state.copyWith(
-        disabledSources:
-            state.disabledSources.where((s) => s != source).toList()));
+    emit(
+      state.copyWith(
+        disabledSources: state.disabledSources
+            .where((s) => s != source)
+            .toList(),
+      ),
+    );
   }
 
   void setSources(List<String> sources) {
     setDisabledSources(
-        getCurrentSources().whereNot((e) => sources.contains(e)).toList());
+      getCurrentSources().whereNot((e) => sources.contains(e)).toList(),
+    );
   }
 
   void setDisabledSources(List<String> sources) {

@@ -22,11 +22,7 @@ class Resource
   });
 
   factory Resource.fromDatabase(Map<String, dynamic> row) =>
-      ResourceMapper.fromMap({
-        ...row,
-      });
+      ResourceMapper.fromMap({...row});
 
-  Map<String, dynamic> toDatabase() => {
-        ...toMap(),
-      };
+  Map<String, dynamic> toDatabase() => {...toMap()};
 }

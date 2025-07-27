@@ -19,18 +19,11 @@ class NotesPage extends StatelessWidget {
   final NoteFilter filter;
   final SourcedModel<Uint8List>? parent;
 
-  const NotesPage({
-    super.key,
-    this.parent,
-    this.filter = const NoteFilter(),
-  });
+  const NotesPage({super.key, this.parent, this.filter = const NoteFilter()});
 
   @override
   Widget build(BuildContext context) {
-    return NotesBodyView(
-      filter: filter,
-      parent: parent,
-    );
+    return NotesBodyView(filter: filter, parent: parent);
   }
 }
 
@@ -107,34 +100,36 @@ class _NotesBodyViewState extends State<NotesBodyView> {
     _flowCubit = context.read<FlowCubit>();
     _parent = _fetchParent();
     _bloc = SourcedPagingBloc.item(
-        cubit: _flowCubit,
-        fetch: (source, service, offset, limit) async {
-          if (_filter.source != null && _filter.source != source) return null;
-          final notes = _filter.selectedLabel != null
-              ? await service.labelNote?.getItems(
-                  _filter.selectedLabel!,
-                  offset: offset,
-                  limit: limit,
-                  notebook: _filter.notebook,
-                  statuses: _filter.statuses,
-                  parent: widget.parent?.source == source
-                      ? widget.parent?.model
-                      : createEmptyUint8List(),
-                  search: widget.search,
-                )
-              : await service.note?.getNotes(
-                  offset: offset,
-                  limit: limit,
-                  notebook: _filter.notebook,
-                  statuses: _filter.statuses,
-                  parent: widget.parent?.source == source
-                      ? widget.parent?.model
-                      : createEmptyUint8List(),
-                  search: widget.search);
-          if (notes == null) return null;
-          if (source != widget.parent?.source) return notes;
-          return notes;
-        });
+      cubit: _flowCubit,
+      fetch: (source, service, offset, limit) async {
+        if (_filter.source != null && _filter.source != source) return null;
+        final notes = _filter.selectedLabel != null
+            ? await service.labelNote?.getItems(
+                _filter.selectedLabel!,
+                offset: offset,
+                limit: limit,
+                notebook: _filter.notebook,
+                statuses: _filter.statuses,
+                parent: widget.parent?.source == source
+                    ? widget.parent?.model
+                    : createEmptyUint8List(),
+                search: widget.search,
+              )
+            : await service.note?.getNotes(
+                offset: offset,
+                limit: limit,
+                notebook: _filter.notebook,
+                statuses: _filter.statuses,
+                parent: widget.parent?.source == source
+                    ? widget.parent?.model
+                    : createEmptyUint8List(),
+                search: widget.search,
+              );
+        if (notes == null) return null;
+        if (source != widget.parent?.source) return notes;
+        return notes;
+      },
+    );
     _filter = widget.filter;
     super.initState();
   }
@@ -191,10 +186,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
           icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
           onPressed: () => showSearch(
             context: context,
-            delegate: _NotesSearchDelegate(
-              _filter,
-              widget.parent,
-            ),
+            delegate: _NotesSearchDelegate(_filter, widget.parent),
           ),
         ),
       ],
@@ -210,43 +202,41 @@ class _NotesBodyViewState extends State<NotesBodyView> {
             },
           ),
           FutureBuilder<Note?>(
-              future: _parent,
-              builder: (context, snapshot) {
-                final data = snapshot.data;
-                if (data == null) return Container();
-                return Column(
-                  children: [
-                    const Divider(),
-                    const SizedBox(height: 8),
-                    NoteDetailsView(
-                      bloc: _bloc,
-                      source: widget.parent!.source,
-                      note: data,
-                    ),
-                  ],
-                );
-              }),
+            future: _parent,
+            builder: (context, snapshot) {
+              final data = snapshot.data;
+              if (data == null) return Container();
+              return Column(
+                children: [
+                  const Divider(),
+                  const SizedBox(height: 8),
+                  NoteDetailsView(
+                    bloc: _bloc,
+                    source: widget.parent!.source,
+                    note: data,
+                  ),
+                ],
+              );
+            },
+          ),
           if (widget.parent == null || widget.search.isNotEmpty) ...[
             const SizedBox(height: 8),
-            Expanded(
-              child: NotesListView(
-                bloc: _bloc,
-              ),
-            ),
+            Expanded(child: NotesListView(bloc: _bloc)),
           ],
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog<SourcedModel<Note>>(
-            context: context,
-            builder: (context) => NoteDialog(
-                  note: Note(
-                    parentId: widget.parent?.model,
-                    notebookId: _filter.notebook,
-                  ),
-                  source: widget.parent?.source,
-                  create: true,
-                )).then((_) => _bloc.refresh()),
+          context: context,
+          builder: (context) => NoteDialog(
+            note: Note(
+              parentId: widget.parent?.model,
+              notebookId: _filter.notebook,
+            ),
+            source: widget.parent?.source,
+            create: true,
+          ),
+        ).then((_) => _bloc.refresh()),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),

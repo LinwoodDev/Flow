@@ -22,16 +22,18 @@ class SourceDropdown<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<FlowCubit>();
-    final services = Map.fromEntries(cubit
-        .getCurrentServicesMap()
-        .entries
-        .map((e) {
-          final service = buildService(e.value);
-          if (service == null) return null;
-          return MapEntry(e.key, service);
-        })
-        .nonNulls
-        .toList());
+    final services = Map.fromEntries(
+      cubit
+          .getCurrentServicesMap()
+          .entries
+          .map((e) {
+            final service = buildService(e.value);
+            if (service == null) return null;
+            return MapEntry(e.key, service);
+          })
+          .nonNulls
+          .toList(),
+    );
     return Column(
       children: [
         const SizedBox(height: 16),
@@ -46,14 +48,7 @@ class SourceDropdown<T> extends StatelessWidget {
           }).toList(),
           onSelected: (value) {
             final service = services[value];
-            onChanged(
-              service == null
-                  ? null
-                  : ConnectedModel(
-                      value!,
-                      service,
-                    ),
-            );
+            onChanged(service == null ? null : ConnectedModel(value!, service));
           },
           label: Text(AppLocalizations.of(context).source),
           leadingIcon: const PhosphorIcon(PhosphorIconsLight.cloud),

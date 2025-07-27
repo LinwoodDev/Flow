@@ -18,8 +18,8 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 0.5.0+12
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
-  flutter: 3.32.6
+  sdk: ">=3.8.0 <4.0.0"
+  flutter: 3.32.8
 
 dependencies:
   flutter:
@@ -82,6 +82,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   dart_mappable_builder: ^4.3.0
+  msix: ^3.16.10
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -169,3 +170,12 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+msix_config:
+  display_name: Linwood Flow
+  publisher_display_name: Linwood Development
+  identity_name: LinwoodDevelopment.linwood-flow
+  msix_version: 0.5.0.0
+  logo_path: images/logo.png
+  capabilities: documentsLibrary
+  languages: en-us, af, ar, ca, cs, da, de, el, es, fi, fr, he, hi, hu, it, ja, ko, nl, no, pl, pt-br, pt, ro, ru, sr, sv, th, tr, uk, vi, zh-Hans, zh-Hant
+  install_certificate: false

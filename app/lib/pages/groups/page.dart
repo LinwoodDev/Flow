@@ -12,9 +12,7 @@ import '../../cubits/flow.dart';
 import 'tile.dart';
 
 class GroupsPage extends StatefulWidget {
-  const GroupsPage({
-    super.key,
-  });
+  const GroupsPage({super.key});
 
   @override
   _GroupsPageState createState() => _GroupsPageState();
@@ -62,9 +60,7 @@ class _GroupsSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return GroupsBodyView(
-      search: query,
-    );
+    return GroupsBodyView(search: query);
   }
 
   @override
@@ -76,10 +72,7 @@ class _GroupsSearchDelegate extends SearchDelegate {
 class GroupsBodyView extends StatefulWidget {
   final String search;
 
-  const GroupsBodyView({
-    super.key,
-    this.search = '',
-  });
+  const GroupsBodyView({super.key, this.search = ''});
 
   @override
   State<GroupsBodyView> createState() => _GroupsBodyViewState();
@@ -93,9 +86,10 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
   void initState() {
     _flowCubit = context.read<FlowCubit>();
     _bloc = SourcedPagingBloc<Group>.item(
-        cubit: _flowCubit,
-        fetch: (source, service, offset, limit) async =>
-            service.group?.getGroups(offset: offset, limit: limit));
+      cubit: _flowCubit,
+      fetch: (source, service, offset, limit) async =>
+          service.group?.getGroups(offset: offset, limit: limit),
+    );
     super.initState();
   }
 
@@ -132,9 +126,7 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
                     ?.deleteGroup(item.model.id!);
                 _bloc.remove(item);
               },
-              background: Container(
-                color: Colors.red,
-              ),
+              background: Container(color: Colors.red),
               child: GroupTile(
                 flowCubit: _flowCubit,
                 bloc: _bloc,
@@ -147,8 +139,9 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
-                context: context, builder: (context) => const GroupDialog())
-            .then((_) => _bloc.refresh()),
+          context: context,
+          builder: (context) => const GroupDialog(),
+        ).then((_) => _bloc.refresh()),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),

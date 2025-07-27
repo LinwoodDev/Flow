@@ -23,14 +23,26 @@ class LabelMapper extends ClassMapperBase<Label> {
   static Uint8List? _$id(Label v) => v.id;
   static const Field<Label, Uint8List> _f$id = Field('id', _$id, opt: true);
   static String _$name(Label v) => v.name;
-  static const Field<Label, String> _f$name =
-      Field('name', _$name, opt: true, def: '');
+  static const Field<Label, String> _f$name = Field(
+    'name',
+    _$name,
+    opt: true,
+    def: '',
+  );
   static String _$description(Label v) => v.description;
-  static const Field<Label, String> _f$description =
-      Field('description', _$description, opt: true, def: '');
+  static const Field<Label, String> _f$description = Field(
+    'description',
+    _$description,
+    opt: true,
+    def: '',
+  );
   static SRGBColor _$color(Label v) => v.color;
-  static const Field<Label, SRGBColor> _f$color =
-      Field('color', _$color, opt: true, def: SRGBColor.black);
+  static const Field<Label, SRGBColor> _f$color = Field(
+    'color',
+    _$color,
+    opt: true,
+    def: SRGBColor.black,
+  );
 
   @override
   final MappableFields<Label> fields = const {
@@ -42,10 +54,11 @@ class LabelMapper extends ClassMapperBase<Label> {
 
   static Label _instantiate(DecodingData data) {
     return Label(
-        id: data.dec(_f$id),
-        name: data.dec(_f$name),
-        description: data.dec(_f$description),
-        color: data.dec(_f$color));
+      id: data.dec(_f$id),
+      name: data.dec(_f$name),
+      description: data.dec(_f$description),
+      color: data.dec(_f$color),
+    );
   }
 
   @override
@@ -105,23 +118,26 @@ class _LabelCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Label, $Out>
   @override
   late final ClassMapperBase<Label> $mapper = LabelMapper.ensureInitialized();
   @override
-  $R call(
-          {Object? id = $none,
-          String? name,
-          String? description,
-          SRGBColor? color}) =>
-      $apply(FieldCopyWithData({
-        if (id != $none) #id: id,
-        if (name != null) #name: name,
-        if (description != null) #description: description,
-        if (color != null) #color: color
-      }));
+  $R call({
+    Object? id = $none,
+    String? name,
+    String? description,
+    SRGBColor? color,
+  }) => $apply(
+    FieldCopyWithData({
+      if (id != $none) #id: id,
+      if (name != null) #name: name,
+      if (description != null) #description: description,
+      if (color != null) #color: color,
+    }),
+  );
   @override
   Label $make(CopyWithData data) => Label(
-      id: data.get(#id, or: $value.id),
-      name: data.get(#name, or: $value.name),
-      description: data.get(#description, or: $value.description),
-      color: data.get(#color, or: $value.color));
+    id: data.get(#id, or: $value.id),
+    name: data.get(#name, or: $value.name),
+    description: data.get(#description, or: $value.description),
+    color: data.get(#color, or: $value.color),
+  );
 
   @override
   LabelCopyWith<$R2, Label, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>

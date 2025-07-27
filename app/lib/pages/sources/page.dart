@@ -21,63 +21,70 @@ class SourcesPage extends StatelessWidget {
       title: AppLocalizations.of(context).sources,
       actions: [
         StreamBuilder<SyncStatus>(
-            stream: context.read<SourcesService>().syncStatus,
-            builder: (context, snapshot) {
-              return IconButton(
-                icon:
-                    PhosphorIcon(snapshot.data.icon(PhosphorIconsStyle.light)),
-                onPressed: () =>
-                    context.read<SourcesService>().synchronize(true),
-              );
-            }),
+          stream: context.read<SourcesService>().syncStatus,
+          builder: (context, snapshot) {
+            return IconButton(
+              icon: PhosphorIcon(snapshot.data.icon(PhosphorIconsStyle.light)),
+              onPressed: () => context.read<SourcesService>().synchronize(true),
+            );
+          },
+        ),
       ],
       body: SingleChildScrollView(
         child: Align(
-            alignment: Alignment.topCenter,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 500),
-              child: Column(children: [
+          alignment: Alignment.topCenter,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 500),
+            child: Column(
+              children: [
                 ListTile(
                   title: Text(AppLocalizations.of(context).local),
                   leading: const PhosphorIcon(PhosphorIconsLight.laptop),
                   onTap: () => showDialog(
-                      context: context,
-                      builder: (context) => const LocalSourceDialog()),
+                    context: context,
+                    builder: (context) => const LocalSourceDialog(),
+                  ),
                 ),
                 BlocBuilder<SettingsCubit, FlowSettings>(
-                    builder: (context, state) {
-                  final remotes = List<RemoteStorage>.from(state.remotes);
-                  return StatefulBuilder(
-                    builder: (context, setState) => ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: remotes.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final remote = remotes[index];
-                        return Dismissible(
-                          key: ValueKey(remote),
-                          onDismissed: (_) {
-                            setState(() => remotes.removeAt(index));
-                            context
-                                .read<SourcesService>()
-                                .removeRemote(remote.toFilename());
-                          },
-                          child: ListTile(
-                            title: Text(remote.displayName),
-                            leading: PhosphorIcon(
-                                remote.icon(PhosphorIconsStyle.light)),
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                }),
-              ]),
-            )),
+                  builder: (context, state) {
+                    final remotes = List<RemoteStorage>.from(state.remotes);
+                    return StatefulBuilder(
+                      builder: (context, setState) => ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: remotes.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final remote = remotes[index];
+                          return Dismissible(
+                            key: ValueKey(remote),
+                            onDismissed: (_) {
+                              setState(() => remotes.removeAt(index));
+                              context.read<SourcesService>().removeRemote(
+                                remote.toFilename(),
+                              );
+                            },
+                            child: ListTile(
+                              title: Text(remote.displayName),
+                              leading: PhosphorIcon(
+                                remote.icon(PhosphorIconsStyle.light),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
-            context: context, builder: (context) => const AddSourceDialog()),
+          context: context,
+          builder: (context) => const AddSourceDialog(),
+        ),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),

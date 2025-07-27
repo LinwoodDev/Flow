@@ -35,8 +35,11 @@ class UserNotebookDatabaseConnector
   String get tableName => "userNotebooks";
 
   @override
-  Future<List<Notebook>> getItems(Uint8List itemId,
-      {int offset = 0, int limit = 50}) async {
+  Future<List<Notebook>> getItems(
+    Uint8List itemId, {
+    int offset = 0,
+    int limit = 50,
+  }) async {
     final result = await db?.query(
       '$tableName JOIN events ON notebookId = notebooks.id',
       limit: limit,
@@ -48,8 +51,11 @@ class UserNotebookDatabaseConnector
   }
 
   @override
-  Future<List<User>> getConnected(Uint8List connectId,
-      {int offset = 0, int limit = 50}) async {
+  Future<List<User>> getConnected(
+    Uint8List connectId, {
+    int offset = 0,
+    int limit = 50,
+  }) async {
     final result = await db?.query(
       '$tableName JOIN users ON userId = users.id',
       limit: limit,

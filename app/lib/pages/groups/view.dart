@@ -17,17 +17,18 @@ class GroupsView<T extends DescriptiveModel> extends StatefulWidget {
   final String source;
   final ModelConnector<Group, T> connector;
 
-  const GroupsView(
-      {super.key,
-      required this.source,
-      required this.connector,
-      required this.model});
-  GroupsView.reversed(
-      {super.key,
-      required this.source,
-      required ModelConnector<T, Group> connector,
-      required this.model})
-      : connector = ReversedModelConnector(connector);
+  const GroupsView({
+    super.key,
+    required this.source,
+    required this.connector,
+    required this.model,
+  });
+  GroupsView.reversed({
+    super.key,
+    required this.source,
+    required ModelConnector<T, Group> connector,
+    required this.model,
+  }) : connector = ReversedModelConnector(connector);
 
   @override
   State<GroupsView<T>> createState() => _GroupsViewState();
@@ -43,84 +44,81 @@ class _GroupsViewState<T extends DescriptiveModel>
     _bloc = SourcedPagingBloc.source(
       cubit: cubit,
       source: widget.source,
-      fetch: (service, offset, limit) => widget.connector
-          .getItems(widget.model.id!, offset: offset, limit: limit),
+      fetch: (service, offset, limit) => widget.connector.getItems(
+        widget.model.id!,
+        offset: offset,
+        limit: limit,
+      ),
     );
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) => Stack(
+    children: [
+      Column(
         children: [
-          Column(
-            children: [
-              Flexible(
-                child: PagedListView.source(
-                  bloc: _bloc,
-                  itemBuilder: (context, item, index) {
-                    Future<void> onDelete() async {
-                      await widget.connector.disconnect(
-                        widget.model.id!,
-                        item.id!,
-                      );
-                      _bloc.removeSourced(item);
-                    }
+          Flexible(
+            child: PagedListView.source(
+              bloc: _bloc,
+              itemBuilder: (context, item, index) {
+                Future<void> onDelete() async {
+                  await widget.connector.disconnect(widget.model.id!, item.id!);
+                  _bloc.removeSourced(item);
+                }
 
-                    return Dismissible(
-                      key: ValueKey(item.id),
-                      background: Container(color: Colors.red),
-                      onDismissed: (direction) => onDelete(),
-                      child: ListTile(
-                        title: Text(item.name),
-                        onTap: () async {
-                          await showDialog<SourcedModel<Group>>(
-                            context: context,
-                            builder: (context) => GroupDialog(
-                              source: widget.source,
-                              group: item,
-                            ),
-                          );
-                          _bloc.refresh();
-                        },
-                        trailing: IconButton(
-                          icon:
-                              const PhosphorIcon(PhosphorIconsLight.linkBreak),
-                          tooltip: AppLocalizations.of(context).unlink,
-                          onPressed: onDelete,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(height: 64),
-            ],
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: FloatingActionButton.extended(
-                label: Text(AppLocalizations.of(context).link),
-                icon: const PhosphorIcon(PhosphorIconsLight.link),
-                onPressed: () async {
-                  final group = await showDialog<SourcedModel<Group>>(
-                    context: context,
-                    builder: (context) => GroupSelectDialog(
-                      source: widget.source,
+                return Dismissible(
+                  key: ValueKey(item.id),
+                  background: Container(color: Colors.red),
+                  onDismissed: (direction) => onDelete(),
+                  child: ListTile(
+                    title: Text(item.name),
+                    onTap: () async {
+                      await showDialog<SourcedModel<Group>>(
+                        context: context,
+                        builder: (context) =>
+                            GroupDialog(source: widget.source, group: item),
+                      );
+                      _bloc.refresh();
+                    },
+                    trailing: IconButton(
+                      icon: const PhosphorIcon(PhosphorIconsLight.linkBreak),
+                      tooltip: AppLocalizations.of(context).unlink,
+                      onPressed: onDelete,
                     ),
-                  );
-                  if (group != null) {
-                    await widget.connector
-                        .connect(widget.model.id!, group.model.id!);
-                  }
-                  _bloc.refresh();
-                },
-              ),
+                  ),
+                );
+              },
             ),
           ),
+          const SizedBox(height: 64),
         ],
-      );
+      ),
+      Align(
+        alignment: Alignment.bottomCenter,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: FloatingActionButton.extended(
+            label: Text(AppLocalizations.of(context).link),
+            icon: const PhosphorIcon(PhosphorIconsLight.link),
+            onPressed: () async {
+              final group = await showDialog<SourcedModel<Group>>(
+                context: context,
+                builder: (context) => GroupSelectDialog(source: widget.source),
+              );
+              if (group != null) {
+                await widget.connector.connect(
+                  widget.model.id!,
+                  group.model.id!,
+                );
+              }
+              _bloc.refresh();
+            },
+          ),
+        ),
+      ),
+    ],
+  );
 
   @override
   void dispose() {

@@ -29,24 +29,27 @@ class EventTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ContextRegion(
-      menuChildren: [
-        (
-          PhosphorIconsLight.calendar,
-          AppLocalizations.of(context).events,
-          _openEvents,
-        ),
-        (
-          PhosphorIconsLight.trash,
-          AppLocalizations.of(context).delete,
-          _deleteEvent,
-        ),
-      ]
-          .map((e) => MenuItemButton(
-                leadingIcon: PhosphorIcon(e.$1),
-                onPressed: () => e.$3(context),
-                child: Text(e.$2),
-              ))
-          .toList(),
+      menuChildren:
+          [
+                (
+                  PhosphorIconsLight.calendar,
+                  AppLocalizations.of(context).events,
+                  _openEvents,
+                ),
+                (
+                  PhosphorIconsLight.trash,
+                  AppLocalizations.of(context).delete,
+                  _deleteEvent,
+                ),
+              ]
+              .map(
+                (e) => MenuItemButton(
+                  leadingIcon: PhosphorIcon(e.$1),
+                  onPressed: () => e.$3(context),
+                  child: Text(e.$2),
+                ),
+              )
+              .toList(),
       builder: (context, button, controller) => ListTile(
         title: Text(event.name),
         subtitle: MarkdownText(event.description),
@@ -59,10 +62,7 @@ class EventTile extends StatelessWidget {
   void _openEvents(BuildContext context) {
     GoRouter.of(context).go(
       "/calendar",
-      extra: CalendarFilter(
-        event: event.id,
-        source: source,
-      ),
+      extra: CalendarFilter(event: event.id, source: source),
     );
   }
 
@@ -72,27 +72,21 @@ class EventTile extends StatelessWidget {
       builder: (context) => AlertDialog(
         title: Text(AppLocalizations.of(context).deleteEvent(event.name)),
         content: Text(
-            AppLocalizations.of(context).deleteEventDescription(event.name)),
+          AppLocalizations.of(context).deleteEventDescription(event.name),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(
-              AppLocalizations.of(context).cancel,
-            ),
+            child: Text(AppLocalizations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () async {
               Navigator.of(context).pop();
               await flowCubit.getService(source).event?.deleteEvent(event.id!);
-              bloc.remove(SourcedModel(
-                source,
-                event,
-              ));
+              bloc.remove(SourcedModel(source, event));
               bloc.refresh();
             },
-            child: Text(
-              AppLocalizations.of(context).delete,
-            ),
+            child: Text(AppLocalizations.of(context).delete),
           ),
         ],
       ),
@@ -102,10 +96,7 @@ class EventTile extends StatelessWidget {
   void _editEvent(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => EventDialog(
-        event: event,
-        source: source,
-      ),
+      builder: (context) => EventDialog(event: event, source: source),
     ).then((value) => bloc.refresh());
   }
 }

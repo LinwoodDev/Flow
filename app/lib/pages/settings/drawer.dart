@@ -16,23 +16,28 @@ class SettingsDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [
-      ...<List<dynamic>>[
-        [
-          PhosphorIconsLight.arrowClockwise,
-          AppLocalizations.of(context).version
-        ],
-        [
-          PhosphorIconsLight.palette,
-          AppLocalizations.of(context).personalization
-        ],
-        [PhosphorIconsLight.info, AppLocalizations.of(context).information],
-        [PhosphorIconsLight.article, AppLocalizations.of(context).legal]
-      ].asMap().entries.map((e) => ListTile(
-          title: Text(e.value[1]),
-          leading: PhosphorIcon(e.value[0]),
-          selected: e.key == selected,
-          onTap: () => onChanged(e.key))),
-    ]);
+    return ListView(
+      children: [
+        ...<List<dynamic>>[
+          [
+            PhosphorIconsLight.arrowClockwise,
+            AppLocalizations.of(context).version,
+          ],
+          [
+            PhosphorIconsLight.palette,
+            AppLocalizations.of(context).personalization,
+          ],
+          [PhosphorIconsLight.info, AppLocalizations.of(context).information],
+          [PhosphorIconsLight.article, AppLocalizations.of(context).legal],
+        ].asMap().entries.map(
+          (e) => ListTile(
+            title: Text(e.value[1]),
+            leading: PhosphorIcon(e.value[0]),
+            selected: e.key == selected,
+            onTap: () => onChanged(e.key),
+          ),
+        ),
+      ],
+    );
   }
 }

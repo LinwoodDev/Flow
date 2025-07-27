@@ -17,9 +17,9 @@ final class SourcedPagingInitial<T> extends SourcedPagingState<T> {
 }
 
 @MappableClass(
-    generateMethods: GenerateMethods.copy |
-        GenerateMethods.stringify |
-        GenerateMethods.equals)
+  generateMethods:
+      GenerateMethods.copy | GenerateMethods.stringify | GenerateMethods.equals,
+)
 final class SourcedPagingSuccess<T> extends SourcedPagingState<T>
     with SourcedPagingSuccessMappable<T> {
   @override
@@ -46,8 +46,11 @@ final class SourcedPagingFailure<T> extends SourcedPagingState<T> {
   @override
   final int currentDate;
 
-  const SourcedPagingFailure(this.error,
-      {this.dates = const [], this.currentDate = 0});
+  const SourcedPagingFailure(
+    this.error, {
+    this.dates = const [],
+    this.currentDate = 0,
+  });
 
   @override
   bool get hasReachedMax => true;

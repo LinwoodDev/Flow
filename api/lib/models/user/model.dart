@@ -23,11 +23,8 @@ class User with UserMappable, IdentifiedModel, NamedModel, DescriptiveModel {
     this.image,
   });
 
-  factory User.fromDatabase(Map<String, dynamic> row) => UserMapper.fromMap({
-        ...row,
-      });
+  factory User.fromDatabase(Map<String, dynamic> row) =>
+      UserMapper.fromMap({...row});
 
-  Map<String, dynamic> toDatabase() => {
-        ...toMap(),
-      };
+  Map<String, dynamic> toDatabase() => {...toMap()};
 }

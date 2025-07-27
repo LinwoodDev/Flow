@@ -28,27 +28,29 @@ class _DashboardPageState extends State<DashboardPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Card(
-                    child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      ConstrainedBox(
-                        constraints: const BoxConstraints(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: [
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(
                             minHeight: 300,
                             minWidth: 300,
                             maxWidth: 600,
-                            maxHeight: 600),
-                        child: const ClockView(),
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        AppLocalizations.of(context).welcome,
-                        style: Theme.of(context).textTheme.headlineMedium,
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+                            maxHeight: 600,
+                          ),
+                          child: const ClockView(),
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          AppLocalizations.of(context).welcome,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   ),
-                )),
+                ),
                 Card(
                   child: Padding(
                     padding: const EdgeInsets.all(16),
@@ -72,22 +74,24 @@ class _DashboardPageState extends State<DashboardPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             ConstrainedBox(
-                                constraints: const BoxConstraints(
-                                  minHeight: 250,
-                                  minWidth: 300,
-                                  maxWidth: 600,
-                                  maxHeight: 300,
-                                ),
-                                child: DashboardNotesView()),
+                              constraints: const BoxConstraints(
+                                minHeight: 250,
+                                minWidth: 300,
+                                maxWidth: 600,
+                                maxHeight: 300,
+                              ),
+                              child: DashboardNotesView(),
+                            ),
                             const Divider(),
                             ConstrainedBox(
-                                constraints: const BoxConstraints(
-                                  minHeight: 250,
-                                  minWidth: 300,
-                                  maxWidth: 600,
-                                  maxHeight: 300,
-                                ),
-                                child: DashboardEventsView()),
+                              constraints: const BoxConstraints(
+                                minHeight: 250,
+                                minWidth: 300,
+                                maxWidth: 600,
+                                maxHeight: 300,
+                              ),
+                              child: DashboardEventsView(),
+                            ),
                           ],
                         );
                       },

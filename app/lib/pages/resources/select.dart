@@ -28,9 +28,9 @@ class ResourceSelectTile extends StatelessWidget {
       onModelFetch: (source, service, id) async =>
           service.resource?.getResource(id),
       title: AppLocalizations.of(context).resource,
-      leadingBuilder: (context, model) => PhosphorIcon(model?.model == null
-          ? PhosphorIconsLight.cube
-          : PhosphorIconsFill.cube),
+      leadingBuilder: (context, model) => PhosphorIcon(
+        model?.model == null ? PhosphorIconsLight.cube : PhosphorIconsFill.cube,
+      ),
       dialogBuilder: (context, sourcedModel) => ResourceDialog(
         source: sourcedModel?.source,
         resource: sourcedModel?.model,
@@ -48,27 +48,17 @@ class ResourceSelectDialog extends StatelessWidget {
   final String? source;
   final SourcedModel<Uint8List>? selected;
 
-  const ResourceSelectDialog({
-    super.key,
-    this.source,
-    this.selected,
-  });
+  const ResourceSelectDialog({super.key, this.source, this.selected});
 
   @override
   Widget build(BuildContext context) {
     return SelectDialog(
-      onFetch: (source, service, search, offset, limit) async =>
-          service.resource?.getResources(
-        offset: offset,
-        limit: limit,
-        search: search,
-      ),
+      onFetch: (source, service, search, offset, limit) async => service
+          .resource
+          ?.getResources(offset: offset, limit: limit, search: search),
       onCreate: (source) => showDialog<SourcedModel<Resource>>(
         context: context,
-        builder: (context) => ResourceDialog(
-          source: source,
-          create: true,
-        ),
+        builder: (context) => ResourceDialog(source: source, create: true),
       ),
       title: AppLocalizations.of(context).resource,
       selected: selected,

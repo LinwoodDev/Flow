@@ -1,8 +1,12 @@
 import 'package:flow_api/services/database.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
-Future<void> migrateDatabase(DatabaseService service, Database db,
-    int oldVersion, int newVersion) async {
+Future<void> migrateDatabase(
+  DatabaseService service,
+  Database db,
+  int oldVersion,
+  int newVersion,
+) async {
   if (oldVersion < 2) {
     await service.label.create(db);
     await service.labelNote.create(db);
@@ -71,8 +75,9 @@ Future<void> migrateDatabase(DatabaseService service, Database db,
         "SELECT id, groupId FROM calendarItems WHERE groupId IS NOT NULL",
       );
       await txn.execute("DROP TABLE calendarItems");
-      await txn
-          .execute("ALTER TABLE calendarItems_temp RENAME TO calendarItems");
+      await txn.execute(
+        "ALTER TABLE calendarItems_temp RENAME TO calendarItems",
+      );
     });
 
     // Migrate users

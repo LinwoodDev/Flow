@@ -17,11 +17,12 @@ class ResourcesView<T extends DescriptiveModel> extends StatefulWidget {
   final String source;
   final ResourceConnector<T> connector;
 
-  const ResourcesView(
-      {super.key,
-      required this.source,
-      required this.connector,
-      required this.model});
+  const ResourcesView({
+    super.key,
+    required this.source,
+    required this.connector,
+    required this.model,
+  });
 
   @override
   State<ResourcesView<T>> createState() => _ResourcesViewState();
@@ -37,8 +38,11 @@ class _ResourcesViewState<T extends DescriptiveModel>
     _bloc = SourcedPagingBloc.source(
       cubit: cubit,
       source: widget.source,
-      fetch: (service, offset, limit) => widget.connector
-          .getItems(widget.model.id!, offset: offset, limit: limit),
+      fetch: (service, offset, limit) => widget.connector.getItems(
+        widget.model.id!,
+        offset: offset,
+        limit: limit,
+      ),
     );
     super.initState();
   }
@@ -81,8 +85,9 @@ class _ResourcesViewState<T extends DescriptiveModel>
                           _bloc.refresh();
                         },
                         trailing: IconButton(
-                          icon:
-                              const PhosphorIcon(PhosphorIconsLight.linkBreak),
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.linkBreak,
+                          ),
                           tooltip: AppLocalizations.of(context).unlink,
                           onPressed: onDelete,
                         ),
@@ -104,13 +109,14 @@ class _ResourcesViewState<T extends DescriptiveModel>
                 onPressed: () async {
                   final resource = await showDialog<SourcedModel<Resource>>(
                     context: context,
-                    builder: (context) => ResourceSelectDialog(
-                      source: widget.source,
-                    ),
+                    builder: (context) =>
+                        ResourceSelectDialog(source: widget.source),
                   );
                   if (resource != null) {
-                    await widget.connector
-                        .connect(widget.model.id!, resource.model.id!);
+                    await widget.connector.connect(
+                      widget.model.id!,
+                      resource.model.id!,
+                    );
                   }
                   _bloc.refresh();
                 },

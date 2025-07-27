@@ -23,14 +23,26 @@ class ResourceMapper extends ClassMapperBase<Resource> {
   static Uint8List? _$id(Resource v) => v.id;
   static const Field<Resource, Uint8List> _f$id = Field('id', _$id, opt: true);
   static String _$name(Resource v) => v.name;
-  static const Field<Resource, String> _f$name =
-      Field('name', _$name, opt: true, def: '');
+  static const Field<Resource, String> _f$name = Field(
+    'name',
+    _$name,
+    opt: true,
+    def: '',
+  );
   static String _$description(Resource v) => v.description;
-  static const Field<Resource, String> _f$description =
-      Field('description', _$description, opt: true, def: '');
+  static const Field<Resource, String> _f$description = Field(
+    'description',
+    _$description,
+    opt: true,
+    def: '',
+  );
   static String _$address(Resource v) => v.address;
-  static const Field<Resource, String> _f$address =
-      Field('address', _$address, opt: true, def: '');
+  static const Field<Resource, String> _f$address = Field(
+    'address',
+    _$address,
+    opt: true,
+    def: '',
+  );
 
   @override
   final MappableFields<Resource> fields = const {
@@ -42,10 +54,11 @@ class ResourceMapper extends ClassMapperBase<Resource> {
 
   static Resource _instantiate(DecodingData data) {
     return Resource(
-        id: data.dec(_f$id),
-        name: data.dec(_f$name),
-        description: data.dec(_f$description),
-        address: data.dec(_f$address));
+      id: data.dec(_f$id),
+      name: data.dec(_f$name),
+      description: data.dec(_f$description),
+      address: data.dec(_f$address),
+    );
   }
 
   @override
@@ -62,18 +75,23 @@ class ResourceMapper extends ClassMapperBase<Resource> {
 
 mixin ResourceMappable {
   String toJson() {
-    return ResourceMapper.ensureInitialized()
-        .encodeJson<Resource>(this as Resource);
+    return ResourceMapper.ensureInitialized().encodeJson<Resource>(
+      this as Resource,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return ResourceMapper.ensureInitialized()
-        .encodeMap<Resource>(this as Resource);
+    return ResourceMapper.ensureInitialized().encodeMap<Resource>(
+      this as Resource,
+    );
   }
 
   ResourceCopyWith<Resource, Resource, Resource> get copyWith =>
       _ResourceCopyWithImpl<Resource, Resource>(
-          this as Resource, $identity, $identity);
+        this as Resource,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
     return ResourceMapper.ensureInitialized().stringifyValue(this as Resource);
@@ -81,8 +99,10 @@ mixin ResourceMappable {
 
   @override
   bool operator ==(Object other) {
-    return ResourceMapper.ensureInitialized()
-        .equalsValue(this as Resource, other);
+    return ResourceMapper.ensureInitialized().equalsValue(
+      this as Resource,
+      other,
+    );
   }
 
   @override
@@ -111,26 +131,29 @@ class _ResourceCopyWithImpl<$R, $Out>
   late final ClassMapperBase<Resource> $mapper =
       ResourceMapper.ensureInitialized();
   @override
-  $R call(
-          {Object? id = $none,
-          String? name,
-          String? description,
-          String? address}) =>
-      $apply(FieldCopyWithData({
-        if (id != $none) #id: id,
-        if (name != null) #name: name,
-        if (description != null) #description: description,
-        if (address != null) #address: address
-      }));
+  $R call({
+    Object? id = $none,
+    String? name,
+    String? description,
+    String? address,
+  }) => $apply(
+    FieldCopyWithData({
+      if (id != $none) #id: id,
+      if (name != null) #name: name,
+      if (description != null) #description: description,
+      if (address != null) #address: address,
+    }),
+  );
   @override
   Resource $make(CopyWithData data) => Resource(
-      id: data.get(#id, or: $value.id),
-      name: data.get(#name, or: $value.name),
-      description: data.get(#description, or: $value.description),
-      address: data.get(#address, or: $value.address));
+    id: data.get(#id, or: $value.id),
+    name: data.get(#name, or: $value.name),
+    description: data.get(#description, or: $value.description),
+    address: data.get(#address, or: $value.address),
+  );
 
   @override
   ResourceCopyWith<$R2, Resource, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _ResourceCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _ResourceCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

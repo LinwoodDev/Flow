@@ -27,8 +27,10 @@ class RemoteStorageMapper extends ClassMapperBase<RemoteStorage> {
   static String _$url(RemoteStorage v) => v.url;
   static const Field<RemoteStorage, String> _f$url = Field('url', _$url);
   static String _$username(RemoteStorage v) => v.username;
-  static const Field<RemoteStorage, String> _f$username =
-      Field('username', _$username);
+  static const Field<RemoteStorage, String> _f$username = Field(
+    'username',
+    _$username,
+  );
 
   @override
   final MappableFields<RemoteStorage> fields = const {
@@ -56,7 +58,7 @@ mixin RemoteStorageMappable {
   String toJson();
   Map<String, dynamic> toMap();
   RemoteStorageCopyWith<RemoteStorage, RemoteStorage, RemoteStorage>
-      get copyWith;
+  get copyWith;
 }
 
 abstract class RemoteStorageCopyWith<$R, $In extends RemoteStorage, $Out>
@@ -83,8 +85,10 @@ class CalDavStorageMapper extends ClassMapperBase<CalDavStorage> {
   static String _$url(CalDavStorage v) => v.url;
   static const Field<CalDavStorage, String> _f$url = Field('url', _$url);
   static String _$username(CalDavStorage v) => v.username;
-  static const Field<CalDavStorage, String> _f$username =
-      Field('username', _$username);
+  static const Field<CalDavStorage, String> _f$username = Field(
+    'username',
+    _$username,
+  );
 
   @override
   final MappableFields<CalDavStorage> fields = const {
@@ -94,7 +98,9 @@ class CalDavStorageMapper extends ClassMapperBase<CalDavStorage> {
 
   static CalDavStorage _instantiate(DecodingData data) {
     return CalDavStorage(
-        url: data.dec(_f$url), username: data.dec(_f$username));
+      url: data.dec(_f$url),
+      username: data.dec(_f$username),
+    );
   }
 
   @override
@@ -111,34 +117,43 @@ class CalDavStorageMapper extends ClassMapperBase<CalDavStorage> {
 
 mixin CalDavStorageMappable {
   String toJson() {
-    return CalDavStorageMapper.ensureInitialized()
-        .encodeJson<CalDavStorage>(this as CalDavStorage);
+    return CalDavStorageMapper.ensureInitialized().encodeJson<CalDavStorage>(
+      this as CalDavStorage,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return CalDavStorageMapper.ensureInitialized()
-        .encodeMap<CalDavStorage>(this as CalDavStorage);
+    return CalDavStorageMapper.ensureInitialized().encodeMap<CalDavStorage>(
+      this as CalDavStorage,
+    );
   }
 
   CalDavStorageCopyWith<CalDavStorage, CalDavStorage, CalDavStorage>
-      get copyWith => _CalDavStorageCopyWithImpl<CalDavStorage, CalDavStorage>(
-          this as CalDavStorage, $identity, $identity);
+  get copyWith => _CalDavStorageCopyWithImpl<CalDavStorage, CalDavStorage>(
+    this as CalDavStorage,
+    $identity,
+    $identity,
+  );
   @override
   String toString() {
-    return CalDavStorageMapper.ensureInitialized()
-        .stringifyValue(this as CalDavStorage);
+    return CalDavStorageMapper.ensureInitialized().stringifyValue(
+      this as CalDavStorage,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return CalDavStorageMapper.ensureInitialized()
-        .equalsValue(this as CalDavStorage, other);
+    return CalDavStorageMapper.ensureInitialized().equalsValue(
+      this as CalDavStorage,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return CalDavStorageMapper.ensureInitialized()
-        .hashValue(this as CalDavStorage);
+    return CalDavStorageMapper.ensureInitialized().hashValue(
+      this as CalDavStorage,
+    );
   }
 }
 
@@ -164,17 +179,22 @@ class _CalDavStorageCopyWithImpl<$R, $Out>
   late final ClassMapperBase<CalDavStorage> $mapper =
       CalDavStorageMapper.ensureInitialized();
   @override
-  $R call({String? url, String? username}) => $apply(FieldCopyWithData(
-      {if (url != null) #url: url, if (username != null) #username: username}));
+  $R call({String? url, String? username}) => $apply(
+    FieldCopyWithData({
+      if (url != null) #url: url,
+      if (username != null) #username: username,
+    }),
+  );
   @override
   CalDavStorage $make(CopyWithData data) => CalDavStorage(
-      url: data.get(#url, or: $value.url),
-      username: data.get(#username, or: $value.username));
+    url: data.get(#url, or: $value.url),
+    username: data.get(#username, or: $value.username),
+  );
 
   @override
   CalDavStorageCopyWith<$R2, CalDavStorage, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _CalDavStorageCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _CalDavStorageCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class ICalStorageMapper extends ClassMapperBase<ICalStorage> {
@@ -195,8 +215,10 @@ class ICalStorageMapper extends ClassMapperBase<ICalStorage> {
   static String _$url(ICalStorage v) => v.url;
   static const Field<ICalStorage, String> _f$url = Field('url', _$url);
   static String _$username(ICalStorage v) => v.username;
-  static const Field<ICalStorage, String> _f$username =
-      Field('username', _$username);
+  static const Field<ICalStorage, String> _f$username = Field(
+    'username',
+    _$username,
+  );
 
   @override
   final MappableFields<ICalStorage> fields = const {
@@ -222,28 +244,36 @@ class ICalStorageMapper extends ClassMapperBase<ICalStorage> {
 
 mixin ICalStorageMappable {
   String toJson() {
-    return ICalStorageMapper.ensureInitialized()
-        .encodeJson<ICalStorage>(this as ICalStorage);
+    return ICalStorageMapper.ensureInitialized().encodeJson<ICalStorage>(
+      this as ICalStorage,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return ICalStorageMapper.ensureInitialized()
-        .encodeMap<ICalStorage>(this as ICalStorage);
+    return ICalStorageMapper.ensureInitialized().encodeMap<ICalStorage>(
+      this as ICalStorage,
+    );
   }
 
   ICalStorageCopyWith<ICalStorage, ICalStorage, ICalStorage> get copyWith =>
       _ICalStorageCopyWithImpl<ICalStorage, ICalStorage>(
-          this as ICalStorage, $identity, $identity);
+        this as ICalStorage,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
-    return ICalStorageMapper.ensureInitialized()
-        .stringifyValue(this as ICalStorage);
+    return ICalStorageMapper.ensureInitialized().stringifyValue(
+      this as ICalStorage,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return ICalStorageMapper.ensureInitialized()
-        .equalsValue(this as ICalStorage, other);
+    return ICalStorageMapper.ensureInitialized().equalsValue(
+      this as ICalStorage,
+      other,
+    );
   }
 
   @override
@@ -274,17 +304,22 @@ class _ICalStorageCopyWithImpl<$R, $Out>
   late final ClassMapperBase<ICalStorage> $mapper =
       ICalStorageMapper.ensureInitialized();
   @override
-  $R call({String? url, String? username}) => $apply(FieldCopyWithData(
-      {if (url != null) #url: url, if (username != null) #username: username}));
+  $R call({String? url, String? username}) => $apply(
+    FieldCopyWithData({
+      if (url != null) #url: url,
+      if (username != null) #username: username,
+    }),
+  );
   @override
   ICalStorage $make(CopyWithData data) => ICalStorage(
-      url: data.get(#url, or: $value.url),
-      username: data.get(#username, or: $value.username));
+    url: data.get(#url, or: $value.url),
+    username: data.get(#username, or: $value.username),
+  );
 
   @override
   ICalStorageCopyWith<$R2, ICalStorage, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _ICalStorageCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _ICalStorageCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class WebDavStorageMapper extends ClassMapperBase<WebDavStorage> {
@@ -305,8 +340,10 @@ class WebDavStorageMapper extends ClassMapperBase<WebDavStorage> {
   static String _$url(WebDavStorage v) => v.url;
   static const Field<WebDavStorage, String> _f$url = Field('url', _$url);
   static String _$username(WebDavStorage v) => v.username;
-  static const Field<WebDavStorage, String> _f$username =
-      Field('username', _$username);
+  static const Field<WebDavStorage, String> _f$username = Field(
+    'username',
+    _$username,
+  );
 
   @override
   final MappableFields<WebDavStorage> fields = const {
@@ -316,7 +353,9 @@ class WebDavStorageMapper extends ClassMapperBase<WebDavStorage> {
 
   static WebDavStorage _instantiate(DecodingData data) {
     return WebDavStorage(
-        url: data.dec(_f$url), username: data.dec(_f$username));
+      url: data.dec(_f$url),
+      username: data.dec(_f$username),
+    );
   }
 
   @override
@@ -333,34 +372,43 @@ class WebDavStorageMapper extends ClassMapperBase<WebDavStorage> {
 
 mixin WebDavStorageMappable {
   String toJson() {
-    return WebDavStorageMapper.ensureInitialized()
-        .encodeJson<WebDavStorage>(this as WebDavStorage);
+    return WebDavStorageMapper.ensureInitialized().encodeJson<WebDavStorage>(
+      this as WebDavStorage,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return WebDavStorageMapper.ensureInitialized()
-        .encodeMap<WebDavStorage>(this as WebDavStorage);
+    return WebDavStorageMapper.ensureInitialized().encodeMap<WebDavStorage>(
+      this as WebDavStorage,
+    );
   }
 
   WebDavStorageCopyWith<WebDavStorage, WebDavStorage, WebDavStorage>
-      get copyWith => _WebDavStorageCopyWithImpl<WebDavStorage, WebDavStorage>(
-          this as WebDavStorage, $identity, $identity);
+  get copyWith => _WebDavStorageCopyWithImpl<WebDavStorage, WebDavStorage>(
+    this as WebDavStorage,
+    $identity,
+    $identity,
+  );
   @override
   String toString() {
-    return WebDavStorageMapper.ensureInitialized()
-        .stringifyValue(this as WebDavStorage);
+    return WebDavStorageMapper.ensureInitialized().stringifyValue(
+      this as WebDavStorage,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return WebDavStorageMapper.ensureInitialized()
-        .equalsValue(this as WebDavStorage, other);
+    return WebDavStorageMapper.ensureInitialized().equalsValue(
+      this as WebDavStorage,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return WebDavStorageMapper.ensureInitialized()
-        .hashValue(this as WebDavStorage);
+    return WebDavStorageMapper.ensureInitialized().hashValue(
+      this as WebDavStorage,
+    );
   }
 }
 
@@ -386,17 +434,22 @@ class _WebDavStorageCopyWithImpl<$R, $Out>
   late final ClassMapperBase<WebDavStorage> $mapper =
       WebDavStorageMapper.ensureInitialized();
   @override
-  $R call({String? url, String? username}) => $apply(FieldCopyWithData(
-      {if (url != null) #url: url, if (username != null) #username: username}));
+  $R call({String? url, String? username}) => $apply(
+    FieldCopyWithData({
+      if (url != null) #url: url,
+      if (username != null) #username: username,
+    }),
+  );
   @override
   WebDavStorage $make(CopyWithData data) => WebDavStorage(
-      url: data.get(#url, or: $value.url),
-      username: data.get(#username, or: $value.username));
+    url: data.get(#url, or: $value.url),
+    username: data.get(#username, or: $value.username),
+  );
 
   @override
   WebDavStorageCopyWith<$R2, WebDavStorage, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _WebDavStorageCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _WebDavStorageCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class SiaStorageMapper extends ClassMapperBase<SiaStorage> {
@@ -417,8 +470,10 @@ class SiaStorageMapper extends ClassMapperBase<SiaStorage> {
   static String _$url(SiaStorage v) => v.url;
   static const Field<SiaStorage, String> _f$url = Field('url', _$url);
   static String _$username(SiaStorage v) => v.username;
-  static const Field<SiaStorage, String> _f$username =
-      Field('username', _$username);
+  static const Field<SiaStorage, String> _f$username = Field(
+    'username',
+    _$username,
+  );
 
   @override
   final MappableFields<SiaStorage> fields = const {
@@ -444,28 +499,36 @@ class SiaStorageMapper extends ClassMapperBase<SiaStorage> {
 
 mixin SiaStorageMappable {
   String toJson() {
-    return SiaStorageMapper.ensureInitialized()
-        .encodeJson<SiaStorage>(this as SiaStorage);
+    return SiaStorageMapper.ensureInitialized().encodeJson<SiaStorage>(
+      this as SiaStorage,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return SiaStorageMapper.ensureInitialized()
-        .encodeMap<SiaStorage>(this as SiaStorage);
+    return SiaStorageMapper.ensureInitialized().encodeMap<SiaStorage>(
+      this as SiaStorage,
+    );
   }
 
   SiaStorageCopyWith<SiaStorage, SiaStorage, SiaStorage> get copyWith =>
       _SiaStorageCopyWithImpl<SiaStorage, SiaStorage>(
-          this as SiaStorage, $identity, $identity);
+        this as SiaStorage,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
-    return SiaStorageMapper.ensureInitialized()
-        .stringifyValue(this as SiaStorage);
+    return SiaStorageMapper.ensureInitialized().stringifyValue(
+      this as SiaStorage,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return SiaStorageMapper.ensureInitialized()
-        .equalsValue(this as SiaStorage, other);
+    return SiaStorageMapper.ensureInitialized().equalsValue(
+      this as SiaStorage,
+      other,
+    );
   }
 
   @override
@@ -496,15 +559,20 @@ class _SiaStorageCopyWithImpl<$R, $Out>
   late final ClassMapperBase<SiaStorage> $mapper =
       SiaStorageMapper.ensureInitialized();
   @override
-  $R call({String? url, String? username}) => $apply(FieldCopyWithData(
-      {if (url != null) #url: url, if (username != null) #username: username}));
+  $R call({String? url, String? username}) => $apply(
+    FieldCopyWithData({
+      if (url != null) #url: url,
+      if (username != null) #username: username,
+    }),
+  );
   @override
   SiaStorage $make(CopyWithData data) => SiaStorage(
-      url: data.get(#url, or: $value.url),
-      username: data.get(#username, or: $value.username));
+    url: data.get(#url, or: $value.url),
+    username: data.get(#username, or: $value.username),
+  );
 
   @override
   SiaStorageCopyWith<$R2, SiaStorage, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _SiaStorageCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _SiaStorageCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

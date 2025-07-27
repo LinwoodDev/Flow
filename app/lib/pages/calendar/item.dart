@@ -49,10 +49,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
     super.initState();
     _create = widget.create || widget.item == null || widget.source == null;
     _source = widget.source ?? '';
-    _item = widget.item ??
-        FixedCalendarItem(
-          eventId: widget.event?.id,
-        );
+    _item = widget.item ?? FixedCalendarItem(eventId: widget.event?.id);
     _service = context.read<FlowCubit>().getService(_source).calendarItem;
   }
 
@@ -62,7 +59,8 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
         case CalendarItemType.appointment:
           _item = _item.copyWith(
             start: _item.start ?? DateTime.now(),
-            end: (_item.start == _item.end ? null : _item.end) ??
+            end:
+                (_item.start == _item.end ? null : _item.end) ??
                 (_item.start ?? DateTime.now()).add(const Duration(hours: 1)),
           );
           break;
@@ -73,10 +71,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
           );
           break;
         case CalendarItemType.pending:
-          _item = _item.copyWith(
-            start: null,
-            end: null,
-          );
+          _item = _item.copyWith(start: null, end: null);
           break;
       }
     });
@@ -90,22 +85,26 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
     final resourceConnector = service.calendarItemResource;
     final userConnector = service.calendarItemUser;
     final groupConnector = service.calendarItemGroup;
-    final tabs = !_create &&
+    final tabs =
+        !_create &&
         noteConnector != null &&
         resourceConnector != null &&
         userConnector != null &&
         groupConnector != null;
     final type = _item.type;
     final title = switch (type) {
-      CalendarItemType.appointment => _create
-          ? AppLocalizations.of(context).createAppointment
-          : AppLocalizations.of(context).editAppointment,
-      CalendarItemType.moment => _create
-          ? AppLocalizations.of(context).createMoment
-          : AppLocalizations.of(context).editMoment,
-      CalendarItemType.pending => _create
-          ? AppLocalizations.of(context).createPending
-          : AppLocalizations.of(context).editPending,
+      CalendarItemType.appointment =>
+        _create
+            ? AppLocalizations.of(context).createAppointment
+            : AppLocalizations.of(context).editAppointment,
+      CalendarItemType.moment =>
+        _create
+            ? AppLocalizations.of(context).createMoment
+            : AppLocalizations.of(context).editMoment,
+      CalendarItemType.pending =>
+        _create
+            ? AppLocalizations.of(context).createPending
+            : AppLocalizations.of(context).editPending,
     };
 
     return ResponsiveAlertDialog(
@@ -177,34 +176,38 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
           children: [
             if (tabs)
               TabBar(
-                  isScrollable: true,
-                  tabs: [
-                    (
-                      PhosphorIconsLight.faders,
-                      AppLocalizations.of(context).general
-                    ),
-                    (
-                      PhosphorIconsLight.checkCircle,
-                      AppLocalizations.of(context).notes
-                    ),
-                    (
-                      PhosphorIconsLight.cube,
-                      AppLocalizations.of(context).resources
-                    ),
-                    (
-                      PhosphorIconsLight.user,
-                      AppLocalizations.of(context).users
-                    ),
-                    (
-                      PhosphorIconsLight.usersThree,
-                      AppLocalizations.of(context).group
-                    ),
-                  ]
-                      .map((e) => HorizontalTab(
+                isScrollable: true,
+                tabs:
+                    [
+                          (
+                            PhosphorIconsLight.faders,
+                            AppLocalizations.of(context).general,
+                          ),
+                          (
+                            PhosphorIconsLight.checkCircle,
+                            AppLocalizations.of(context).notes,
+                          ),
+                          (
+                            PhosphorIconsLight.cube,
+                            AppLocalizations.of(context).resources,
+                          ),
+                          (
+                            PhosphorIconsLight.user,
+                            AppLocalizations.of(context).users,
+                          ),
+                          (
+                            PhosphorIconsLight.usersThree,
+                            AppLocalizations.of(context).group,
+                          ),
+                        ]
+                        .map(
+                          (e) => HorizontalTab(
                             icon: PhosphorIcon(e.$1),
                             label: Text(e.$2),
-                          ))
-                      .toList()),
+                          ),
+                        )
+                        .toList(),
+              ),
             Flexible(
               child: TabBarView(
                 children: [
@@ -219,9 +222,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             buildService: (e) => e.calendarItem,
                             onChanged: (connected) {
                               _source = connected?.source ?? '';
-                              _item = _item.copyWith(
-                                eventId: null,
-                              );
+                              _item = _item.copyWith(eventId: null);
                               _service = connected?.model;
                             },
                           ),
@@ -238,21 +239,26 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                         DropdownMenu<EventStatus>(
                           initialSelection: _item.status,
                           dropdownMenuEntries: EventStatus.values
-                              .map((value) => DropdownMenuEntry<EventStatus>(
-                                    value: value,
-                                    leadingIcon: PhosphorIcon(
-                                        value.icon(PhosphorIconsStyle.light),
-                                        color: value.getColor()),
-                                    label: value.getLocalizedName(context),
-                                  ))
+                              .map(
+                                (value) => DropdownMenuEntry<EventStatus>(
+                                  value: value,
+                                  leadingIcon: PhosphorIcon(
+                                    value.icon(PhosphorIconsStyle.light),
+                                    color: value.getColor(),
+                                  ),
+                                  label: value.getLocalizedName(context),
+                                ),
+                              )
                               .toList(),
                           onSelected: (EventStatus? value) {
-                            _item =
-                                _item.copyWith(status: value ?? _item.status);
+                            _item = _item.copyWith(
+                              status: value ?? _item.status,
+                            );
                           },
                           label: Text(AppLocalizations.of(context).status),
-                          leadingIcon:
-                              const PhosphorIcon(PhosphorIconsLight.info),
+                          leadingIcon: const PhosphorIcon(
+                            PhosphorIconsLight.info,
+                          ),
                           expandedInsets: const EdgeInsets.all(4),
                         ),
                         const SizedBox(height: 16),
@@ -271,8 +277,9 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                           decoration: InputDecoration(
                             labelText: AppLocalizations.of(context).description,
                             border: const OutlineInputBorder(),
-                            icon:
-                                const PhosphorIcon(PhosphorIconsLight.fileText),
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.fileText,
+                            ),
                           ),
                           onChanged: (value) =>
                               _item = _item.copyWith(description: value),
@@ -296,7 +303,8 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             label: AppLocalizations.of(context).start,
                             initialValue: _item.start,
                             icon: const PhosphorIcon(
-                                PhosphorIconsLight.calendarBlank),
+                              PhosphorIconsLight.calendarBlank,
+                            ),
                             onChanged: (value) {
                               _item = _item.copyWith(start: value);
                             },
@@ -307,7 +315,8 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             label: AppLocalizations.of(context).end,
                             initialValue: _item.end,
                             icon: const PhosphorIcon(
-                                PhosphorIconsLight.calendarBlank),
+                              PhosphorIconsLight.calendarBlank,
+                            ),
                             onChanged: (value) {
                               _item = _item.copyWith(end: value);
                             },
@@ -319,7 +328,8 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             label: AppLocalizations.of(context).time,
                             initialValue: _item.start,
                             icon: const PhosphorIcon(
-                                PhosphorIconsLight.calendarBlank),
+                              PhosphorIconsLight.calendarBlank,
+                            ),
                             onChanged: (value) {
                               _item = _item.copyWith(start: value, end: value);
                             },

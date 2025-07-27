@@ -16,9 +16,8 @@ Future<Database> openDatabase({
   FutureOr<void> Function(Database, int)? onCreate,
 }) async {
   var factory = createDatabaseFactoryFfiWeb(
-      options: SqfliteFfiWebOptions(
-    indexedDbName: indexedDbName,
-  ));
+    options: SqfliteFfiWebOptions(indexedDbName: indexedDbName),
+  );
   var db = await factory.openDatabase(
     '$name.db',
     options: OpenDatabaseOptions(

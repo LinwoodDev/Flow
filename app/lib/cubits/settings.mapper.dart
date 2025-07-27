@@ -135,14 +135,26 @@ class AlarmMapper extends ClassMapperBase<Alarm> {
   static DateTime _$date(Alarm v) => v.date;
   static const Field<Alarm, DateTime> _f$date = Field('date', _$date);
   static String _$title(Alarm v) => v.title;
-  static const Field<Alarm, String> _f$title =
-      Field('title', _$title, opt: true, def: '');
+  static const Field<Alarm, String> _f$title = Field(
+    'title',
+    _$title,
+    opt: true,
+    def: '',
+  );
   static String _$description(Alarm v) => v.description;
-  static const Field<Alarm, String> _f$description =
-      Field('description', _$description, opt: true, def: '');
+  static const Field<Alarm, String> _f$description = Field(
+    'description',
+    _$description,
+    opt: true,
+    def: '',
+  );
   static bool _$isActive(Alarm v) => v.isActive;
-  static const Field<Alarm, bool> _f$isActive =
-      Field('isActive', _$isActive, opt: true, def: true);
+  static const Field<Alarm, bool> _f$isActive = Field(
+    'isActive',
+    _$isActive,
+    opt: true,
+    def: true,
+  );
 
   @override
   final MappableFields<Alarm> fields = const {
@@ -154,10 +166,11 @@ class AlarmMapper extends ClassMapperBase<Alarm> {
 
   static Alarm _instantiate(DecodingData data) {
     return Alarm(
-        date: data.dec(_f$date),
-        title: data.dec(_f$title),
-        description: data.dec(_f$description),
-        isActive: data.dec(_f$isActive));
+      date: data.dec(_f$date),
+      title: data.dec(_f$title),
+      description: data.dec(_f$description),
+      isActive: data.dec(_f$isActive),
+    );
   }
 
   @override
@@ -217,23 +230,26 @@ class _AlarmCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Alarm, $Out>
   @override
   late final ClassMapperBase<Alarm> $mapper = AlarmMapper.ensureInitialized();
   @override
-  $R call(
-          {DateTime? date,
-          String? title,
-          String? description,
-          bool? isActive}) =>
-      $apply(FieldCopyWithData({
-        if (date != null) #date: date,
-        if (title != null) #title: title,
-        if (description != null) #description: description,
-        if (isActive != null) #isActive: isActive
-      }));
+  $R call({
+    DateTime? date,
+    String? title,
+    String? description,
+    bool? isActive,
+  }) => $apply(
+    FieldCopyWithData({
+      if (date != null) #date: date,
+      if (title != null) #title: title,
+      if (description != null) #description: description,
+      if (isActive != null) #isActive: isActive,
+    }),
+  );
   @override
   Alarm $make(CopyWithData data) => Alarm(
-      date: data.get(#date, or: $value.date),
-      title: data.get(#title, or: $value.title),
-      description: data.get(#description, or: $value.description),
-      isActive: data.get(#isActive, or: $value.isActive));
+    date: data.get(#date, or: $value.date),
+    title: data.get(#title, or: $value.title),
+    description: data.get(#description, or: $value.description),
+    isActive: data.get(#isActive, or: $value.isActive),
+  );
 
   @override
   AlarmCopyWith<$R2, Alarm, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
@@ -260,35 +276,75 @@ class FlowSettingsMapper extends ClassMapperBase<FlowSettings> {
   final String id = 'FlowSettings';
 
   static String _$locale(FlowSettings v) => v.locale;
-  static const Field<FlowSettings, String> _f$locale =
-      Field('locale', _$locale, opt: true, def: '');
+  static const Field<FlowSettings, String> _f$locale = Field(
+    'locale',
+    _$locale,
+    opt: true,
+    def: '',
+  );
   static ThemeMode _$themeMode(FlowSettings v) => v.themeMode;
-  static const Field<FlowSettings, ThemeMode> _f$themeMode =
-      Field('themeMode', _$themeMode, opt: true, def: ThemeMode.system);
+  static const Field<FlowSettings, ThemeMode> _f$themeMode = Field(
+    'themeMode',
+    _$themeMode,
+    opt: true,
+    def: ThemeMode.system,
+  );
   static bool _$nativeTitleBar(FlowSettings v) => v.nativeTitleBar;
-  static const Field<FlowSettings, bool> _f$nativeTitleBar =
-      Field('nativeTitleBar', _$nativeTitleBar, opt: true, def: false);
+  static const Field<FlowSettings, bool> _f$nativeTitleBar = Field(
+    'nativeTitleBar',
+    _$nativeTitleBar,
+    opt: true,
+    def: false,
+  );
   static String _$design(FlowSettings v) => v.design;
-  static const Field<FlowSettings, String> _f$design =
-      Field('design', _$design, opt: true, def: '');
+  static const Field<FlowSettings, String> _f$design = Field(
+    'design',
+    _$design,
+    opt: true,
+    def: '',
+  );
   static SyncMode _$syncMode(FlowSettings v) => v.syncMode;
-  static const Field<FlowSettings, SyncMode> _f$syncMode =
-      Field('syncMode', _$syncMode, opt: true, def: SyncMode.noMobile);
+  static const Field<FlowSettings, SyncMode> _f$syncMode = Field(
+    'syncMode',
+    _$syncMode,
+    opt: true,
+    def: SyncMode.noMobile,
+  );
   static List<RemoteStorage> _$remotes(FlowSettings v) => v.remotes;
-  static const Field<FlowSettings, List<RemoteStorage>> _f$remotes =
-      Field('remotes', _$remotes, opt: true, def: const []);
+  static const Field<FlowSettings, List<RemoteStorage>> _f$remotes = Field(
+    'remotes',
+    _$remotes,
+    opt: true,
+    def: const [],
+  );
   static int _$startOfWeek(FlowSettings v) => v.startOfWeek;
-  static const Field<FlowSettings, int> _f$startOfWeek =
-      Field('startOfWeek', _$startOfWeek, opt: true, def: 0);
+  static const Field<FlowSettings, int> _f$startOfWeek = Field(
+    'startOfWeek',
+    _$startOfWeek,
+    opt: true,
+    def: 0,
+  );
   static ThemeDensity _$density(FlowSettings v) => v.density;
-  static const Field<FlowSettings, ThemeDensity> _f$density =
-      Field('density', _$density, opt: true, def: ThemeDensity.system);
+  static const Field<FlowSettings, ThemeDensity> _f$density = Field(
+    'density',
+    _$density,
+    opt: true,
+    def: ThemeDensity.system,
+  );
   static bool _$highContrast(FlowSettings v) => v.highContrast;
-  static const Field<FlowSettings, bool> _f$highContrast =
-      Field('highContrast', _$highContrast, opt: true, def: false);
+  static const Field<FlowSettings, bool> _f$highContrast = Field(
+    'highContrast',
+    _$highContrast,
+    opt: true,
+    def: false,
+  );
   static List<Alarm> _$alarms(FlowSettings v) => v.alarms;
-  static const Field<FlowSettings, List<Alarm>> _f$alarms =
-      Field('alarms', _$alarms, opt: true, def: const []);
+  static const Field<FlowSettings, List<Alarm>> _f$alarms = Field(
+    'alarms',
+    _$alarms,
+    opt: true,
+    def: const [],
+  );
 
   @override
   final MappableFields<FlowSettings> fields = const {
@@ -306,16 +362,17 @@ class FlowSettingsMapper extends ClassMapperBase<FlowSettings> {
 
   static FlowSettings _instantiate(DecodingData data) {
     return FlowSettings(
-        locale: data.dec(_f$locale),
-        themeMode: data.dec(_f$themeMode),
-        nativeTitleBar: data.dec(_f$nativeTitleBar),
-        design: data.dec(_f$design),
-        syncMode: data.dec(_f$syncMode),
-        remotes: data.dec(_f$remotes),
-        startOfWeek: data.dec(_f$startOfWeek),
-        density: data.dec(_f$density),
-        highContrast: data.dec(_f$highContrast),
-        alarms: data.dec(_f$alarms));
+      locale: data.dec(_f$locale),
+      themeMode: data.dec(_f$themeMode),
+      nativeTitleBar: data.dec(_f$nativeTitleBar),
+      design: data.dec(_f$design),
+      syncMode: data.dec(_f$syncMode),
+      remotes: data.dec(_f$remotes),
+      startOfWeek: data.dec(_f$startOfWeek),
+      density: data.dec(_f$density),
+      highContrast: data.dec(_f$highContrast),
+      alarms: data.dec(_f$alarms),
+    );
   }
 
   @override
@@ -332,34 +389,43 @@ class FlowSettingsMapper extends ClassMapperBase<FlowSettings> {
 
 mixin FlowSettingsMappable {
   String toJson() {
-    return FlowSettingsMapper.ensureInitialized()
-        .encodeJson<FlowSettings>(this as FlowSettings);
+    return FlowSettingsMapper.ensureInitialized().encodeJson<FlowSettings>(
+      this as FlowSettings,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return FlowSettingsMapper.ensureInitialized()
-        .encodeMap<FlowSettings>(this as FlowSettings);
+    return FlowSettingsMapper.ensureInitialized().encodeMap<FlowSettings>(
+      this as FlowSettings,
+    );
   }
 
   FlowSettingsCopyWith<FlowSettings, FlowSettings, FlowSettings> get copyWith =>
       _FlowSettingsCopyWithImpl<FlowSettings, FlowSettings>(
-          this as FlowSettings, $identity, $identity);
+        this as FlowSettings,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
-    return FlowSettingsMapper.ensureInitialized()
-        .stringifyValue(this as FlowSettings);
+    return FlowSettingsMapper.ensureInitialized().stringifyValue(
+      this as FlowSettings,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return FlowSettingsMapper.ensureInitialized()
-        .equalsValue(this as FlowSettings, other);
+    return FlowSettingsMapper.ensureInitialized().equalsValue(
+      this as FlowSettings,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return FlowSettingsMapper.ensureInitialized()
-        .hashValue(this as FlowSettings);
+    return FlowSettingsMapper.ensureInitialized().hashValue(
+      this as FlowSettings,
+    );
   }
 }
 
@@ -371,20 +437,25 @@ extension FlowSettingsValueCopy<$R, $Out>
 
 abstract class FlowSettingsCopyWith<$R, $In extends FlowSettings, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  ListCopyWith<$R, RemoteStorage,
-      ObjectCopyWith<$R, RemoteStorage, RemoteStorage>> get remotes;
+  ListCopyWith<
+    $R,
+    RemoteStorage,
+    ObjectCopyWith<$R, RemoteStorage, RemoteStorage>
+  >
+  get remotes;
   ListCopyWith<$R, Alarm, AlarmCopyWith<$R, Alarm, Alarm>> get alarms;
-  $R call(
-      {String? locale,
-      ThemeMode? themeMode,
-      bool? nativeTitleBar,
-      String? design,
-      SyncMode? syncMode,
-      List<RemoteStorage>? remotes,
-      int? startOfWeek,
-      ThemeDensity? density,
-      bool? highContrast,
-      List<Alarm>? alarms});
+  $R call({
+    String? locale,
+    ThemeMode? themeMode,
+    bool? nativeTitleBar,
+    String? design,
+    SyncMode? syncMode,
+    List<RemoteStorage>? remotes,
+    int? startOfWeek,
+    ThemeDensity? density,
+    bool? highContrast,
+    List<Alarm>? alarms,
+  });
   FlowSettingsCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -397,53 +468,65 @@ class _FlowSettingsCopyWithImpl<$R, $Out>
   late final ClassMapperBase<FlowSettings> $mapper =
       FlowSettingsMapper.ensureInitialized();
   @override
-  ListCopyWith<$R, RemoteStorage,
-          ObjectCopyWith<$R, RemoteStorage, RemoteStorage>>
-      get remotes => ListCopyWith($value.remotes,
-          (v, t) => ObjectCopyWith(v, $identity, t), (v) => call(remotes: v));
+  ListCopyWith<
+    $R,
+    RemoteStorage,
+    ObjectCopyWith<$R, RemoteStorage, RemoteStorage>
+  >
+  get remotes => ListCopyWith(
+    $value.remotes,
+    (v, t) => ObjectCopyWith(v, $identity, t),
+    (v) => call(remotes: v),
+  );
   @override
   ListCopyWith<$R, Alarm, AlarmCopyWith<$R, Alarm, Alarm>> get alarms =>
-      ListCopyWith($value.alarms, (v, t) => v.copyWith.$chain(t),
-          (v) => call(alarms: v));
+      ListCopyWith(
+        $value.alarms,
+        (v, t) => v.copyWith.$chain(t),
+        (v) => call(alarms: v),
+      );
   @override
-  $R call(
-          {String? locale,
-          ThemeMode? themeMode,
-          bool? nativeTitleBar,
-          String? design,
-          SyncMode? syncMode,
-          List<RemoteStorage>? remotes,
-          int? startOfWeek,
-          ThemeDensity? density,
-          bool? highContrast,
-          List<Alarm>? alarms}) =>
-      $apply(FieldCopyWithData({
-        if (locale != null) #locale: locale,
-        if (themeMode != null) #themeMode: themeMode,
-        if (nativeTitleBar != null) #nativeTitleBar: nativeTitleBar,
-        if (design != null) #design: design,
-        if (syncMode != null) #syncMode: syncMode,
-        if (remotes != null) #remotes: remotes,
-        if (startOfWeek != null) #startOfWeek: startOfWeek,
-        if (density != null) #density: density,
-        if (highContrast != null) #highContrast: highContrast,
-        if (alarms != null) #alarms: alarms
-      }));
+  $R call({
+    String? locale,
+    ThemeMode? themeMode,
+    bool? nativeTitleBar,
+    String? design,
+    SyncMode? syncMode,
+    List<RemoteStorage>? remotes,
+    int? startOfWeek,
+    ThemeDensity? density,
+    bool? highContrast,
+    List<Alarm>? alarms,
+  }) => $apply(
+    FieldCopyWithData({
+      if (locale != null) #locale: locale,
+      if (themeMode != null) #themeMode: themeMode,
+      if (nativeTitleBar != null) #nativeTitleBar: nativeTitleBar,
+      if (design != null) #design: design,
+      if (syncMode != null) #syncMode: syncMode,
+      if (remotes != null) #remotes: remotes,
+      if (startOfWeek != null) #startOfWeek: startOfWeek,
+      if (density != null) #density: density,
+      if (highContrast != null) #highContrast: highContrast,
+      if (alarms != null) #alarms: alarms,
+    }),
+  );
   @override
   FlowSettings $make(CopyWithData data) => FlowSettings(
-      locale: data.get(#locale, or: $value.locale),
-      themeMode: data.get(#themeMode, or: $value.themeMode),
-      nativeTitleBar: data.get(#nativeTitleBar, or: $value.nativeTitleBar),
-      design: data.get(#design, or: $value.design),
-      syncMode: data.get(#syncMode, or: $value.syncMode),
-      remotes: data.get(#remotes, or: $value.remotes),
-      startOfWeek: data.get(#startOfWeek, or: $value.startOfWeek),
-      density: data.get(#density, or: $value.density),
-      highContrast: data.get(#highContrast, or: $value.highContrast),
-      alarms: data.get(#alarms, or: $value.alarms));
+    locale: data.get(#locale, or: $value.locale),
+    themeMode: data.get(#themeMode, or: $value.themeMode),
+    nativeTitleBar: data.get(#nativeTitleBar, or: $value.nativeTitleBar),
+    design: data.get(#design, or: $value.design),
+    syncMode: data.get(#syncMode, or: $value.syncMode),
+    remotes: data.get(#remotes, or: $value.remotes),
+    startOfWeek: data.get(#startOfWeek, or: $value.startOfWeek),
+    density: data.get(#density, or: $value.density),
+    highContrast: data.get(#highContrast, or: $value.highContrast),
+    alarms: data.get(#alarms, or: $value.alarms),
+  );
 
   @override
   FlowSettingsCopyWith<$R2, FlowSettings, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _FlowSettingsCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _FlowSettingsCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

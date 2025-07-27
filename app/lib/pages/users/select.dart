@@ -27,9 +27,11 @@ class UserSelectTile extends StatelessWidget {
       onChanged: onChanged,
       onModelFetch: (source, service, id) async => service.user?.getUser(id),
       title: AppLocalizations.of(context).user,
-      leadingBuilder: (context, model) => PhosphorIcon(model?.model == null
-          ? PhosphorIconsLight.users
-          : PhosphorIconsFill.users),
+      leadingBuilder: (context, model) => PhosphorIcon(
+        model?.model == null
+            ? PhosphorIconsLight.users
+            : PhosphorIconsFill.users,
+      ),
       dialogBuilder: (context, sourcedModel) => UserDialog(
         source: sourcedModel?.source,
         user: sourcedModel?.model,
@@ -47,28 +49,17 @@ class UserSelectDialog extends StatelessWidget {
   final String? source;
   final SourcedModel<Uint8List>? selected;
 
-  const UserSelectDialog({
-    super.key,
-    this.source,
-    this.selected,
-  });
+  const UserSelectDialog({super.key, this.source, this.selected});
 
   @override
   Widget build(BuildContext context) {
     return SelectDialog(
       onFetch: (source, service, search, offset, limit) async =>
-          service.user?.getUsers(
-        offset: offset,
-        limit: limit,
-        search: search,
-      ),
+          service.user?.getUsers(offset: offset, limit: limit, search: search),
       onCreate: (source) => showDialog<SourcedModel<User>>(
         context: context,
-        builder: (context) => UserDialog(
-          source: source,
-          user: null,
-          create: true,
-        ),
+        builder: (context) =>
+            UserDialog(source: source, user: null, create: true),
       ),
       title: AppLocalizations.of(context).user,
       selected: selected,

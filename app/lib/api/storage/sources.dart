@@ -13,8 +13,9 @@ class SourcesService {
   final SettingsCubit settingsCubit;
   late final DatabaseService local;
   final List<RemoteService> remotes = [];
-  final BehaviorSubject<SyncStatus> syncStatus =
-      BehaviorSubject.seeded(SyncStatus.synced);
+  final BehaviorSubject<SyncStatus> syncStatus = BehaviorSubject.seeded(
+    SyncStatus.synced,
+  );
   final FlutterSecureStorage secureStorage = const FlutterSecureStorage(
     aOptions: AndroidOptions(),
   );
@@ -29,8 +30,9 @@ class SourcesService {
     if (mode == SyncMode.always) {
       return true;
     }
-    return !(await Connectivity().checkConnectivity())
-        .contains(ConnectivityResult.mobile);
+    return !(await Connectivity().checkConnectivity()).contains(
+      ConnectivityResult.mobile,
+    );
   }
 
   Future<void> setup() async {
@@ -38,8 +40,10 @@ class SourcesService {
     await local.setup('local');
     remotes.clear();
     for (var storage in settingsCubit.state.remotes) {
-      await _connectRemote(storage,
-          await secureStorage.read(key: 'remote ${storage.toFilename()}'));
+      await _connectRemote(
+        storage,
+        await secureStorage.read(key: 'remote ${storage.toFilename()}'),
+      );
     }
     synchronize();
   }
@@ -69,8 +73,9 @@ class SourcesService {
   }
 
   Future<void> addRemote(RemoteStorage remoteStorage, String password) async {
-    if (settingsCubit.state.remotes
-        .any((element) => element.identifier == remoteStorage.identifier)) {
+    if (settingsCubit.state.remotes.any(
+      (element) => element.identifier == remoteStorage.identifier,
+    )) {
       return;
     }
     final key = 'remote ${remoteStorage.toFilename()}';
@@ -87,8 +92,9 @@ class SourcesService {
     try {
       await secureStorage.delete(key: 'remote $name');
     } catch (_) {}
-    remotes
-        .removeWhere((element) => element.remoteStorage.toFilename() == name);
+    remotes.removeWhere(
+      (element) => element.remoteStorage.toFilename() == name,
+    );
     await synchronize();
   }
 
@@ -97,7 +103,8 @@ class SourcesService {
   SourceService getSource(String source) {
     if (source.isEmpty) return local;
     return remotes.firstWhereOrNull(
-            (element) => element.remoteStorage.identifier == source) ??
+          (element) => element.remoteStorage.identifier == source,
+        ) ??
         local;
   }
 

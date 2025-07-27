@@ -30,8 +30,10 @@ class RequestDatabaseService extends ModelService with TableService {
     });
   }
 
-  Future<List<ConnectedModel<DateTime, APIRequest>>> getRequests(
-      {int offset = 0, int limit = 50}) async {
+  Future<List<ConnectedModel<DateTime, APIRequest>>> getRequests({
+    int offset = 0,
+    int limit = 50,
+  }) async {
     final result = await db?.query(
       'request',
       limit: limit,
@@ -40,20 +42,17 @@ class RequestDatabaseService extends ModelService with TableService {
     );
     if (result == null) return [];
     return result
-        .map((e) => ConnectedModel(
-              DateTime.fromMillisecondsSinceEpoch(e['created'] as int),
-              APIRequestMapper.fromJson(e['data'] as String),
-            ))
+        .map(
+          (e) => ConnectedModel(
+            DateTime.fromMillisecondsSinceEpoch(e['created'] as int),
+            APIRequestMapper.fromJson(e['data'] as String),
+          ),
+        )
         .toList();
   }
 
   Future<bool> deleteRequest(int id) async {
-    return await db?.delete(
-          'request',
-          where: 'id = ?',
-          whereArgs: [id],
-        ) ==
-        1;
+    return await db?.delete('request', where: 'id = ?', whereArgs: [id]) == 1;
   }
 }
 
@@ -61,10 +60,7 @@ class RemoteDatabaseService extends DatabaseService {
   late final RequestDatabaseService request;
 
   @override
-  List<ModelService> get models => [
-        ...super.models,
-        request,
-      ];
+  List<ModelService> get models => [...super.models, request];
 
   RemoteDatabaseService(super.databaseFactory);
 
@@ -84,7 +80,10 @@ abstract class RemoteService<T extends RemoteStorage> extends SourceService {
   RemoteService(this.remoteStorage, this.local, this.password);
 
   factory RemoteService.fromStorage(
-      RemoteDatabaseService local, T storage, String? password) {
+    RemoteDatabaseService local,
+    T storage,
+    String? password,
+  ) {
     return switch (storage) {
       CalDavStorage() =>
         CalDavRemoteService(storage, local, password) as RemoteService<T>,
@@ -100,9 +99,9 @@ abstract class RemoteService<T extends RemoteStorage> extends SourceService {
     final requests = await local.request.getRequests();
     for (final request in requests) {
       try {
-        await request.model
-            .send()
-            .then((value) => local.request.deleteRequest(request.model.id));
+        await request.model.send().then(
+          (value) => local.request.deleteRequest(request.model.id),
+        );
       } catch (_) {}
     }
   }

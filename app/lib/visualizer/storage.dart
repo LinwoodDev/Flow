@@ -5,16 +5,16 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 extension StorageVisualizer on RemoteStorage {
   String getLocalizedName(BuildContext context) => switch (this) {
-        CalDavStorage() => 'CalDAV',
-        ICalStorage() => 'iCal',
-        SiaStorage() => 'Sia',
-        WebDavStorage() => 'WebDAV'
-      };
+    CalDavStorage() => 'CalDAV',
+    ICalStorage() => 'iCal',
+    SiaStorage() => 'Sia',
+    WebDavStorage() => 'WebDAV',
+  };
 
   IconGetter get icon => switch (this) {
-        CalDavStorage() => PhosphorIcons.globe,
-        ICalStorage() => PhosphorIcons.calendar,
-        SiaStorage() => PhosphorIcons.cloud,
-        WebDavStorage() => PhosphorIcons.fileText,
-      };
+    CalDavStorage() => PhosphorIcons.globe,
+    ICalStorage() => PhosphorIcons.calendar,
+    SiaStorage() => PhosphorIcons.cloud,
+    WebDavStorage() => PhosphorIcons.fileText,
+  };
 }
