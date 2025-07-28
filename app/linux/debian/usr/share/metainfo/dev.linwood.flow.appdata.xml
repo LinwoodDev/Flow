@@ -6,36 +6,61 @@
 	<summary>A feature rich event and time management system</summary>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>AGPL-3.0-only</project_license>
-	<supports>
-		<control>pointing</control>
-		<control>keyboard</control>
-		<control>touch</control>
-	</supports>
 	<recommends>
 		<control>pointing</control>
 		<control>keyboard</control>
 		<control>touch</control>
 	</recommends>
+	<branding>
+		<color type="primary" scheme_preference="light">#d0d0d0</color>
+		<color type="primary" scheme_preference="dark">#2f2f2f</color>
+	</branding>
 	<developer_name>Linwood</developer_name>
 	<url type="homepage">https://docs.flow.linwood.dev/</url>
 	<url type="bugtracker">https://github.com/LinwoodDev/Flow/issues</url>
-	<url type="help">https://docs.flow.linwood.dev/docs/latest/intro</url>
+	<url type="help">https://flow.linwood.dev/docs/v1/intro</url>
 	<url type="translate">https://translate.linwood.dev/flow</url>
 	<url type="vcs-browser">https://github.com/LinwoodDev/Flow.git</url>
 	<url type="contribute">https://github.com/LinwoodDev/Flow/blob/develop/CONTRIBUTING.md</url>
 	<description>
-		<p>A feature rich event and time management system.</p>
+		<p>Linwood Flow is a free, opensource time and event management software. You can choose where
+			your data is stored and who can access it. Group your events and manage places and people. The
+			app is available for Windows, Linux, Android and Web.</p>
 		<p>Features:</p>
 		<ul>
-			<li>Your data is decentralized: Everyone can host their own backend. See <a
-					href="https://docs.flow.linwood.dev/server/getting-started">here</a> and everyone can add
-				it to the server list in the settings.</li>
-			<li>Manage your time everywhere: You don't need a server. Everything can be saved on the local
-				device or in the cloud.</li>
+			<li>Simple and intuitive: Every tool is in the right place. Open the app and start managing
+				your time.</li>
+			<li>Support your favorite formats: Import and export your old notes and events. Set the app as
+				your default calendar app and use it with your favorite apps.</li>
+			<li>Works on every device: The app is available for android, windows, linux, and in the web.
+				You can use it on your phone, tablet, or computer.</li>
+			<li>Choose where your data is stored: You can choose to store your data locally, in your
+				favorite cloud (caldav) or decentralized using S5. You can also export your data to a file
+				and import it again.</li>
+			<li>Available in many languages: The app is available in many languages. Help us to translate
+				this app to your language.</li>
+			<li>FOSS: The app is open source and free. You can contribute to the project and help to make
+				it better.</li>
+			<li>Use it offline: You can use the app offline. You can draw, paint, and export your notes
+				without an internet connection.</li>
+			<li>Manage your time: You can manage your time using a calendar. You can add events to it and
+				share them with your friends.</li>
+			<li>Manage your places: You can add places to the app and share them with your friends. Keep
+				track which places are free and which are busy.</li>
+			<li>Manage users: Add users to the app to keep track of who is available and who is not. You
+				can also share your calendar with them. Add birthdays to the app and get a notification when
+				it is time to celebrate.</li>
+			<li>Manage your tasks: You can add tasks to the app and share them with your friends. You can
+				also add your favorite tasks to the app. Set a deadline and get notified when it is due.</li>
+			<li>Take notes: You can add files and notes to your events. Add a backlog to your events to
+				keep track of your progress.</li>
+			<li>Group your events: Group your events to know which events are related to each other. You
+				can also add tags to your events to find them faster.</li>
+			<li>Irregular events: You can add irregular events to the app. Have irregular meetings? Add
+				them to the app and get notified when it is time to meet. Simply copy the event and change
+				the date.</li>
 		</ul>
 	</description>
-	<screenshots>
-	</screenshots>
 	<launchable type="desktop-id">dev.linwood.flow.desktop</launchable>
 	<content_rating type="oars-1.1" />
 	<update_contact>contact@linwood.dev</update_contact>

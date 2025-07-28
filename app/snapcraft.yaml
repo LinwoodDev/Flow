@@ -13,7 +13,7 @@ platforms:
   amd64:
   arm64:
 apps:
-  flow:
+  linwood-flow:
     command: flow
     extensions: [gnome]
     plugs:
@@ -50,7 +50,7 @@ parts:
       - ninja-build
       - unzip
     override-prime: ''
-  flow:
+  linwood-flow:
     after: [ flutter-git ]
     plugin: nil
     #plugin: flutter

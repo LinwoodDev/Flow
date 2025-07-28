@@ -5,4 +5,4 @@ Exec=flow %f
 Icon=dev.linwood.flow
 Terminal=false
 Type=Application
-Categories=Productivity;
+Categories=Office;Calendar;
