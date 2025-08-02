@@ -16,8 +16,9 @@ Nightlyビルドは、最新バージョンをテストして最新の機能を�
 プラットフォームのダウンロードページに移動します。
 すべてのナイトリービルドもgithubのプレリリースとして公開されます。
 
-## Experiments
+## 実験
 
-Experiments are features that are not ready for production yet.
+実験は、まだ制作の準備ができていない機能です。
+デフォルトでは無効になっています You can enable them in the settings under `Experiments`.
 Default they are disabled. You can enable them in the settings under `Experiments`.
 This tab is only visible in the nightly version.
