@@ -16,7 +16,7 @@ title: Ночные сборки
 Перейдите на страницы загрузки вашей платформы.
 Все ночные сборки также публикуются в качестве предварительного релиза на github.
 
-## Experiments
+## Эксперимент
 
 Experiments are features that are not ready for production yet.
 Default they are disabled. You can enable them in the settings under `Experiments`.
