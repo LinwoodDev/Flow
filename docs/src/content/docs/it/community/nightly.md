@@ -16,7 +16,7 @@ e dare un feedback.
 Vai alle pagine di download della tua piattaforma.
 Tutte le costruzioni notturne vengono pubblicate anche come pre-release su github.
 
-## Experiments
+## Esperimenti
 
 Experiments are features that are not ready for production yet.
 Default they are disabled. You can enable them in the settings under `Experiments`.
