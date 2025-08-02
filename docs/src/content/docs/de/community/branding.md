@@ -2,7 +2,7 @@
 title: Branding
 ---
 
-These assets are licensed under the [CC-BY-SA-4.0](https://github.com/LinwoodDev/Flow/blob/develop/BRANDING_LICENSE).
+Diese Assets sind unter der [CC-BY-SA-4.0]lizenziert (https://github.com/LinwoodDev/Flow/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 
@@ -29,7 +29,7 @@ These assets are licensed under the [CC-BY-SA-4.0](https://github.com/LinwoodDev
 
 ## Schriftarten
 
-- Website: `Barlow`
+- Website: "Barlow"
 - App: `Comfortaa`
 
 ## Screenshots
