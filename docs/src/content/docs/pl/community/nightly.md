@@ -16,7 +16,7 @@ i przekazania opinii.
 Przejdź do stron pobierania platformy.
 Wszystkie wersje nocne są również publikowane jako wstępne wydanie na githubie.
 
-## Experiments
+## Eksperymenty
 
 Experiments are features that are not ready for production yet.
 Default they are disabled. You can enable them in the settings under `Experiments`.
