@@ -1,13 +1,13 @@
 {
   "downloads": "Downloads",
   "community": "Community",
-  "home": "Home",
+  "home": "Početna",
   "branding": "Branding",
-  "changelog": "Changelog",
+  "changelog": "Dnevnik izmena",
   "contributing": "Contributing",
   "code_of_conduct": "Code of conduct",
   "faq": "FAQ",
   "versions": "Versions",
-  "nightly": "Nightly",
-  "privacy_policy": "Privacy policy"
+  "nightly": "Noćno",
+  "privacy_policy": "Politika privatnosti"
 }
