@@ -16,7 +16,7 @@ en om feedback te geven.
 Ga naar de downloadpagina's van uw platform.
 Alle nightly builds worden ook gepubliceerd als pre-release op github.
 
-## Experiments
+## Experimenten
 
 Experiments are features that are not ready for production yet.
 Default they are disabled. You can enable them in the settings under `Experiments`.
