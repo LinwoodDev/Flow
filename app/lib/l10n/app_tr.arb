@@ -1,6 +1,6 @@
 {
   "dashboard": "Kontrol Paneli",
-  "translate": "Translate",
+  "translate": "Çevir",
   "calendar": "Takvim",
   "resources": "Resources",
   "users": "Kullanıcılar",
@@ -321,8 +321,8 @@
   },
   "systemTheme": "System theme",
   "desktop": "Masaüstü",
-  "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file",
+  "restoreSettingsFromFile": "Ayarları dosyadan geri yükle",
+  "exportSettingsToFile": "Ayarları dosyaya dışa aktar",
   "alarm": "Alarm",
   "enabled": "Enabled",
   "countdown": "Countdown",
