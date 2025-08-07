@@ -326,5 +326,5 @@
   "alarm": "Alarm",
   "enabled": "已启用",
   "countdown": "倒计时",
-  "unlink": "Unlink"
+  "unlink": "取消链接"
 }
