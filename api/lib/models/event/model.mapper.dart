@@ -1,5 +1,6 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
@@ -166,6 +167,12 @@ class EventMapper extends ClassMapperBase<Event> {
     _$extra,
     opt: true,
   );
+  static ExtraProperties? _$extraProperties(Event v) => v.extraProperties;
+  static const Field<Event, ExtraProperties> _f$extraProperties = Field(
+    'extraProperties',
+    _$extraProperties,
+    mode: FieldMode.member,
+  );
 
   @override
   final MappableFields<Event> fields = const {
@@ -176,6 +183,7 @@ class EventMapper extends ClassMapperBase<Event> {
     #description: _f$description,
     #location: _f$location,
     #extra: _f$extra,
+    #extraProperties: _f$extraProperties,
   };
 
   static Event _instantiate(DecodingData data) {
@@ -289,3 +297,4 @@ class _EventCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Event, $Out>
   EventCopyWith<$R2, Event, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
       _EventCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+

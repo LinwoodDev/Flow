@@ -1,5 +1,6 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
@@ -66,6 +67,12 @@ class NoteFilterMapper extends ClassMapperBase<NoteFilter> {
     _$source,
     opt: true,
   );
+  static Set<NoteStatus?> _$statuses(NoteFilter v) => v.statuses;
+  static const Field<NoteFilter, Set<NoteStatus?>> _f$statuses = Field(
+    'statuses',
+    _$statuses,
+    mode: FieldMode.member,
+  );
 
   @override
   final MappableFields<NoteFilter> fields = const {
@@ -76,6 +83,7 @@ class NoteFilterMapper extends ClassMapperBase<NoteFilter> {
     #selectedLabel: _f$selectedLabel,
     #notebook: _f$notebook,
     #source: _f$source,
+    #statuses: _f$statuses,
   };
 
   static NoteFilter _instantiate(DecodingData data) {
@@ -206,3 +214,4 @@ class _NoteFilterCopyWithImpl<$R, $Out>
     Then<$Out2, $R2> t,
   ) => _NoteFilterCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+
