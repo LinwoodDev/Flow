@@ -6,7 +6,8 @@
 * Migrate away from flutter_markdown
 * Fix divider in appbar if native titlebar is enabled
 * Fix layout of dialogs
+* Fix icons for name text fields
 * Update to agb 8.10
-* Upgrade to flutter 3.32
+* Upgrade to flutter 3.32 and 3.35
 
 Read more here: https://linwood.dev/flow/0.5.0

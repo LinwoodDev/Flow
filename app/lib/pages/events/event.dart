@@ -113,9 +113,7 @@ class EventDialog extends StatelessWidget {
                           controller: nameController,
                           decoration: InputDecoration(
                             labelText: AppLocalizations.of(context).name,
-                            icon: const PhosphorIcon(
-                              PhosphorIconsLight.fileText,
-                            ),
+                            icon: const PhosphorIcon(PhosphorIconsLight.textT),
                             filled: true,
                           ),
                           onChanged: (value) =>

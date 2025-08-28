@@ -94,9 +94,7 @@ class ResourceDialog extends StatelessWidget {
                           decoration: InputDecoration(
                             labelText: AppLocalizations.of(context).name,
                             filled: true,
-                            icon: const PhosphorIcon(
-                              PhosphorIconsLight.fileText,
-                            ),
+                            icon: const PhosphorIcon(PhosphorIconsLight.textT),
                           ),
                           initialValue: currentResource.name,
                           onChanged: (value) {
