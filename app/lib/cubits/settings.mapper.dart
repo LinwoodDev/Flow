@@ -69,6 +69,64 @@ extension ThemeDensityMapperExtension on ThemeDensity {
   }
 }
 
+class CalendarViewMapper extends EnumMapper<CalendarView> {
+  CalendarViewMapper._();
+
+  static CalendarViewMapper? _instance;
+  static CalendarViewMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = CalendarViewMapper._());
+    }
+    return _instance!;
+  }
+
+  static CalendarView fromValue(dynamic value) {
+    ensureInitialized();
+    return MapperContainer.globals.fromValue(value);
+  }
+
+  @override
+  CalendarView decode(dynamic value) {
+    switch (value) {
+      case r'list':
+        return CalendarView.list;
+      case r'day':
+        return CalendarView.day;
+      case r'week':
+        return CalendarView.week;
+      case r'month':
+        return CalendarView.month;
+      case r'pending':
+        return CalendarView.pending;
+      default:
+        throw MapperException.unknownEnumValue(value);
+    }
+  }
+
+  @override
+  dynamic encode(CalendarView self) {
+    switch (self) {
+      case CalendarView.list:
+        return r'list';
+      case CalendarView.day:
+        return r'day';
+      case CalendarView.week:
+        return r'week';
+      case CalendarView.month:
+        return r'month';
+      case CalendarView.pending:
+        return r'pending';
+    }
+  }
+}
+
+extension CalendarViewMapperExtension on CalendarView {
+  String toValue() {
+    CalendarViewMapper.ensureInitialized();
+    return MapperContainer.globals.toValue<CalendarView>(this) as String;
+  }
+}
+
 class SyncModeMapper extends EnumMapper<SyncMode> {
   SyncModeMapper._();
 
@@ -269,6 +327,7 @@ class FlowSettingsMapper extends ClassMapperBase<FlowSettings> {
       RemoteStorageMapper.ensureInitialized();
       ThemeDensityMapper.ensureInitialized();
       AlarmMapper.ensureInitialized();
+      CalendarViewMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -346,6 +405,13 @@ class FlowSettingsMapper extends ClassMapperBase<FlowSettings> {
     opt: true,
     def: const [],
   );
+  static CalendarView _$calendarView(FlowSettings v) => v.calendarView;
+  static const Field<FlowSettings, CalendarView> _f$calendarView = Field(
+    'calendarView',
+    _$calendarView,
+    opt: true,
+    def: CalendarView.list,
+  );
 
   @override
   final MappableFields<FlowSettings> fields = const {
@@ -359,6 +425,7 @@ class FlowSettingsMapper extends ClassMapperBase<FlowSettings> {
     #density: _f$density,
     #highContrast: _f$highContrast,
     #alarms: _f$alarms,
+    #calendarView: _f$calendarView,
   };
 
   static FlowSettings _instantiate(DecodingData data) {
@@ -373,6 +440,7 @@ class FlowSettingsMapper extends ClassMapperBase<FlowSettings> {
       density: data.dec(_f$density),
       highContrast: data.dec(_f$highContrast),
       alarms: data.dec(_f$alarms),
+      calendarView: data.dec(_f$calendarView),
     );
   }
 
@@ -456,6 +524,7 @@ abstract class FlowSettingsCopyWith<$R, $In extends FlowSettings, $Out>
     ThemeDensity? density,
     bool? highContrast,
     List<Alarm>? alarms,
+    CalendarView? calendarView,
   });
   FlowSettingsCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -498,6 +567,7 @@ class _FlowSettingsCopyWithImpl<$R, $Out>
     ThemeDensity? density,
     bool? highContrast,
     List<Alarm>? alarms,
+    CalendarView? calendarView,
   }) => $apply(
     FieldCopyWithData({
       if (locale != null) #locale: locale,
@@ -510,6 +580,7 @@ class _FlowSettingsCopyWithImpl<$R, $Out>
       if (density != null) #density: density,
       if (highContrast != null) #highContrast: highContrast,
       if (alarms != null) #alarms: alarms,
+      if (calendarView != null) #calendarView: calendarView,
     }),
   );
   @override
@@ -524,6 +595,7 @@ class _FlowSettingsCopyWithImpl<$R, $Out>
     density: data.get(#density, or: $value.density),
     highContrast: data.get(#highContrast, or: $value.highContrast),
     alarms: data.get(#alarms, or: $value.alarms),
+    calendarView: data.get(#calendarView, or: $value.calendarView),
   );
 
   @override

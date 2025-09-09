@@ -4,6 +4,7 @@
 * Fix linux appdata
 * Add unlink button
 * Migrate away from flutter_markdown
+* Save current calendar view ([#97](https://github.com/LinwoodDev/Flow/issues/97))
 * Fix divider in appbar if native titlebar is enabled
 * Fix layout of dialogs
 * Fix icons for name text fields

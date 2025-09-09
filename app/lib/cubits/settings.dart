@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -61,6 +63,35 @@ final class ThemeModeMapper extends SimpleMapper<ThemeMode> {
   }
 }
 
+@MappableEnum()
+enum CalendarView {
+  list,
+  day,
+  week,
+  month,
+  pending;
+
+  String getLocalizedName(BuildContext context) {
+    return switch (this) {
+      CalendarView.list => AppLocalizations.of(context).list,
+      CalendarView.day => AppLocalizations.of(context).day,
+      CalendarView.week => AppLocalizations.of(context).week,
+      CalendarView.month => AppLocalizations.of(context).month,
+      CalendarView.pending => AppLocalizations.of(context).pending,
+    };
+  }
+
+  IconGetter get icon {
+    return switch (this) {
+      CalendarView.list => PhosphorIcons.list,
+      CalendarView.day => PhosphorIcons.calendar,
+      CalendarView.week => PhosphorIcons.columns,
+      CalendarView.month => PhosphorIcons.gridNine,
+      CalendarView.pending => PhosphorIcons.clock,
+    };
+  }
+}
+
 @MappableClass(includeCustomMappers: [ThemeModeMapper()])
 class FlowSettings with FlowSettingsMappable, LeapSettings {
   static const String localeKey = 'locale';
@@ -84,6 +115,8 @@ class FlowSettings with FlowSettingsMappable, LeapSettings {
   final bool highContrast;
   static const String alarmsKey = 'alarms';
   final List<Alarm> alarms;
+  static const String calendarViewKey = 'calendarView';
+  final CalendarView calendarView;
 
   const FlowSettings({
     this.locale = '',
@@ -96,6 +129,7 @@ class FlowSettings with FlowSettingsMappable, LeapSettings {
     this.density = ThemeDensity.system,
     this.highContrast = false,
     this.alarms = const [],
+    this.calendarView = CalendarView.list,
   });
 
   factory FlowSettings.fromPrefs(SharedPreferences prefs) => FlowSettings(
@@ -125,6 +159,9 @@ class FlowSettings with FlowSettingsMappable, LeapSettings {
             ?.map((e) => AlarmMapper.fromJson(e))
             .toList() ??
         [],
+    calendarView: CalendarView.values.byName(
+      prefs.getString(calendarViewKey) ?? 'list',
+    ),
   );
   Future<void> saveThemeMode(SharedPreferences prefs) =>
       prefs.setString(themeModeKey, themeMode.name);
@@ -148,6 +185,8 @@ class FlowSettings with FlowSettingsMappable, LeapSettings {
       prefs.setBool(highContrastKey, highContrast);
   Future<void> saveAlarms(SharedPreferences prefs) =>
       prefs.setStringList(alarmsKey, alarms.map((e) => e.toJson()).toList());
+  Future<void> saveCalendarView(SharedPreferences prefs) =>
+      prefs.setString(calendarViewKey, calendarView.name);
 
   Future<void> save(SharedPreferences prefs) async {
     await saveThemeMode(prefs);
@@ -160,6 +199,7 @@ class FlowSettings with FlowSettingsMappable, LeapSettings {
     await saveDensity(prefs);
     await saveHighContrast(prefs);
     await saveAlarms(prefs);
+    await saveCalendarView(prefs);
   }
 }
 
@@ -269,6 +309,12 @@ class SettingsCubit extends Cubit<FlowSettings>
     emit(newState);
     await _scheduleAlarm(index, alarm);
     return _runSave(newState.saveAlarms);
+  }
+
+  Future<void> changeCalendarView(CalendarView view) {
+    final newState = state.copyWith(calendarView: view);
+    emit(newState);
+    return _runSave(newState.saveCalendarView);
   }
 
   Future<void> importSettings(String data) {

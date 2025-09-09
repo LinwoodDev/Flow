@@ -1,4 +1,5 @@
 import 'package:flow/cubits/flow.dart';
+import 'package:flow/cubits/settings.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,97 +27,69 @@ class CalendarPage extends StatefulWidget {
   State<CalendarPage> createState() => _CalendarPageState();
 }
 
-enum _CalendarView { list, day, week, month, pending }
-
-extension _CalendarViewExtension on _CalendarView {
-  String getLocalizedName(BuildContext context) {
-    switch (this) {
-      case _CalendarView.list:
-        return AppLocalizations.of(context).list;
-      case _CalendarView.day:
-        return AppLocalizations.of(context).day;
-      case _CalendarView.week:
-        return AppLocalizations.of(context).week;
-      case _CalendarView.month:
-        return AppLocalizations.of(context).month;
-      case _CalendarView.pending:
-        return AppLocalizations.of(context).pending;
-    }
-  }
-
-  IconGetter get icon {
-    switch (this) {
-      case _CalendarView.list:
-        return PhosphorIcons.list;
-      case _CalendarView.day:
-        return PhosphorIcons.calendar;
-      case _CalendarView.week:
-        return PhosphorIcons.columns;
-      case _CalendarView.month:
-        return PhosphorIcons.gridNine;
-      case _CalendarView.pending:
-        return PhosphorIcons.clock;
-    }
-  }
-}
-
 class _CalendarPageState extends State<CalendarPage>
     with TickerProviderStateMixin {
-  _CalendarView _calendarView = _CalendarView.list;
-
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final isSmall = constraints.maxWidth < 900;
-        return FlowNavigation(
-          title: AppLocalizations.of(context).calendar,
-          actions: [
-            if (isSmall) ...[
-              MenuAnchor(
-                builder: defaultMenuButton(
-                  icon: PhosphorIcon(
-                    _calendarView.icon(PhosphorIconsStyle.light),
+    return BlocBuilder<SettingsCubit, FlowSettings>(
+      buildWhen: (previous, current) =>
+          previous.calendarView != current.calendarView,
+      builder: (context, settings) {
+        final view = settings.calendarView;
+        void changeView(CalendarView newView) =>
+            context.read<SettingsCubit>().changeCalendarView(newView);
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            final isSmall = constraints.maxWidth < 900;
+            return FlowNavigation(
+              title: AppLocalizations.of(context).calendar,
+              actions: [
+                if (isSmall) ...[
+                  MenuAnchor(
+                    builder: defaultMenuButton(
+                      icon: PhosphorIcon(view.icon(PhosphorIconsStyle.light)),
+                    ),
+                    menuChildren: CalendarView.values
+                        .map(
+                          (e) => MenuItemButton(
+                            leadingIcon: PhosphorIcon(
+                              e.icon(PhosphorIconsStyle.light),
+                            ),
+                            child: Text(e.getLocalizedName(context)),
+                            onPressed: () => changeView(e),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ] else ...[
+                  SegmentedButton(
+                    segments: CalendarView.values
+                        .map(
+                          (e) => ButtonSegment(
+                            value: e,
+                            icon: PhosphorIcon(
+                              e.icon(PhosphorIconsStyle.light),
+                            ),
+                            tooltip: e.getLocalizedName(context),
+                          ),
+                        )
+                        .toList(),
+                    onSelectionChanged: (value) => changeView(value.first),
+                    selected: {view},
+                  ),
+                  const SizedBox(width: 8),
+                ],
+                IconButton(
+                  icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
+                  onPressed: () => showSearch(
+                    context: context,
+                    delegate: _CalendarSearchDelegate(view),
                   ),
                 ),
-                menuChildren: _CalendarView.values
-                    .map(
-                      (e) => MenuItemButton(
-                        leadingIcon: PhosphorIcon(
-                          e.icon(PhosphorIconsStyle.light),
-                        ),
-                        child: Text(e.getLocalizedName(context)),
-                        onPressed: () => setState(() => _calendarView = e),
-                      ),
-                    )
-                    .toList(),
-              ),
-            ] else ...[
-              SegmentedButton(
-                segments: _CalendarView.values
-                    .map(
-                      (e) => ButtonSegment(
-                        value: e,
-                        icon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
-                        tooltip: e.getLocalizedName(context),
-                      ),
-                    )
-                    .toList(),
-                onSelectionChanged: (value) =>
-                    setState(() => _calendarView = value.first),
-                selected: {_calendarView},
-              ),
-              const SizedBox(width: 8),
-            ],
-            IconButton(
-              icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
-              onPressed: () => showSearch(
-                context: context,
-                delegate: _CalendarSearchDelegate(_calendarView),
-              ),
-            ),
-          ],
-          body: CalendarBodyView(filter: widget.filter, view: _calendarView),
+              ],
+              body: CalendarBodyView(filter: widget.filter, view: view),
+            );
+          },
         );
       },
     );
@@ -124,7 +97,7 @@ class _CalendarPageState extends State<CalendarPage>
 }
 
 class _CalendarSearchDelegate extends SearchDelegate {
-  final _CalendarView view;
+  final CalendarView view;
 
   _CalendarSearchDelegate(this.view);
 
@@ -163,13 +136,14 @@ class _CalendarSearchDelegate extends SearchDelegate {
 
 class CalendarBodyView extends StatefulWidget {
   final String search;
-  final _CalendarView view;
+  final CalendarView view;
   final CalendarFilter filter;
+
   const CalendarBodyView({
     super.key,
     this.search = '',
     this.filter = const CalendarFilter(),
-    this.view = _CalendarView.list,
+    this.view = CalendarView.list,
   });
 
   @override
@@ -197,25 +171,25 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
 
   Widget _getView() {
     switch (widget.view) {
-      case _CalendarView.pending:
+      case CalendarView.pending:
         return CalendarPendingView(
           filter: _filter,
           onFilterChanged: _onFilterChanged,
           search: widget.search,
         );
-      case _CalendarView.day:
+      case CalendarView.day:
         return CalendarDayView(
           filter: _filter,
           onFilterChanged: _onFilterChanged,
           search: widget.search,
         );
-      case _CalendarView.week:
+      case CalendarView.week:
         return CalendarWeekView(
           filter: _filter,
           onFilterChanged: _onFilterChanged,
           search: widget.search,
         );
-      case _CalendarView.month:
+      case CalendarView.month:
         return CalendarMonthView(
           filter: _filter,
           onFilterChanged: _onFilterChanged,
