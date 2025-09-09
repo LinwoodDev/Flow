@@ -363,7 +363,7 @@ jobs:
           flutter-version-file: app/pubspec.yaml
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.13"
       - name: ✅ Enable platforms
         run: flutter config --enable-macos-desktop
       - name: 📦 Get dependencies
