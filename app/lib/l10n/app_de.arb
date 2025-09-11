@@ -307,7 +307,7 @@
   "usingLatestStable": "Sie verwenden die neueste stabile Version",
   "usingLatestNightly": "Sie verwenden die neueste Nightly Version",
   "updateNow": "Jetzt aktualisieren",
-  "stable": "Stall",
+  "stable": "Stabil",
   "nightly": "Nachts",
   "updateAvailable": "Update verfügbar",
   "countItems": "{count, plural, =0 {Keine Items} one {1 Element} other {{count} Items}}",
