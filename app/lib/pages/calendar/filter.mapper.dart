@@ -62,22 +62,6 @@ class CalendarFilterMapper extends ClassMapperBase<CalendarFilter> {
     _$resource,
     opt: true,
   );
-  static List<Uint8List>? _$resources(CalendarFilter v) => v.resources;
-  static const Field<CalendarFilter, List<Uint8List>> _f$resources = Field(
-    'resources',
-    _$resources,
-    mode: FieldMode.member,
-  );
-  static List<Uint8List>? _$groups(CalendarFilter v) => v.groups;
-  static const Field<CalendarFilter, List<Uint8List>> _f$groups = Field(
-    'groups',
-    _$groups,
-    mode: FieldMode.member,
-  );
-  static ConnectedModel<String, Uint8List>? _$sourceEvent(CalendarFilter v) =>
-      v.sourceEvent;
-  static const Field<CalendarFilter, ConnectedModel<String, Uint8List>>
-  _f$sourceEvent = Field('sourceEvent', _$sourceEvent, mode: FieldMode.member);
 
   @override
   final MappableFields<CalendarFilter> fields = const {
@@ -87,9 +71,6 @@ class CalendarFilterMapper extends ClassMapperBase<CalendarFilter> {
     #event: _f$event,
     #past: _f$past,
     #resource: _f$resource,
-    #resources: _f$resources,
-    #groups: _f$groups,
-    #sourceEvent: _f$sourceEvent,
   };
 
   static CalendarFilter _instantiate(DecodingData data) {

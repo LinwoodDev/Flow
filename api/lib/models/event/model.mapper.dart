@@ -167,12 +167,6 @@ class EventMapper extends ClassMapperBase<Event> {
     _$extra,
     opt: true,
   );
-  static ExtraProperties? _$extraProperties(Event v) => v.extraProperties;
-  static const Field<Event, ExtraProperties> _f$extraProperties = Field(
-    'extraProperties',
-    _$extraProperties,
-    mode: FieldMode.member,
-  );
 
   @override
   final MappableFields<Event> fields = const {
@@ -183,7 +177,6 @@ class EventMapper extends ClassMapperBase<Event> {
     #description: _f$description,
     #location: _f$location,
     #extra: _f$extra,
-    #extraProperties: _f$extraProperties,
   };
 
   static Event _instantiate(DecodingData data) {

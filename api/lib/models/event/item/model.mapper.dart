@@ -127,12 +127,6 @@ class CalendarItemMapper extends ClassMapperBase<CalendarItem> {
     opt: true,
     def: EventStatus.confirmed,
   );
-  static CalendarItemType _$type(CalendarItem v) => v.type;
-  static const Field<CalendarItem, CalendarItemType> _f$type = Field(
-    'type',
-    _$type,
-    mode: FieldMode.member,
-  );
 
   @override
   final MappableFields<CalendarItem> fields = const {
@@ -144,7 +138,6 @@ class CalendarItemMapper extends ClassMapperBase<CalendarItem> {
     #start: _f$start,
     #end: _f$end,
     #status: _f$status,
-    #type: _f$type,
   };
 
   static CalendarItem _instantiate(DecodingData data) {
@@ -252,12 +245,6 @@ class FixedCalendarItemMapper extends ClassMapperBase<FixedCalendarItem> {
     opt: true,
     def: EventStatus.confirmed,
   );
-  static CalendarItemType _$type(FixedCalendarItem v) => v.type;
-  static const Field<FixedCalendarItem, CalendarItemType> _f$type = Field(
-    'type',
-    _$type,
-    mode: FieldMode.member,
-  );
 
   @override
   final MappableFields<FixedCalendarItem> fields = const {
@@ -269,7 +256,6 @@ class FixedCalendarItemMapper extends ClassMapperBase<FixedCalendarItem> {
     #start: _f$start,
     #end: _f$end,
     #status: _f$status,
-    #type: _f$type,
   };
 
   static FixedCalendarItem _instantiate(DecodingData data) {
@@ -531,12 +517,6 @@ class RepeatingCalendarItemMapper
     opt: true,
     def: const [],
   );
-  static CalendarItemType _$type(RepeatingCalendarItem v) => v.type;
-  static const Field<RepeatingCalendarItem, CalendarItemType> _f$type = Field(
-    'type',
-    _$type,
-    mode: FieldMode.member,
-  );
 
   @override
   final MappableFields<RepeatingCalendarItem> fields = const {
@@ -554,7 +534,6 @@ class RepeatingCalendarItemMapper
     #count: _f$count,
     #until: _f$until,
     #exceptions: _f$exceptions,
-    #type: _f$type,
   };
 
   static RepeatingCalendarItem _instantiate(DecodingData data) {
@@ -871,12 +850,6 @@ class AutoCalendarItemMapper extends ClassMapperBase<AutoCalendarItem> {
     opt: true,
     def: 60,
   );
-  static CalendarItemType _$type(AutoCalendarItem v) => v.type;
-  static const Field<AutoCalendarItem, CalendarItemType> _f$type = Field(
-    'type',
-    _$type,
-    mode: FieldMode.member,
-  );
 
   @override
   final MappableFields<AutoCalendarItem> fields = const {
@@ -897,7 +870,6 @@ class AutoCalendarItemMapper extends ClassMapperBase<AutoCalendarItem> {
     #autoGroupId: _f$autoGroupId,
     #searchStart: _f$searchStart,
     #autoDuration: _f$autoDuration,
-    #type: _f$type,
   };
 
   static AutoCalendarItem _instantiate(DecodingData data) {

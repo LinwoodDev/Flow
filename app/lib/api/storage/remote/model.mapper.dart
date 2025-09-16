@@ -32,32 +32,11 @@ class RemoteStorageMapper extends ClassMapperBase<RemoteStorage> {
     'username',
     _$username,
   );
-  static Uri _$uri(RemoteStorage v) => v.uri;
-  static const Field<RemoteStorage, Uri> _f$uri = Field(
-    'uri',
-    _$uri,
-    mode: FieldMode.member,
-  );
-  static String _$identifier(RemoteStorage v) => v.identifier;
-  static const Field<RemoteStorage, String> _f$identifier = Field(
-    'identifier',
-    _$identifier,
-    mode: FieldMode.member,
-  );
-  static String _$displayName(RemoteStorage v) => v.displayName;
-  static const Field<RemoteStorage, String> _f$displayName = Field(
-    'displayName',
-    _$displayName,
-    mode: FieldMode.member,
-  );
 
   @override
   final MappableFields<RemoteStorage> fields = const {
     #url: _f$url,
     #username: _f$username,
-    #uri: _f$uri,
-    #identifier: _f$identifier,
-    #displayName: _f$displayName,
   };
 
   static RemoteStorage _instantiate(DecodingData data) {
@@ -111,32 +90,11 @@ class CalDavStorageMapper extends ClassMapperBase<CalDavStorage> {
     'username',
     _$username,
   );
-  static Uri _$uri(CalDavStorage v) => v.uri;
-  static const Field<CalDavStorage, Uri> _f$uri = Field(
-    'uri',
-    _$uri,
-    mode: FieldMode.member,
-  );
-  static String _$identifier(CalDavStorage v) => v.identifier;
-  static const Field<CalDavStorage, String> _f$identifier = Field(
-    'identifier',
-    _$identifier,
-    mode: FieldMode.member,
-  );
-  static String _$displayName(CalDavStorage v) => v.displayName;
-  static const Field<CalDavStorage, String> _f$displayName = Field(
-    'displayName',
-    _$displayName,
-    mode: FieldMode.member,
-  );
 
   @override
   final MappableFields<CalDavStorage> fields = const {
     #url: _f$url,
     #username: _f$username,
-    #uri: _f$uri,
-    #identifier: _f$identifier,
-    #displayName: _f$displayName,
   };
 
   static CalDavStorage _instantiate(DecodingData data) {
@@ -262,32 +220,11 @@ class ICalStorageMapper extends ClassMapperBase<ICalStorage> {
     'username',
     _$username,
   );
-  static Uri _$uri(ICalStorage v) => v.uri;
-  static const Field<ICalStorage, Uri> _f$uri = Field(
-    'uri',
-    _$uri,
-    mode: FieldMode.member,
-  );
-  static String _$identifier(ICalStorage v) => v.identifier;
-  static const Field<ICalStorage, String> _f$identifier = Field(
-    'identifier',
-    _$identifier,
-    mode: FieldMode.member,
-  );
-  static String _$displayName(ICalStorage v) => v.displayName;
-  static const Field<ICalStorage, String> _f$displayName = Field(
-    'displayName',
-    _$displayName,
-    mode: FieldMode.member,
-  );
 
   @override
   final MappableFields<ICalStorage> fields = const {
     #url: _f$url,
     #username: _f$username,
-    #uri: _f$uri,
-    #identifier: _f$identifier,
-    #displayName: _f$displayName,
   };
 
   static ICalStorage _instantiate(DecodingData data) {
@@ -408,32 +345,11 @@ class WebDavStorageMapper extends ClassMapperBase<WebDavStorage> {
     'username',
     _$username,
   );
-  static Uri _$uri(WebDavStorage v) => v.uri;
-  static const Field<WebDavStorage, Uri> _f$uri = Field(
-    'uri',
-    _$uri,
-    mode: FieldMode.member,
-  );
-  static String _$identifier(WebDavStorage v) => v.identifier;
-  static const Field<WebDavStorage, String> _f$identifier = Field(
-    'identifier',
-    _$identifier,
-    mode: FieldMode.member,
-  );
-  static String _$displayName(WebDavStorage v) => v.displayName;
-  static const Field<WebDavStorage, String> _f$displayName = Field(
-    'displayName',
-    _$displayName,
-    mode: FieldMode.member,
-  );
 
   @override
   final MappableFields<WebDavStorage> fields = const {
     #url: _f$url,
     #username: _f$username,
-    #uri: _f$uri,
-    #identifier: _f$identifier,
-    #displayName: _f$displayName,
   };
 
   static WebDavStorage _instantiate(DecodingData data) {
@@ -559,32 +475,11 @@ class SiaStorageMapper extends ClassMapperBase<SiaStorage> {
     'username',
     _$username,
   );
-  static Uri _$uri(SiaStorage v) => v.uri;
-  static const Field<SiaStorage, Uri> _f$uri = Field(
-    'uri',
-    _$uri,
-    mode: FieldMode.member,
-  );
-  static String _$identifier(SiaStorage v) => v.identifier;
-  static const Field<SiaStorage, String> _f$identifier = Field(
-    'identifier',
-    _$identifier,
-    mode: FieldMode.member,
-  );
-  static String _$displayName(SiaStorage v) => v.displayName;
-  static const Field<SiaStorage, String> _f$displayName = Field(
-    'displayName',
-    _$displayName,
-    mode: FieldMode.member,
-  );
 
   @override
   final MappableFields<SiaStorage> fields = const {
     #url: _f$url,
     #username: _f$username,
-    #uri: _f$uri,
-    #identifier: _f$identifier,
-    #displayName: _f$displayName,
   };
 
   static SiaStorage _instantiate(DecodingData data) {
