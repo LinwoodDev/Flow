@@ -768,7 +768,7 @@ jobs:
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.4.5"
+          ruby-version: "3.4.6"
           bundler-cache: true
           working-directory: app/android
       - name: 🚀 Deploy to Play Store

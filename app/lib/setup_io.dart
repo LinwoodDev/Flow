@@ -69,7 +69,8 @@ Future<void> _configureLocalTimeZone() async {
   if (Platform.isWindows) {
     return;
   }
-  final String timeZoneName = await FlutterTimezone.getLocalTimezone();
+  final String timeZoneName =
+      (await FlutterTimezone.getLocalTimezone()).identifier;
   tz.setLocalLocation(tz.getLocation(timeZoneName));
 }
 

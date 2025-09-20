@@ -10,7 +10,7 @@ const nightlyVersion = await fetch(nightlyUrl)
   });
 
 // stable
-const stableUrl =
+/*const stableUrl =
   "https://raw.githubusercontent.com/LinwoodDev/Flow/stable/app/pubspec.yaml";
 const stableVersion = await fetch(stableUrl)
   .then((res) => res.text())
@@ -18,7 +18,7 @@ const stableVersion = await fetch(stableUrl)
     const regex = /^version:\s(.+)\+(.+)$/gm;
     const match = regex.exec(text);
     return match?.[1];
-  });
+  });*/
 
 // develop
 const developUrl =
@@ -32,7 +32,7 @@ const developVersion = await fetch(developUrl)
   });
 
 // main
-const mainUrl =
+/*const mainUrl =
   "https://raw.githubusercontent.com/LinwoodDev/Flow/main/app/pubspec.yaml";
 const mainVersion = await fetch(mainUrl)
   .then((res) => res.text())
@@ -40,16 +40,16 @@ const mainVersion = await fetch(mainUrl)
     const regex = /^version:\s(.+)\+(.+)$/gm;
     const match = regex.exec(text);
     return match?.[1];
-  });
+  });*/
 
 export function GET() {
   return new Response(
     JSON.stringify({
       version: {
         nightly: nightlyVersion,
-        stable: stableVersion,
+        //stable: stableVersion,
         develop: developVersion,
-        main: mainVersion,
+        //main: mainVersion,
       },
     })
   );
