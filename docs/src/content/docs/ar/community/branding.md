@@ -2,23 +2,23 @@
 title: العلامة
 ---
 
-These assets are licensed under the [CC-BY-SA-4.0](https://github.com/LinwoodDev/Flow/blob/develop/BRANDING_LICENSE).
+https://github.com/LinwoodDev/Flow/blob/https://github.com/LinwoodDev/Flow/blob/develop/BRANDING_LICENSEdevelop/https://github.com/LinwoodDev/Flow/blob/develop/BRANDING_LICENSEBRANDING_LICENSE
 
 ## الشعار
 
-/img/logo.svg
+/img/logo.svg/img/logo.svg/img/logo.svg
 
-[SVG](/img/logo.svg) [PNG](/img/logo.png)
+/img/logo.svg
 
 ## لافتة
 
-![Banner](/img/banner.svg)
+
 
 [SVG](/img/banner.svg) [PNG](/img/banner.png)
 
 ## الوثائق
 
-![Documentation](/img/docs.svg)
+/img/docs.svg
 
 [SVG](/img/docs.svg) [PNG](/img/docs.png)
 
@@ -30,7 +30,7 @@ These assets are licensed under the [CC-BY-SA-4.0](https://github.com/LinwoodDev
 ## الخطوط
 
 - Website: `Barlow`
-- App: `Comfortaa`
+-
 
 ## لقطات الشاشة
 
