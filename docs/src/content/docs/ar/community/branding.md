@@ -6,7 +6,7 @@ These assets are licensed under the [CC-BY-SA-4.0](https://github.com/LinwoodDev
 
 ## الشعار
 
-![Logo](/img/logo.svg)
+/img/logo.svg
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
