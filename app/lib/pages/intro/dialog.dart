@@ -16,7 +16,7 @@ class _IntroDialogState extends State<IntroDialog> {
       {
         "image": isNightly ? "images/logo.png" : "images/logo.png",
         "title": "Welcome to Linwood Flow",
-        "description": "A feature rich event and time managment system",
+        "description": "A feature rich event and time management system",
       },
       {
         "image": "images/undraw_time_management_30iu.png",
