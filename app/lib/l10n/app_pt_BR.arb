@@ -322,5 +322,9 @@
   "systemTheme": "Tema do sistema",
   "desktop": "Computadores",
   "restoreSettingsFromFile": "Restaurar configurações do arquivo",
-  "exportSettingsToFile": "Exportar configurações para arquivo"
+  "exportSettingsToFile": "Exportar configurações para arquivo",
+  "alarm": "Alarm",
+  "enabled": "Ativado",
+  "countdown": "Contagem regressiva",
+  "unlink": "Desvincular"
 }

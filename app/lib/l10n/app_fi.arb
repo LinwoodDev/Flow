@@ -322,5 +322,9 @@
   "systemTheme": "Järjestelmän teema",
   "desktop": "Työpöytä",
   "restoreSettingsFromFile": "Palauta asetukset tiedostosta",
-  "exportSettingsToFile": "Vie asetukset tiedostoon"
+  "exportSettingsToFile": "Vie asetukset tiedostoon",
+  "alarm": "Alarm",
+  "enabled": "Käytössä",
+  "countdown": "Lähtölaskenta",
+  "unlink": "Irrota"
 }

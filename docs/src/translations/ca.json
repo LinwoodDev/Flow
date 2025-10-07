@@ -1,13 +1,13 @@
 {
   "downloads": "Downloads",
   "community": "Community",
-  "home": "Home",
+  "home": "Inici",
   "branding": "Branding",
-  "changelog": "Changelog",
+  "changelog": "Registre de canvis",
   "contributing": "Contributing",
   "code_of_conduct": "Code of conduct",
   "faq": "FAQ",
   "versions": "Versions",
   "nightly": "Nightly",
-  "privacy_policy": "Privacy policy"
+  "privacy_policy": "Política de privacitat"
 }

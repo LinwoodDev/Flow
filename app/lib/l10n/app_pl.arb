@@ -322,5 +322,9 @@
   "systemTheme": "Szablon systemowy",
   "desktop": "Pulpit",
   "restoreSettingsFromFile": "Przywróć ustawienia z pliku",
-  "exportSettingsToFile": "Eksportuj ustawienia do pliku"
+  "exportSettingsToFile": "Eksportuj ustawienia do pliku",
+  "alarm": "Alarm",
+  "enabled": "Włączone",
+  "countdown": "Odliczanie",
+  "unlink": "Odłącz"
 }

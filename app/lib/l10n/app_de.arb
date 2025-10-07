@@ -307,7 +307,7 @@
   "usingLatestStable": "Sie verwenden die neueste stabile Version",
   "usingLatestNightly": "Sie verwenden die neueste Nightly Version",
   "updateNow": "Jetzt aktualisieren",
-  "stable": "Stall",
+  "stable": "Stabil",
   "nightly": "Nachts",
   "updateAvailable": "Update verfügbar",
   "countItems": "{count, plural, =0 {Keine Items} one {1 Element} other {{count} Items}}",
@@ -322,5 +322,9 @@
   "systemTheme": "System-Theme",
   "desktop": "Desktop",
   "restoreSettingsFromFile": "Einstellungen aus Datei wiederherstellen",
-  "exportSettingsToFile": "Einstellungen in Datei exportieren"
+  "exportSettingsToFile": "Einstellungen in Datei exportieren",
+  "alarm": "Alarm",
+  "enabled": "Aktiviert",
+  "countdown": "Countdown",
+  "unlink": "Link aufheben"
 }

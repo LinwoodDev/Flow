@@ -322,5 +322,9 @@
   "systemTheme": "Systemets tema",
   "desktop": "Skrivbord",
   "restoreSettingsFromFile": "Återställ inställningar från fil",
-  "exportSettingsToFile": "Exportera inställningar till fil"
+  "exportSettingsToFile": "Exportera inställningar till fil",
+  "alarm": "Alarm",
+  "enabled": "Aktiverad",
+  "countdown": "Nedräkning",
+  "unlink": "Avlänka"
 }

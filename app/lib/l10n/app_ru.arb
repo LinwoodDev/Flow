@@ -156,7 +156,7 @@
       }
     }
   },
-  "deleteResourceDescription": "Are you sure you want to delete the resource {name}?",
+  "deleteResourceDescription": "Вы уверены, что хотите удалить ресурс {name}?",
   "@deleteResourceDescription": {
     "placeholders": {
       "name": {
@@ -322,5 +322,9 @@
   "systemTheme": "Системная тема",
   "desktop": "Рабочий стол",
   "restoreSettingsFromFile": "Восстановить настройки из файла",
-  "exportSettingsToFile": "Экспорт настроек в файл"
+  "exportSettingsToFile": "Экспорт настроек в файл",
+  "alarm": "Alarm",
+  "enabled": "Включено",
+  "countdown": "Обратный отсчёт",
+  "unlink": "Отвязать"
 }

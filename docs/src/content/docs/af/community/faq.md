@@ -17,10 +17,10 @@ Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive
 Click on the shield icon in the address bar to change the setting.
 Try updating your browser to the latest version.
 
-## Mobile
+## Mobiel
 
 ### iOS support
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Flow is available on iOS as preview. Click [here](https://flow.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+Flow is available on iOS as preview. Click [here](https://flow.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Flow/issues/244#issuecomment-1935460878) why it's not available on the App Store.

@@ -2,7 +2,7 @@
 title: Errors
 ---
 
-| Error code | HTTP status code | Description         |
+| Error code | HTTP status code | 설명                  |
 | ---------- | ---------------- | ------------------- |
 | `0`        | `404`            | Page not found      |
 | `1`        | `404`            | Invalid api version |

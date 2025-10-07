@@ -322,5 +322,9 @@
   "systemTheme": "Systeem thema",
   "desktop": "Startscherm",
   "restoreSettingsFromFile": "Instellingen herstellen vanuit bestand",
-  "exportSettingsToFile": "Instellingen exporteren naar bestand"
+  "exportSettingsToFile": "Instellingen exporteren naar bestand",
+  "alarm": "Alarm",
+  "enabled": "Ingeschakeld",
+  "countdown": "Aftellen",
+  "unlink": "Ontkoppelen"
 }

@@ -16,7 +16,7 @@ e dar feedback.
 Vá para as páginas de download da sua plataforma.
 Todas as compilações noturnas também são publicadas como pré-lançamento no github.
 
-## Experiments
+## Experimentos
 
 Experiments are features that are not ready for production yet.
 Default they are disabled. You can enable them in the settings under `Experiments`.

@@ -322,5 +322,9 @@
   "systemTheme": "Системна тема",
   "desktop": "Стільниця",
   "restoreSettingsFromFile": "Відновити налаштування з файлу",
-  "exportSettingsToFile": "Експорт налаштувань у файл"
+  "exportSettingsToFile": "Експорт налаштувань у файл",
+  "alarm": "Alarm",
+  "enabled": "Увімкнено",
+  "countdown": "Зворотний відлік",
+  "unlink": "Розірвання зв'язку"
 }
