@@ -326,5 +326,6 @@
   "alarm": "Alarm",
   "enabled": "تمكين",
   "countdown": "العد التنازلي",
-  "unlink": "إلغاء الارتباط"
+  "unlink": "إلغاء الارتباط",
+  "noAlarms": "There are no alarms to display."
 }
