@@ -326,5 +326,6 @@
   "alarm": "Alarm",
   "enabled": "Aktiverad",
   "countdown": "Nedräkning",
-  "unlink": "Avlänka"
+  "unlink": "Avlänka",
+  "noAlarms": "There are no alarms to display."
 }
