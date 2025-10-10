@@ -326,5 +326,6 @@
   "alarm": "Alarm",
   "enabled": "Увімкнено",
   "countdown": "Зворотний відлік",
-  "unlink": "Розірвання зв'язку"
+  "unlink": "Розірвання зв'язку",
+  "noAlarms": "There are no alarms to display."
 }
