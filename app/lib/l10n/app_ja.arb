@@ -326,5 +326,6 @@
   "alarm": "Alarm",
   "enabled": "有効",
   "countdown": "Countdown",
-  "unlink": "リンクを解除"
+  "unlink": "リンクを解除",
+  "noAlarms": "There are no alarms to display."
 }
