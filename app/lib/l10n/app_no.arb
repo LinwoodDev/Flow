@@ -326,5 +326,6 @@
   "alarm": "Alarm",
   "enabled": "Aktivert",
   "countdown": "Nedtelling",
-  "unlink": "Frakoble"
+  "unlink": "Frakoble",
+  "noAlarms": "There are no alarms to display."
 }
