@@ -326,5 +326,6 @@
   "alarm": "Alarm",
   "enabled": "Käytössä",
   "countdown": "Lähtölaskenta",
-  "unlink": "Irrota"
+  "unlink": "Irrota",
+  "noAlarms": "There are no alarms to display."
 }
