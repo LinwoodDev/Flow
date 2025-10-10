@@ -326,5 +326,6 @@
   "alarm": "Alarm",
   "enabled": "Abilitato",
   "countdown": "Conto Alla rovescia",
-  "unlink": "Scollega"
+  "unlink": "Scollega",
+  "noAlarms": "There are no alarms to display."
 }
