@@ -24,6 +24,9 @@ class _AlarmPageState extends State<AlarmPage> {
       body: BlocBuilder<SettingsCubit, FlowSettings>(
         buildWhen: (previous, current) => previous.alarms != current.alarms,
         builder: (context, state) {
+          if (state.alarms.isEmpty) {
+            return Center(child: Text(AppLocalizations.of(context).noAlarms));
+          }
           return GridView.extent(
             maxCrossAxisExtent: 300,
             childAspectRatio: 1.25,
