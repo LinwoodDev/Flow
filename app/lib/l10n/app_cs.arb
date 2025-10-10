@@ -326,5 +326,6 @@
   "alarm": "Alarm",
   "enabled": "Povoleno",
   "countdown": "Odpočítávání",
-  "unlink": "Odpojit"
+  "unlink": "Odpojit",
+  "noAlarms": "There are no alarms to display."
 }
