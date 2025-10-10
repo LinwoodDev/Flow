@@ -326,5 +326,6 @@
   "alarm": "Alarm",
   "enabled": "Включено",
   "countdown": "Обратный отсчёт",
-  "unlink": "Отвязать"
+  "unlink": "Отвязать",
+  "noAlarms": "There are no alarms to display."
 }
