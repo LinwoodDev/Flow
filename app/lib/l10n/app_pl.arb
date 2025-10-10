@@ -326,5 +326,6 @@
   "alarm": "Alarm",
   "enabled": "Włączone",
   "countdown": "Odliczanie",
-  "unlink": "Odłącz"
+  "unlink": "Odłącz",
+  "noAlarms": "There are no alarms to display."
 }
