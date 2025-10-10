@@ -326,5 +326,6 @@
   "alarm": "Alarm",
   "enabled": "Ενεργοποιημένο",
   "countdown": "Αντίστροφη μέτρηση",
-  "unlink": "Αποσύνδεση"
+  "unlink": "Αποσύνδεση",
+  "noAlarms": "There are no alarms to display."
 }
