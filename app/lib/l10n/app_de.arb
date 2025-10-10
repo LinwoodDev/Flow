@@ -326,5 +326,6 @@
   "alarm": "Alarm",
   "enabled": "Aktiviert",
   "countdown": "Countdown",
-  "unlink": "Link aufheben"
+  "unlink": "Link aufheben",
+  "noAlarms": "There are no alarms to display."
 }
