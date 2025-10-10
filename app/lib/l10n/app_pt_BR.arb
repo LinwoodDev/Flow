@@ -326,5 +326,6 @@
   "alarm": "Alarm",
   "enabled": "Ativado",
   "countdown": "Contagem regressiva",
-  "unlink": "Desvincular"
+  "unlink": "Desvincular",
+  "noAlarms": "There are no alarms to display."
 }
