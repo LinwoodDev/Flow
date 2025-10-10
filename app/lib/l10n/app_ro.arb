@@ -326,5 +326,6 @@
   "alarm": "Alarm",
   "enabled": "Activat",
   "countdown": "Numărătoare inversă",
-  "unlink": "Deconectare"
+  "unlink": "Deconectare",
+  "noAlarms": "There are no alarms to display."
 }
