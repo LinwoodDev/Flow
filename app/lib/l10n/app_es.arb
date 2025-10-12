@@ -327,5 +327,6 @@
   "enabled": "Activado",
   "countdown": "Cuenta atrás",
   "unlink": "Desvincular",
-  "noAlarms": "There are no alarms to display."
+  "noAlarms": "There are no alarms to display.",
+  "allDay": "All day"
 }
