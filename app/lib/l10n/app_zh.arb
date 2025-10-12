@@ -327,5 +327,6 @@
   "enabled": "已启用",
   "countdown": "倒计时",
   "unlink": "取消链接",
-  "noAlarms": "There are no alarms to display."
+  "noAlarms": "There are no alarms to display.",
+  "allDay": "All day"
 }
