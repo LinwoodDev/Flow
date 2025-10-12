@@ -327,5 +327,6 @@
   "enabled": "Ingeschakeld",
   "countdown": "Aftellen",
   "unlink": "Ontkoppelen",
-  "noAlarms": "There are no alarms to display."
+  "noAlarms": "There are no alarms to display.",
+  "allDay": "All day"
 }
