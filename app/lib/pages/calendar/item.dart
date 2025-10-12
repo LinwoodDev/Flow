@@ -106,6 +106,11 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
             ? AppLocalizations.of(context).createPending
             : AppLocalizations.of(context).editPending,
     };
+    final isAllDay =
+        _item.start?.hour == 0 &&
+        _item.start?.minute == 0 &&
+        _item.end?.hour == 23 &&
+        _item.end?.minute == 59;
 
     return ResponsiveAlertDialog(
       title: Text(title),
@@ -290,6 +295,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                           decoration: InputDecoration(
                             labelText: AppLocalizations.of(context).location,
                             icon: const PhosphorIcon(PhosphorIconsLight.mapPin),
+                            filled: true,
                           ),
                           minLines: 1,
                           maxLines: 2,
@@ -299,28 +305,95 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                         ),
                         const SizedBox(height: 16),
                         if (type == CalendarItemType.appointment) ...[
-                          DateTimeField(
-                            label: AppLocalizations.of(context).start,
-                            initialValue: _item.start,
-                            icon: const PhosphorIcon(
-                              PhosphorIconsLight.calendarBlank,
-                            ),
+                          CheckboxListTile(
+                            title: Text(AppLocalizations.of(context).allDay),
+                            value: isAllDay,
                             onChanged: (value) {
-                              _item = _item.copyWith(start: value);
+                              if (value == null) return;
+                              setState(() {
+                                if (value) {
+                                  final start = _item.start ?? DateTime.now();
+                                  _item = _item.copyWith(
+                                    start: DateTime(
+                                      start.year,
+                                      start.month,
+                                      start.day,
+                                    ),
+                                    end: _item.end != null
+                                        ? DateTime(
+                                            _item.end!.year,
+                                            _item.end!.month,
+                                            _item.end!.day,
+                                          ).add(
+                                            const Duration(
+                                              hours: 23,
+                                              minutes: 59,
+                                            ),
+                                          )
+                                        : null,
+                                  );
+                                } else {
+                                  final start = _item.start ?? DateTime.now();
+                                  _item = _item.copyWith(
+                                    start: DateTime(
+                                      start.year,
+                                      start.month,
+                                      start.day,
+                                      start.hour,
+                                      start.minute,
+                                    ),
+                                    end: _item.end != null
+                                        ? DateTime(
+                                            _item.end!.year,
+                                            _item.end!.month,
+                                            _item.end!.day,
+                                            start.hour + 1,
+                                            start.minute,
+                                          )
+                                        : null,
+                                  );
+                                }
+                              });
                             },
-                            canBeEmpty: true,
                           ),
                           const SizedBox(height: 8),
-                          DateTimeField(
-                            label: AppLocalizations.of(context).end,
-                            initialValue: _item.end,
-                            icon: const PhosphorIcon(
-                              PhosphorIconsLight.calendarBlank,
-                            ),
-                            onChanged: (value) {
-                              _item = _item.copyWith(end: value);
-                            },
-                            canBeEmpty: true,
+                          Row(
+                            spacing: 4,
+                            children: [
+                              Expanded(
+                                child: DateTimeField(
+                                  label: AppLocalizations.of(context).start,
+                                  initialValue: _item.start,
+                                  onChanged: (value) {
+                                    _item = _item.copyWith(start: value);
+                                  },
+                                  canBeEmpty: true,
+                                  filled: true,
+                                  showTime: !isAllDay,
+                                ),
+                              ),
+                              Expanded(
+                                child: DateTimeField(
+                                  label: AppLocalizations.of(context).end,
+                                  initialValue: _item.end,
+                                  onChanged: (value) {
+                                    _item = _item.copyWith(
+                                      end: isAllDay && value != null
+                                          ? value.add(
+                                              const Duration(
+                                                hours: 23,
+                                                minutes: 59,
+                                              ),
+                                            )
+                                          : value,
+                                    );
+                                  },
+                                  canBeEmpty: true,
+                                  filled: true,
+                                  showTime: !isAllDay,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                         if (type == CalendarItemType.moment) ...[
