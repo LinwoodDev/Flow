@@ -327,5 +327,6 @@
   "enabled": "Activat",
   "countdown": "Numărătoare inversă",
   "unlink": "Deconectare",
-  "noAlarms": "There are no alarms to display."
+  "noAlarms": "There are no alarms to display.",
+  "allDay": "All day"
 }
