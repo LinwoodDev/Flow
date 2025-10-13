@@ -327,6 +327,6 @@
   "enabled": "Увімкнено",
   "countdown": "Зворотний відлік",
   "unlink": "Розірвання зв'язку",
-  "noAlarms": "There are no alarms to display.",
-  "allDay": "All day"
+  "noAlarms": "Немає будильників для відображення.",
+  "allDay": "Увесь день"
 }
