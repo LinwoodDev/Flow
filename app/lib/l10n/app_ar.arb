@@ -327,6 +327,6 @@
   "enabled": "تمكين",
   "countdown": "العد التنازلي",
   "unlink": "إلغاء الارتباط",
-  "noAlarms": "There are no alarms to display.",
-  "allDay": "All day"
+  "noAlarms": "لا يوجد تنبيهات لعرضها.",
+  "allDay": "طوال اليوم"
 }
