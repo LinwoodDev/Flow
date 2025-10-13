@@ -53,9 +53,12 @@ jobs:
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
+          cache: true
       - name: Install dependencies
         run: |
           flutter pub get
+      - name: Get Git Commit Hash
+        run: echo "GIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_ENV
       - name: Set flavor
         if: github.ref != 'refs/heads/main'
         run: |
@@ -67,7 +70,7 @@ jobs:
           echo "FLOW_FLAVOR=stable" >> $GITHUB_ENV
           echo "WEB_DIR=web" >> $GITHUB_ENV
       - name: Build
-        run: flutter build web --wasm --release --no-web-resources-cdn --dart-define=flavor=$FLOW_FLAVOR
+        run: flutter build web --wasm --release --no-web-resources-cdn --dart-define=flavor=$FLOW_FLAVOR --dart-define=version=$GIT_HASH
       - name: Deploy to SFTP
         if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
         env:
