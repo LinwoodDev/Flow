@@ -59,7 +59,6 @@ Future<void> main(List<String> args) async {
     'Updating the version in the pubspec.yaml from $lastVersion to $newVersion',
   );
 
-  await updateAppImageVersion(version);
   await updateDebianVersion(version);
   if (results['changelog']) {
     var changelogFile = File('metadata/en-US/changelogs/$newBuildNumber.txt');
@@ -69,15 +68,6 @@ Future<void> main(List<String> args) async {
   }
 
   print('Successfully updated!');
-}
-
-Future<void> updateAppImageVersion(String version) async {
-  var file = File('app/AppImageBuilder.yml');
-  var lines = await file.readAsLines();
-  lines[13] = '    version: $version';
-  lines.add('');
-  await file.writeAsString(lines.join('\r\n'));
-  print('Successfully updated app image version to $version');
 }
 
 Future<void> updateDebianVersion(String version) async {
@@ -104,7 +94,7 @@ Future<void> updateAppData(String version) async {
   var dateString = DateFormat('yyyy-MM-dd').format(currentDate);
   var line = '\t\t<release version="$version" date="$dateString" />';
   var lines = List<String>.from(await file.readAsLines());
-  lines.insert(41, line);
+  lines.insert(67, line);
   await file.writeAsString(lines.join('\n'));
   print('Successfully updated appdata version to $version');
 }
