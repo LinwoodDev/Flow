@@ -327,6 +327,6 @@
   "enabled": "Aktiverad",
   "countdown": "Nedräkning",
   "unlink": "Avlänka",
-  "noAlarms": "There are no alarms to display.",
-  "allDay": "All day"
+  "noAlarms": "Det finns inga alarm att visa.",
+  "allDay": "Hela dagen"
 }
