@@ -326,5 +326,7 @@
   "alarm": "Alarm",
   "enabled": "Aktiveret",
   "countdown": "Nedtælling",
-  "unlink": "Afbryd"
+  "unlink": "Afbryd",
+  "noAlarms": "Der er ingen alarmer at vise.",
+  "allDay": "Hele dagen"
 }

@@ -326,5 +326,7 @@
   "alarm": "Alarm",
   "enabled": "Ingeschakeld",
   "countdown": "Aftellen",
-  "unlink": "Ontkoppelen"
+  "unlink": "Ontkoppelen",
+  "noAlarms": "Er zijn geen alarmen om weer te geven.",
+  "allDay": "De hele dag"
 }

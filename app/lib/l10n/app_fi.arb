@@ -326,5 +326,7 @@
   "alarm": "Alarm",
   "enabled": "Käytössä",
   "countdown": "Lähtölaskenta",
-  "unlink": "Irrota"
+  "unlink": "Irrota",
+  "noAlarms": "Ei ole hälytyksiä näytettäväksi.",
+  "allDay": "Koko päivä"
 }

@@ -326,5 +326,7 @@
   "alarm": "Alarm",
   "enabled": "已启用",
   "countdown": "倒计时",
-  "unlink": "取消链接"
+  "unlink": "取消链接",
+  "noAlarms": "没有提醒可显示。",
+  "allDay": "全天"
 }

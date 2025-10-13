@@ -1,1 +1,1 @@
-Feature rich event, group and time managment system
+Feature rich event, group and time management system

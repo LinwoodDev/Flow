@@ -326,5 +326,7 @@
   "alarm": "Alarm",
   "enabled": "Activé",
   "countdown": "Compte à Rebours",
-  "unlink": "Délier"
+  "unlink": "Délier",
+  "noAlarms": "Il n'y a aucune alarme à afficher.",
+  "allDay": "Toute la journée"
 }

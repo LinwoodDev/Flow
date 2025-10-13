@@ -326,5 +326,7 @@
   "alarm": "Alarm",
   "enabled": "Enabled",
   "countdown": "Countdown",
-  "unlink": "Unlink"
+  "unlink": "Unlink",
+  "noAlarms": "There are no alarms to display.",
+  "allDay": "All day"
 }
