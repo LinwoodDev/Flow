@@ -327,6 +327,6 @@
   "enabled": "Povoleno",
   "countdown": "Odpočítávání",
   "unlink": "Odpojit",
-  "noAlarms": "There are no alarms to display.",
-  "allDay": "All day"
+  "noAlarms": "Žádné budíky k zobrazení.",
+  "allDay": "Celý den"
 }
