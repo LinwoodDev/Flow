@@ -2,6 +2,26 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 0.5.0 (2025-10-13)
+
+* Start adding alarm functionality with notifications
+* Use fill icon variant for selected navigation item
+* Improve dashboard notes and events display
+* Fix linux appdata
+* Add unlink button
+* Add all day toggle for calendar items
+* Migrate away from flutter_markdown
+* Save current calendar view ([#97](https://github.com/LinwoodDev/Flow/issues/97))
+* Fix divider in appbar if native titlebar is enabled
+* Fix layout of dialogs
+* Fix icons for name text fields
+* Update to agb 8.10
+* Upgrade to flutter 3.32 and 3.35
+* Use minSdkVersion 24 instead of 23 (The minimum version of android is 7.0 (Nougat))
+* Add legacy android build
+
+Read more here: https://linwood.dev/flow/0.5.0
+
 ## 0.4.2 (2025-04-28)
 
 * Add linking to users and groups tab view
