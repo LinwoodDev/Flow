@@ -327,6 +327,6 @@
   "enabled": "Aktivert",
   "countdown": "Nedtelling",
   "unlink": "Frakoble",
-  "noAlarms": "There are no alarms to display.",
-  "allDay": "All day"
+  "noAlarms": "Det finnes ingen alarmer som skal vises.",
+  "allDay": "Hele dagen"
 }
