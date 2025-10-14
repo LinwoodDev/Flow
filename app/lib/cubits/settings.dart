@@ -143,10 +143,20 @@ class FlowSettings with FlowSettingsMappable, LeapSettings {
       prefs.getString(syncModeKey) ?? 'noMobile',
     ),
     remotes:
-        prefs
-            .getStringList(remotesKey)
-            ?.map((e) => RemoteStorageMapper.fromJson(e))
-            .toList() ??
+        prefs.getStringList(remotesKey)?.map((e) {
+          if (e.startsWith('"')) {
+            e = jsonDecode(e);
+          }
+          final map = jsonDecode(e) as Map<String, dynamic>;
+          if (!map.containsKey('type')) {
+            if (map['url'].toString().contains('caldav')) {
+              map['type'] = 'caldav';
+            } else {
+              map['type'] = 'ical';
+            }
+          }
+          return RemoteStorageMapper.fromMap(map);
+        }).toList() ??
         [],
     startOfWeek: prefs.getInt(startOfWeekKey) ?? 0,
     density: ThemeDensity.values.byName(
@@ -173,10 +183,8 @@ class FlowSettings with FlowSettingsMappable, LeapSettings {
       prefs.setString(localeKey, locale);
   Future<void> saveSyncMode(SharedPreferences prefs) =>
       prefs.setString(syncModeKey, syncMode.name);
-  Future<void> saveRemotes(SharedPreferences prefs) => prefs.setStringList(
-    remotesKey,
-    remotes.map((e) => json.encode(e.toJson())).toList(),
-  );
+  Future<void> saveRemotes(SharedPreferences prefs) =>
+      prefs.setStringList(remotesKey, remotes.map((e) => e.toJson()).toList());
   Future<void> saveStartOfWeek(SharedPreferences prefs) =>
       prefs.setInt(startOfWeekKey, startOfWeek);
   Future<void> saveDensity(SharedPreferences prefs) =>

@@ -4,7 +4,7 @@ import 'package:dart_mappable/dart_mappable.dart';
 
 part 'model.mapper.dart';
 
-@MappableClass()
+@MappableClass(discriminatorKey: 'type')
 sealed class RemoteStorage with RemoteStorageMappable {
   final String url;
   final String username;
@@ -18,22 +18,22 @@ sealed class RemoteStorage with RemoteStorageMappable {
   String get displayName => '$username@${uri.host}';
 }
 
-@MappableClass()
+@MappableClass(discriminatorValue: 'caldav')
 final class CalDavStorage extends RemoteStorage with CalDavStorageMappable {
   const CalDavStorage({required super.url, required super.username});
 }
 
-@MappableClass()
+@MappableClass(discriminatorValue: 'ical')
 final class ICalStorage extends RemoteStorage with ICalStorageMappable {
   const ICalStorage({required super.url, required super.username});
 }
 
-@MappableClass()
+@MappableClass(discriminatorValue: 'webdav')
 final class WebDavStorage extends RemoteStorage with WebDavStorageMappable {
   const WebDavStorage({required super.url, required super.username});
 }
 
-@MappableClass()
+@MappableClass(discriminatorValue: 'sia')
 final class SiaStorage extends RemoteStorage with SiaStorageMappable {
   const SiaStorage({required super.url, required super.username});
 }

@@ -40,7 +40,11 @@ class RemoteStorageMapper extends ClassMapperBase<RemoteStorage> {
   };
 
   static RemoteStorage _instantiate(DecodingData data) {
-    throw MapperException.missingConstructor('RemoteStorage');
+    throw MapperException.missingSubclass(
+      'RemoteStorage',
+      'type',
+      '${data.value['type']}',
+    );
   }
 
   @override
@@ -68,14 +72,14 @@ abstract class RemoteStorageCopyWith<$R, $In extends RemoteStorage, $Out>
   RemoteStorageCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class CalDavStorageMapper extends ClassMapperBase<CalDavStorage> {
+class CalDavStorageMapper extends SubClassMapperBase<CalDavStorage> {
   CalDavStorageMapper._();
 
   static CalDavStorageMapper? _instance;
   static CalDavStorageMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = CalDavStorageMapper._());
-      RemoteStorageMapper.ensureInitialized();
+      RemoteStorageMapper.ensureInitialized().addSubMapper(_instance!);
     }
     return _instance!;
   }
@@ -96,6 +100,14 @@ class CalDavStorageMapper extends ClassMapperBase<CalDavStorage> {
     #url: _f$url,
     #username: _f$username,
   };
+
+  @override
+  final String discriminatorKey = 'type';
+  @override
+  final dynamic discriminatorValue = 'caldav';
+  @override
+  late final ClassMapperBase superMapper =
+      RemoteStorageMapper.ensureInitialized();
 
   static CalDavStorage _instantiate(DecodingData data) {
     return CalDavStorage(
@@ -198,14 +210,14 @@ class _CalDavStorageCopyWithImpl<$R, $Out>
   ) => _CalDavStorageCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
-class ICalStorageMapper extends ClassMapperBase<ICalStorage> {
+class ICalStorageMapper extends SubClassMapperBase<ICalStorage> {
   ICalStorageMapper._();
 
   static ICalStorageMapper? _instance;
   static ICalStorageMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = ICalStorageMapper._());
-      RemoteStorageMapper.ensureInitialized();
+      RemoteStorageMapper.ensureInitialized().addSubMapper(_instance!);
     }
     return _instance!;
   }
@@ -226,6 +238,14 @@ class ICalStorageMapper extends ClassMapperBase<ICalStorage> {
     #url: _f$url,
     #username: _f$username,
   };
+
+  @override
+  final String discriminatorKey = 'type';
+  @override
+  final dynamic discriminatorValue = 'ical';
+  @override
+  late final ClassMapperBase superMapper =
+      RemoteStorageMapper.ensureInitialized();
 
   static ICalStorage _instantiate(DecodingData data) {
     return ICalStorage(url: data.dec(_f$url), username: data.dec(_f$username));
@@ -323,14 +343,14 @@ class _ICalStorageCopyWithImpl<$R, $Out>
   ) => _ICalStorageCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
-class WebDavStorageMapper extends ClassMapperBase<WebDavStorage> {
+class WebDavStorageMapper extends SubClassMapperBase<WebDavStorage> {
   WebDavStorageMapper._();
 
   static WebDavStorageMapper? _instance;
   static WebDavStorageMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = WebDavStorageMapper._());
-      RemoteStorageMapper.ensureInitialized();
+      RemoteStorageMapper.ensureInitialized().addSubMapper(_instance!);
     }
     return _instance!;
   }
@@ -351,6 +371,14 @@ class WebDavStorageMapper extends ClassMapperBase<WebDavStorage> {
     #url: _f$url,
     #username: _f$username,
   };
+
+  @override
+  final String discriminatorKey = 'type';
+  @override
+  final dynamic discriminatorValue = 'webdav';
+  @override
+  late final ClassMapperBase superMapper =
+      RemoteStorageMapper.ensureInitialized();
 
   static WebDavStorage _instantiate(DecodingData data) {
     return WebDavStorage(
@@ -453,14 +481,14 @@ class _WebDavStorageCopyWithImpl<$R, $Out>
   ) => _WebDavStorageCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
-class SiaStorageMapper extends ClassMapperBase<SiaStorage> {
+class SiaStorageMapper extends SubClassMapperBase<SiaStorage> {
   SiaStorageMapper._();
 
   static SiaStorageMapper? _instance;
   static SiaStorageMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = SiaStorageMapper._());
-      RemoteStorageMapper.ensureInitialized();
+      RemoteStorageMapper.ensureInitialized().addSubMapper(_instance!);
     }
     return _instance!;
   }
@@ -481,6 +509,14 @@ class SiaStorageMapper extends ClassMapperBase<SiaStorage> {
     #url: _f$url,
     #username: _f$username,
   };
+
+  @override
+  final String discriminatorKey = 'type';
+  @override
+  final dynamic discriminatorValue = 'sia';
+  @override
+  late final ClassMapperBase superMapper =
+      RemoteStorageMapper.ensureInitialized();
 
   static SiaStorage _instantiate(DecodingData data) {
     return SiaStorage(url: data.dec(_f$url), username: data.dec(_f$username));
