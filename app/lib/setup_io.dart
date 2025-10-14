@@ -32,33 +32,40 @@ Future<void> setup(
     });
     await general_setup.setup(settingsCubit, sourcesService);
   }
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-  // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
-  const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings('ic_launcher_foreground');
-  final DarwinInitializationSettings initializationSettingsDarwin =
-      DarwinInitializationSettings();
-  final LinuxInitializationSettings initializationSettingsLinux =
-      LinuxInitializationSettings(defaultActionName: 'Open notification');
-  final WindowsInitializationSettings initializationSettingsWindows =
-      WindowsInitializationSettings(
-        appName: 'Linwood Flow',
-        appUserModelId: 'LinwoodDev.Flow',
-        guid: 'f978c727-9642-4756-a836-cd0fe97a5941',
-      );
-  final InitializationSettings initializationSettings = InitializationSettings(
-    android: initializationSettingsAndroid,
-    iOS: initializationSettingsDarwin,
-    macOS: initializationSettingsDarwin,
-    linux: initializationSettingsLinux,
-    windows: initializationSettingsWindows,
-  );
-  await flutterLocalNotificationsPlugin.initialize(
-    initializationSettings,
-    onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
-  );
-  _configureLocalTimeZone();
+  try {
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+    // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher_foreground');
+    final DarwinInitializationSettings initializationSettingsDarwin =
+        DarwinInitializationSettings();
+    final LinuxInitializationSettings initializationSettingsLinux =
+        LinuxInitializationSettings(defaultActionName: 'Open notification');
+    final WindowsInitializationSettings initializationSettingsWindows =
+        WindowsInitializationSettings(
+          appName: 'Linwood Flow',
+          appUserModelId: 'LinwoodDev.Flow',
+          guid: 'f978c727-9642-4756-a836-cd0fe97a5941',
+        );
+    final InitializationSettings initializationSettings =
+        InitializationSettings(
+          android: initializationSettingsAndroid,
+          iOS: initializationSettingsDarwin,
+          macOS: initializationSettingsDarwin,
+          linux: initializationSettingsLinux,
+          windows: initializationSettingsWindows,
+        );
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
+    );
+    _configureLocalTimeZone();
+  } catch (e) {
+    FlutterError.presentError(
+      FlutterErrorDetails(exception: 'Error initializing notifications: $e'),
+    );
+  }
 }
 
 Future<void> _configureLocalTimeZone() async {

@@ -1,0 +1,3 @@
+* Fix app cannot be started on android
+
+Read more here: https://linwood.dev/flow/0.5.1
