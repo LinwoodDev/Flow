@@ -2,6 +2,13 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 0.5.1 (2025-10-15)
+
+* Fix app cannot be started on android ([#111](https://github.com/LinwoodDev/Flow/issues/111))
+* Fix remotes won't be parsed correctly ([#111](https://github.com/LinwoodDev/Flow/issues/111))
+
+Read more here: https://linwood.dev/flow/0.5.1
+
 ## 0.5.0 (2025-10-13)
 
 * Start adding alarm functionality with notifications
