@@ -56,6 +56,18 @@ class _SelectTileState<T extends NamedModel> extends State<SelectTile<T>> {
         : null;
   }
 
+  @override
+  void didUpdateWidget(covariant SelectTile<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.source != widget.source || oldWidget.value != widget.value) {
+      setState(() {
+        _value = widget.source != null && widget.value != null
+            ? SourcedModel(widget.source!, widget.value!)
+            : null;
+      });
+    }
+  }
+
   void _onChanged(SourcedModel<Uint8List>? value) {
     setState(() {
       _value = value;

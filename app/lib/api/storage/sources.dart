@@ -109,8 +109,8 @@ class SourcesService {
   }
 
   Future<void> clearRemotes() async {
-    for (final remote in remotes) {
-      await removeRemote(remote.remoteStorage.identifier);
+    for (final remote in List.of(remotes)) {
+      await removeRemote(remote.remoteStorage.toFilename());
     }
   }
 

@@ -33,8 +33,8 @@ class NotebookDialog extends StatelessWidget {
     var currentSource = source ?? '';
     final service = cubit.sourcesService.getSource(currentSource);
     var currentService = service.note;
-    final userConnector = service.eventUser;
-    final groupConnector = service.eventGroup;
+    final userConnector = service.userNotebook;
+    final groupConnector = service.groupNotebook;
     final tabs = !create && userConnector != null && groupConnector != null;
     return ResponsiveAlertDialog(
       title: Text(
@@ -120,12 +120,12 @@ class NotebookDialog extends StatelessWidget {
                     ],
                   ),
                   if (tabs) ...[
-                    UsersView(
+                    UsersView.reversed(
                       model: currentNotebook,
                       connector: userConnector,
                       source: currentSource,
                     ),
-                    GroupsView(
+                    GroupsView.reversed(
                       model: currentNotebook,
                       connector: groupConnector,
                       source: currentSource,

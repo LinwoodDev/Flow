@@ -10,25 +10,25 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/react": "^4.4.0",
-    "@astrojs/starlight": "^0.36.0",
+    "@astrojs/check": "^0.9.5",
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/starlight": "^0.36.2",
     "@phosphor-icons/react": "^2.1.10",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
-    "astro": "^5.14.5",
+    "@types/react": "^19.2.6",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^5.16.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "remark-gemoji": "^8.0.0",
     "remark-heading-id": "^1.0.1",
     "typescript": "^5.9.3"
   },
-  "packageManager": "pnpm@10.18.3",
+  "packageManager": "pnpm@10.23.0",
   "devDependencies": {
     "@vite-pwa/astro": "^1.1.1",
-    "sass": "^1.93.2",
-    "sharp": "^0.34.4",
+    "sass": "^1.94.2",
+    "sharp": "^0.34.5",
     "vite-plugin-pwa": "^1.1.0",
-    "workbox-window": "^7.3.0"
+    "workbox-window": "^7.4.0"
   }
 }

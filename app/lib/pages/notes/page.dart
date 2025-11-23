@@ -103,6 +103,9 @@ class _NotesBodyViewState extends State<NotesBodyView> {
       cubit: _flowCubit,
       fetch: (source, service, offset, limit) async {
         if (_filter.source != null && _filter.source != source) return null;
+        if (widget.parent != null && widget.parent!.source != source) {
+          return [];
+        }
         final notes = _filter.selectedLabel != null
             ? await service.labelNote?.getItems(
                 _filter.selectedLabel!,
@@ -110,9 +113,7 @@ class _NotesBodyViewState extends State<NotesBodyView> {
                 limit: limit,
                 notebook: _filter.notebook,
                 statuses: _filter.statuses,
-                parent: widget.parent?.source == source
-                    ? widget.parent?.model
-                    : createEmptyUint8List(),
+                parent: widget.parent?.model ?? createEmptyUint8List(),
                 search: widget.search,
               )
             : await service.note?.getNotes(
@@ -120,13 +121,13 @@ class _NotesBodyViewState extends State<NotesBodyView> {
                 limit: limit,
                 notebook: _filter.notebook,
                 statuses: _filter.statuses,
-                parent: widget.parent?.source == source
-                    ? widget.parent?.model
-                    : createEmptyUint8List(),
+                parent: widget.parent?.model ?? createEmptyUint8List(),
                 search: widget.search,
               );
         if (notes == null) return null;
-        if (source != widget.parent?.source) return notes;
+        if (source != widget.parent?.source && widget.parent != null) {
+          return notes;
+        }
         return notes;
       },
     );

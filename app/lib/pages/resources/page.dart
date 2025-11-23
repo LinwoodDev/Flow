@@ -89,8 +89,8 @@ class _ResourcesBodyViewState extends State<ResourcesBodyView> {
     _flowCubit = context.read<FlowCubit>();
     _bloc = SourcedPagingBloc.item(
       cubit: _flowCubit,
-      fetch: (source, service, offset, limit) async =>
-          service.resource?.getResources(offset: offset, limit: limit),
+      fetch: (source, service, offset, limit) async => service.resource
+          ?.getResources(offset: offset, limit: limit, search: widget.search),
     );
     super.initState();
   }

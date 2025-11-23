@@ -15,7 +15,7 @@ class ICalSourceDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     bool showPassword = false;
     return AlertDialog(
-      title: const Text("CalDAV"),
+      title: const Text("iCal"),
       content: SizedBox(
         width: 400,
         child: Column(

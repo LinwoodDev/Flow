@@ -79,7 +79,7 @@ class _MarkdownFieldState extends State<MarkdownField> {
                         controller: _controller,
                         onFieldSubmitted: (_) => _exitEditMode(),
                         onEditingComplete: _exitEditMode,
-                        onTapOutside: (_) => _exitEditMode,
+                        onTapOutside: (_) => _exitEditMode(),
                         focusNode: _focusNode,
                       ),
                     ],

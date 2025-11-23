@@ -1,0 +1,11 @@
+* Fix markdown field does not exit edit mode on tap outside
+* Fix note description not updated when note changes
+* Fix setup not running on mobile platforms
+* Fix clearing remote sources
+* Fix iCal dialog title
+* Fix search to groups and resources
+* Fix note filtering by parent
+* Fix select tile not updating
+* Fix notebook dialog showing wrong users/groups
+
+Read more here: https://linwood.dev/flow/0.5.2

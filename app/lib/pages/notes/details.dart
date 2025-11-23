@@ -86,6 +86,7 @@ class _NoteDetailsViewState extends State<NoteDetailsView> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.note != widget.note) {
       _nameController.text = widget.note.name;
+      _descriptionController.text = widget.note.description;
       _newNote = widget.note;
     }
   }

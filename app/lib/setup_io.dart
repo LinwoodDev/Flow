@@ -30,8 +30,8 @@ Future<void> setup(
       await windowManager.show();
       await windowManager.focus();
     });
-    await general_setup.setup(settingsCubit, sourcesService);
   }
+  await general_setup.setup(settingsCubit, sourcesService);
   try {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
