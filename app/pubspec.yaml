@@ -19,7 +19,7 @@ version: 0.5.2+14
 
 environment:
   sdk: ">=3.8.0 <4.0.0"
-  flutter: 3.35.7
+  flutter: 3.38.5
 
 dependencies:
   flutter:
@@ -54,7 +54,7 @@ dependencies:
   sqflite_common_ffi: ^2.3.3
   sqflite_common_ffi_web: ^1.0.0
   sqlite3_flutter_libs: ^0.5.20
-  sqlite3: ^2.4.2
+  sqlite3: ^3.1.1
   dynamic_color: ^1.7.0
   flutter_localized_locales: ^2.0.4
   xml: ^6.5.0
