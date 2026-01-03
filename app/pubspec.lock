@@ -53,10 +53,10 @@ packages:
     dependency: transitive
     description:
       name: bloc
-      sha256: a2cebb899f91d36eeeaa55c7b20b5915db5a9df1b8fd4a3c9c825e22e474537d
+      sha256: a48653a82055a900b88cd35f92429f068c5a8057ae9b136d197b3d56c57efb81
       url: "https://pub.dev"
     source: hosted
-    version: "9.1.0"
+    version: "9.2.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -314,6 +314,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.1"
+  file_picker:
+    dependency: transitive
+    description:
+      name: file_picker
+      sha256: d974b6ba2606371ac71dd94254beefb6fa81185bde0b59bdc1df09885da85fde
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.3.8"
   file_selector:
     dependency: "direct main"
     description:
@@ -491,6 +499,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.7"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      sha256: ee8068e0e1cd16c4a82714119918efdeed33b3ba7772c54b5d094ab53f9b7fd1
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.33"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -641,10 +657,10 @@ packages:
     dependency: transitive
     description:
       name: image
-      sha256: "48c11d0943b93b6fb29103d956ff89aafeae48f6058a3939649be2093dcff0bf"
+      sha256: "492bd52f6c4fbb6ee41f781ff27765ce5f627910e1e0cbecfa3d9add5562604c"
       url: "https://pub.dev"
     source: hosted
-    version: "4.7.1"
+    version: "4.7.2"
   intl:
     dependency: "direct main"
     description:
@@ -713,8 +729,8 @@ packages:
     dependency: transitive
     description:
       path: "packages/lw_file_system_api"
-      ref: ddd0761c3ed5a48108bddd0448df76d77eeb9da0
-      resolved-ref: ddd0761c3ed5a48108bddd0448df76d77eeb9da0
+      ref: "05c726ca745112dec80c6d30a27478e1556367b7"
+      resolved-ref: "05c726ca745112dec80c6d30a27478e1556367b7"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -722,8 +738,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_sysapi"
-      ref: "3f886507656f057d89a8b98de6ddbc7f5a21868e"
-      resolved-ref: "3f886507656f057d89a8b98de6ddbc7f5a21868e"
+      ref: c802aa8a3619f1ad9cbcc6d76298b5026b29f8a5
+      resolved-ref: c802aa8a3619f1ad9cbcc6d76298b5026b29f8a5
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
@@ -763,8 +779,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: "288a37b7f6b9cc59cabf8aa052d9a74a36e5f633"
-      resolved-ref: "288a37b7f6b9cc59cabf8aa052d9a74a36e5f633"
+      ref: aee41c83dbdde30e47f1a000fa51224b093df25c
+      resolved-ref: aee41c83dbdde30e47f1a000fa51224b093df25c
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
@@ -1177,10 +1193,10 @@ packages:
     dependency: "direct main"
     description:
       name: sqflite_common_ffi_web
-      sha256: "3c9aed6393dc0c790d514537bca9f982952c516b2c88706f475316046a10df4b"
+      sha256: "79338d0b69521d70cea10f841209ac87ce617921aaf7d33e7380682c83da1f06"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   sqflite_darwin:
     dependency: transitive
     description:
@@ -1201,10 +1217,10 @@ packages:
     dependency: "direct main"
     description:
       name: sqlite3
-      sha256: "0374add4094d34fcf9d22068b6ddb4056782353ad4a5449bc5b71c5f2175f0ec"
+      sha256: "1d2d2afee96acccabf315e169a4d28019fa21d5217ee014840058a7fbc2008c6"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.1"
+    version: "3.1.2"
   sqlite3_flutter_libs:
     dependency: "direct main"
     description:

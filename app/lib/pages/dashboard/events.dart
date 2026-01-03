@@ -19,9 +19,17 @@ class DashboardEventsView extends StatefulWidget {
 }
 
 class _DashboardEventsViewState extends State<DashboardEventsView> {
-  Future<List<SourcedConnectedModel<CalendarItem, Event?>>> _getAppointments(
-    BuildContext context,
-  ) async {
+  late Future<List<SourcedConnectedModel<CalendarItem, Event?>>>
+  _appointmentsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _appointmentsFuture = _getAppointments();
+  }
+
+  Future<List<SourcedConnectedModel<CalendarItem, Event?>>>
+  _getAppointments() async {
     final sources = context.read<FlowCubit>().getCurrentServicesMap();
     final appointments = <SourcedConnectedModel<CalendarItem, Event?>>[];
     for (final source in sources.entries) {
@@ -39,7 +47,7 @@ class _DashboardEventsViewState extends State<DashboardEventsView> {
   @override
   void didUpdateWidget(covariant DashboardEventsView oldWidget) {
     super.didUpdateWidget(oldWidget);
-    setState(() {});
+    _appointmentsFuture = _getAppointments();
   }
 
   @override
@@ -64,7 +72,7 @@ class _DashboardEventsViewState extends State<DashboardEventsView> {
         Expanded(
           child:
               FutureBuilder<List<SourcedConnectedModel<CalendarItem, Event?>>>(
-                future: _getAppointments(context),
+                future: _appointmentsFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState != ConnectionState.done) {
                     return const Center(child: CircularProgressIndicator());
@@ -83,7 +91,7 @@ class _DashboardEventsViewState extends State<DashboardEventsView> {
                       ),
                     );
                   }
-                  return Column(
+                  return ListView(
                     children: appointments
                         .map(
                           (e) => ListTile(

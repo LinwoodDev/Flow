@@ -10,29 +10,52 @@ class ICalConverter {
   ICalConverter([this.data]);
 
   void read(List<String> lines, {Event? event, Notebook? notebook}) {
-    final offset = lines.indexWhere(
-      (element) => element.trim() == 'BEGIN:VCALENDAR',
-    );
-    if (offset == -1) {
-      return;
+    final unfoldedLines = <String>[];
+    for (final line in lines) {
+      if (line.isEmpty) continue;
+      if (line.startsWith(' ') || line.startsWith('\t')) {
+        if (unfoldedLines.isNotEmpty) {
+          unfoldedLines.last += line.substring(1);
+        }
+      } else {
+        unfoldedLines.add(line.trim());
+      }
     }
+
     CalendarItem? currentItem;
     Note? currentNote;
     final items = List<CalendarItem>.from(data?.items ?? []);
     var currentEvent = event ?? Event(id: createUniqueUint8List());
     var currentNotebook = notebook ?? Notebook(id: createUniqueUint8List());
     final notes = List<Note>.from(data?.notes ?? []);
-    for (int i = offset; i < lines.length; i++) {
-      final line = lines[i];
+
+    for (final line in unfoldedLines) {
       final parts = line.split(':');
-      final name = parts[0].trim().split(';');
-      final key = name.first;
-      var value = parts.sublist(1).join(':').trim();
-      value = value
-          .replaceAll(r'\,', ',')
-          .replaceAll(r'\;', ';')
-          .replaceAll(r'\n', '\n');
-      if (currentItem != null) {
+      if (parts.length < 2) continue;
+
+      final keyPart = parts[0];
+      var value = parts.sublist(1).join(':');
+
+      final keyParts = keyPart.split(';');
+      final key = keyParts[0].toUpperCase().trim();
+
+      value = _unescape(value);
+
+      if (key == 'BEGIN') {
+        if (value == 'VEVENT') {
+          currentItem = FixedCalendarItem(eventId: currentEvent.id);
+        } else if (value == 'VTODO') {
+          currentNote = Note(notebookId: currentNotebook.id!);
+        }
+      } else if (key == 'END') {
+        if (value == 'VEVENT' && currentItem != null) {
+          items.add(currentItem);
+          currentItem = null;
+        } else if (value == 'VTODO' && currentNote != null) {
+          notes.add(currentNote);
+          currentNote = null;
+        }
+      } else if (currentItem != null) {
         switch (key) {
           case 'SUMMARY':
             currentItem = currentItem.copyWith(name: value);
@@ -40,16 +63,19 @@ class ICalConverter {
           case 'DESCRIPTION':
             currentItem = currentItem.copyWith(description: value);
             break;
+          case 'LOCATION':
+            currentItem = currentItem.copyWith(location: value);
+            break;
           case 'DTSTART':
-            currentItem = currentItem.copyWith(start: DateTime.parse(value));
+            currentItem = currentItem.copyWith(start: _parseDateTime(value));
             break;
           case 'DTEND':
-            currentItem = currentItem.copyWith(end: DateTime.parse(value));
+            currentItem = currentItem.copyWith(end: _parseDateTime(value));
             break;
-          case 'END':
-            if (value != 'VEVENT') break;
-            items.add(currentItem);
-            currentItem = null;
+          case 'STATUS':
+            currentItem = currentItem.copyWith(
+              status: _parseEventStatus(value),
+            );
             break;
         }
       } else if (currentNote != null) {
@@ -57,10 +83,16 @@ class ICalConverter {
           case 'SUMMARY':
             currentNote = currentNote.copyWith(name: value);
             break;
-          case 'END':
-            if (value != 'VTODO') break;
-            notes.add(currentNote);
-            currentNote = null;
+          case 'DESCRIPTION':
+            currentNote = currentNote.copyWith(description: value);
+            break;
+          case 'STATUS':
+            currentNote = currentNote.copyWith(status: _parseNoteStatus(value));
+            break;
+          case 'PRIORITY':
+            currentNote = currentNote.copyWith(
+              priority: int.tryParse(value) ?? 0,
+            );
             break;
         }
       } else {
@@ -68,31 +100,82 @@ class ICalConverter {
           case 'NAME':
           case 'X-WR-CALNAME':
             currentEvent = currentEvent.copyWith(name: value);
+            currentNotebook = currentNotebook.copyWith(name: value);
             break;
-          case 'BEGIN':
-            if (value == 'VEVENT') {
-              currentItem = FixedCalendarItem(eventId: currentEvent.id);
-            } else if (value == 'VTODO') {
-              currentNote = Note(notebookId: currentNotebook.id!);
-            }
-            continue;
-          case 'END':
-            if (value == 'VCALENDAR') {
-              var current = CachedData(
-                events: [currentEvent],
-                items: items,
-                notes: notes,
-              );
-              if (data == null) {
-                data = current;
-              } else {
-                data = data!.concat(current);
-              }
-              return;
-            }
-            continue;
         }
       }
+    }
+
+    var current = CachedData(
+      events: [currentEvent],
+      items: items,
+      notes: notes,
+      notebooks: [currentNotebook],
+    );
+    if (data == null) {
+      data = current;
+    } else {
+      data = data!.concat(current);
+    }
+  }
+
+  String _unescape(String value) {
+    return value.replaceAllMapped(RegExp(r'\\[,;\\nN]'), (match) {
+      final s = match.group(0)!;
+      switch (s.toLowerCase()) {
+        case r'\,':
+          return ',';
+        case r'\;':
+          return ';';
+        case r'\\':
+          return r'\';
+        case r'\n':
+          return '\n';
+        default:
+          return s;
+      }
+    });
+  }
+
+  DateTime? _parseDateTime(String value) {
+    if (value.length == 8) {
+      return DateTime.tryParse(
+        "${value.substring(0, 4)}-${value.substring(4, 6)}-${value.substring(6, 8)}",
+      );
+    } else if (value.length >= 15) {
+      if (value[8] == 'T') {
+        var iso =
+            "${value.substring(0, 4)}-${value.substring(4, 6)}-${value.substring(6, 8)}T${value.substring(9, 11)}:${value.substring(11, 13)}:${value.substring(13, 15)}";
+        if (value.endsWith('Z')) {
+          iso += 'Z';
+        }
+        return DateTime.tryParse(iso);
+      }
+    }
+    return DateTime.tryParse(value);
+  }
+
+  EventStatus _parseEventStatus(String value) {
+    switch (value.toUpperCase()) {
+      case 'TENTATIVE':
+        return EventStatus.draft;
+      case 'CANCELLED':
+        return EventStatus.cancelled;
+      case 'CONFIRMED':
+      default:
+        return EventStatus.confirmed;
+    }
+  }
+
+  NoteStatus _parseNoteStatus(String value) {
+    switch (value.toUpperCase()) {
+      case 'COMPLETED':
+        return NoteStatus.done;
+      case 'IN-PROCESS':
+        return NoteStatus.inProgress;
+      case 'NEEDS-ACTION':
+      default:
+        return NoteStatus.todo;
     }
   }
 
@@ -100,19 +183,47 @@ class ICalConverter {
     'BEGIN:VEVENT',
     'SUMMARY:${item.name}',
     'DESCRIPTION:${item.description}',
+    if (item.location.isNotEmpty) 'LOCATION:${item.location}',
     if (item.start != null) 'DTSTART:${_formatDateTime(item.start!.toUtc())}',
     if (item.end != null) 'DTEND:${_formatDateTime(item.end!.toUtc())}',
+    'STATUS:${_formatEventStatus(item.status)}',
     'END:VEVENT',
   ];
 
   String _formatDateTime(DateTime dateTime) =>
       "${dateTime.year}${dateTime.month.toString().padLeft(2, '0')}${dateTime.day.toString().padLeft(2, '0')}T${dateTime.hour.toString().padLeft(2, '0')}${dateTime.minute.toString().padLeft(2, '0')}00Z";
 
+  String _formatEventStatus(EventStatus status) {
+    switch (status) {
+      case EventStatus.draft:
+        return 'TENTATIVE';
+      case EventStatus.cancelled:
+        return 'CANCELLED';
+      case EventStatus.confirmed:
+        return 'CONFIRMED';
+    }
+  }
+
   List<String> writeNote(Note note) => [
     'BEGIN:VTODO',
     'SUMMARY:${note.name}',
+    'DESCRIPTION:${note.description}',
+    'STATUS:${_formatNoteStatus(note.status)}',
+    if (note.priority != 0) 'PRIORITY:${note.priority}',
     'END:VTODO',
   ];
+
+  String _formatNoteStatus(NoteStatus? status) {
+    switch (status) {
+      case NoteStatus.done:
+        return 'COMPLETED';
+      case NoteStatus.inProgress:
+        return 'IN-PROCESS';
+      case NoteStatus.todo:
+      default:
+        return 'NEEDS-ACTION';
+    }
+  }
 
   List<String> write([Event? event]) {
     final lines = <String>[];

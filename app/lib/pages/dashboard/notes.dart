@@ -16,7 +16,15 @@ class DashboardNotesView extends StatefulWidget {
 }
 
 class _DashboardNotesViewState extends State<DashboardNotesView> {
-  Future<List<(Note, String)>> _getNotes(BuildContext context) async {
+  late Future<List<(Note, String)>> _notesFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _notesFuture = _getNotes();
+  }
+
+  Future<List<(Note, String)>> _getNotes() async {
     final sources = context.read<FlowCubit>().getCurrentServicesMap();
     final notes = <(Note, String)>[];
     for (final source in sources.entries) {
@@ -32,7 +40,7 @@ class _DashboardNotesViewState extends State<DashboardNotesView> {
   @override
   void didUpdateWidget(covariant DashboardNotesView oldWidget) {
     super.didUpdateWidget(oldWidget);
-    setState(() {});
+    _notesFuture = _getNotes();
   }
 
   @override
@@ -56,7 +64,7 @@ class _DashboardNotesViewState extends State<DashboardNotesView> {
         const SizedBox(height: 20),
         Expanded(
           child: FutureBuilder<List<(Note, String)>>(
-            future: _getNotes(context),
+            future: _notesFuture,
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
                 return const Center(child: CircularProgressIndicator());
