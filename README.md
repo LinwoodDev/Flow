@@ -8,7 +8,7 @@
 
 > Free, opensource time and event management software
 
-[![Latest release)](https://img.shields.io/github/v/release/LinwoodDev/Flow?color=35CDEF&style=for-the-badge&logo=github&logoColor=35CDEF)](https://github.com/LinwoodDev/Flow/releases)
+[![Latest release)](https://img.shields.io/github/v/release/LinwoodDev/Flow?include_prereleases&filter=v*&color=35CDEF&style=for-the-badge&logo=github&logoColor=35CDEF)](https://github.com/LinwoodDev/Flow/releases)
 [![GitHub License badge](https://img.shields.io/github/license/LinwoodDev/Flow?color=35CDEF&style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzM1Y2RlZiIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yMTYsNDBINDBBMTYsMTYsMCwwLDAsMjQsNTZWMjAwYTE2LDE2LDAsMCwwLDE2LDE2SDIxNmExNiwxNiwwLDAsMCwxNi0xNlY1NkExNiwxNiwwLDAsMCwyMTYsNDBabTAsMTYwSDQwVjU2SDIxNlYyMDBaTTE4NCw5NmE4LDgsMCwwLDEtOCw4SDgwYTgsOCwwLDAsMSwwLTE2aDk2QTgsOCwwLDAsMSwxODQsOTZabTAsMzJhOCw4LDAsMCwxLTgsOEg4MGE4LDgsMCwwLDEsMC0xNmg5NkE4LDgsMCwwLDEsMTg0LDEyOFptMCwzMmE4LDgsMCwwLDEtOCw4SDgwYTgsOCwwLDAsMSwwLTE2aDk2QTgsOCwwLDAsMSwxODQsMTYwWiI%2BPC9wYXRoPjwvc3ZnPg%3D%3D)](https://github.com/LinwoodDev/Flow/blob/main/LICENSE)
 [![GitHub Repo stars](https://img.shields.io/github/stars/LinwoodDev/Flow?color=35CDEF&logo=github&logoColor=35CDEF&style=for-the-badge)](https://github.com/LinwoodDev/Flow)
 [![Matrix badge](https://img.shields.io/matrix/linwood:matrix.org?style=for-the-badge&color=35CDEF&logo=matrix&logoColor=35CDEF&label=Matrix)](https://linwood.dev/matrix)
