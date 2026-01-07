@@ -2,6 +2,7 @@
   * Support for more ical properties (status, location)
   * Better handling of malformed ical data
 * Improve dashboard layout
+* Add legacy android binaries
 * Fix markdown field does not exit edit mode on tap outside
 * Fix note description not updated when note changes
 * Fix setup not running on mobile platforms

@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
 import java.io.FileInputStream
 
@@ -19,14 +20,19 @@ android {
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-        isCoreLibraryDesugaringEnabled = true
-    }
+    // Flutter-friendly toggles:
+    // - Env: USE_LEGACY_PACKAGING=true
+    val useLegacy = (System.getenv("USE_LEGACY_PACKAGING") ?: "false").toBoolean()
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+    packaging {
+        jniLibs {
+            useLegacyPackaging = useLegacy
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
     }
 
     flavorDimensions += "default"
@@ -56,7 +62,6 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-        multiDexEnabled = true
     }
 
     signingConfigs {
@@ -85,9 +90,14 @@ android {
         includeInBundle = false
     }
 }
-
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.fromTarget("17")
+    }
 }
 
 flutter {
