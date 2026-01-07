@@ -2,6 +2,26 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 0.5.2 (2026-01-07)
+
+* Improve ical parser
+  * Support for more ical properties (status, location)
+  * Better handling of malformed ical data
+* Improve dashboard layout
+* Add legacy android binaries
+* Fix markdown field does not exit edit mode on tap outside
+* Fix note description not updated when note changes
+* Fix setup not running on mobile platforms
+* Fix clearing remote sources
+* Fix iCal dialog title
+* Fix search to groups and resources
+* Fix note filtering by parent
+* Fix select tile not updating
+* Fix notebook dialog showing wrong users/groups
+* Upgrade to flutter 3.38
+
+Read more here: https://linwood.dev/flow/0.5.2
+
 ## 0.5.1 (2025-10-15)
 
 * Fix app cannot be started on android ([#111](https://github.com/LinwoodDev/Flow/issues/111))
