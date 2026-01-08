@@ -1,5 +1,5 @@
 ---
-title: Errors
+title: Errori
 ---
 
 | Codice di errore | Codice di stato HTTP | Descrizione             |
