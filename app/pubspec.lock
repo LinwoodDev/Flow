@@ -450,34 +450,34 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_local_notifications
-      sha256: "19ffb0a8bb7407875555e5e98d7343a633bb73707bae6c6a5f37c90014077875"
+      sha256: dbb51ae4a94e46b0450df0791f12a79225d991d8eaf21588f1e0da98b2f533ea
       url: "https://pub.dev"
     source: hosted
-    version: "19.5.0"
+    version: "20.0.0-dev.3"
   flutter_local_notifications_linux:
     dependency: transitive
     description:
       name: flutter_local_notifications_linux
-      sha256: e3c277b2daab8e36ac5a6820536668d07e83851aeeb79c446e525a70710770a5
+      sha256: ad4a6815d037c1648bf50414a5071fbc2097e5dfb796c7847ec8b33f155599ea
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.0"
+    version: "7.0.0-dev.2"
   flutter_local_notifications_platform_interface:
     dependency: transitive
     description:
       name: flutter_local_notifications_platform_interface
-      sha256: "277d25d960c15674ce78ca97f57d0bae2ee401c844b6ac80fcd972a9c99d09fe"
+      sha256: "80b17e8e79f2361dbbc69960f831eb5de3fc7762502a20e6327b24a9ce458d8a"
       url: "https://pub.dev"
     source: hosted
-    version: "9.1.0"
+    version: "10.0.0-dev.2"
   flutter_local_notifications_windows:
     dependency: transitive
     description:
       name: flutter_local_notifications_windows
-      sha256: "8d658f0d367c48bd420e7cf2d26655e2d1130147bca1eea917e576ca76668aaf"
+      sha256: aa1bc3f7f74b89abd40f23d73ecd8faf4dc78818b92351e3c065b9b8d192f44b
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.3"
+    version: "2.0.0-dev.3"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -1417,10 +1417,10 @@ packages:
     dependency: transitive
     description:
       name: watcher
-      sha256: f52385d4f73589977c80797e60fe51014f7f2b957b5e9a62c3f6ada439889249
+      sha256: "1398c9f081a753f9226febe8900fce8f7d0a67163334e1c94a2438339d79d635"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   web:
     dependency: transitive
     description:
@@ -1487,4 +1487,4 @@ packages:
     version: "3.1.3"
 sdks:
   dart: ">=3.10.0 <4.0.0"
-  flutter: ">=3.38.5"
+  flutter: ">=3.38.6"

@@ -57,7 +57,7 @@ Future<void> setup(
           windows: initializationSettingsWindows,
         );
     await flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
+      settings: initializationSettings,
       onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
     );
     _configureLocalTimeZone();

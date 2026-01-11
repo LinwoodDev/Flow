@@ -139,9 +139,12 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    ElevatedButton(
-                      onPressed: () => _addWeek(-1),
-                      child: const PhosphorIcon(PhosphorIconsLight.caretLeft),
+                    AutoScrollDragTarget(
+                      onAction: () => _addWeek(-1),
+                      child: ElevatedButton(
+                        onPressed: () => _addWeek(-1),
+                        child: const PhosphorIcon(PhosphorIconsLight.caretLeft),
+                      ),
                     ),
                     Row(
                       children: [
@@ -184,9 +187,14 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                         ),
                       ],
                     ),
-                    ElevatedButton(
-                      onPressed: () => _addWeek(1),
-                      child: const PhosphorIcon(PhosphorIconsLight.caretRight),
+                    AutoScrollDragTarget(
+                      onAction: () => _addWeek(1),
+                      child: ElevatedButton(
+                        onPressed: () => _addWeek(1),
+                        child: const PhosphorIcon(
+                          PhosphorIconsLight.caretRight,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -265,6 +273,39 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                                         appointments: entry.value,
                                         onChanged: _refresh,
                                         maxWidth: constraints.maxWidth / 7,
+                                        onReschedule: (item, start) async {
+                                          final service = _cubit.getService(
+                                            item.source,
+                                          );
+                                          var end = start.add(
+                                            const Duration(hours: 1),
+                                          );
+                                          if (item.main.start != null &&
+                                              item.main.end != null) {
+                                            final duration = item.main.end!
+                                                .difference(item.main.start!);
+                                            end = start.add(duration);
+                                          }
+                                          final newItem = item.main.copyWith(
+                                            start: start,
+                                            end: end,
+                                          );
+                                          await service.calendarItem
+                                              ?.updateCalendarItem(newItem);
+                                          _refresh();
+                                        },
+                                        onResize: (item, start, end) async {
+                                          final service = _cubit.getService(
+                                            item.source,
+                                          );
+                                          final newItem = item.main.copyWith(
+                                            start: start,
+                                            end: end,
+                                          );
+                                          await service.calendarItem
+                                              ?.updateCalendarItem(newItem);
+                                          _refresh();
+                                        },
                                       ),
                                     ],
                                   );

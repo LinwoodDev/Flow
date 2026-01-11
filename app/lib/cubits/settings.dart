@@ -365,11 +365,14 @@ Future<void> _scheduleAlarm(int i, Alarm alarm) async {
       return;
     }
     await flutterLocalNotificationsPlugin.zonedSchedule(
-      i << 1 + 1,
-      alarm.title,
-      alarm.description,
-      tz.TZDateTime.from(alarm.date, tz.local).add(const Duration(seconds: 5)),
-      const NotificationDetails(
+      id: i << 1 + 1,
+      title: alarm.title,
+      body: alarm.description,
+      scheduledDate: tz.TZDateTime.from(
+        alarm.date,
+        tz.local,
+      ).add(const Duration(seconds: 5)),
+      notificationDetails: const NotificationDetails(
         android: AndroidNotificationDetails(
           'dev.linwood.flow',
           'alarm',
@@ -386,7 +389,7 @@ Future<void> _scheduleAlarm(int i, Alarm alarm) async {
 
 Future<void> cancelAlarm(int i) async {
   try {
-    await flutterLocalNotificationsPlugin.cancel(i << 1 + 1);
+    await flutterLocalNotificationsPlugin.cancel(id: i << 1 + 1);
   } catch (e) {
     debugPrint('Error canceling alarm: $e');
   }
