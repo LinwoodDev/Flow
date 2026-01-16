@@ -17,8 +17,8 @@ export default defineConfig({
     starlight({
       title: "Linwood Flow",
       customCss: [
-        // Relative path to your custom CSS file
-        "./src/styles/custom.css",
+        "./src/styles/linwood-style.scss",
+        "./src/styles/custom.scss",
       ],
       logo: {
         src: "./public/img/docs.svg",
