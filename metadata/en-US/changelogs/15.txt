@@ -1,3 +1,4 @@
 * Add gestures in day and week view ([#32](https://github.com/LinwoodDev/Flow/issues/32))
+* Fix snap build
 
 Read more here: https://linwood.dev/flow/0.5.2
