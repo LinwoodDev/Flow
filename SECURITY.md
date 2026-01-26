@@ -21,4 +21,4 @@ Please use [the bug tracker](https://github.com/LinwoodDev/Flow/issues) or use [
 | main    |    ✅    |                   This branch is production ready. It will be updated when a new stable version is released! | Stable  |
 | develop |    ⚠️    | This branch is only for testing and developing. Pull request for feature requests should only be added here! | Nightly |
 
-Read more about nightly [here](https://docs.flow.linwood.dev/nightly).
+Read more about nightly [here](https://docs.flow.linwood.dev/community/nightly).
