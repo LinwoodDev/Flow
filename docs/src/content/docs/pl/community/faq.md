@@ -23,4 +23,4 @@ Spróbuj zaktualizować przeglądarkę do najnowszej wersji.
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Flow is available on iOS as preview. Click [here](https://flow.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Flow/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+Flow is available on iOS as preview. Click [here](https://flow.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
