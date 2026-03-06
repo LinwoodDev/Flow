@@ -1,4 +1,5 @@
 * Add gestures in day and week view ([#32](https://github.com/LinwoodDev/Flow/issues/32))
 * Fix snap build
+* Improve CalDAV synchronization and update iCal parser with RRULE support
 
 Read more here: https://linwood.dev/flow/0.6.0

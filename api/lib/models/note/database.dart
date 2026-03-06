@@ -384,3 +384,71 @@ class LabelNoteDatabaseConnector extends NoteDatabaseConnector<Label>
   @override
   Label decode(Map<String, dynamic> data) => Label.fromDatabase(data);
 }
+
+abstract class NoteDatabaseServiceLinker extends NoteService with TableService {
+  final NoteDatabaseService service;
+
+  NoteDatabaseServiceLinker(this.service);
+
+  @override
+  FutureOr<List<Note>> getNotes({
+    int offset = 0,
+    int limit = 50,
+    Uint8List? parent,
+    Uint8List? notebook,
+    Set<NoteStatus?> statuses = const {
+      NoteStatus.todo,
+      NoteStatus.inProgress,
+      NoteStatus.done,
+      null,
+    },
+    String search = '',
+  }) =>
+      service.getNotes(
+        offset: offset,
+        limit: limit,
+        parent: parent,
+        notebook: notebook,
+        statuses: statuses,
+        search: search,
+      );
+
+  @override
+  FutureOr<Note?> createNote(Note note) => service.createNote(note);
+
+  @override
+  FutureOr<bool> updateNote(Note note) => service.updateNote(note);
+
+  @override
+  FutureOr<bool> deleteNote(Uint8List id) => service.deleteNote(id);
+
+  @override
+  FutureOr<Note?> getNote(Uint8List id, {bool fallback = false}) =>
+      service.getNote(id, fallback: fallback);
+
+  @override
+  FutureOr<List<Notebook>> getNotebooks({
+    int offset = 0,
+    int limit = 50,
+    String search = '',
+  }) =>
+      service.getNotebooks(offset: offset, limit: limit, search: search);
+
+  @override
+  FutureOr<Notebook?> createNotebook(Notebook notebook) =>
+      service.createNotebook(notebook);
+
+  @override
+  FutureOr<bool> updateNotebook(Notebook notebook) =>
+      service.updateNotebook(notebook);
+
+  @override
+  FutureOr<bool> deleteNotebook(Uint8List id) => service.deleteNotebook(id);
+
+  @override
+  FutureOr<Notebook?> getNotebook(Uint8List id) => service.getNotebook(id);
+
+  @override
+  FutureOr<void> clear() => service.clear();
+}
+

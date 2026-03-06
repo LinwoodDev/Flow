@@ -23,7 +23,7 @@ class IndicatorDisplay extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (icon != null) icon!,
+            ?icon,
             if (title != null)
               Text(title!, style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 8),

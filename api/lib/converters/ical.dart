@@ -4,6 +4,14 @@ import 'package:flow_api/models/event/model.dart';
 import 'package:flow_api/models/note/model.dart';
 import 'package:flow_api/services/database.dart';
 
+class _RRule {
+  final RepeatType repeatType;
+  final int interval;
+  final int count;
+  final DateTime? until;
+  _RRule(this.repeatType, this.interval, this.count, this.until);
+}
+
 class ICalConverter {
   CachedData? data;
 
@@ -77,6 +85,27 @@ class ICalConverter {
               status: _parseEventStatus(value),
             );
             break;
+          case 'RRULE':
+            final rrule = _parseRRule(value);
+            if (rrule != null && currentItem is FixedCalendarItem) {
+              final c = currentItem;
+              currentItem = RepeatingCalendarItem(
+                id: c.id,
+                name: c.name,
+                description: c.description,
+                location: c.location,
+                eventId: c.eventId,
+                start: c.start,
+                end: c.end,
+                status: c.status,
+                repeatType: rrule.repeatType,
+                interval: rrule.interval,
+                variation: 0,
+                count: rrule.count,
+                until: rrule.until,
+              );
+            }
+            break;
         }
       } else if (currentNote != null) {
         switch (key) {
@@ -137,6 +166,14 @@ class ICalConverter {
     });
   }
 
+  String _escape(String value) {
+    return value
+        .replaceAll(r'\', r'\\')
+        .replaceAll(';', r'\;')
+        .replaceAll(',', r'\,')
+        .replaceAll('\n', r'\n');
+  }
+
   DateTime? _parseDateTime(String value) {
     if (value.length == 8) {
       return DateTime.tryParse(
@@ -153,6 +190,37 @@ class ICalConverter {
       }
     }
     return DateTime.tryParse(value);
+  }
+
+  _RRule? _parseRRule(String value) {
+    var type = RepeatType.daily;
+    int interval = 1;
+    int count = 0;
+    DateTime? until;
+
+    final parts = value.split(';');
+    for (final part in parts) {
+      final kv = part.split('=');
+      if (kv.length != 2) continue;
+      final k = kv[0].toUpperCase();
+      final v = kv[1];
+      if (k == 'FREQ') {
+        type = switch (v.toUpperCase()) {
+          'DAILY' => RepeatType.daily,
+          'WEEKLY' => RepeatType.weekly,
+          'MONTHLY' => RepeatType.monthly,
+          'YEARLY' => RepeatType.yearly,
+          _ => type,
+        };
+      } else if (k == 'INTERVAL') {
+        interval = int.tryParse(v) ?? 1;
+      } else if (k == 'COUNT') {
+        count = int.tryParse(v) ?? 0;
+      } else if (k == 'UNTIL') {
+        until = _parseDateTime(v);
+      }
+    }
+    return _RRule(type, interval, count, until);
   }
 
   EventStatus _parseEventStatus(String value) {
@@ -181,17 +249,32 @@ class ICalConverter {
 
   List<String> writeEvent(CalendarItem item) => [
     'BEGIN:VEVENT',
-    'SUMMARY:${item.name}',
-    'DESCRIPTION:${item.description}',
-    if (item.location.isNotEmpty) 'LOCATION:${item.location}',
+    'SUMMARY:${_escape(item.name)}',
+    'DESCRIPTION:${_escape(item.description)}',
+    if (item.location.isNotEmpty) 'LOCATION:${_escape(item.location)}',
     if (item.start != null) 'DTSTART:${_formatDateTime(item.start!.toUtc())}',
     if (item.end != null) 'DTEND:${_formatDateTime(item.end!.toUtc())}',
+    if (item is RepeatingCalendarItem)
+      'RRULE:FREQ=${_formatRepeatType(item.repeatType)}${item.interval > 1 ? ';INTERVAL=${item.interval}' : ''}${item.count > 0 ? ';COUNT=${item.count}' : ''}${item.until != null ? ';UNTIL=${_formatDateTime(item.until!.toUtc())}' : ''}',
     'STATUS:${_formatEventStatus(item.status)}',
     'END:VEVENT',
   ];
 
   String _formatDateTime(DateTime dateTime) =>
       "${dateTime.year}${dateTime.month.toString().padLeft(2, '0')}${dateTime.day.toString().padLeft(2, '0')}T${dateTime.hour.toString().padLeft(2, '0')}${dateTime.minute.toString().padLeft(2, '0')}00Z";
+
+  String _formatRepeatType(RepeatType type) {
+    switch (type) {
+      case RepeatType.daily:
+        return 'DAILY';
+      case RepeatType.weekly:
+        return 'WEEKLY';
+      case RepeatType.monthly:
+        return 'MONTHLY';
+      case RepeatType.yearly:
+        return 'YEARLY';
+    }
+  }
 
   String _formatEventStatus(EventStatus status) {
     switch (status) {
@@ -206,8 +289,8 @@ class ICalConverter {
 
   List<String> writeNote(Note note) => [
     'BEGIN:VTODO',
-    'SUMMARY:${note.name}',
-    'DESCRIPTION:${note.description}',
+    'SUMMARY:${_escape(note.name)}',
+    'DESCRIPTION:${_escape(note.description)}',
     'STATUS:${_formatNoteStatus(note.status)}',
     if (note.priority != 0) 'PRIORITY:${note.priority}',
     'END:VTODO',
@@ -230,8 +313,8 @@ class ICalConverter {
     lines.add('BEGIN:VCALENDAR');
     lines.add('VERSION:2.0');
     if (event != null) {
-      lines.add('NAME:${event.name}');
-      lines.add('X-WR-CALNAME:${event.name}');
+      lines.add('NAME:${_escape(event.name)}');
+      lines.add('X-WR-CALNAME:${_escape(event.name)}');
     }
     lines.addAll(data?.items.expand(writeEvent) ?? []);
     lines.addAll(data?.notes.expand(writeNote) ?? []);
