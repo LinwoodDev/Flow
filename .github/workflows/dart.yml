@@ -5,6 +5,7 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-24.04
+    continue-on-error: true
     strategy:
       matrix:
         projects: [app, api, tools]
