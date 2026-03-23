@@ -25,7 +25,7 @@ jobs:
         with:
           java-version: "17"
           distribution: "temurin"
-      - uses: subosito/flutter-action@v2.21.0
+      - uses: subosito/flutter-action@v2.22.0
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
@@ -144,7 +144,7 @@ jobs:
         run: |
           choco install yq
           choco install innosetup
-      - uses: subosito/flutter-action@v2.21.0
+      - uses: subosito/flutter-action@v2.22.0
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
@@ -196,7 +196,7 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v6
-      - uses: subosito/flutter-action@v2.21.0
+      - uses: subosito/flutter-action@v2.22.0
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
@@ -265,7 +265,7 @@ jobs:
             libsecret-1-dev \
             libjsoncpp-dev \
             rpm
-      - uses: subosito/flutter-action@v2.21.0
+      - uses: subosito/flutter-action@v2.22.0
         with:
           flutter-version-file: app/pubspec.yaml
           channel: "master"
@@ -402,7 +402,7 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v6
-      - uses: subosito/flutter-action@v2.21.0
+      - uses: subosito/flutter-action@v2.22.0
         with:
           flutter-version-file: app/pubspec.yaml
       - uses: actions/setup-python@v6
@@ -454,7 +454,7 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v6
-      - uses: subosito/flutter-action@v2.21.0
+      - uses: subosito/flutter-action@v2.22.0
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
@@ -826,7 +826,7 @@ jobs:
         with:
           java-version: "17"
           distribution: "temurin"
-      - uses: subosito/flutter-action@v2.21.0
+      - uses: subosito/flutter-action@v2.22.0
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
