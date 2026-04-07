@@ -96,4 +96,27 @@ Future<void> migrateDatabase(
     });
     await db.execute("PRAGMA foreign_keys=on");
   }
+
+  if (oldVersion < 5) {
+    await db.execute("PRAGMA foreign_keys=off");
+    await db.transaction((txn) async {
+      await service.calendarItem.create(txn, 'calendarItems_temp_v5');
+      await txn.execute(
+        "INSERT INTO calendarItems_temp_v5 "
+        "SELECT "
+        "CASE "
+        "WHEN runtimeType IN ('RepeatingCalendarItem', 'repeating', 'AutoCalendarItem', 'auto') THEN 'RepeatingCalendarItem' "
+        "ELSE 'FixedCalendarItem' "
+        "END, "
+        "id, name, description, location, eventId, start, end, "
+        "status, repeatType, interval, variation, count, until, exceptions "
+        "FROM calendarItems",
+      );
+      await txn.execute("DROP TABLE calendarItems");
+      await txn.execute(
+        "ALTER TABLE calendarItems_temp_v5 RENAME TO calendarItems",
+      );
+    });
+    await db.execute("PRAGMA foreign_keys=on");
+  }
 }

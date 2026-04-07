@@ -403,15 +403,14 @@ abstract class NoteDatabaseServiceLinker extends NoteService with TableService {
       null,
     },
     String search = '',
-  }) =>
-      service.getNotes(
-        offset: offset,
-        limit: limit,
-        parent: parent,
-        notebook: notebook,
-        statuses: statuses,
-        search: search,
-      );
+  }) => service.getNotes(
+    offset: offset,
+    limit: limit,
+    parent: parent,
+    notebook: notebook,
+    statuses: statuses,
+    search: search,
+  );
 
   @override
   FutureOr<Note?> createNote(Note note) => service.createNote(note);
@@ -431,8 +430,7 @@ abstract class NoteDatabaseServiceLinker extends NoteService with TableService {
     int offset = 0,
     int limit = 50,
     String search = '',
-  }) =>
-      service.getNotebooks(offset: offset, limit: limit, search: search);
+  }) => service.getNotebooks(offset: offset, limit: limit, search: search);
 
   @override
   FutureOr<Notebook?> createNotebook(Notebook notebook) =>
@@ -451,4 +449,3 @@ abstract class NoteDatabaseServiceLinker extends NoteService with TableService {
   @override
   FutureOr<void> clear() => service.clear();
 }
-

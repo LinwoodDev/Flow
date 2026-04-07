@@ -99,7 +99,8 @@ class NoteCalDavRemoteService extends NoteDatabaseServiceLinker {
   @override
   Future<Note?> createNote(Note note) async {
     var notebookId = note.notebookId;
-    if (notebookId != null && await remote.note.getNotebook(notebookId) == null) {
+    if (notebookId != null &&
+        await remote.note.getNotebook(notebookId) == null) {
       notebookId =
           (await remote.note.createNotebook(
             Notebook(name: note.name, id: notebookId),
@@ -178,13 +179,16 @@ class CalendarItemCalDavRemoteService
   }
 }
 
-Future<void> _sendUpdatedCalendarObject(CalDavRemoteService remote, Uint8List id) async {
+Future<void> _sendUpdatedCalendarObject(
+  CalDavRemoteService remote,
+  Uint8List id,
+) async {
   final authority = remote.remoteStorage.uri.replace(path: '').toString();
   final items = (await remote.calendarItem.getCalendarItems(
     eventId: id,
   )).map((e) => e.source).toList();
   final notes = await remote.note.getNotes(notebook: id, limit: 1000000);
-  
+
   if (items.isEmpty && notes.isEmpty) {
     await remote.addRequest(
       APIRequest(

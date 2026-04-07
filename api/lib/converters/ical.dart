@@ -9,7 +9,17 @@ class _RRule {
   final int interval;
   final int count;
   final DateTime? until;
-  _RRule(this.repeatType, this.interval, this.count, this.until);
+  final List<int> byWeekDays;
+  final List<int> byMonthDays;
+
+  _RRule(
+    this.repeatType,
+    this.interval,
+    this.count,
+    this.until, {
+    this.byWeekDays = const [],
+    this.byMonthDays = const [],
+  });
 }
 
 class ICalConverter {
@@ -100,7 +110,7 @@ class ICalConverter {
                 status: c.status,
                 repeatType: rrule.repeatType,
                 interval: rrule.interval,
-                variation: 0,
+                variation: _variationFromRRule(rrule),
                 count: rrule.count,
                 until: rrule.until,
               );
@@ -197,6 +207,8 @@ class ICalConverter {
     int interval = 1;
     int count = 0;
     DateTime? until;
+    var byWeekDays = <int>[];
+    var byMonthDays = <int>[];
 
     final parts = value.split(';');
     for (final part in parts) {
@@ -218,9 +230,70 @@ class ICalConverter {
         count = int.tryParse(v) ?? 0;
       } else if (k == 'UNTIL') {
         until = _parseDateTime(v);
+      } else if (k == 'BYDAY') {
+        byWeekDays = _parseByDay(v);
+      } else if (k == 'BYMONTHDAY') {
+        byMonthDays = _parseByMonthDay(v);
       }
     }
-    return _RRule(type, interval, count, until);
+    return _RRule(
+      type,
+      interval,
+      count,
+      until,
+      byWeekDays: byWeekDays,
+      byMonthDays: byMonthDays,
+    );
+  }
+
+  int _variationFromRRule(_RRule rule) {
+    switch (rule.repeatType) {
+      case RepeatType.weekly:
+        return RepeatingCalendarItem.encodeWeeklyWeekdays(rule.byWeekDays);
+      case RepeatType.monthly:
+        return RepeatingCalendarItem.encodeMonthlyMonthDays(rule.byMonthDays);
+      case RepeatType.daily:
+      case RepeatType.yearly:
+        return 0;
+    }
+  }
+
+  List<int> _parseByDay(String value) {
+    final weekdays = <int>[];
+    for (final part in value.split(',')) {
+      final token = part.trim().toUpperCase();
+      if (token.length < 2) continue;
+      final dayCode = token.substring(token.length - 2);
+      final weekday = _weekdayFromIcs(dayCode);
+      if (weekday != null) {
+        weekdays.add(weekday);
+      }
+    }
+    return weekdays;
+  }
+
+  List<int> _parseByMonthDay(String value) {
+    final days = <int>[];
+    for (final part in value.split(',')) {
+      final day = int.tryParse(part.trim());
+      if (day != null && day >= 1 && day <= 31) {
+        days.add(day);
+      }
+    }
+    return days;
+  }
+
+  int? _weekdayFromIcs(String day) {
+    return switch (day) {
+      'MO' => DateTime.monday,
+      'TU' => DateTime.tuesday,
+      'WE' => DateTime.wednesday,
+      'TH' => DateTime.thursday,
+      'FR' => DateTime.friday,
+      'SA' => DateTime.saturday,
+      'SU' => DateTime.sunday,
+      _ => null,
+    };
   }
 
   EventStatus _parseEventStatus(String value) {
@@ -254,11 +327,48 @@ class ICalConverter {
     if (item.location.isNotEmpty) 'LOCATION:${_escape(item.location)}',
     if (item.start != null) 'DTSTART:${_formatDateTime(item.start!.toUtc())}',
     if (item.end != null) 'DTEND:${_formatDateTime(item.end!.toUtc())}',
-    if (item is RepeatingCalendarItem)
-      'RRULE:FREQ=${_formatRepeatType(item.repeatType)}${item.interval > 1 ? ';INTERVAL=${item.interval}' : ''}${item.count > 0 ? ';COUNT=${item.count}' : ''}${item.until != null ? ';UNTIL=${_formatDateTime(item.until!.toUtc())}' : ''}',
+    if (item is RepeatingCalendarItem) _formatRRule(item),
     'STATUS:${_formatEventStatus(item.status)}',
     'END:VEVENT',
   ];
+
+  String _formatRRule(RepeatingCalendarItem item) {
+    final parts = <String>['FREQ=${_formatRepeatType(item.repeatType)}'];
+    if (item.interval > 1) {
+      parts.add('INTERVAL=${item.interval}');
+    }
+    if (item.count > 0) {
+      parts.add('COUNT=${item.count}');
+    }
+    if (item.until != null) {
+      parts.add('UNTIL=${_formatDateTime(item.until!.toUtc())}');
+    }
+    if (item.repeatType == RepeatType.weekly) {
+      final weekdays = item.weeklyVariationWeekdays;
+      if (weekdays.isNotEmpty) {
+        parts.add('BYDAY=${weekdays.map(_weekdayToIcs).join(',')}');
+      }
+    } else if (item.repeatType == RepeatType.monthly) {
+      final monthDays = item.monthlyVariationMonthDays;
+      if (monthDays.isNotEmpty) {
+        parts.add('BYMONTHDAY=${monthDays.join(',')}');
+      }
+    }
+    return 'RRULE:${parts.join(';')}';
+  }
+
+  String _weekdayToIcs(int weekday) {
+    return switch (weekday) {
+      DateTime.monday => 'MO',
+      DateTime.tuesday => 'TU',
+      DateTime.wednesday => 'WE',
+      DateTime.thursday => 'TH',
+      DateTime.friday => 'FR',
+      DateTime.saturday => 'SA',
+      DateTime.sunday => 'SU',
+      _ => 'MO',
+    };
+  }
 
   String _formatDateTime(DateTime dateTime) =>
       "${dateTime.year}${dateTime.month.toString().padLeft(2, '0')}${dateTime.day.toString().padLeft(2, '0')}T${dateTime.hour.toString().padLeft(2, '0')}${dateTime.minute.toString().padLeft(2, '0')}00Z";

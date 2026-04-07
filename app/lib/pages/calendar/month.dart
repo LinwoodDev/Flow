@@ -374,14 +374,20 @@ class CalendarDayDialog extends StatelessWidget {
           if (appointments.isEmpty)
             Center(child: Text(AppLocalizations.of(context).noEvents))
           else
-            ...appointments.map(
-              (e) => CalendarListTile(
-                key: ValueKey('${e.source}@${e.main.id}'),
+            ...appointments.map((e) {
+              final occurrenceKey = [
+                e.source,
+                e.main.id,
+                e.main.start?.millisecondsSinceEpoch,
+                e.main.end?.millisecondsSinceEpoch,
+              ];
+              return CalendarListTile(
+                key: ValueKey(occurrenceKey),
                 eventItem: e,
                 date: date,
                 onRefresh: () => Navigator.of(context).pop(),
-              ),
-            ),
+              );
+            }),
         ],
       ),
       actions: [
