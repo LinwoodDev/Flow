@@ -164,6 +164,10 @@ class _CalendarBodyViewState extends State<CalendarBodyView> {
   void didUpdateWidget(covariant CalendarBodyView oldWidget) {
     super.didUpdateWidget(oldWidget);
 
+    if (oldWidget.filter != widget.filter) {
+      _filter = widget.filter;
+    }
+
     if (oldWidget.view != widget.view) {
       setState(() {});
     }

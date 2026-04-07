@@ -107,7 +107,7 @@ class _UsersBodyViewState extends State<UsersBodyView> {
           : service.user?.getUsers(
               offset: offset,
               limit: limit,
-              groupId: _filter.group,
+              groupId: _filter.source == source ? _filter.group : null,
               search: widget.search,
             ),
     );
@@ -125,7 +125,12 @@ class _UsersBodyViewState extends State<UsersBodyView> {
   void didUpdateWidget(covariant UsersBodyView oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.search != widget.search) {
+    final changedFilter = oldWidget.filter != widget.filter;
+    if (changedFilter) {
+      _filter = widget.filter;
+    }
+
+    if (oldWidget.search != widget.search || changedFilter) {
       _bloc.refresh();
     }
   }

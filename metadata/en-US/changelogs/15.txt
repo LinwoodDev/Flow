@@ -3,5 +3,6 @@
 * Improve CalDAV synchronization and update iCal parser with RRULE support
 * Fix web build not loading ([#135](https://github.com/LinwoodDev/Flow/issues/135))
 * Upgrade to flutter 3.41
+* Fix stale filter and list refresh behavior in events, users, calendar, notes, and dashboard views
 
 Read more here: https://linwood.dev/flow/0.6.0

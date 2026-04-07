@@ -42,6 +42,17 @@ class _UserFilterViewState extends State<UserFilterView> {
   }
 
   @override
+  void didUpdateWidget(covariant UserFilterView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.initialFilter != widget.initialFilter) {
+      setState(() {
+        _filter = widget.initialFilter ?? const UserFilter();
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scrollbar(
       controller: _scrollController,

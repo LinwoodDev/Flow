@@ -92,7 +92,7 @@ class NotesBodyView extends StatefulWidget {
 class _NotesBodyViewState extends State<NotesBodyView> {
   late final FlowCubit _flowCubit;
   late final SourcedPagingBloc<Note> _bloc;
-  late final Future<Note?> _parent;
+  late Future<Note?> _parent;
   late NoteFilter _filter;
 
   @override
@@ -156,6 +156,9 @@ class _NotesBodyViewState extends State<NotesBodyView> {
 
     if (oldWidget.search != widget.search ||
         oldWidget.parent != widget.parent) {
+      if (oldWidget.parent != widget.parent) {
+        _parent = _fetchParent();
+      }
       _bloc.refresh();
     }
     if (oldWidget.filter != widget.filter) {

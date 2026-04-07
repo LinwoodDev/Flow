@@ -80,6 +80,17 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
   }
 
   @override
+  void didUpdateWidget(covariant CalendarFilterView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.initialFilter != widget.initialFilter) {
+      setState(() {
+        _filter = widget.initialFilter ?? const CalendarFilter();
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scrollbar(
       controller: _scrollController,

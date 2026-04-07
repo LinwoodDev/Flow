@@ -108,6 +108,9 @@ class _EventsBodyViewState extends State<EventsBodyView> {
               offset: offset,
               limit: limit,
               groupId: _filter.source == source ? _filter.group : null,
+              resourceIds: _filter.source == source && _filter.resource != null
+                  ? [_filter.resource!]
+                  : null,
               search: widget.search,
             ),
     );
@@ -125,7 +128,12 @@ class _EventsBodyViewState extends State<EventsBodyView> {
   void didUpdateWidget(covariant EventsBodyView oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.search != widget.search) {
+    final changedFilter = oldWidget.filter != widget.filter;
+    if (changedFilter) {
+      _filter = widget.filter;
+    }
+
+    if (oldWidget.search != widget.search || changedFilter) {
       _bloc.refresh();
     }
   }

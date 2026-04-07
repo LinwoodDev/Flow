@@ -97,14 +97,19 @@ class _DashboardEventsViewState extends State<DashboardEventsView> {
                           (e) => ListTile(
                             title: Text(e.main.name),
                             subtitle: MarkdownText(e.main.description),
-                            onTap: () => showDialog(
-                              context: context,
-                              builder: (context) => CalendarItemDialog(
-                                event: e.sub,
-                                item: e.main,
-                                source: e.source,
-                              ),
-                            ).then((value) => setState(() {})),
+                            onTap: () =>
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => CalendarItemDialog(
+                                    event: e.sub,
+                                    item: e.main,
+                                    source: e.source,
+                                  ),
+                                ).then(
+                                  (value) => setState(() {
+                                    _appointmentsFuture = _getAppointments();
+                                  }),
+                                ),
                           ),
                         )
                         .toList(),

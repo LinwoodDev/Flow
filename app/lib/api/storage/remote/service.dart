@@ -16,7 +16,7 @@ class RequestDatabaseService extends ModelService with TableService {
   Future<void> create(Database db) async {
     await db.execute('''
       CREATE TABLE IF NOT EXISTS request (
-        id BLOB(16) PRIMARY KEY,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         created INTEGER NOT NULL,
         data TEXT NOT NULL
       )
@@ -30,7 +30,7 @@ class RequestDatabaseService extends ModelService with TableService {
     });
   }
 
-  Future<List<ConnectedModel<DateTime, APIRequest>>> getRequests({
+  Future<List<ConnectedModel<int, APIRequest>>> getRequests({
     int offset = 0,
     int limit = 50,
   }) async {
@@ -44,7 +44,7 @@ class RequestDatabaseService extends ModelService with TableService {
     return result
         .map(
           (e) => ConnectedModel(
-            DateTime.fromMillisecondsSinceEpoch(e['created'] as int),
+            e['id'] as int,
             APIRequestMapper.fromJson(e['data'] as String),
           ),
         )
@@ -100,7 +100,7 @@ abstract class RemoteService<T extends RemoteStorage> extends SourceService {
     for (final request in requests) {
       try {
         await request.model.send().then(
-          (value) => local.request.deleteRequest(request.model.id),
+          (value) => local.request.deleteRequest(request.source),
         );
       } catch (_) {}
     }
