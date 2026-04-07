@@ -40,7 +40,7 @@ import 'pages/users/page.dart';
 
 import 'pages/notes/page.dart';
 import 'setup.dart'
-    if (dart.library.html) 'setup_web.dart'
+    if (dart.library.js_interop) 'setup_web.dart'
     if (dart.library.io) 'setup_io.dart';
 
 String? dataPath;

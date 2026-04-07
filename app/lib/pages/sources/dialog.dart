@@ -1,4 +1,6 @@
-import 'package:file_selector/file_selector.dart';
+import 'dart:convert';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/pages/sources/import.dart';
 import 'package:flutter/material.dart';
@@ -104,19 +106,15 @@ class AddSourceDialog extends StatelessWidget {
                 leading: const PhosphorIcon(PhosphorIconsLight.file),
                 onTap: () async {
                   final cubit = context.read<FlowCubit>();
-                  final result = await openFile(
-                    acceptedTypeGroups: [
-                      XTypeGroup(
-                        extensions: ['ics', 'ical', 'icalendar'],
-                        label: 'iCal',
-                        uniformTypeIdentifiers: ['public.ics'],
-                        mimeTypes: ['text/calendar'],
-                      ),
-                    ],
-                  );
+                  final result = await FilePicker.pickFiles(
+                    allowedExtensions: ['ics', 'ical', 'icalendar'],
+                    type: FileType.custom,
+                    withData: true,
+                  ).then((result) => result?.files.firstOrNull);
                   if (result == null) return;
-                  final data = await result.readAsString();
-                  final lines = data.split('\n');
+                  final data = result.bytes;
+                  if (data == null) return;
+                  final lines = utf8.decode(data).split('\n');
                   final converter = ICalConverter();
                   converter.read(lines);
                   final events = converter.data?.events ?? [];

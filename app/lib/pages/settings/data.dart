@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:file_selector/file_selector.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flow/api/storage/sources.dart';
 import 'package:flow/theme.dart';
 import 'package:flow/visualizer/sync.dart';
@@ -124,14 +124,14 @@ class DataSettingsPage extends StatelessWidget {
 
   void _importSettings(BuildContext context) async {
     final settingsCubit = context.read<SettingsCubit>();
-    final file = await openFile(
-      acceptedTypeGroups: [
-        XTypeGroup(label: 'Settings', extensions: ['json']),
-      ],
-    );
-    if (file == null) return;
-    final data = await file.readAsString();
-    settingsCubit.importSettings(data);
+    final result = await FilePicker.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['json'],
+    ).then((result) => result?.files.firstOrNull);
+    if (result == null) return;
+    final data = result.bytes;
+    if (data == null) return;
+    settingsCubit.importSettings(utf8.decode(data));
   }
 
   void _exportSettings(BuildContext context) async {
