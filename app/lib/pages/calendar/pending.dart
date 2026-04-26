@@ -88,7 +88,9 @@ class _CalendarPendingViewState extends State<CalendarPendingView> {
                       return ConstrainedBox(
                         constraints: const BoxConstraints(maxWidth: 1000),
                         child: CalendarListTile(
-                          key: ValueKey('${item.source}@${item.main.id}'),
+                          key: ValueKey<String>(
+                            '${item.source}@${item.main.id}@${item.main.start?.millisecondsSinceEpoch}@${item.main.end?.millisecondsSinceEpoch}',
+                          ),
                           eventItem: item,
                           onRefresh: _bloc.refresh,
                         ),

@@ -477,8 +477,12 @@ class _SingleDayListState extends State<SingleDayList> {
                   height = 24 * SingleDayList._hourHeight - top;
                 }
 
-                final key =
-                    '${position.appointment.source}@${position.appointment.main.id}';
+                final key = [
+                  position.appointment.source,
+                  position.appointment.main.id,
+                  position.appointment.main.start?.millisecondsSinceEpoch,
+                  position.appointment.main.end?.millisecondsSinceEpoch,
+                ].join('@');
                 if (_resizingItems.containsKey(key)) {
                   height = max(
                     _resizingItems[key]!.height,

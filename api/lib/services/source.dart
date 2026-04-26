@@ -77,15 +77,18 @@ abstract class SourceService {
   ].nonNulls.toList();
 
   Future<void> import(CachedData data, [bool clear = true]) async {
-    event?.clear();
+    if (clear) await event?.clear();
     for (final current in data.events) {
       await event?.createEvent(current);
     }
-    note?.clear();
+    if (clear) await note?.clear();
+    for (final current in data.notebooks) {
+      await note?.createNotebook(current);
+    }
     for (final current in data.notes) {
       await note?.createNote(current);
     }
-    calendarItem?.clear();
+    if (clear) await calendarItem?.clear();
     for (final current in data.items) {
       await calendarItem?.createCalendarItem(current);
     }

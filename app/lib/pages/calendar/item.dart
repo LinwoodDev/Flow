@@ -9,6 +9,7 @@ import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/event/item/model.dart';
@@ -43,6 +44,13 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
   late String _source;
   CalendarItemService? _service;
   late CalendarItem _item;
+  late bool _isRepeating;
+  late RepeatType _repeatType;
+  late int _repeatInterval;
+  late int _repeatCount;
+  DateTime? _repeatUntil;
+  late Set<int> _repeatWeeklyDays;
+  late Set<int> _repeatMonthlyDays;
 
   @override
   void initState() {
@@ -51,6 +59,88 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
     _source = widget.source ?? '';
     _item = widget.item ?? FixedCalendarItem(eventId: widget.event?.id);
     _service = context.read<FlowCubit>().getService(_source).calendarItem;
+    if (_item is RepeatingCalendarItem) {
+      final repeating = _item as RepeatingCalendarItem;
+      _isRepeating = true;
+      _repeatType = repeating.repeatType;
+      _repeatInterval = repeating.interval;
+      _repeatCount = repeating.count;
+      _repeatUntil = repeating.until;
+      _repeatWeeklyDays = repeating.weeklyWeekdays.toSet();
+      _repeatMonthlyDays = repeating.monthlyMonthDays.toSet();
+    } else {
+      _isRepeating = false;
+      _repeatType = RepeatType.daily;
+      _repeatInterval = 1;
+      _repeatCount = 0;
+      _repeatUntil = null;
+      _repeatWeeklyDays = {};
+      _repeatMonthlyDays = {};
+    }
+  }
+
+  String _repeatTypeLabel(BuildContext context, RepeatType type) {
+    final loc = AppLocalizations.of(context);
+    return switch (type) {
+      RepeatType.daily => loc.repeatDaily,
+      RepeatType.weekly => loc.repeatWeekly,
+      RepeatType.monthly => loc.repeatMonthly,
+      RepeatType.yearly => loc.repeatYearly,
+    };
+  }
+
+  String _weekdayLabel(BuildContext context, int weekday) {
+    final baseMonday = DateTime(2020, 1, 6);
+    return DateFormat.EEEE(
+      AppLocalizations.of(context).localeName,
+    ).format(baseMonday.add(Duration(days: weekday - DateTime.monday)));
+  }
+
+  CalendarItem _buildPersistedItem() {
+    final start = _item.start;
+    if (!_isRepeating ||
+        start == null ||
+        _item.type == CalendarItemType.pending) {
+      return FixedCalendarItem(
+        id: _item.id,
+        name: _item.name,
+        description: _item.description,
+        location: _item.location,
+        eventId: _item.eventId,
+        start: _item.start,
+        end: _item.end,
+        status: _item.status,
+      );
+    }
+
+    final variation = switch (_repeatType) {
+      RepeatType.weekly => RepeatingCalendarItem.encodeWeeklyWeekdays(
+        _repeatWeeklyDays.isNotEmpty ? _repeatWeeklyDays : {start.weekday},
+      ),
+      RepeatType.monthly => RepeatingCalendarItem.encodeMonthlyMonthDays(
+        _repeatMonthlyDays.isNotEmpty ? _repeatMonthlyDays : {start.day},
+      ),
+      RepeatType.daily || RepeatType.yearly => 0,
+    };
+
+    return RepeatingCalendarItem(
+      id: _item.id,
+      name: _item.name,
+      description: _item.description,
+      location: _item.location,
+      eventId: _item.eventId,
+      start: _item.start,
+      end: _item.end,
+      status: _item.status,
+      repeatType: _repeatType,
+      interval: _repeatInterval,
+      variation: variation,
+      count: _repeatCount,
+      until: _repeatUntil,
+      exceptions: _item is RepeatingCalendarItem
+          ? (_item as RepeatingCalendarItem).exceptions
+          : const [],
+    );
   }
 
   void _convertTo(CalendarItemType type) {
@@ -72,6 +162,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
           break;
         case CalendarItemType.pending:
           _item = _item.copyWith(start: null, end: null);
+          _isRepeating = false;
           break;
       }
     });
@@ -409,6 +500,156 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             canBeEmpty: true,
                           ),
                         ],
+                        if (type != CalendarItemType.pending) ...[
+                          const SizedBox(height: 16),
+                          CheckboxListTile(
+                            title: Text(AppLocalizations.of(context).repeat),
+                            value: _isRepeating,
+                            onChanged: (value) {
+                              if (value == null) return;
+                              setState(() {
+                                _isRepeating = value;
+                              });
+                            },
+                          ),
+                          if (_isRepeating) ...[
+                            const SizedBox(height: 8),
+                            DropdownMenu<RepeatType>(
+                              initialSelection: _repeatType,
+                              dropdownMenuEntries: RepeatType.values
+                                  .map(
+                                    (value) => DropdownMenuEntry(
+                                      value: value,
+                                      label: _repeatTypeLabel(context, value),
+                                    ),
+                                  )
+                                  .toList(),
+                              onSelected: (value) {
+                                if (value == null) return;
+                                setState(() {
+                                  _repeatType = value;
+                                });
+                              },
+                              label: Text(
+                                AppLocalizations.of(context).repeatFrequency,
+                              ),
+                              expandedInsets: const EdgeInsets.all(4),
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              initialValue: _repeatInterval.toString(),
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                labelText: AppLocalizations.of(
+                                  context,
+                                ).repeatInterval,
+                                filled: true,
+                                helperText: AppLocalizations.of(
+                                  context,
+                                ).repeatIntervalHelper,
+                              ),
+                              onChanged: (value) {
+                                final parsed = int.tryParse(value);
+                                if (parsed == null || parsed < 1) return;
+                                _repeatInterval = parsed;
+                              },
+                            ),
+                            if (_repeatType == RepeatType.weekly) ...[
+                              const SizedBox(height: 8),
+                              Text(AppLocalizations.of(context).repeatWeekdays),
+                              Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children: List.generate(7, (index) {
+                                  final weekday = index + 1;
+                                  final selected = _repeatWeeklyDays.contains(
+                                    weekday,
+                                  );
+                                  return FilterChip(
+                                    label: Text(
+                                      _weekdayLabel(context, weekday),
+                                    ),
+                                    selected: selected,
+                                    onSelected: (value) {
+                                      setState(() {
+                                        if (value) {
+                                          _repeatWeeklyDays.add(weekday);
+                                        } else {
+                                          _repeatWeeklyDays.remove(weekday);
+                                        }
+                                      });
+                                    },
+                                  );
+                                }),
+                              ),
+                            ],
+                            if (_repeatType == RepeatType.monthly) ...[
+                              const SizedBox(height: 8),
+                              Text(
+                                AppLocalizations.of(context).repeatMonthDays,
+                              ),
+                              Wrap(
+                                spacing: 6,
+                                runSpacing: 6,
+                                children: List.generate(31, (index) {
+                                  final day = index + 1;
+                                  final selected = _repeatMonthlyDays.contains(
+                                    day,
+                                  );
+                                  return FilterChip(
+                                    label: Text('$day'),
+                                    selected: selected,
+                                    onSelected: (value) {
+                                      setState(() {
+                                        if (value) {
+                                          _repeatMonthlyDays.add(day);
+                                        } else {
+                                          _repeatMonthlyDays.remove(day);
+                                        }
+                                      });
+                                    },
+                                  );
+                                }),
+                              ),
+                            ],
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              initialValue: _repeatCount > 0
+                                  ? _repeatCount.toString()
+                                  : '',
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                labelText: AppLocalizations.of(
+                                  context,
+                                ).repeatOccurrences,
+                                filled: true,
+                                helperText: AppLocalizations.of(
+                                  context,
+                                ).repeatOccurrencesHelper,
+                              ),
+                              onChanged: (value) {
+                                final parsed = int.tryParse(value);
+                                _repeatCount = parsed == null || parsed < 1
+                                    ? 0
+                                    : parsed;
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            DateTimeField(
+                              label: AppLocalizations.of(context).repeatUntil,
+                              initialValue: _repeatUntil,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.calendarCheck,
+                              ),
+                              onChanged: (value) {
+                                _repeatUntil = value;
+                              },
+                              canBeEmpty: true,
+                              filled: true,
+                              showTime: !isAllDay,
+                            ),
+                          ],
+                        ],
                       ],
                     ),
                   ),
@@ -449,6 +690,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
         ),
         ElevatedButton(
           onPressed: () async {
+            _item = _buildPersistedItem();
             if (_create) {
               final created = await _service?.createCalendarItem(_item);
               if (created == null) {
