@@ -328,5 +328,18 @@
   "countdown": "Cuenta atrás",
   "unlink": "Desvincular",
   "noAlarms": "No hay alarmas para mostrar.",
-  "allDay": "Todo el día"
+  "allDay": "Todo el día",
+  "repeat": "Repeat",
+  "repeatFrequency": "Frequency",
+  "repeatInterval": "Interval",
+  "repeatIntervalHelper": "Repeat every n periods",
+  "repeatDaily": "Daily",
+  "repeatWeekly": "Weekly",
+  "repeatMonthly": "Monthly",
+  "repeatYearly": "Yearly",
+  "repeatWeekdays": "Weekdays",
+  "repeatMonthDays": "Month days",
+  "repeatOccurrences": "Occurrences (optional)",
+  "repeatOccurrencesHelper": "Leave empty for no count limit",
+  "repeatUntil": "Until (optional)"
 }
