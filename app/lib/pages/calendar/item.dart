@@ -90,9 +90,10 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
   }
 
   String _weekdayLabel(BuildContext context, int weekday) {
+    final baseMonday = DateTime(2020, 1, 6);
     return DateFormat.EEEE(
       AppLocalizations.of(context).localeName,
-    ).format(DateTime(2020, 1, weekday + 6));
+    ).format(baseMonday.add(Duration(days: weekday - DateTime.monday)));
   }
 
   CalendarItem _buildPersistedItem() {

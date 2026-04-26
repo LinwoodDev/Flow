@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:collection/collection.dart';
 import 'package:dart_leap/dart_leap.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
@@ -15,6 +16,7 @@ class CalendarItemDatabaseService extends CalendarItemService
   CalendarItemDatabaseService();
 
   static const _defaultRangeDays = 31;
+  static const _repeatingRuntimeType = 'RepeatingCalendarItem';
 
   @override
   Future<void> create(
@@ -57,160 +59,134 @@ class CalendarItemDatabaseService extends CalendarItemService
     DateTime? date,
     String search = '',
   }) async {
-    String? where;
-    final whereArgs = <Object?>[];
-    final hasTemporalFilter = start != null || end != null || date != null;
+    if (status?.isEmpty == true ||
+        groupIds?.isEmpty == true ||
+        resourceIds?.isEmpty == true ||
+        limit <= 0) {
+      return [];
+    }
 
-    if (status != null) {
-      where = _addWhere(
-        where,
-        whereArgs,
-        'status IN (${status.map((e) => '?').join(', ')})',
-        status.map((e) => e.name),
-      );
-    }
-    if (pending) {
-      where = _addWhere(where, whereArgs, '(start IS NULL AND end IS NULL)');
-    }
-    if (search.isNotEmpty) {
-      where = _addWhere(
-        where,
-        whereArgs,
-        '(name LIKE ? OR description LIKE ?)',
-        ['%$search%', '%$search%'],
-      );
-    }
-    if (groupIds != null) {
-      final placeholders = List.filled(groupIds.length, '?').join(', ');
-      final statement =
-          "(calendarItems.id IN (SELECT itemId FROM calendarItemGroups WHERE groupId IN ($placeholders)) OR "
-          "calendarItems.eventId IN (SELECT eventId FROM eventGroups WHERE groupId IN ($placeholders)))";
-      where = _addWhere(where, whereArgs, statement, [
-        ...groupIds,
-        ...groupIds,
-      ]);
-    }
-    if (eventId != null) {
-      where = _addWhere(where, whereArgs, 'eventId = ?', [eventId]);
-    }
-    if (resourceIds != null) {
-      final placeholders = List.filled(resourceIds.length, '?').join(', ');
-      final statement =
-          "(calendarItems.id IN (SELECT itemId FROM calendarItemResources WHERE resourceId IN ($placeholders)) OR "
-          "calendarItems.eventId IN (SELECT eventId FROM eventResources WHERE resourceId IN ($placeholders)))";
-      where = _addWhere(where, whereArgs, statement, [
-        ...resourceIds,
-        ...resourceIds,
-      ]);
-    }
+    final baseWhere = _buildBaseWhere(
+      status: status,
+      eventId: eventId,
+      groupIds: groupIds,
+      resourceIds: resourceIds,
+      pending: pending,
+      search: search,
+    );
+    final hasTemporalFilter = start != null || end != null || date != null;
 
     if (!hasTemporalFilter) {
       return _queryItems(
-        where: where,
-        whereArgs: whereArgs,
+        where: baseWhere.where,
+        whereArgs: baseWhere.args,
         offset: offset,
         limit: limit,
       );
     }
 
-    final windowStart =
-        date?.onlyDate() ??
-        start ??
-        end?.subtract(const Duration(days: _defaultRangeDays)) ??
-        DateTime.now().subtract(const Duration(days: _defaultRangeDays));
-    final windowEnd = date != null
-        ? _endOfDay(date)
-        : end ??
-              start?.add(const Duration(days: _defaultRangeDays)) ??
-              DateTime.now().add(const Duration(days: _defaultRangeDays));
-
-    final fixedWhereArgs = <Object?>[...whereArgs];
-    var fixedWhere = where;
-    fixedWhere = _addWhere(
-      fixedWhere,
-      fixedWhereArgs,
-      '(runtimeType NOT IN (?, ?, ?))',
-      const ['RepeatingCalendarItem', 'repeating', 'AutoCalendarItem'],
+    final window = _CalendarItemWindow.fromFilters(
+      start: start,
+      end: end,
+      date: date,
+      defaultRangeDays: _defaultRangeDays,
     );
-    fixedWhere = _addWhere(
-      fixedWhere,
-      fixedWhereArgs,
+
+    final fixedWhere = baseWhere.copy();
+    fixedWhere.add('runtimeType != ?', [_repeatingRuntimeType]);
+    fixedWhere.add(
       '(start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))',
       [
-        windowStart.secondsSinceEpoch,
-        windowEnd.secondsSinceEpoch,
-        windowStart.secondsSinceEpoch,
-        windowEnd.secondsSinceEpoch,
-        windowStart.secondsSinceEpoch,
-        windowEnd.secondsSinceEpoch,
+        window.start.secondsSinceEpoch,
+        window.end.secondsSinceEpoch,
+        window.start.secondsSinceEpoch,
+        window.end.secondsSinceEpoch,
+        window.start.secondsSinceEpoch,
+        window.end.secondsSinceEpoch,
       ],
     );
 
-    final repeatingWhereArgs = <Object?>[...whereArgs];
-    var repeatingWhere = where;
-    repeatingWhere = _addWhere(
-      repeatingWhere,
-      repeatingWhereArgs,
-      '(runtimeType IN (?, ?, ?))',
-      const ['RepeatingCalendarItem', 'repeating', 'AutoCalendarItem'],
-    );
+    final repeatingWhere = baseWhere.copy();
+    repeatingWhere.add('runtimeType = ?', [_repeatingRuntimeType]);
     // Limit recurrence definitions to rows that can potentially produce
     // occurrences inside the requested window.
-    repeatingWhere = _addWhere(
-      repeatingWhere,
-      repeatingWhereArgs,
-      'start IS NOT NULL',
-    );
-    repeatingWhere = _addWhere(
-      repeatingWhere,
-      repeatingWhereArgs,
-      'start <= ?',
-      [windowEnd.secondsSinceEpoch],
-    );
-    repeatingWhere = _addWhere(
-      repeatingWhere,
-      repeatingWhereArgs,
-      '(until IS NULL OR until >= ?)',
-      [windowStart.secondsSinceEpoch],
-    );
+    repeatingWhere.add('start IS NOT NULL');
+    repeatingWhere.add('start <= ?', [window.end.secondsSinceEpoch]);
+    repeatingWhere.add('(until IS NULL OR until >= ?)', [
+      window.start.secondsSinceEpoch,
+    ]);
 
     final fixedItems = await _queryItems(
-      where: fixedWhere,
-      whereArgs: fixedWhereArgs,
+      where: fixedWhere.where,
+      whereArgs: fixedWhere.args,
     );
     final repeatingDefinitions = await _queryItems(
-      where: repeatingWhere,
-      whereArgs: repeatingWhereArgs,
+      where: repeatingWhere.where,
+      whereArgs: repeatingWhere.args,
     );
 
-    final expandedRepeating = repeatingDefinitions.expand(
-      (entry) => _expandConnectedForRange(
-        entry,
-        windowStart,
-        windowEnd,
-        start: start,
-        end: end,
-        date: date,
-      ),
+    return _mergeCalendarItems(
+      fixedItems,
+      repeatingDefinitions,
+      window.start,
+      window.end,
+      start: start,
+      end: end,
+      date: date,
+      offset: offset,
+      limit: limit,
     );
-
-    final merged = [...fixedItems, ...expandedRepeating]
-      ..sort(_compareCalendarItems);
-
-    final startIndex = offset.clamp(0, merged.length);
-    final endIndex = (startIndex + limit).clamp(0, merged.length);
-    return merged.sublist(startIndex, endIndex);
   }
 
-  String _addWhere(
-    String? current,
-    List<Object?> whereArgs,
-    String clause, [
-    Iterable<Object?> args = const [],
-  ]) {
-    whereArgs.addAll(args);
-    return current == null ? clause : '$current AND $clause';
+  _WhereClause _buildBaseWhere({
+    required List<EventStatus>? status,
+    required Uint8List? eventId,
+    required List<Uint8List>? groupIds,
+    required List<Uint8List>? resourceIds,
+    required bool pending,
+    required String search,
+  }) {
+    final where = _WhereClause();
+
+    if (status != null) {
+      where.add(
+        'status IN (${_placeholders(status.length)})',
+        status.map((e) => e.name),
+      );
+    }
+    if (pending) {
+      where.add('start IS NULL AND end IS NULL');
+    }
+    if (search.isNotEmpty) {
+      where.add('(name LIKE ? OR description LIKE ?)', [
+        '%$search%',
+        '%$search%',
+      ]);
+    }
+    if (eventId != null) {
+      where.add('eventId = ?', [eventId]);
+    }
+    if (groupIds != null) {
+      final placeholders = _placeholders(groupIds.length);
+      where.add(
+        '(calendarItems.id IN (SELECT itemId FROM calendarItemGroups WHERE groupId IN ($placeholders)) OR '
+        'calendarItems.eventId IN (SELECT eventId FROM eventGroups WHERE groupId IN ($placeholders)))',
+        [...groupIds, ...groupIds],
+      );
+    }
+    if (resourceIds != null) {
+      final placeholders = _placeholders(resourceIds.length);
+      where.add(
+        '(calendarItems.id IN (SELECT itemId FROM calendarItemResources WHERE resourceId IN ($placeholders)) OR '
+        'calendarItems.eventId IN (SELECT eventId FROM eventResources WHERE resourceId IN ($placeholders)))',
+        [...resourceIds, ...resourceIds],
+      );
+    }
+
+    return where;
   }
+
+  String _placeholders(int length) => List.filled(length, '?').join(', ');
 
   Future<List<ConnectedModel<CalendarItem, Event?>>> _queryItems({
     String? where,
@@ -235,6 +211,8 @@ class CalendarItemDatabaseService extends CalendarItemService
       whereArgs: whereArgs,
       offset: offset,
       limit: limit,
+      orderBy:
+          'calendarItems.start ASC, calendarItems.end ASC, calendarItems.name ASC',
     );
 
     return result
@@ -289,6 +267,82 @@ class CalendarItemDatabaseService extends CalendarItemService
     return a.source.name.compareTo(b.source.name);
   }
 
+  List<ConnectedModel<CalendarItem, Event?>> _mergeCalendarItems(
+    List<ConnectedModel<CalendarItem, Event?>> fixedItems,
+    List<ConnectedModel<CalendarItem, Event?>> repeatingDefinitions,
+    DateTime windowStart,
+    DateTime windowEnd, {
+    DateTime? start,
+    DateTime? end,
+    DateTime? date,
+    required int offset,
+    required int limit,
+  }) {
+    fixedItems.sort(_compareCalendarItems);
+    final repeatingQueue = PriorityQueue<_CalendarItemCursor>(
+      (a, b) => _compareCalendarItems(a.current, b.current),
+    );
+
+    for (final definition in repeatingDefinitions) {
+      final iterator = _expandConnectedForRange(
+        definition,
+        windowStart,
+        windowEnd,
+        start: start,
+        end: end,
+        date: date,
+      ).iterator;
+      if (iterator.moveNext()) {
+        repeatingQueue.add(_CalendarItemCursor(iterator.current, iterator));
+      }
+    }
+
+    final page = <ConnectedModel<CalendarItem, Event?>>[];
+    final skip = offset < 0 ? 0 : offset;
+    final take = limit < 0 ? 0 : limit;
+    var skipped = 0;
+    var fixedIndex = 0;
+
+    while (page.length < take &&
+        (fixedIndex < fixedItems.length || repeatingQueue.isNotEmpty)) {
+      final nextRepeating = repeatingQueue.isEmpty
+          ? null
+          : repeatingQueue.removeFirst();
+      final nextFixed = fixedIndex < fixedItems.length
+          ? fixedItems[fixedIndex]
+          : null;
+
+      late final ConnectedModel<CalendarItem, Event?> next;
+      if (nextRepeating == null) {
+        next = nextFixed!;
+        fixedIndex++;
+      } else if (nextFixed == null ||
+          _compareCalendarItems(nextRepeating.current, nextFixed) <= 0) {
+        next = nextRepeating.current;
+        if (nextRepeating.iterator.moveNext()) {
+          repeatingQueue.add(
+            _CalendarItemCursor(
+              nextRepeating.iterator.current,
+              nextRepeating.iterator,
+            ),
+          );
+        }
+      } else {
+        next = nextFixed;
+        fixedIndex++;
+        repeatingQueue.add(nextRepeating);
+      }
+
+      if (skipped < skip) {
+        skipped++;
+      } else {
+        page.add(next);
+      }
+    }
+
+    return page;
+  }
+
   Iterable<ConnectedModel<CalendarItem, Event?>> _expandConnectedForRange(
     ConnectedModel<CalendarItem, Event?> entry,
     DateTime windowStart,
@@ -321,15 +375,12 @@ class CalendarItemDatabaseService extends CalendarItemService
     DateTime? date,
   }) {
     if (start != null || end != null) {
-      final rangeStart =
-          start ??
-          end?.subtract(const Duration(days: _defaultRangeDays)) ??
-          DateTime.now().subtract(const Duration(days: _defaultRangeDays));
-      final rangeEnd =
-          end ??
-          start?.add(const Duration(days: _defaultRangeDays)) ??
-          DateTime.now().add(const Duration(days: _defaultRangeDays));
-      if (!_overlapsRange(item.start, item.end, rangeStart, rangeEnd)) {
+      final window = _CalendarItemWindow.fromFilters(
+        start: start,
+        end: end,
+        defaultRangeDays: _defaultRangeDays,
+      );
+      if (!_overlapsRange(item.start, item.end, window.start, window.end)) {
         return false;
       }
     }
@@ -356,21 +407,22 @@ class CalendarItemDatabaseService extends CalendarItemService
   DateTime _endOfDay(DateTime date) =>
       date.onlyDate().add(const Duration(hours: 23, minutes: 59, seconds: 59));
 
-  List<CalendarItem> _expandRepeatingCalendarItem(
+  Iterable<CalendarItem> _expandRepeatingCalendarItem(
     RepeatingCalendarItem item,
     DateTime windowStart,
     DateTime windowEnd,
-  ) {
+  ) sync* {
     final baseStart = item.start;
     if (baseStart == null) {
-      return [item];
+      yield item;
+      return;
     }
     final baseEnd = item.end;
     final duration = baseEnd?.difference(baseStart) ?? Duration.zero;
     final searchStart = duration > Duration.zero
         ? windowStart.subtract(duration)
         : windowStart;
-    return _expandRecurring(
+    yield* _expandRecurring(
       item,
       repeatType: item.repeatType,
       interval: item.interval,
@@ -386,7 +438,7 @@ class CalendarItemDatabaseService extends CalendarItemService
     );
   }
 
-  List<CalendarItem> _expandRecurring(
+  Iterable<CalendarItem> _expandRecurring(
     CalendarItem source, {
     required RepeatType repeatType,
     required int interval,
@@ -399,14 +451,13 @@ class CalendarItemDatabaseService extends CalendarItemService
     required List<int> monthlyMonthDays,
     required DateTime searchStart,
     required DateTime windowEnd,
-  }) {
-    final occurrences = <CalendarItem>[];
+  }) sync* {
     final safeInterval = interval <= 0 ? 1 : interval;
     final exceptionSet = exceptions.toSet();
 
-    void addOccurrence(DateTime occurrenceStart) {
+    CalendarItem? buildOccurrence(DateTime occurrenceStart) {
       if (until != null && occurrenceStart.isAfter(until)) {
-        return;
+        return null;
       }
       final occurrenceStartSeconds = occurrenceStart.secondsSinceEpoch;
       final occurrenceDateSeconds = occurrenceStart
@@ -414,7 +465,7 @@ class CalendarItemDatabaseService extends CalendarItemService
           .secondsSinceEpoch;
       if (exceptionSet.contains(occurrenceStartSeconds) ||
           exceptionSet.contains(occurrenceDateSeconds)) {
-        return;
+        return null;
       }
       final occurrenceEnd = duration == Duration.zero
           ? source.end == null
@@ -427,14 +478,15 @@ class CalendarItemDatabaseService extends CalendarItemService
         searchStart,
         windowEnd,
       )) {
-        occurrences.add(_copyWithDates(source, occurrenceStart, occurrenceEnd));
+        return _copyWithDates(source, occurrenceStart, occurrenceEnd);
       }
+      return null;
     }
 
+    Iterable<DateTime> occurrenceStarts;
     switch (repeatType) {
       case RepeatType.daily:
-        _expandDaily(
-          addOccurrence,
+        occurrenceStarts = _expandDaily(
           baseStart: baseStart,
           interval: safeInterval,
           count: count,
@@ -444,8 +496,7 @@ class CalendarItemDatabaseService extends CalendarItemService
         );
         break;
       case RepeatType.weekly:
-        _expandWeekly(
-          addOccurrence,
+        occurrenceStarts = _expandWeekly(
           baseStart: baseStart,
           interval: safeInterval,
           count: count,
@@ -456,8 +507,7 @@ class CalendarItemDatabaseService extends CalendarItemService
         );
         break;
       case RepeatType.monthly:
-        _expandMonthly(
-          addOccurrence,
+        occurrenceStarts = _expandMonthly(
           baseStart: baseStart,
           interval: safeInterval,
           count: count,
@@ -468,8 +518,7 @@ class CalendarItemDatabaseService extends CalendarItemService
         );
         break;
       case RepeatType.yearly:
-        _expandYearly(
-          addOccurrence,
+        occurrenceStarts = _expandYearly(
           baseStart: baseStart,
           interval: safeInterval,
           count: count,
@@ -480,24 +529,28 @@ class CalendarItemDatabaseService extends CalendarItemService
         break;
     }
 
-    return occurrences;
+    for (final occurrenceStart in occurrenceStarts) {
+      final occurrence = buildOccurrence(occurrenceStart);
+      if (occurrence != null) {
+        yield occurrence;
+      }
+    }
   }
 
-  void _expandDaily(
-    void Function(DateTime) addOccurrence, {
+  Iterable<DateTime> _expandDaily({
     required DateTime baseStart,
     required int interval,
     required int count,
     required DateTime? until,
     required DateTime searchStart,
     required DateTime windowEnd,
-  }) {
+  }) sync* {
     if (count > 0) {
       for (var i = 0; i < count; i++) {
         final occurrenceStart = _addCalendarDays(baseStart, i * interval);
         if (until != null && occurrenceStart.isAfter(until)) break;
         if (occurrenceStart.isAfter(windowEnd)) break;
-        addOccurrence(occurrenceStart);
+        yield occurrenceStart;
       }
       return;
     }
@@ -514,7 +567,7 @@ class CalendarItemDatabaseService extends CalendarItemService
 
     while (!occurrenceStart.isAfter(windowEnd)) {
       if (until != null && occurrenceStart.isAfter(until)) break;
-      addOccurrence(occurrenceStart);
+      yield occurrenceStart;
       occurrenceStart = _addCalendarDays(occurrenceStart, interval);
     }
   }
@@ -530,8 +583,7 @@ class CalendarItemDatabaseService extends CalendarItemService
     date.microsecond,
   );
 
-  void _expandWeekly(
-    void Function(DateTime) addOccurrence, {
+  Iterable<DateTime> _expandWeekly({
     required DateTime baseStart,
     required int interval,
     required int count,
@@ -539,7 +591,7 @@ class CalendarItemDatabaseService extends CalendarItemService
     required List<int> weekdays,
     required DateTime searchStart,
     required DateTime windowEnd,
-  }) {
+  }) sync* {
     final normalizedWeekdays =
         (weekdays.isEmpty ? [baseStart.weekday] : weekdays)
             .where(
@@ -574,7 +626,7 @@ class CalendarItemDatabaseService extends CalendarItemService
           if (until != null && occurrenceStart.isAfter(until)) return;
           if (occurrenceStart.isAfter(windowEnd)) return;
           produced++;
-          addOccurrence(occurrenceStart);
+          yield occurrenceStart;
           if (produced >= count) return;
         }
         weekOffset += interval;
@@ -603,15 +655,14 @@ class CalendarItemDatabaseService extends CalendarItemService
         final weekDiff = cursorWeekStart.difference(baseWeekStart).inDays ~/ 7;
         if (weekDiff >= 0 && weekDiff % interval == 0) {
           if (until != null && occurrenceStart.isAfter(until)) return;
-          addOccurrence(occurrenceStart);
+          yield occurrenceStart;
         }
       }
       cursor = cursor.add(const Duration(days: 1));
     }
   }
 
-  void _expandMonthly(
-    void Function(DateTime) addOccurrence, {
+  Iterable<DateTime> _expandMonthly({
     required DateTime baseStart,
     required int interval,
     required int count,
@@ -619,7 +670,7 @@ class CalendarItemDatabaseService extends CalendarItemService
     required List<int> monthDays,
     required DateTime searchStart,
     required DateTime windowEnd,
-  }) {
+  }) sync* {
     final normalizedMonthDays =
         (monthDays.isEmpty ? [baseStart.day] : monthDays)
             .where((day) => day >= 1 && day <= 31)
@@ -639,13 +690,13 @@ class CalendarItemDatabaseService extends CalendarItemService
       baseStart.microsecond,
     );
 
-    void emitMonth(DateTime month) {
+    Iterable<DateTime> emitMonth(DateTime month) sync* {
       final maxDay = _daysInMonth(month.year, month.month);
       for (final day in normalizedMonthDays) {
         if (day > maxDay) continue;
         final occurrenceStart = createOccurrenceStart(month, day);
         if (occurrenceStart.isBefore(baseStart)) continue;
-        addOccurrence(occurrenceStart);
+        yield occurrenceStart;
       }
     }
 
@@ -662,7 +713,7 @@ class CalendarItemDatabaseService extends CalendarItemService
           if (until != null && occurrenceStart.isAfter(until)) return;
           if (occurrenceStart.isAfter(windowEnd)) return;
           produced++;
-          addOccurrence(occurrenceStart);
+          yield occurrenceStart;
           if (produced >= count) return;
         }
         monthOffset += interval;
@@ -685,20 +736,19 @@ class CalendarItemDatabaseService extends CalendarItemService
           DateTime(currentMonth.year, currentMonth.month, 1).isAfter(until)) {
         break;
       }
-      emitMonth(currentMonth);
+      yield* emitMonth(currentMonth);
       currentMonth = DateTime(currentMonth.year, currentMonth.month + interval);
     }
   }
 
-  void _expandYearly(
-    void Function(DateTime) addOccurrence, {
+  Iterable<DateTime> _expandYearly({
     required DateTime baseStart,
     required int interval,
     required int count,
     required DateTime? until,
     required DateTime searchStart,
     required DateTime windowEnd,
-  }) {
+  }) sync* {
     if (count > 0) {
       for (var i = 0; i < count; i++) {
         final year = baseStart.year + i * interval;
@@ -717,7 +767,7 @@ class CalendarItemDatabaseService extends CalendarItemService
         );
         if (until != null && occurrenceStart.isAfter(until)) break;
         if (occurrenceStart.isAfter(windowEnd)) break;
-        addOccurrence(occurrenceStart);
+        yield occurrenceStart;
       }
       return;
     }
@@ -749,7 +799,7 @@ class CalendarItemDatabaseService extends CalendarItemService
       }
       if (occurrenceStart.isAfter(windowEnd)) break;
       if (until != null && occurrenceStart.isAfter(until)) break;
-      addOccurrence(occurrenceStart);
+      yield occurrenceStart;
       year += interval;
     }
   }
@@ -810,7 +860,7 @@ class CalendarItemDatabaseService extends CalendarItemService
       where: 'id = ?',
       whereArgs: [id],
     );
-    return result?.map(CalendarItem.fromDatabase).first;
+    return result?.map(CalendarItem.fromDatabase).firstOrNull;
   }
 
   @override
@@ -870,4 +920,61 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
 
   @override
   FutureOr<void> clear() => service.clear();
+}
+
+class _CalendarItemCursor {
+  final ConnectedModel<CalendarItem, Event?> current;
+  final Iterator<ConnectedModel<CalendarItem, Event?>> iterator;
+
+  _CalendarItemCursor(this.current, this.iterator);
+}
+
+class _CalendarItemWindow {
+  final DateTime start;
+  final DateTime end;
+
+  const _CalendarItemWindow(this.start, this.end);
+
+  factory _CalendarItemWindow.fromFilters({
+    DateTime? start,
+    DateTime? end,
+    DateTime? date,
+    required int defaultRangeDays,
+  }) {
+    final windowStart =
+        date?.onlyDate() ??
+        start ??
+        end?.subtract(Duration(days: defaultRangeDays)) ??
+        DateTime.now().subtract(Duration(days: defaultRangeDays));
+    final windowEnd = date != null
+        ? _endOfDay(date)
+        : end ??
+              start?.add(Duration(days: defaultRangeDays)) ??
+              DateTime.now().add(Duration(days: defaultRangeDays));
+    return _CalendarItemWindow(windowStart, windowEnd);
+  }
+
+  static DateTime _endOfDay(DateTime date) =>
+      date.onlyDate().add(const Duration(hours: 23, minutes: 59, seconds: 59));
+}
+
+class _WhereClause {
+  final List<String> clauses;
+  final List<Object?> args;
+
+  _WhereClause({List<String>? clauses, List<Object?>? args})
+    : clauses = clauses ?? [],
+      args = args ?? [];
+
+  String? get where => clauses.isEmpty ? null : clauses.join(' AND ');
+
+  void add(String clause, [Iterable<Object?> values = const []]) {
+    clauses.add(clause);
+    args.addAll(values);
+  }
+
+  _WhereClause copy() => _WhereClause(
+    clauses: List<String>.of(clauses),
+    args: List<Object?>.of(args),
+  );
 }
