@@ -81,7 +81,10 @@ sealed class CalendarItem
   factory CalendarItem.fromDatabase(Map<String, dynamic> row) {
     final mapped = {...row, 'exceptions': _decodeExceptions(row['exceptions'])};
     final runtimeType = row['runtimeType']?.toString();
-    if (runtimeType == 'RepeatingCalendarItem' || runtimeType == 'repeating') {
+    if (runtimeType == 'RepeatingCalendarItem' ||
+        runtimeType == 'repeating' ||
+        runtimeType == 'AutoCalendarItem' ||
+        runtimeType == 'auto') {
       return RepeatingCalendarItemMapper.fromMap(mapped);
     }
     return FixedCalendarItemMapper.fromMap(mapped);

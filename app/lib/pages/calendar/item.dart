@@ -79,23 +79,25 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
   }
 
   String _repeatTypeLabel(BuildContext context, RepeatType type) {
+    final loc = AppLocalizations.of(context);
     return switch (type) {
-      RepeatType.daily => 'Daily',
-      RepeatType.weekly => 'Weekly',
-      RepeatType.monthly => 'Monthly',
-      RepeatType.yearly => 'Yearly',
+      RepeatType.daily => loc.repeatDaily,
+      RepeatType.weekly => loc.repeatWeekly,
+      RepeatType.monthly => loc.repeatMonthly,
+      RepeatType.yearly => loc.repeatYearly,
     };
   }
 
-  String _weekdayLabel(int weekday) {
-    return const {
-      DateTime.monday: 'Mon',
-      DateTime.tuesday: 'Tue',
-      DateTime.wednesday: 'Wed',
-      DateTime.thursday: 'Thu',
-      DateTime.friday: 'Fri',
-      DateTime.saturday: 'Sat',
-      DateTime.sunday: 'Sun',
+  String _weekdayLabel(BuildContext context, int weekday) {
+    final loc = AppLocalizations.of(context);
+    return {
+      DateTime.monday: loc.repeatMonday,
+      DateTime.tuesday: loc.repeatTuesday,
+      DateTime.wednesday: loc.repeatWednesday,
+      DateTime.thursday: loc.repeatThursday,
+      DateTime.friday: loc.repeatFriday,
+      DateTime.saturday: loc.repeatSaturday,
+      DateTime.sunday: loc.repeatSunday,
     }[weekday]!;
   }
 
@@ -506,7 +508,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                         if (type != CalendarItemType.pending) ...[
                           const SizedBox(height: 16),
                           CheckboxListTile(
-                            title: const Text('Repeat'),
+                            title: Text(AppLocalizations.of(context).repeat),
                             value: _isRepeating,
                             onChanged: (value) {
                               if (value == null) return;
@@ -533,17 +535,22 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                                   _repeatType = value;
                                 });
                               },
-                              label: const Text('Frequency'),
+                              label: Text(
+                                AppLocalizations.of(context).repeatFrequency,
+                              ),
                               expandedInsets: const EdgeInsets.all(4),
                             ),
                             const SizedBox(height: 8),
                             TextFormField(
                               initialValue: _repeatInterval.toString(),
                               keyboardType: TextInputType.number,
-                              decoration: const InputDecoration(
-                                labelText: 'Interval',
+                              decoration: InputDecoration(
+                                labelText:
+                                    AppLocalizations.of(context).repeatInterval,
                                 filled: true,
-                                helperText: 'Repeat every n periods',
+                                helperText: AppLocalizations.of(
+                                  context,
+                                ).repeatIntervalHelper,
                               ),
                               onChanged: (value) {
                                 final parsed = int.tryParse(value);
@@ -553,7 +560,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             ),
                             if (_repeatType == RepeatType.weekly) ...[
                               const SizedBox(height: 8),
-                              const Text('Weekdays'),
+                              Text(AppLocalizations.of(context).repeatWeekdays),
                               Wrap(
                                 spacing: 8,
                                 runSpacing: 8,
@@ -563,7 +570,9 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                                     weekday,
                                   );
                                   return FilterChip(
-                                    label: Text(_weekdayLabel(weekday)),
+                                    label: Text(
+                                      _weekdayLabel(context, weekday),
+                                    ),
                                     selected: selected,
                                     onSelected: (value) {
                                       setState(() {
@@ -580,7 +589,9 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             ],
                             if (_repeatType == RepeatType.monthly) ...[
                               const SizedBox(height: 8),
-                              const Text('Month days'),
+                              Text(
+                                AppLocalizations.of(context).repeatMonthDays,
+                              ),
                               Wrap(
                                 spacing: 6,
                                 runSpacing: 6,
@@ -611,10 +622,14 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                                   ? _repeatCount.toString()
                                   : '',
                               keyboardType: TextInputType.number,
-                              decoration: const InputDecoration(
-                                labelText: 'Occurrences (optional)',
+                              decoration: InputDecoration(
+                                labelText: AppLocalizations.of(
+                                  context,
+                                ).repeatOccurrences,
                                 filled: true,
-                                helperText: 'Leave empty for no count limit',
+                                helperText: AppLocalizations.of(
+                                  context,
+                                ).repeatOccurrencesHelper,
                               ),
                               onChanged: (value) {
                                 final parsed = int.tryParse(value);
@@ -625,7 +640,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                             ),
                             const SizedBox(height: 8),
                             DateTimeField(
-                              label: 'Until (optional)',
+                              label: AppLocalizations.of(context).repeatUntil,
                               initialValue: _repeatUntil,
                               icon: const PhosphorIcon(
                                 PhosphorIconsLight.calendarCheck,

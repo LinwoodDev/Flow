@@ -60,10 +60,12 @@ Future<void> migrateDatabase(
     await db.transaction((txn) async {
       await service.calendarItem.create(txn, 'calendarItems_temp');
       await txn.execute(
-        "INSERT INTO calendarItems_temp "
+        "INSERT INTO calendarItems_temp ("
+        "runtimeType, id, name, description, location, eventId, start, end, "
+        "status, repeatType, interval, variation, count, until, exceptions"
+        ") "
         "SELECT runtimeType, id, name, description, location, eventId, start, end, "
-        "status, repeatType, interval, variation, count, until, exceptions, "
-        "autoGroupId, searchStart, autoDuration "
+        "status, repeatType, interval, variation, count, until, exceptions "
         "FROM calendarItems",
       );
       await txn.execute(
