@@ -9,6 +9,7 @@ import 'package:flow/widgets/markdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/event/item/model.dart';
@@ -89,16 +90,9 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
   }
 
   String _weekdayLabel(BuildContext context, int weekday) {
-    final loc = AppLocalizations.of(context);
-    return {
-      DateTime.monday: loc.repeatMonday,
-      DateTime.tuesday: loc.repeatTuesday,
-      DateTime.wednesday: loc.repeatWednesday,
-      DateTime.thursday: loc.repeatThursday,
-      DateTime.friday: loc.repeatFriday,
-      DateTime.saturday: loc.repeatSaturday,
-      DateTime.sunday: loc.repeatSunday,
-    }[weekday]!;
+    return DateFormat.EEEE(
+      AppLocalizations.of(context).localeName,
+    ).format(DateTime(2020, 1, weekday + 6));
   }
 
   CalendarItem _buildPersistedItem() {
@@ -545,8 +539,9 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                               initialValue: _repeatInterval.toString(),
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
-                                labelText:
-                                    AppLocalizations.of(context).repeatInterval,
+                                labelText: AppLocalizations.of(
+                                  context,
+                                ).repeatInterval,
                                 filled: true,
                                 helperText: AppLocalizations.of(
                                   context,
