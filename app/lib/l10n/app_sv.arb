@@ -328,5 +328,18 @@
   "countdown": "Nedräkning",
   "unlink": "Avlänka",
   "noAlarms": "Det finns inga alarm att visa.",
-  "allDay": "Hela dagen"
+  "allDay": "Hela dagen",
+  "repeat": "Repeat",
+  "repeatFrequency": "Frequency",
+  "repeatInterval": "Interval",
+  "repeatIntervalHelper": "Repeat every n periods",
+  "repeatDaily": "Daily",
+  "repeatWeekly": "Weekly",
+  "repeatMonthly": "Monthly",
+  "repeatYearly": "Yearly",
+  "repeatWeekdays": "Weekdays",
+  "repeatMonthDays": "Month days",
+  "repeatOccurrences": "Occurrences (optional)",
+  "repeatOccurrencesHelper": "Leave empty for no count limit",
+  "repeatUntil": "Until (optional)"
 }
