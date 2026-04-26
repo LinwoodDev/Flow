@@ -38,7 +38,7 @@ class RequestDatabaseService extends ModelService with TableService {
       'request',
       limit: limit,
       offset: offset,
-      orderBy: 'created DESC',
+      orderBy: 'created ASC',
     );
     if (result == null) return [];
     return result
@@ -99,9 +99,10 @@ abstract class RemoteService<T extends RemoteStorage> extends SourceService {
     final requests = await local.request.getRequests();
     for (final request in requests) {
       try {
-        await request.model.send().then(
-          (value) => local.request.deleteRequest(request.source),
-        );
+        final response = await request.model.send();
+        if (response.statusCode >= 200 && response.statusCode < 300) {
+          await local.request.deleteRequest(request.source);
+        }
       } catch (_) {}
     }
   }
@@ -110,9 +111,12 @@ abstract class RemoteService<T extends RemoteStorage> extends SourceService {
     if (!_enableRequests) return null;
     try {
       final response = await apiRequest.send();
+      if (response.statusCode < 200 || response.statusCode >= 300) {
+        await local.request.createRequest(apiRequest);
+      }
       return response;
     } catch (_) {
-      local.request.createRequest(apiRequest);
+      await local.request.createRequest(apiRequest);
     }
     return null;
   }

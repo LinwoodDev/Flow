@@ -320,11 +320,18 @@ class CalendarItemDatabaseService extends CalendarItemService
     DateTime? end,
     DateTime? date,
   }) {
-    if (start != null && (item.start == null || item.start!.isBefore(start))) {
-      return false;
-    }
-    if (end != null && (item.end == null || item.end!.isAfter(end))) {
-      return false;
+    if (start != null || end != null) {
+      final rangeStart =
+          start ??
+          end?.subtract(const Duration(days: _defaultRangeDays)) ??
+          DateTime.now().subtract(const Duration(days: _defaultRangeDays));
+      final rangeEnd =
+          end ??
+          start?.add(const Duration(days: _defaultRangeDays)) ??
+          DateTime.now().add(const Duration(days: _defaultRangeDays));
+      if (!_overlapsRange(item.start, item.end, rangeStart, rangeEnd)) {
+        return false;
+      }
     }
     if (date != null) {
       final dayStart = date.onlyDate();
@@ -487,7 +494,7 @@ class CalendarItemDatabaseService extends CalendarItemService
   }) {
     if (count > 0) {
       for (var i = 0; i < count; i++) {
-        final occurrenceStart = baseStart.add(Duration(days: i * interval));
+        final occurrenceStart = _addCalendarDays(baseStart, i * interval);
         if (until != null && occurrenceStart.isAfter(until)) break;
         if (occurrenceStart.isAfter(windowEnd)) break;
         addOccurrence(occurrenceStart);
@@ -499,18 +506,29 @@ class CalendarItemDatabaseService extends CalendarItemService
     if (searchStart.isAfter(baseStart)) {
       final diffDays = searchStart.difference(baseStart).inDays;
       final jump = diffDays ~/ interval;
-      occurrenceStart = baseStart.add(Duration(days: jump * interval));
+      occurrenceStart = _addCalendarDays(baseStart, jump * interval);
       while (occurrenceStart.isBefore(searchStart)) {
-        occurrenceStart = occurrenceStart.add(Duration(days: interval));
+        occurrenceStart = _addCalendarDays(occurrenceStart, interval);
       }
     }
 
     while (!occurrenceStart.isAfter(windowEnd)) {
       if (until != null && occurrenceStart.isAfter(until)) break;
       addOccurrence(occurrenceStart);
-      occurrenceStart = occurrenceStart.add(Duration(days: interval));
+      occurrenceStart = _addCalendarDays(occurrenceStart, interval);
     }
   }
+
+  DateTime _addCalendarDays(DateTime date, int days) => DateTime(
+    date.year,
+    date.month,
+    date.day + days,
+    date.hour,
+    date.minute,
+    date.second,
+    date.millisecond,
+    date.microsecond,
+  );
 
   void _expandWeekly(
     void Function(DateTime) addOccurrence, {

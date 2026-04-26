@@ -1,3 +1,4 @@
+import 'package:dart_leap/dart_leap.dart';
 import 'package:flow_api/models/cached.dart';
 import 'package:flow_api/models/event/item/model.dart';
 import 'package:flow_api/models/event/model.dart';
@@ -97,24 +98,15 @@ class ICalConverter {
             break;
           case 'RRULE':
             final rrule = _parseRRule(value);
-            if (rrule != null && currentItem is FixedCalendarItem) {
-              final c = currentItem;
-              currentItem = RepeatingCalendarItem(
-                id: c.id,
-                name: c.name,
-                description: c.description,
-                location: c.location,
-                eventId: c.eventId,
-                start: c.start,
-                end: c.end,
-                status: c.status,
-                repeatType: rrule.repeatType,
-                interval: rrule.interval,
-                variation: _variationFromRRule(rrule),
-                count: rrule.count,
-                until: rrule.until,
-              );
+            if (rrule != null) {
+              currentItem = _copyWithRRule(currentItem, rrule);
             }
+            break;
+          case 'EXDATE':
+            currentItem = _copyWithExceptions(currentItem, [
+              ..._repeatingExceptions(currentItem),
+              ..._parseDateTimes(value).map((e) => e.secondsSinceEpoch),
+            ]);
             break;
         }
       } else if (currentNote != null) {
@@ -200,6 +192,50 @@ class ICalConverter {
       }
     }
     return DateTime.tryParse(value);
+  }
+
+  List<DateTime> _parseDateTimes(String value) =>
+      value.split(',').map((e) => _parseDateTime(e.trim())).nonNulls.toList();
+
+  List<int> _repeatingExceptions(CalendarItem? item) =>
+      item is RepeatingCalendarItem ? item.exceptions : const [];
+
+  CalendarItem _copyWithRRule(CalendarItem item, _RRule rrule) {
+    final exceptions = _repeatingExceptions(item);
+    return RepeatingCalendarItem(
+      id: item.id,
+      name: item.name,
+      description: item.description,
+      location: item.location,
+      eventId: item.eventId,
+      start: item.start,
+      end: item.end,
+      status: item.status,
+      repeatType: rrule.repeatType,
+      interval: rrule.interval,
+      variation: _variationFromRRule(rrule),
+      count: rrule.count,
+      until: rrule.until,
+      exceptions: exceptions,
+    );
+  }
+
+  CalendarItem _copyWithExceptions(CalendarItem item, List<int> exceptions) {
+    final distinctExceptions = exceptions.toSet().toList()..sort();
+    if (item is RepeatingCalendarItem) {
+      return item.copyWith(exceptions: distinctExceptions);
+    }
+    return RepeatingCalendarItem(
+      id: item.id,
+      name: item.name,
+      description: item.description,
+      location: item.location,
+      eventId: item.eventId,
+      start: item.start,
+      end: item.end,
+      status: item.status,
+      exceptions: distinctExceptions,
+    );
   }
 
   _RRule? _parseRRule(String value) {
@@ -328,6 +364,8 @@ class ICalConverter {
     if (item.start != null) 'DTSTART:${_formatDateTime(item.start!.toUtc())}',
     if (item.end != null) 'DTEND:${_formatDateTime(item.end!.toUtc())}',
     if (item is RepeatingCalendarItem) _formatRRule(item),
+    if (item is RepeatingCalendarItem && item.exceptions.isNotEmpty)
+      'EXDATE:${item.exceptions.map(_formatException).join(',')}',
     'STATUS:${_formatEventStatus(item.status)}',
     'END:VEVENT',
   ];
@@ -370,8 +408,12 @@ class ICalConverter {
     };
   }
 
+  String _formatException(int secondsSinceEpoch) => _formatDateTime(
+    DateTime.fromMillisecondsSinceEpoch(secondsSinceEpoch * 1000, isUtc: true),
+  );
+
   String _formatDateTime(DateTime dateTime) =>
-      "${dateTime.year}${dateTime.month.toString().padLeft(2, '0')}${dateTime.day.toString().padLeft(2, '0')}T${dateTime.hour.toString().padLeft(2, '0')}${dateTime.minute.toString().padLeft(2, '0')}00Z";
+      "${dateTime.year}${dateTime.month.toString().padLeft(2, '0')}${dateTime.day.toString().padLeft(2, '0')}T${dateTime.hour.toString().padLeft(2, '0')}${dateTime.minute.toString().padLeft(2, '0')}${dateTime.second.toString().padLeft(2, '0')}Z";
 
   String _formatRepeatType(RepeatType type) {
     switch (type) {
