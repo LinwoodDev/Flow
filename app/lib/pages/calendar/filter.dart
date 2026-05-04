@@ -91,6 +91,12 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scrollbar(
       controller: _scrollController,
@@ -161,7 +167,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                                 source: _filter.source,
                               ),
                             );
-                        if (sourceGroup != null) {
+                        if (sourceGroup != null && mounted) {
                           setState(() {
                             _filter = _filter.copyWith(
                               event: sourceGroup.model.id,
@@ -201,7 +207,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                                 source: _filter.source,
                               ),
                             );
-                        if (sourceGroup != null) {
+                        if (sourceGroup != null && mounted) {
                           setState(() {
                             _filter = _filter.copyWith(
                               group: sourceGroup.model.id,
@@ -241,7 +247,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                                 source: _filter.source,
                               ),
                             );
-                        if (sourceResource != null) {
+                        if (sourceResource != null && mounted) {
                           setState(() {
                             _filter = _filter.copyWith(
                               resource: sourceResource.model.id,

@@ -21,6 +21,7 @@ import 'package:flow_api/models/event/model.dart';
 import 'package:flow_api/models/extra.dart';
 import 'package:flow_api/services/database.dart';
 import 'package:xml/xml.dart';
+import 'package:collection/collection.dart';
 
 import '../../../models/request.dart';
 import 'model.dart';
@@ -57,10 +58,11 @@ class CalDavRemoteService extends RemoteService<CalDavStorage> {
   Future<void> synchronize() async {
     await super.synchronize();
     final client = http.Client();
-    final request = http.Request('REPORT', Uri.parse(remoteStorage.url));
-    request.headers['Depth'] = '1';
-    request.headers['Content-Type'] = 'application/xml; charset=utf-8';
-    request.body = '''
+    try {
+      final request = http.Request('REPORT', Uri.parse(remoteStorage.url));
+      request.headers['Depth'] = '1';
+      request.headers['Content-Type'] = 'application/xml; charset=utf-8';
+      request.body = '''
 <?xml version="1.0" encoding="utf-8" ?>
 <C:calendar-query xmlns:D="DAV:"
                   xmlns:C="urn:ietf:params:xml:ns:caldav">
@@ -76,37 +78,49 @@ class CalDavRemoteService extends RemoteService<CalDavStorage> {
   </C:filter>
 </C:calendar-query>
 ''';
-    // Add auth basic
-    request.headers['Authorization'] = _getAuthHeader();
-    final response = await client.send(request);
-    final xmlDocument = XmlDocument.parse(
-      await response.stream.bytesToString(),
-    );
-    // Get /d:multistatus/d:response/d:propstat/d:prop/cal:calendar-data
-    final data =
-        xmlDocument.getElement("d:multistatus")?.findElements("d:response") ??
-        [];
-    final converter = ICalConverter();
-    for (var element in data) {
-      final href = element.getElement("d:href")?.innerText;
-      final prop = element.getElement("d:propstat")?.getElement("d:prop");
-      if (href == null) continue;
-      final text = prop?.getElement("cal:calendar-data")?.innerText;
-      if (text == null) continue;
-      final etag = prop?.getElement("d:getetag")?.innerText;
-      if (etag == null) continue;
-      final name = href.substring(href.lastIndexOf('/') + 1);
-      final id = createUniqueUint8List();
-      converter.read(
-        text.split('\n'),
-        event: Event(
-          name: name,
-          id: id,
-        ).addExtra(CalDavExtraProperties(etag: etag, path: href)),
-        notebook: Notebook(id: id, name: name),
+      // Add auth basic
+      request.headers['Authorization'] = _getAuthHeader();
+      final response = await client.send(request);
+      if (response.statusCode < 200 || response.statusCode >= 300) {
+        throw http.ClientException(
+          'Failed to synchronize CalDAV source: ${response.statusCode}',
+          Uri.parse(remoteStorage.url),
+        );
+      }
+      final xmlDocument = XmlDocument.parse(
+        await response.stream.bytesToString(),
       );
+      // Get /multistatus/response/propstat/prop/calendar-data,
+      // regardless of which XML prefixes the server chooses.
+      final data = xmlDocument.rootElement.name.local == 'multistatus'
+          ? xmlDocument.rootElement.findElementsByLocalName('response')
+          : const <XmlElement>[];
+      final converter = ICalConverter();
+      for (var element in data) {
+        final href = element.getElementByLocalName('href')?.innerText;
+        final prop = element
+            .getElementByLocalName('propstat')
+            ?.getElementByLocalName('prop');
+        if (href == null) continue;
+        final text = prop?.getElementByLocalName('calendar-data')?.innerText;
+        if (text == null) continue;
+        final etag = prop?.getElementByLocalName('getetag')?.innerText;
+        if (etag == null) continue;
+        final name = href.substring(href.lastIndexOf('/') + 1);
+        final id = createUniqueUint8List();
+        converter.read(
+          text.split('\n'),
+          event: Event(
+            name: name,
+            id: id,
+          ).addExtra(CalDavExtraProperties(etag: etag, path: href)),
+          notebook: Notebook(id: id, name: name),
+        );
+      }
+      if (converter.data != null) import(converter.data!);
+    } finally {
+      client.close();
     }
-    if (converter.data != null) import(converter.data!);
   }
 
   String _getAuthHeader() =>
@@ -163,6 +177,15 @@ class CalDavRemoteService extends RemoteService<CalDavStorage> {
   get userLabel => local.userLabel;
   @override
   get groupLabel => local.groupLabel;
+}
+
+extension _XmlElementLocalNameLookup on XmlElement {
+  Iterable<XmlElement> findElementsByLocalName(String localName) => children
+      .whereType<XmlElement>()
+      .where((element) => element.name.local == localName);
+
+  XmlElement? getElementByLocalName(String localName) =>
+      findElementsByLocalName(localName).firstOrNull;
 }
 
 class EventModelCalDavConnector<I> extends ModelConnector<I, Event> {

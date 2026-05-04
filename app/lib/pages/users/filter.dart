@@ -53,6 +53,12 @@ class _UserFilterViewState extends State<UserFilterView> {
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scrollbar(
       controller: _scrollController,
@@ -89,7 +95,7 @@ class _UserFilterViewState extends State<UserFilterView> {
                                 : null,
                           ),
                         );
-                        if (groupId != null) {
+                        if (groupId != null && mounted) {
                           setState(() {
                             _filter = _filter.copyWith(
                               group: groupId.model.id,

@@ -22,6 +22,12 @@ class IcalRemoteService extends RemoteService<ICalStorage> {
       uri,
       headers: {'Authorization': _getAuthHeader()},
     );
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw http.ClientException(
+        'Failed to synchronize iCalendar source: ${response.statusCode}',
+        uri,
+      );
+    }
     final converter = ICalConverter();
     final name = remoteStorage.uri.host;
     converter.read(

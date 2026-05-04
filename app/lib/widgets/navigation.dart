@@ -345,10 +345,9 @@ class _FlowDrawer extends StatelessWidget {
   }
 
   Future<dynamic> _showSources(BuildContext context) {
-    final sources = [''];
-    final currents = List<String>.from(
-      context.read<FlowCubit>().getCurrentSources(),
-    );
+    final cubit = context.read<FlowCubit>();
+    final sources = cubit.getSources();
+    final currents = List<String>.from(cubit.getCurrentSources());
     final remotes = context.read<SettingsCubit>().state.remotes;
     return showDialog(
       context: context,

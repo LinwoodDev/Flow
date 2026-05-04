@@ -5,15 +5,29 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class ICalSourceDialog extends StatelessWidget {
+class ICalSourceDialog extends StatefulWidget {
+  const ICalSourceDialog({super.key});
+
+  @override
+  State<ICalSourceDialog> createState() => _ICalSourceDialogState();
+}
+
+class _ICalSourceDialogState extends State<ICalSourceDialog> {
   final TextEditingController _urlController = TextEditingController(),
       _usernameController = TextEditingController(),
       _passwordController = TextEditingController();
-  ICalSourceDialog({super.key});
+  bool _showPassword = false;
+
+  @override
+  void dispose() {
+    _urlController.dispose();
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    bool showPassword = false;
     return AlertDialog(
       title: const Text("iCal"),
       content: SizedBox(
@@ -49,17 +63,17 @@ class ICalSourceDialog extends StatelessWidget {
                     filled: true,
                     suffix: IconButton(
                       icon: PhosphorIcon(
-                        showPassword
+                        _showPassword
                             ? PhosphorIconsLight.lockOpen
                             : PhosphorIconsLight.lock,
                       ),
                       onPressed: () =>
-                          setState(() => showPassword = !showPassword),
+                          setState(() => _showPassword = !_showPassword),
                     ),
                   ),
-                  obscureText: !showPassword,
+                  obscureText: !_showPassword,
                   controller: _passwordController,
-                  keyboardType: showPassword
+                  keyboardType: _showPassword
                       ? TextInputType.visiblePassword
                       : null,
                   enableSuggestions: false,
@@ -77,15 +91,16 @@ class ICalSourceDialog extends StatelessWidget {
           child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
-          onPressed: () {
-            context.read<SourcesService>().addRemote(
+          onPressed: () async {
+            final navigator = Navigator.of(context);
+            await context.read<SourcesService>().addRemote(
               ICalStorage(
                 url: _urlController.text,
                 username: _usernameController.text,
               ),
               _passwordController.text,
             );
-            Navigator.of(context).pop();
+            if (mounted) navigator.pop();
           },
           child: Text(AppLocalizations.of(context).connect),
         ),

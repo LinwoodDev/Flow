@@ -61,6 +61,12 @@ class _EventFilterViewState extends State<EventFilterView> {
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scrollbar(
       controller: _scrollController,
@@ -95,7 +101,7 @@ class _EventFilterViewState extends State<EventFilterView> {
                             source: _filter.source,
                           ),
                         );
-                        if (groupId != null) {
+                        if (groupId != null && mounted) {
                           setState(() {
                             _filter = _filter.copyWith(
                               group: groupId.model.id,
@@ -135,7 +141,7 @@ class _EventFilterViewState extends State<EventFilterView> {
                                 source: _filter.source,
                               ),
                             );
-                        if (sourceResource != null) {
+                        if (sourceResource != null && mounted) {
                           setState(() {
                             _filter = _filter.copyWith(
                               resource: sourceResource.model.id,

@@ -28,12 +28,14 @@ class MarkdownField extends StatefulWidget {
 
 class _MarkdownFieldState extends State<MarkdownField> {
   late final TextEditingController _controller;
+  late final bool _ownsController;
   bool _editMode = false;
   final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
+    _ownsController = widget.controller == null;
     _controller =
         widget.controller ?? TextEditingController(text: widget.value);
     _focusNode.addListener(() {
@@ -51,7 +53,17 @@ class _MarkdownFieldState extends State<MarkdownField> {
     }
   }
 
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    if (_ownsController) {
+      _controller.dispose();
+    }
+    super.dispose();
+  }
+
   void _exitEditMode() {
+    if (!mounted) return;
     setState(() => _editMode = false);
     widget.onChangeEnd?.call(_controller.text);
   }

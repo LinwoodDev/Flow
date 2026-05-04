@@ -192,9 +192,9 @@ class _SelectDialogState<T extends NamedModel> extends State<SelectDialog<T>> {
 
   @override
   void dispose() {
-    super.dispose();
-
+    _controller.dispose();
     _bloc.close();
+    super.dispose();
   }
 
   @override

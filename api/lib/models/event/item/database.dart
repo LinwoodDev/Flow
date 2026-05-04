@@ -95,10 +95,9 @@ class CalendarItemDatabaseService extends CalendarItemService
     final fixedWhere = baseWhere.copy();
     fixedWhere.add('runtimeType != ?', [_repeatingRuntimeType]);
     fixedWhere.add(
-      '(start BETWEEN ? AND ? OR end BETWEEN ? AND ? OR (start <= ? AND end >= ?))',
+      '(((end IS NULL OR end > ?) AND (start IS NULL OR start < ?)) OR '
+      '(start = end AND start >= ? AND start < ?))',
       [
-        window.start.secondsSinceEpoch,
-        window.end.secondsSinceEpoch,
         window.start.secondsSinceEpoch,
         window.end.secondsSinceEpoch,
         window.start.secondsSinceEpoch,
@@ -400,8 +399,11 @@ class CalendarItemDatabaseService extends CalendarItemService
     DateTime rangeStart,
     DateTime rangeEnd,
   ) {
-    return (itemEnd == null || !itemEnd.isBefore(rangeStart)) &&
-        (itemStart == null || !itemStart.isAfter(rangeEnd));
+    if (itemStart != null && itemEnd != null && itemStart == itemEnd) {
+      return !itemStart.isBefore(rangeStart) && itemStart.isBefore(rangeEnd);
+    }
+    return (itemEnd == null || itemEnd.isAfter(rangeStart)) &&
+        (itemStart == null || itemStart.isBefore(rangeEnd));
   }
 
   DateTime _endOfDay(DateTime date) =>

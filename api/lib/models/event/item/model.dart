@@ -101,6 +101,14 @@ sealed class CalendarItem
   }
 
   bool collidesWith(CalendarItem date) {
+    if (start != null && end != null && start == end) {
+      return (date.start == null || !start!.isBefore(date.start!)) &&
+          (date.end == null || start!.isBefore(date.end!));
+    }
+    if (date.start != null && date.end != null && date.start == date.end) {
+      return (start == null || !date.start!.isBefore(start!)) &&
+          (end == null || date.start!.isBefore(end!));
+    }
     return (end == null || (date.start?.isBefore(end!) ?? true)) &&
         (start == null || (date.end?.isAfter(start!) ?? true));
   }

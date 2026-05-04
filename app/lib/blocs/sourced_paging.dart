@@ -116,9 +116,20 @@ class SourcedPagingBloc<T>
         ? state.dates
         : <List<SourcedModel<T>>>[];
     try {
+      final sources = this.sources ?? cubit.getCurrentSources();
+      if (sources.isEmpty) {
+        emit(
+          SourcedPagingSuccess(
+            currentPageKey: const SourcedModel('', 0),
+            dates: previousItems,
+            hasReachedMax: true,
+            currentDate: date,
+          ),
+        );
+        return;
+      }
       final currentPageKey =
-          state.currentPageKey ??
-          SourcedModel(cubit.getCurrentSources().first, 0);
+          state.currentPageKey ?? SourcedModel(sources.first, 0);
 
       final fetchedItems =
           (await _fetch(
@@ -132,7 +143,6 @@ class SourcedPagingBloc<T>
               .map((e) => SourcedModel(currentPageKey.source, e))
               .toList();
 
-      final sources = this.sources ?? cubit.getCurrentSources();
       final currentSourceIndex = sources.indexOf(currentPageKey.source);
       final keepSource = fetchedItems.length >= pageSize;
       final isLastSource = currentSourceIndex >= sources.length - 1;
