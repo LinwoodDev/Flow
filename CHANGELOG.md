@@ -2,6 +2,20 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 0.6.0 (2026-05-28)
+
+* Add gestures in day and week view ([#32](https://github.com/LinwoodDev/Flow/issues/32))
+* Add repeated calendar items and iCal RRULE/EXDATE handling
+* Fix snap build
+* Improve CalDAV synchronization and offline editing support
+* Fix web build not loading ([#135](https://github.com/LinwoodDev/Flow/issues/135))
+* Upgrade to flutter 3.41
+* Fix stale filter and list refresh behavior in events, users, calendar, notes, and dashboard views
+* Fix source selection, paging, remote sync error handling, calendar boundary matching, and controller cleanup issues
+
+Read more here: https://linwood.dev/flow/0.6.0
+
+
 ## 0.5.2 (2026-01-07)
 
 * Improve ical parser

@@ -65,6 +65,7 @@
 	<content_rating type="oars-1.1" />
 	<update_contact>contact@linwood.dev</update_contact>
 	<releases>
+		<release version="0.6.0" date="2026-05-28" />
 		<release version="0.5.2" date="2026-01-07" />
 		<release version="0.5.1" date="2025-10-15" />
 		<release version="0.5.0" date="2025-10-13" />
