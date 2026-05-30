@@ -133,7 +133,17 @@ jobs:
           name: apk-x86_64-build-legacy
           path: app/linwood-flow-android-x86_64-legacy.apk
   build-windows:
-    runs-on: windows-2025
+    strategy:
+      fail-fast: false
+      matrix:
+        arch:
+          - image: windows-2025
+            name: x86_64
+            dir: x64
+          - image: windows-11-arm
+            name: arm64
+            dir: arm64
+    runs-on: ${{ matrix.arch.image }}
     defaults:
       run:
         working-directory: app
@@ -147,7 +157,10 @@ jobs:
       - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
+          channel: "master"
           cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
+          cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
       - name: 📦 Get dependencies
@@ -167,24 +180,23 @@ jobs:
         shell: pwsh
         run: |
           Get-Content pubspec.yaml | Select-String -Pattern 'version:\s(.+)\+'  | % {Set-Item -Path Env:FLOW_VERSION -Value "$($_.matches.groups[1])"}
-          & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:FLOW_VERSION FlowSetup.iss
-        # flutter pub run msix:create
+          & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:FLOW_VERSION /DMyAppArch=${{ matrix.arch.dir }} FlowSetup.iss
       - name: Copy portable start script
         run: |
-          cp scripts/start.bat build/windows/x64/runner/Release/
-          cp build/windows/x64/linwood-flow-windows-setup.exe linwood-flow-windows-setup-x86_64.exe
+          cp scripts/start.bat build/windows/${{ matrix.arch.dir }}/runner/Release/
+          cp build/windows/${{ matrix.arch.dir }}/linwood-flow-windows-setup.exe linwood-flow-windows-setup-${{ matrix.arch.name }}.exe
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
-          name: windows-build
+          name: windows-${{ matrix.arch.name }}-build
           path: |
-            app/build/windows/x64/runner/Release/**
+            app/build/windows/${{ matrix.arch.dir }}/runner/Release/**
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
-          name: windows-setup
+          name: windows-${{ matrix.arch.name }}-setup
           path: |
-            app/linwood-flow-windows-setup-x86_64.exe
+            app/linwood-flow-windows-setup-${{ matrix.arch.name }}.exe
   build-msix:
     name: build-msix
     runs-on: windows-2025
@@ -386,6 +398,7 @@ jobs:
       - uses: snapcore/action-build@v1
         id: build
       - uses: snapcore/action-publish@v1
+        continue-on-error: true
         name: Publish Snap to Store
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || github.ref == 'refs/tags/nightly' || github.ref == 'refs/tags/stable' }}
         env:
@@ -579,8 +592,12 @@ jobs:
           name: apk-x86_64-build-legacy
       - uses: actions/download-artifact@v8
         with:
-          name: windows-build
-          path: windows-build/
+          name: windows-arm64-build
+          path: windows-arm64-build/
+      - uses: actions/download-artifact@v8
+        with:
+          name: windows-x86_64-build
+          path: windows-x86_64-build/
       - uses: actions/download-artifact@v8
         with:
           name: linux-x86_64-build
@@ -635,7 +652,10 @@ jobs:
           name: linux-alternative-arm64-appimage
       - uses: actions/download-artifact@v8
         with:
-          name: windows-setup
+          name: windows-x86_64-setup
+      - uses: actions/download-artifact@v8
+        with:
+          name: windows-arm64-setup
       - uses: actions/download-artifact@v8
         with:
           name: macos-build
@@ -647,8 +667,10 @@ jobs:
           name: ipa-build
       - name: 📦 Zip artifacts
         run: |
-          cd windows-build
+          cd windows-x86_64-build
           zip -r ../linwood-flow-windows-x86_64.zip *
+          cd ../windows-arm64-build
+          zip -r ../linwood-flow-windows-arm64.zip *
           cd ..
           tar -C linux-x86_64-build -czf linwood-flow-linux-x86_64.tar.gz .
           tar -C linux-arm64-build -czf linwood-flow-linux-arm64.tar.gz .
@@ -680,7 +702,7 @@ jobs:
           echo "SHA256 hashes for files starting with 'linwood-flow' saved to $output_file"
       - name: 🚀 Deploy stable
         if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         continue-on-error: true
         with:
           prerelease: true
@@ -688,6 +710,8 @@ jobs:
           files: |
             linwood-flow-windows-setup-x86_64.exe
             linwood-flow-windows-x86_64.zip
+            linwood-flow-windows-setup-arm64.exe
+            linwood-flow-windows-arm64.zip
             linwood-flow-linux-x86_64.tar.gz
             linwood-flow-linux-x86_64.deb
             linwood-flow-linux-x86_64.rpm
@@ -724,7 +748,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy nightly
         if: ${{ github.ref == 'refs/tags/nightly' }}
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         continue-on-error: true
         with:
           prerelease: true
@@ -732,6 +756,8 @@ jobs:
           files: |
             linwood-flow-windows-setup-x86_64.exe
             linwood-flow-windows-x86_64.zip
+            linwood-flow-windows-setup-arm64.exe
+            linwood-flow-windows-arm64.zip
             linwood-flow-linux-x86_64.tar.gz
             linwood-flow-linux-x86_64.deb
             linwood-flow-linux-x86_64.rpm
@@ -767,13 +793,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         continue-on-error: true
         if: startsWith(github.ref, 'refs/tags/v')
         with:
           files: |
             linwood-flow-windows-setup-x86_64.exe
             linwood-flow-windows-x86_64.zip
+            linwood-flow-windows-setup-arm64.exe
+            linwood-flow-windows-arm64.zip
             linwood-flow-linux-x86_64.tar.gz
             linwood-flow-linux-x86_64.deb
             linwood-flow-linux-x86_64.rpm
@@ -852,7 +880,7 @@ jobs:
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "4.0.2"
+          ruby-version: "4.0.5"
           bundler-cache: true
           working-directory: app/android
       - name: 🚀 Deploy to Play Store

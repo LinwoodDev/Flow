@@ -1,0 +1,3 @@
+* Upgrade flutter to 3.44
+
+Read more here: https://linwood.dev/flow/0.6.1

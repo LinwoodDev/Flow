@@ -15,7 +15,6 @@
 
 Read more here: https://linwood.dev/flow/0.6.0
 
-
 ## 0.5.2 (2026-01-07)
 
 * Improve ical parser

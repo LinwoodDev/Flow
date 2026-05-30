@@ -129,8 +129,7 @@ class DataSettingsPage extends StatelessWidget {
       allowedExtensions: ['json'],
     ).then((result) => result?.files.firstOrNull);
     if (result == null) return;
-    final data = result.bytes;
-    if (data == null) return;
+    final data = await result.readAsBytes();
     settingsCubit.importSettings(utf8.decode(data));
   }
 

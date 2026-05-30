@@ -109,11 +109,9 @@ class AddSourceDialog extends StatelessWidget {
                   final result = await FilePicker.pickFiles(
                     allowedExtensions: ['ics', 'ical', 'icalendar'],
                     type: FileType.custom,
-                    withData: true,
                   ).then((result) => result?.files.firstOrNull);
                   if (result == null) return;
-                  final data = result.bytes;
-                  if (data == null) return;
+                  final data = await result.readAsBytes();
                   final lines = utf8.decode(data).split('\n');
                   final converter = ICalConverter();
                   converter.read(lines);
