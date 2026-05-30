@@ -458,7 +458,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                                   onChanged: (value) {
                                     _item = _item.copyWith(start: value);
                                   },
-                                  canBeEmpty: true,
+                                  canBeEmpty: false,
                                   filled: true,
                                   showTime: !isAllDay,
                                 ),
@@ -479,7 +479,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                                           : value,
                                     );
                                   },
-                                  canBeEmpty: true,
+                                  canBeEmpty: false,
                                   filled: true,
                                   showTime: !isAllDay,
                                 ),

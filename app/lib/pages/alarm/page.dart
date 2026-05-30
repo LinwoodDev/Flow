@@ -175,6 +175,7 @@ class AlarmDialog extends StatelessWidget {
             label: AppLocalizations.of(context).time,
             initialValue: alarm.date,
             onChanged: (value) => alarm = alarm.copyWith(date: value),
+            canBeEmpty: false,
           ),
           const SizedBox(height: 20),
           TextFormField(

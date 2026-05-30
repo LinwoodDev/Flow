@@ -5,10 +5,13 @@
 #ifndef MyAppVersion
 #define MyAppVersion "1.0"
 #endif
+#ifndef MyAppArch
+#define MyAppArch "x64"
+#endif
 #define MyAppPublisher "Linwood"
 #define MyAppURL "https://www.linwood.dev"
-#define MyAppExeName "flow.exe"
-#define BaseDirRelease "build\windows\x64\runner\Release"
+#define MyAppExeName "flow.exe" 
+#define BaseDirRelease "build\windows\" + MyAppArch + "\runner\Release"
 #define RunnerSourceDir "windows\runner"
 
 
@@ -30,14 +33,17 @@ LicenseFile=..\LICENSE
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputDir=build\windows\x64
+OutputDir=build\windows\{#MyAppArch}
 OutputBaseFilename=linwood-flow-windows-setup
 SetupIconFile={#RunnerSourceDir}\resources\app_icon.ico
 UninstallDisplayIcon={app}\{#MyAppExeName}
 Compression=lzma
 SolidCompression=yes
+ArchitecturesAllowed={#MyAppArch}
+ArchitecturesInstallIn64BitMode={#MyAppArch}
 WizardStyle=modern
-Uninstallable=not IsTaskSelected('portablemode')
+Uninstallable=not WizardIsTaskSelected('portablemode')
+ChangesAssociations=yes
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -45,8 +51,8 @@ Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 Name: "german"; MessagesFile: "compiler:Languages\German.isl"
 
 [Tasks]     
-Name: "desktopicon"; Description: "Create a Desktop shortcut"; Components: full
-Name: "startmenu"; Description: "Create a Start Menu entry"; Components: full
+Name: "desktopicon"; Description: "Create a Desktop shortcut"
+Name: "startmenu"; Description: "Create a Start Menu entry"
 
 
 [Files]
@@ -54,16 +60,9 @@ Source: "{#BaseDirRelease}\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignorevers
 Source: "{#BaseDirRelease}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
-[Types]
-Name: "full"; Description: "Full installation"
-Name: "portable"; Description: "Portable mode"
-
-[Components]
-Name: "full"; Description: "full"; Types: full
-
 [Icons]
-Name: "{group}\Visit Website"; Filename: "http://www.linwood.dev/"
-Name: "{group}\Flow Documentation"; Filename: "https://docs.flow.linwood.dev/"
+Name: "{group}\Visit Website"; Filename: "https://www.linwood.dev/"
+Name: "{group}\Flow Documentation"; Filename: "https://flow.linwood.dev/"
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
