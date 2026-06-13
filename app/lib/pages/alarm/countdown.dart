@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flow/cubits/settings.dart';
+import 'package:flow/cubits/alarm.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +9,9 @@ import 'package:intl/intl.dart';
 import 'package:material_leap/material_leap.dart';
 
 class AlarmCountdownPage extends StatefulWidget {
-  final int index;
+  final String id;
 
-  const AlarmCountdownPage({super.key, required this.index});
+  const AlarmCountdownPage({super.key, required this.id});
 
   @override
   State<AlarmCountdownPage> createState() => _AlarmCountdownPageState();
@@ -25,10 +25,8 @@ class _AlarmCountdownPageState extends State<AlarmCountdownPage> {
   @override
   void initState() {
     super.initState();
-    final settingsCubit = context.read<SettingsCubit>();
-    _alarm =
-        settingsCubit.state.alarms.elementAtOrNull(widget.index) ??
-        Alarm(date: DateTime.now());
+    final alarmCubit = context.read<AlarmCubit>();
+    _alarm = alarmCubit.getAlarm(widget.id) ?? Alarm(date: DateTime.now());
     _updateDuration();
     _timer = Timer.periodic(
       const Duration(seconds: 1),

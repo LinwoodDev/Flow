@@ -1,12 +1,14 @@
 import 'package:flutter/services.dart';
 
 import 'api/storage/sources.dart';
+import 'cubits/alarm.dart';
 import 'cubits/settings.dart';
 import 'models/config.dart';
 
 Future<void> setup(
   SettingsCubit settingsCubit,
   SourcesService sourcesService,
+  AlarmCubit alarmCubit,
 ) async {
   final data = await rootBundle.loadString('data/config.json');
   final config = ConfigFileMapper.fromJson(data);

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:args/args.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:flow/cubits/alarm.dart';
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/api/storage/sources.dart';
 import 'package:flow/pages/alarm/countdown.dart';
@@ -59,15 +60,19 @@ Future<void> main(List<String> args) async {
 
   final prefs = await SharedPreferences.getInstance();
   final settingsCubit = SettingsCubit(prefs);
+  final alarmCubit = AlarmCubit(prefs);
 
   final sourcesService = SourcesService(settingsCubit);
   await sourcesService.setup();
 
-  await setup(settingsCubit, sourcesService);
+  await setup(settingsCubit, sourcesService, alarmCubit);
   FlutterNativeSplash.remove();
   runApp(
-    BlocProvider.value(
-      value: settingsCubit,
+    MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: settingsCubit),
+        BlocProvider.value(value: alarmCubit),
+      ],
       child: RepositoryProvider.value(
         value: sourcesService,
         child: BlocProvider(
@@ -119,11 +124,10 @@ final GoRouter _router = GoRouter(
               builder: (context, state) => const AlarmPage(),
               routes: [
                 GoRoute(
-                  path: ':index',
+                  path: ':id',
                   name: 'alarm-countdown',
-                  builder: (context, state) => AlarmCountdownPage(
-                    index: int.parse(state.pathParameters['index']!),
-                  ),
+                  builder: (context, state) =>
+                      AlarmCountdownPage(id: state.pathParameters['id']!),
                 ),
               ],
             ),

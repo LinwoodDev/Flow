@@ -1,5 +1,4 @@
-import 'package:collection/collection.dart';
-import 'package:flow/cubits/settings.dart';
+import 'package:flow/cubits/alarm.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,7 @@ class _AlarmPageState extends State<AlarmPage> {
   Widget build(BuildContext context) {
     return FlowNavigation(
       title: AppLocalizations.of(context).alarm,
-      body: BlocBuilder<SettingsCubit, FlowSettings>(
+      body: BlocBuilder<AlarmCubit, AlarmState>(
         buildWhen: (previous, current) => previous.alarms != current.alarms,
         builder: (context, state) {
           if (state.alarms.isEmpty) {
@@ -31,18 +30,18 @@ class _AlarmPageState extends State<AlarmPage> {
             maxCrossAxisExtent: 300,
             childAspectRatio: 1.25,
             children: state.alarms
-                .mapIndexed(
-                  (i, e) => Card(
+                .map(
+                  (e) => Card(
                     clipBehavior: Clip.antiAlias,
                     child: InkWell(
                       onTap: () async {
-                        final settingsCubit = context.read<SettingsCubit>();
+                        final alarmCubit = context.read<AlarmCubit>();
                         final alarm = await showDialog<Alarm>(
                           context: context,
                           builder: (context) => AlarmDialog(initialValue: e),
                         );
                         if (alarm != null) {
-                          settingsCubit.changeAlarm(i, alarm);
+                          alarmCubit.changeAlarm(e.id, alarm);
                         }
                       },
                       child: Padding(
@@ -57,10 +56,10 @@ class _AlarmPageState extends State<AlarmPage> {
                                     value: e.isActive,
                                     contentPadding: EdgeInsets.only(left: 6),
                                     onChanged: (_) {
-                                      final settingsCubit = context
-                                          .read<SettingsCubit>();
-                                      settingsCubit.changeAlarm(
-                                        i,
+                                      final alarmCubit = context
+                                          .read<AlarmCubit>();
+                                      alarmCubit.changeAlarm(
+                                        e.id,
                                         e.copyWith(isActive: !e.isActive),
                                       );
                                     },
@@ -79,7 +78,7 @@ class _AlarmPageState extends State<AlarmPage> {
                                   onPressed: () {
                                     GoRouter.of(context).goNamed(
                                       'alarm-countdown',
-                                      pathParameters: {'index': i.toString()},
+                                      pathParameters: {'id': e.id},
                                     );
                                   },
                                 ),
@@ -89,9 +88,9 @@ class _AlarmPageState extends State<AlarmPage> {
                                   ),
                                   tooltip: AppLocalizations.of(context).delete,
                                   onPressed: () {
-                                    final settingsCubit = context
-                                        .read<SettingsCubit>();
-                                    settingsCubit.removeAlarm(i);
+                                    final alarmCubit = context
+                                        .read<AlarmCubit>();
+                                    alarmCubit.removeAlarm(e.id);
                                   },
                                 ),
                               ],
@@ -126,13 +125,13 @@ class _AlarmPageState extends State<AlarmPage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          final settingsCubit = context.read<SettingsCubit>();
+          final alarmCubit = context.read<AlarmCubit>();
           final alarm = await showDialog<Alarm>(
             context: context,
             builder: (context) => const AlarmDialog(),
           );
           if (alarm != null) {
-            settingsCubit.addAlarm(alarm);
+            alarmCubit.addAlarm(alarm);
           }
         },
         icon: const Icon(PhosphorIconsLight.plus),

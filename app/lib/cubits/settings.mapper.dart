@@ -178,144 +178,6 @@ extension SyncModeMapperExtension on SyncMode {
   }
 }
 
-class AlarmMapper extends ClassMapperBase<Alarm> {
-  AlarmMapper._();
-
-  static AlarmMapper? _instance;
-  static AlarmMapper ensureInitialized() {
-    if (_instance == null) {
-      MapperContainer.globals.use(_instance = AlarmMapper._());
-    }
-    return _instance!;
-  }
-
-  @override
-  final String id = 'Alarm';
-
-  static DateTime _$date(Alarm v) => v.date;
-  static const Field<Alarm, DateTime> _f$date = Field('date', _$date);
-  static String _$title(Alarm v) => v.title;
-  static const Field<Alarm, String> _f$title = Field(
-    'title',
-    _$title,
-    opt: true,
-    def: '',
-  );
-  static String _$description(Alarm v) => v.description;
-  static const Field<Alarm, String> _f$description = Field(
-    'description',
-    _$description,
-    opt: true,
-    def: '',
-  );
-  static bool _$isActive(Alarm v) => v.isActive;
-  static const Field<Alarm, bool> _f$isActive = Field(
-    'isActive',
-    _$isActive,
-    opt: true,
-    def: true,
-  );
-
-  @override
-  final MappableFields<Alarm> fields = const {
-    #date: _f$date,
-    #title: _f$title,
-    #description: _f$description,
-    #isActive: _f$isActive,
-  };
-
-  static Alarm _instantiate(DecodingData data) {
-    return Alarm(
-      date: data.dec(_f$date),
-      title: data.dec(_f$title),
-      description: data.dec(_f$description),
-      isActive: data.dec(_f$isActive),
-    );
-  }
-
-  @override
-  final Function instantiate = _instantiate;
-
-  static Alarm fromMap(Map<String, dynamic> map) {
-    return ensureInitialized().decodeMap<Alarm>(map);
-  }
-
-  static Alarm fromJson(String json) {
-    return ensureInitialized().decodeJson<Alarm>(json);
-  }
-}
-
-mixin AlarmMappable {
-  String toJson() {
-    return AlarmMapper.ensureInitialized().encodeJson<Alarm>(this as Alarm);
-  }
-
-  Map<String, dynamic> toMap() {
-    return AlarmMapper.ensureInitialized().encodeMap<Alarm>(this as Alarm);
-  }
-
-  AlarmCopyWith<Alarm, Alarm, Alarm> get copyWith =>
-      _AlarmCopyWithImpl<Alarm, Alarm>(this as Alarm, $identity, $identity);
-  @override
-  String toString() {
-    return AlarmMapper.ensureInitialized().stringifyValue(this as Alarm);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return AlarmMapper.ensureInitialized().equalsValue(this as Alarm, other);
-  }
-
-  @override
-  int get hashCode {
-    return AlarmMapper.ensureInitialized().hashValue(this as Alarm);
-  }
-}
-
-extension AlarmValueCopy<$R, $Out> on ObjectCopyWith<$R, Alarm, $Out> {
-  AlarmCopyWith<$R, Alarm, $Out> get $asAlarm =>
-      $base.as((v, t, t2) => _AlarmCopyWithImpl<$R, $Out>(v, t, t2));
-}
-
-abstract class AlarmCopyWith<$R, $In extends Alarm, $Out>
-    implements ClassCopyWith<$R, $In, $Out> {
-  $R call({DateTime? date, String? title, String? description, bool? isActive});
-  AlarmCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
-}
-
-class _AlarmCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Alarm, $Out>
-    implements AlarmCopyWith<$R, Alarm, $Out> {
-  _AlarmCopyWithImpl(super.value, super.then, super.then2);
-
-  @override
-  late final ClassMapperBase<Alarm> $mapper = AlarmMapper.ensureInitialized();
-  @override
-  $R call({
-    DateTime? date,
-    String? title,
-    String? description,
-    bool? isActive,
-  }) => $apply(
-    FieldCopyWithData({
-      if (date != null) #date: date,
-      if (title != null) #title: title,
-      if (description != null) #description: description,
-      if (isActive != null) #isActive: isActive,
-    }),
-  );
-  @override
-  Alarm $make(CopyWithData data) => Alarm(
-    date: data.get(#date, or: $value.date),
-    title: data.get(#title, or: $value.title),
-    description: data.get(#description, or: $value.description),
-    isActive: data.get(#isActive, or: $value.isActive),
-  );
-
-  @override
-  AlarmCopyWith<$R2, Alarm, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-      _AlarmCopyWithImpl<$R2, $Out2>($value, $cast, t);
-}
-
 class FlowSettingsMapper extends ClassMapperBase<FlowSettings> {
   FlowSettingsMapper._();
 
@@ -327,7 +189,6 @@ class FlowSettingsMapper extends ClassMapperBase<FlowSettings> {
       SyncModeMapper.ensureInitialized();
       RemoteStorageMapper.ensureInitialized();
       ThemeDensityMapper.ensureInitialized();
-      AlarmMapper.ensureInitialized();
       CalendarViewMapper.ensureInitialized();
     }
     return _instance!;
@@ -399,13 +260,6 @@ class FlowSettingsMapper extends ClassMapperBase<FlowSettings> {
     opt: true,
     def: false,
   );
-  static List<Alarm> _$alarms(FlowSettings v) => v.alarms;
-  static const Field<FlowSettings, List<Alarm>> _f$alarms = Field(
-    'alarms',
-    _$alarms,
-    opt: true,
-    def: const [],
-  );
   static CalendarView _$calendarView(FlowSettings v) => v.calendarView;
   static const Field<FlowSettings, CalendarView> _f$calendarView = Field(
     'calendarView',
@@ -425,7 +279,6 @@ class FlowSettingsMapper extends ClassMapperBase<FlowSettings> {
     #startOfWeek: _f$startOfWeek,
     #density: _f$density,
     #highContrast: _f$highContrast,
-    #alarms: _f$alarms,
     #calendarView: _f$calendarView,
   };
 
@@ -440,7 +293,6 @@ class FlowSettingsMapper extends ClassMapperBase<FlowSettings> {
       startOfWeek: data.dec(_f$startOfWeek),
       density: data.dec(_f$density),
       highContrast: data.dec(_f$highContrast),
-      alarms: data.dec(_f$alarms),
       calendarView: data.dec(_f$calendarView),
     );
   }
@@ -513,7 +365,6 @@ abstract class FlowSettingsCopyWith<$R, $In extends FlowSettings, $Out>
     RemoteStorageCopyWith<$R, RemoteStorage, RemoteStorage>
   >
   get remotes;
-  ListCopyWith<$R, Alarm, AlarmCopyWith<$R, Alarm, Alarm>> get alarms;
   $R call({
     String? locale,
     ThemeMode? themeMode,
@@ -524,7 +375,6 @@ abstract class FlowSettingsCopyWith<$R, $In extends FlowSettings, $Out>
     int? startOfWeek,
     ThemeDensity? density,
     bool? highContrast,
-    List<Alarm>? alarms,
     CalendarView? calendarView,
   });
   FlowSettingsCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
@@ -550,13 +400,6 @@ class _FlowSettingsCopyWithImpl<$R, $Out>
     (v) => call(remotes: v),
   );
   @override
-  ListCopyWith<$R, Alarm, AlarmCopyWith<$R, Alarm, Alarm>> get alarms =>
-      ListCopyWith(
-        $value.alarms,
-        (v, t) => v.copyWith.$chain(t),
-        (v) => call(alarms: v),
-      );
-  @override
   $R call({
     String? locale,
     ThemeMode? themeMode,
@@ -567,7 +410,6 @@ class _FlowSettingsCopyWithImpl<$R, $Out>
     int? startOfWeek,
     ThemeDensity? density,
     bool? highContrast,
-    List<Alarm>? alarms,
     CalendarView? calendarView,
   }) => $apply(
     FieldCopyWithData({
@@ -580,7 +422,6 @@ class _FlowSettingsCopyWithImpl<$R, $Out>
       if (startOfWeek != null) #startOfWeek: startOfWeek,
       if (density != null) #density: density,
       if (highContrast != null) #highContrast: highContrast,
-      if (alarms != null) #alarms: alarms,
       if (calendarView != null) #calendarView: calendarView,
     }),
   );
@@ -595,7 +436,6 @@ class _FlowSettingsCopyWithImpl<$R, $Out>
     startOfWeek: data.get(#startOfWeek, or: $value.startOfWeek),
     density: data.get(#density, or: $value.density),
     highContrast: data.get(#highContrast, or: $value.highContrast),
-    alarms: data.get(#alarms, or: $value.alarms),
     calendarView: data.get(#calendarView, or: $value.calendarView),
   );
 

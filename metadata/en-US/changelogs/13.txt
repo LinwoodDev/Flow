@@ -1,4 +1,5 @@
 * Fix app cannot be started on android ([#111](https://github.com/LinwoodDev/Flow/issues/111))
 * Fix remotes won't be parsed correctly ([#111](https://github.com/LinwoodDev/Flow/issues/111))
+* Improve alarm scheduling and storage
 
 Read more here: https://linwood.dev/flow/0.5.1

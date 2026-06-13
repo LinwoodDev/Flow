@@ -19,7 +19,7 @@ version: 0.6.1+16
 
 environment:
   sdk: ">=3.8.0 <4.0.0"
-  flutter: 3.44.0
+  flutter: 3.44.2
 
 dependencies:
   flutter:
@@ -83,7 +83,6 @@ dev_dependencies:
   dart_mappable_builder: ^4.3.0
   msix: ^3.16.10
 dependency_overrides:
-  meta: 1.18.0
   phosphor_flutter:
     git:
       url: https://github.com/CodeDoctorDE/phosphor-flutter.git

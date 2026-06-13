@@ -1,5 +1,5 @@
+import 'package:flow/cubits/alarm.dart';
 import 'package:flow/cubits/flow.dart';
-import 'package:flow/cubits/settings.dart';
 import 'package:flow/helpers/event.dart';
 import 'package:flow/pages/alarm/page.dart';
 import 'package:flow/pages/groups/view.dart';
@@ -226,13 +226,13 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
               title: _item.name,
               isActive: _item.start != null,
             );
-            final settingsCubit = context.read<SettingsCubit>();
+            final alarmCubit = context.read<AlarmCubit>();
             final result = await showDialog<Alarm>(
               context: context,
               builder: (context) => AlarmDialog(initialValue: alarm),
             );
             if (result == null) return;
-            settingsCubit.addAlarm(result);
+            alarmCubit.addAlarm(result);
           },
         ),
         MenuAnchor(

@@ -8,6 +8,7 @@ import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 import 'api/storage/sources.dart';
+import 'cubits/alarm.dart';
 import 'cubits/settings.dart';
 import 'main.dart';
 import 'setup.dart' as general_setup;
@@ -15,6 +16,7 @@ import 'setup.dart' as general_setup;
 Future<void> setup(
   SettingsCubit settingsCubit,
   SourcesService sourcesService,
+  AlarmCubit alarmCubit,
 ) async {
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     await windowManager.ensureInitialized();
@@ -31,10 +33,8 @@ Future<void> setup(
       await windowManager.focus();
     });
   }
-  await general_setup.setup(settingsCubit, sourcesService);
+  await general_setup.setup(settingsCubit, sourcesService, alarmCubit);
   try {
-    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-        FlutterLocalNotificationsPlugin();
     // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher_foreground');
@@ -60,7 +60,8 @@ Future<void> setup(
       settings: initializationSettings,
       onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
     );
-    _configureLocalTimeZone();
+    await _configureLocalTimeZone();
+    await alarmCubit.rescheduleAlarms();
   } catch (e) {
     FlutterError.presentError(
       FlutterErrorDetails(exception: 'Error initializing notifications: $e'),
@@ -69,10 +70,10 @@ Future<void> setup(
 }
 
 Future<void> _configureLocalTimeZone() async {
+  tz.initializeTimeZones();
   if (Platform.isLinux) {
     return;
   }
-  tz.initializeTimeZones();
   if (Platform.isWindows) {
     return;
   }
