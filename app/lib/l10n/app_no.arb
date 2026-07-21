@@ -76,6 +76,65 @@
   "indicatorError": "En feil oppstod",
   "indicatorErrorDescription": "Det oppstod en feil under lasting av data.",
   "tryAgain": "Prøv igjen",
+  "refresh": "Oppdater",
+  "neverSynced": "Not synchronized yet",
+  "lastSuccessfulSync": "Last successful sync: {time}",
+  "@lastSuccessfulSync": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "invalidUrl": "Enter a valid HTTP or HTTPS URL",
+  "sourceAlreadyExists": "This source is already connected.",
+  "connectionFailed": "Connection failed: {error}",
+  "@connectionFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "showPassword": "Show password",
+  "hidePassword": "Hide password",
+  "endBeforeStart": "The end must not be before the start.",
+  "repeatUntilBeforeStart": "The repeat end must not be before the first occurrence.",
+  "saveFailed": "The changes could not be saved. Try again.",
+  "deleteFailed": "The item could not be deleted. Try again.",
+  "futureAlarmRequired": "An active alarm must be scheduled in the future.",
+  "deleteAlarm": "Delete alarm {name}",
+  "@deleteAlarm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteAlarmDescription": "Are you sure you want to delete the alarm {name}?",
+  "@deleteAlarmDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteCalendarItem": "Delete calendar item {name}",
+  "@deleteCalendarItem": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteCalendarItemDescription": "Are you sure you want to delete the calendar item {name}?",
+  "@deleteCalendarItemDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "eventInfo": "{event} på {date} klokken {time} i {location} ({status})",
   "@eventInfo": {
     "placeholders": {
@@ -327,6 +386,22 @@
   "enabled": "Aktivert",
   "countdown": "Nedtelling",
   "unlink": "Frakoble",
+  "removeSource": "Remove source {name}",
+  "@removeSource": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "removeSourceDescription": "Remove {name} from Flow? Its account settings and saved credentials will be removed.",
+  "@removeSourceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "noAlarms": "Det finnes ingen alarmer som skal vises.",
   "allDay": "Hele dagen",
   "repeat": "Repeat",
