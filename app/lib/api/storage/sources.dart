@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flow/api/storage/db/database.dart';
@@ -5,20 +7,41 @@ import 'package:flow/api/storage/remote/model.dart';
 import 'package:flow/api/storage/remote/service.dart';
 import 'package:flow/cubits/settings.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flow_api/services/database.dart';
 import 'package:flow_api/services/source.dart';
+
+final class SyncFailure {
+  final String source;
+  final String message;
+
+  const SyncFailure({required this.source, required this.message});
+}
+
+final class SyncState {
+  final SyncStatus status;
+  final List<SyncFailure> failures;
+  final DateTime? lastSuccessfulSync;
+
+  const SyncState({
+    this.status = SyncStatus.synced,
+    this.failures = const [],
+    this.lastSuccessfulSync,
+  });
+}
 
 class SourcesService {
   final SettingsCubit settingsCubit;
   late final DatabaseService local;
   final List<RemoteService> remotes = [];
-  final BehaviorSubject<SyncStatus> syncStatus = BehaviorSubject.seeded(
-    SyncStatus.synced,
+  final BehaviorSubject<SyncState> syncState = BehaviorSubject.seeded(
+    const SyncState(),
   );
   final FlutterSecureStorage secureStorage = const FlutterSecureStorage(
     aOptions: AndroidOptions(),
   );
+  Future<SyncState>? _activeSync;
 
   SourcesService(this.settingsCubit);
 
@@ -45,24 +68,77 @@ class SourcesService {
         await secureStorage.read(key: 'remote ${storage.toFilename()}'),
       );
     }
-    synchronize();
+    unawaited(synchronize());
   }
 
-  Future<void> synchronize([bool force = false]) async {
-    if (!force && !(await shouldSync())) {
-      return;
+  Future<SyncState> synchronize([bool force = false]) {
+    final activeSync = _activeSync;
+    if (activeSync != null) return activeSync;
+
+    final operation = _runSynchronization(force);
+    _activeSync = operation;
+    return operation.whenComplete(() {
+      if (identical(_activeSync, operation)) {
+        _activeSync = null;
+      }
+    });
+  }
+
+  Future<SyncState> _runSynchronization(bool force) async {
+    try {
+      return await _synchronize(force);
+    } catch (error, stackTrace) {
+      final failure = SyncFailure(
+        source: 'Synchronization',
+        message: error.toString(),
+      );
+      final state = SyncState(
+        status: SyncStatus.error,
+        failures: [failure],
+        lastSuccessfulSync: syncState.value.lastSuccessfulSync,
+      );
+      syncState.add(state);
+      debugPrint('Synchronization failed before a source completed');
+      debugPrintStack(stackTrace: stackTrace);
+      return state;
     }
-    syncStatus.add(SyncStatus.syncing);
+  }
+
+  Future<SyncState> _synchronize(bool force) async {
+    if (!force && !(await shouldSync())) {
+      return syncState.value;
+    }
+    final previous = syncState.value;
+    syncState.add(
+      SyncState(
+        status: SyncStatus.syncing,
+        lastSuccessfulSync: previous.lastSuccessfulSync,
+      ),
+    );
+    final failures = <SyncFailure>[];
     for (final remote in remotes) {
       try {
         await remote.synchronize();
-      } catch (e) {
-        syncStatus.add(SyncStatus.error);
+      } catch (error, stackTrace) {
+        failures.add(
+          SyncFailure(
+            source: remote.remoteStorage.displayName,
+            message: error.toString(),
+          ),
+        );
+        debugPrint('Failed to synchronize ${remote.remoteStorage.displayName}');
+        debugPrintStack(stackTrace: stackTrace);
       }
     }
-    if (syncStatus.value != SyncStatus.error) {
-      syncStatus.add(SyncStatus.synced);
-    }
+    final state = SyncState(
+      status: failures.isEmpty ? SyncStatus.synced : SyncStatus.error,
+      failures: List.unmodifiable(failures),
+      lastSuccessfulSync: failures.isEmpty
+          ? DateTime.now()
+          : previous.lastSuccessfulSync,
+    );
+    syncState.add(state);
+    return state;
   }
 
   Future<void> _connectRemote(RemoteStorage storage, String? password) async {

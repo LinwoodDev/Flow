@@ -1,6 +1,7 @@
 import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/pages/users/user.dart';
 import 'package:flow/widgets/navigation.dart';
+import 'package:flow/widgets/confirm_delete.dart';
 import 'package:flow/widgets/paging/list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -160,6 +161,15 @@ class _UsersBodyViewState extends State<UsersBodyView> {
                     constraints: const BoxConstraints(maxWidth: 800),
                     child: Dismissible(
                       key: ValueKey('${item.model.id}@${item.source}'),
+                      confirmDismiss: (_) => confirmDelete(
+                        context,
+                        title: AppLocalizations.of(
+                          context,
+                        ).deleteUser(item.model.name),
+                        message: AppLocalizations.of(
+                          context,
+                        ).deleteUserDescription(item.model.name),
+                      ),
                       onDismissed: (direction) async {
                         await _flowCubit
                             .getService(item.source)

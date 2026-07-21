@@ -327,6 +327,22 @@
   "enabled": "Enabled",
   "countdown": "Countdown",
   "unlink": "Unlink",
+  "removeSource": "Remove source {name}",
+  "@removeSource": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "removeSourceDescription": "Remove {name} from Flow? Its account settings and saved credentials will be removed.",
+  "@removeSourceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "noAlarms": "There are no alarms to display.",
   "allDay": "All day",
   "repeat": "Repeat",

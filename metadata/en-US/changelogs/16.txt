@@ -1,5 +1,10 @@
 * Remove clear button from date time field
 * Upgrade flutter to 3.44
 * Upgrade to agb 9
+* Enforce formatting, analysis, generated-code, and test failures in CI
+* Add regression tests for recurrence, iCalendar, database migrations, alarms, settings, and destructive actions
+* Show actionable per-source synchronization failures and prevent overlapping sync runs
+* Confirm destructive swipe actions and remote source removal
+* Fix pending calendar items appearing in dated calendar views
 
 Read more here: https://linwood.dev/flow/0.6.1

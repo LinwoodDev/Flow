@@ -11,6 +11,18 @@ import 'package:sqflite_common/sqlite_api.dart' show Database;
 
 import 'ical.dart';
 
+final class RemoteSyncException implements Exception {
+  final int failedRequests;
+
+  const RemoteSyncException(this.failedRequests);
+
+  @override
+  String toString() =>
+      '$failedRequests offline change${failedRequests == 1 ? '' : 's'} '
+      'could not be uploaded. Check the connection and account credentials, '
+      'then try again.';
+}
+
 class RequestDatabaseService extends ModelService with TableService {
   @override
   Future<void> create(Database db) async {
@@ -97,13 +109,21 @@ abstract class RemoteService<T extends RemoteStorage> extends SourceService {
 
   Future<void> synchronize() async {
     final requests = await local.request.getRequests();
+    var failedRequests = 0;
     for (final request in requests) {
       try {
         final response = await request.model.send();
         if (response.statusCode >= 200 && response.statusCode < 300) {
           await local.request.deleteRequest(request.source);
+        } else {
+          failedRequests++;
         }
-      } catch (_) {}
+      } catch (_) {
+        failedRequests++;
+      }
+    }
+    if (failedRequests > 0) {
+      throw RemoteSyncException(failedRequests);
     }
   }
 

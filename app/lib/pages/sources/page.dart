@@ -3,6 +3,7 @@ import 'package:flow/cubits/settings.dart';
 import 'package:flow/pages/sources/dialog.dart';
 import 'package:flow/visualizer/storage.dart';
 import 'package:flow/visualizer/sync.dart';
+import 'package:flow/widgets/confirm_delete.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,12 +21,24 @@ class SourcesPage extends StatelessWidget {
     return FlowNavigation(
       title: AppLocalizations.of(context).sources,
       actions: [
-        StreamBuilder<SyncStatus>(
-          stream: context.read<SourcesService>().syncStatus,
+        StreamBuilder<SyncState>(
+          stream: context.read<SourcesService>().syncState,
           builder: (context, snapshot) {
+            final state = snapshot.data;
             return IconButton(
-              icon: PhosphorIcon(snapshot.data.icon(PhosphorIconsStyle.light)),
-              onPressed: () => context.read<SourcesService>().synchronize(true),
+              icon: PhosphorIcon(
+                state?.status.icon(PhosphorIconsStyle.light) ??
+                    PhosphorIcons.warningCircle(PhosphorIconsStyle.light),
+              ),
+              tooltip: state?.status.getLocalizedName(context),
+              onPressed: () async {
+                final result = await context.read<SourcesService>().synchronize(
+                  true,
+                );
+                if (context.mounted && result.failures.isNotEmpty) {
+                  await _showSyncFailures(context, result.failures);
+                }
+              },
             );
           },
         ),
@@ -57,6 +70,15 @@ class SourcesPage extends StatelessWidget {
                           final remote = remotes[index];
                           return Dismissible(
                             key: ValueKey(remote),
+                            confirmDismiss: (_) => confirmDelete(
+                              context,
+                              title: AppLocalizations.of(
+                                context,
+                              ).removeSource(remote.displayName),
+                              message: AppLocalizations.of(
+                                context,
+                              ).removeSourceDescription(remote.displayName),
+                            ),
                             onDismissed: (_) {
                               setState(() => remotes.removeAt(index));
                               context.read<SourcesService>().removeRemote(
@@ -90,4 +112,37 @@ class SourcesPage extends StatelessWidget {
       ),
     );
   }
+
+  Future<void> _showSyncFailures(
+    BuildContext context,
+    List<SyncFailure> failures,
+  ) => showDialog<void>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text(AppLocalizations.of(context).error),
+      content: SizedBox(
+        width: 500,
+        child: ListView.separated(
+          shrinkWrap: true,
+          itemCount: failures.length,
+          separatorBuilder: (context, index) => const Divider(),
+          itemBuilder: (context, index) {
+            final failure = failures[index];
+            return ListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(failure.source),
+              subtitle: SelectableText(failure.message),
+              leading: const PhosphorIcon(PhosphorIconsLight.warningCircle),
+            );
+          },
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(AppLocalizations.of(context).close),
+        ),
+      ],
+    ),
+  );
 }

@@ -94,6 +94,7 @@ class CalendarItemDatabaseService extends CalendarItemService
 
     final fixedWhere = baseWhere.copy();
     fixedWhere.add('runtimeType != ?', [_repeatingRuntimeType]);
+    fixedWhere.add('(start IS NOT NULL OR end IS NOT NULL)');
     fixedWhere.add(
       '(((end IS NULL OR end > ?) AND (start IS NULL OR start < ?)) OR '
       '(start = end AND start >= ? AND start < ?))',
