@@ -8,6 +8,7 @@ import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../api/storage/sources.dart';
@@ -50,6 +51,35 @@ class SourcesPage extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: 500),
             child: Column(
               children: [
+                StreamBuilder<SyncState>(
+                  stream: context.read<SourcesService>().syncState,
+                  builder: (context, snapshot) {
+                    final state = snapshot.data;
+                    final lastSuccessfulSync = state?.lastSuccessfulSync;
+                    return ListTile(
+                      title: Text(
+                        state?.status.getLocalizedName(context) ??
+                            AppLocalizations.of(context).loading,
+                      ),
+                      subtitle: Text(
+                        lastSuccessfulSync == null
+                            ? AppLocalizations.of(context).neverSynced
+                            : AppLocalizations.of(context).lastSuccessfulSync(
+                                DateFormat.yMd(
+                                  AppLocalizations.of(context).localeName,
+                                ).add_Hm().format(lastSuccessfulSync),
+                              ),
+                      ),
+                      leading: PhosphorIcon(
+                        state?.status.icon(PhosphorIconsStyle.light) ??
+                            PhosphorIcons.warningCircle(
+                              PhosphorIconsStyle.light,
+                            ),
+                      ),
+                    );
+                  },
+                ),
+                const Divider(),
                 ListTile(
                   title: Text(AppLocalizations.of(context).local),
                   leading: const PhosphorIcon(PhosphorIconsLight.laptop),

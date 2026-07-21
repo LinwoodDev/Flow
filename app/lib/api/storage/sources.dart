@@ -155,12 +155,24 @@ class SourcesService {
       return;
     }
     final key = 'remote ${remoteStorage.toFilename()}';
-    if (password.isNotEmpty) {
-      await secureStorage.write(key: key, value: password);
+    try {
+      if (password.isNotEmpty) {
+        await secureStorage.write(key: key, value: password);
+      }
+      await settingsCubit.addStorage(remoteStorage);
+      await _connectRemote(remoteStorage, password);
+      await synchronize();
+    } catch (error, stackTrace) {
+      try {
+        remotes.removeWhere(
+          (remote) =>
+              remote.remoteStorage.identifier == remoteStorage.identifier,
+        );
+        await settingsCubit.removeStorage(remoteStorage.toFilename());
+        await secureStorage.delete(key: key);
+      } catch (_) {}
+      Error.throwWithStackTrace(error, stackTrace);
     }
-    await settingsCubit.addStorage(remoteStorage);
-    await _connectRemote(remoteStorage, password);
-    await synchronize();
   }
 
   Future<void> removeRemote(String name) async {

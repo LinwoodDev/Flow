@@ -7,6 +7,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/note/model.dart';
 
 import '../../cubits/flow.dart';
+import '../../widgets/paging/error.dart';
 
 class DashboardNotesView extends StatefulWidget {
   const DashboardNotesView({super.key});
@@ -34,7 +35,17 @@ class _DashboardNotesViewState extends State<DashboardNotesView> {
             .toList(),
       );
     }
+    notes.sort((a, b) {
+      final priorityComparison = b.$1.priority.compareTo(a.$1.priority);
+      if (priorityComparison != 0) return priorityComparison;
+      return a.$1.name.compareTo(b.$1.name);
+    });
     return notes;
+  }
+
+  void _refresh() {
+    if (!mounted) return;
+    setState(() => _notesFuture = _getNotes());
   }
 
   @override
@@ -56,6 +67,12 @@ class _DashboardNotesViewState extends State<DashboardNotesView> {
               ),
             ),
             IconButton(
+              tooltip: AppLocalizations.of(context).refresh,
+              icon: const PhosphorIcon(PhosphorIconsLight.arrowClockwise),
+              onPressed: _refresh,
+            ),
+            IconButton(
+              tooltip: AppLocalizations.of(context).notes,
               icon: const PhosphorIcon(PhosphorIconsLight.arrowSquareOut),
               onPressed: () => GoRouter.of(context).go('/notes'),
             ),
@@ -70,7 +87,7 @@ class _DashboardNotesViewState extends State<DashboardNotesView> {
                 return const Center(child: CircularProgressIndicator());
               }
               if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
+                return ErrorIndicatorDisplay(onTryAgain: _refresh);
               }
               final notes = snapshot.data ?? <(Note, String)>[];
               if (notes.isEmpty) {

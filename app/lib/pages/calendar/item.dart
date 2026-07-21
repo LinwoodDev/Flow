@@ -1,11 +1,13 @@
 import 'package:flow/cubits/alarm.dart';
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/event.dart';
+import 'package:flow/helpers/validation.dart';
 import 'package:flow/pages/alarm/page.dart';
 import 'package:flow/pages/groups/view.dart';
 import 'package:flow/pages/resources/view.dart';
 import 'package:flow/pages/users/view.dart';
 import 'package:flow/widgets/markdown_field.dart';
+import 'package:flow/widgets/confirm_delete.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
@@ -51,6 +53,8 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
   DateTime? _repeatUntil;
   late Set<int> _repeatWeeklyDays;
   late Set<int> _repeatMonthlyDays;
+  bool _saving = false;
+  String? _error;
 
   @override
   void initState() {
@@ -143,6 +147,69 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
     );
   }
 
+  String? _validate(CalendarItem item) {
+    final validation = validateDateRange(
+      start: item.start,
+      end: item.end,
+      repeatUntil: _isRepeating ? _repeatUntil : null,
+    );
+    return switch (validation) {
+      DateRangeValidationError.endBeforeStart => AppLocalizations.of(
+        context,
+      ).endBeforeStart,
+      DateRangeValidationError.repeatUntilBeforeStart => AppLocalizations.of(
+        context,
+      ).repeatUntilBeforeStart,
+      null => null,
+    };
+  }
+
+  Future<void> _save() async {
+    if (_saving) return;
+    final item = _buildPersistedItem();
+    final validationError = _validate(item);
+    if (validationError != null) {
+      setState(() => _error = validationError);
+      return;
+    }
+
+    setState(() {
+      _saving = true;
+      _error = null;
+    });
+    try {
+      if (_create) {
+        final created = await _service?.createCalendarItem(item);
+        if (created == null) {
+          if (mounted) {
+            setState(() => _error = AppLocalizations.of(context).saveFailed);
+          }
+          return;
+        }
+        _item = created;
+      } else {
+        final updated = await _service?.updateCalendarItem(item) ?? false;
+        if (!updated) {
+          if (mounted) {
+            setState(() => _error = AppLocalizations.of(context).saveFailed);
+          }
+          return;
+        }
+        _item = item;
+      }
+      if (mounted) {
+        setState(() => _saving = false);
+        Navigator.of(context).pop(SourcedModel(_source, _item));
+      }
+    } catch (_) {
+      if (mounted) {
+        setState(() => _error = AppLocalizations.of(context).saveFailed);
+      }
+    } finally {
+      if (mounted && _saving) setState(() => _saving = false);
+    }
+  }
+
   void _convertTo(CalendarItemType type) {
     setState(() {
       switch (type) {
@@ -210,8 +277,26 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
         if (tabs)
           IconButton(
             icon: const PhosphorIcon(PhosphorIconsLight.trash),
+            tooltip: AppLocalizations.of(context).delete,
             onPressed: () async {
-              await _service?.deleteCalendarItem(_item.id!);
+              final confirmed = await confirmDelete(
+                context,
+                title: AppLocalizations.of(
+                  context,
+                ).deleteCalendarItem(_item.name),
+                message: AppLocalizations.of(
+                  context,
+                ).deleteCalendarItemDescription(_item.name),
+              );
+              if (!confirmed) return;
+              final deleted =
+                  await _service?.deleteCalendarItem(_item.id!) ?? false;
+              if (!deleted && context.mounted) {
+                setState(
+                  () => _error = AppLocalizations.of(context).deleteFailed,
+                );
+                return;
+              }
               if (context.mounted) {
                 Navigator.of(context).pop();
               }
@@ -270,6 +355,18 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
         child: Column(
           spacing: 8,
           children: [
+            if (_error != null)
+              MaterialBanner(
+                content: Text(_error!),
+                leading: const PhosphorIcon(PhosphorIconsLight.warningCircle),
+                actions: [
+                  IconButton(
+                    onPressed: () => setState(() => _error = null),
+                    icon: const PhosphorIcon(PhosphorIconsLight.x),
+                    tooltip: AppLocalizations.of(context).close,
+                  ),
+                ],
+              ),
             if (tabs)
               TabBar(
                 isScrollable: true,
@@ -689,22 +786,13 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
           child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
-          onPressed: () async {
-            _item = _buildPersistedItem();
-            if (_create) {
-              final created = await _service?.createCalendarItem(_item);
-              if (created == null) {
-                return;
-              }
-              _item = created;
-            } else {
-              await _service?.updateCalendarItem(_item);
-            }
-            if (context.mounted) {
-              Navigator.of(context).pop(SourcedModel(_source, _item));
-            }
-          },
-          child: Text(AppLocalizations.of(context).save),
+          onPressed: _saving ? null : _save,
+          child: _saving
+              ? const SizedBox.square(
+                  dimension: 18,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+              : Text(AppLocalizations.of(context).save),
         ),
       ],
     );

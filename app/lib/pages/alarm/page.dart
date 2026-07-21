@@ -1,5 +1,7 @@
 import 'package:flow/cubits/alarm.dart';
+import 'package:flow/helpers/validation.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
+import 'package:flow/widgets/confirm_delete.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,10 +28,12 @@ class _AlarmPageState extends State<AlarmPage> {
           if (state.alarms.isEmpty) {
             return Center(child: Text(AppLocalizations.of(context).noAlarms));
           }
+          final alarms = List<Alarm>.from(state.alarms)
+            ..sort((a, b) => a.date.compareTo(b.date));
           return GridView.extent(
             maxCrossAxisExtent: 300,
             childAspectRatio: 1.25,
-            children: state.alarms
+            children: alarms
                 .map(
                   (e) => Card(
                     clipBehavior: Clip.antiAlias,
@@ -87,10 +91,24 @@ class _AlarmPageState extends State<AlarmPage> {
                                     PhosphorIconsLight.trash,
                                   ),
                                   tooltip: AppLocalizations.of(context).delete,
-                                  onPressed: () {
+                                  onPressed: () async {
                                     final alarmCubit = context
                                         .read<AlarmCubit>();
-                                    alarmCubit.removeAlarm(e.id);
+                                    final name = e.title.isEmpty
+                                        ? AppLocalizations.of(context).alarm
+                                        : e.title;
+                                    final confirmed = await confirmDelete(
+                                      context,
+                                      title: AppLocalizations.of(
+                                        context,
+                                      ).deleteAlarm(name),
+                                      message: AppLocalizations.of(
+                                        context,
+                                      ).deleteAlarmDescription(name),
+                                    );
+                                    if (confirmed) {
+                                      await alarmCubit.removeAlarm(e.id);
+                                    }
                                   },
                                 ),
                               ],
@@ -141,28 +159,40 @@ class _AlarmPageState extends State<AlarmPage> {
   }
 }
 
-class AlarmDialog extends StatelessWidget {
+class AlarmDialog extends StatefulWidget {
   final Alarm? initialValue;
   const AlarmDialog({super.key, this.initialValue});
 
   @override
-  Widget build(BuildContext context) {
+  State<AlarmDialog> createState() => _AlarmDialogState();
+}
+
+class _AlarmDialogState extends State<AlarmDialog> {
+  late Alarm _alarm;
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
     final now = DateTime.now();
-    var alarm =
-        initialValue ??
+    _alarm =
+        widget.initialValue ??
         Alarm(date: DateTime(now.year, now.month, now.day + 1, 8), title: '');
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return ResponsiveAlertDialog(
       title: Text(AppLocalizations.of(context).alarm),
       headerActions: [
         Tooltip(
           message: AppLocalizations.of(context).enabled,
-          child: StatefulBuilder(
-            builder: (context, setState) => Switch(
-              value: alarm.isActive,
-              onChanged: (value) => setState(() {
-                alarm = alarm.copyWith(isActive: value);
-              }),
-            ),
+          child: Switch(
+            value: _alarm.isActive,
+            onChanged: (value) => setState(() {
+              _alarm = _alarm.copyWith(isActive: value);
+              _error = null;
+            }),
           ),
         ),
       ],
@@ -170,10 +200,20 @@ class AlarmDialog extends StatelessWidget {
       content: ListView(
         shrinkWrap: true,
         children: [
+          if (_error != null) ...[
+            Text(
+              _error!,
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
+            ),
+            const SizedBox(height: 12),
+          ],
           DateTimeField(
             label: AppLocalizations.of(context).time,
-            initialValue: alarm.date,
-            onChanged: (value) => alarm = alarm.copyWith(date: value),
+            initialValue: _alarm.date,
+            onChanged: (value) {
+              _alarm = _alarm.copyWith(date: value);
+              if (_error != null) setState(() => _error = null);
+            },
             canBeEmpty: false,
           ),
           const SizedBox(height: 20),
@@ -182,8 +222,8 @@ class AlarmDialog extends StatelessWidget {
               labelText: AppLocalizations.of(context).name,
               filled: true,
             ),
-            initialValue: alarm.title,
-            onChanged: (value) => alarm = alarm.copyWith(title: value),
+            initialValue: _alarm.title,
+            onChanged: (value) => _alarm = _alarm.copyWith(title: value),
           ),
           const SizedBox(height: 8),
           TextFormField(
@@ -191,10 +231,10 @@ class AlarmDialog extends StatelessWidget {
               labelText: AppLocalizations.of(context).description,
               border: const OutlineInputBorder(),
             ),
-            initialValue: alarm.description,
+            initialValue: _alarm.description,
             minLines: 3,
             maxLines: 5,
-            onChanged: (value) => alarm = alarm.copyWith(description: value),
+            onChanged: (value) => _alarm = _alarm.copyWith(description: value),
           ),
         ],
       ),
@@ -205,7 +245,17 @@ class AlarmDialog extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
-            Navigator.of(context).pop(alarm);
+            if (!isValidAlarmDate(
+              date: _alarm.date,
+              isActive: _alarm.isActive,
+              now: DateTime.now(),
+            )) {
+              setState(
+                () => _error = AppLocalizations.of(context).futureAlarmRequired,
+              );
+              return;
+            }
+            Navigator.of(context).pop(_alarm);
           },
           child: Text(AppLocalizations.of(context).save),
         ),

@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:flow_api/converters/ical.dart';
 import 'package:flow_api/models/event/database.dart';
@@ -18,10 +16,7 @@ class IcalRemoteService extends RemoteService<ICalStorage> {
   Future<void> synchronize() async {
     await super.synchronize();
     final uri = remoteStorage.uri;
-    final response = await http.get(
-      uri,
-      headers: {'Authorization': _getAuthHeader()},
-    );
+    final response = await http.get(uri, headers: authorizationHeaders);
     if (response.statusCode < 200 || response.statusCode >= 300) {
       throw http.ClientException(
         'Failed to synchronize iCalendar source: ${response.statusCode}',
@@ -36,9 +31,6 @@ class IcalRemoteService extends RemoteService<ICalStorage> {
     );
     if (converter.data != null) import(converter.data!);
   }
-
-  String _getAuthHeader() =>
-      'Basic ${base64Encode(utf8.encode('${remoteStorage.username}:$password'))}';
 
   @override
   CalendarItemDatabaseService get calendarItem => local.calendarItem;

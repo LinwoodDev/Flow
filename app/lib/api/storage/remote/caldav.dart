@@ -79,7 +79,7 @@ class CalDavRemoteService extends RemoteService<CalDavStorage> {
 </C:calendar-query>
 ''';
       // Add auth basic
-      request.headers['Authorization'] = _getAuthHeader();
+      request.headers.addAll(authorizationHeaders);
       final response = await client.send(request);
       if (response.statusCode < 200 || response.statusCode >= 300) {
         throw http.ClientException(
@@ -122,9 +122,6 @@ class CalDavRemoteService extends RemoteService<CalDavStorage> {
       client.close();
     }
   }
-
-  String _getAuthHeader() =>
-      'Basic ${base64Encode(utf8.encode('${remoteStorage.username}:$password'))}';
 
   @override
   late final EventCalDavRemoteService event;
@@ -482,7 +479,7 @@ Future<void> _sendUpdatedCalendarObject(
       path: _calendarObjectPath(remote, id, event),
       headers: {
         'Content-Type': 'text/calendar; charset=utf-8',
-        'Authorization': remote._getAuthHeader(),
+        ...remote.authorizationHeaders,
       },
     ),
   );
@@ -509,7 +506,7 @@ Future<void> _deleteCalendarObject(
       method: 'DELETE',
       authority: _calDavAuthority(remote),
       path: _calendarObjectPath(remote, id, event),
-      headers: {'Authorization': remote._getAuthHeader()},
+      headers: remote.authorizationHeaders,
     ),
   );
 }

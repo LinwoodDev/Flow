@@ -10,6 +10,7 @@ import 'package:flow_api/models/model.dart';
 
 import '../../cubits/flow.dart';
 import '../../widgets/markdown_field.dart';
+import '../../widgets/paging/error.dart';
 
 class DashboardEventsView extends StatefulWidget {
   const DashboardEventsView({super.key});
@@ -41,7 +42,21 @@ class _DashboardEventsViewState extends State<DashboardEventsView> {
             .map((e) => SourcedModel(source.key, e)),
       );
     }
+    appointments.sort((a, b) {
+      final aStart = a.main.start;
+      final bStart = b.main.start;
+      if (aStart == null && bStart != null) return 1;
+      if (aStart != null && bStart == null) return -1;
+      final startComparison = aStart?.compareTo(bStart!) ?? 0;
+      if (startComparison != 0) return startComparison;
+      return a.main.name.compareTo(b.main.name);
+    });
     return appointments;
+  }
+
+  void _refresh() {
+    if (!mounted) return;
+    setState(() => _appointmentsFuture = _getAppointments());
   }
 
   @override
@@ -63,6 +78,12 @@ class _DashboardEventsViewState extends State<DashboardEventsView> {
               ),
             ),
             IconButton(
+              tooltip: AppLocalizations.of(context).refresh,
+              icon: const PhosphorIcon(PhosphorIconsLight.arrowClockwise),
+              onPressed: _refresh,
+            ),
+            IconButton(
+              tooltip: AppLocalizations.of(context).calendar,
               icon: const PhosphorIcon(PhosphorIconsLight.arrowSquareOut),
               onPressed: () => GoRouter.of(context).go('/calendar'),
             ),
@@ -78,7 +99,7 @@ class _DashboardEventsViewState extends State<DashboardEventsView> {
                     return const Center(child: CircularProgressIndicator());
                   }
                   if (snapshot.hasError) {
-                    return Text(snapshot.error.toString());
+                    return ErrorIndicatorDisplay(onTryAgain: _refresh);
                   }
                   final appointments =
                       snapshot.data ??
@@ -97,19 +118,14 @@ class _DashboardEventsViewState extends State<DashboardEventsView> {
                           (e) => ListTile(
                             title: Text(e.main.name),
                             subtitle: MarkdownText(e.main.description),
-                            onTap: () =>
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => CalendarItemDialog(
-                                    event: e.sub,
-                                    item: e.main,
-                                    source: e.source,
-                                  ),
-                                ).then(
-                                  (value) => setState(() {
-                                    _appointmentsFuture = _getAppointments();
-                                  }),
-                                ),
+                            onTap: () => showDialog(
+                              context: context,
+                              builder: (context) => CalendarItemDialog(
+                                event: e.sub,
+                                item: e.main,
+                                source: e.source,
+                              ),
+                            ).then((value) => _refresh()),
                           ),
                         )
                         .toList(),

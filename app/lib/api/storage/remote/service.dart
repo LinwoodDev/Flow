@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flow/api/storage/remote/caldav.dart';
 import 'package:flow/api/storage/remote/model.dart';
 import 'package:flow/api/storage/remote/sia.dart';
@@ -21,6 +23,18 @@ final class RemoteSyncException implements Exception {
       '$failedRequests offline change${failedRequests == 1 ? '' : 's'} '
       'could not be uploaded. Check the connection and account credentials, '
       'then try again.';
+}
+
+Map<String, String> buildAuthorizationHeaders(
+  String username,
+  String? password,
+) {
+  final currentPassword = password ?? '';
+  if (username.isEmpty && currentPassword.isEmpty) return const {};
+  return {
+    'Authorization':
+        'Basic ${base64Encode(utf8.encode('$username:$currentPassword'))}',
+  };
 }
 
 class RequestDatabaseService extends ModelService with TableService {
@@ -91,6 +105,10 @@ abstract class RemoteService<T extends RemoteStorage> extends SourceService {
 
   RemoteService(this.remoteStorage, this.local, this.password);
 
+  Map<String, String> get authorizationHeaders {
+    return buildAuthorizationHeaders(remoteStorage.username, password);
+  }
+
   factory RemoteService.fromStorage(
     RemoteDatabaseService local,
     T storage,
@@ -144,7 +162,10 @@ abstract class RemoteService<T extends RemoteStorage> extends SourceService {
   @override
   Future<void> import(CachedData data, [bool clear = true]) async {
     _enableRequests = false;
-    await super.import(data, clear);
-    _enableRequests = true;
+    try {
+      await super.import(data, clear);
+    } finally {
+      _enableRequests = true;
+    }
   }
 }

@@ -1,10 +1,15 @@
-* Remove clear button from date time field
-* Upgrade flutter to 3.44
-* Upgrade to agb 9
-* Enforce formatting, analysis, generated-code, and test failures in CI
-* Add regression tests for recurrence, iCalendar, database migrations, alarms, settings, and destructive actions
-* Show actionable per-source synchronization failures and prevent overlapping sync runs
-* Confirm destructive swipe actions and remote source removal
-* Fix pending calendar items appearing in dated calendar views
+* Remove the clear button from date and time fields
+* Prevent calendar items from ending before they start
+* Prevent active alarms from being scheduled in the past
+* Show save and delete errors without closing the editor
+* Ask for confirmation before deleting alarms, calendar items, or sources
+* Show synchronization errors and the time of the last successful sync
+* Reject invalid source URLs and show connection progress and failures
+* Sort dashboard items, add refresh controls, and show friendly loading errors
+* Fix pending items appearing in dated calendar views
+* Allow public CalDAV and iCalendar sources without login credentials
+* Keep remote synchronization working after a failed import
+* Upgrade to flutter 3.44
+* upgrade to agb 9
 
 Read more here: https://linwood.dev/flow/0.6.1
