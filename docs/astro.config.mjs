@@ -6,12 +6,14 @@ import remarkHeadingID from "remark-heading-id";
 import remarkGemoji from "remark-gemoji";
 import AstroPWA from "@vite-pwa/astro";
 import manifest from "./webmanifest.json";
+import { satteri } from '@astrojs/markdown-satteri';
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://flow.linwood.dev",
   markdown: {
-    remarkPlugins: [remarkHeadingID, remarkGemoji],
+    processor: satteri({
+    }),
   },
   integrations: [
     starlight({

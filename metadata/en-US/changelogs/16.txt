@@ -1,4 +1,5 @@
 * Remove clear button from date time field
 * Upgrade flutter to 3.44
+* Upgrade to agb 9
 
 Read more here: https://linwood.dev/flow/0.6.1
