@@ -10,6 +10,12 @@ import 'package:intl/intl.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+void _showAlarmError(BuildContext context, String message) {
+  ScaffoldMessenger.of(context)
+    ..hideCurrentSnackBar()
+    ..showSnackBar(SnackBar(content: Text(message)));
+}
+
 class AlarmPage extends StatefulWidget {
   const AlarmPage({super.key});
 
@@ -45,7 +51,16 @@ class _AlarmPageState extends State<AlarmPage> {
                           builder: (context) => AlarmDialog(initialValue: e),
                         );
                         if (alarm != null) {
-                          alarmCubit.changeAlarm(e.id, alarm);
+                          final scheduled = await alarmCubit.changeAlarm(
+                            e.id,
+                            alarm,
+                          );
+                          if (!scheduled && context.mounted) {
+                            _showAlarmError(
+                              context,
+                              AppLocalizations.of(context).saveFailed,
+                            );
+                          }
                         }
                       },
                       child: Padding(
@@ -59,13 +74,37 @@ class _AlarmPageState extends State<AlarmPage> {
                                   child: SwitchListTile(
                                     value: e.isActive,
                                     contentPadding: EdgeInsets.only(left: 6),
-                                    onChanged: (_) {
+                                    onChanged: (_) async {
+                                      final activating = !e.isActive;
+                                      if (activating &&
+                                          !isValidAlarmDate(
+                                            date: e.date,
+                                            isActive: true,
+                                            now: DateTime.now(),
+                                          )) {
+                                        _showAlarmError(
+                                          context,
+                                          AppLocalizations.of(
+                                            context,
+                                          ).futureAlarmRequired,
+                                        );
+                                        return;
+                                      }
                                       final alarmCubit = context
                                           .read<AlarmCubit>();
-                                      alarmCubit.changeAlarm(
-                                        e.id,
-                                        e.copyWith(isActive: !e.isActive),
-                                      );
+                                      final scheduled = await alarmCubit
+                                          .changeAlarm(
+                                            e.id,
+                                            e.copyWith(isActive: activating),
+                                          );
+                                      if (!scheduled && context.mounted) {
+                                        _showAlarmError(
+                                          context,
+                                          AppLocalizations.of(
+                                            context,
+                                          ).saveFailed,
+                                        );
+                                      }
                                     },
                                     title: Text(
                                       AppLocalizations.of(context).enabled,
@@ -149,7 +188,10 @@ class _AlarmPageState extends State<AlarmPage> {
             builder: (context) => const AlarmDialog(),
           );
           if (alarm != null) {
-            alarmCubit.addAlarm(alarm);
+            final scheduled = await alarmCubit.addAlarm(alarm);
+            if (!scheduled && context.mounted) {
+              _showAlarmError(context, AppLocalizations.of(context).saveFailed);
+            }
           }
         },
         icon: const Icon(PhosphorIconsLight.plus),

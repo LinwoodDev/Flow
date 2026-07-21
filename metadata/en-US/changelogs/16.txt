@@ -1,8 +1,10 @@
 * Remove the clear button from date and time fields
 * Prevent calendar items from ending before they start
-* Prevent active alarms from being scheduled in the past
+* Prevent active alarms from being scheduled in the past or re-enabled after they expire
+* Show an error and disable alarms when notification scheduling fails
 * Show save and delete errors without closing the editor
 * Ask for confirmation before deleting alarms, calendar items, or sources
+* Keep sources visible when they cannot be removed
 * Show synchronization errors and the time of the last successful sync
 * Reject invalid source URLs and show connection progress and failures
 * Sort dashboard items, add refresh controls, and show friendly loading errors

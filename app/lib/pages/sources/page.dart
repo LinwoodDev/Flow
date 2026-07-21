@@ -100,20 +100,41 @@ class SourcesPage extends StatelessWidget {
                           final remote = remotes[index];
                           return Dismissible(
                             key: ValueKey(remote),
-                            confirmDismiss: (_) => confirmDelete(
-                              context,
-                              title: AppLocalizations.of(
+                            confirmDismiss: (_) async {
+                              final confirmed = await confirmDelete(
                                 context,
-                              ).removeSource(remote.displayName),
-                              message: AppLocalizations.of(
-                                context,
-                              ).removeSourceDescription(remote.displayName),
-                            ),
+                                title: AppLocalizations.of(
+                                  context,
+                                ).removeSource(remote.displayName),
+                                message: AppLocalizations.of(
+                                  context,
+                                ).removeSourceDescription(remote.displayName),
+                              );
+                              if (!confirmed || !context.mounted) return false;
+                              try {
+                                await context
+                                    .read<SourcesService>()
+                                    .removeRemote(remote.toFilename());
+                                return true;
+                              } catch (_) {
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context)
+                                    ..hideCurrentSnackBar()
+                                    ..showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          AppLocalizations.of(
+                                            context,
+                                          ).deleteFailed,
+                                        ),
+                                      ),
+                                    );
+                                }
+                                return false;
+                              }
+                            },
                             onDismissed: (_) {
                               setState(() => remotes.removeAt(index));
-                              context.read<SourcesService>().removeRemote(
-                                remote.toFilename(),
-                              );
                             },
                             child: ListTile(
                               title: Text(remote.displayName),

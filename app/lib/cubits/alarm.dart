@@ -65,12 +65,26 @@ class AlarmCubit extends Cubit<AlarmState> {
   Alarm? getAlarm(String id) =>
       state.alarms.firstWhereOrNull((e) => e.id == id);
 
-  Future<void> addAlarm(Alarm alarm) async {
+  Future<bool> addAlarm(Alarm alarm) async {
     final normalized = _normalizeAlarm(alarm);
     final newState = state.copyWith(alarms: [...state.alarms, normalized]);
     emit(newState);
-    await _scheduleAlarm(normalized);
-    return _save();
+    final scheduled = await _scheduleAlarm(normalized);
+    if (!scheduled) {
+      emit(
+        state.copyWith(
+          alarms: state.alarms
+              .map(
+                (alarm) => alarm.id == normalized.id
+                    ? alarm.copyWith(isActive: false)
+                    : alarm,
+              )
+              .toList(),
+        ),
+      );
+    }
+    await _save();
+    return scheduled;
   }
 
   Future<void> removeAlarm(String id) async {
@@ -84,9 +98,9 @@ class AlarmCubit extends Cubit<AlarmState> {
     return _save();
   }
 
-  Future<void> changeAlarm(String id, Alarm alarm) async {
+  Future<bool> changeAlarm(String id, Alarm alarm) async {
     final existing = getAlarm(id);
-    if (existing == null) return;
+    if (existing == null) return false;
     final normalized = _normalizeAlarm(
       alarm.copyWith(id: existing.id, notificationId: existing.notificationId),
     );
@@ -94,13 +108,44 @@ class AlarmCubit extends Cubit<AlarmState> {
       alarms: state.alarms.map((e) => e.id == id ? normalized : e).toList(),
     );
     emit(newState);
-    await _scheduleAlarm(normalized);
-    return _save();
+    final scheduled = await _scheduleAlarm(normalized);
+    if (!scheduled) {
+      emit(
+        state.copyWith(
+          alarms: state.alarms
+              .map(
+                (alarm) => alarm.id == normalized.id
+                    ? alarm.copyWith(isActive: false)
+                    : alarm,
+              )
+              .toList(),
+        ),
+      );
+    }
+    await _save();
+    return scheduled;
   }
 
   Future<void> rescheduleAlarms() async {
+    final failedAlarmIds = <String>{};
     for (final alarm in state.alarms) {
-      await _scheduleAlarm(alarm);
+      if (!await _scheduleAlarm(alarm) && alarm.isActive) {
+        failedAlarmIds.add(alarm.id);
+      }
+    }
+    if (failedAlarmIds.isNotEmpty) {
+      emit(
+        state.copyWith(
+          alarms: state.alarms
+              .map(
+                (alarm) => failedAlarmIds.contains(alarm.id)
+                    ? alarm.copyWith(isActive: false)
+                    : alarm,
+              )
+              .toList(),
+        ),
+      );
+      await _save();
     }
   }
 
@@ -148,10 +193,14 @@ class AlarmCubit extends Cubit<AlarmState> {
   }
 }
 
-Future<void> _scheduleAlarm(Alarm alarm) async {
-  if (!alarm.isActive || !alarm.date.isAfter(DateTime.now())) {
+Future<bool> _scheduleAlarm(Alarm alarm) async {
+  if (!alarm.isActive) {
     await _cancelAlarm(alarm);
-    return;
+    return true;
+  }
+  if (!alarm.date.isAfter(DateTime.now())) {
+    await _cancelAlarm(alarm);
+    return false;
   }
   try {
     if (!(await flutterLocalNotificationsPlugin
@@ -161,7 +210,7 @@ Future<void> _scheduleAlarm(Alarm alarm) async {
             ?.requestNotificationsPermission() ??
         true)) {
       debugPrint('Notification permission not granted');
-      return;
+      return false;
     }
     if (!(await flutterLocalNotificationsPlugin
             .resolvePlatformSpecificImplementation<
@@ -170,7 +219,7 @@ Future<void> _scheduleAlarm(Alarm alarm) async {
             ?.requestExactAlarmsPermission() ??
         true)) {
       debugPrint('Exact alarms permission not granted');
-      return;
+      return false;
     }
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id: alarm.notificationId,
@@ -189,8 +238,10 @@ Future<void> _scheduleAlarm(Alarm alarm) async {
       ),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
     );
+    return true;
   } catch (e) {
     debugPrint('Error scheduling alarm: $e');
+    return false;
   }
 }
 

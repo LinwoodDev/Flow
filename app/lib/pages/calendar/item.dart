@@ -317,7 +317,10 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
               builder: (context) => AlarmDialog(initialValue: alarm),
             );
             if (result == null) return;
-            alarmCubit.addAlarm(result);
+            final scheduled = await alarmCubit.addAlarm(result);
+            if (!scheduled && mounted) {
+              setState(() => _error = AppLocalizations.of(context).saveFailed);
+            }
           },
         ),
         MenuAnchor(
