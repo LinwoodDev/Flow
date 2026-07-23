@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flow/cubits/alarm.dart';
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/helpers/event.dart';
@@ -274,31 +276,78 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
       title: Text(title),
       constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
       headerActions: [
+        if (!_create)
+          IconButton(
+            icon: const PhosphorIcon(PhosphorIconsLight.checkCircle),
+            tooltip: 'Completed',
+            onPressed: () async {
+              final alarmCubit = context.read<AlarmCubit>();
+              final completed = await _service?.completeOccurrence(_item);
+              if (completed != null && context.mounted) {
+                unawaited(alarmCubit.handleOccurrenceCompleted(_item, completed));
+                Navigator.of(context).pop(SourcedModel(_source, completed));
+              }
+            },
+          ),
         if (tabs)
           IconButton(
             icon: const PhosphorIcon(PhosphorIconsLight.trash),
             tooltip: AppLocalizations.of(context).delete,
             onPressed: () async {
-              final confirmed = await confirmDelete(
-                context,
-                title: AppLocalizations.of(
-                  context,
-                ).deleteCalendarItem(_item.name),
-                message: AppLocalizations.of(
-                  context,
-                ).deleteCalendarItemDescription(_item.name),
-              );
-              if (!confirmed) return;
-              final deleted =
-                  await _service?.deleteCalendarItem(_item.id!) ?? false;
-              if (!deleted && context.mounted) {
-                setState(
-                  () => _error = AppLocalizations.of(context).deleteFailed,
+              if (_item is RepeatingCalendarItem) {
+                final choice = await showDialog<String>(
+                  context: context,
+                  builder: (context) => SimpleDialog(
+                    title: Text(AppLocalizations.of(context).delete),
+                    children: [
+                      SimpleDialogOption(
+                        onPressed: () => Navigator.pop(context, 'occurrence'),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 8),
+                          child: Text('Delete this occurrence only'),
+                        ),
+                      ),
+                      SimpleDialogOption(
+                        onPressed: () => Navigator.pop(context, 'series'),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 8),
+                          child: Text('Delete entire series'),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
-                return;
-              }
-              if (context.mounted) {
-                Navigator.of(context).pop();
+                if (choice == null) return;
+                final deleted = await _service?.deleteOccurrence(
+                      _item,
+                      deleteSeries: choice == 'series',
+                    ) ??
+                    false;
+                if (deleted && context.mounted) {
+                  Navigator.of(context).pop();
+                }
+              } else {
+                final confirmed = await confirmDelete(
+                  context,
+                  title: AppLocalizations.of(
+                    context,
+                  ).deleteCalendarItem(_item.name),
+                  message: AppLocalizations.of(
+                    context,
+                  ).deleteCalendarItemDescription(_item.name),
+                );
+                if (!confirmed) return;
+                final deleted =
+                    await _service?.deleteCalendarItem(_item.id!) ?? false;
+                if (!deleted && context.mounted) {
+                  setState(
+                    () => _error = AppLocalizations.of(context).deleteFailed,
+                  );
+                  return;
+                }
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                }
               }
             },
           ),

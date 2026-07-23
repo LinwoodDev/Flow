@@ -27,4 +27,8 @@ abstract class CalendarItemService extends ModelService {
   FutureOr<bool> updateCalendarItem(CalendarItem item);
 
   FutureOr<bool> deleteCalendarItem(Uint8List id);
+
+  FutureOr<CalendarItem?> completeOccurrence(CalendarItem item);
+
+  FutureOr<bool> deleteOccurrence(CalendarItem item, {bool deleteSeries = false});
 }

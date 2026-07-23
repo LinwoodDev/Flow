@@ -43,7 +43,7 @@ final class Event
 }
 
 @MappableEnum()
-enum EventStatus { confirmed, draft, cancelled }
+enum EventStatus { confirmed, draft, cancelled, completed }
 
 @MappableEnum()
 enum RepeatType { daily, weekly, monthly, yearly }

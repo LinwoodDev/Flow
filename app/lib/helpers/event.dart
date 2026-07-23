@@ -13,6 +13,8 @@ extension EventStatusHelper on EventStatus {
         return AppLocalizations.of(context).draft;
       case EventStatus.cancelled:
         return AppLocalizations.of(context).cancelled;
+      case EventStatus.completed:
+        return 'Completed';
     }
   }
 
@@ -24,6 +26,8 @@ extension EventStatusHelper on EventStatus {
         return PhosphorIcons.fileDashed;
       case EventStatus.cancelled:
         return PhosphorIcons.xCircle;
+      case EventStatus.completed:
+        return PhosphorIcons.checks;
     }
   }
 
@@ -35,6 +39,8 @@ extension EventStatusHelper on EventStatus {
         return Colors.orange;
       case EventStatus.cancelled:
         return Colors.red;
+      case EventStatus.completed:
+        return Colors.blue;
     }
   }
 }

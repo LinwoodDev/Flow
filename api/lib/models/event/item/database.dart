@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 import 'package:dart_leap/dart_leap.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
+import '../../../helpers/recurrence_engine.dart';
 import '../../../services/database.dart';
 import '../../model.dart';
 import '../model.dart';
@@ -870,6 +871,114 @@ class CalendarItemDatabaseService extends CalendarItemService
   Future<void> clear() async {
     await db?.delete('calendarItems');
   }
+
+  @override
+  Future<CalendarItem?> completeOccurrence(CalendarItem item) async {
+    if (item.id == null) return null;
+
+    if (item is FixedCalendarItem) {
+      final newStatus = item.status == EventStatus.completed
+          ? EventStatus.confirmed
+          : EventStatus.completed;
+      final updated = item.copyWith(status: newStatus);
+      final success = await updateCalendarItem(updated);
+      return success ? updated : null;
+    }
+
+    if (item is RepeatingCalendarItem) {
+      final occurrenceStart = item.start;
+      if (occurrenceStart == null) return null;
+
+      final completedInstance = FixedCalendarItem(
+        id: createUniqueUint8List(),
+        name: item.name,
+        description: item.description,
+        location: item.location,
+        eventId: item.eventId,
+        start: occurrenceStart,
+        end: item.end,
+        status: EventStatus.completed,
+      );
+      await createCalendarItem(completedInstance);
+
+      final occurrenceStartSec = occurrenceStart.secondsSinceEpoch;
+      final occurrenceDateSec = occurrenceStart.onlyDate().secondsSinceEpoch;
+      final updatedExceptions = {
+        ...item.exceptions,
+        occurrenceStartSec,
+        occurrenceDateSec,
+      }.toList()..sort();
+
+      final nextDate = RecurrenceEngine.getNextOccurrenceDate(
+        item,
+        afterDate: occurrenceStart,
+      );
+
+      final duration = item.end != null && item.start != null
+          ? item.end!.difference(item.start!)
+          : Duration.zero;
+
+      final updatedSeries = item.copyWith(
+        exceptions: updatedExceptions,
+        start: nextDate ?? item.start,
+        end: nextDate != null
+            ? (duration == Duration.zero ? nextDate : nextDate.add(duration))
+            : item.end,
+      );
+
+      await updateCalendarItem(updatedSeries);
+      return completedInstance;
+    }
+
+    return null;
+  }
+
+  @override
+  Future<bool> deleteOccurrence(
+    CalendarItem item, {
+    bool deleteSeries = false,
+  }) async {
+    final id = item.id;
+    if (id == null) return false;
+
+    if (deleteSeries || item is FixedCalendarItem) {
+      return await deleteCalendarItem(id);
+    }
+
+    if (item is RepeatingCalendarItem) {
+      final occurrenceStart = item.start;
+      if (occurrenceStart == null) return false;
+
+      final occurrenceStartSec = occurrenceStart.secondsSinceEpoch;
+      final occurrenceDateSec = occurrenceStart.onlyDate().secondsSinceEpoch;
+      final updatedExceptions = {
+        ...item.exceptions,
+        occurrenceStartSec,
+        occurrenceDateSec,
+      }.toList()..sort();
+
+      final nextDate = RecurrenceEngine.getNextOccurrenceDate(
+        item,
+        afterDate: occurrenceStart,
+      );
+
+      final duration = item.end != null && item.start != null
+          ? item.end!.difference(item.start!)
+          : Duration.zero;
+
+      final updatedSeries = item.copyWith(
+        exceptions: updatedExceptions,
+        start: nextDate ?? item.start,
+        end: nextDate != null
+            ? (duration == Duration.zero ? nextDate : nextDate.add(duration))
+            : item.end,
+      );
+
+      return await updateCalendarItem(updatedSeries);
+    }
+
+    return false;
+  }
 }
 
 abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
@@ -920,6 +1029,14 @@ abstract class CalendarItemDatabaseServiceLinker extends CalendarItemService
   @override
   FutureOr<bool> deleteCalendarItem(Uint8List id) =>
       service.deleteCalendarItem(id);
+
+  @override
+  FutureOr<CalendarItem?> completeOccurrence(CalendarItem item) =>
+      service.completeOccurrence(item);
+
+  @override
+  FutureOr<bool> deleteOccurrence(CalendarItem item, {bool deleteSeries = false}) =>
+      service.deleteOccurrence(item, deleteSeries: deleteSeries);
 
   @override
   FutureOr<void> clear() => service.clear();

@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - lw_sysapi (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - lw_sysapi (from `.symlinks/plugins/lw_sysapi/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  lw_sysapi:
+    :path: ".symlinks/plugins/lw_sysapi/ios"
+
+SPEC CHECKSUMS:
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  lw_sysapi: 0c0a89749ba5dc6bffe1c41fa12c9038d5dbd3a9
+
+PODFILE CHECKSUM: 3c63482e143d1b91d2d2560aee9fb04ecc74ac7e
+
+COCOAPODS: 1.16.2

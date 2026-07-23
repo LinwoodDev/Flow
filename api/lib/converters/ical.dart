@@ -338,6 +338,8 @@ class ICalConverter {
         return EventStatus.draft;
       case 'CANCELLED':
         return EventStatus.cancelled;
+      case 'COMPLETED':
+        return EventStatus.completed;
       case 'CONFIRMED':
       default:
         return EventStatus.confirmed;
@@ -434,6 +436,8 @@ class ICalConverter {
         return 'TENTATIVE';
       case EventStatus.cancelled:
         return 'CANCELLED';
+      case EventStatus.completed:
+        return 'COMPLETED';
       case EventStatus.confirmed:
         return 'CONFIRMED';
     }

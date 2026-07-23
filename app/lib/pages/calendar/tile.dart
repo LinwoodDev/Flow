@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flow/cubits/alarm.dart';
 import 'package:flow/helpers/event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -70,9 +73,9 @@ class CalendarListTile extends StatelessWidget {
           if (eventName != name && eventName != null) Text(eventName),
         ],
       ),
-      leading: Tooltip(
-        message: model.status.getLocalizedName(context),
-        child: PhosphorIcon(
+      leading: IconButton(
+        tooltip: model.status.getLocalizedName(context),
+        icon: PhosphorIcon(
           model.status.icon(switch (main.type) {
             CalendarItemType.appointment => PhosphorIconsStyle.fill,
             CalendarItemType.moment => PhosphorIconsStyle.duotone,
@@ -80,6 +83,12 @@ class CalendarListTile extends StatelessWidget {
           }),
           color: model.status.getColor(),
         ),
+        onPressed: () async {
+          final alarmCubit = context.read<AlarmCubit>();
+          final result = await service.calendarItem?.completeOccurrence(main);
+          unawaited(alarmCubit.handleOccurrenceCompleted(main, result));
+          onRefresh();
+        },
       ),
       onTap: () {
         showDialog(

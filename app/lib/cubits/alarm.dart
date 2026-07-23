@@ -5,6 +5,7 @@ import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flow_api/models/event/item/model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
 
@@ -145,7 +146,30 @@ class AlarmCubit extends Cubit<AlarmState> {
               .toList(),
         ),
       );
-      await _save();
+    }
+  }
+
+  Future<void> handleOccurrenceCompleted(
+    CalendarItem oldItem,
+    CalendarItem? newItem,
+  ) async {
+    final oldStart = oldItem.start;
+    if (oldStart == null) return;
+    final existingAlarm = state.alarms.firstWhereOrNull(
+      (a) =>
+          a.title == oldItem.name &&
+          a.date.millisecondsSinceEpoch ~/ 1000 ==
+              oldStart.millisecondsSinceEpoch ~/ 1000,
+    );
+    if (existingAlarm != null) {
+      if (newItem != null && newItem.start != null) {
+        await changeAlarm(
+          existingAlarm.id,
+          existingAlarm.copyWith(date: newItem.start!),
+        );
+      } else {
+        await removeAlarm(existingAlarm.id);
+      }
     }
   }
 
