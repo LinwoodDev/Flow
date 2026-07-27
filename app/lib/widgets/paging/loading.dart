@@ -8,7 +8,10 @@ class LoadingIndicatorDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IndicatorDisplay(
-      icon: const CircularProgressIndicator(),
+      icon: const SizedBox.square(
+        dimension: 28,
+        child: CircularProgressIndicator(strokeWidth: 3),
+      ),
       title: AppLocalizations.of(context).indicatorLoading,
     );
   }

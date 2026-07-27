@@ -38,6 +38,8 @@ class SourcedPagingBloc<T>
   final bool useDates;
   final List<String>? sources;
   final DateFetcher<T> _fetch;
+  bool _isFetching = false;
+  bool _refreshPending = false;
 
   SourcedPagingBloc.dated({
     required this.cubit,
@@ -77,7 +79,11 @@ class SourcedPagingBloc<T>
     on<SourcedPagingFetched>(_onFetched);
     on<SourcedPagingRefresh>((event, emit) {
       emit(const SourcedPagingInitial());
-      fetch();
+      if (_isFetching) {
+        _refreshPending = true;
+      } else {
+        fetch();
+      }
     });
     on<SourcedPagingRemoved>((event, emit) {
       final state = this.state;
@@ -108,8 +114,13 @@ class SourcedPagingBloc<T>
     SourcedPagingFetched event,
     Emitter<SourcedPagingState<T>> emit,
   ) async {
+    if (_isFetching) return;
+    _isFetching = true;
     final state = this.state;
-    if (state.hasReachedMax && !useDates) return;
+    if (state.hasReachedMax && !useDates) {
+      _isFetching = false;
+      return;
+    }
 
     final date = state.currentDate;
     final previousItems = state is SourcedPagingSuccess<T>
@@ -185,6 +196,12 @@ class SourcedPagingBloc<T>
       }
     } catch (e) {
       emit(SourcedPagingFailure(e, currentDate: date, dates: previousItems));
+    } finally {
+      _isFetching = false;
+      if (_refreshPending) {
+        _refreshPending = false;
+        fetch();
+      }
     }
   }
 

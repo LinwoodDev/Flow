@@ -5,21 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:material_leap/helpers.dart';
+import 'package:go_router/go_router.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'events.dart';
 
-class DashboardPage extends StatefulWidget {
+class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
 
   @override
-  _DashboardPageState createState() => _DashboardPageState();
-}
-
-class _DashboardPageState extends State<DashboardPage> {
-  @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     return FlowNavigation(
-      title: AppLocalizations.of(context).dashboard,
+      title: localizations.dashboard,
       body: SingleChildScrollView(
         child: Align(
           alignment: Alignment.topCenter,
@@ -40,7 +38,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           : CrossAxisAlignment.center,
                       children: [
                         Text(
-                          AppLocalizations.of(context).welcome,
+                          localizations.welcome,
                           style: Theme.of(context).textTheme.displaySmall,
                           textAlign: isMedium
                               ? TextAlign.start
@@ -49,31 +47,62 @@ class _DashboardPageState extends State<DashboardPage> {
                         const SizedBox(height: 8),
                         Text(
                           DateFormat.yMMMMEEEEd().format(DateTime.now()),
-                          style: Theme.of(context).textTheme.titleMedium,
+                          style: Theme.of(context).textTheme.titleMedium
+                              ?.copyWith(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onPrimaryContainer,
+                              ),
                           textAlign: isMedium
                               ? TextAlign.start
                               : TextAlign.center,
                         ),
+                        const SizedBox(height: 24),
+                        Wrap(
+                          alignment: isMedium
+                              ? WrapAlignment.start
+                              : WrapAlignment.center,
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: [
+                            _DashboardAction(
+                              label: localizations.calendar,
+                              icon: PhosphorIconsLight.calendar,
+                              route: '/calendar',
+                            ),
+                            _DashboardAction(
+                              label: localizations.notes,
+                              icon: PhosphorIconsLight.listChecks,
+                              route: '/notes',
+                            ),
+                            _DashboardAction(
+                              label: localizations.events,
+                              icon: PhosphorIconsLight.calendarBlank,
+                              route: '/events',
+                            ),
+                          ],
+                        ),
                       ],
                     );
                     return Card(
+                      color: Theme.of(context).colorScheme.primaryContainer,
                       child: Padding(
-                        padding: const EdgeInsets.all(24),
+                        padding: EdgeInsets.all(isMedium ? 32 : 24),
                         child: Flex(
                           direction: isMedium ? Axis.horizontal : Axis.vertical,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ConstrainedBox(
                               constraints: const BoxConstraints(
-                                maxWidth: 300,
-                                maxHeight: 300,
+                                maxWidth: 240,
+                                maxHeight: 240,
                               ),
                               child: const AspectRatio(
                                 aspectRatio: 1,
                                 child: ClockView(),
                               ),
                             ),
-                            if (isMedium) const SizedBox(width: 48),
+                            if (isMedium) const SizedBox(width: 56),
                             if (!isMedium) const SizedBox(height: 24),
                             if (isMedium)
                               Flexible(child: textColumn)
@@ -145,6 +174,27 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _DashboardAction extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  final String route;
+
+  const _DashboardAction({
+    required this.label,
+    required this.icon,
+    required this.route,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FilledButton.tonalIcon(
+      onPressed: () => context.go(route),
+      icon: PhosphorIcon(icon),
+      label: Text(label),
     );
   }
 }

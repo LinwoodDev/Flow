@@ -19,7 +19,7 @@ version: 0.6.1+16
 
 environment:
   sdk: ">=3.8.0 <4.0.0"
-  flutter: 3.44.7
+  flutter: 3.44.8
 
 dependencies:
   flutter:
@@ -85,6 +85,8 @@ dev_dependencies:
     sdk: flutter
   dart_mappable_builder: ^4.3.0
   msix: ^3.16.10
+dependency_overrides:
+  jni: 1.0.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

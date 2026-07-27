@@ -89,7 +89,8 @@ List<_NavigationItem?> _getSecondaryItems(BuildContext context) => [
   ),
 ];
 
-const _drawerWidth = 250.0;
+const _drawerWidth = 280.0;
+const _navigationBreakpoint = 840.0;
 
 class FlowRootNavigation extends StatelessWidget {
   final Widget child;
@@ -100,13 +101,16 @@ class FlowRootNavigation extends StatelessWidget {
     return Material(
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final isMobile = constraints.maxWidth < 768;
+          final isMobile = constraints.maxWidth < _navigationBreakpoint;
+          final reduceMotion = MediaQuery.disableAnimationsOf(context);
           return Row(
             textDirection: TextDirection.rtl,
             children: [
               Expanded(child: child),
               AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
+                duration: reduceMotion
+                    ? Duration.zero
+                    : const Duration(milliseconds: 250),
                 width: isMobile ? 0 : _drawerWidth,
                 curve: Curves.easeInOut,
                 child: const ClipRect(
@@ -165,7 +169,7 @@ class FlowNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isMobile = MediaQuery.of(context).size.width < 820;
+        final isMobile = constraints.maxWidth < _navigationBreakpoint;
         final showEndDrawerButton = isMobile && endDrawer != null;
         const drawer = _FlowDrawer();
         PreferredSizeWidget appBar =
@@ -176,6 +180,7 @@ class FlowNavigation extends StatelessWidget {
                 ...actions,
                 if (showEndDrawerButton)
                   IconButton(
+                    tooltip: AppLocalizations.of(context).filter,
                     icon: const PhosphorIcon(PhosphorIconsLight.list),
                     onPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
                   ),
@@ -249,27 +254,34 @@ class _FlowDrawer extends StatelessWidget {
       currentSelected = location.startsWith(link);
     }
     return item == null
-        ? const Divider()
-        : ListTile(
-            style: ListTileStyle.drawer,
-            title: Text(item.title),
-            leading: Icon(
-              item.icon(
-                currentSelected
-                    ? PhosphorIconsStyle.fill
-                    : PhosphorIconsStyle.light,
+        ? const Divider(indent: 16, endIndent: 16)
+        : Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+            child: ListTile(
+              style: ListTileStyle.drawer,
+              title: Text(
+                item.title,
+                style: TextStyle(
+                  fontWeight: currentSelected
+                      ? FontWeight.w600
+                      : FontWeight.normal,
+                ),
               ),
-            ),
-            onTap: item.onTap ?? () => GoRouter.of(context).go(item.link),
-            selected: currentSelected,
-            selectedColor: Theme.of(context).colorScheme.onSurface,
-            selectedTileColor: currentSelected
-                ? Theme.of(context).colorScheme.primaryContainer.withAlpha(200)
-                : null,
-            shape: const BeveledRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(16),
-                bottomRight: Radius.circular(16),
+              leading: Icon(
+                item.icon(
+                  currentSelected
+                      ? PhosphorIconsStyle.fill
+                      : PhosphorIconsStyle.light,
+                ),
+              ),
+              onTap: item.onTap ?? () => GoRouter.of(context).go(item.link),
+              selected: currentSelected,
+              selectedColor: Theme.of(context).colorScheme.onPrimaryContainer,
+              selectedTileColor: currentSelected
+                  ? Theme.of(context).colorScheme.primaryContainer
+                  : null,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
               ),
             ),
           );
@@ -277,65 +289,86 @@ class _FlowDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final location = GoRouterState.of(context).uri.toString();
+    final location = GoRouterState.of(context).uri.path;
+    final colorScheme = Theme.of(context).colorScheme;
     return Material(
+      color: colorScheme.surfaceContainerLow,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  BlocBuilder<SettingsCubit, FlowSettings>(
-                    builder: (context, state) {
-                      final widget = AppBar(
-                        leading: Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Image.asset(
-                            isNightly ? "images/logo.png" : "images/logo.png",
-                            height: 64,
-                            width: 64,
-                          ),
-                        ),
-                        leadingWidth: 42,
-                        title: const Text(
-                          applicationName,
-                          textAlign: TextAlign.center,
-                        ),
-                        centerTitle: true,
-                        automaticallyImplyLeading: false,
-                        actions: [
-                          IconButton(
-                            tooltip: AppLocalizations.of(context).sources,
-                            icon: const PhosphorIcon(PhosphorIconsLight.funnel),
-                            onPressed: () => _showSources(context),
-                          ),
-                        ],
-                        titleTextStyle: Theme.of(context).textTheme.titleMedium,
-                      );
-                      if (!kIsWeb &&
-                          (Platform.isWindows ||
-                              Platform.isLinux ||
-                              Platform.isMacOS) &&
-                          !state.nativeTitleBar) {
-                        return _NativeWindowArea(child: widget);
-                      }
-                      return widget;
-                    },
+          return SafeArea(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                border: Border(
+                  right: BorderSide(
+                    color: colorScheme.outlineVariant.withAlpha(120),
                   ),
-                  Column(
-                    children: _getNavigationItems(
-                      context,
-                    ).map((e) => _getItem(context, location, e)).toList(),
+                ),
+              ),
+              child: SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      BlocBuilder<SettingsCubit, FlowSettings>(
+                        builder: (context, state) {
+                          final widget = AppBar(
+                            backgroundColor: Colors.transparent,
+                            leading: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.asset(
+                                  "images/logo.png",
+                                  height: 36,
+                                  width: 36,
+                                ),
+                              ),
+                            ),
+                            leadingWidth: 52,
+                            title: const Text(
+                              applicationName,
+                              textAlign: TextAlign.center,
+                            ),
+                            centerTitle: true,
+                            automaticallyImplyLeading: false,
+                            actions: [
+                              IconButton(
+                                tooltip: AppLocalizations.of(context).sources,
+                                icon: const PhosphorIcon(
+                                  PhosphorIconsLight.funnel,
+                                ),
+                                onPressed: () => _showSources(context),
+                              ),
+                            ],
+                            titleTextStyle: Theme.of(
+                              context,
+                            ).textTheme.titleMedium,
+                          );
+                          if (!kIsWeb &&
+                              (Platform.isWindows ||
+                                  Platform.isLinux ||
+                                  Platform.isMacOS) &&
+                              !state.nativeTitleBar) {
+                            return _NativeWindowArea(child: widget);
+                          }
+                          return widget;
+                        },
+                      ),
+                      Column(
+                        children: _getNavigationItems(
+                          context,
+                        ).map((e) => _getItem(context, location, e)).toList(),
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: _getSecondaryItems(
+                          context,
+                        ).map((e) => _getItem(context, location, e)).toList(),
+                      ),
+                    ],
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: _getSecondaryItems(
-                      context,
-                    ).map((e) => _getItem(context, location, e)).toList(),
-                  ),
-                ],
+                ),
               ),
             ),
           );

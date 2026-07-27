@@ -99,9 +99,8 @@ class _PagedListViewState<T> extends State<_PagedListView<T>> {
   void didUpdateWidget(covariant _PagedListView<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.state != oldWidget.state) {
-      setState((() => {}));
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _onScroll();
+        if (mounted) _onScroll();
       });
     }
   }
@@ -118,7 +117,7 @@ class _PagedListViewState<T> extends State<_PagedListView<T>> {
     final state = widget.state;
     final items = state.items;
     final dates = state.dates;
-    if (items.isEmpty && !useDates) {
+    if (items.isEmpty) {
       return const EmptyIndicatorDisplay();
     }
     return ListView.builder(
