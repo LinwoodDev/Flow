@@ -1,6 +1,7 @@
 import 'package:flow/pages/groups/view.dart';
 import 'package:flow/pages/users/view.dart';
 import 'package:flow/widgets/markdown_field.dart';
+import 'package:flow/widgets/save_dialog_button.dart';
 import 'package:flow_api/models/model.dart';
 import 'package:flow_api/models/resource/model.dart';
 import 'package:flow_api/models/resource/service.dart';
@@ -159,24 +160,20 @@ class ResourceDialog extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
           child: Text(AppLocalizations.of(context).cancel),
         ),
-        ElevatedButton(
-          onPressed: () async {
+        SaveDialogButton<SourcedModel<Resource>>(
+          errorMessage: AppLocalizations.of(context).saveFailed,
+          onSave: () async {
+            final service = currentService;
+            if (service == null) return null;
             if (create) {
-              final created = await currentService?.createResource(
-                currentResource,
-              );
-              if (created == null) {
-                return;
-              }
+              final created = await service.createResource(currentResource);
+              if (created == null) return null;
               currentResource = created;
             } else {
-              await currentService?.updateResource(currentResource);
+              final updated = await service.updateResource(currentResource);
+              if (!updated) return null;
             }
-            if (context.mounted) {
-              Navigator.of(
-                context,
-              ).pop(SourcedModel(currentSource, currentResource));
-            }
+            return SourcedModel<Resource>(currentSource, currentResource);
           },
           child: Text(AppLocalizations.of(context).save),
         ),

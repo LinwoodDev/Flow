@@ -1,6 +1,7 @@
 import 'package:flow/pages/groups/view.dart';
 import 'package:flow/pages/users/view.dart';
 import 'package:flow/widgets/markdown_field.dart';
+import 'package:flow/widgets/save_dialog_button.dart';
 import 'package:flow_api/models/note/model.dart';
 import 'package:flow_api/models/note/service.dart';
 import 'package:flutter/material.dart';
@@ -142,24 +143,20 @@ class NotebookDialog extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
           child: Text(AppLocalizations.of(context).cancel),
         ),
-        ElevatedButton(
-          onPressed: () async {
+        SaveDialogButton<SourcedModel<Notebook>>(
+          errorMessage: AppLocalizations.of(context).saveFailed,
+          onSave: () async {
+            final service = currentService;
+            if (service == null) return null;
             if (create) {
-              final created = await currentService?.createNotebook(
-                currentNotebook,
-              );
-              if (created == null) {
-                return;
-              }
+              final created = await service.createNotebook(currentNotebook);
+              if (created == null) return null;
               currentNotebook = created;
             } else {
-              await currentService?.updateNotebook(currentNotebook);
+              final updated = await service.updateNotebook(currentNotebook);
+              if (!updated) return null;
             }
-            if (context.mounted) {
-              Navigator.of(
-                context,
-              ).pop(SourcedModel(currentSource, currentNotebook));
-            }
+            return SourcedModel<Notebook>(currentSource, currentNotebook);
           },
           child: Text(AppLocalizations.of(context).create),
         ),

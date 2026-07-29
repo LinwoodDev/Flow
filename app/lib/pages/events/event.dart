@@ -3,6 +3,7 @@ import 'package:flow/pages/groups/view.dart';
 import 'package:flow/pages/notes/view.dart';
 import 'package:flow/pages/resources/view.dart';
 import 'package:flow/pages/users/view.dart';
+import 'package:flow/widgets/save_dialog_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
@@ -197,22 +198,20 @@ class EventDialog extends StatelessWidget {
           },
           child: Text(AppLocalizations.of(context).cancel),
         ),
-        ElevatedButton(
-          onPressed: () async {
+        SaveDialogButton<SourcedModel<Event>>(
+          errorMessage: AppLocalizations.of(context).saveFailed,
+          onSave: () async {
+            final service = currentService;
+            if (service == null) return null;
             if (create) {
-              final created = await currentService?.createEvent(currentEvent);
-              if (created == null) {
-                return;
-              }
+              final created = await service.createEvent(currentEvent);
+              if (created == null) return null;
               currentEvent = created;
             } else {
-              await currentService?.updateEvent(currentEvent);
+              final updated = await service.updateEvent(currentEvent);
+              if (!updated) return null;
             }
-            if (context.mounted) {
-              Navigator.of(
-                context,
-              ).pop(SourcedModel(currentSource, currentEvent));
-            }
+            return SourcedModel<Event>(currentSource, currentEvent);
           },
           child: Text(AppLocalizations.of(context).save),
         ),

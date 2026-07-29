@@ -25,6 +25,8 @@ class _NoteDialogState extends State<NoteDialog> {
   late Note _newNote;
   late String _newSource;
   NoteService? _service;
+  bool _saving = false;
+  String? _error;
 
   @override
   void initState() {
@@ -33,6 +35,59 @@ class _NoteDialogState extends State<NoteDialog> {
     _newNote = widget.note ?? const Note();
     _newSource = widget.source ?? '';
     _service = context.read<FlowCubit>().getService(_newSource).note;
+  }
+
+  Future<void> _save() async {
+    if (_saving) return;
+
+    setState(() {
+      _saving = true;
+      _error = null;
+    });
+    try {
+      final service = _service;
+      if (service == null) {
+        if (mounted) {
+          setState(() => _error = AppLocalizations.of(context).saveFailed);
+        }
+        return;
+      }
+
+      final create =
+          widget.create || widget.note == null || widget.source == null;
+      Note saved;
+      if (create) {
+        final created = await service.createNote(_newNote);
+        if (created == null) {
+          if (mounted) {
+            setState(() => _error = AppLocalizations.of(context).saveFailed);
+          }
+          return;
+        }
+        saved = created;
+      } else {
+        final updated = await service.updateNote(_newNote);
+        if (!updated) {
+          if (mounted) {
+            setState(() => _error = AppLocalizations.of(context).saveFailed);
+          }
+          return;
+        }
+        saved = _newNote;
+      }
+
+      if (mounted) {
+        Navigator.of(context).pop(SourcedModel<Note>(_newSource, saved));
+      }
+    } catch (_) {
+      if (mounted) {
+        setState(() => _error = AppLocalizations.of(context).saveFailed);
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _saving = false);
+      }
+    }
   }
 
   @override
@@ -124,6 +179,13 @@ class _NoteDialogState extends State<NoteDialog> {
               );
             },
           ),
+          if (_error != null) ...[
+            const SizedBox(height: 8),
+            Text(
+              _error!,
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
+            ),
+          ],
         ],
       ),
       actions: [
@@ -134,16 +196,7 @@ class _NoteDialogState extends State<NoteDialog> {
           child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
-          onPressed: () async {
-            final navigator = Navigator.of(context);
-            Note? created;
-            if (create) {
-              created = await _service?.createNote(_newNote);
-            } else {
-              await _service?.updateNote(_newNote);
-            }
-            navigator.pop(SourcedModel(_newSource, created));
-          },
+          onPressed: _saving ? null : _save,
           child: Text(
             create
                 ? AppLocalizations.of(context).create

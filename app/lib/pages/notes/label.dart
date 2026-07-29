@@ -1,4 +1,5 @@
 import 'package:flow/widgets/markdown_field.dart';
+import 'package:flow/widgets/save_dialog_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
@@ -67,6 +68,7 @@ class LabelDialog extends StatelessWidget {
               buildService: (e) => e.label,
               onChanged: (connected) {
                 currentSource = connected?.source ?? '';
+                currentService = connected?.model;
               },
             ),
             const SizedBox(height: 16),
@@ -101,22 +103,20 @@ class LabelDialog extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
           child: Text(AppLocalizations.of(context).cancel),
         ),
-        ElevatedButton(
-          onPressed: () async {
+        SaveDialogButton<SourcedModel<Label>>(
+          errorMessage: AppLocalizations.of(context).saveFailed,
+          onSave: () async {
+            final service = currentService;
+            if (service == null) return null;
             if (create) {
-              final created = await currentService?.createLabel(currentLabel);
-              if (created == null) {
-                return;
-              }
+              final created = await service.createLabel(currentLabel);
+              if (created == null) return null;
               currentLabel = created;
             } else {
-              await currentService?.updateLabel(currentLabel);
+              final updated = await service.updateLabel(currentLabel);
+              if (!updated) return null;
             }
-            if (context.mounted) {
-              Navigator.of(
-                context,
-              ).pop(SourcedModel(currentSource, currentLabel));
-            }
+            return SourcedModel<Label>(currentSource, currentLabel);
           },
           child: Text(AppLocalizations.of(context).save),
         ),

@@ -1,4 +1,5 @@
 import 'package:flow/widgets/markdown_field.dart';
+import 'package:flow/widgets/save_dialog_button.dart';
 import 'package:flow_api/models/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +20,7 @@ class UserDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final create = this.create || user == null || source == null;
+    final create = this.create || user == null || source == null;
     var currentUser = user ?? const User();
     var currentSource = source ?? '';
     var currentService = context
@@ -28,7 +29,7 @@ class UserDialog extends StatelessWidget {
         .user;
     return ResponsiveAlertDialog(
       title: Text(
-        source == null
+        create
             ? AppLocalizations.of(context).createUser
             : AppLocalizations.of(context).editUser,
       ),
@@ -77,22 +78,20 @@ class UserDialog extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
           child: Text(AppLocalizations.of(context).cancel),
         ),
-        ElevatedButton(
-          onPressed: () async {
-            if (source == null) {
-              final created = await currentService?.createUser(currentUser);
-              if (created == null) {
-                return;
-              }
+        SaveDialogButton<SourcedModel<User>>(
+          errorMessage: AppLocalizations.of(context).saveFailed,
+          onSave: () async {
+            final service = currentService;
+            if (service == null) return null;
+            if (create) {
+              final created = await service.createUser(currentUser);
+              if (created == null) return null;
               currentUser = created;
             } else {
-              await currentService?.updateUser(currentUser);
+              final updated = await service.updateUser(currentUser);
+              if (!updated) return null;
             }
-            if (context.mounted) {
-              Navigator.of(
-                context,
-              ).pop(SourcedModel(currentSource, currentUser));
-            }
+            return SourcedModel<User>(currentSource, currentUser);
           },
           child: Text(AppLocalizations.of(context).save),
         ),

@@ -1,5 +1,6 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/widgets/markdown_field.dart';
+import 'package:flow/widgets/save_dialog_button.dart';
 import 'package:flow/widgets/source_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -80,22 +81,20 @@ class GroupDialog extends StatelessWidget {
           },
           child: Text(AppLocalizations.of(context).cancel),
         ),
-        ElevatedButton(
-          onPressed: () async {
+        SaveDialogButton<SourcedModel<Group>>(
+          errorMessage: AppLocalizations.of(context).saveFailed,
+          onSave: () async {
+            final service = currentService;
+            if (service == null) return null;
             if (create) {
-              final created = await currentService?.createGroup(currentGroup);
-              if (created == null) {
-                return;
-              }
+              final created = await service.createGroup(currentGroup);
+              if (created == null) return null;
               currentGroup = created;
             } else {
-              await currentService?.updateGroup(currentGroup);
+              final updated = await service.updateGroup(currentGroup);
+              if (!updated) return null;
             }
-            if (context.mounted) {
-              Navigator.of(
-                context,
-              ).pop(SourcedModel(currentSource, currentGroup));
-            }
+            return SourcedModel<Group>(currentSource, currentGroup);
           },
           child: Text(AppLocalizations.of(context).save),
         ),
