@@ -204,6 +204,8 @@
   "importFile": "Importă fișier",
   "importFileDescription": "Importă un fișier de pe dispozitivul tău. Poți importa un fișier de bază de date dintr-o altă instanță de flori Linwood sau un fișier calendar obișnuit.",
   "icalDescription": "Interfața iCal vă permite să accesați datele de pe orice server iCal. Aceasta poate doar citi datele și nu suportă scrierea. Îl puteţi folosi pentru a vă sincroniza datele cu alte dispozitive sau servicii care nu acceptă CalDAV.",
+  "deviceCalendar": "Device calendar",
+  "deviceCalendarDescription": "View and manage events in the calendars on this device.",
   "resource": "Resursă",
   "editResource": "Editare resursă",
   "deleteResource": "Ștergere resursă {name}",
