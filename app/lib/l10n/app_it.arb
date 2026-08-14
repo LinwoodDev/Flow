@@ -204,6 +204,8 @@
   "importFile": "Importa file",
   "importFileDescription": "Importa un file dal tuo dispositivo. Puoi importare un file di database da un'altra istanza di Linwood Flow o da un normale file di calendario.",
   "icalDescription": "L'interfaccia iCal ti permette di accedere ai tuoi dati da qualsiasi server iCal. Può leggere solo i dati e non supporta la scrittura. È possibile utilizzarlo per sincronizzare i dati con altri dispositivi o servizi che non supportano CalDAV.",
+  "deviceCalendar": "Device calendar",
+  "deviceCalendarDescription": "View and manage events in the calendars on this device.",
   "resource": "Risorsa",
   "editResource": "Modifica risorsa",
   "deleteResource": "Delete resource {name}",
