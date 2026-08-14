@@ -204,6 +204,8 @@
   "importFile": "Bestand importeren",
   "importFileDescription": "Importeer een bestand vanaf uw apparaat. U kunt een databasebestand importeren uit een ander Linwood Flow exemplaar of een normaal kalenderbestand.",
   "icalDescription": "De iCal interface geeft u toegang tot uw gegevens op elke iCal server. Het kan alleen gegevens lezen en ondersteunt geen schrijfgegevens. U kunt het gebruiken om uw gegevens te synchroniseren met andere apparaten of diensten die CalDAV niet ondersteunen.",
+  "deviceCalendar": "Device calendar",
+  "deviceCalendarDescription": "View and manage events in the calendars on this device.",
   "resource": "Bron",
   "editResource": "Bewerk document",
   "deleteResource": "Verwijder resource {name}",
