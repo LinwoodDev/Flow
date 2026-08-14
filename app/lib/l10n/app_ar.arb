@@ -204,6 +204,8 @@
   "importFile": "استيراد ملف",
   "importFileDescription": "استيراد ملف من جهازك. يمكنك استيراد ملف قاعدة بيانات من نموذج لينود آخر أو ملف تقويم عادي.",
   "icalDescription": "واجهة iCal تسمح لك بالوصول إلى بياناتك من أي خادم iCal. يمكنها فقط قراءة البيانات ولا تدعم الكتابة. يمكنك استخدامه لمزامنة بياناتك مع الأجهزة الأخرى أو الخدمات التي لا تدعم CalDAV.",
+  "deviceCalendar": "Device calendar",
+  "deviceCalendarDescription": "View and manage events in the calendars on this device.",
   "resource": "المورد",
   "editResource": "تعديل المورد",
   "deleteResource": "حذف المورد {name}",
