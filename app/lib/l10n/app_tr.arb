@@ -204,6 +204,8 @@
   "importFile": "Dosyayı içeri aktar",
   "importFileDescription": "Cihazınızdan bir dosya içe aktarın. Başka bir Linwood Flow örneğinden bir veritabanı dosyasını veya normal bir takvim dosyasını içe aktarabilirsiniz.",
   "icalDescription": "iCal arayüzü, verilerinize herhangi bir iCal sunucusundan erişmenizi sağlar. Yalnızca veri okuyabilir ve yazmayı desteklemez. Verilerinizi CalDAV'ı desteklemeyen diğer cihazlarla veya hizmetlerle senkronize etmek için kullanabilirsiniz.",
+  "deviceCalendar": "Device calendar",
+  "deviceCalendarDescription": "View and manage events in the calendars on this device.",
   "resource": "Resource",
   "editResource": "Edit resource",
   "deleteResource": "Delete resource {name}",
