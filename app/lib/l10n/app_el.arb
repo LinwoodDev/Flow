@@ -204,6 +204,8 @@
   "importFile": "Εισαγωγή αρχείου",
   "importFileDescription": "Εισαγωγή ενός αρχείου από τη συσκευή σας. Μπορείτε να εισαγάγετε ένα αρχείο βάσης δεδομένων από άλλο παράδειγμα Linwood Flow ή ένα κανονικό αρχείο ημερολογίου.",
   "icalDescription": "Η διεπαφή iCal σας επιτρέπει να έχετε πρόσβαση στα δεδομένα σας από οποιονδήποτε διακομιστή iCal. Μπορεί να διαβάσει μόνο δεδομένα και δεν υποστηρίζει εγγραφή. Μπορείτε να το χρησιμοποιήσετε για να συγχρονίσετε τα δεδομένα σας με άλλες συσκευές ή υπηρεσίες που δεν υποστηρίζουν CalDAV.",
+  "deviceCalendar": "Device calendar",
+  "deviceCalendarDescription": "View and manage events in the calendars on this device.",
   "resource": "Πόρος",
   "editResource": "Επεξεργασία πόρου",
   "deleteResource": "Διαγραφή πόρου {name}",
