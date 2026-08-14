@@ -12,7 +12,7 @@
 * Fix pending items appearing in dated calendar views
 * Allow public CalDAV and iCalendar sources without login credentials
 * Keep remote synchronization working after a failed import
-* Upgrade to flutter 3.44
+* Upgrade to flutter 3.44 and 3.47
 * upgrade to agb 9
 
 Read more here: https://linwood.dev/flow/0.7.0
