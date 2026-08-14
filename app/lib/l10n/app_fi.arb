@@ -204,6 +204,8 @@
   "importFile": "Tuo tiedosto",
   "importFileDescription": "Tuo tiedosto laitteestasi. Voit tuoda tietokantatiedoston toisesta Linwood Flow instanssista tai tavallisesta kalenteritiedostosta.",
   "icalDescription": "ICal käyttöliittymän avulla voit käyttää tietoja tahansa iCal palvelimella. Se voi vain lukea tietoja ja ei tue kirjoittamista. Voit käyttää sitä synkronoidaksesi dataa muiden laitteiden tai palvelujen kanssa, jotka eivät tue CalDAV:ta.",
+  "deviceCalendar": "Device calendar",
+  "deviceCalendarDescription": "View and manage events in the calendars on this device.",
   "resource": "Resurssi",
   "editResource": "Muokkaa resurssia",
   "deleteResource": "Poista resurssi {name}",
