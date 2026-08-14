@@ -7,6 +7,7 @@ extension StorageVisualizer on RemoteStorage {
   String getLocalizedName(BuildContext context) => switch (this) {
     CalDavStorage() => 'CalDAV',
     ICalStorage() => 'iCal',
+    DeviceCalendarStorage() => 'Device calendar',
     SiaStorage() => 'Sia',
     WebDavStorage() => 'WebDAV',
   };
@@ -14,6 +15,7 @@ extension StorageVisualizer on RemoteStorage {
   IconGetter get icon => switch (this) {
     CalDavStorage() => PhosphorIcons.globe,
     ICalStorage() => PhosphorIcons.calendar,
+    DeviceCalendarStorage() => PhosphorIcons.deviceMobile,
     SiaStorage() => PhosphorIcons.cloud,
     WebDavStorage() => PhosphorIcons.fileText,
   };

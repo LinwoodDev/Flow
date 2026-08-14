@@ -12,6 +12,7 @@ import 'package:flow_api/services/source.dart';
 import 'package:sqflite_common/sqlite_api.dart' show Database;
 
 import 'ical.dart';
+import 'device_calendar.dart';
 
 final class RemoteSyncException implements Exception {
   final int failedRequests;
@@ -119,6 +120,9 @@ abstract class RemoteService<T extends RemoteStorage> extends SourceService {
         CalDavRemoteService(storage, local, password) as RemoteService<T>,
       ICalStorage() =>
         IcalRemoteService(storage, local, password) as RemoteService<T>,
+      DeviceCalendarStorage() =>
+        DeviceCalendarRemoteService(storage, local, password)
+            as RemoteService<T>,
       WebDavStorage() => throw UnimplementedError(),
       SiaStorage() =>
         SiaRemoteService(storage, local, password) as RemoteService<T>,

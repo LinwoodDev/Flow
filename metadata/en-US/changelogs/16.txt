@@ -1,3 +1,4 @@
+* Add device calendar support ([#34](https://github.com/LinwoodDev/Flow/issues/34))
 * Remove the clear button from date and time fields
 * Prevent calendar items from ending before they start
 * Prevent active alarms from being scheduled in the past or re-enabled after they expire
@@ -14,4 +15,4 @@
 * Upgrade to flutter 3.44
 * upgrade to agb 9
 
-Read more here: https://linwood.dev/flow/0.6.1
+Read more here: https://linwood.dev/flow/0.7.0

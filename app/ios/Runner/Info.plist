@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
+		<key>NSCalendarsUsageDescription</key>
+		<string>Access your calendars to view and manage events in Flow.</string>
+		<key>NSCalendarsFullAccessUsageDescription</key>
+		<string>Access your calendars to view and manage events in Flow.</string>
+		<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
+		<string>Add events from Flow to your calendars.</string>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>

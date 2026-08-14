@@ -17,6 +17,7 @@ class RemoteStorageMapper extends ClassMapperBase<RemoteStorage> {
       MapperContainer.globals.use(_instance = RemoteStorageMapper._());
       CalDavStorageMapper.ensureInitialized();
       ICalStorageMapper.ensureInitialized();
+      DeviceCalendarStorageMapper.ensureInitialized();
       WebDavStorageMapper.ensureInitialized();
       SiaStorageMapper.ensureInitialized();
     }
@@ -342,6 +343,198 @@ class _ICalStorageCopyWithImpl<$R, $Out>
   ICalStorageCopyWith<$R2, ICalStorage, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
   ) => _ICalStorageCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
+class DeviceCalendarStorageMapper
+    extends SubClassMapperBase<DeviceCalendarStorage> {
+  DeviceCalendarStorageMapper._();
+
+  static DeviceCalendarStorageMapper? _instance;
+  static DeviceCalendarStorageMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = DeviceCalendarStorageMapper._());
+      RemoteStorageMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'DeviceCalendarStorage';
+
+  static String _$url(DeviceCalendarStorage v) => v.url;
+  static const Field<DeviceCalendarStorage, String> _f$url = Field(
+    'url',
+    _$url,
+    opt: true,
+    def: 'device://calendar',
+  );
+  static String _$username(DeviceCalendarStorage v) => v.username;
+  static const Field<DeviceCalendarStorage, String> _f$username = Field(
+    'username',
+    _$username,
+    opt: true,
+    def: '',
+  );
+  static List<String> _$calendarIds(DeviceCalendarStorage v) => v.calendarIds;
+  static const Field<DeviceCalendarStorage, List<String>> _f$calendarIds =
+      Field('calendarIds', _$calendarIds, opt: true, def: const []);
+  static String _$name(DeviceCalendarStorage v) => v.name;
+  static const Field<DeviceCalendarStorage, String> _f$name = Field(
+    'name',
+    _$name,
+    opt: true,
+    def: '',
+  );
+
+  @override
+  final MappableFields<DeviceCalendarStorage> fields = const {
+    #url: _f$url,
+    #username: _f$username,
+    #calendarIds: _f$calendarIds,
+    #name: _f$name,
+  };
+
+  @override
+  final String discriminatorKey = 'type';
+  @override
+  final dynamic discriminatorValue = 'deviceCalendar';
+  @override
+  late final ClassMapperBase superMapper =
+      RemoteStorageMapper.ensureInitialized();
+
+  static DeviceCalendarStorage _instantiate(DecodingData data) {
+    return DeviceCalendarStorage(
+      url: data.dec(_f$url),
+      username: data.dec(_f$username),
+      calendarIds: data.dec(_f$calendarIds),
+      name: data.dec(_f$name),
+    );
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static DeviceCalendarStorage fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<DeviceCalendarStorage>(map);
+  }
+
+  static DeviceCalendarStorage fromJson(String json) {
+    return ensureInitialized().decodeJson<DeviceCalendarStorage>(json);
+  }
+}
+
+mixin DeviceCalendarStorageMappable {
+  String toJson() {
+    return DeviceCalendarStorageMapper.ensureInitialized()
+        .encodeJson<DeviceCalendarStorage>(this as DeviceCalendarStorage);
+  }
+
+  Map<String, dynamic> toMap() {
+    return DeviceCalendarStorageMapper.ensureInitialized()
+        .encodeMap<DeviceCalendarStorage>(this as DeviceCalendarStorage);
+  }
+
+  DeviceCalendarStorageCopyWith<
+    DeviceCalendarStorage,
+    DeviceCalendarStorage,
+    DeviceCalendarStorage
+  >
+  get copyWith =>
+      _DeviceCalendarStorageCopyWithImpl<
+        DeviceCalendarStorage,
+        DeviceCalendarStorage
+      >(this as DeviceCalendarStorage, $identity, $identity);
+  @override
+  String toString() {
+    return DeviceCalendarStorageMapper.ensureInitialized().stringifyValue(
+      this as DeviceCalendarStorage,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return DeviceCalendarStorageMapper.ensureInitialized().equalsValue(
+      this as DeviceCalendarStorage,
+      other,
+    );
+  }
+
+  @override
+  int get hashCode {
+    return DeviceCalendarStorageMapper.ensureInitialized().hashValue(
+      this as DeviceCalendarStorage,
+    );
+  }
+}
+
+extension DeviceCalendarStorageValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, DeviceCalendarStorage, $Out> {
+  DeviceCalendarStorageCopyWith<$R, DeviceCalendarStorage, $Out>
+  get $asDeviceCalendarStorage => $base.as(
+    (v, t, t2) => _DeviceCalendarStorageCopyWithImpl<$R, $Out>(v, t, t2),
+  );
+}
+
+abstract class DeviceCalendarStorageCopyWith<
+  $R,
+  $In extends DeviceCalendarStorage,
+  $Out
+>
+    implements RemoteStorageCopyWith<$R, $In, $Out> {
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get calendarIds;
+  @override
+  $R call({
+    String? url,
+    String? username,
+    List<String>? calendarIds,
+    String? name,
+  });
+  DeviceCalendarStorageCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+    Then<$Out2, $R2> t,
+  );
+}
+
+class _DeviceCalendarStorageCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, DeviceCalendarStorage, $Out>
+    implements DeviceCalendarStorageCopyWith<$R, DeviceCalendarStorage, $Out> {
+  _DeviceCalendarStorageCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<DeviceCalendarStorage> $mapper =
+      DeviceCalendarStorageMapper.ensureInitialized();
+  @override
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>>
+  get calendarIds => ListCopyWith(
+    $value.calendarIds,
+    (v, t) => ObjectCopyWith(v, $identity, t),
+    (v) => call(calendarIds: v),
+  );
+  @override
+  $R call({
+    String? url,
+    String? username,
+    List<String>? calendarIds,
+    String? name,
+  }) => $apply(
+    FieldCopyWithData({
+      if (url != null) #url: url,
+      if (username != null) #username: username,
+      if (calendarIds != null) #calendarIds: calendarIds,
+      if (name != null) #name: name,
+    }),
+  );
+  @override
+  DeviceCalendarStorage $make(CopyWithData data) => DeviceCalendarStorage(
+    url: data.get(#url, or: $value.url),
+    username: data.get(#username, or: $value.username),
+    calendarIds: data.get(#calendarIds, or: $value.calendarIds),
+    name: data.get(#name, or: $value.name),
+  );
+
+  @override
+  DeviceCalendarStorageCopyWith<$R2, DeviceCalendarStorage, $Out2>
+  $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _DeviceCalendarStorageCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class WebDavStorageMapper extends SubClassMapperBase<WebDavStorage> {

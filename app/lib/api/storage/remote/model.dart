@@ -28,6 +28,31 @@ final class ICalStorage extends RemoteStorage with ICalStorageMappable {
   const ICalStorage({required super.url, required super.username});
 }
 
+@MappableClass(discriminatorValue: 'deviceCalendar')
+final class DeviceCalendarStorage extends RemoteStorage
+    with DeviceCalendarStorageMappable {
+  final List<String> calendarIds;
+  final String name;
+
+  const DeviceCalendarStorage({
+    super.url = 'device://calendar',
+    super.username = '',
+    this.calendarIds = const [],
+    this.name = '',
+  });
+
+  @override
+  String get identifier {
+    if (calendarIds.isEmpty) return 'device-calendar';
+    final sortedIds = calendarIds.toSet().toList()..sort();
+    final selection = base64UrlEncode(utf8.encode(jsonEncode(sortedIds)));
+    return 'device-calendar:$selection';
+  }
+
+  @override
+  String get displayName => name.isEmpty ? 'Device calendar' : name;
+}
+
 @MappableClass(discriminatorValue: 'webdav')
 final class WebDavStorage extends RemoteStorage with WebDavStorageMappable {
   const WebDavStorage({required super.url, required super.username});

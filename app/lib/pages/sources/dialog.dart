@@ -1,13 +1,19 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/pages/sources/import.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/converters/ical.dart';
+import 'package:device_calendar_plus/device_calendar_plus.dart';
+
+import '../../api/storage/remote/model.dart';
+import '../../api/storage/sources.dart';
 
 import 'caldav.dart';
 import 'ical.dart';
@@ -56,6 +62,15 @@ class AddSourceDialog extends StatelessWidget {
                   );
                 },
               ),
+              if (!kIsWeb && (Platform.isAndroid || Platform.isIOS))
+                ListTile(
+                  title: Text(AppLocalizations.of(context).deviceCalendar),
+                  subtitle: Text(
+                    AppLocalizations.of(context).deviceCalendarDescription,
+                  ),
+                  leading: const PhosphorIcon(PhosphorIconsLight.deviceMobile),
+                  onTap: () => _addDeviceCalendar(context),
+                ),
               const Divider(),
               Text(
                 AppLocalizations.of(context).comingSoon,
@@ -154,5 +169,17 @@ class AddSourceDialog extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Future<void> _addDeviceCalendar(BuildContext context) async {
+    final status = await DeviceCalendar.instance.requestPermissions();
+    if (status != CalendarPermissionStatus.granted || !context.mounted) {
+      return;
+    }
+    await context.read<SourcesService>().addRemote(
+      const DeviceCalendarStorage(),
+      '',
+    );
+    if (context.mounted) Navigator.of(context).pop();
   }
 }

@@ -30,7 +30,7 @@ class APIRequest with APIRequestMappable {
     request.body = body;
     try {
       final stream = await currentClient.send(request);
-      return Response.fromStream(stream);
+      return await Response.fromStream(stream);
     } catch (_) {
       rethrow;
     } finally {
