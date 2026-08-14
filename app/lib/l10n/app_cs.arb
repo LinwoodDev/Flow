@@ -204,6 +204,8 @@
   "importFile": "Importovat soubor",
   "importFileDescription": "Importujte soubor z vašeho zařízení. Můžete importovat databázový soubor z jiné instance toku linwood nebo z běžného souboru kalendáře.",
   "icalDescription": "Rozhraní iCal umožňuje přístup k vašim datům z jakéhokoliv serveru iCal. Může pouze číst data a nepodporuje psaní. Můžete ji použít k synchronizaci dat s jinými zařízeními nebo službami, které CalDAV.",
+  "deviceCalendar": "Device calendar",
+  "deviceCalendarDescription": "View and manage events in the calendars on this device.",
   "resource": "Zdroj",
   "editResource": "Upravit zdroj",
   "deleteResource": "Odstranit dokument {name}",
