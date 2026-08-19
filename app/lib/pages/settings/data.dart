@@ -127,7 +127,7 @@ class DataSettingsPage extends StatelessWidget {
     final result = await FilePicker.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['json'],
-    ).then((result) => result?.files.firstOrNull);
+    ).then((result) => result.firstOrNull);
     if (result == null) return;
     final data = await result.readAsBytes();
     settingsCubit.importSettings(utf8.decode(data));

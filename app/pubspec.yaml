@@ -67,7 +67,7 @@ dependencies:
   lw_sysapi:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 474f28052d3294b37827f71200c573f8668f7cdb
+      ref: 4504590d871958c48a93969461193691ea88cb18
       path: packages/lw_sysapi
   equatable: ^2.0.7
   flutter_local_notifications: ^22.0.0-dev.3

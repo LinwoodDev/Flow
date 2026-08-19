@@ -2,18 +2,54 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import react from "@astrojs/react";
 import { getSidebarTranslatedLabel } from "./src/translations";
-import remarkHeadingID from "remark-heading-id";
-import remarkGemoji from "remark-gemoji";
 import AstroPWA from "@vite-pwa/astro";
 import manifest from "./webmanifest.json";
-import { satteri } from '@astrojs/markdown-satteri';
+import { fileURLToPath } from "node:url";
+import { satteri } from "@astrojs/markdown-satteri";
+
+const githubEmoji = {
+  warning: "⚠️",
+  white_check_mark: "✅",
+  x: "❌",
+};
+
+const renderGithubEmojiPlugin = {
+  name: "render-github-emoji",
+  text(node, context) {
+    const value = node.value.replace(
+      /:(warning|white_check_mark|x):/g,
+      (_, name) => githubEmoji[name],
+    );
+    if (value !== node.value) context.replaceNode(node, { type: "text", value });
+  },
+};
+
+const mdxHeadingAttributes = {
+  name: "mdx-heading-attributes",
+  enforce: "pre",
+  transform(code, id) {
+    if (!id.split("?", 1)[0].endsWith(".mdx")) return;
+    const transformed = code.replace(
+      /^(#{1,6})\s+(.+?)\s+\{#([\w-]+)\}\s*$/gm,
+      (_, hashes, heading, headingId) =>
+        `<h${hashes.length} id="${headingId}">${heading}</h${hashes.length}>`,
+    );
+    if (transformed === code) return;
+    return { code: transformed, map: null };
+  },
+};
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://flow.linwood.dev",
   markdown: {
     processor: satteri({
+      features: { headingAttributes: true },
+      mdastPlugins: [renderGithubEmojiPlugin],
     }),
+  },
+  vite: {
+    plugins: [mdxHeadingAttributes],
   },
   integrations: [
     starlight({
@@ -22,19 +58,23 @@ export default defineConfig({
         "./src/styles/linwood-style.scss",
         "./src/styles/custom.scss",
       ],
+      editLink: {
+        baseUrl: 'https://github.com/LinwoodDev/Flow/edit/develop/docs/',
+      },
       logo: {
         src: "./public/img/docs.svg",
       },
       favicon: "./favicon.svg",
       social: [
-        {icon: "mastodon", label: "Mastodon", href: "https://floss.social/@linwood"},
-        {icon: "matrix", label: "Matrix", href: "https://linwood.dev/matrix"},
-        {icon: "discord", label: "Discord", href: "https://linwood.dev/discord"},
-        {icon: "blueSky", label: "Bluesky", href: "https://bsky.app/profile/linwood.dev"},
-        {icon: "github", label: "GitHub", href: "https://github.com/LinwoodDev/Flow"},
+        { icon: "mastodon", label: "Mastodon", href: "https://floss.social/@linwood" },
+        { icon: "matrix", label: "Matrix", href: "https://linwood.dev/matrix" },
+        { icon: "discord", label: "Discord", href: "https://linwood.dev/discord" },
+        { icon: "blueSky", label: "Bluesky", href: "https://bsky.app/profile/linwood.dev" },
+        { icon: "github", label: "GitHub", href: "https://github.com/LinwoodDev/Flow" },
       ],
       components: {
         Head: "./src/components/Head.astro",
+        Search: "./src/components/Search.astro",
         Footer: "./src/components/Footer.astro",
         ContentPanel: "./src/components/ContentPanel.astro",
       },
@@ -137,6 +177,9 @@ export default defineConfig({
         },
         hu: {
           label: "Hungarian",
+        },
+        id: {
+          label: "Indonesian",
         },
         it: {
           label: "Italian",
