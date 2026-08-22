@@ -76,6 +76,65 @@
   "indicatorError": "Ett fel uppstod",
   "indicatorErrorDescription": "Ett fel inträffade vid inläsning av data.",
   "tryAgain": "Försök igen",
+  "refresh": "Uppdatera",
+  "neverSynced": "Not synchronized yet",
+  "lastSuccessfulSync": "Last successful sync: {time}",
+  "@lastSuccessfulSync": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "invalidUrl": "Enter a valid HTTP or HTTPS URL",
+  "sourceAlreadyExists": "This source is already connected.",
+  "connectionFailed": "Connection failed: {error}",
+  "@connectionFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "showPassword": "Show password",
+  "hidePassword": "Hide password",
+  "endBeforeStart": "The end must not be before the start.",
+  "repeatUntilBeforeStart": "The repeat end must not be before the first occurrence.",
+  "saveFailed": "The changes could not be saved. Try again.",
+  "deleteFailed": "The item could not be deleted. Try again.",
+  "futureAlarmRequired": "An active alarm must be scheduled in the future.",
+  "deleteAlarm": "Delete alarm {name}",
+  "@deleteAlarm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteAlarmDescription": "Are you sure you want to delete the alarm {name}?",
+  "@deleteAlarmDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteCalendarItem": "Delete calendar item {name}",
+  "@deleteCalendarItem": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteCalendarItemDescription": "Are you sure you want to delete the calendar item {name}?",
+  "@deleteCalendarItemDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "eventInfo": "{event} den {date} kl. {time} i {location} ({status})",
   "@eventInfo": {
     "placeholders": {
@@ -145,6 +204,8 @@
   "importFile": "Importera fil",
   "importFileDescription": "Importera en fil från din enhet. Du kan importera en databasfil från en annan Linwood Flow-instans eller en vanlig kalenderfil.",
   "icalDescription": "Med iCal-gränssnittet kan du komma åt dina data från alla iCal-servrar. Det kan bara läsa data och stöder inte skrivning. Du kan använda den för att synkronisera dina data med andra enheter eller tjänster som inte stöder CalDAV.",
+  "deviceCalendar": "Device calendar",
+  "deviceCalendarDescription": "View and manage events in the calendars on this device.",
   "resource": "Resurs",
   "editResource": "Redigera resurs",
   "deleteResource": "Ta bort resurs {name}",
@@ -327,6 +388,35 @@
   "enabled": "Aktiverad",
   "countdown": "Nedräkning",
   "unlink": "Avlänka",
+  "removeSource": "Remove source {name}",
+  "@removeSource": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "removeSourceDescription": "Remove {name} from Flow? Its account settings and saved credentials will be removed.",
+  "@removeSourceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "noAlarms": "Det finns inga alarm att visa.",
-  "allDay": "Hela dagen"
+  "allDay": "Hela dagen",
+  "repeat": "Repeat",
+  "repeatFrequency": "Frequency",
+  "repeatInterval": "Interval",
+  "repeatIntervalHelper": "Repeat every n periods",
+  "repeatDaily": "Daily",
+  "repeatWeekly": "Weekly",
+  "repeatMonthly": "Monthly",
+  "repeatYearly": "Yearly",
+  "repeatWeekdays": "Weekdays",
+  "repeatMonthDays": "Month days",
+  "repeatOccurrences": "Occurrences (optional)",
+  "repeatOccurrencesHelper": "Leave empty for no count limit",
+  "repeatUntil": "Until (optional)"
 }

@@ -76,6 +76,65 @@
   "indicatorError": "Tapahtui virhe",
   "indicatorErrorDescription": "Dataa ladattaessa tapahtui virhe.",
   "tryAgain": "Yritä uudelleen",
+  "refresh": "Päivitä",
+  "neverSynced": "Not synchronized yet",
+  "lastSuccessfulSync": "Last successful sync: {time}",
+  "@lastSuccessfulSync": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "invalidUrl": "Enter a valid HTTP or HTTPS URL",
+  "sourceAlreadyExists": "This source is already connected.",
+  "connectionFailed": "Connection failed: {error}",
+  "@connectionFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "showPassword": "Show password",
+  "hidePassword": "Hide password",
+  "endBeforeStart": "The end must not be before the start.",
+  "repeatUntilBeforeStart": "The repeat end must not be before the first occurrence.",
+  "saveFailed": "The changes could not be saved. Try again.",
+  "deleteFailed": "The item could not be deleted. Try again.",
+  "futureAlarmRequired": "An active alarm must be scheduled in the future.",
+  "deleteAlarm": "Delete alarm {name}",
+  "@deleteAlarm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteAlarmDescription": "Are you sure you want to delete the alarm {name}?",
+  "@deleteAlarmDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteCalendarItem": "Delete calendar item {name}",
+  "@deleteCalendarItem": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteCalendarItemDescription": "Are you sure you want to delete the calendar item {name}?",
+  "@deleteCalendarItemDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "eventInfo": "{event} {date} klo {time} {location} ({status})",
   "@eventInfo": {
     "placeholders": {
@@ -145,6 +204,8 @@
   "importFile": "Tuo tiedosto",
   "importFileDescription": "Tuo tiedosto laitteestasi. Voit tuoda tietokantatiedoston toisesta Linwood Flow instanssista tai tavallisesta kalenteritiedostosta.",
   "icalDescription": "ICal käyttöliittymän avulla voit käyttää tietoja tahansa iCal palvelimella. Se voi vain lukea tietoja ja ei tue kirjoittamista. Voit käyttää sitä synkronoidaksesi dataa muiden laitteiden tai palvelujen kanssa, jotka eivät tue CalDAV:ta.",
+  "deviceCalendar": "Device calendar",
+  "deviceCalendarDescription": "View and manage events in the calendars on this device.",
   "resource": "Resurssi",
   "editResource": "Muokkaa resurssia",
   "deleteResource": "Poista resurssi {name}",
@@ -327,6 +388,35 @@
   "enabled": "Käytössä",
   "countdown": "Lähtölaskenta",
   "unlink": "Irrota",
+  "removeSource": "Remove source {name}",
+  "@removeSource": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "removeSourceDescription": "Remove {name} from Flow? Its account settings and saved credentials will be removed.",
+  "@removeSourceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "noAlarms": "Ei ole hälytyksiä näytettäväksi.",
-  "allDay": "Koko päivä"
+  "allDay": "Koko päivä",
+  "repeat": "Repeat",
+  "repeatFrequency": "Frequency",
+  "repeatInterval": "Interval",
+  "repeatIntervalHelper": "Repeat every n periods",
+  "repeatDaily": "Daily",
+  "repeatWeekly": "Weekly",
+  "repeatMonthly": "Monthly",
+  "repeatYearly": "Yearly",
+  "repeatWeekdays": "Weekdays",
+  "repeatMonthDays": "Month days",
+  "repeatOccurrences": "Occurrences (optional)",
+  "repeatOccurrencesHelper": "Leave empty for no count limit",
+  "repeatUntil": "Until (optional)"
 }

@@ -24,4 +24,4 @@ title: 常见问题
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Flow is available on iOS as preview. 点击此[链接](https://flow.linwood.dev/downloads/ios)下载。 点击此[链接](https://flow.linwood.dev/downloads/ios)下载。 [点击](https://github.com/LinwoodDev/Flow/issues/244#issuecomment-1935460878)了解为什么此应用不在App Store上提供。
+Flow is available on iOS as preview. 点击此[链接](https://flow.linwood.dev/downloads/ios)下载。 Butterfly在iOS下有预览版。 点击此[链接](https://butterfly.linwood.dev/downloads/ios)下载。 [点击](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878)了解为什么此应用不在App Store上提供。

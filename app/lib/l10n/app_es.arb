@@ -76,6 +76,65 @@
   "indicatorError": "Se ha producido un error",
   "indicatorErrorDescription": "Se ha producido un error al cargar los datos.",
   "tryAgain": "Inténtalo de nuevo",
+  "refresh": "Refrescar",
+  "neverSynced": "Not synchronized yet",
+  "lastSuccessfulSync": "Last successful sync: {time}",
+  "@lastSuccessfulSync": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "invalidUrl": "Enter a valid HTTP or HTTPS URL",
+  "sourceAlreadyExists": "This source is already connected.",
+  "connectionFailed": "Connection failed: {error}",
+  "@connectionFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "showPassword": "Show password",
+  "hidePassword": "Hide password",
+  "endBeforeStart": "The end must not be before the start.",
+  "repeatUntilBeforeStart": "The repeat end must not be before the first occurrence.",
+  "saveFailed": "The changes could not be saved. Try again.",
+  "deleteFailed": "The item could not be deleted. Try again.",
+  "futureAlarmRequired": "An active alarm must be scheduled in the future.",
+  "deleteAlarm": "Delete alarm {name}",
+  "@deleteAlarm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteAlarmDescription": "Are you sure you want to delete the alarm {name}?",
+  "@deleteAlarmDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteCalendarItem": "Delete calendar item {name}",
+  "@deleteCalendarItem": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteCalendarItemDescription": "Are you sure you want to delete the calendar item {name}?",
+  "@deleteCalendarItemDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "eventInfo": "{event} el {date} a las {time} en {location} ({status})",
   "@eventInfo": {
     "placeholders": {
@@ -145,6 +204,8 @@
   "importFile": "Importar archivo",
   "importFileDescription": "Importa un archivo desde tu dispositivo. Puedes importar un archivo de base de datos desde otra instancia de Linwood Flow o un archivo de calendario normal.",
   "icalDescription": "La interfaz iCal le permite acceder a sus datos desde cualquier servidor iCal. Sólo puede leer datos y no es compatible con la escritura. Puede usarlo para sincronizar sus datos con otros dispositivos o servicios que no soporten CalDAV.",
+  "deviceCalendar": "Device calendar",
+  "deviceCalendarDescription": "View and manage events in the calendars on this device.",
   "resource": "Recurso",
   "editResource": "Editar recurso",
   "deleteResource": "Eliminar recurso {name}",
@@ -327,6 +388,35 @@
   "enabled": "Activado",
   "countdown": "Cuenta atrás",
   "unlink": "Desvincular",
+  "removeSource": "Remove source {name}",
+  "@removeSource": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "removeSourceDescription": "Remove {name} from Flow? Its account settings and saved credentials will be removed.",
+  "@removeSourceDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "noAlarms": "No hay alarmas para mostrar.",
-  "allDay": "Todo el día"
+  "allDay": "Todo el día",
+  "repeat": "Repeat",
+  "repeatFrequency": "Frequency",
+  "repeatInterval": "Interval",
+  "repeatIntervalHelper": "Repeat every n periods",
+  "repeatDaily": "Daily",
+  "repeatWeekly": "Weekly",
+  "repeatMonthly": "Monthly",
+  "repeatYearly": "Yearly",
+  "repeatWeekdays": "Weekdays",
+  "repeatMonthDays": "Month days",
+  "repeatOccurrences": "Occurrences (optional)",
+  "repeatOccurrencesHelper": "Leave empty for no count limit",
+  "repeatUntil": "Until (optional)"
 }
