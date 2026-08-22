@@ -25,7 +25,7 @@
     "remark-heading-id": "^1.0.1",
     "typescript": "^6.0.3"
   },
-  "packageManager": "pnpm@11.21.0",
+  "packageManager": "pnpm@11.22.0",
   "devDependencies": {
     "@vite-pwa/astro": "^1.2.0",
     "sass": "^1.102.0",
