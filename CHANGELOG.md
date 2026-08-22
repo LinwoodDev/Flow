@@ -2,6 +2,27 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 0.7.0 (2026-08-22)
+
+* Add device calendar support ([#34](https://github.com/LinwoodDev/Flow/issues/34))
+* Remove the clear button from date and time fields
+* Prevent calendar items from ending before they start
+* Prevent active alarms from being scheduled in the past or re-enabled after they expire
+* Show an error and disable alarms when notification scheduling fails
+* Show save and delete errors without closing the editor
+* Ask for confirmation before deleting alarms, calendar items, or sources
+* Keep sources visible when they cannot be removed
+* Show synchronization errors and the time of the last successful sync
+* Reject invalid source URLs and show connection progress and failures
+* Sort dashboard items, add refresh controls, and show friendly loading errors
+* Fix pending items appearing in dated calendar views
+* Allow public CalDAV and iCalendar sources without login credentials
+* Keep remote synchronization working after a failed import
+* Upgrade to flutter 3.44 and 3.47
+* upgrade to agp 9
+
+Read more here: https://linwood.dev/flow/0.7.0
+
 ## 0.6.0 (2026-05-28)
 
 * Add gestures in day and week view ([#32](https://github.com/LinwoodDev/Flow/issues/32))
