@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
+import linwoodStarlight from "@linwooddev/starlight-style";
 import react from "@astrojs/react";
 import { getSidebarTranslatedLabel } from "./src/translations";
 import AstroPWA from "@vite-pwa/astro";
@@ -53,9 +54,9 @@ export default defineConfig({
   },
   integrations: [
     starlight({
+      plugins: [linwoodStarlight()],
       title: "Linwood Flow",
       customCss: [
-        "./src/styles/linwood-style.scss",
         "./src/styles/custom.scss",
       ],
       editLink: {
@@ -74,9 +75,7 @@ export default defineConfig({
       ],
       components: {
         Head: "./src/components/Head.astro",
-        Search: "./src/components/Search.astro",
         Footer: "./src/components/Footer.astro",
-        ContentPanel: "./src/components/ContentPanel.astro",
       },
       sidebar: [
         {
