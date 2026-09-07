@@ -4,7 +4,9 @@
 
 | Version | Supported          |                                                                   |
 | ------- | ------------------ | ----------------------------------------------------------------- |
-| 0.5.2   | :white_check_mark: | [Release](https://github.com/LinwoodDev/Flow/releases/tag/v0.5.2) |
+| 0.7.0   | :white_check_mark: | [Release](https://github.com/LinwoodDev/Flow/releases/tag/v0.7.0) |
+| 0.6.0   | :x:                | [Release](https://github.com/LinwoodDev/Flow/releases/tag/v0.6.0) |
+| 0.5.2   | :x:                | [Release](https://github.com/LinwoodDev/Flow/releases/tag/v0.5.2) |
 | 0.4.2   | :x:                | [Release](https://github.com/LinwoodDev/Flow/releases/tag/v0.4.2) |
 | 0.3.1   | :x:                | [Release](https://github.com/LinwoodDev/Flow/releases/tag/v0.3.1) |
 | 0.2.1   | :x:                | [Release](https://github.com/LinwoodDev/Flow/releases/tag/v0.2.1) |

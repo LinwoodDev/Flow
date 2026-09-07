@@ -1,10 +1,18 @@
-name: Dart
+name: Dart quality
 
 on: [push, pull_request]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: dart-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -15,6 +23,8 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -24,28 +34,27 @@ jobs:
           dart --version
           flutter --version
       - name: Install dependencies
-        run: |
-          flutter pub get
+        run: flutter pub get
       - name: Run flutter gen-l10n
         if: matrix.projects == 'app'
         run: |
           flutter gen-l10n
           dart format lib/src/generated
       - name: Verify formatting
-        run: dart format --output=none --set-exit-if-changed .
+        run: dart format --output=none --set-exit-if-changed lib
       - name: Analyze project source
         run: flutter analyze --fatal-infos
       - name: Run build_runner
         if: matrix.projects != 'tools'
-        run: dart run build_runner build
+        run: dart run build_runner build --delete-conflicting-outputs
       - name: Run format for generated files
         if: matrix.projects != 'tools'
         run: dart format .
       - name: Test for git changes
         run: git diff --exit-code
-      - name: Run app tests
+      - name: Run Flutter tests
         if: matrix.projects == 'app'
         run: flutter test
-      - name: Run package tests
+      - name: Run Dart tests
         if: matrix.projects == 'api'
         run: dart test

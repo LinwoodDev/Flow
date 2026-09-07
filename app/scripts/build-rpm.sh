@@ -45,8 +45,8 @@ chmod 755 build/SOURCES/linwood-flow-$RPM_VERSION/flow
 mv build/SOURCES/linwood-flow-$RPM_VERSION/flow build/SOURCES/linwood-flow-$RPM_VERSION/linwood-flow
 cp linux/rpm/linwood-flow.desktop build/SOURCES/linwood-flow-$RPM_VERSION/linwood-flow.desktop
 
-# Update .spec file with the correct version
-sed -i "2s/.*/Version: $RPM_VERSION/" build/SPECS/linwood-flow.spec
+# Update the .spec file with the correct version without relying on line numbers.
+sed -i "s/^Version:.*/Version:        $RPM_VERSION/" build/SPECS/linwood-flow.spec
 
 # Create tarball
 cd build/SOURCES/

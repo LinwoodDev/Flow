@@ -3,25 +3,33 @@ name: Flutter build
 on:
   push:
     branches:
-      - "*"
+      - main
+      - develop
     tags:
       - stable
       - nightly
   release:
     types: [published]
   pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build-apk:
-    concurrency: ci-${{ github.ref }}
     defaults:
       run:
         working-directory: app
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
       - name: 🔧 Setup java
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           java-version: "21"
           distribution: "temurin"
@@ -30,10 +38,7 @@ jobs:
           flutter-version-file: app/pubspec.yaml
           cache: true
       - name: 📦 Get dependencies
-        run: |
-          flutter clean
-          flutter pub get
-          flutter doctor -v
+        run: flutter pub get
       - name: Import files
         if: ${{ github.event_name != 'pull_request' }}
         env:
@@ -102,6 +107,22 @@ jobs:
           cp build/app/outputs/flutter-apk/app-armeabi-v7a-production-release.apk linwood-flow-android-arm-legacy.apk
           cp build/app/outputs/flutter-apk/app-arm64-v8a-production-release.apk linwood-flow-android-arm64-legacy.apk
           cp build/app/outputs/flutter-apk/app-x86_64-production-release.apk linwood-flow-android-x86_64-legacy.apk
+      - name: 📊 Analyze nightly Android arm64 size
+        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
+        run: |
+          flutter build apk -v --release --flavor nightly --dart-define=flavor=nightly --target-platform android-arm64 --split-per-abi --analyze-size --code-size-directory=build/size-analysis/android-arm64-nightly
+          cp "$HOME"/.flutter-devtools/apk-code-size-analysis_*.json build/size-analysis/android-arm64-nightly/
+      - name: 📊 Analyze production Android arm64 size
+        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        run: |
+          flutter build apk -v --release --flavor production --target-platform android-arm64 --split-per-abi --analyze-size --code-size-directory=build/size-analysis/android-arm64-production
+          cp "$HOME"/.flutter-devtools/apk-code-size-analysis_*.json build/size-analysis/android-arm64-production/
+      - name: Archive size analysis
+        uses: actions/upload-artifact@v7
+        with:
+          name: android-size-analysis
+          path: app/build/size-analysis/
+          if-no-files-found: error
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
@@ -147,6 +168,8 @@ jobs:
     defaults:
       run:
         working-directory: app
+    env:
+      BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -164,10 +187,7 @@ jobs:
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
       - name: 📦 Get dependencies
-        run: |
-          flutter clean
-          flutter pub get
-          flutter doctor -v
+        run: flutter pub get
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
@@ -176,6 +196,12 @@ jobs:
         if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
         run: |
           flutter build windows -v --release --dart-define=flavor=production
+      - name: 📊 Analyze Windows x86_64 size
+        if: ${{ matrix.arch.name == 'x86_64' }}
+        run: |
+          flutter build windows -v --release --dart-define=flavor=${{ env.BUILD_FLAVOR }} --analyze-size --code-size-directory=build/size-analysis/windows-x86_64
+          New-Item -ItemType Directory -Force build/size-analysis/windows-x86_64 | Out-Null
+          Copy-Item "$env:USERPROFILE/.flutter-devtools/*-code-size-analysis_*.json" build/size-analysis/windows-x86_64/
       - name: Build setup
         shell: pwsh
         run: |
@@ -197,6 +223,13 @@ jobs:
           name: windows-${{ matrix.arch.name }}-setup
           path: |
             app/linwood-flow-windows-setup-${{ matrix.arch.name }}.exe
+      - name: Archive size analysis
+        if: ${{ matrix.arch.name == 'x86_64' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: windows-x86_64-size-analysis
+          path: app/build/size-analysis/windows-x86_64/
+          if-no-files-found: error
   build-msix:
     name: build-msix
     runs-on: windows-2025
@@ -211,10 +244,7 @@ jobs:
           flutter-version-file: app/pubspec.yaml
           cache: true
       - name: 📦 Get dependencies
-        run: |
-          flutter clean
-          flutter pub get
-          flutter doctor -v
+        run: flutter pub get
       - name: 🏭 Build MSIX
         run: |
           dart run msix:create
@@ -236,18 +266,12 @@ jobs:
             name: arm64
             dir: arm64
             appimage: aarch64
-          - image: ubuntu-22.04
-            name: alternative-x86_64
-            dir: x64
-            appimage: x86_64
-          - image: ubuntu-22.04-arm
-            name: alternative-arm64
-            dir: arm64
-            appimage: aarch64
     runs-on: ${{ matrix.arch.image }}
     defaults:
       run:
         working-directory: app
+    env:
+      BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -287,20 +311,18 @@ jobs:
           rm -f "$(dirname "$(dirname "$(command -v flutter)")")/engine/src/.gn"
           flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
-        run: |
-          flutter clean
-          flutter pub get
-          flutter doctor -v
+        run: flutter pub get
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
-        run: |
-          flutter doctor -v
-          flutter build linux -v --release --dart-define=flavor=nightly
+        run: flutter build linux -v --release --dart-define=flavor=nightly
       - name: 🏭 Build production
         if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        run: flutter build linux -v --release --dart-define=flavor=production
+      - name: 📊 Analyze Linux x86_64 size
+        if: ${{ matrix.arch.name == 'x86_64' }}
         run: |
-          flutter doctor -v
-          flutter build linux -v --release --dart-define=flavor=production
+          flutter build linux -v --release --dart-define=flavor=${{ env.BUILD_FLAVOR }} --analyze-size --code-size-directory=build/size-analysis/linux-x86_64
+          cp "$HOME"/.flutter-devtools/*-code-size-analysis_*.json build/size-analysis/linux-x86_64/
       - name: 🏭 Make binary executable
         run: |
           chmod +x build/linux/${{ matrix.arch.dir }}/release/bundle/flow
@@ -373,6 +395,13 @@ jobs:
           path: |
             app/linwood-flow-linux-${{ matrix.arch.name }}.AppImage
             app/linwood-flow-linux-${{ matrix.arch.name }}.AppImage.zsync
+      - name: Archive size analysis
+        if: ${{ matrix.arch.name == 'x86_64' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: linux-x86_64-size-analysis
+          path: app/build/size-analysis/linux-x86_64/
+          if-no-files-found: error
   build-snap:
     name: build-snap
     strategy:
@@ -421,16 +450,14 @@ jobs:
       - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
+          cache: true
       - uses: actions/setup-python@v7
         with:
           python-version: "3.13"
       - name: ✅ Enable platforms
         run: flutter config --enable-macos-desktop
       - name: 📦 Get dependencies
-        run: |
-          flutter clean
-          flutter pub get
-          flutter doctor -v
+        run: flutter pub get
       - name: 🏭 Build
         run: |
           flutter build macos -v --release
@@ -473,12 +500,9 @@ jobs:
       - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
-          #cache: true
+          cache: true
       - name: 📦 Get dependencies
-        run: |
-          flutter clean
-          flutter pub get
-          flutter doctor -v
+        run: flutter pub get
       - name: 🏭 Build
         run: |
           flutter build ios --release --no-codesign -v
@@ -498,7 +522,7 @@ jobs:
           path: app/build/ios/iphoneos/linwood-flow-ios.ipa
           compression-level: 0 #ipa is already compressed
   build-docker:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     if: github.event_name != 'pull_request'
     steps:
       - name: ⬆️ Checkout
@@ -535,8 +559,10 @@ jobs:
           push: true
           tags: linwooddev/flow:${{ env.tag }}
   deploy:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     if: github.event_name != 'pull_request'
+    permissions:
+      contents: write
     outputs:
       version: ${{ steps.setup.outputs.FLOW_VERSION }}
       build_number: ${{ steps.setup.outputs.FLOW_BUILD_NUMBER }}
@@ -626,32 +652,6 @@ jobs:
           name: linux-arm64-appimage
       - uses: actions/download-artifact@v8
         with:
-          name: linux-alternative-x86_64-build
-          path: linux-alternative-x86_64-build/
-      - uses: actions/download-artifact@v8
-        with:
-          name: linux-alternative-x86_64-deb
-      - uses: actions/download-artifact@v8
-        with:
-          name: linux-alternative-x86_64-rpm
-      - uses: actions/download-artifact@v8
-        with:
-          name: linux-alternative-x86_64-appimage
-      - uses: actions/download-artifact@v8
-        with:
-          name: linux-alternative-arm64-build
-          path: linux-alternative-arm64-build/
-      - uses: actions/download-artifact@v8
-        with:
-          name: linux-alternative-arm64-deb
-      - uses: actions/download-artifact@v8
-        with:
-          name: linux-alternative-arm64-rpm
-      - uses: actions/download-artifact@v8
-        with:
-          name: linux-alternative-arm64-appimage
-      - uses: actions/download-artifact@v8
-        with:
           name: windows-x86_64-setup
       - uses: actions/download-artifact@v8
         with:
@@ -674,8 +674,6 @@ jobs:
           cd ..
           tar -C linux-x86_64-build -czf linwood-flow-linux-x86_64.tar.gz .
           tar -C linux-arm64-build -czf linwood-flow-linux-arm64.tar.gz .
-          tar -C linux-alternative-x86_64-build -czf linwood-flow-linux-alternative-x86_64.tar.gz .
-          tar -C linux-alternative-arm64-build -czf linwood-flow-linux-alternative-arm64.tar.gz .
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
@@ -722,16 +720,6 @@ jobs:
             linwood-flow-linux-arm64.rpm
             linwood-flow-linux-arm64.AppImage
             linwood-flow-linux-arm64.AppImage.zsync
-            linwood-flow-linux-alternative-x86_64.tar.gz
-            linwood-flow-linux-alternative-x86_64.deb
-            linwood-flow-linux-alternative-x86_64.rpm
-            linwood-flow-linux-alternative-x86_64.AppImage
-            linwood-flow-linux-alternative-x86_64.AppImage.zsync
-            linwood-flow-linux-alternative-arm64.tar.gz
-            linwood-flow-linux-alternative-arm64.deb
-            linwood-flow-linux-alternative-arm64.rpm
-            linwood-flow-linux-alternative-arm64.AppImage
-            linwood-flow-linux-alternative-arm64.AppImage.zsync
             linwood-flow-macos.zip
             linwood-flow-macos.dmg
             linwood-flow-android.apk
@@ -768,16 +756,6 @@ jobs:
             linwood-flow-linux-arm64.rpm
             linwood-flow-linux-arm64.AppImage
             linwood-flow-linux-arm64.AppImage.zsync
-            linwood-flow-linux-alternative-x86_64.tar.gz
-            linwood-flow-linux-alternative-x86_64.deb
-            linwood-flow-linux-alternative-x86_64.rpm
-            linwood-flow-linux-alternative-x86_64.AppImage
-            linwood-flow-linux-alternative-x86_64.AppImage.zsync
-            linwood-flow-linux-alternative-arm64.tar.gz
-            linwood-flow-linux-alternative-arm64.deb
-            linwood-flow-linux-alternative-arm64.rpm
-            linwood-flow-linux-alternative-arm64.AppImage
-            linwood-flow-linux-alternative-arm64.AppImage.zsync
             linwood-flow-macos.zip
             linwood-flow-macos.dmg
             linwood-flow-android.apk
@@ -812,16 +790,6 @@ jobs:
             linwood-flow-linux-arm64.rpm
             linwood-flow-linux-arm64.AppImage
             linwood-flow-linux-arm64.AppImage.zsync
-            linwood-flow-linux-alternative-x86_64.tar.gz
-            linwood-flow-linux-alternative-x86_64.deb
-            linwood-flow-linux-alternative-x86_64.rpm
-            linwood-flow-linux-alternative-x86_64.AppImage
-            linwood-flow-linux-alternative-x86_64.AppImage.zsync
-            linwood-flow-linux-alternative-arm64.tar.gz
-            linwood-flow-linux-alternative-arm64.deb
-            linwood-flow-linux-alternative-arm64.rpm
-            linwood-flow-linux-alternative-arm64.AppImage
-            linwood-flow-linux-alternative-arm64.AppImage.zsync
             linwood-flow-macos.zip
             linwood-flow-macos.dmg
             linwood-flow-android.apk
@@ -837,7 +805,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-to-play-store:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
     defaults:
       run:
@@ -865,7 +833,7 @@ jobs:
           if [[ -n "$KEY_JKS" ]] ; then echo "$KEY_JKS" | base64 --decode > key.jks  ; fi
           echo "$PLAY_STORE_CREDENTIALS" | base64 --decode > play-store-credentials.json
       - name: 🔧 Setup java
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           java-version: "21"
           distribution: "temurin"

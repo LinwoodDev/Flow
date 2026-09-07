@@ -13,9 +13,16 @@ on:
         type: boolean
         required: false
 
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   update-changelog:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
         with:
@@ -54,7 +61,7 @@ jobs:
           git merge main --strategy-option ours
           git push origin develop
   release:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs:
       - update-changelog
     outputs:
@@ -90,7 +97,7 @@ jobs:
           git tag -fa v${{ env.FLOW_VERSION }} -m "Release ${FLOW_VERSION}"
           git push origin v${FLOW_VERSION} -f
       - name: Create release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           prerelease: ${{ github.event.inputs.stable != 'true' }}
           tag_name: v${{ env.FLOW_VERSION }}
@@ -116,7 +123,7 @@ jobs:
           git merge develop --strategy-option ours
           git push origin main
   set-next-version:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs:
       - update-changelog
       - release
@@ -158,7 +165,7 @@ jobs:
           git merge main --strategy-option ours
           git push origin develop
   bump-version:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs:
       - update-changelog
       - release
@@ -211,7 +218,7 @@ jobs:
           git merge main --strategy-option ours
           git push origin develop
   notify:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs: [release]
     steps:
       - uses: actions/checkout@v7
