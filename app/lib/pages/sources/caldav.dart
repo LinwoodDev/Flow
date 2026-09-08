@@ -9,7 +9,7 @@ class CalDavSourceDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) => RemoteSourceDialog(
     title: 'CalDAV',
-    storageBuilder: ({required url, required username}) =>
-        CalDavStorage(url: url, username: username),
+    storageBuilder: ({required name, required url, required username}) =>
+        CalDavStorage(name: name, url: url, username: username),
   );
 }

@@ -34,11 +34,19 @@ class RemoteStorageMapper extends ClassMapperBase<RemoteStorage> {
     'username',
     _$username,
   );
+  static String _$name(RemoteStorage v) => v.name;
+  static const Field<RemoteStorage, String> _f$name = Field(
+    'name',
+    _$name,
+    opt: true,
+    def: '',
+  );
 
   @override
   final MappableFields<RemoteStorage> fields = const {
     #url: _f$url,
     #username: _f$username,
+    #name: _f$name,
   };
 
   static RemoteStorage _instantiate(DecodingData data) {
@@ -70,7 +78,7 @@ mixin RemoteStorageMappable {
 
 abstract class RemoteStorageCopyWith<$R, $In extends RemoteStorage, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? url, String? username});
+  $R call({String? url, String? username, String? name});
   RemoteStorageCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -96,11 +104,19 @@ class CalDavStorageMapper extends SubClassMapperBase<CalDavStorage> {
     'username',
     _$username,
   );
+  static String _$name(CalDavStorage v) => v.name;
+  static const Field<CalDavStorage, String> _f$name = Field(
+    'name',
+    _$name,
+    opt: true,
+    def: '',
+  );
 
   @override
   final MappableFields<CalDavStorage> fields = const {
     #url: _f$url,
     #username: _f$username,
+    #name: _f$name,
   };
 
   @override
@@ -115,6 +131,7 @@ class CalDavStorageMapper extends SubClassMapperBase<CalDavStorage> {
     return CalDavStorage(
       url: data.dec(_f$url),
       username: data.dec(_f$username),
+      name: data.dec(_f$name),
     );
   }
 
@@ -181,7 +198,7 @@ extension CalDavStorageValueCopy<$R, $Out>
 abstract class CalDavStorageCopyWith<$R, $In extends CalDavStorage, $Out>
     implements RemoteStorageCopyWith<$R, $In, $Out> {
   @override
-  $R call({String? url, String? username});
+  $R call({String? url, String? username, String? name});
   CalDavStorageCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -194,16 +211,18 @@ class _CalDavStorageCopyWithImpl<$R, $Out>
   late final ClassMapperBase<CalDavStorage> $mapper =
       CalDavStorageMapper.ensureInitialized();
   @override
-  $R call({String? url, String? username}) => $apply(
+  $R call({String? url, String? username, String? name}) => $apply(
     FieldCopyWithData({
       if (url != null) #url: url,
       if (username != null) #username: username,
+      if (name != null) #name: name,
     }),
   );
   @override
   CalDavStorage $make(CopyWithData data) => CalDavStorage(
     url: data.get(#url, or: $value.url),
     username: data.get(#username, or: $value.username),
+    name: data.get(#name, or: $value.name),
   );
 
   @override
@@ -234,11 +253,19 @@ class ICalStorageMapper extends SubClassMapperBase<ICalStorage> {
     'username',
     _$username,
   );
+  static String _$name(ICalStorage v) => v.name;
+  static const Field<ICalStorage, String> _f$name = Field(
+    'name',
+    _$name,
+    opt: true,
+    def: '',
+  );
 
   @override
   final MappableFields<ICalStorage> fields = const {
     #url: _f$url,
     #username: _f$username,
+    #name: _f$name,
   };
 
   @override
@@ -250,7 +277,11 @@ class ICalStorageMapper extends SubClassMapperBase<ICalStorage> {
       RemoteStorageMapper.ensureInitialized();
 
   static ICalStorage _instantiate(DecodingData data) {
-    return ICalStorage(url: data.dec(_f$url), username: data.dec(_f$username));
+    return ICalStorage(
+      url: data.dec(_f$url),
+      username: data.dec(_f$username),
+      name: data.dec(_f$name),
+    );
   }
 
   @override
@@ -314,7 +345,7 @@ extension ICalStorageValueCopy<$R, $Out>
 abstract class ICalStorageCopyWith<$R, $In extends ICalStorage, $Out>
     implements RemoteStorageCopyWith<$R, $In, $Out> {
   @override
-  $R call({String? url, String? username});
+  $R call({String? url, String? username, String? name});
   ICalStorageCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -327,16 +358,18 @@ class _ICalStorageCopyWithImpl<$R, $Out>
   late final ClassMapperBase<ICalStorage> $mapper =
       ICalStorageMapper.ensureInitialized();
   @override
-  $R call({String? url, String? username}) => $apply(
+  $R call({String? url, String? username, String? name}) => $apply(
     FieldCopyWithData({
       if (url != null) #url: url,
       if (username != null) #username: username,
+      if (name != null) #name: name,
     }),
   );
   @override
   ICalStorage $make(CopyWithData data) => ICalStorage(
     url: data.get(#url, or: $value.url),
     username: data.get(#username, or: $value.username),
+    name: data.get(#name, or: $value.name),
   );
 
   @override
@@ -559,11 +592,19 @@ class WebDavStorageMapper extends SubClassMapperBase<WebDavStorage> {
     'username',
     _$username,
   );
+  static String _$name(WebDavStorage v) => v.name;
+  static const Field<WebDavStorage, String> _f$name = Field(
+    'name',
+    _$name,
+    opt: true,
+    def: '',
+  );
 
   @override
   final MappableFields<WebDavStorage> fields = const {
     #url: _f$url,
     #username: _f$username,
+    #name: _f$name,
   };
 
   @override
@@ -578,6 +619,7 @@ class WebDavStorageMapper extends SubClassMapperBase<WebDavStorage> {
     return WebDavStorage(
       url: data.dec(_f$url),
       username: data.dec(_f$username),
+      name: data.dec(_f$name),
     );
   }
 
@@ -644,7 +686,7 @@ extension WebDavStorageValueCopy<$R, $Out>
 abstract class WebDavStorageCopyWith<$R, $In extends WebDavStorage, $Out>
     implements RemoteStorageCopyWith<$R, $In, $Out> {
   @override
-  $R call({String? url, String? username});
+  $R call({String? url, String? username, String? name});
   WebDavStorageCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -657,16 +699,18 @@ class _WebDavStorageCopyWithImpl<$R, $Out>
   late final ClassMapperBase<WebDavStorage> $mapper =
       WebDavStorageMapper.ensureInitialized();
   @override
-  $R call({String? url, String? username}) => $apply(
+  $R call({String? url, String? username, String? name}) => $apply(
     FieldCopyWithData({
       if (url != null) #url: url,
       if (username != null) #username: username,
+      if (name != null) #name: name,
     }),
   );
   @override
   WebDavStorage $make(CopyWithData data) => WebDavStorage(
     url: data.get(#url, or: $value.url),
     username: data.get(#username, or: $value.username),
+    name: data.get(#name, or: $value.name),
   );
 
   @override
@@ -697,11 +741,19 @@ class SiaStorageMapper extends SubClassMapperBase<SiaStorage> {
     'username',
     _$username,
   );
+  static String _$name(SiaStorage v) => v.name;
+  static const Field<SiaStorage, String> _f$name = Field(
+    'name',
+    _$name,
+    opt: true,
+    def: '',
+  );
 
   @override
   final MappableFields<SiaStorage> fields = const {
     #url: _f$url,
     #username: _f$username,
+    #name: _f$name,
   };
 
   @override
@@ -713,7 +765,11 @@ class SiaStorageMapper extends SubClassMapperBase<SiaStorage> {
       RemoteStorageMapper.ensureInitialized();
 
   static SiaStorage _instantiate(DecodingData data) {
-    return SiaStorage(url: data.dec(_f$url), username: data.dec(_f$username));
+    return SiaStorage(
+      url: data.dec(_f$url),
+      username: data.dec(_f$username),
+      name: data.dec(_f$name),
+    );
   }
 
   @override
@@ -777,7 +833,7 @@ extension SiaStorageValueCopy<$R, $Out>
 abstract class SiaStorageCopyWith<$R, $In extends SiaStorage, $Out>
     implements RemoteStorageCopyWith<$R, $In, $Out> {
   @override
-  $R call({String? url, String? username});
+  $R call({String? url, String? username, String? name});
   SiaStorageCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -790,16 +846,18 @@ class _SiaStorageCopyWithImpl<$R, $Out>
   late final ClassMapperBase<SiaStorage> $mapper =
       SiaStorageMapper.ensureInitialized();
   @override
-  $R call({String? url, String? username}) => $apply(
+  $R call({String? url, String? username, String? name}) => $apply(
     FieldCopyWithData({
       if (url != null) #url: url,
       if (username != null) #username: username,
+      if (name != null) #name: name,
     }),
   );
   @override
   SiaStorage $make(CopyWithData data) => SiaStorage(
     url: data.get(#url, or: $value.url),
     username: data.get(#username, or: $value.username),
+    name: data.get(#name, or: $value.name),
   );
 
   @override

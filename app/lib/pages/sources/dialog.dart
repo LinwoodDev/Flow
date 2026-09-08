@@ -172,12 +172,41 @@ class AddSourceDialog extends StatelessWidget {
   }
 
   Future<void> _addDeviceCalendar(BuildContext context) async {
+    final name = await showDialog<String>(
+      context: context,
+      builder: (context) {
+        var name = '';
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context).deviceCalendar),
+          content: TextField(
+            autofocus: true,
+            decoration: InputDecoration(
+              labelText: AppLocalizations.of(context).name,
+              hintText: AppLocalizations.of(context).sourceNameHint,
+            ),
+            onChanged: (value) => name = value.trim(),
+            onSubmitted: (value) => Navigator.of(context).pop(value.trim()),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(AppLocalizations.of(context).cancel),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(context).pop(name),
+              child: Text(AppLocalizations.of(context).connect),
+            ),
+          ],
+        );
+      },
+    );
+    if (name == null || !context.mounted) return;
     final status = await DeviceCalendar.instance.requestPermissions();
     if (status != CalendarPermissionStatus.granted || !context.mounted) {
       return;
     }
     await context.read<SourcesService>().addRemote(
-      const DeviceCalendarStorage(),
+      DeviceCalendarStorage(name: name),
       '',
     );
     if (context.mounted) Navigator.of(context).pop();

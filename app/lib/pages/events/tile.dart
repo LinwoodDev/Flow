@@ -36,11 +36,12 @@ class EventTile extends StatelessWidget {
                   AppLocalizations.of(context).events,
                   _openEvents,
                 ),
-                (
-                  PhosphorIconsLight.trash,
-                  AppLocalizations.of(context).delete,
-                  _deleteEvent,
-                ),
+                if (flowCubit.getService(source).event?.isEditable == true)
+                  (
+                    PhosphorIconsLight.trash,
+                    AppLocalizations.of(context).delete,
+                    _deleteEvent,
+                  ),
               ]
               .map(
                 (e) => MenuItemButton(
@@ -67,6 +68,7 @@ class EventTile extends StatelessWidget {
   }
 
   void _deleteEvent(BuildContext context) {
+    if (flowCubit.getService(source).event?.isEditable != true) return;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

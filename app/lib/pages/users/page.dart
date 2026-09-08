@@ -163,12 +163,10 @@ class _UsersBodyViewState extends State<UsersBodyView> {
                       key: ValueKey('${item.model.id}@${item.source}'),
                       confirmDismiss: (_) => confirmDelete(
                         context,
-                        title: AppLocalizations.of(
-                          context,
-                        ).deleteUser(item.model.name),
-                        message: AppLocalizations.of(
-                          context,
-                        ).deleteUserDescription(item.model.name),
+                        title: AppLocalizations.of(context)
+                            .deleteUser(item.model.name),
+                        message: AppLocalizations.of(context)
+                            .deleteUserDescription(item.model.name),
                       ),
                       onDismissed: (direction) async {
                         await _flowCubit
@@ -193,10 +191,13 @@ class _UsersBodyViewState extends State<UsersBodyView> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog(
-          context: context,
-          builder: (context) => const UserDialog(),
-        ).then((_) => _bloc.refresh()),
+        onPressed:
+            !context.watch<FlowCubit>().canWrite((service) => service.user)
+            ? null
+            : () => showDialog(
+                context: context,
+                builder: (context) => const UserDialog(),
+              ).then((_) => _bloc.refresh()),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),

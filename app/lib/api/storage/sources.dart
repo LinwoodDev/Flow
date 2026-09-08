@@ -188,6 +188,15 @@ class SourcesService {
 
   List<RemoteStorage> getRemotes() => settingsCubit.state.remotes;
 
+  Future<Map<String, int>> getItemCounts(String source) async {
+    if (source.isEmpty) return local.getItemCounts();
+    final remote = remotes.firstWhereOrNull(
+      (remote) => remote.remoteStorage.identifier == source,
+    );
+    if (remote == null) throw StateError('Source is not connected');
+    return remote.local.getItemCounts();
+  }
+
   SourceService getSource(String source) {
     if (source.isEmpty) return local;
     return remotes.firstWhereOrNull(

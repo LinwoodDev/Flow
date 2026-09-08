@@ -5,16 +5,21 @@ import 'package:flow_api/models/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-typedef ItemBuilder<T> =
-    Widget Function(BuildContext context, SourcedModel<T> item, int index);
-typedef DateBuilder<T> =
-    Widget Function(
-      BuildContext context,
-      List<SourcedModel<T>> date,
-      int index,
-    );
-typedef SourceBuilder<T> =
-    Widget Function(BuildContext context, T item, int index);
+typedef ItemBuilder<T> = Widget Function(
+  BuildContext context,
+  SourcedModel<T> item,
+  int index,
+);
+typedef DateBuilder<T> = Widget Function(
+  BuildContext context,
+  List<SourcedModel<T>> date,
+  int index,
+);
+typedef SourceBuilder<T> = Widget Function(
+  BuildContext context,
+  T item,
+  int index,
+);
 
 Widget Function(BuildContext context, SourcedModel<T> item, int index)
 _buildSourceItem<T>(SourceBuilder<T> itemBuilder) =>

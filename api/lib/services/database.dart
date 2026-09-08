@@ -132,6 +132,31 @@ class DatabaseService extends SourceService {
     return migrateDatabase(this, db, oldVersion, newVersion);
   }
 
+  /// Counts stored records, excluding links and expanded recurring occurrences.
+  Future<Map<String, int>> getItemCounts() async {
+    const tables = [
+      'events',
+      'calendarItems',
+      'notes',
+      'notebooks',
+      'resources',
+      'users',
+      'groups',
+      'labels',
+    ];
+    final rows = await db.rawQuery(
+      tables
+          .map(
+            (table) =>
+                "SELECT '$table' AS category, COUNT(*) AS total FROM $table",
+          )
+          .join(' UNION ALL '),
+    );
+    return {
+      for (final row in rows) row['category'] as String: row['total'] as int,
+    };
+  }
+
   Future<int> getVersion() {
     return db.getVersion();
   }

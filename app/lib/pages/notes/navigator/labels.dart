@@ -106,14 +106,12 @@ class _NoteLabelsViewState extends State<_NoteLabelsView> {
                             context: context,
                             builder: (context) => AlertDialog(
                               title: Text(
-                                AppLocalizations.of(
-                                  context,
-                                ).deleteLabel(item.model.name),
+                                AppLocalizations.of(context)
+                                    .deleteLabel(item.model.name),
                               ),
                               content: Text(
-                                AppLocalizations.of(
-                                  context,
-                                ).deleteLabelDescription(item.model.name),
+                                AppLocalizations.of(context)
+                                    .deleteLabelDescription(item.model.name),
                               ),
                               actions: [
                                 TextButton(

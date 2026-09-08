@@ -49,9 +49,9 @@ class DashboardPage extends StatelessWidget {
                           DateFormat.yMMMMEEEEd().format(DateTime.now()),
                           style: Theme.of(context).textTheme.titleMedium
                               ?.copyWith(
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.onPrimaryContainer,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
                               ),
                           textAlign: isMedium
                               ? TextAlign.start

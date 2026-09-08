@@ -11,7 +11,9 @@ import 'package:flow_api/models/resource/service.dart';
 import 'package:flow_api/models/user/model.dart';
 import 'package:flow_api/services/source.dart';
 import 'package:http/http.dart' as http;
+
 import 'dart:typed_data';
+
 import 'package:flow_api/converters/ical.dart';
 import 'package:flow_api/models/cached.dart';
 import 'package:flow_api/models/event/database.dart';
@@ -458,9 +460,9 @@ Future<void> _sendUpdatedCalendarObject(
   CalDavRemoteService remote,
   Uint8List id,
 ) async {
-  final items = (await remote.calendarItem.getCalendarItems(
-    eventId: id,
-  )).map((e) => e.source).toList();
+  final items = (await remote.calendarItem.getCalendarItems(eventId: id))
+      .map((e) => e.source)
+      .toList();
   final notes = await remote.note.getNotes(notebook: id, limit: 1000000);
   final event = await remote.event.getEvent(id);
 
@@ -468,9 +470,9 @@ Future<void> _sendUpdatedCalendarObject(
     await _deleteCalendarObject(remote, id);
     return;
   }
-  final body = ICalConverter(
-    CachedData(items: items, notes: notes),
-  ).write(event).join('\r\n');
+  final body = ICalConverter(CachedData(items: items, notes: notes))
+      .write(event)
+      .join('\r\n');
   await remote.addRequest(
     APIRequest(
       method: 'PUT',

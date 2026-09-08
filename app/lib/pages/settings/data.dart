@@ -12,6 +12,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../cubits/settings.dart';
 
 import 'package:settings_leap/settings_leap.dart';
+
 import 'home.dart';
 
 final dataSettingsPage = SettingsLeapPage<FlowSettings>(

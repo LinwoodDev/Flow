@@ -18,6 +18,16 @@ class FlowCubit extends Cubit<FlowState> {
 
   FlowCubit(this.sourcesService) : super(const FlowState());
 
+  bool canWrite(
+    ModelService? Function(SourceService) select, {
+    String? source,
+  }) {
+    if (source != null) return select(getService(source))?.isEditable == true;
+    return getCurrentServices().any(
+      (service) => select(service)?.isEditable == true,
+    );
+  }
+
   String getCurrentSource() {
     return getCurrentSources().firstOrNull ?? '';
   }

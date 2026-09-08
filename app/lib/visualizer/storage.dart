@@ -1,5 +1,6 @@
 import 'package:flow/api/storage/remote/model.dart';
 import 'package:flutter/material.dart';
+import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/helpers.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -7,7 +8,7 @@ extension StorageVisualizer on RemoteStorage {
   String getLocalizedName(BuildContext context) => switch (this) {
     CalDavStorage() => 'CalDAV',
     ICalStorage() => 'iCal',
-    DeviceCalendarStorage() => 'Device calendar',
+    DeviceCalendarStorage() => AppLocalizations.of(context).deviceCalendar,
     SiaStorage() => 'Sia',
     WebDavStorage() => 'WebDAV',
   };

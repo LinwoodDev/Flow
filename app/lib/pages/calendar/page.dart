@@ -4,7 +4,9 @@ import 'package:flow/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
+
 import 'dart:typed_data';
+
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/event/item/model.dart';
@@ -238,10 +240,16 @@ class CreateEventScaffold extends StatelessWidget {
     return Scaffold(
       body: child,
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showCalendarCreate(
-          context: context,
-          event: event,
-        ).then((_) => onCreated()),
+        onPressed:
+            !context.watch<FlowCubit>().canWrite(
+              (service) => service.calendarItem,
+              source: event?.source,
+            )
+            ? null
+            : () => showCalendarCreate(
+                context: context,
+                event: event,
+              ).then((_) => onCreated()),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),
@@ -255,6 +263,17 @@ Future<void> showCalendarCreate({
   DateTime? time,
 }) async {
   final cubit = context.read<FlowCubit>();
+  if (!cubit.canWrite(
+    (service) => service.calendarItem,
+    source: event?.source,
+  )) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(AppLocalizations.of(context).readOnlySourceDescription),
+      ),
+    );
+    return;
+  }
   SourcedModel<Event>? eventResult;
   if (event != null) {
     final model = await cubit

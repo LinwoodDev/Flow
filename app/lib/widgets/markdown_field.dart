@@ -81,9 +81,8 @@ class _MarkdownFieldState extends State<MarkdownField> {
                       if (widget.toolbar != null) widget.toolbar!,
                       TextFormField(
                         decoration: widget.decoration.copyWith(
-                          helperText: AppLocalizations.of(
-                            context,
-                          ).markdownIsSupported,
+                          helperText: AppLocalizations.of(context)
+                              .markdownIsSupported,
                         ),
                         maxLines: null,
                         minLines: 3,

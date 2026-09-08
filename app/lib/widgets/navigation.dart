@@ -344,9 +344,9 @@ class _FlowDrawer extends StatelessWidget {
                                 onPressed: () => _showSources(context),
                               ),
                             ],
-                            titleTextStyle: Theme.of(
-                              context,
-                            ).textTheme.titleMedium,
+                            titleTextStyle: Theme.of(context)
+                                .textTheme
+                                .titleMedium,
                           );
                           if (!kIsWeb &&
                               (Platform.isWindows ||
@@ -359,15 +359,15 @@ class _FlowDrawer extends StatelessWidget {
                         },
                       ),
                       Column(
-                        children: _getNavigationItems(
-                          context,
-                        ).map((e) => _getItem(context, location, e)).toList(),
+                        children: _getNavigationItems(context)
+                            .map((e) => _getItem(context, location, e))
+                            .toList(),
                       ),
                       Column(
                         mainAxisSize: MainAxisSize.min,
-                        children: _getSecondaryItems(
-                          context,
-                        ).map((e) => _getItem(context, location, e)).toList(),
+                        children: _getSecondaryItems(context)
+                            .map((e) => _getItem(context, location, e))
+                            .toList(),
                       ),
                     ],
                   ),

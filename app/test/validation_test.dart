@@ -11,6 +11,11 @@ void main() {
         parseRemoteUri('  https://calendar.example.test/user/  '),
         Uri.parse('https://calendar.example.test/user/'),
       );
+      final credentials = parseRemoteCredentials('https://alex@example.com')!;
+      expect(credentials.username, 'alex');
+      expect(credentials.password, '');
+      expect(credentials.url.userInfo, isEmpty);
+      expect(parseRemoteCredentials('https://example.com'), isNull);
       expect(
         parseRemoteUri('http://localhost:8080/calendar.ics'),
         Uri.parse('http://localhost:8080/calendar.ics'),

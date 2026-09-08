@@ -35,6 +35,7 @@ void main() {
     final cubit = SettingsCubit(preferences);
     addTearDown(cubit.close);
     const remote = CalDavStorage(
+      name: 'Work',
       url: 'https://calendar.example.test/user/',
       username: 'flow',
     );
@@ -55,5 +56,20 @@ void main() {
     final restored = SettingsCubit(await SharedPreferences.getInstance());
     addTearDown(restored.close);
     expect(restored.state.remotes, [remote]);
+    expect(restored.state.remotes.single.displayName, 'Work');
+    expect(
+      remote.identifier,
+      const CalDavStorage(
+        url: 'https://calendar.example.test/user/',
+        username: 'flow',
+      ).identifier,
+    );
+    final legacy = RemoteStorageMapper.fromMap({
+      'type': 'ical',
+      'url': 'https://example.com',
+      'username': '',
+    });
+    expect(legacy.name, isEmpty);
+    expect(legacy.displayName, 'example.com');
   });
 }

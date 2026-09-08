@@ -125,12 +125,10 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
               key: ValueKey('${item.model.id}@${item.source}'),
               confirmDismiss: (_) => confirmDelete(
                 context,
-                title: AppLocalizations.of(
-                  context,
-                ).deleteGroup(item.model.name),
-                message: AppLocalizations.of(
-                  context,
-                ).deleteGroupDescription(item.model.name),
+                title: AppLocalizations.of(context)
+                    .deleteGroup(item.model.name),
+                message: AppLocalizations.of(context)
+                    .deleteGroupDescription(item.model.name),
               ),
               onDismissed: (direction) async {
                 await _flowCubit
@@ -151,10 +149,13 @@ class _GroupsBodyViewState extends State<GroupsBodyView> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog(
-          context: context,
-          builder: (context) => const GroupDialog(),
-        ).then((_) => _bloc.refresh()),
+        onPressed:
+            !context.watch<FlowCubit>().canWrite((service) => service.group)
+            ? null
+            : () => showDialog(
+                context: context,
+                builder: (context) => const GroupDialog(),
+              ).then((_) => _bloc.refresh()),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),

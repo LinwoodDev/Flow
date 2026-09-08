@@ -7,7 +7,7 @@ import 'package:flow_api/services/source.dart';
 
 import '../cubits/flow.dart';
 
-class SourceDropdown<T> extends StatelessWidget {
+class SourceDropdown<T extends ModelService> extends StatelessWidget {
   final String value;
   final ValueChanged<ConnectedModel<String, T>?> onChanged;
   final T? Function(SourceService) buildService;
@@ -43,11 +43,14 @@ class SourceDropdown<T> extends StatelessWidget {
             final remote = cubit.sourcesService.getRemote(value.key);
             return DropdownMenuEntry<String>(
               value: value.key,
-              label: remote?.displayName ?? AppLocalizations.of(context).local,
+              label:
+                  '${remote?.displayName ?? AppLocalizations.of(context).local}${value.value.isEditable ? '' : ' (${AppLocalizations.of(context).readOnly})'}',
+              enabled: value.value.isEditable,
             );
           }).toList(),
           onSelected: (value) {
             final service = services[value];
+            if (service?.isEditable != true) return;
             onChanged(service == null ? null : ConnectedModel(value!, service));
           },
           label: Text(AppLocalizations.of(context).source),

@@ -6,7 +6,9 @@ import 'package:flow_api/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
+
 import 'dart:typed_data';
+
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/note/model.dart';
 import 'package:flow_api/models/model.dart';
@@ -230,17 +232,20 @@ class _NotesBodyViewState extends State<NotesBodyView> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog<SourcedModel<Note>>(
-          context: context,
-          builder: (context) => NoteDialog(
-            note: Note(
-              parentId: widget.parent?.model,
-              notebookId: _filter.notebook,
-            ),
-            source: widget.parent?.source,
-            create: true,
-          ),
-        ).then((_) => _bloc.refresh()),
+        onPressed:
+            !context.watch<FlowCubit>().canWrite((service) => service.note)
+            ? null
+            : () => showDialog<SourcedModel<Note>>(
+                context: context,
+                builder: (context) => NoteDialog(
+                  note: Note(
+                    parentId: widget.parent?.model,
+                    notebookId: _filter.notebook,
+                  ),
+                  source: widget.parent?.source,
+                  create: true,
+                ),
+              ).then((_) => _bloc.refresh()),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),

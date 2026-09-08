@@ -124,12 +124,10 @@ class _ResourcesBodyViewState extends State<ResourcesBodyView> {
               key: ValueKey('${item.model.id}@${item.source}'),
               confirmDismiss: (_) => confirmDelete(
                 context,
-                title: AppLocalizations.of(
-                  context,
-                ).deleteResource(item.model.name),
-                message: AppLocalizations.of(
-                  context,
-                ).deleteResourceDescription(item.model.name),
+                title: AppLocalizations.of(context)
+                    .deleteResource(item.model.name),
+                message: AppLocalizations.of(context)
+                    .deleteResourceDescription(item.model.name),
               ),
               onDismissed: (direction) async {
                 await _flowCubit
@@ -150,10 +148,13 @@ class _ResourcesBodyViewState extends State<ResourcesBodyView> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog(
-          context: context,
-          builder: (context) => const ResourceDialog(),
-        ).then((_) => _bloc.refresh()),
+        onPressed:
+            !context.watch<FlowCubit>().canWrite((service) => service.resource)
+            ? null
+            : () => showDialog(
+                context: context,
+                builder: (context) => const ResourceDialog(),
+              ).then((_) => _bloc.refresh()),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),

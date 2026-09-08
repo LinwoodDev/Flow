@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:sqflite_common/sqlite_api.dart';
+
 import 'database_stub.dart'
     if (dart.library.js_interop) 'database_html.dart'
     if (dart.library.io) 'database_desktop.dart'

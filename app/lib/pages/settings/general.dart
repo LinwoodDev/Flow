@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flow/cubits/settings.dart';
 import 'package:flow/main.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
@@ -9,6 +10,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:settings_leap/settings_leap.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
+
 import '../intro/dialog.dart';
 import 'home.dart';
 

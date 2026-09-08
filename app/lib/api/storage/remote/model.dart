@@ -8,37 +8,51 @@ part 'model.mapper.dart';
 sealed class RemoteStorage with RemoteStorageMappable {
   final String url;
   final String username;
+  final String name;
 
-  const RemoteStorage({required this.url, required this.username});
+  const RemoteStorage({
+    required this.url,
+    required this.username,
+    this.name = '',
+  });
+
+  bool get isReadOnly => this is ICalStorage;
 
   Uri get uri => Uri.parse(url);
 
   String get identifier => '$username@$url';
   String toFilename() => base64UrlEncode(utf8.encode(identifier));
-  String get displayName => '$username@${uri.host}';
+  String get displayName => name.trim().isNotEmpty
+      ? name.trim()
+      : username.isEmpty
+      ? uri.host
+      : '$username@${uri.host}';
 }
 
 @MappableClass(discriminatorValue: 'caldav')
 final class CalDavStorage extends RemoteStorage with CalDavStorageMappable {
-  const CalDavStorage({required super.url, required super.username});
+  const CalDavStorage({
+    required super.url,
+    required super.username,
+    super.name,
+  });
 }
 
 @MappableClass(discriminatorValue: 'ical')
 final class ICalStorage extends RemoteStorage with ICalStorageMappable {
-  const ICalStorage({required super.url, required super.username});
+  const ICalStorage({required super.url, required super.username, super.name});
 }
 
 @MappableClass(discriminatorValue: 'deviceCalendar')
 final class DeviceCalendarStorage extends RemoteStorage
     with DeviceCalendarStorageMappable {
   final List<String> calendarIds;
-  final String name;
 
   const DeviceCalendarStorage({
     super.url = 'device://calendar',
     super.username = '',
     this.calendarIds = const [],
-    this.name = '',
+    super.name,
   });
 
   @override
@@ -55,10 +69,14 @@ final class DeviceCalendarStorage extends RemoteStorage
 
 @MappableClass(discriminatorValue: 'webdav')
 final class WebDavStorage extends RemoteStorage with WebDavStorageMappable {
-  const WebDavStorage({required super.url, required super.username});
+  const WebDavStorage({
+    required super.url,
+    required super.username,
+    super.name,
+  });
 }
 
 @MappableClass(discriminatorValue: 'sia')
 final class SiaStorage extends RemoteStorage with SiaStorageMappable {
-  const SiaStorage({required super.url, required super.username});
+  const SiaStorage({required super.url, required super.username, super.name});
 }

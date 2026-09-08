@@ -7,6 +7,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../api/storage/sources.dart';
 
+import 'counts.dart';
+
 class LocalSourceDialog extends StatelessWidget {
   const LocalSourceDialog({super.key});
 
@@ -17,7 +19,11 @@ class LocalSourceDialog extends StatelessWidget {
       title: Text(AppLocalizations.of(context).local),
       content: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(width: 500),
+          const SourceItemCounts(detailed: true),
+          const SizedBox(height: 16),
           ListTile(
             title: Text(AppLocalizations.of(context).export),
             leading: const PhosphorIcon(PhosphorIconsLight.download),

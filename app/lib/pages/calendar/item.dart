@@ -95,9 +95,8 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
 
   String _weekdayLabel(BuildContext context, int weekday) {
     final baseMonday = DateTime(2020, 1, 6);
-    return DateFormat.EEEE(
-      AppLocalizations.of(context).localeName,
-    ).format(baseMonday.add(Duration(days: weekday - DateTime.monday)));
+    return DateFormat.EEEE(AppLocalizations.of(context).localeName)
+        .format(baseMonday.add(Duration(days: weekday - DateTime.monday)));
   }
 
   CalendarItem _buildPersistedItem() {
@@ -165,7 +164,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
   }
 
   Future<void> _save() async {
-    if (_saving) return;
+    if (_saving || _service?.isEditable != true) return;
     final item = _buildPersistedItem();
     final validationError = _validate(item);
     if (validationError != null) {
@@ -239,6 +238,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
   Widget build(BuildContext context) {
     final cubit = context.read<FlowCubit>();
     final service = cubit.getService(_source);
+    final readOnly = _service?.isEditable == false;
     final noteConnector = service.calendarItemNote;
     final resourceConnector = service.calendarItemResource;
     final userConnector = service.calendarItemUser;
@@ -271,22 +271,26 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
         _item.end?.minute == 59;
 
     return ResponsiveAlertDialog(
-      title: Text(title),
+      title: Text(
+        readOnly
+            ? _item.name.isEmpty
+                  ? AppLocalizations.of(context).readOnly
+                  : _item.name
+            : title,
+      ),
       constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
       headerActions: [
-        if (tabs)
+        if (tabs && !readOnly)
           IconButton(
             icon: const PhosphorIcon(PhosphorIconsLight.trash),
             tooltip: AppLocalizations.of(context).delete,
             onPressed: () async {
               final confirmed = await confirmDelete(
                 context,
-                title: AppLocalizations.of(
-                  context,
-                ).deleteCalendarItem(_item.name),
-                message: AppLocalizations.of(
-                  context,
-                ).deleteCalendarItemDescription(_item.name),
+                title: AppLocalizations.of(context)
+                    .deleteCalendarItem(_item.name),
+                message: AppLocalizations.of(context)
+                    .deleteCalendarItemDescription(_item.name),
               );
               if (!confirmed) return;
               final deleted =
@@ -323,35 +327,41 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
             }
           },
         ),
-        MenuAnchor(
-          builder: defaultMenuButton(
-            icon: const PhosphorIcon(PhosphorIconsLight.arrowsCounterClockwise),
-          ),
-          menuChildren: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Text(
-                AppLocalizations.of(context).convertTo,
-                style: Theme.of(context).textTheme.titleMedium,
+        if (!readOnly)
+          MenuAnchor(
+            builder: defaultMenuButton(
+              icon: const PhosphorIcon(
+                PhosphorIconsLight.arrowsCounterClockwise,
               ),
             ),
-            MenuItemButton(
-              leadingIcon: const PhosphorIcon(PhosphorIconsLight.calendar),
-              onPressed: () => _convertTo(CalendarItemType.appointment),
-              child: Text(AppLocalizations.of(context).appointment),
-            ),
-            MenuItemButton(
-              leadingIcon: const PhosphorIcon(PhosphorIconsLight.smiley),
-              onPressed: () => _convertTo(CalendarItemType.moment),
-              child: Text(AppLocalizations.of(context).moment),
-            ),
-            MenuItemButton(
-              leadingIcon: const PhosphorIcon(PhosphorIconsLight.clock),
-              onPressed: () => _convertTo(CalendarItemType.pending),
-              child: Text(AppLocalizations.of(context).pending),
-            ),
-          ],
-        ),
+            menuChildren: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                child: Text(
+                  AppLocalizations.of(context).convertTo,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+              MenuItemButton(
+                leadingIcon: const PhosphorIcon(PhosphorIconsLight.calendar),
+                onPressed: () => _convertTo(CalendarItemType.appointment),
+                child: Text(AppLocalizations.of(context).appointment),
+              ),
+              MenuItemButton(
+                leadingIcon: const PhosphorIcon(PhosphorIconsLight.smiley),
+                onPressed: () => _convertTo(CalendarItemType.moment),
+                child: Text(AppLocalizations.of(context).moment),
+              ),
+              MenuItemButton(
+                leadingIcon: const PhosphorIcon(PhosphorIconsLight.clock),
+                onPressed: () => _convertTo(CalendarItemType.pending),
+                child: Text(AppLocalizations.of(context).pending),
+              ),
+            ],
+          ),
       ],
       content: DefaultTabController(
         length: tabs ? 5 : 1,
@@ -411,346 +421,423 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                     color: Colors.transparent,
                     child: ListView(
                       shrinkWrap: true,
-                      children: [
-                        if (widget.source == null) ...[
-                          SourceDropdown<CalendarItemService>(
-                            value: _source,
-                            buildService: (e) => e.calendarItem,
-                            onChanged: (connected) {
-                              _source = connected?.source ?? '';
-                              _item = _item.copyWith(eventId: null);
-                              _service = connected?.model;
-                            },
-                          ),
-                          const SizedBox(height: 16),
-                        ],
-                        EventSelectTile(
-                          source: _source,
-                          value: _item.eventId,
-                          onChanged: (value) {
-                            _item = _item.copyWith(eventId: value?.model);
-                          },
-                        ),
-                        const SizedBox(height: 16),
-                        DropdownMenu<EventStatus>(
-                          initialSelection: _item.status,
-                          dropdownMenuEntries: EventStatus.values
-                              .map(
-                                (value) => DropdownMenuEntry<EventStatus>(
-                                  value: value,
-                                  leadingIcon: PhosphorIcon(
-                                    value.icon(PhosphorIconsStyle.light),
-                                    color: value.getColor(),
+                      children:
+                          [
+                                if (readOnly)
+                                  ListTile(
+                                    contentPadding: EdgeInsets.zero,
+                                    leading: const PhosphorIcon(
+                                      PhosphorIconsLight.lock,
+                                    ),
+                                    title: Text(
+                                      AppLocalizations.of(context).readOnly,
+                                    ),
                                   ),
-                                  label: value.getLocalizedName(context),
-                                ),
-                              )
-                              .toList(),
-                          onSelected: (EventStatus? value) {
-                            _item = _item.copyWith(
-                              status: value ?? _item.status,
-                            );
-                          },
-                          label: Text(AppLocalizations.of(context).status),
-                          leadingIcon: const PhosphorIcon(
-                            PhosphorIconsLight.info,
-                          ),
-                          expandedInsets: const EdgeInsets.all(4),
-                        ),
-                        const SizedBox(height: 16),
-                        TextFormField(
-                          initialValue: _item.name,
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context).name,
-                            filled: true,
-                            icon: const PhosphorIcon(PhosphorIconsLight.folder),
-                          ),
-                          onChanged: (value) =>
-                              _item = _item.copyWith(name: value),
-                        ),
-                        const SizedBox(height: 16),
-                        MarkdownField(
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context).description,
-                            border: const OutlineInputBorder(),
-                            icon: const PhosphorIcon(
-                              PhosphorIconsLight.fileText,
-                            ),
-                          ),
-                          onChanged: (value) =>
-                              _item = _item.copyWith(description: value),
-                          value: _item.description,
-                        ),
-                        const SizedBox(height: 8),
-                        TextFormField(
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context).location,
-                            icon: const PhosphorIcon(PhosphorIconsLight.mapPin),
-                            filled: true,
-                          ),
-                          minLines: 1,
-                          maxLines: 2,
-                          initialValue: _item.location,
-                          onChanged: (value) =>
-                              _item = _item.copyWith(location: value),
-                        ),
-                        const SizedBox(height: 16),
-                        if (type == CalendarItemType.appointment) ...[
-                          CheckboxListTile(
-                            title: Text(AppLocalizations.of(context).allDay),
-                            value: isAllDay,
-                            onChanged: (value) {
-                              if (value == null) return;
-                              setState(() {
-                                if (value) {
-                                  final start = _item.start ?? DateTime.now();
-                                  _item = _item.copyWith(
-                                    start: DateTime(
-                                      start.year,
-                                      start.month,
-                                      start.day,
-                                    ),
-                                    end: _item.end != null
-                                        ? DateTime(
-                                            _item.end!.year,
-                                            _item.end!.month,
-                                            _item.end!.day,
-                                          ).add(
-                                            const Duration(
-                                              hours: 23,
-                                              minutes: 59,
-                                            ),
-                                          )
-                                        : null,
-                                  );
-                                } else {
-                                  final start = _item.start ?? DateTime.now();
-                                  _item = _item.copyWith(
-                                    start: DateTime(
-                                      start.year,
-                                      start.month,
-                                      start.day,
-                                      start.hour,
-                                      start.minute,
-                                    ),
-                                    end: _item.end != null
-                                        ? DateTime(
-                                            _item.end!.year,
-                                            _item.end!.month,
-                                            _item.end!.day,
-                                            start.hour + 1,
-                                            start.minute,
-                                          )
-                                        : null,
-                                  );
-                                }
-                              });
-                            },
-                          ),
-                          const SizedBox(height: 8),
-                          Row(
-                            spacing: 4,
-                            children: [
-                              Expanded(
-                                child: DateTimeField(
-                                  label: AppLocalizations.of(context).start,
-                                  initialValue: _item.start,
-                                  onChanged: (value) {
-                                    _item = _item.copyWith(start: value);
-                                  },
-                                  canBeEmpty: false,
-                                  filled: true,
-                                  showTime: !isAllDay,
-                                ),
-                              ),
-                              Expanded(
-                                child: DateTimeField(
-                                  label: AppLocalizations.of(context).end,
-                                  initialValue: _item.end,
+                                if (widget.source == null) ...[
+                                  SourceDropdown<CalendarItemService>(
+                                    value: _source,
+                                    buildService: (e) => e.calendarItem,
+                                    onChanged: (connected) {
+                                      _source = connected?.source ?? '';
+                                      _item = _item.copyWith(eventId: null);
+                                      _service = connected?.model;
+                                    },
+                                  ),
+                                  const SizedBox(height: 16),
+                                ],
+                                EventSelectTile(
+                                  source: _source,
+                                  value: _item.eventId,
                                   onChanged: (value) {
                                     _item = _item.copyWith(
-                                      end: isAllDay && value != null
-                                          ? value.add(
-                                              const Duration(
-                                                hours: 23,
-                                                minutes: 59,
-                                              ),
-                                            )
-                                          : value,
+                                      eventId: value?.model,
                                     );
                                   },
-                                  canBeEmpty: false,
-                                  filled: true,
-                                  showTime: !isAllDay,
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                        if (type == CalendarItemType.moment) ...[
-                          DateTimeField(
-                            label: AppLocalizations.of(context).time,
-                            initialValue: _item.start,
-                            icon: const PhosphorIcon(
-                              PhosphorIconsLight.calendarBlank,
-                            ),
-                            onChanged: (value) {
-                              _item = _item.copyWith(start: value, end: value);
-                            },
-                            canBeEmpty: true,
-                          ),
-                        ],
-                        if (type != CalendarItemType.pending) ...[
-                          const SizedBox(height: 16),
-                          CheckboxListTile(
-                            title: Text(AppLocalizations.of(context).repeat),
-                            value: _isRepeating,
-                            onChanged: (value) {
-                              if (value == null) return;
-                              setState(() {
-                                _isRepeating = value;
-                              });
-                            },
-                          ),
-                          if (_isRepeating) ...[
-                            const SizedBox(height: 8),
-                            DropdownMenu<RepeatType>(
-                              initialSelection: _repeatType,
-                              dropdownMenuEntries: RepeatType.values
-                                  .map(
-                                    (value) => DropdownMenuEntry(
-                                      value: value,
-                                      label: _repeatTypeLabel(context, value),
+                                const SizedBox(height: 16),
+                                DropdownMenu<EventStatus>(
+                                  enabled: !readOnly,
+                                  initialSelection: _item.status,
+                                  dropdownMenuEntries: EventStatus.values
+                                      .map(
+                                        (value) =>
+                                            DropdownMenuEntry<EventStatus>(
+                                              value: value,
+                                              leadingIcon: PhosphorIcon(
+                                                value.icon(
+                                                  PhosphorIconsStyle.light,
+                                                ),
+                                                color: value.getColor(),
+                                              ),
+                                              label: value.getLocalizedName(
+                                                context,
+                                              ),
+                                            ),
+                                      )
+                                      .toList(),
+                                  onSelected: (EventStatus? value) {
+                                    _item = _item.copyWith(
+                                      status: value ?? _item.status,
+                                    );
+                                  },
+                                  label: Text(
+                                    AppLocalizations.of(context).status,
+                                  ),
+                                  leadingIcon: const PhosphorIcon(
+                                    PhosphorIconsLight.info,
+                                  ),
+                                  expandedInsets: const EdgeInsets.all(4),
+                                ),
+                                const SizedBox(height: 16),
+                                TextFormField(
+                                  readOnly: readOnly,
+                                  initialValue: _item.name,
+                                  decoration: InputDecoration(
+                                    labelText: AppLocalizations.of(context)
+                                        .name,
+                                    filled: true,
+                                    icon: const PhosphorIcon(
+                                      PhosphorIconsLight.folder,
                                     ),
-                                  )
-                                  .toList(),
-                              onSelected: (value) {
-                                if (value == null) return;
-                                setState(() {
-                                  _repeatType = value;
-                                });
-                              },
-                              label: Text(
-                                AppLocalizations.of(context).repeatFrequency,
-                              ),
-                              expandedInsets: const EdgeInsets.all(4),
-                            ),
-                            const SizedBox(height: 8),
-                            TextFormField(
-                              initialValue: _repeatInterval.toString(),
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: AppLocalizations.of(
-                                  context,
-                                ).repeatInterval,
-                                filled: true,
-                                helperText: AppLocalizations.of(
-                                  context,
-                                ).repeatIntervalHelper,
-                              ),
-                              onChanged: (value) {
-                                final parsed = int.tryParse(value);
-                                if (parsed == null || parsed < 1) return;
-                                _repeatInterval = parsed;
-                              },
-                            ),
-                            if (_repeatType == RepeatType.weekly) ...[
-                              const SizedBox(height: 8),
-                              Text(AppLocalizations.of(context).repeatWeekdays),
-                              Wrap(
-                                spacing: 8,
-                                runSpacing: 8,
-                                children: List.generate(7, (index) {
-                                  final weekday = index + 1;
-                                  final selected = _repeatWeeklyDays.contains(
-                                    weekday,
-                                  );
-                                  return FilterChip(
-                                    label: Text(
-                                      _weekdayLabel(context, weekday),
+                                  ),
+                                  onChanged: (value) =>
+                                      _item = _item.copyWith(name: value),
+                                ),
+                                const SizedBox(height: 16),
+                                MarkdownField(
+                                  decoration: InputDecoration(
+                                    labelText: AppLocalizations.of(context)
+                                        .description,
+                                    border: const OutlineInputBorder(),
+                                    icon: const PhosphorIcon(
+                                      PhosphorIconsLight.fileText,
                                     ),
-                                    selected: selected,
-                                    onSelected: (value) {
-                                      setState(() {
-                                        if (value) {
-                                          _repeatWeeklyDays.add(weekday);
-                                        } else {
-                                          _repeatWeeklyDays.remove(weekday);
-                                        }
-                                      });
+                                  ),
+                                  onChanged: (value) => _item = _item.copyWith(
+                                    description: value,
+                                  ),
+                                  value: _item.description,
+                                ),
+                                const SizedBox(height: 8),
+                                TextFormField(
+                                  readOnly: readOnly,
+                                  decoration: InputDecoration(
+                                    labelText: AppLocalizations.of(context)
+                                        .location,
+                                    icon: const PhosphorIcon(
+                                      PhosphorIconsLight.mapPin,
+                                    ),
+                                    filled: true,
+                                  ),
+                                  minLines: 1,
+                                  maxLines: 2,
+                                  initialValue: _item.location,
+                                  onChanged: (value) =>
+                                      _item = _item.copyWith(location: value),
+                                ),
+                                const SizedBox(height: 16),
+                                if (type == CalendarItemType.appointment) ...[
+                                  CheckboxListTile(
+                                    title: Text(
+                                      AppLocalizations.of(context).allDay,
+                                    ),
+                                    value: isAllDay,
+                                    onChanged: readOnly
+                                        ? null
+                                        : (value) {
+                                            if (value == null) return;
+                                            setState(() {
+                                              if (value) {
+                                                final start =
+                                                    _item.start ??
+                                                    DateTime.now();
+                                                _item = _item.copyWith(
+                                                  start: DateTime(
+                                                    start.year,
+                                                    start.month,
+                                                    start.day,
+                                                  ),
+                                                  end: _item.end != null
+                                                      ? DateTime(
+                                                          _item.end!.year,
+                                                          _item.end!.month,
+                                                          _item.end!.day,
+                                                        ).add(
+                                                          const Duration(
+                                                            hours: 23,
+                                                            minutes: 59,
+                                                          ),
+                                                        )
+                                                      : null,
+                                                );
+                                              } else {
+                                                final start =
+                                                    _item.start ??
+                                                    DateTime.now();
+                                                _item = _item.copyWith(
+                                                  start: DateTime(
+                                                    start.year,
+                                                    start.month,
+                                                    start.day,
+                                                    start.hour,
+                                                    start.minute,
+                                                  ),
+                                                  end: _item.end != null
+                                                      ? DateTime(
+                                                          _item.end!.year,
+                                                          _item.end!.month,
+                                                          _item.end!.day,
+                                                          start.hour + 1,
+                                                          start.minute,
+                                                        )
+                                                      : null,
+                                                );
+                                              }
+                                            });
+                                          },
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    spacing: 4,
+                                    children: [
+                                      Expanded(
+                                        child: DateTimeField(
+                                          label: AppLocalizations.of(context)
+                                              .start,
+                                          initialValue: _item.start,
+                                          onChanged: (value) {
+                                            _item = _item.copyWith(
+                                              start: value,
+                                            );
+                                          },
+                                          canBeEmpty: false,
+                                          filled: true,
+                                          showTime: !isAllDay,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: DateTimeField(
+                                          label: AppLocalizations.of(context)
+                                              .end,
+                                          initialValue: _item.end,
+                                          onChanged: (value) {
+                                            _item = _item.copyWith(
+                                              end: isAllDay && value != null
+                                                  ? value.add(
+                                                      const Duration(
+                                                        hours: 23,
+                                                        minutes: 59,
+                                                      ),
+                                                    )
+                                                  : value,
+                                            );
+                                          },
+                                          canBeEmpty: false,
+                                          filled: true,
+                                          showTime: !isAllDay,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                                if (type == CalendarItemType.moment) ...[
+                                  DateTimeField(
+                                    label: AppLocalizations.of(context).time,
+                                    initialValue: _item.start,
+                                    icon: const PhosphorIcon(
+                                      PhosphorIconsLight.calendarBlank,
+                                    ),
+                                    onChanged: (value) {
+                                      _item = _item.copyWith(
+                                        start: value,
+                                        end: value,
+                                      );
                                     },
-                                  );
-                                }),
-                              ),
-                            ],
-                            if (_repeatType == RepeatType.monthly) ...[
-                              const SizedBox(height: 8),
-                              Text(
-                                AppLocalizations.of(context).repeatMonthDays,
-                              ),
-                              Wrap(
-                                spacing: 6,
-                                runSpacing: 6,
-                                children: List.generate(31, (index) {
-                                  final day = index + 1;
-                                  final selected = _repeatMonthlyDays.contains(
-                                    day,
-                                  );
-                                  return FilterChip(
-                                    label: Text('$day'),
-                                    selected: selected,
-                                    onSelected: (value) {
-                                      setState(() {
-                                        if (value) {
-                                          _repeatMonthlyDays.add(day);
-                                        } else {
-                                          _repeatMonthlyDays.remove(day);
+                                    canBeEmpty: true,
+                                  ),
+                                ],
+                                if (type != CalendarItemType.pending) ...[
+                                  const SizedBox(height: 16),
+                                  CheckboxListTile(
+                                    title: Text(
+                                      AppLocalizations.of(context).repeat,
+                                    ),
+                                    value: _isRepeating,
+                                    onChanged: readOnly
+                                        ? null
+                                        : (value) {
+                                            if (value == null) return;
+                                            setState(() {
+                                              _isRepeating = value;
+                                            });
+                                          },
+                                  ),
+                                  if (_isRepeating) ...[
+                                    const SizedBox(height: 8),
+                                    DropdownMenu<RepeatType>(
+                                      enabled: !readOnly,
+                                      initialSelection: _repeatType,
+                                      dropdownMenuEntries: RepeatType.values
+                                          .map(
+                                            (value) => DropdownMenuEntry(
+                                              value: value,
+                                              label: _repeatTypeLabel(
+                                                context,
+                                                value,
+                                              ),
+                                            ),
+                                          )
+                                          .toList(),
+                                      onSelected: (value) {
+                                        if (value == null) return;
+                                        setState(() {
+                                          _repeatType = value;
+                                        });
+                                      },
+                                      label: Text(
+                                        AppLocalizations.of(context)
+                                            .repeatFrequency,
+                                      ),
+                                      expandedInsets: const EdgeInsets.all(4),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    TextFormField(
+                                      readOnly: readOnly,
+                                      initialValue: _repeatInterval.toString(),
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                        labelText: AppLocalizations.of(context)
+                                            .repeatInterval,
+                                        filled: true,
+                                        helperText: AppLocalizations.of(context)
+                                            .repeatIntervalHelper,
+                                      ),
+                                      onChanged: (value) {
+                                        final parsed = int.tryParse(value);
+                                        if (parsed == null || parsed < 1) {
+                                          return;
                                         }
-                                      });
-                                    },
-                                  );
-                                }),
-                              ),
-                            ],
-                            const SizedBox(height: 8),
-                            TextFormField(
-                              initialValue: _repeatCount > 0
-                                  ? _repeatCount.toString()
-                                  : '',
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: AppLocalizations.of(
-                                  context,
-                                ).repeatOccurrences,
-                                filled: true,
-                                helperText: AppLocalizations.of(
-                                  context,
-                                ).repeatOccurrencesHelper,
-                              ),
-                              onChanged: (value) {
-                                final parsed = int.tryParse(value);
-                                _repeatCount = parsed == null || parsed < 1
-                                    ? 0
-                                    : parsed;
-                              },
-                            ),
-                            const SizedBox(height: 8),
-                            DateTimeField(
-                              label: AppLocalizations.of(context).repeatUntil,
-                              initialValue: _repeatUntil,
-                              icon: const PhosphorIcon(
-                                PhosphorIconsLight.calendarCheck,
-                              ),
-                              onChanged: (value) {
-                                _repeatUntil = value;
-                              },
-                              canBeEmpty: true,
-                              filled: true,
-                              showTime: !isAllDay,
-                            ),
-                          ],
-                        ],
-                      ],
+                                        _repeatInterval = parsed;
+                                      },
+                                    ),
+                                    if (_repeatType == RepeatType.weekly) ...[
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        AppLocalizations.of(context)
+                                            .repeatWeekdays,
+                                      ),
+                                      Wrap(
+                                        spacing: 8,
+                                        runSpacing: 8,
+                                        children: List.generate(7, (index) {
+                                          final weekday = index + 1;
+                                          final selected = _repeatWeeklyDays
+                                              .contains(weekday);
+                                          return FilterChip(
+                                            label: Text(
+                                              _weekdayLabel(context, weekday),
+                                            ),
+                                            selected: selected,
+                                            onSelected: readOnly
+                                                ? null
+                                                : (value) {
+                                                    setState(() {
+                                                      if (value) {
+                                                        _repeatWeeklyDays.add(
+                                                          weekday,
+                                                        );
+                                                      } else {
+                                                        _repeatWeeklyDays
+                                                            .remove(weekday);
+                                                      }
+                                                    });
+                                                  },
+                                          );
+                                        }),
+                                      ),
+                                    ],
+                                    if (_repeatType == RepeatType.monthly) ...[
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        AppLocalizations.of(context)
+                                            .repeatMonthDays,
+                                      ),
+                                      Wrap(
+                                        spacing: 6,
+                                        runSpacing: 6,
+                                        children: List.generate(31, (index) {
+                                          final day = index + 1;
+                                          final selected = _repeatMonthlyDays
+                                              .contains(day);
+                                          return FilterChip(
+                                            label: Text('$day'),
+                                            selected: selected,
+                                            onSelected: readOnly
+                                                ? null
+                                                : (value) {
+                                                    setState(() {
+                                                      if (value) {
+                                                        _repeatMonthlyDays.add(
+                                                          day,
+                                                        );
+                                                      } else {
+                                                        _repeatMonthlyDays
+                                                            .remove(day);
+                                                      }
+                                                    });
+                                                  },
+                                          );
+                                        }),
+                                      ),
+                                    ],
+                                    const SizedBox(height: 8),
+                                    TextFormField(
+                                      readOnly: readOnly,
+                                      initialValue: _repeatCount > 0
+                                          ? _repeatCount.toString()
+                                          : '',
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                        labelText: AppLocalizations.of(context)
+                                            .repeatOccurrences,
+                                        filled: true,
+                                        helperText: AppLocalizations.of(context)
+                                            .repeatOccurrencesHelper,
+                                      ),
+                                      onChanged: (value) {
+                                        final parsed = int.tryParse(value);
+                                        _repeatCount =
+                                            parsed == null || parsed < 1
+                                            ? 0
+                                            : parsed;
+                                      },
+                                    ),
+                                    const SizedBox(height: 8),
+                                    DateTimeField(
+                                      label: AppLocalizations.of(context)
+                                          .repeatUntil,
+                                      initialValue: _repeatUntil,
+                                      icon: const PhosphorIcon(
+                                        PhosphorIconsLight.calendarCheck,
+                                      ),
+                                      onChanged: (value) {
+                                        _repeatUntil = value;
+                                      },
+                                      canBeEmpty: true,
+                                      filled: true,
+                                      showTime: !isAllDay,
+                                    ),
+                                  ],
+                                ],
+                              ]
+                              .map(
+                                (child) => readOnly && child is! TextFormField
+                                    ? ExcludeFocus(
+                                        child: IgnorePointer(child: child),
+                                      )
+                                    : child,
+                              )
+                              .toList(),
                     ),
                   ),
                   if (tabs) ...[
@@ -786,17 +873,22 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text(AppLocalizations.of(context).cancel),
+          child: Text(
+            readOnly
+                ? AppLocalizations.of(context).close
+                : AppLocalizations.of(context).cancel,
+          ),
         ),
-        ElevatedButton(
-          onPressed: _saving ? null : _save,
-          child: _saving
-              ? const SizedBox.square(
-                  dimension: 18,
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                )
-              : Text(AppLocalizations.of(context).save),
-        ),
+        if (!readOnly)
+          ElevatedButton(
+            onPressed: _saving || _service?.isEditable != true ? null : _save,
+            child: _saving
+                ? const SizedBox.square(
+                    dimension: 18,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : Text(AppLocalizations.of(context).save),
+          ),
       ],
     );
   }

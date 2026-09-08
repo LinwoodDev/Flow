@@ -270,9 +270,8 @@ class SettingsCubit extends Cubit<FlowSettings>
   }
 
   Future<void> importSettings(String data) {
-    final settings = FlowSettingsMapper.fromJson(
-      data,
-    ).copyWith(remotes: state.remotes);
+    final settings = FlowSettingsMapper.fromJson(data)
+        .copyWith(remotes: state.remotes);
     emit(settings);
     return _runSave(settings.save);
   }

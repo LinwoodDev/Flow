@@ -84,9 +84,8 @@ class _AlarmPageState extends State<AlarmPage> {
                                           )) {
                                         _showAlarmError(
                                           context,
-                                          AppLocalizations.of(
-                                            context,
-                                          ).futureAlarmRequired,
+                                          AppLocalizations.of(context)
+                                              .futureAlarmRequired,
                                         );
                                         return;
                                       }
@@ -100,9 +99,8 @@ class _AlarmPageState extends State<AlarmPage> {
                                       if (!scheduled && context.mounted) {
                                         _showAlarmError(
                                           context,
-                                          AppLocalizations.of(
-                                            context,
-                                          ).saveFailed,
+                                          AppLocalizations.of(context)
+                                              .saveFailed,
                                         );
                                       }
                                     },
@@ -115,9 +113,8 @@ class _AlarmPageState extends State<AlarmPage> {
                                   icon: const PhosphorIcon(
                                     PhosphorIconsLight.clockCountdown,
                                   ),
-                                  tooltip: AppLocalizations.of(
-                                    context,
-                                  ).countdown,
+                                  tooltip: AppLocalizations.of(context)
+                                      .countdown,
                                   onPressed: () {
                                     GoRouter.of(context).goNamed(
                                       'alarm-countdown',
@@ -138,12 +135,10 @@ class _AlarmPageState extends State<AlarmPage> {
                                         : e.title;
                                     final confirmed = await confirmDelete(
                                       context,
-                                      title: AppLocalizations.of(
-                                        context,
-                                      ).deleteAlarm(name),
-                                      message: AppLocalizations.of(
-                                        context,
-                                      ).deleteAlarmDescription(name),
+                                      title: AppLocalizations.of(context)
+                                          .deleteAlarm(name),
+                                      message: AppLocalizations.of(context)
+                                          .deleteAlarmDescription(name),
                                     );
                                     if (confirmed) {
                                       await alarmCubit.removeAlarm(e.id);

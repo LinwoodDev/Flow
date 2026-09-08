@@ -120,9 +120,11 @@ abstract class RemoteService<T extends RemoteStorage> extends SourceService {
         CalDavRemoteService(storage, local, password) as RemoteService<T>,
       ICalStorage() =>
         IcalRemoteService(storage, local, password) as RemoteService<T>,
-      DeviceCalendarStorage() =>
-        DeviceCalendarRemoteService(storage, local, password)
-            as RemoteService<T>,
+      DeviceCalendarStorage() => DeviceCalendarRemoteService(
+        storage,
+        local,
+        password,
+      ) as RemoteService<T>,
       WebDavStorage() => throw UnimplementedError(),
       SiaStorage() =>
         SiaRemoteService(storage, local, password) as RemoteService<T>,

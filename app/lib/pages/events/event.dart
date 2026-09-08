@@ -14,6 +14,7 @@ import 'package:flow_api/models/event/service.dart';
 import 'package:flow_api/models/model.dart';
 
 import '../../widgets/markdown_field.dart';
+import '../../widgets/read_only_details.dart';
 import '../../widgets/source_dropdown.dart';
 
 class EventDialog extends StatelessWidget {
@@ -31,6 +32,13 @@ class EventDialog extends StatelessWidget {
     var currentSource = source ?? '';
     final service = cubit.sourcesService.getSource(currentSource);
     var currentService = service.event;
+    if (currentService?.isEditable == false) {
+      return ReadOnlyDetails(
+        name: currentEvent.name,
+        description: currentEvent.description,
+        location: currentEvent.location,
+      );
+    }
     final noteConnector = service.eventNote;
     final resourceConnector = service.eventResource;
     final userConnector = service.eventUser;
@@ -202,7 +210,7 @@ class EventDialog extends StatelessWidget {
           errorMessage: AppLocalizations.of(context).saveFailed,
           onSave: () async {
             final service = currentService;
-            if (service == null) return null;
+            if (service == null || !service.isEditable) return null;
             if (create) {
               final created = await service.createEvent(currentEvent);
               if (created == null) return null;

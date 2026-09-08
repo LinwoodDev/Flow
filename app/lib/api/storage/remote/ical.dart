@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:http/http.dart' as http;
 import 'package:flow_api/converters/ical.dart';
 import 'package:flow_api/models/event/database.dart';
@@ -8,9 +9,16 @@ import 'package:flow_api/services/database.dart';
 
 import 'model.dart';
 import 'service.dart';
+import 'readonly.dart';
 
 class IcalRemoteService extends RemoteService<ICalStorage> {
   IcalRemoteService(super.remoteStorage, super.local, super.password);
+
+  @override
+  late final CalendarItemDatabaseService calendarItem =
+      ReadOnlyCalendarItemService(local.db);
+  @override
+  late final EventDatabaseService event = ReadOnlyEventService(local.db);
 
   @override
   Future<void> synchronize() async {
@@ -29,11 +37,6 @@ class IcalRemoteService extends RemoteService<ICalStorage> {
       response.body.split('\n'),
       event: Event(name: name, id: createUniqueUint8List()),
     );
-    if (converter.data != null) import(converter.data!);
+    if (converter.data != null) await local.import(converter.data!);
   }
-
-  @override
-  CalendarItemDatabaseService get calendarItem => local.calendarItem;
-  @override
-  EventDatabaseService get event => local.event;
 }

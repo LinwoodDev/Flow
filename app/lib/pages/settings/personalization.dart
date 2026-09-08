@@ -14,6 +14,7 @@ import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'package:settings_leap/settings_leap.dart';
+
 import 'home.dart';
 
 String _getLocaleName(BuildContext context, String locale) => locale.isNotEmpty

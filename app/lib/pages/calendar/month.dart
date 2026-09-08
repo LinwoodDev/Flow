@@ -3,7 +3,9 @@ import 'package:flow/pages/calendar/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
 import 'dart:typed_data';
+
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/event/item/model.dart';
@@ -230,9 +232,8 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                               return LayoutBuilder(
                                 builder: (context, constraints) {
                                   final current = _date.addDays(index);
-                                  var text = DateFormat.EEEE(
-                                    locale,
-                                  ).format(current);
+                                  var text = DateFormat.EEEE(locale)
+                                      .format(current);
                                   if (constraints.maxWidth < 150) {
                                     text = DateFormat.E(locale).format(current);
                                   }
@@ -299,9 +300,9 @@ class _CalendarMonthViewState extends State<CalendarMonthView> {
                                         height: 16,
                                         width: 16,
                                         decoration: BoxDecoration(
-                                          color: Theme.of(
-                                            context,
-                                          ).colorScheme.primary,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
                                           shape: BoxShape.circle,
                                         ),
                                       ),
@@ -346,24 +347,29 @@ class CalendarDayDialog extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            DateFormat.yMMMMEEEEd(
-              Localizations.localeOf(context).languageCode,
-            ).format(date),
+            DateFormat.yMMMMEEEEd(Localizations.localeOf(context).languageCode)
+                .format(date),
           ),
           const SizedBox(width: 16),
           IconButton(
             icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
             tooltip: AppLocalizations.of(context).createEvent,
-            onPressed: () async {
-              await showCalendarCreate(
-                context: context,
-                event: event,
-                time: date,
-              );
-              if (context.mounted) {
-                Navigator.of(context).pop();
-              }
-            },
+            onPressed:
+                !context.read<FlowCubit>().canWrite(
+                  (service) => service.calendarItem,
+                  source: event?.source,
+                )
+                ? null
+                : () async {
+                    await showCalendarCreate(
+                      context: context,
+                      event: event,
+                      time: date,
+                    );
+                    if (context.mounted) {
+                      Navigator.of(context).pop();
+                    }
+                  },
           ),
         ],
       ),

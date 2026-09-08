@@ -6,7 +6,9 @@ import 'package:flow/cubits/flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
 import 'dart:typed_data';
+
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/event/item/model.dart';
@@ -269,18 +271,16 @@ class _EventListPosition {
   _EventListPosition(this.appointment, this.position);
 }
 
-typedef RescheduleCallback =
-    Future<void> Function(
-      SourcedConnectedModel<CalendarItem, Event?> item,
-      DateTime newStart,
-    );
+typedef RescheduleCallback = Future<void> Function(
+  SourcedConnectedModel<CalendarItem, Event?> item,
+  DateTime newStart,
+);
 
-typedef ResizeCallback =
-    Future<void> Function(
-      SourcedConnectedModel<CalendarItem, Event?> item,
-      DateTime newStart,
-      DateTime newEnd,
-    );
+typedef ResizeCallback = Future<void> Function(
+  SourcedConnectedModel<CalendarItem, Event?> item,
+  DateTime newStart,
+  DateTime newEnd,
+);
 
 class SingleDayList extends StatefulWidget {
   final List<SourcedConnectedModel<CalendarItem, Event?>> appointments;
@@ -353,7 +353,15 @@ class _SingleDayListState extends State<SingleDayList> {
     SourcedConnectedModel<CalendarItem, Event?> item,
     double top,
   ) async {
-    if (widget.onReschedule == null) return;
+    if (widget.onReschedule == null ||
+        context
+                .read<FlowCubit>()
+                .getService(item.source)
+                .calendarItem
+                ?.isEditable !=
+            true) {
+      return;
+    }
     var minutes = ((top / SingleDayList._hourHeight) % 1 * 60).floor();
     minutes = (minutes / 5).floor() * 5;
     // Calculate current time
@@ -372,7 +380,15 @@ class _SingleDayListState extends State<SingleDayList> {
     double top,
     double height,
   ) async {
-    if (widget.onResize == null) return;
+    if (widget.onResize == null ||
+        context
+                .read<FlowCubit>()
+                .getService(item.source)
+                .calendarItem
+                ?.isEditable !=
+            true) {
+      return;
+    }
     var bottom = top + height;
     var startMinutes = ((top / SingleDayList._hourHeight) % 1 * 60).floor();
     startMinutes = (startMinutes / 5).floor() * 5;
@@ -418,31 +434,38 @@ class _SingleDayListState extends State<SingleDayList> {
             child: DragTarget<SourcedConnectedModel<CalendarItem, Event?>>(
               builder: (context, candidateData, rejectedData) {
                 return GestureDetector(
-                  onTapUp: (details) async {
-                    var minutes =
-                        ((details.localPosition.dy /
-                                    SingleDayList._hourHeight) %
-                                1 *
-                                60)
-                            .floor();
-                    minutes = (minutes / 5).floor() * 5;
-                    // Calculate current time
-                    final dateTime = DateTime(
-                      widget.current.year,
-                      widget.current.month,
-                      widget.current.day,
-                      (details.localPosition.dy / SingleDayList._hourHeight)
-                          .floor(),
-                      minutes,
-                    );
+                  onTapUp:
+                      !context.read<FlowCubit>().canWrite(
+                        (service) => service.calendarItem,
+                        source: widget.event?.source,
+                      )
+                      ? null
+                      : (details) async {
+                          var minutes =
+                              ((details.localPosition.dy /
+                                          SingleDayList._hourHeight) %
+                                      1 *
+                                      60)
+                                  .floor();
+                          minutes = (minutes / 5).floor() * 5;
+                          // Calculate current time
+                          final dateTime = DateTime(
+                            widget.current.year,
+                            widget.current.month,
+                            widget.current.day,
+                            (details.localPosition.dy /
+                                    SingleDayList._hourHeight)
+                                .floor(),
+                            minutes,
+                          );
 
-                    await showCalendarCreate(
-                      context: context,
-                      time: dateTime,
-                      event: widget.event,
-                    );
-                    widget.onChanged();
-                  },
+                          await showCalendarCreate(
+                            context: context,
+                            time: dateTime,
+                            event: widget.event,
+                          );
+                          widget.onChanged();
+                        },
                 );
               },
               onAcceptWithDetails: (details) {
@@ -457,6 +480,13 @@ class _SingleDayListState extends State<SingleDayList> {
               builder: (context) {
                 double top = 0, height;
                 final appointment = position.appointment.main;
+                final editable =
+                    context
+                        .read<FlowCubit>()
+                        .getService(position.appointment.source)
+                        .calendarItem
+                        ?.isEditable ==
+                    true;
                 if (appointment.start?.isSameDay(widget.current) ?? false) {
                   top =
                       (appointment.start?.hour ?? 0) *
@@ -528,7 +558,7 @@ class _SingleDayListState extends State<SingleDayList> {
                         ),
                       ),
                     ),
-                    if (widget.onResize != null) ...[
+                    if (editable && widget.onResize != null) ...[
                       Positioned(
                         bottom: 0,
                         left: 0,
@@ -619,6 +649,7 @@ class _SingleDayListState extends State<SingleDayList> {
                       LongPressDraggable<
                         SourcedConnectedModel<CalendarItem, Event?>
                       >(
+                        maxSimultaneousDrags: editable ? 1 : 0,
                         data: position.appointment,
                         feedback: SizedBox(
                           width: currentPosWidth,
@@ -641,9 +672,8 @@ class _SingleDayListState extends State<SingleDayList> {
                   const Flexible(child: Divider()),
                   const SizedBox(width: 8),
                   Text(
-                    DateFormat.Hm(
-                      Localizations.localeOf(context).languageCode,
-                    ).format(DateTime(0, 0, 0, i)),
+                    DateFormat.Hm(Localizations.localeOf(context).languageCode)
+                        .format(DateTime(0, 0, 0, i)),
                   ),
                   const SizedBox(width: 8),
                   const Flexible(child: Divider()),

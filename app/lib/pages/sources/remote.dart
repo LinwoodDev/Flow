@@ -6,8 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-typedef RemoteStorageBuilder =
-    RemoteStorage Function({required String url, required String username});
+typedef RemoteStorageBuilder = RemoteStorage Function({
+  required String name,
+  required String url,
+  required String username,
+});
 
 class RemoteSourceDialog extends StatefulWidget {
   final String title;
@@ -25,6 +28,7 @@ class RemoteSourceDialog extends StatefulWidget {
 
 class _RemoteSourceDialogState extends State<RemoteSourceDialog> {
   final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
   final _urlController = TextEditingController();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -34,17 +38,28 @@ class _RemoteSourceDialogState extends State<RemoteSourceDialog> {
 
   @override
   void dispose() {
+    _nameController.dispose();
     _urlController.dispose();
     _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
 
+  void _extractCredentials(String value) {
+    final credentials = parseRemoteCredentials(value);
+    if (credentials == null) return;
+    _usernameController.text = credentials.username;
+    _passwordController.text = credentials.password;
+    _urlController.text = credentials.url.toString();
+  }
+
   Future<void> _connect() async {
+    _extractCredentials(_urlController.text);
     if (_connecting || !(_formKey.currentState?.validate() ?? false)) return;
 
     final uri = parseRemoteUri(_urlController.text)!;
     final storage = widget.storageBuilder(
+      name: _nameController.text.trim(),
       url: uri.toString(),
       username: _usernameController.text.trim(),
     );
@@ -71,9 +86,8 @@ class _RemoteSourceDialogState extends State<RemoteSourceDialog> {
     } catch (error) {
       if (mounted) {
         setState(() {
-          _error = AppLocalizations.of(
-            context,
-          ).connectionFailed(error.toString());
+          _error = AppLocalizations.of(context)
+              .connectionFailed(error.toString());
         });
       }
     } finally {
@@ -94,12 +108,27 @@ class _RemoteSourceDialogState extends State<RemoteSourceDialog> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormField(
+                controller: _nameController,
+                enabled: !_connecting,
+                textInputAction: TextInputAction.next,
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context).name,
+                  hintText: AppLocalizations.of(context).sourceNameHint,
+                  icon: const PhosphorIcon(PhosphorIconsLight.textT),
+                  filled: true,
+                ),
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context).url,
                   icon: const PhosphorIcon(PhosphorIconsLight.globe),
                   border: const OutlineInputBorder(),
                 ),
                 controller: _urlController,
+                onChanged: _extractCredentials,
+                autocorrect: false,
+                enableSuggestions: false,
                 keyboardType: TextInputType.url,
                 textInputAction: TextInputAction.next,
                 enabled: !_connecting,

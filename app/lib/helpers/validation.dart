@@ -30,3 +30,25 @@ bool isValidAlarmDate({
   required bool isActive,
   required DateTime now,
 }) => !isActive || date.isAfter(now);
+
+/// Separates URL user-info from the address before it is stored or displayed.
+({Uri url, String username, String password})? parseRemoteCredentials(
+  String value,
+) {
+  final uri = parseRemoteUri(value);
+  if (uri == null || uri.userInfo.isEmpty) return null;
+  final separator = uri.userInfo.indexOf(':');
+  try {
+    return (
+      url: uri.replace(userInfo: ''),
+      username: Uri.decodeComponent(
+        separator < 0 ? uri.userInfo : uri.userInfo.substring(0, separator),
+      ),
+      password: separator < 0
+          ? ''
+          : Uri.decodeComponent(uri.userInfo.substring(separator + 1)),
+    );
+  } on FormatException {
+    return null;
+  }
+}

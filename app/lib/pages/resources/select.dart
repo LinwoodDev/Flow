@@ -2,7 +2,9 @@ import 'package:flow/widgets/select.dart';
 import 'package:flow_api/models/resource/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
+
 import 'dart:typed_data';
+
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/model.dart';
 

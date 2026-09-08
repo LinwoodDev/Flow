@@ -9,7 +9,7 @@ class ICalSourceDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) => RemoteSourceDialog(
     title: 'iCal',
-    storageBuilder: ({required url, required username}) =>
-        ICalStorage(url: url, username: username),
+    storageBuilder: ({required name, required url, required username}) =>
+        ICalStorage(name: name, url: url, username: username),
   );
 }

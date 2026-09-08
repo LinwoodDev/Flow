@@ -163,14 +163,17 @@ class _EventsBodyViewState extends State<EventsBodyView> {
                   constraints: const BoxConstraints(maxWidth: 800),
                   child: Dismissible(
                     key: ValueKey('${item.model.id}@${item.source}'),
+                    direction:
+                        _flowCubit.getService(item.source).event?.isEditable ==
+                            true
+                        ? DismissDirection.horizontal
+                        : DismissDirection.none,
                     confirmDismiss: (_) => confirmDelete(
                       context,
-                      title: AppLocalizations.of(
-                        context,
-                      ).deleteEvent(item.model.name),
-                      message: AppLocalizations.of(
-                        context,
-                      ).deleteEventDescription(item.model.name),
+                      title: AppLocalizations.of(context)
+                          .deleteEvent(item.model.name),
+                      message: AppLocalizations.of(context)
+                          .deleteEventDescription(item.model.name),
                     ),
                     onDismissed: (direction) async {
                       await _flowCubit
@@ -194,10 +197,13 @@ class _EventsBodyViewState extends State<EventsBodyView> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog(
-          context: context,
-          builder: (context) => const EventDialog(),
-        ).then((_) => _bloc.refresh()),
+        onPressed:
+            !context.watch<FlowCubit>().canWrite((service) => service.event)
+            ? null
+            : () => showDialog(
+                context: context,
+                builder: (context) => const EventDialog(),
+              ).then((_) => _bloc.refresh()),
         label: Text(AppLocalizations.of(context).create),
         icon: const PhosphorIcon(PhosphorIconsLight.plus),
       ),

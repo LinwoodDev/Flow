@@ -246,9 +246,9 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                                             ?.copyWith(
                                               color:
                                                   date.isSameDay(DateTime.now())
-                                                  ? Theme.of(
-                                                      context,
-                                                    ).colorScheme.secondary
+                                                  ? Theme.of(context)
+                                                        .colorScheme
+                                                        .secondary
                                                   : null,
                                             ),
                                       ),
@@ -261,9 +261,9 @@ class _CalendarWeekViewState extends State<CalendarWeekView> {
                                             ?.copyWith(
                                               color:
                                                   date.isSameDay(DateTime.now())
-                                                  ? Theme.of(
-                                                      context,
-                                                    ).colorScheme.secondary
+                                                  ? Theme.of(context)
+                                                        .colorScheme
+                                                        .secondary
                                                   : null,
                                             ),
                                       ),

@@ -35,6 +35,28 @@ void main() {
 
   tearDown(() => database.db.close());
 
+  test(
+    'item counts include stored records without expanding recurrence',
+    () async {
+      expect((await database.getItemCounts()).values, everyElement(0));
+      await database.event.createEvent(const Event(name: 'Work'));
+      await database.calendarItem.createCalendarItem(
+        RepeatingCalendarItem(
+          name: 'Daily focus',
+          start: DateTime(2026, 7, 20, 9),
+          repeatType: RepeatType.daily,
+          count: 100,
+        ),
+      );
+      final counts = await database.getItemCounts();
+      expect(counts['events'], 1);
+      expect(counts['calendarItems'], 1);
+      expect(counts.values.fold(0, (sum, count) => sum + count), 2);
+      await database.calendarItem.clear();
+      expect((await database.getItemCounts())['calendarItems'], 0);
+    },
+  );
+
   test('expands daily recurrence with count and exceptions', () async {
     final start = DateTime(2026, 7, 20, 9);
     await database.calendarItem.createCalendarItem(

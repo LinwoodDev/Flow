@@ -173,11 +173,17 @@ class _CalendarListViewState extends State<CalendarListView> {
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 1000),
                       child: GestureDetector(
-                        onTap: () => showCalendarCreate(
-                          context: context,
-                          time: date,
-                          event: widget.filter.sourceEvent,
-                        ).then((value) => _bloc.refresh()),
+                        onTap:
+                            !context.read<FlowCubit>().canWrite(
+                              (service) => service.calendarItem,
+                              source: widget.filter.sourceEvent?.source,
+                            )
+                            ? null
+                            : () => showCalendarCreate(
+                                context: context,
+                                time: date,
+                                event: widget.filter.sourceEvent,
+                              ).then((value) => _bloc.refresh()),
                         child: isMobile
                             ? Column(children: [header, list])
                             : Row(

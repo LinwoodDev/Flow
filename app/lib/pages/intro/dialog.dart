@@ -38,8 +38,7 @@ class _IntroDialogState extends State<IntroDialog> {
       {
         "image": "images/undraw_open_source_1qxw.png",
         "title": "Open source",
-        "description":
-            "The app and the server are all open source. Everyone can contribute!",
+        "description": "The app and the server are all open source. Everyone can contribute!",
       },
     ].map(
       (e) => IntroFeatureView(

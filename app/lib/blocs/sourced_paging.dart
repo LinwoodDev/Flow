@@ -13,23 +13,24 @@ part 'sourced_paging_state.dart';
 
 part 'sourced_paging.mapper.dart';
 
-typedef DateFetcher<T> =
-    Future<List<T>?> Function(
-      String source,
-      SourceService service,
-      int offset,
-      int limit,
-      int date,
-    );
-typedef ItemFetcher<T> =
-    Future<List<T>?> Function(
-      String source,
-      SourceService service,
-      int offset,
-      int limit,
-    );
-typedef SourceFetcher<T> =
-    Future<List<T>?> Function(SourceService service, int offset, int limit);
+typedef DateFetcher<T> = Future<List<T>?> Function(
+  String source,
+  SourceService service,
+  int offset,
+  int limit,
+  int date,
+);
+typedef ItemFetcher<T> = Future<List<T>?> Function(
+  String source,
+  SourceService service,
+  int offset,
+  int limit,
+);
+typedef SourceFetcher<T> = Future<List<T>?> Function(
+  SourceService service,
+  int offset,
+  int limit,
+);
 
 class SourcedPagingBloc<T>
     extends Bloc<SourcedPagingEvent, SourcedPagingState<T>> {
