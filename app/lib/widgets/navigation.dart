@@ -256,7 +256,7 @@ class _FlowDrawer extends StatelessWidget {
     return item == null
         ? const Divider(indent: 16, endIndent: 16)
         : Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+            padding: const EdgeInsets.symmetric(vertical: 2),
             child: ListTile(
               style: ListTileStyle.drawer,
               title: Text(
@@ -280,8 +280,11 @@ class _FlowDrawer extends StatelessWidget {
               selectedTileColor: currentSelected
                   ? Theme.of(context).colorScheme.primaryContainer
                   : null,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+              shape: const BeveledRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(16),
+                  bottomRight: Radius.circular(16),
+                ),
               ),
             ),
           );

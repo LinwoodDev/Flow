@@ -1,0 +1,2 @@
+* Migrate to settings framework
+* Revert modern navigation items

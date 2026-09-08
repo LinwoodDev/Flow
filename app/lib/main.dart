@@ -8,10 +8,7 @@ import 'package:flow/api/storage/sources.dart';
 import 'package:flow/pages/alarm/countdown.dart';
 import 'package:flow/pages/alarm/page.dart';
 import 'package:flow/pages/calendar/filter.dart';
-import 'package:flow/pages/settings/data.dart';
-import 'package:flow/pages/settings/general.dart';
 import 'package:flow/pages/settings/home.dart';
-import 'package:flow/pages/settings/personalization.dart';
 import 'package:flow/theme.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flow_api/helpers/setup.dart';
@@ -90,18 +87,14 @@ final GoRouter _router = GoRouter(
       path: '/settings',
       builder: (context, state) => const SettingsPage(),
       routes: [
-        GoRoute(
-          path: 'general',
-          builder: (context, state) => const GeneralSettingsPage(),
-        ),
-        GoRoute(
-          path: 'data',
-          builder: (context, state) => const DataSettingsPage(),
-        ),
-        GoRoute(
-          path: 'personalization',
-          builder: (context, state) => const PersonalizationSettingsPage(),
-        ),
+        for (final id in settingsTree.pages.keys)
+          GoRoute(
+            path: id,
+            builder: (context, state) => SettingsDetailsPage(
+              id: id,
+              focusedId: state.extra is String ? state.extra as String : null,
+            ),
+          ),
       ],
     ),
     ShellRoute(

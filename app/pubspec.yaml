@@ -18,8 +18,8 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 0.8.0+17
 
 environment:
-  sdk: ">=3.8.0 <4.0.0"
-  flutter: 3.47.1
+  sdk: ">=3.13.0 <4.0.0"
+  flutter: 3.47.2
 
 dependencies:
   flutter:
@@ -34,10 +34,15 @@ dependencies:
   path_provider: ^2.1.3
   flow_api:
     path: ../api
+  settings_leap:
+    git:
+      url: https://github.com/LinwoodDev/dart_pkgs.git
+      ref: 855133902c6893903ff4ea36a99ef8279ded5121
+      path: packages/settings_leap
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 606c5977e7d7d0197fdec2d15dbc951afe330b43
+      ref: 2195d9d509f5ba2c5c823491d93cac4d6136b597
       path: packages/material_leap
   path: ^1.8.3
   go_router: ^17.0.0

@@ -5,18 +5,18 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: "1b0e6a07425a3e460666e88bf1c949ccc7bb0116ad562ce94a1eca60fe820725"
+      sha256: fe18c7e37d5acb3b43224fa255281dec007970d6fd01f6d76fcd88ed3777a117
       url: "https://pub.dev"
     source: hosted
-    version: "103.0.0"
+    version: "107.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
-      sha256: "61c04d0c1bfed555c681ea079519933f071a5a026578ff73c4ff0df2d3462e5e"
+      sha256: f2dde9e50c23fc95b846b4ef334e98c3ae8c0effd5d2453b02fc9fb3f8939791
       url: "https://pub.dev"
     source: hosted
-    version: "13.3.0"
+    version: "14.3.0"
   android_file_picker:
     dependency: transitive
     description:
@@ -238,18 +238,18 @@ packages:
     dependency: "direct main"
     description:
       name: dart_mappable
-      sha256: "960746478faaa68ed6b9d3c6fd03c87c7b8614e6c33e75fe1b0c6d7a60adcf29"
+      sha256: "9515fee2997a47c22a7e55d7c38c63ff395688c0f8152a7b9bd2831b082a6d55"
       url: "https://pub.dev"
     source: hosted
-    version: "4.8.0"
+    version: "4.10.0"
   dart_mappable_builder:
     dependency: "direct dev"
     description:
       name: dart_mappable_builder
-      sha256: "0119cde33841f4fa57574381bb1324bed017ff7592594afa220a59b6c04f3ea5"
+      sha256: "30c48c842a616011c691af4993031b7ea7a9ff3230690af871a3bf803cc59a48"
       url: "https://pub.dev"
     source: hosted
-    version: "4.9.0"
+    version: "4.10.0"
   dart_style:
     dependency: transitive
     description:
@@ -803,8 +803,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: "606c5977e7d7d0197fdec2d15dbc951afe330b43"
-      resolved-ref: "606c5977e7d7d0197fdec2d15dbc951afe330b43"
+      ref: "2195d9d509f5ba2c5c823491d93cac4d6136b597"
+      resolved-ref: "2195d9d509f5ba2c5c823491d93cac4d6136b597"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
@@ -1097,6 +1097,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
+  settings_leap:
+    dependency: "direct main"
+    description:
+      path: "packages/settings_leap"
+      ref: "855133902c6893903ff4ea36a99ef8279ded5121"
+      resolved-ref: "855133902c6893903ff4ea36a99ef8279ded5121"
+      url: "https://github.com/LinwoodDev/dart_pkgs.git"
+    source: git
+    version: "0.1.0"
   share_plus:
     dependency: transitive
     description:
@@ -1194,10 +1203,10 @@ packages:
     dependency: transitive
     description:
       name: source_gen
-      sha256: a603f1fb984a7391ae5978d1b92bfaaa08b350dca5c825256f925818f7943bf5
+      sha256: "11b6047da8e4eb6c643ccac3d0fda3f9c9e11651695f7da24a85ade8aff15a44"
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.4"
+    version: "4.3.0"
   source_span:
     dependency: transitive
     description:
@@ -1535,5 +1544,5 @@ packages:
     source: hosted
     version: "3.1.4"
 sdks:
-  dart: ">=3.12.0 <4.0.0"
-  flutter: ">=3.47.1"
+  dart: ">=3.13.0 <4.0.0"
+  flutter: "3.47.2"
