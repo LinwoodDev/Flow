@@ -2,7 +2,7 @@ import 'package:flow/cubits/settings.dart';
 import 'package:flow/pages/settings/home.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:flow_api/helpers/setup.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_leap/material_leap.dart';

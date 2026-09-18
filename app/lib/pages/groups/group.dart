@@ -2,7 +2,7 @@ import 'package:flow/cubits/flow.dart';
 import 'package:flow/widgets/markdown_field.dart';
 import 'package:flow/widgets/save_dialog_button.dart';
 import 'package:flow/widgets/source_dropdown.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';

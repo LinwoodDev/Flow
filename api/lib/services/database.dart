@@ -30,13 +30,12 @@ import '../models/user/database.dart';
 import '../models/group/database.dart';
 import '../models/note/database.dart';
 
-typedef DatabaseFactory =
-    Future<Database> Function({
-      String name,
-      int? version,
-      FutureOr<void> Function(Database, int, int)? onUpgrade,
-      FutureOr<void> Function(Database, int)? onCreate,
-    });
+typedef DatabaseFactory = Future<Database> Function({
+  String name,
+  int? version,
+  FutureOr<void> Function(Database, int, int)? onUpgrade,
+  FutureOr<void> Function(Database, int)? onCreate,
+});
 
 const databaseVersion = 5;
 
@@ -162,9 +161,8 @@ class DatabaseService extends SourceService {
   }
 
   Future<String> getSqliteVersion() async {
-    return (await db.rawQuery(
-      'SELECT sqlite_version()',
-    )).first.values.first.toString();
+    return (await db.rawQuery('SELECT sqlite_version()')).first.values.first
+        .toString();
   }
 }
 
@@ -178,6 +176,7 @@ mixin TableService {
 
   FutureOr<void> clear() {}
 }
+
 Uint8List encodeEndian(int value, int length) {
   final res = Uint8List(length);
 

@@ -10,7 +10,7 @@ import 'package:flow_api/models/label/model.dart';
 import 'package:flow_api/models/model.dart';
 import 'package:flow_api/models/note/model.dart';
 import 'package:flow_api/services/database.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 

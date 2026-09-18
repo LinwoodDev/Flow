@@ -1,6 +1,6 @@
 import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/widgets/paging/list.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow_api/models/event/item/model.dart';
 import 'package:flow_api/models/event/model.dart';

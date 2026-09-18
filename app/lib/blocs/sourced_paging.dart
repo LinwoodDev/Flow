@@ -45,10 +45,9 @@ class SourcedPagingBloc<T>
   SourcedPagingBloc.dated({
     required this.cubit,
     this.sources,
-    required DateFetcher<T> fetch,
+    required this._fetch,
     this.pageSize = 50,
-  }) : _fetch = fetch,
-       useDates = true,
+  }) : useDates = true,
        super(const SourcedPagingInitial()) {
     _init();
   }

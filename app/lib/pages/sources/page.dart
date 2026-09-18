@@ -5,7 +5,7 @@ import 'package:flow/visualizer/storage.dart';
 import 'package:flow/visualizer/sync.dart';
 import 'package:flow/widgets/confirm_delete.dart';
 import 'package:flow/widgets/navigation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:intl/intl.dart';
@@ -57,7 +57,7 @@ class SourcesPage extends StatelessWidget {
                             Row(
                               children: [
                                 PhosphorIcon(
-                                  state.status.icon(PhosphorIconsStyle.light),
+                                  state.status.icon.light,
                                   color: state.failures.isEmpty
                                       ? theme.colorScheme.primary
                                       : theme.colorScheme.error,
@@ -218,9 +218,7 @@ class SourcesPage extends StatelessWidget {
                                     SourceItemCounts(source: remote.identifier),
                                   ],
                                 ),
-                                leading: PhosphorIcon(
-                                  remote.icon(PhosphorIconsStyle.light),
-                                ),
+                                leading: PhosphorIcon(remote.icon.light),
                                 onTap: () => showDialog<void>(
                                   context: context,
                                   builder: (context) =>

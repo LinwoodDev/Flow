@@ -1,6 +1,8 @@
 import 'package:dart_leap/dart_leap.dart';
 import 'package:dart_mappable/dart_mappable.dart';
+
 import 'dart:typed_data';
+
 import 'package:flow_api/models/model.dart';
 
 part 'model.mapper.dart';

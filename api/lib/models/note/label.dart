@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'dart:typed_data';
+
 import 'package:flow_api/models/label/model.dart';
 
 import 'model.dart';

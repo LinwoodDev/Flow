@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -14,9 +14,18 @@ extension SyncStatusVisualizer on SyncStatus? {
   };
 
   IconGetter get icon => switch (this) {
-    SyncStatus.syncing => PhosphorIcons.arrowClockwise,
-    SyncStatus.synced => PhosphorIcons.check,
-    _ => PhosphorIcons.warningCircle,
+    SyncStatus.syncing => IconGetter(
+      PhosphorIconsLight.arrowClockwise,
+      PhosphorIconsFill.arrowClockwise,
+    ),
+    SyncStatus.synced => IconGetter(
+      PhosphorIconsLight.check,
+      PhosphorIconsFill.check,
+    ),
+    _ => IconGetter(
+      PhosphorIconsLight.warningCircle,
+      PhosphorIconsFill.warningCircle,
+    ),
   };
 }
 
@@ -28,8 +37,17 @@ extension SyncModeVisualizer on SyncMode {
   };
 
   IconGetter get icon => switch (this) {
-    SyncMode.always => PhosphorIcons.wifiHigh,
-    SyncMode.noMobile => PhosphorIcons.deviceMobile,
-    SyncMode.manual => PhosphorIcons.wifiX,
+    SyncMode.always => IconGetter(
+      PhosphorIconsLight.wifiHigh,
+      PhosphorIconsFill.wifiHigh,
+    ),
+    SyncMode.noMobile => IconGetter(
+      PhosphorIconsLight.deviceMobile,
+      PhosphorIconsFill.deviceMobile,
+    ),
+    SyncMode.manual => IconGetter(
+      PhosphorIconsLight.wifiX,
+      PhosphorIconsFill.wifiX,
+    ),
   };
 }

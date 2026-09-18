@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flow_api/models/event/model.dart';
@@ -19,11 +19,20 @@ extension EventStatusHelper on EventStatus {
   IconGetter get icon {
     switch (this) {
       case EventStatus.confirmed:
-        return PhosphorIcons.checkCircle;
+        return IconGetter(
+          PhosphorIconsLight.checkCircle,
+          PhosphorIconsFill.checkCircle,
+        );
       case EventStatus.draft:
-        return PhosphorIcons.fileDashed;
+        return IconGetter(
+          PhosphorIconsLight.fileDashed,
+          PhosphorIconsFill.fileDashed,
+        );
       case EventStatus.cancelled:
-        return PhosphorIcons.xCircle;
+        return IconGetter(
+          PhosphorIconsLight.xCircle,
+          PhosphorIconsFill.xCircle,
+        );
     }
   }
 

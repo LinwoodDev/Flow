@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flow/pages/settings/home.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 Future<void> openSettings(BuildContext context) => showGeneralDialog<void>(
   context: context,

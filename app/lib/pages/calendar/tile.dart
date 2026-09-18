@@ -1,5 +1,5 @@
 import 'package:flow/helpers/event.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:intl/intl.dart';
@@ -72,14 +72,11 @@ class CalendarListTile extends StatelessWidget {
       ),
       leading: Tooltip(
         message: model.status.getLocalizedName(context),
-        child: PhosphorIcon(
-          model.status.icon(switch (main.type) {
-            CalendarItemType.appointment => PhosphorIconsStyle.fill,
-            CalendarItemType.moment => PhosphorIconsStyle.duotone,
-            CalendarItemType.pending => PhosphorIconsStyle.light,
-          }),
-          color: model.status.getColor(),
-        ),
+        child: PhosphorIcon(switch (main.type) {
+          CalendarItemType.appointment => PhosphorIconsLight.calendar,
+          CalendarItemType.moment => PhosphorIconsLight.smiley,
+          CalendarItemType.pending => PhosphorIconsLight.clock,
+        }, color: model.status.getColor()),
       ),
       onTap: () {
         showDialog(

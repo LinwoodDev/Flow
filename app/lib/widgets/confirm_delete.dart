@@ -1,5 +1,5 @@
 import 'package:flow/src/generated/i18n/app_localizations.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 Future<bool> confirmDelete(
   BuildContext context, {

@@ -4,7 +4,7 @@ import 'package:flow/cubits/settings.dart';
 import 'package:flow/main.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:settings_leap/settings_leap.dart';

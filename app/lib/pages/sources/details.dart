@@ -1,7 +1,7 @@
 import 'package:flow/api/storage/remote/model.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:flow/visualizer/storage.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'counts.dart';
@@ -34,7 +34,7 @@ class SourceDetailsDialog extends StatelessWidget {
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: PhosphorIcon(
-                source.icon(PhosphorIconsStyle.light),
+                source.icon.light,
                 color: theme.colorScheme.primary,
               ),
               title: Text(

@@ -5,7 +5,7 @@ import 'package:flow/widgets/save_dialog_button.dart';
 import 'package:flow_api/models/model.dart';
 import 'package:flow_api/models/resource/model.dart';
 import 'package:flow_api/models/resource/service.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';

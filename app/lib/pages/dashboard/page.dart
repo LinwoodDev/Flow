@@ -1,7 +1,7 @@
 import 'package:flow/pages/dashboard/notes.dart';
 import 'package:flow/widgets/clock.dart';
 import 'package:flow/widgets/navigation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:material_leap/helpers.dart';

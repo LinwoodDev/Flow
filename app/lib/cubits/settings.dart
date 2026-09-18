@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -66,11 +66,26 @@ enum CalendarView {
 
   IconGetter get icon {
     return switch (this) {
-      CalendarView.list => PhosphorIcons.list,
-      CalendarView.day => PhosphorIcons.calendar,
-      CalendarView.week => PhosphorIcons.columns,
-      CalendarView.month => PhosphorIcons.gridNine,
-      CalendarView.pending => PhosphorIcons.clock,
+      CalendarView.list => IconGetter(
+        PhosphorIconsLight.list,
+        PhosphorIconsFill.list,
+      ),
+      CalendarView.day => IconGetter(
+        PhosphorIconsLight.calendar,
+        PhosphorIconsFill.calendar,
+      ),
+      CalendarView.week => IconGetter(
+        PhosphorIconsLight.columns,
+        PhosphorIconsFill.columns,
+      ),
+      CalendarView.month => IconGetter(
+        PhosphorIconsLight.gridNine,
+        PhosphorIconsFill.gridNine,
+      ),
+      CalendarView.pending => IconGetter(
+        PhosphorIconsLight.clock,
+        PhosphorIconsFill.clock,
+      ),
     };
   }
 }

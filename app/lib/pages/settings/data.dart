@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:file_picker/file_picker.dart';
 import 'package:flow/api/storage/sources.dart';
 import 'package:flow/visualizer/sync.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
@@ -49,7 +49,7 @@ final dataSettingsPage = SettingsLeapPage<FlowSettings>(
               context.read<SettingsCubit>().changeSyncMode(value),
           valueLabel: (context, value) => value.getLocalizedName(context),
           valueLeadingBuilder: (context, value) =>
-              PhosphorIcon(value.icon(PhosphorIconsStyle.light)),
+              PhosphorIcon(value.icon.light),
         ),
       ],
     ),

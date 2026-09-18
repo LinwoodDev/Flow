@@ -4,7 +4,7 @@ import 'package:flow/api/settings.dart';
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/cubits/settings.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
@@ -24,50 +24,62 @@ typedef _NavigationItem = ({
 List<_NavigationItem?> _getNavigationItems(BuildContext context) => [
   (
     title: AppLocalizations.of(context).dashboard,
-    icon: PhosphorIcons.squaresFour,
+    icon: IconGetter(
+      PhosphorIconsLight.squaresFour,
+      PhosphorIconsFill.squaresFour,
+    ),
     link: "/",
     onTap: null,
   ),
   (
     title: AppLocalizations.of(context).calendar,
-    icon: PhosphorIcons.calendar,
+    icon: IconGetter(PhosphorIconsLight.calendar, PhosphorIconsFill.calendar),
     link: "/calendar",
     onTap: null,
   ),
   (
     title: AppLocalizations.of(context).alarm,
-    icon: PhosphorIcons.alarm,
+    icon: IconGetter(PhosphorIconsLight.alarm, PhosphorIconsFill.alarm),
     link: "/alarm",
     onTap: null,
   ),
   null,
   (
     title: AppLocalizations.of(context).events,
-    icon: PhosphorIcons.calendarBlank,
+    icon: IconGetter(
+      PhosphorIconsLight.calendarBlank,
+      PhosphorIconsFill.calendarBlank,
+    ),
     link: "/events",
     onTap: null,
   ),
   (
     title: AppLocalizations.of(context).notes,
-    icon: PhosphorIcons.listChecks,
+    icon: IconGetter(
+      PhosphorIconsLight.listChecks,
+      PhosphorIconsFill.listChecks,
+    ),
     link: "/notes",
     onTap: null,
   ),
   (
     title: AppLocalizations.of(context).resources,
-    icon: PhosphorIcons.cube,
+    icon: IconGetter(PhosphorIconsLight.cube, PhosphorIconsFill.cube),
     link: "/resources",
     onTap: null,
   ),
   (
     title: AppLocalizations.of(context).groups,
-    icon: PhosphorIcons.usersThree,
+    icon: IconGetter(
+      PhosphorIconsLight.usersThree,
+      PhosphorIconsFill.usersThree,
+    ),
     link: "/groups",
     onTap: null,
   ),
   (
     title: AppLocalizations.of(context).users,
-    icon: PhosphorIcons.users,
+    icon: IconGetter(PhosphorIconsLight.users, PhosphorIconsFill.users),
     link: "/users",
     onTap: null,
   ),
@@ -77,13 +89,16 @@ List<_NavigationItem?> _getSecondaryItems(BuildContext context) => [
   null,
   (
     title: AppLocalizations.of(context).sources,
-    icon: PhosphorIcons.hardDrives,
+    icon: IconGetter(
+      PhosphorIconsLight.hardDrives,
+      PhosphorIconsFill.hardDrives,
+    ),
     link: "/sources",
     onTap: null,
   ),
   (
     title: AppLocalizations.of(context).settings,
-    icon: PhosphorIcons.gear,
+    icon: IconGetter(PhosphorIconsLight.gear, PhosphorIconsFill.gear),
     link: "/settings",
     onTap: () => openSettings(context),
   ),
@@ -267,13 +282,7 @@ class _FlowDrawer extends StatelessWidget {
                       : FontWeight.normal,
                 ),
               ),
-              leading: Icon(
-                item.icon(
-                  currentSelected
-                      ? PhosphorIconsStyle.fill
-                      : PhosphorIconsStyle.light,
-                ),
-              ),
+              leading: Icon(currentSelected ? item.icon.fill : item.icon.light),
               onTap: item.onTap ?? () => GoRouter.of(context).go(item.link),
               selected: currentSelected,
               selectedColor: Theme.of(context).colorScheme.onPrimaryContainer,

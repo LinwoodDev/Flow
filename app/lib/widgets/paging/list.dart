@@ -2,7 +2,7 @@ import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/widgets/paging/builder.dart';
 import 'package:flow/widgets/paging/empty.dart';
 import 'package:flow_api/models/model.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 typedef ItemBuilder<T> = Widget Function(

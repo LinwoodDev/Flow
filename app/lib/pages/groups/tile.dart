@@ -1,5 +1,5 @@
 import 'package:flow/blocs/sourced_paging.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';

@@ -1,6 +1,6 @@
 import 'package:flow/main.dart';
 import 'package:flow/pages/intro/feature.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 
 class IntroDialog extends StatefulWidget {

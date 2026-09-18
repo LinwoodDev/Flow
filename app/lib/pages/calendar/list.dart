@@ -2,7 +2,7 @@ import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/widgets/paging/list.dart';
 import 'package:flow_api/services/source.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:material_leap/material_leap.dart';

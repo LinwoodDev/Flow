@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+
 import 'dart:typed_data';
 
 import '../model.dart';

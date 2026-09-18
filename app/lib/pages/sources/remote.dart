@@ -2,7 +2,7 @@ import 'package:flow/api/storage/remote/model.dart';
 import 'package:flow/api/storage/sources.dart';
 import 'package:flow/helpers/validation.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 

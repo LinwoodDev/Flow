@@ -2,7 +2,7 @@ import 'package:flow/cubits/alarm.dart';
 import 'package:flow/pages/alarm/page.dart';
 import 'package:flow/pages/sources/caldav.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Widget localizedApp(Widget home) => MaterialApp(

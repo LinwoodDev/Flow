@@ -211,8 +211,7 @@ class CalendarItemDatabaseService extends CalendarItemService
       whereArgs: whereArgs,
       offset: offset,
       limit: limit,
-      orderBy:
-          'calendarItems.start ASC, calendarItems.end ASC, calendarItems.name ASC',
+      orderBy: 'calendarItems.start ASC, calendarItems.end ASC, calendarItems.name ASC',
     );
 
     return result

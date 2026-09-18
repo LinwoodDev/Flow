@@ -2,7 +2,7 @@ import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/pages/users/select.dart';
 import 'package:flow/widgets/paging/list.dart';
 import 'package:flow_api/services/source.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';

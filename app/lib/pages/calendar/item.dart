@@ -8,7 +8,7 @@ import 'package:flow/pages/resources/view.dart';
 import 'package:flow/pages/users/view.dart';
 import 'package:flow/widgets/markdown_field.dart';
 import 'package:flow/widgets/confirm_delete.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:intl/intl.dart';
@@ -464,9 +464,7 @@ class _CalendarItemDialogState extends State<CalendarItemDialog> {
                                             DropdownMenuEntry<EventStatus>(
                                               value: value,
                                               leadingIcon: PhosphorIcon(
-                                                value.icon(
-                                                  PhosphorIconsStyle.light,
-                                                ),
+                                                value.icon.light,
                                                 color: value.getColor(),
                                               ),
                                               label: value.getLocalizedName(

@@ -1,7 +1,7 @@
 import 'package:flow/blocs/sourced_paging.dart';
 import 'package:flow/widgets/paging/error.dart';
 import 'package:flow/widgets/paging/loading.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 final class PagedBuilder<T> extends StatelessWidget {

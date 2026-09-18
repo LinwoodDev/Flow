@@ -1,5 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 
 import 'dart:typed_data';

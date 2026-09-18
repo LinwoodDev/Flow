@@ -3,7 +3,7 @@ import 'package:flow/helpers/event.dart';
 import 'package:flow/pages/groups/select.dart';
 import 'package:flow/pages/resources/select.dart';
 import 'package:flow_api/models/resource/model.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'dart:typed_data';
 
@@ -113,9 +113,7 @@ class _CalendarFilterViewState extends State<CalendarFilterView> {
                       final selected = !_filter.hiddenStatuses.contains(status);
                       return InputChip(
                         label: Text(status.getLocalizedName(context)),
-                        avatar: PhosphorIcon(
-                          status.icon(PhosphorIconsStyle.light),
-                        ),
+                        avatar: PhosphorIcon(status.icon.light),
                         selected: selected,
                         selectedColor: status.getColor(),
                         showCheckmark: false,

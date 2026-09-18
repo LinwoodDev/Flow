@@ -1,7 +1,7 @@
 import 'package:flow/cubits/settings.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:flow/theme.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_leap/material_leap.dart';

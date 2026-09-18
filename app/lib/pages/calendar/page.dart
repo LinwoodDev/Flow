@@ -1,7 +1,7 @@
 import 'package:flow/cubits/flow.dart';
 import 'package:flow/cubits/settings.dart';
 import 'package:flow/widgets/navigation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 
@@ -49,14 +49,12 @@ class _CalendarPageState extends State<CalendarPage>
                 if (isSmall) ...[
                   MenuAnchor(
                     builder: defaultMenuButton(
-                      icon: PhosphorIcon(view.icon(PhosphorIconsStyle.light)),
+                      icon: PhosphorIcon(view.icon.light),
                     ),
                     menuChildren: CalendarView.values
                         .map(
                           (e) => MenuItemButton(
-                            leadingIcon: PhosphorIcon(
-                              e.icon(PhosphorIconsStyle.light),
-                            ),
+                            leadingIcon: PhosphorIcon(e.icon.light),
                             child: Text(e.getLocalizedName(context)),
                             onPressed: () => changeView(e),
                           ),
@@ -69,9 +67,7 @@ class _CalendarPageState extends State<CalendarPage>
                         .map(
                           (e) => ButtonSegment(
                             value: e,
-                            icon: PhosphorIcon(
-                              e.icon(PhosphorIconsStyle.light),
-                            ),
+                            icon: PhosphorIcon(e.icon.light),
                             tooltip: e.getLocalizedName(context),
                           ),
                         )

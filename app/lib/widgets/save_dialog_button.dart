@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class SaveDialogButton<T> extends StatefulWidget {
   final Future<T?> Function() onSave;
