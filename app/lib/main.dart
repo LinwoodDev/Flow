@@ -13,6 +13,7 @@ import 'package:flow/theme.dart';
 import 'package:flow/widgets/navigation.dart';
 import 'package:flow_api/helpers/setup.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart' show appFlavor;
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -239,7 +240,7 @@ class FlowApp extends StatelessWidget {
   }
 }
 
-const flavor = String.fromEnvironment('flavor');
+const flavor = appFlavor ?? String.fromEnvironment('flavor');
 const isNightly =
     flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
 const shortApplicationName = isNightly ? 'Flow Nightly' : 'Flow';

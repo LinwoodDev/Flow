@@ -1,5 +1,7 @@
 # Install Operating system and dependencies
-FROM ubuntu:24.04 AS builder
+FROM ubuntu:26.04 AS builder
+
+ARG BUILD_FLAVOR=production
 
 RUN apt-get update 
 RUN apt-get install -y curl git wget unzip gdb libstdc++6 libglu1-mesa fonts-droid-fallback python3 yq
@@ -21,7 +23,8 @@ RUN flutter doctor
 RUN flutter config --enable-web
 
 # Copy files to container and build
-RUN flutter build web
+RUN if [ "$BUILD_FLAVOR" = "nightly" ]; then cp -rf web_nightly/. web/; fi
+RUN flutter build web --dart-define=flavor="$BUILD_FLAVOR"
 
 # Nginx Container
 FROM nginx:1-alpine

@@ -19,6 +19,15 @@ concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  # The release tag determines branding even if GitHub's prerelease flag is wrong.
+  # main is the stable development branch; develop and PRs use nightly branding.
+  BUILD_FLAVOR: >-
+    ${{ (github.ref == 'refs/heads/main' ||
+         github.ref == 'refs/tags/stable' ||
+         (startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, '-')))
+        && 'production' || 'nightly' }}
+
 jobs:
   build-apk:
     defaults:
@@ -38,7 +47,9 @@ jobs:
           flutter-version-file: app/pubspec.yaml
           cache: true
       - name: 📦 Get dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get
+          dart pub get -C ../tools
       - name: Import files
         if: ${{ github.event_name != 'pull_request' }}
         env:
@@ -50,25 +61,30 @@ jobs:
           if [[ -n "$KEY_JKS" ]] ; then echo "$KEY_JKS" | base64 --decode > key.jks  ; fi
       #- run: flutter test
       - name: 🏭 Build nightly
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
         run: |
-          flutter build apk -v --release --flavor nightly --dart-define=flavor=nightly
+          flutter build apk -v --release --flavor nightly
           cp build/app/outputs/flutter-apk/app-nightly-release.apk linwood-flow-android.apk
       - name: 🏭 Build nightly (legacy packaging)
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
         run: |
-          USE_LEGACY_PACKAGING=true flutter build apk -v --release --flavor nightly --dart-define=flavor=nightly
+          USE_LEGACY_PACKAGING=true flutter build apk -v --release --flavor nightly
           cp build/app/outputs/flutter-apk/app-nightly-release.apk linwood-flow-android-legacy.apk
       - name: 🏭 Build production
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'production' }}
         run: |
           flutter build apk -v --release --flavor production
           cp build/app/outputs/flutter-apk/app-production-release.apk linwood-flow-android.apk
       - name: 🏭 Build production (legacy packaging)
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'production' }}
         run: |
           USE_LEGACY_PACKAGING=true flutter build apk -v --release --flavor production
           cp build/app/outputs/flutter-apk/app-production-release.apk linwood-flow-android-legacy.apk
+      - name: Check universal APKs for 16 KB page support
+        working-directory: .
+        run: |
+          dart run tools/check_android_page_sizes.dart \
+            app/linwood-flow-android.apk app/linwood-flow-android-legacy.apk
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
@@ -80,40 +96,54 @@ jobs:
           name: apk-build-legacy
           path: app/linwood-flow-android-legacy.apk
       - name: 🏭 Build architecture nightly
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
         run: |
-          flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor nightly --dart-define=flavor=nightly
+          flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor nightly
           cp build/app/outputs/flutter-apk/app-armeabi-v7a-nightly-release.apk linwood-flow-android-arm.apk
           cp build/app/outputs/flutter-apk/app-arm64-v8a-nightly-release.apk linwood-flow-android-arm64.apk
           cp build/app/outputs/flutter-apk/app-x86_64-nightly-release.apk linwood-flow-android-x86_64.apk
       - name: 🏭 Build architecture nightly (legacy packaging)
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
         run: |
-          USE_LEGACY_PACKAGING=true flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor nightly --dart-define=flavor=nightly
+          USE_LEGACY_PACKAGING=true flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor nightly
           cp build/app/outputs/flutter-apk/app-armeabi-v7a-nightly-release.apk linwood-flow-android-arm-legacy.apk
           cp build/app/outputs/flutter-apk/app-arm64-v8a-nightly-release.apk linwood-flow-android-arm64-legacy.apk
           cp build/app/outputs/flutter-apk/app-x86_64-nightly-release.apk linwood-flow-android-x86_64-legacy.apk
       - name: 🏭 Build architecture production
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'production' }}
         run: |
           flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor production
           cp build/app/outputs/flutter-apk/app-armeabi-v7a-production-release.apk linwood-flow-android-arm.apk
           cp build/app/outputs/flutter-apk/app-arm64-v8a-production-release.apk linwood-flow-android-arm64.apk
           cp build/app/outputs/flutter-apk/app-x86_64-production-release.apk linwood-flow-android-x86_64.apk
       - name: 🏭 Build architecture production (legacy packaging)
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'production' }}
         run: |
           USE_LEGACY_PACKAGING=true flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor production
           cp build/app/outputs/flutter-apk/app-armeabi-v7a-production-release.apk linwood-flow-android-arm-legacy.apk
           cp build/app/outputs/flutter-apk/app-arm64-v8a-production-release.apk linwood-flow-android-arm64-legacy.apk
           cp build/app/outputs/flutter-apk/app-x86_64-production-release.apk linwood-flow-android-x86_64-legacy.apk
-      - name: 📊 Analyze nightly Android arm64 size
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
+      - name: Check split APKs for 16 KB page support
+        working-directory: .
         run: |
-          flutter build apk -v --release --flavor nightly --dart-define=flavor=nightly --target-platform android-arm64 --split-per-abi --analyze-size --code-size-directory=build/size-analysis/android-arm64-nightly
+          dart run tools/check_android_page_sizes.dart \
+            app/linwood-flow-android-arm.apk app/linwood-flow-android-arm-legacy.apk \
+            app/linwood-flow-android-arm64.apk app/linwood-flow-android-arm64-legacy.apk \
+            app/linwood-flow-android-x86_64.apk app/linwood-flow-android-x86_64-legacy.apk
+      - name: Build Play bundle
+        run: flutter build appbundle -v --release --flavor "$BUILD_FLAVOR"
+      - name: Check Play bundle for 16 KB page support
+        working-directory: .
+        run: |
+          dart run tools/check_android_page_sizes.dart \
+            "app/build/app/outputs/bundle/${BUILD_FLAVOR}Release/app-${BUILD_FLAVOR}-release.aab"
+      - name: 📊 Analyze nightly Android arm64 size
+        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
+        run: |
+          flutter build apk -v --release --flavor nightly --target-platform android-arm64 --split-per-abi --analyze-size --code-size-directory=build/size-analysis/android-arm64-nightly
           cp "$HOME"/.flutter-devtools/apk-code-size-analysis_*.json build/size-analysis/android-arm64-nightly/
       - name: 📊 Analyze production Android arm64 size
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'production' }}
         run: |
           flutter build apk -v --release --flavor production --target-platform android-arm64 --split-per-abi --analyze-size --code-size-directory=build/size-analysis/android-arm64-production
           cp "$HOME"/.flutter-devtools/apk-code-size-analysis_*.json build/size-analysis/android-arm64-production/
@@ -168,8 +198,6 @@ jobs:
     defaults:
       run:
         working-directory: app
-    env:
-      BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -187,36 +215,37 @@ jobs:
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
       - name: 📦 Get dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get
       - name: 🏭 Build nightly
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
         run: |
-          flutter build windows -v --release --dart-define=flavor=nightly
+          flutter build windows -v --release --flavor nightly
       - name: 🏭 Build production
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'production' }}
         run: |
-          flutter build windows -v --release --dart-define=flavor=production
+          flutter build windows -v --release --flavor production
       - name: 📊 Analyze Windows x86_64 size
         if: ${{ matrix.arch.name == 'x86_64' }}
         run: |
-          flutter build windows -v --release --dart-define=flavor=${{ env.BUILD_FLAVOR }} --analyze-size --code-size-directory=build/size-analysis/windows-x86_64
+          flutter build windows -v --release --flavor ${{ env.BUILD_FLAVOR }} --analyze-size --code-size-directory=build/size-analysis/windows-x86_64
           New-Item -ItemType Directory -Force build/size-analysis/windows-x86_64 | Out-Null
           Copy-Item "$env:USERPROFILE/.flutter-devtools/*-code-size-analysis_*.json" build/size-analysis/windows-x86_64/
       - name: Build setup
         shell: pwsh
         run: |
           Get-Content pubspec.yaml | Select-String -Pattern 'version:\s(.+)\+'  | % {Set-Item -Path Env:FLOW_VERSION -Value "$($_.matches.groups[1])"}
-          & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:FLOW_VERSION /DMyAppArch=${{ matrix.arch.dir }} FlowSetup.iss
+          & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:FLOW_VERSION /DMyAppArch=${{ matrix.arch.dir }} /DMyAppFlavor=${{ env.BUILD_FLAVOR }} FlowSetup.iss
       - name: Copy portable start script
         run: |
-          cp scripts/start.bat build/windows/${{ matrix.arch.dir }}/runner/Release/
+          cp scripts/start.bat build/windows/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/runner/Release/
           cp build/windows/${{ matrix.arch.dir }}/linwood-flow-windows-setup.exe linwood-flow-windows-setup-${{ matrix.arch.name }}.exe
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
           name: windows-${{ matrix.arch.name }}-build
           path: |
-            app/build/windows/${{ matrix.arch.dir }}/runner/Release/**
+            app/build/windows/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/runner/Release/**
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
@@ -244,10 +273,17 @@ jobs:
           flutter-version-file: app/pubspec.yaml
           cache: true
       - name: 📦 Get dependencies
-        run: flutter pub get
-      - name: 🏭 Build MSIX
         run: |
-          dart run msix:create
+          flutter pub get
+      - name: 🎨 Apply native branding
+        run: dart run ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} windows
+      - name: 🏭 Build MSIX
+        shell: pwsh
+        run: |
+          flutter build windows --release --flavor ${{ env.BUILD_FLAVOR }}
+          New-Item -ItemType Directory -Force build/windows/x64/runner | Out-Null
+          Copy-Item -Recurse -Force build/windows/x64/${{ env.BUILD_FLAVOR }}/runner/Release build/windows/x64/runner/
+          dart run msix:create --build-windows=false
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
@@ -262,16 +298,16 @@ jobs:
             name: x86_64
             dir: x64
             appimage: x86_64
+            gdk_pixbuf_dev: libgdk-pixbuf2.0-dev
           - image: ubuntu-24.04-arm
             name: arm64
             dir: arm64
             appimage: aarch64
+            gdk_pixbuf_dev: libgdk-pixbuf2.0-dev
     runs-on: ${{ matrix.arch.image }}
     defaults:
       run:
         working-directory: app
-    env:
-      BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -281,7 +317,7 @@ jobs:
           sudo apt-get install -y python3-pip \
             python3-setuptools \
             desktop-file-utils \
-            libgdk-pixbuf2.0-dev \
+            ${{ matrix.arch.gdk_pixbuf_dev }} \
             fakeroot \
             strace \
             fuse \
@@ -311,33 +347,38 @@ jobs:
           rm -f "$(dirname "$(dirname "$(command -v flutter)")")/engine/src/.gn"
           flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get
+      - name: 🎨 Apply native branding
+        run: dart run ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} linux
       - name: 🏭 Build nightly
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
-        run: flutter build linux -v --release --dart-define=flavor=nightly
+        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
+        run: |
+          flutter build linux -v --release --flavor nightly
       - name: 🏭 Build production
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
-        run: flutter build linux -v --release --dart-define=flavor=production
+        if: ${{ env.BUILD_FLAVOR == 'production' }}
+        run: |
+          flutter build linux -v --release --flavor production
       - name: 📊 Analyze Linux x86_64 size
         if: ${{ matrix.arch.name == 'x86_64' }}
         run: |
-          flutter build linux -v --release --dart-define=flavor=${{ env.BUILD_FLAVOR }} --analyze-size --code-size-directory=build/size-analysis/linux-x86_64
+          flutter build linux -v --release --flavor ${{ env.BUILD_FLAVOR }} --analyze-size --code-size-directory=build/size-analysis/linux-x86_64
           cp "$HOME"/.flutter-devtools/*-code-size-analysis_*.json build/size-analysis/linux-x86_64/
       - name: 🏭 Make binary executable
         run: |
-          chmod +x build/linux/${{ matrix.arch.dir }}/release/bundle/flow
+          chmod +x build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle/flow
       - name: Update files to arm64
         if: ${{ matrix.arch.dir == 'arm64' }}
         run: |
           sed -i 's/^Architecture: amd64/Architecture: arm64/' linux/debian/DEBIAN/control
       - name: Build .deb executable
         run: |
-          cp -fr build/linux/${{ matrix.arch.dir }}/release/bundle linux/debian/usr/bin
+          cp -fr build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle linux/debian/usr/bin
           dpkg-deb --build --root-owner-group linux/debian
           cp linux/*.deb linwood-flow-linux-${{ matrix.arch.name }}.deb
       - name: Build .rpm executable
         run: |
-          bash scripts/build-rpm.sh -d ${{ matrix.arch.dir }} -b ${{ matrix.arch.name }}
+          bash scripts/build-rpm.sh -d ${{ matrix.arch.dir }} -b ${{ matrix.arch.name }} -f ${{ env.BUILD_FLAVOR }}
       - name: Build .AppImage executable
         run: |
           wget -O appimagetool.AppImage https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-${{ matrix.arch.appimage }}.AppImage
@@ -345,7 +386,7 @@ jobs:
           # Build AppDir
           mkdir -p AppDir/usr/bin
           # move bundle folder to AppDir
-          cp build/linux/${{ matrix.arch.dir }}/release/bundle/* AppDir/usr/bin/ -r
+          cp build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle/* AppDir/usr/bin/ -r
           mkdir -p AppDir/usr/share/icons/hicolor
           cp linux/debian/usr/share/icons/hicolor AppDir/usr/share/icons/ -r
           mkdir -p AppDir/usr/share/metainfo/
@@ -356,26 +397,28 @@ jobs:
           ln -s usr/bin/flow AppDir/AppRun
           ln -s usr/share/icons/hicolor/256x256/apps/dev.linwood.flow.png AppDir/dev.linwood.flow.png
           # Build AppImage
-          UPDATE_INFO="gh-releases-zsync|LinwoodDev|flow|stable|linwood-flow-linux-${{ matrix.arch.name }}.AppImage.zsync"
-          if [[ "${{ github.ref }}" == "refs/tags/nightly" ]]; then
-            UPDATE_INFO="gh-releases-zsync|LinwoodDev|flow|nightly|linwood-flow-linux-${{ matrix.arch.name }}.AppImage.zsync"
+          UPDATE_INFO="gh-releases-zsync|LinwoodDev|Flow|stable|linwood-flow-linux-${{ matrix.arch.name }}.AppImage.zsync"
+          if [[ "${{ env.BUILD_FLAVOR }}" == "nightly" ]]; then
+            UPDATE_INFO="gh-releases-zsync|LinwoodDev|Flow|nightly|linwood-flow-linux-${{ matrix.arch.name }}.AppImage.zsync"
           fi
           ./appimagetool.AppImage -u "$UPDATE_INFO" AppDir linwood-flow-linux-${{ matrix.arch.name }}.AppImage
       - name: Copy nessessary files
         run: |
-          cp images/logo.svg build/linux/${{ matrix.arch.dir }}/release/bundle/dev.linwood.flow.svg
-          mkdir -p build/linux/${{ matrix.arch.dir }}/release/bundle/usr/share
-          cp -r linux/debian/usr/share build/linux/${{ matrix.arch.dir }}/release/bundle/usr
+          BRANDING_LOGO=images/logo.png
+          if [[ "${{ env.BUILD_FLAVOR }}" == "nightly" ]]; then BRANDING_LOGO=images/nightly.png; fi
+          cp "$BRANDING_LOGO" build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle/dev.linwood.flow.png
+          mkdir -p build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle/usr/share
+          cp -r linux/debian/usr/share build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle/usr
       - name: Copy portable start script
         run: |
           chmod +x scripts/start.sh
-          cp scripts/start.sh build/linux/${{ matrix.arch.dir }}/release/bundle
+          cp scripts/start.sh build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
           name: linux-${{ matrix.arch.name }}-build
           path: |
-            app/build/linux/${{ matrix.arch.dir }}/release/bundle/**
+            app/build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle/**
       - name: Archive .deb
         uses: actions/upload-artifact@v7
         with:
@@ -424,6 +467,12 @@ jobs:
         run: |
           mkdir -p snap
           cp app/snapcraft.yaml snap/snapcraft.yaml
+      - name: Select Snap build flavor
+        run: |
+          sed -i "s/BUILD_FLAVOR=production/BUILD_FLAVOR=${{ env.BUILD_FLAVOR }}/" snap/snapcraft.yaml
+          if [[ "${{ env.BUILD_FLAVOR }}" == "nightly" ]]; then
+            sed -i "s/title: 'Linwood Flow'/title: 'Linwood Flow Nightly'/" snap/snapcraft.yaml
+          fi
       - uses: snapcore/action-build@v1
         id: build
       - uses: snapcore/action-publish@v1
@@ -457,10 +506,13 @@ jobs:
       - name: ✅ Enable platforms
         run: flutter config --enable-macos-desktop
       - name: 📦 Get dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get
+      - name: 🎨 Apply native branding
+        run: dart run ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} macos
       - name: 🏭 Build
         run: |
-          flutter build macos -v --release
+          flutter build macos -v --release --dart-define=flavor=${{ env.BUILD_FLAVOR }}
       - name: Zip file
         working-directory: app/build/macos/Build/Products/Release
         run: zip --symlinks -qr linwood-flow-macos.zip flow.app
@@ -502,10 +554,13 @@ jobs:
           flutter-version-file: app/pubspec.yaml
           cache: true
       - name: 📦 Get dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get
+      - name: 🎨 Apply native branding
+        run: dart run ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} ios
       - name: 🏭 Build
         run: |
-          flutter build ios --release --no-codesign -v
+          flutter build ios --release --no-codesign -v --dart-define=flavor=${{ env.BUILD_FLAVOR }}
       - name: Packing IPA
         run: |
           cd build/ios/iphoneos/
@@ -558,6 +613,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: linwooddev/flow:${{ env.tag }}
+          build-args: |
+            BUILD_FLAVOR=${{ env.BUILD_FLAVOR }}
   deploy:
     runs-on: ubuntu-26.04
     if: github.event_name != 'pull_request'
@@ -594,6 +651,9 @@ jobs:
           git config --global user.name "Linwood CI"
       - uses: actions/download-artifact@v8
         with:
+          name: apk-build-legacy
+      - uses: actions/download-artifact@v8
+        with:
           name: apk-build
       - uses: actions/download-artifact@v8
         with:
@@ -604,9 +664,6 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: apk-x86_64-build
-      - uses: actions/download-artifact@v8
-        with:
-          name: apk-build-legacy
       - uses: actions/download-artifact@v8
         with:
           name: apk-arm-build-legacy
@@ -699,7 +756,7 @@ jobs:
 
           echo "SHA256 hashes for files starting with 'linwood-flow' saved to $output_file"
       - name: 🚀 Deploy stable
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'production' && (github.ref == 'refs/tags/stable' || github.event_name == 'release') }}
         uses: softprops/action-gh-release@v3
         continue-on-error: true
         with:
@@ -848,7 +905,7 @@ jobs:
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "4.0.6"
+          ruby-version: "4.0.7"
           bundler-cache: true
           working-directory: app/android
       - name: 🚀 Deploy to Play Store

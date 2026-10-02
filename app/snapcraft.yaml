@@ -71,9 +71,11 @@ parts:
       set -eux
       cd $CRAFT_PART_SRC_WORK
       cd app
-      flutter pub get || true
-      flutter build linux --release --verbose --target lib/main.dart
-      cp -r build/linux/*/release/bundle/* $CRAFT_PART_INSTALL/
+      flutter pub get
+      BUILD_FLAVOR=production
+      dart run ../tools/apply_branding.dart "$BUILD_FLAVOR" linux
+      flutter build linux --release --verbose --target lib/main.dart --flavor "$BUILD_FLAVOR"
+      cp -r build/linux/*/"$BUILD_FLAVOR"/release/bundle/* $CRAFT_PART_INSTALL/
       mkdir -p $CRAFT_PART_INSTALL/metainfo
       cp -r linux/debian/usr/share/metainfo/dev.linwood.flow.appdata.xml $CRAFT_PART_INSTALL/metainfo/
       mkdir -p $CRAFT_PART_INSTALL/meta/gui
@@ -84,4 +86,4 @@ parts:
       - libsecret-1-0
       - libjsoncpp25
     parse-info: [ metainfo/dev.linwood.flow.appdata.xml ]
-  
+

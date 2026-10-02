@@ -6,6 +6,7 @@
 
 // The application's name. By default this is also the title of the Flutter window.
 PRODUCT_NAME = flow
+APP_DISPLAY_NAME = Linwood Flow
 
 // The application's bundle identifier
 PRODUCT_BUNDLE_IDENTIFIER = dev.linwood.flow

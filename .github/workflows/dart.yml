@@ -41,7 +41,11 @@ jobs:
           flutter gen-l10n
           dart format lib/src/generated
       - name: Verify formatting
+        if: matrix.projects != 'tools'
         run: dart format --output=none --set-exit-if-changed lib
+      - name: Verify tools formatting
+        if: matrix.projects == 'tools'
+        run: dart format --output=none --set-exit-if-changed .
       - name: Analyze project source
         run: flutter analyze --fatal-infos
       - name: Run build_runner
@@ -56,5 +60,5 @@ jobs:
         if: matrix.projects == 'app'
         run: flutter test
       - name: Run Dart tests
-        if: matrix.projects == 'api'
+        if: matrix.projects != 'app'
         run: dart test

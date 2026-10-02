@@ -135,7 +135,7 @@ final class PluginDeviceCalendarGateway implements DeviceCalendarGateway {
       );
     }
     return plugin.updateEvent(
-      eventId: id,
+      instanceId: id,
       title: title,
       startDate: start,
       endDate: end,
@@ -146,7 +146,7 @@ final class PluginDeviceCalendarGateway implements DeviceCalendarGateway {
   }
 
   @override
-  Future<void> deleteEvent(String id) => plugin.deleteEvent(eventId: id);
+  Future<void> deleteEvent(String id) => plugin.deleteEvent(instanceId: id);
 }
 
 final class DeviceCalendarRemoteService
