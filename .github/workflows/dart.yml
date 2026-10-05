@@ -60,5 +60,5 @@ jobs:
         if: matrix.projects == 'app'
         run: flutter test
       - name: Run Dart tests
-        if: matrix.projects != 'app'
+        if: matrix.projects == 'api'
         run: dart test

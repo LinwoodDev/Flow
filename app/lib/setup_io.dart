@@ -35,9 +35,8 @@ Future<void> setup(
   }
   await general_setup.setup(settingsCubit, sourcesService, alarmCubit);
   try {
-    // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher_foreground');
+        AndroidInitializationSettings('ic_launcher_monochrome');
     final DarwinInitializationSettings initializationSettingsDarwin =
         DarwinInitializationSettings();
     final LinuxInitializationSettings initializationSettingsLinux =

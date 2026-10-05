@@ -7,3 +7,4 @@
 * Align CI and desktop packaging with Butterfly's stable and nightly builds
 * Reduce bundled font size with variable fonts
 * Include release notes in Linux app store metadata
+* Fix icons

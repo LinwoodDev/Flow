@@ -331,7 +331,9 @@ class _FlowDrawer extends StatelessWidget {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.asset(
-                                  "images/logo.png",
+                                  isNightly
+                                      ? "images/nightly.png"
+                                      : "images/logo.png",
                                   height: 36,
                                   width: 36,
                                 ),

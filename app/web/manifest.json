@@ -1,35 +1,23 @@
 {
-    "name": "Linwood Flow",
-    "short_name": "Linwood Flow",
-    "start_url": ".",
-    "display": "standalone",
-    "background_color": "#7c4dff",
-    "theme_color": "#7c4dff",
-    "description": "Linwood Flow is a feature rich event and time management system",
-    "orientation": "portrait-primary",
-    "prefer_related_applications": false,
-    "icons": [
-        {
-            "src": "icons/Icon-192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "icons/Icon-512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        },
-        {
-            "src": "icons/Icon-maskable-192.png",
-            "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "maskable"
-        },
-        {
-            "src": "icons/Icon-maskable-512.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "maskable"
-        }
-    ]
+  "name": "Linwood Flow",
+  "short_name": "Linwood Flow",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#7c4dff",
+  "theme_color": "#7c4dff",
+  "description": "Linwood Flow is a feature rich event and time management system",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "android/android-launchericon-192-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "android/android-launchericon-512-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
