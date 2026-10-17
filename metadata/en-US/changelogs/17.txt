@@ -8,3 +8,5 @@
 * Reduce bundled font size with variable fonts
 * Include release notes in Linux app store metadata
 * Fix icons
+
+Read more here: https://linwood.dev/flow/0.7.1
