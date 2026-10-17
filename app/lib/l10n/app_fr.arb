@@ -6,6 +6,31 @@
   "users": "Utilisateurs",
   "user": "Utilisateur",
   "sources": "Sources",
+  "sourceNameHint": "Optional, e.g. Work calendar",
+  "readOnly": "Read-only",
+  "readOnlySourceDescription": "This source is read-only. You can view its data, but cannot add, edit, or delete items.",
+  "storedItems": "{count, plural, =0{No stored items} =1{1 stored item} other{{count} stored items}}",
+  "@storedItems": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "storedItemsDescription": "Counts reflect data stored on this device. Recurring calendar entries are counted once. Sync to update connected sources.",
+  "sourceCountsUnavailable": "Item counts unavailable",
+  "calendarEntries": "Calendar entries",
+  "syncNow": "Sync now",
+  "sourcesDescription": "Manage where your data is stored and keep your connected calendars up to date.",
+  "connectedSources": "Connected sources",
+  "noConnectedSources": "No connected sources yet",
+  "noConnectedSourcesDescription": "Connect a calendar to sync with another device or service. Your local data is always available here.",
+  "localSourceDescription": "Data stored on this device. Open to export your database or view storage details.",
+  "sourceDetails": "Source details",
+  "sourceType": "Source type",
+  "sourceBehavior": "How this source works",
+  "allDeviceCalendars": "All accessible calendars on this device",
+  "selectedCalendars": "Selected calendar IDs",
   "settings": "Réglages",
   "create": "Créer",
   "information": "Information",
