@@ -5,6 +5,7 @@
 * Automatically extract usernames and passwords from source URLs
 * Prevent changes to read-only sources while keeping calendar item details visible
 * Align CI and desktop packaging with Butterfly's stable and nightly builds
+* Add offline and reproducible builds with deterministic release archives
 * Reduce bundled font size with variable fonts
 * Include release notes in Linux app store metadata
 * Fix icons

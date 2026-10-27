@@ -19,7 +19,7 @@ version: 0.7.1+17
 
 environment:
   sdk: ">=3.13.0 <4.0.0"
-  flutter: 3.47.7
+  flutter: 3.47.8
 
 dependencies:
   flutter:
@@ -79,7 +79,7 @@ dependencies:
   timezone: ^0.11.1
   flutter_timezone: ^5.1.0
   file_picker: ^13.1.0
-  device_calendar_plus: ^0.10.0
+  device_calendar_plus: ^0.12.0
   phosphor_flutter:
     git:
       url: https://github.com/CodeDoctorDE/phosphor-flutter.git

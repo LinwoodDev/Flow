@@ -70,3 +70,21 @@ flutter run
 All subdirectories are documented in the `app/README.md` file.
 
 Fork the project and create a pull request to add your code to the `develop` branch.
+
+### Offline and reproducible builds
+
+Builds use the shared `dart_pkgs/packages/generate_leap` helper. From the repository root:
+
+```bash
+dart pub get -C tools --enforce-lockfile
+dart tools/build_offline.dart prepare --platform linux --flavor production --unsigned
+dart tools/build_offline.dart build --platform linux
+dart tools/build_offline.dart verify --platform linux
+```
+
+Use `android`, `windows`, `macos`, `ios`, or `web` on the corresponding host.
+`prepare` downloads and hashes the required inputs, including native SQLite
+libraries. `build` reuses them offline. `verify` compares two clean builds and
+portable archives under `.offline-build/<platform>/reproducibility`.
+See [Build your own](docs/src/content/docs/downloads/build-your-own.md) for prerequisites
+and cache details. Signing and store/installer packaging need separate validation.

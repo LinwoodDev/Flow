@@ -16,8 +16,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: build-${{ github.ref }}
-  cancel-in-progress: true
+  group: build-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' || github.ref_type == 'branch' }}
 
 env:
   # The release tag determines branding even if GitHub's prerelease flag is wrong.
@@ -27,6 +27,7 @@ env:
          github.ref == 'refs/tags/stable' ||
          (startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, '-')))
         && 'production' || 'nightly' }}
+  TZ: UTC
 
 jobs:
   build-apk:
@@ -34,9 +35,13 @@ jobs:
       run:
         working-directory: app
     runs-on: ubuntu-26.04
+    timeout-minutes: 90
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
+      - name: Set source timestamp
+        shell: bash
+        run: echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
       - name: 🔧 Setup java
         uses: actions/setup-java@v6
         with:
@@ -46,10 +51,11 @@ jobs:
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
-      - name: 📦 Get dependencies
+          pub-cache-path: ${{ github.workspace }}/.offline-build/android/pub-cache
+      - name: 📦 Get helper dependencies
         run: |
-          flutter pub get
-          dart pub get -C ../tools
+          dart pub get -C ../tools --enforce-lockfile
+          echo "GRADLE_USER_HOME=$GITHUB_WORKSPACE/.offline-build/android/gradle" >> "$GITHUB_ENV"
       - name: Import files
         if: ${{ github.event_name != 'pull_request' }}
         env:
@@ -60,26 +66,20 @@ jobs:
           if [[ -n "$KEY_PROPERTIES" ]] ; then echo "$KEY_PROPERTIES" | base64 --decode > key.properties  ; fi
           if [[ -n "$KEY_JKS" ]] ; then echo "$KEY_JKS" | base64 --decode > key.jks  ; fi
       #- run: flutter test
-      - name: 🏭 Build nightly
-        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
+      - name: 🏭 Build and prepare offline Android dependencies
         run: |
-          flutter build apk -v --release --flavor nightly
-          cp build/app/outputs/flutter-apk/app-nightly-release.apk linwood-flow-android.apk
-      - name: 🏭 Build nightly (legacy packaging)
-        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
+          dart ../tools/build_offline.dart prepare --platform android --flavor "$BUILD_FLAVOR"
+          cp "build/app/outputs/flutter-apk/app-$BUILD_FLAVOR-release.apk" linwood-flow-android.apk
+      - name: 🏭 Build legacy packaging without network access
+        env:
+          USE_LEGACY_PACKAGING: "true"
         run: |
-          USE_LEGACY_PACKAGING=true flutter build apk -v --release --flavor nightly
-          cp build/app/outputs/flutter-apk/app-nightly-release.apk linwood-flow-android-legacy.apk
-      - name: 🏭 Build production
-        if: ${{ env.BUILD_FLAVOR == 'production' }}
-        run: |
-          flutter build apk -v --release --flavor production
-          cp build/app/outputs/flutter-apk/app-production-release.apk linwood-flow-android.apk
-      - name: 🏭 Build production (legacy packaging)
-        if: ${{ env.BUILD_FLAVOR == 'production' }}
-        run: |
-          USE_LEGACY_PACKAGING=true flutter build apk -v --release --flavor production
-          cp build/app/outputs/flutter-apk/app-production-release.apk linwood-flow-android-legacy.apk
+          sudo --preserve-env=ANDROID_HOME,ANDROID_SDK_ROOT,JAVA_HOME,USE_LEGACY_PACKAGING \
+            unshare --net -- bash -euc '
+              ip link set lo up
+              exec runuser -u "$1" -- env PATH="$4" "$2" ../tools/build_offline.dart build --platform android --flutter "$3"
+            ' offline-build "$(id -un)" "$(command -v dart)" "$(command -v flutter)" "$PATH"
+          cp "build/app/outputs/flutter-apk/app-$BUILD_FLAVOR-release.apk" linwood-flow-android-legacy.apk
       - name: Check universal APKs for 16 KB page support
         working-directory: .
         run: |
@@ -95,34 +95,22 @@ jobs:
         with:
           name: apk-build-legacy
           path: app/linwood-flow-android-legacy.apk
-      - name: 🏭 Build architecture nightly
-        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
+      - name: Build split APKs
         run: |
-          flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor nightly
-          cp build/app/outputs/flutter-apk/app-armeabi-v7a-nightly-release.apk linwood-flow-android-arm.apk
-          cp build/app/outputs/flutter-apk/app-arm64-v8a-nightly-release.apk linwood-flow-android-arm64.apk
-          cp build/app/outputs/flutter-apk/app-x86_64-nightly-release.apk linwood-flow-android-x86_64.apk
-      - name: 🏭 Build architecture nightly (legacy packaging)
-        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
+          flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor "$BUILD_FLAVOR"
+          cp "build/app/outputs/flutter-apk/app-armeabi-v7a-$BUILD_FLAVOR-release.apk" linwood-flow-android-arm.apk
+          cp "build/app/outputs/flutter-apk/app-arm64-v8a-$BUILD_FLAVOR-release.apk" linwood-flow-android-arm64.apk
+          cp "build/app/outputs/flutter-apk/app-x86_64-$BUILD_FLAVOR-release.apk" linwood-flow-android-x86_64.apk
+        env:
+          USE_LEGACY_PACKAGING: 'false'
+      - name: Build split APKs (legacy packaging)
         run: |
-          USE_LEGACY_PACKAGING=true flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor nightly
-          cp build/app/outputs/flutter-apk/app-armeabi-v7a-nightly-release.apk linwood-flow-android-arm-legacy.apk
-          cp build/app/outputs/flutter-apk/app-arm64-v8a-nightly-release.apk linwood-flow-android-arm64-legacy.apk
-          cp build/app/outputs/flutter-apk/app-x86_64-nightly-release.apk linwood-flow-android-x86_64-legacy.apk
-      - name: 🏭 Build architecture production
-        if: ${{ env.BUILD_FLAVOR == 'production' }}
-        run: |
-          flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor production
-          cp build/app/outputs/flutter-apk/app-armeabi-v7a-production-release.apk linwood-flow-android-arm.apk
-          cp build/app/outputs/flutter-apk/app-arm64-v8a-production-release.apk linwood-flow-android-arm64.apk
-          cp build/app/outputs/flutter-apk/app-x86_64-production-release.apk linwood-flow-android-x86_64.apk
-      - name: 🏭 Build architecture production (legacy packaging)
-        if: ${{ env.BUILD_FLAVOR == 'production' }}
-        run: |
-          USE_LEGACY_PACKAGING=true flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor production
-          cp build/app/outputs/flutter-apk/app-armeabi-v7a-production-release.apk linwood-flow-android-arm-legacy.apk
-          cp build/app/outputs/flutter-apk/app-arm64-v8a-production-release.apk linwood-flow-android-arm64-legacy.apk
-          cp build/app/outputs/flutter-apk/app-x86_64-production-release.apk linwood-flow-android-x86_64-legacy.apk
+          flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor "$BUILD_FLAVOR"
+          cp "build/app/outputs/flutter-apk/app-armeabi-v7a-$BUILD_FLAVOR-release.apk" linwood-flow-android-arm-legacy.apk
+          cp "build/app/outputs/flutter-apk/app-arm64-v8a-$BUILD_FLAVOR-release.apk" linwood-flow-android-arm64-legacy.apk
+          cp "build/app/outputs/flutter-apk/app-x86_64-$BUILD_FLAVOR-release.apk" linwood-flow-android-x86_64-legacy.apk
+        env:
+          USE_LEGACY_PACKAGING: 'true'
       - name: Check split APKs for 16 KB page support
         working-directory: .
         run: |
@@ -137,16 +125,10 @@ jobs:
         run: |
           dart run tools/check_android_page_sizes.dart \
             "app/build/app/outputs/bundle/${BUILD_FLAVOR}Release/app-${BUILD_FLAVOR}-release.aab"
-      - name: 📊 Analyze nightly Android arm64 size
-        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
+      - name: Analyze Android arm64 size
         run: |
-          flutter build apk -v --release --flavor nightly --target-platform android-arm64 --split-per-abi --analyze-size --code-size-directory=build/size-analysis/android-arm64-nightly
-          cp "$HOME"/.flutter-devtools/apk-code-size-analysis_*.json build/size-analysis/android-arm64-nightly/
-      - name: 📊 Analyze production Android arm64 size
-        if: ${{ env.BUILD_FLAVOR == 'production' }}
-        run: |
-          flutter build apk -v --release --flavor production --target-platform android-arm64 --split-per-abi --analyze-size --code-size-directory=build/size-analysis/android-arm64-production
-          cp "$HOME"/.flutter-devtools/apk-code-size-analysis_*.json build/size-analysis/android-arm64-production/
+          flutter build apk -v --release --flavor "$BUILD_FLAVOR" --target-platform android-arm64 --split-per-abi --analyze-size --code-size-directory=build/size-analysis/android-arm64
+          cp "$HOME"/.flutter-devtools/apk-code-size-analysis_*.json build/size-analysis/android-arm64/
       - name: Archive size analysis
         uses: actions/upload-artifact@v7
         with:
@@ -195,12 +177,20 @@ jobs:
             name: arm64
             dir: arm64
     runs-on: ${{ matrix.arch.image }}
+    timeout-minutes: 90
     defaults:
       run:
         working-directory: app
     steps:
+      - name: Enable Windows symbolic links
+        if: runner.os == 'Windows'
+        working-directory: ${{ github.workspace }}
+        run: git config --global core.symlinks true
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
+      - name: Set source timestamp
+        shell: bash
+        run: echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
       - name: Make yq tool available on Windows runners
         run: |
           choco install yq
@@ -208,29 +198,27 @@ jobs:
       - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
-          channel: "master"
+          # Use the pinned Git tag when no native ARM64 SDK archive exists.
+          channel: ${{ runner.arch == 'ARM64' && runner.os != 'macOS' && 'master' || 'stable' }}
           cache: true
-          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
-          cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
+          pub-cache-path: ${{ github.workspace }}/.offline-build/windows/pub-cache
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
-      - name: 📦 Get dependencies
-        run: |
-          flutter pub get
-      - name: 🏭 Build nightly
-        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
-        run: |
-          flutter build windows -v --release --flavor nightly
-      - name: 🏭 Build production
-        if: ${{ env.BUILD_FLAVOR == 'production' }}
-        run: |
-          flutter build windows -v --release --flavor production
-      - name: 📊 Analyze Windows x86_64 size
+      - name: 📦 Get helper dependencies
+        run: dart pub get -C ../tools --enforce-lockfile
+      - name: 🎨 Apply native branding
+        run: dart ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} windows
+      - name: 🏭 Build and prepare offline Windows dependencies
+        run: dart ../tools/build_offline.dart prepare --platform windows --flavor ${{ env.BUILD_FLAVOR }}
+      - name: 📊 Build offline and analyze Windows x86_64 size
         if: ${{ matrix.arch.name == 'x86_64' }}
         run: |
-          flutter build windows -v --release --flavor ${{ env.BUILD_FLAVOR }} --analyze-size --code-size-directory=build/size-analysis/windows-x86_64
+          dart ../tools/build_offline.dart build --platform windows --analyze-size --code-size-directory=build/size-analysis/windows-x86_64
           New-Item -ItemType Directory -Force build/size-analysis/windows-x86_64 | Out-Null
           Copy-Item "$env:USERPROFILE/.flutter-devtools/*-code-size-analysis_*.json" build/size-analysis/windows-x86_64/
+      - name: 🏭 Build Windows ARM64 offline
+        if: ${{ matrix.arch.name == 'arm64' }}
+        run: dart ../tools/build_offline.dart build --platform windows
       - name: Build setup
         shell: pwsh
         run: |
@@ -240,12 +228,13 @@ jobs:
         run: |
           cp scripts/start.bat build/windows/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/runner/Release/
           cp build/windows/${{ matrix.arch.dir }}/linwood-flow-windows-setup.exe linwood-flow-windows-setup-${{ matrix.arch.name }}.exe
+          dart ../tools/reproducible.dart "build/windows/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/runner/Release" linwood-flow-windows-${{ matrix.arch.name }}.zip
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
           name: windows-${{ matrix.arch.name }}-build
           path: |
-            app/build/windows/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/runner/Release/**
+            app/linwood-flow-windows-${{ matrix.arch.name }}.zip
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
@@ -262,25 +251,34 @@ jobs:
   build-msix:
     name: build-msix
     runs-on: windows-2025
+    timeout-minutes: 90
     defaults:
       run:
         working-directory: app
     steps:
+      - name: Enable Windows symbolic links
+        if: runner.os == 'Windows'
+        working-directory: ${{ github.workspace }}
+        run: git config --global core.symlinks true
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
+      - name: Set source timestamp
+        shell: bash
+        run: echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
       - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
-      - name: 📦 Get dependencies
-        run: |
-          flutter pub get
+          pub-cache-path: ${{ github.workspace }}/.offline-build/windows/pub-cache
+      - name: 📦 Get helper dependencies
+        run: dart pub get -C ../tools --enforce-lockfile
       - name: 🎨 Apply native branding
-        run: dart run ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} windows
+        run: dart ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} windows
       - name: 🏭 Build MSIX
         shell: pwsh
         run: |
-          flutter build windows --release --flavor ${{ env.BUILD_FLAVOR }}
+          dart ../tools/build_offline.dart prepare --platform windows --flavor $env:BUILD_FLAVOR
+          dart ../tools/build_offline.dart build --platform windows
           New-Item -ItemType Directory -Force build/windows/x64/runner | Out-Null
           Copy-Item -Recurse -Force build/windows/x64/${{ env.BUILD_FLAVOR }}/runner/Release build/windows/x64/runner/
           dart run msix:create --build-windows=false
@@ -305,12 +303,16 @@ jobs:
             appimage: aarch64
             gdk_pixbuf_dev: libgdk-pixbuf2.0-dev
     runs-on: ${{ matrix.arch.image }}
+    timeout-minutes: 90
     defaults:
       run:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
+      - name: Set source timestamp
+        shell: bash
+        run: echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
       - name: Get dependencies
         run: |
           sudo apt-get update
@@ -338,32 +340,36 @@ jobs:
       - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
-          channel: "master"
+          # Use the pinned Git tag when no native ARM64 SDK archive exists.
+          channel: ${{ runner.arch == 'ARM64' && runner.os != 'macOS' && 'master' || 'stable' }}
           cache: true
-          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
-          cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
+          pub-cache-path: ${{ github.workspace }}/.offline-build/linux/pub-cache
       - name: ✅ Enable platforms
         run: |
           rm -f "$(dirname "$(dirname "$(command -v flutter)")")/engine/src/.gn"
           flutter config --enable-linux-desktop
-      - name: 📦 Get dependencies
-        run: |
-          flutter pub get
+      - name: 📦 Get helper dependencies
+        run: dart pub get -C ../tools --enforce-lockfile
       - name: 🎨 Apply native branding
-        run: dart run ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} linux
-      - name: 🏭 Build nightly
-        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
-        run: |
-          flutter build linux -v --release --flavor nightly
-      - name: 🏭 Build production
-        if: ${{ env.BUILD_FLAVOR == 'production' }}
-        run: |
-          flutter build linux -v --release --flavor production
-      - name: 📊 Analyze Linux x86_64 size
+        run: dart ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} linux
+      - name: 🏭 Build and prepare offline Linux dependencies
+        run: dart ../tools/build_offline.dart prepare --platform linux --flavor "$BUILD_FLAVOR"
+      - name: 📊 Build without network access and analyze Linux x86_64 size
         if: ${{ matrix.arch.name == 'x86_64' }}
         run: |
-          flutter build linux -v --release --flavor ${{ env.BUILD_FLAVOR }} --analyze-size --code-size-directory=build/size-analysis/linux-x86_64
+          sudo unshare --net -- bash -euc '
+            ip link set lo up
+            exec runuser -u "$1" -- env PATH="$4" "$2" ../tools/build_offline.dart build --platform linux --flutter "$3" \
+              --analyze-size --code-size-directory=build/size-analysis/linux-x86_64
+          ' offline-build "$(id -un)" "$(command -v dart)" "$(command -v flutter)" "$PATH"
           cp "$HOME"/.flutter-devtools/*-code-size-analysis_*.json build/size-analysis/linux-x86_64/
+      - name: 🏭 Build Linux ARM64 without network access
+        if: ${{ matrix.arch.name == 'arm64' }}
+        run: |
+          sudo unshare --net -- bash -euc '
+            ip link set lo up
+            exec runuser -u "$1" -- env PATH="$4" "$2" ../tools/build_offline.dart build --platform linux --flutter "$3"
+          ' offline-build "$(id -un)" "$(command -v dart)" "$(command -v flutter)" "$PATH"
       - name: 🏭 Make binary executable
         run: |
           chmod +x build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle/flow
@@ -413,12 +419,13 @@ jobs:
         run: |
           chmod +x scripts/start.sh
           cp scripts/start.sh build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle
+          dart ../tools/reproducible.dart "build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle" linwood-flow-linux-${{ matrix.arch.name }}.tar.gz
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
           name: linux-${{ matrix.arch.name }}-build
           path: |
-            app/build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle/**
+            app/linwood-flow-linux-${{ matrix.arch.name }}.tar.gz
       - name: Archive .deb
         uses: actions/upload-artifact@v7
         with:
@@ -460,6 +467,7 @@ jobs:
             dir: arm64
             appimage: aarch64
     runs-on: ${{ matrix.arch.image }}
+    timeout-minutes: 90
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -490,32 +498,36 @@ jobs:
           path: ${{ steps.build.outputs.snap }}
   build-macos:
     runs-on: macos-26
+    timeout-minutes: 90
     defaults:
       run:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
+      - name: Set source timestamp
+        shell: bash
+        run: echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
       - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
+          pub-cache-path: ${{ github.workspace }}/.offline-build/macos/pub-cache
       - uses: actions/setup-python@v7
         with:
           python-version: "3.13"
       - name: ✅ Enable platforms
         run: flutter config --enable-macos-desktop
-      - name: 📦 Get dependencies
-        run: |
-          flutter pub get
+      - name: 📦 Get helper dependencies
+        run: dart pub get -C ../tools --enforce-lockfile
       - name: 🎨 Apply native branding
-        run: dart run ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} macos
-      - name: 🏭 Build
-        run: |
-          flutter build macos -v --release --dart-define=flavor=${{ env.BUILD_FLAVOR }}
+        run: dart ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} macos
+      - name: 🏭 Build and prepare offline macOS dependencies
+        run: dart ../tools/build_offline.dart prepare --platform macos --flavor "$BUILD_FLAVOR"
+      - name: 🏭 Build macOS offline
+        run: dart ../tools/build_offline.dart build --platform macos
       - name: Zip file
-        working-directory: app/build/macos/Build/Products/Release
-        run: zip --symlinks -qr linwood-flow-macos.zip flow.app
+        run: dart ../tools/reproducible.dart build/macos/Build/Products/Release/flow.app build/macos/Build/Products/Release/linwood-flow-macos.zip flow.app
       - name: Setup node
         uses: actions/setup-node@v7
         with:
@@ -543,32 +555,32 @@ jobs:
   build-ipa:
     name: build-ipa (iOS)
     runs-on: macos-26
+    timeout-minutes: 90
     defaults:
       run:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
+      - name: Set source timestamp
+        shell: bash
+        run: echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
       - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
-      - name: 📦 Get dependencies
-        run: |
-          flutter pub get
+          pub-cache-path: ${{ github.workspace }}/.offline-build/ios/pub-cache
+      - name: 📦 Get helper dependencies
+        run: dart pub get -C ../tools --enforce-lockfile
       - name: 🎨 Apply native branding
-        run: dart run ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} ios
-      - name: 🏭 Build
-        run: |
-          flutter build ios --release --no-codesign -v --dart-define=flavor=${{ env.BUILD_FLAVOR }}
+        run: dart ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} ios
+      - name: 🏭 Build and prepare offline iOS dependencies
+        run: dart ../tools/build_offline.dart prepare --platform ios --flavor "$BUILD_FLAVOR"
+      - name: 🏭 Build iOS offline
+        run: dart ../tools/build_offline.dart build --platform ios
       - name: Packing IPA
         run: |
-          cd build/ios/iphoneos/
-          rm -rf Payload
-          mkdir Payload
-          cp -R Runner.app Payload/
-          rm -f linwood-flow-ios.ipa
-          zip -vr linwood-flow-ios.ipa Payload/
+          dart ../tools/reproducible.dart build/ios/iphoneos/Runner.app build/ios/iphoneos/linwood-flow-ios.ipa Payload/Runner.app
       #          ls -l linwood-flow-ios.ipa
       - name: Archive
         uses: actions/upload-artifact@v7
@@ -578,6 +590,7 @@ jobs:
           compression-level: 0 #ipa is already compressed
   build-docker:
     runs-on: ubuntu-26.04
+    timeout-minutes: 90
     if: github.event_name != 'pull_request'
     steps:
       - name: ⬆️ Checkout
@@ -617,6 +630,7 @@ jobs:
             BUILD_FLAVOR=${{ env.BUILD_FLAVOR }}
   deploy:
     runs-on: ubuntu-26.04
+    timeout-minutes: 90
     if: github.event_name != 'pull_request'
     permissions:
       contents: write
@@ -676,15 +690,12 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: windows-arm64-build
-          path: windows-arm64-build/
       - uses: actions/download-artifact@v8
         with:
           name: windows-x86_64-build
-          path: windows-x86_64-build/
       - uses: actions/download-artifact@v8
         with:
           name: linux-x86_64-build
-          path: linux-x86_64-build/
       - uses: actions/download-artifact@v8
         with:
           name: linux-x86_64-deb
@@ -697,7 +708,6 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: linux-arm64-build
-          path: linux-arm64-build/
       - uses: actions/download-artifact@v8
         with:
           name: linux-arm64-deb
@@ -722,15 +732,6 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: ipa-build
-      - name: 📦 Zip artifacts
-        run: |
-          cd windows-x86_64-build
-          zip -r ../linwood-flow-windows-x86_64.zip *
-          cd ../windows-arm64-build
-          zip -r ../linwood-flow-windows-arm64.zip *
-          cd ..
-          tar -C linux-x86_64-build -czf linwood-flow-linux-x86_64.tar.gz .
-          tar -C linux-arm64-build -czf linwood-flow-linux-arm64.tar.gz .
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
@@ -863,6 +864,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-to-play-store:
     runs-on: ubuntu-26.04
+    timeout-minutes: 90
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
     defaults:
       run:
@@ -874,6 +876,9 @@ jobs:
         uses: actions/checkout@v7
         with:
           token: ${{ secrets.CI_PAT }}
+      - name: Set source timestamp
+        shell: bash
+        run: echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
       - name: Setup git
         run: |
           git config --global user.email "ci@linwood.dev"
@@ -905,7 +910,7 @@ jobs:
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "4.0.7"
+          ruby-version: "4.0.9"
           bundler-cache: true
           working-directory: app/android
       - name: 🚀 Deploy to Play Store
@@ -922,7 +927,9 @@ jobs:
         working-directory: app/android
   publish-winget:
     needs: [deploy]
+    if: ${{ github.ref == 'refs/tags/stable' || github.ref == 'refs/tags/nightly' }}
     runs-on: windows-latest
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v7
         with:
