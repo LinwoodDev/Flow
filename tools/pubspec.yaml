@@ -7,11 +7,11 @@ dependencies:
       url: https://github.com/LinwoodDev/dart_pkgs.git
       ref: 4dab0155e5cb812c5ea26089a55d07a8a4cb4658
       path: packages/generate_leap
-  crypto: ^3.0.7
-  archive: ^4.3.0
+  crypto: ^3.0.8
+  archive: ^4.6.0
   args: ^2.7.0
   intl: ^0.20.3
   yaml: ^3.1.4
 dev_dependencies:
-  test: ^1.32.0
+  test: ^1.33.0
   lints: ^6.1.0

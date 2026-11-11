@@ -45,7 +45,7 @@ jobs:
       - name: 🔧 Setup java
         uses: actions/setup-java@v6
         with:
-          java-version: "21"
+          java-version: "25"
           distribution: "temurin"
       - uses: subosito/flutter-action@v2.23.0
         with:
@@ -191,13 +191,18 @@ jobs:
       - name: Set source timestamp
         shell: bash
         run: echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
-      - name: Make yq tool available on Windows runners
+      - name: Install Inno Setup
+        run: choco install innosetup --no-progress -y
+      - name: Read Flutter version
+        id: flutter-version
+        shell: pwsh
         run: |
-          choco install yq
-          choco install innosetup
+          $version = (Select-String -Path pubspec.yaml -Pattern '^  flutter: (.+)$').Matches.Groups[1].Value.Trim()
+          if (-not $version) { throw 'Flutter version is missing from pubspec.yaml' }
+          "version=$version" >> $env:GITHUB_OUTPUT
       - uses: subosito/flutter-action@v2.23.0
         with:
-          flutter-version-file: app/pubspec.yaml
+          flutter-version: ${{ steps.flutter-version.outputs.version }}
           # Use the pinned Git tag when no native ARM64 SDK archive exists.
           channel: ${{ runner.arch == 'ARM64' && runner.os != 'macOS' && 'master' || 'stable' }}
           cache: true
@@ -265,9 +270,16 @@ jobs:
       - name: Set source timestamp
         shell: bash
         run: echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
+      - name: Read Flutter version
+        id: flutter-version
+        shell: pwsh
+        run: |
+          $version = (Select-String -Path pubspec.yaml -Pattern '^  flutter: (.+)$').Matches.Groups[1].Value.Trim()
+          if (-not $version) { throw 'Flutter version is missing from pubspec.yaml' }
+          "version=$version" >> $env:GITHUB_OUTPUT
       - uses: subosito/flutter-action@v2.23.0
         with:
-          flutter-version-file: app/pubspec.yaml
+          flutter-version: ${{ steps.flutter-version.outputs.version }}
           cache: true
           pub-cache-path: ${{ github.workspace }}/.offline-build/windows/pub-cache
       - name: 📦 Get helper dependencies
@@ -515,7 +527,7 @@ jobs:
           pub-cache-path: ${{ github.workspace }}/.offline-build/macos/pub-cache
       - uses: actions/setup-python@v7
         with:
-          python-version: "3.13"
+          python-version: "3.15"
       - name: ✅ Enable platforms
         run: flutter config --enable-macos-desktop
       - name: 📦 Get helper dependencies
@@ -897,7 +909,7 @@ jobs:
       - name: 🔧 Setup java
         uses: actions/setup-java@v6
         with:
-          java-version: "21"
+          java-version: "25"
           distribution: "temurin"
       - uses: subosito/flutter-action@v2.23.0
         with:

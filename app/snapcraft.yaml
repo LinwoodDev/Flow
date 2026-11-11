@@ -40,7 +40,8 @@ parts:
       mkdir -p $CRAFT_PART_INSTALL/usr/bin
       mkdir -p $CRAFT_PART_INSTALL/usr/libexec
       cp -r $CRAFT_PART_SRC $CRAFT_PART_INSTALL/usr/libexec/flutter
-      ln -sf $CRAFT_PART_INSTALL/usr/libexec/flutter/bin/flutter $CRAFT_PART_INSTALL/usr/bin/flutter
+      ln -sf ../libexec/flutter/bin/flutter $CRAFT_PART_INSTALL/usr/bin/flutter
+      ln -sf ../libexec/flutter/bin/dart $CRAFT_PART_INSTALL/usr/bin/dart
       export PATH="$CRAFT_PART_INSTALL/usr/bin:$PATH"
       flutter doctor
     build-packages:
@@ -72,6 +73,7 @@ parts:
       cd $CRAFT_PART_SRC_WORK
       cd app
       flutter pub get
+      dart pub get -C ../tools
       BUILD_FLAVOR=production
       dart run ../tools/apply_branding.dart "$BUILD_FLAVOR" linux
       flutter build linux --release --verbose --target lib/main.dart --flavor "$BUILD_FLAVOR"

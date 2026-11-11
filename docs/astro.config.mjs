@@ -3,7 +3,7 @@ import starlight from "@astrojs/starlight";
 import linwoodStarlight from "@linwooddev/starlight-style";
 import react from "@astrojs/react";
 import { getSidebarTranslatedLabel } from "./src/translations";
-import AstroPWA from "@vite-pwa/astro";
+import { AstroPWAIntegration } from "@vite-pwa/astro";
 import manifest from "./webmanifest.json";
 import { fileURLToPath } from "node:url";
 import { satteri } from "@astrojs/markdown-satteri";
@@ -241,8 +241,8 @@ export default defineConfig({
         },
       },
     }),
-    AstroPWA({
-      workbox: {
+    AstroPWAIntegration({
+      generateSW: {
         skipWaiting: true,
         clientsClaim: true,
         navigateFallback: "/404",
