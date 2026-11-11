@@ -45,7 +45,14 @@ class SettingsPage extends StatelessWidget {
               },
         closeButton: IconButton.outlined(
           icon: const PhosphorIcon(PhosphorIconsLight.x),
-          onPressed: () => Navigator.of(context).maybePop(),
+          onPressed: () {
+            final navigator = Navigator.of(context, rootNavigator: isDialog);
+            if (isDialog) {
+              navigator.pop();
+            } else {
+              navigator.maybePop();
+            }
+          },
           tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
         ),
       ),
@@ -108,9 +115,13 @@ PreferredSizeWidget flowSettingsAppBar(
   bool inView,
   Widget title,
   List<Widget>? actions,
-) => WindowTitleBar<SettingsCubit, FlowSettings>(
-  title: title,
-  backgroundColor: inView ? Colors.transparent : null,
-  inView: inView,
-  actions: actions ?? const [],
-);
+) => inView
+    ? AppBar(
+        title: title,
+        backgroundColor: Colors.transparent,
+        actions: actions ?? const [],
+      )
+    : WindowTitleBar<SettingsCubit, FlowSettings>(
+        title: title,
+        actions: actions ?? const [],
+      );

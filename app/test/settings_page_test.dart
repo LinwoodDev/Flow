@@ -1,5 +1,5 @@
+import 'package:flow/api/settings.dart';
 import 'package:flow/cubits/settings.dart';
-import 'package:flow/pages/settings/home.dart';
 import 'package:flow/src/generated/i18n/app_localizations.dart';
 import 'package:flow_api/helpers/setup.dart';
 import 'package:material_ui/material_ui.dart';
@@ -41,10 +41,18 @@ void main() {
               LeapLocalizations.delegate,
             ],
             supportedLocales: AppLocalizations.supportedLocales,
-            home: const Scaffold(body: SettingsPage(isDialog: true)),
+            home: Scaffold(
+              body: Builder(
+                builder: (context) => TextButton(
+                  onPressed: () => openSettings(context),
+                  child: const Text('Open settings'),
+                ),
+              ),
+            ),
           ),
         ),
       );
+      await tester.tap(find.text('Open settings'));
       await tester.pumpAndSettle();
       await tester.enterText(find.byType(TextField), 'Theme');
       await tester.pumpAndSettle();
@@ -55,7 +63,10 @@ void main() {
       );
       await tester.pumpAndSettle();
       expect(
-        find.byType(SettingsLeapGeneratedPage<FlowSettings>),
+        find.descendant(
+          of: find.byType(Dialog),
+          matching: find.byType(SettingsLeapGeneratedPage<FlowSettings>),
+        ),
         findsOneWidget,
       );
       await tester.tap(find.text('Theme').last);
@@ -66,6 +77,14 @@ void main() {
       final restored = SettingsCubit(await SharedPreferences.getInstance());
       expect(restored.state.themeMode, ThemeMode.dark);
       await restored.close();
+      if (width == 400) {
+        await tester.tap(find.byType(BackButton));
+        await tester.pumpAndSettle();
+        expect(find.byType(TextField), findsOneWidget);
+      }
+      await tester.tap(find.byTooltip('Close'));
+      await tester.pumpAndSettle();
+      expect(find.byType(Dialog), findsNothing);
       expect(tester.takeException(), isNull);
     });
   }

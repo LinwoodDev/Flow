@@ -225,6 +225,7 @@ class FlowApp extends StatelessWidget {
         locale: state.locale.isEmpty ? null : Locale(state.locale),
         localizationsDelegates: const [
           ...AppLocalizations.localizationsDelegates,
+          GlobalMaterialLocalizations.delegate,
           LeapLocalizations.delegate,
           LocaleNamesLocalizationsDelegate(),
         ],
