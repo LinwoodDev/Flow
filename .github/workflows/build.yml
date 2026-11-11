@@ -203,9 +203,10 @@ jobs:
       - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version: ${{ steps.flutter-version.outputs.version }}
-          # Use the pinned Git tag when no native ARM64 SDK archive exists.
-          channel: ${{ runner.arch == 'ARM64' && runner.os != 'macOS' && 'master' || 'stable' }}
+          channel: "master"
           cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
+          cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
           pub-cache-path: ${{ github.workspace }}/.offline-build/windows/pub-cache
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
@@ -282,15 +283,14 @@ jobs:
           flutter-version: ${{ steps.flutter-version.outputs.version }}
           cache: true
           pub-cache-path: ${{ github.workspace }}/.offline-build/windows/pub-cache
-      - name: 📦 Get helper dependencies
-        run: dart pub get -C ../tools --enforce-lockfile
+      - name: 📦 Get dependencies
+        run: flutter pub get
       - name: 🎨 Apply native branding
         run: dart ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} windows
       - name: 🏭 Build MSIX
         shell: pwsh
         run: |
-          dart ../tools/build_offline.dart prepare --platform windows --flavor $env:BUILD_FLAVOR
-          dart ../tools/build_offline.dart build --platform windows
+          flutter build windows --release --flavor $env:BUILD_FLAVOR
           New-Item -ItemType Directory -Force build/windows/x64/runner | Out-Null
           Copy-Item -Recurse -Force build/windows/x64/${{ env.BUILD_FLAVOR }}/runner/Release build/windows/x64/runner/
           dart run msix:create --build-windows=false

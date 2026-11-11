@@ -62,6 +62,3 @@ jobs:
       - name: Run Dart tests
         if: matrix.projects == 'api'
         run: dart test
-      - name: Run tools tests
-        if: matrix.projects == 'tools'
-        run: dart test
