@@ -2,6 +2,22 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 0.7.1 (2026-11-12)
+
+* Migrate to settings framework
+* Revert modern navigation items
+* Improve the sources page with source details, item counts, and delete buttons
+* Add custom names for calendar sources
+* Automatically extract usernames and passwords from source URLs
+* Prevent changes to read-only sources while keeping calendar item details visible
+* Align CI and desktop packaging with Butterfly's stable and nightly builds
+* Add offline and reproducible builds with deterministic release archives
+* Reduce bundled font size with variable fonts
+* Include release notes in Linux app store metadata
+* Fix icons
+
+Read more here: https://linwood.dev/flow/0.7.1
+
 ## 0.7.0 (2026-08-22)
 
 * Add device calendar support ([#34](https://github.com/LinwoodDev/Flow/issues/34))

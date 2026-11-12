@@ -65,6 +65,23 @@
 	<content_rating type="oars-1.1" />
 	<update_contact>contact@linwood.dev</update_contact>
 	<releases>
+		<release version="0.7.1" type="stable" date="2026-11-12">
+			<description>
+				<ul>
+					<li>Migrate to settings framework</li>
+					<li>Revert modern navigation items</li>
+					<li>Improve the sources page with source details, item counts, and delete buttons</li>
+					<li>Add custom names for calendar sources</li>
+					<li>Automatically extract usernames and passwords from source URLs</li>
+					<li>Prevent changes to read-only sources while keeping calendar item details visible</li>
+					<li>Align CI and desktop packaging with Butterfly&apos;s stable and nightly builds</li>
+					<li>Add offline and reproducible builds with deterministic release archives</li>
+					<li>Reduce bundled font size with variable fonts</li>
+					<li>Include release notes in Linux app store metadata</li>
+				</ul>
+			</description>
+			<url type="details">https://linwood.dev/flow/0.7.1</url>
+		</release>
 		<release version="0.7.0" date="2026-08-22" />
 		<release version="0.6.0" date="2026-05-28" />
 		<release version="0.5.2" date="2026-01-07" />
